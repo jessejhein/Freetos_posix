@@ -1,0 +1,198 @@
+blkmtd.o: blkmtd.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/iobuf.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/list.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtd/debug.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtd/blkdev/erasesize.h)
+doc1000.o: doc1000.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/iflash.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/smp.h)
+doc2000.o: doc2000.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/miscdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/nand.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/doc2000.h
+doc2001.o: doc2001.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/miscdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/nand.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/doc2000.h
+doc2001plus.o: doc2001plus.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/miscdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/nand.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/doc2000.h
+docecc.o: docecc.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/miscdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/compatmac.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/doc2000.h
+docprobe.o: docprobe.c \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sh/secureedge5410.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/miscdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/nand.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/doc2000.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtd/docprobe/address.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtd/docprobe/high.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/momenco/ocelot.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/momenco/ocelot/g.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/momenco/ocelot/c.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/secureedgemp3.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/nettel.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtd/docprobe/55aa.h)
+lart.o: lart.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/partitions.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sa1100/lart.h)
+ms02-nv.o: ms02-nv.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   ms02-nv.h
+ms02-nv.h: \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h
+	@touch ms02-nv.h
+mtdram.o: mtdram.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/compatmac.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtdram/abs/pos.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtdram/total/size.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtdram/erase/size.h)
+pmc551.o: pmc551.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pci.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/pmc551.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/compatmac.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtd/pmc551/debug.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtd/pmc551/bugfix.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtd/pmc551/aperture/size.h)
+slram.o: slram.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h
+.PRECIOUS:	ms02-nv.h \
+

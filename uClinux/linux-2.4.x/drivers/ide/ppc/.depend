@@ -1,0 +1,62 @@
+mpc8xx.o: mpc8xx.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stddef.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/unistd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/user.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/a.out.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/reboot.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blk.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/bootmem.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mmu.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/processor.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/ide.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/mpc8xx/ide.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/tqm850l.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ide/8xx/pccard.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ide/8xx/direct.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ide/ext/direct.h)
+pmac.o: pmac.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/notifier.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/reboot.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/ide.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pmac/pbook.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/adb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pmu.h \
+   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide-timing.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/idedma/pmac.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/ide/pmac/ata100first.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/idedma/pmac/auto.h)
+swarm.o: swarm.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h

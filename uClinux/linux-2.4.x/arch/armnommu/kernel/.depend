@@ -1,0 +1,595 @@
+arch.o: arch.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/elf.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/memory.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach/arch.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware/dec21285.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/acorn.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/rpc.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/arc.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/a5k.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/l7200.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/ram/size.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/nexuspci.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/tbox.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/clps7110.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/etoile.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/lacie/nas.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/clps7500.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/netarm.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ether/netarm.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/netarm/eeprom.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/ramdisk/data.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/ta7s.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/ta7v.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/swarm.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/c5471.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/personality.h
+armksyms.o: armksyms.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/user.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mman.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/in6.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vt_kern.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/elf.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/proc-fns.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/processor.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/semaphore.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/checksum.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/26.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/vt.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/32.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/no/pgt/cache.h)
+arthur.o: arthur.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/personality.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stddef.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/ptrace.h
+bios32.o: bios32.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/page.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach/pci.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/ebsa285.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/shark.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/cats.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/netwinder.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/personal/server.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/ftvpci.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/integrator.h)
+compat.o: compat.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/page.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach/arch.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/acorn.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/footbridge.h)
+debug-armo.o: debug-armo.S \
+   /home/uClinux-dist/linux-2.4.x/include/linux/linkage.h
+debug-armv.o: debug-armv.S \
+   /home/uClinux-dist/linux-2.4.x/include/linux/linkage.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/rpc.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/ebsa110.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/shark.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/footbridge.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware/dec21285.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/debug/dc21285/port.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/ftvpci.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/sa1100.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/clps7500.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/l7200.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/integrator.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware/serial_amba.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/clps711x.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware/clps7111.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/debug/clps711x/uart2.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/anakin.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/c5471.h)
+dec21285.o: dec21285.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware/dec21285.h
+dma-arc.o: dma-arc.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/dma.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/fiq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach/dma.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/fd1772.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/fd1772/module.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/a5k.h)
+dma.o: dma.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mman.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/dma.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach/dma.h
+dma-footbridge.o: dma-footbridge.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/dma.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach/dma.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware/dec21285.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/isa/dma.h)
+dma-isa.o: dma-isa.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/dma.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach/dma.h
+dma-rpc.o: dma-rpc.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mman.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/page.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/dma.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/fiq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach/dma.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware/iomd.h
+ecard.o: ecard.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/reboot.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/notifier.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/dma.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/ecard.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mmu_context.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach/irq.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/rpc.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/32.h)
+entry-armo.o: entry-armo.S \
+   entry-header.S \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fpe/nwfpe.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fpe/fastfpe.h)
+entry-armv.o: entry-armv.S \
+   entry-header.S \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware/iomd.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/ebsa110.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/shark.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/footbridge.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware/dec21285.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/nexuspci.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/tbox.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/sa1100.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/l7200.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/integrator.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/clps711x.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware/clps7111.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/anakin.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/cnxt.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/p52.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/cx821xx.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/spipe.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/atmel.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/ta7s.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/ta7v.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/netarm.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/s3c4510.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/s3c4530.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/s3c2500.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/s3c3410.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/s3c44b0x.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/swarm.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/c5471.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/arch/hardware.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fpe/nwfpe.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fpe/fastfpe.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/uclinux.h)
+entry-common.o: entry-common.S \
+   entry-header.S \
+   calls.S \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/arm710.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/c5471.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/alignment/trap.h) \
+   calls.S
+entry-header.o: entry-header.S \
+   /home/uClinux-dist/linux-2.4.x/include/linux/linkage.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/assembler.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/constants.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/arch/irqs.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/proc-fns.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/no/frame/pointer.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/32.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/alignment/trap.h)
+fiq.o: fiq.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mman.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/fiq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/32.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/26.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/debug/errors.h)
+ftv-pci.o: ftv-pci.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach/pci.h
+head-arm-c5471.o: head-arm-c5471.S \
+   /home/uClinux-dist/linux-2.4.x/include/linux/linkage.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/autoconf.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/assembler.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/debug/ll.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/romkernel.h)
+head-arm-dsc21.o: head-arm-dsc21.S \
+   /home/uClinux-dist/linux-2.4.x/include/linux/linkage.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/assembler.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h
+head-arm-netarm.o: head-arm-netarm.S \
+   /home/uClinux-dist/linux-2.4.x/include/linux/linkage.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/netarm/emlin.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/netarm/bootloader/debug/debugger.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/netarm/net40/rev2.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/netarm/pll/bypass.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/netarm/ns7520.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/netarm/eeprom.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/board/unc20.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/netarm/bootloader/debug/ramptest.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ram/attached/romfs.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/netarm/bootloader/debug/output.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/netarm/bootloader/second/serial.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/ramdisk/data.h)
+head-armo.o: head-armo.S \
+   /home/uClinux-dist/linux-2.4.x/include/linux/linkage.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/arc.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/a5k.h)
+head-armv.o: head-armv.S \
+   /home/uClinux-dist/linux-2.4.x/include/linux/linkage.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/assembler.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach/arch.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/board/mba44.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/arch/hardware.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/uclinux.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/romkernel.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/s3c44b0x.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/netwinder.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/l7200.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/integrator.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/p52.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/cx821xx.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/swarm.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/board/snds100.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/board/smdk40100.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/board/smdk2500.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/board/s3c2500refrgp.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/atmel.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/ta7s.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/ta7v.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/s3c3410.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/s3c4530.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/board/evs3c4530hei.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arcturus.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/with/cache.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/with/mcr/instruction.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/alignment/trap.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/debug/ll.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/rpc.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/ramdisk/data.h)
+init_task.o: init_task.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h
+io.o: io.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h
+irq-arch.o: irq-arch.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel_stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/random.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/arch/irq.h
+irq.o: irq.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel_stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/random.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/arch/irq.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/acorn.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/board/snds100.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/debug/errors.h)
+isa.o: isa.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stddef.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sysctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h
+leds-ftvpci.o: leds-ftvpci.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/leds.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h
+oldlatches.o: oldlatches.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h
+plx90x0.o: plx90x0.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach/pci.h
+process.o: process.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stddef.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/unistd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/user.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/reboot.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/leds.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/arch/system.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/no/pgt/cache.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/32.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/with/mcr/instruction.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sysrq.h)
+ptrace.o: ptrace.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/user.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   ptrace.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arm/thumb.h)
+semaphore.o: semaphore.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/semaphore.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/26.h)
+setup.o: setup.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stddef.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/utsname.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blk.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/bootmem.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/seq_file.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/elf.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/procinfo.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach/arch.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach/irq.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cmdline.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/netarm.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ram/attached/romfs.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/ram.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/initrd.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ucbootstrap.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/cnxt.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/board/evs3c4530hei.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/board/smdk2500.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/board/s3c2500refrgp.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/vt.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/vga/console.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/dummy/console.h)
+signal.o: signal.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/wait.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stddef.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/unistd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/personality.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/ucontext.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   ptrace.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/32.h)
+sys_arm.o: sys_arm.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sem.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/msg.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/shm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mman.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/file.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/utsname.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/ipc.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/uclinux.h)
+time-acorn.o: time-acorn.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware/ioc.h
+time.o: time.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/time.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timex.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/leds.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/leds.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/modules.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/leds/timer.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/arch/time.h
+traps.o: traps.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/personality.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/elf.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/atomic.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/unistd.h \
+   ptrace.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/debug/user.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/26.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ignore/fiq.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/32.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ucbootstrap.h)
+via82c505.o: via82c505.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach/pci.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cmd.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/shark.h)

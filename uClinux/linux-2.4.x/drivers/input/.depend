@@ -1,0 +1,57 @@
+evdev.o: evdev.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/poll.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/input.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h
+input.o: input.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/input.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/random.h
+joydev.o: joydev.c \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/segment.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/joystick.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/input.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/miscdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/poll.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h
+keybdev.o: keybdev.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kbd_ll.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/input.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kbd_kern.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/x86.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ia64.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sparc64.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/superh.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ppc.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mac/emumousebtn.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mac/adbkeycodes.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/adb/keyboard.h)
+mousedev.o: mousedev.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/poll.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/input.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/random.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/input/mousedev/screen/x.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/input/mousedev/screen/y.h)

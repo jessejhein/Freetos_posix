@@ -1,0 +1,55 @@
+lk201.o: lk201.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kbd_ll.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kbd_kern.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vt_kern.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/keyboard.h \
+   zs.h \
+   lk201.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/magic/sysrq.h)
+tc.o: tc.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/ptrace.h
+zs.o: zs.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty_flip.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/dec/console.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/segment.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/decstation.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/baget/mips.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/kgdb.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/magic/sysrq.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sysrq.h \
+   zs.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/devfs/fs.h)

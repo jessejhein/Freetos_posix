@@ -1,0 +1,24 @@
+icside.o: icside.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/dma.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/ecard.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/idedma/ics.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/idedma/ics/auto.h)
+rapide.o: rapide.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/ecard.h

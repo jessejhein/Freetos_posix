@@ -1,0 +1,70 @@
+ipmi_devintf.o: ipmi_devintf.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/poll.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/devfs_fs_kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ipmi.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/semaphore.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h
+ipmi_kcs_intf.o: ipmi_kcs_intf.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/list.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/high/res/timers.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ipmi_smi.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   ipmi_kcs_sm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ipmi/kcs.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/acpi/interpreter.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/acpi.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/actypes.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/actbl.h
+ipmi_kcs_sm.o: ipmi_kcs_sm.c \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/string.h \
+   ipmi_kcs_sm.h
+ipmi_msghandler.o: ipmi_msghandler.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/poll.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/rwsem.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ipmi.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ipmi_smi.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/notifier.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ipmi/panic/event.h)
+ipmi_watchdog.o: ipmi_watchdog.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ipmi.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ipmi_smi.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/watchdog.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/miscdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/rwsem.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/notifier.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nmi.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/reboot.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/wait.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/poll.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/x86/local/apic.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/watchdog/nowayout.h)

@@ -1,0 +1,206 @@
+ali14xx.o: ali14xx.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/ali14xx/module.h) \
+   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h
+buddha.o: buddha.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/zorro.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h
+dtc2278.o: dtc2278.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/dtc2278/module.h) \
+   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h
+falconide.o: falconide.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h
+gayle.o: gayle.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/zorro.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/idedoubler.h)
+hd.o: hd.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/devfs_fs_kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/genhd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mc146818rtc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkpg.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blk.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h
+ht6560b.o: ht6560b.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/ht6560b/module.h) \
+   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h
+ide-cs.o: ide-cs.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/pcmcia/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/pcmcia/cs_types.h \
+   /home/uClinux-dist/linux-2.4.x/include/pcmcia/cs.h \
+   /home/uClinux-dist/linux-2.4.x/include/pcmcia/cistpl.h \
+   /home/uClinux-dist/linux-2.4.x/include/pcmcia/ds.h \
+   /home/uClinux-dist/linux-2.4.x/include/pcmcia/cisreg.h
+macide.o: macide.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/mac/mediabay.h)
+pdc4030.o: pdc4030.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   pdc4030.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ide/taskfile/io.h)
+pdc4030.h: \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/pdc4030.h)
+	@touch pdc4030.h
+q40ide.o: q40ide.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h
+qd65xx.o: qd65xx.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/qd65xx/module.h) \
+   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   qd65xx.h
+sibyte.o: sibyte.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h
+uclinux.o: uclinux.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/coldfire.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/secureedgemp3.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/elia.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/disktel.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/m5249c3.h)
+umc8672.o: umc8672.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/umc8672/module.h) \
+   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h
+.PRECIOUS:	pdc4030.h \
+

@@ -1,0 +1,61 @@
+agpgart_be.o: agpgart_be.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/miscdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pm.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/page.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/x86.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/agp_backend.h \
+   agp.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/smp.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/agp/i810.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/agp/i460.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/agp/intel.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/agp/via.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/agp/sis.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/agp/amd.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/agp/amd/k8.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/agp/ali.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/agp/sworks.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/agp/nvidia.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/agp/hp/zx1.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/agp/ati.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/gart/iommu.h)
+agpgart_fe.o: agpgart_fe.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/miscdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/agp_backend.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/agpgart.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/page.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mman.h \
+   agp.h

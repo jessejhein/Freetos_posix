@@ -1,0 +1,51 @@
+sticon.o: sticon.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console_struct.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vt_kern.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   sticore.h
+sticore.o: sticore.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/font.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   sticore.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pci.h)
+sticore.h: \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgalloc.h
+	@touch sticore.h
+stifb.o: stifb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   sticore.h
+.PRECIOUS:	sticore.h \
+

@@ -1,0 +1,306 @@
+ser2.o: ser2.c \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h
+serial_21285.o: serial_21285.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty_flip.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware/dec21285.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/21285/old.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/21285/console.h)
+serial_8250.o: serial_8250.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty_flip.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sysrq.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial_reg.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serialP.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial_core.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kmod.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
+   serial_8250.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/8250/many/ports.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/8250/detect/irq.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/8250/multiport.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/8250/hub6.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/serial.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/8250/console.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/rsa.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/many/ports.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/8250/share/irq.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mca.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/devfs/fs.h)
+serial_8250.h: \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pci.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/share/irq.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/many/ports.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/isapnp.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/isapnp/module.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/multiport.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/hub6.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/m386.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/m486.h)
+	@touch serial_8250.h
+serial_8250_pnp.o: serial_8250_pnp.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/isapnp.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serialP.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/serial.h \
+   serial_8250.h
+serial_amba.o: serial_amba.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty_flip.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/circ_buf.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sysrq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/amba/console.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/magic/sysrq.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial_core.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware/serial_amba.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/devfs/fs.h)
+serial_anakin.o: serial_anakin.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty_flip.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/circ_buf.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sysrq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial_core.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/anakin/console.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/anakin/default/baudrate.h)
+serial_clps711x.o: serial_clps711x.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty_flip.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/circ_buf.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sysrq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial_core.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware/clps7111.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/clps711x/console.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/devfs/fs.h)
+serial_core.o: serial_core.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty_flip.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/circ_buf.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sysrq.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial_core.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pm.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/core/console.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/amba/console.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/anakin/console.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/clps711x/console.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/21285/console.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/sa1100/console.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/8250/console.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/uart00/console.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/s3c44b0x/console.h)
+serial_s3c44b0x.o: serial_s3c44b0x.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty_flip.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/circ_buf.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sysrq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/s3c44b0x/console.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/magic/sysrq.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial_core.h \
+   hardware.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arm/clk.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/s3c44b0/default/baudrate.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/devfs/fs.h)
+serial_sa1100.o: serial_sa1100.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty_flip.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/circ_buf.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sysrq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/sa1100/console.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/magic/sysrq.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial_core.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sa1100/default/baudrate.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/devfs/fs.h)
+serial_uart00.o: serial_uart00.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty_flip.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/circ_buf.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sysrq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/sizes.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/serial/uart00/console.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/magic/sysrq.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial_core.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/hard/pps.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/camelot.h)
+.PRECIOUS:	serial_8250.h \
+

@@ -1,0 +1,212 @@
+daisy.o: daisy.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h
+ieee1284.o: ieee1284.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/threads.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/lp/console.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/parport/1284.h)
+ieee1284_ops.o: ieee1284_ops.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/lp/console.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/parport/1284.h)
+init.o: init.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/threads.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/parport/pc.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sysctl.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/parport/dragonix.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/parport/amiga.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/parport/mfc3.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/parport/atari.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/parport/arc.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/parport/sunbpp.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/parport/hd64465.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/parport/1284.h)
+parport_amiga.o: parport_amiga.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h
+parport_arc.o: parport_arc.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/threads.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/arch/irqs.h
+parport_atari.o: parport_atari.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h
+parport_cs.o: parport_cs.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport_pc.h \
+   /home/uClinux-dist/linux-2.4.x/include/pcmcia/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/pcmcia/cs_types.h \
+   /home/uClinux-dist/linux-2.4.x/include/pcmcia/cs.h \
+   /home/uClinux-dist/linux-2.4.x/include/pcmcia/cistpl.h \
+   /home/uClinux-dist/linux-2.4.x/include/pcmcia/ds.h \
+   /home/uClinux-dist/linux-2.4.x/include/pcmcia/cisreg.h \
+   /home/uClinux-dist/linux-2.4.x/include/pcmcia/ciscode.h
+parport_dragonix.o: parport_dragonix.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm-m68knommu/MC68VZ328.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h
+parport_gsc.o: parport_gsc.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sysctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/dma.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h
+parport_hd64465.o: parport_hd64465.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/malloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sh/keywest.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sh/hd64465.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/hd64465/iobase.h)
+parport_mfc3.o: parport_mfc3.c \
+   multiface.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mc6821.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/zorro.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h
+parport_pc.o: parport_pc.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sysctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/dma.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport_pc.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/parport.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/parport/pc/fifo.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/parport/pc/superio.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/parport/1284.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pci.h)
+parport_serial.o: parport_serial.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport_pc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serial.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/serialP.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/list.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/serial.h
+parport_sunbpp.o: parport_sunbpp.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/ptrace.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/dma.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h
+probe.o: probe.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ctype.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h
+procfs.o: procfs.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ctype.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sysctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sysctl.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/parport/1284.h)
+share.o: share.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/threads.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/parport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kmod.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/parport/1284.h)

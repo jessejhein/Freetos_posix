@@ -1,0 +1,1984 @@
+acornfb.o: acornfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ctype.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb2.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb4.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   acornfb.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/a5k.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/32.h)
+acornfb.h: \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware/iomd.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware/memc.h
+	@touch acornfb.h
+amifb.o: amifb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-afb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-ilbm.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/amiga/ocs.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/amiga/ecs.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/amiga/aga.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/gsp/resolver.h)
+atafb.o: atafb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-iplan2p2.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-iplan2p4.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-iplan2p8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h
+aty128fb.o: aty128fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ppc.h) \
+   /home/uClinux-dist/linux-2.4.x/include/video/macmodes.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/nvram.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nvram.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/adb/pmu.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/adb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pmu.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pmac/backlight.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/compat/xpmac.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/bootx/text.h) \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtrr.h) \
+   aty128.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pmac/pbook.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pci.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cntl.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/memsize.h)
+au1100fb.o: au1100fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   au1100fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb2.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb4.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mips/pb1100.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mips/db1100.h)
+au1100fb.h: \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mips/hyd1100.h)
+	@touch au1100fb.h
+bwtwofb.o: bwtwofb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/sbusfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sun4.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/sun3.h)
+cgfourteenfb.o: cgfourteenfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/sbusfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h
+cgsixfb.o: cgsixfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/sbusfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h
+cgthreefb.o: cgthreefb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/sbusfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h
+chipsfb.o: chipsfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/compat/xpmac.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pmac/backlight.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pmac/pbook.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/adb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pmu.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/macmodes.h
+clgenfb.o: clgenfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/zorro.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/zorro.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pci.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/amiga.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/all/ppc.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/processor.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   clgenfb.h \
+   vga.h
+controlfb.o: controlfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nvram.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/compat/xpmac.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/adb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/cuda.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/macmodes.h \
+   controlfb.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/adb/cuda.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/nvram.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/bootx/text.h)
+creatorfb.o: creatorfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/sbusfb.h
+cvisionppc.h: \
+   pm2fb.h
+	@touch cvisionppc.h
+cyber2000fb.o: cyber2000fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   cyber2000fb.h
+cyber2000fb.h: \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/debug/ll.h)
+	@touch cyber2000fb.h
+cyberfb.o: cyberfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/zorro.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   cyberfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h
+dn_accel.h: \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h
+	@touch dn_accel.h
+dn_cfb4.o: dn_cfb4.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/segment.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   dn_accel.h
+dn_cfb8.o: dn_cfb8.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/segment.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   dn_accel.h
+dnfb.o: dnfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/segment.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   dn_accel.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h
+dragonfb.o: dragonfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/m68ez328.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/m68vz328.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ug24u01wght3l.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ug24u03wght3a.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ug32f24cmgf3a.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/dragon/mono.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/dragon/4gray.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/dragon/16gray.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/dragonixvz.h)
+dummycon.o: dummycon.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kdev_t.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console_struct.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vt_kern.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h
+epson1355fb.o: epson1355fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/superh.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/e1355/reg/base.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/e1355/fb/base.h)
+epson1356fb.o: epson1356fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nvram.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vt_kern.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/tlb.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtrr.h) \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/soc/au1x00.h) \
+   epson1356fb.h
+epson1356fb.h: \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtrr.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pb1000/crt.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pb1000/ntsc.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pb1000/tft.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pb1500/crt.h)
+	@touch epson1356fb.h
+fbcmap.o: fbcmap.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h
+fbcon-afb.o: fbcon-afb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-afb.h
+fbcon.o: fbcon.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vt_kern.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pm.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/amiga.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atari.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mac.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/apus.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/vga/planes.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/cobra5272.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/dragen2.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/linux_logo.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/linux_logo.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mac.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/font.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pm.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/mac.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/fontwidth8/only.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/cfb16.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/cfb24.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/cfb32.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/sbus.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/cfb4.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/cfb8.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/afb.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/ilbm.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/iplan2p2.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/iplan2p4.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/iplan2p8.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/mfb.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/hga.h)
+fbcon-cfb16.o: fbcon-cfb16.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h
+fbcon-cfb24.o: fbcon-cfb24.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h
+fbcon-cfb2.o: fbcon-cfb2.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb2.h
+fbcon-cfb32.o: fbcon-cfb32.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h
+fbcon-cfb4.o: fbcon-cfb4.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb4.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/board/mba44.h)
+fbcon-cfb8.o: fbcon-cfb8.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h
+fbcon-hga.o: fbcon-hga.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-hga.h
+fbcon-ilbm.o: fbcon-ilbm.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-ilbm.h
+fbcon-iplan2p2.o: fbcon-iplan2p2.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-iplan2p2.h
+fbcon-iplan2p4.o: fbcon-iplan2p4.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-iplan2p4.h
+fbcon-iplan2p8.o: fbcon-iplan2p8.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-iplan2p8.h
+fbcon-mac.o: fbcon-mac.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mac.h
+fbcon-mfb.o: fbcon-mfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h
+fbcon-sti.o: fbcon-sti.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   sti/sticore.h
+fbcon-vga.o: fbcon-vga.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-vga.h
+fbcon-vga-planes.o: fbcon-vga-planes.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vt_buffer.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-vga-planes.h
+fbgen.o: fbgen.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h
+fbmem.o: fbmem.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mman.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/kmod.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kmod.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/devfs_fs_kernel.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/apus.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/page.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/cobra5272.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/s1d13706.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/sbus.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/retinaz3.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/amiga.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/clps711x.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/cyber.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/cyber2000.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/pm2.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/pm3.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/clgen.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/aty.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/matrox.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/aty128.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/neomagic.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/virge.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/riva.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/radeon.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/intel.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/control.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/platinum.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/valkyrie.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/ct65550.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/imstt.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/s3trio.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/fm2.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/sis.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/trident.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/voodoo1.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/m68328.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/mc68x328.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/of.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/vesa.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/3dfx.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/sgivw.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/acorn.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/atari.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/mac.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/hga.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/iga.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/apollo.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/q40.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/tga.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/hp300.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/g364.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/sa1100.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/sun3.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/hit.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/tx3912.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/e1355.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/e1356.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/pvr2.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/pmag/ba.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/pmagb/b.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/maxine.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/au1100.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/s3c44b0x.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/vga16.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/sti.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/gsp/resolver.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/virtual.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/virual/small.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/mq200.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sun3.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/vt/console.h)
+fbmon.o: fbmon.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h
+fm2fb.o: fm2fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/zorro.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h
+font_6x11.o: font_6x11.c \
+   /home/uClinux-dist/linux-2.4.x/include/video/font.h
+font_8x16.o: font_8x16.c \
+   /home/uClinux-dist/linux-2.4.x/include/video/font.h
+font_8x8.o: font_8x8.c \
+   /home/uClinux-dist/linux-2.4.x/include/video/font.h
+font_acorn_8x8.o: font_acorn_8x8.c \
+   /home/uClinux-dist/linux-2.4.x/include/video/font.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/acorn.h)
+font_pearl_8x8.o: font_pearl_8x8.c \
+   /home/uClinux-dist/linux-2.4.x/include/video/font.h
+fonts.o: fonts.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/apus.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/font.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/font/8x8.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/font/8x16.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/font/6x11.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/mac.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/sbus.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/font/sun8x16.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/font/sun12x22.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/cfb8.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/cfb16.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/cfb24.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/cfb32.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/font/acorn/8x8.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/font/pearl/8x8.h)
+font_sun12x22.o: font_sun12x22.c \
+   /home/uClinux-dist/linux-2.4.x/include/video/font.h
+font_sun8x16.o: font_sun8x16.c \
+   /home/uClinux-dist/linux-2.4.x/include/video/font.h
+g364fb.o: g364fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h
+hgafb.o: hgafb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/vga.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-hga.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/linux_logo.h
+hitfb.o: hitfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nubus.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/hd64461/iobase.h)
+hpfb.o: hpfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/dio.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb2.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb4.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h
+igafb.o: igafb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nvram.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vt_kern.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   iga.h
+imsttfb.o: imsttfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ppc.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nvram.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/macmodes.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/compat/xpmac.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/all/ppc.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/nvram.h)
+leofb.o: leofb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/sbusfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h
+macfb.o: macfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nubus.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb2.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb4.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h
+macmodes.o: macmodes.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/compat/xpmac.h) \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/macmodes.h
+maxinefb.o: maxinefb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   maxinefb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb2.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb4.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h
+mc68x328fb.o: mc68x328fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb2.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb4.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/m68ez328.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/m68vz328.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/mc68x328/mono01.h)
+mdacon.o: mdacon.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console_struct.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vt_kern.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vt_buffer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/vga.h
+modedb.o: modedb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console_struct.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h
+mq200fb.o: mq200fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/malloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   mq200fb.h
+mq200fb.h: \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sh/keywest.h)
+	@touch mq200fb.h
+neofb.o: neofb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtrr.h) \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   neofb.h
+neofb.h: \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtrr.h)
+	@touch neofb.h
+newport_con.o: newport_con.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console_struct.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vt_kern.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/page.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/newport.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/linux_logo.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/font.h
+offb.o: offb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/compat/xpmac.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/bootx/text.h) \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/macmodes.h
+p9100fb.o: p9100fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/sbusfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   p9100.h
+platinumfb.o: platinumfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nvram.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/compat/xpmac.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/macmodes.h \
+   platinumfb.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/nvram.h)
+pm2fb.o: pm2fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   pm2fb.h \
+   cvisionppc.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/pm2/pci.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pci.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/pm2/cvppc.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/pm2/fifo/disconnect.h)
+pm3fb.o: pm3fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb2.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb4.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/of.h) \
+   pm3fb.h
+pm3fb.h: \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/of.h)
+	@touch pm3fb.h
+pmag-ba-fb.o: pmag-ba-fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   pmag-ba-fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb2.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb4.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h
+pmagb-b-fb.o: pmagb-b-fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   pmagb-b-fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb2.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb4.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h
+promcon.o: promcon.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console_struct.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vt_kern.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kd.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/dummy/console.h)
+pvr2fb.o: pvr2fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sh/dreamcast.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtrr.h) \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/pvr2/debug.h)
+q40fb.o: q40fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/segment.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h
+radeonfb.o: radeonfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vt_kern.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/all/ppc.h) \
+   /home/uClinux-dist/linux-2.4.x/include/video/macmodes.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/nvram.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nvram.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pmac/backlight.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/bootx/text.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/adb/pmu.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/adb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pmu.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtrr.h) \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   radeon.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/radeonfb.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pmac/pbook.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/aper/0/base.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/aper/size.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/memsize.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/memsize/mask.h)
+retz3fb.o: retz3fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/zorro.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   retz3fb.h
+s1d13706fb.o: s1d13706fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cobra5272.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/s1d13706.h) \
+   s1d13706fb.h
+s1d13706fb.h: \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cobra5272.h)
+	@touch s1d13706fb.h
+s3c44b0xfb_bak.o: s3c44b0xfb_bak.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb4.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h
+s3c44b0xfb.o: s3c44b0xfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb4.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/linux_logo.h
+S3triofb.o: S3triofb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/compat/xpmac.h) \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/s3blit.h
+sa1100fb.o: sa1100fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb4.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   sa1100fb.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sa1100/assabet.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sa1100/h3600.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ipaq/h3100.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sa1100/brutus.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sa1100/cerf.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cerf/lcd/72/a.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cerf/lcd/57/a.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cerf/lcd/38/a.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cerf/lcd/38/b.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sa1100/freebird.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sa1100/graphicsclient.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sa1100/huw/webpanel.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sa1100/omnimeter.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sa1100/pangolin.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sa1100/stork.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sa1100/xp860.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sa1100/lart.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/freq.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pm.h)
+sa1100fb.h: \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pm.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cpu/freq.h)
+	@touch sa1100fb.h
+sbusfb.o: sbusfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vt_kern.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/sbusfb.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/creator.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/cgsix.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/cgthree.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/tcx.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/leo.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/bwtwo.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/cgfourteen.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/p9100.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sun4.h)
+sgivwfb.o: sgivwfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   sgivwfb.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtrr.h)
+skeletonfb.o: skeletonfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h
+sstfb.o: sstfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/ioctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   sstfb.h
+sun3fb.o: sun3fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vt_kern.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sun3.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sun3x.h) \
+   /home/uClinux-dist/linux-2.4.x/include/video/sbusfb.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/cgsix.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/bwtwo.h)
+tcxfb.o: tcxfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/sbusfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h
+tdfxfb.o: tdfxfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nvram.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vt_kern.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtrr.h) \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h
+tgafb.o: tgafb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   tgafb.h
+tridentfb.o: tridentfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   tridentfb.h
+tx3912fb.o: tx3912fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb2.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb4.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   tx3912fb.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/mfb.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/cfb2.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/cfb4.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/cfb8.h)
+tx3912fb.h: \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/nino/4mb.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/nino/8mb.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/cfb4.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fbcon/cfb2.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/nino/16mb.h)
+	@touch tx3912fb.h
+valkyriefb.o: valkyriefb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nvram.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/compat/xpmac.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/adb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/cuda.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mac.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/macmodes.h \
+   valkyriefb.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/adb/cuda.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/nvram.h)
+valkyriefb.h: \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mac.h)
+	@touch valkyriefb.h
+vesafb.o: vesafb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mac.h
+vfb.o: vfb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb2.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb4.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h
+vfb_small.o: vfb_small.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-mfb.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb2.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb4.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h
+vga16fb.o: vga16fb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-vga-planes.h \
+   vga.h
+vgacon.o: vgacon.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/console_struct.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vt_kern.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/dummy/console.h)
+vga.h: \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/amiga.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/vga.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h
+	@touch vga.h
+virgefb.o: virgefb.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/zorro.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   virgefb.h
+.PRECIOUS:	acornfb.h \
+	au1100fb.h \
+	cvisionppc.h \
+	cyber2000fb.h \
+	dn_accel.h \
+	epson1356fb.h \
+	mq200fb.h \
+	neofb.h \
+	pm3fb.h \
+	s1d13706fb.h \
+	sa1100fb.h \
+	tx3912fb.h \
+	valkyriefb.h \
+	vga.h \
+

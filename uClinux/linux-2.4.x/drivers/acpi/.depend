@@ -1,0 +1,247 @@
+ac.o: ac.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/compatmac.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_bus.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_drivers.h
+acpi_ksyms.o: acpi_ksyms.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/acpi.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/acpi/interpreter.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/acpi/bus.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/acpi/pci.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/acpi/ec.h)
+asus_acpi.o: asus_acpi.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_drivers.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_bus.h
+battery.o: battery.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/compatmac.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_bus.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_drivers.h
+blacklist.o: blacklist.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/acpi.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_bus.h
+bus.o: bus.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/list.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/x86.h) \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_bus.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_drivers.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acinterp.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ldm.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/acpi/debug.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/acpi/ec.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/acpi/pci.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pm.h)
+button.o: button.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/compatmac.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_bus.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_drivers.h
+ec.o: ec.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/compatmac.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_bus.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_drivers.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/actypes.h
+fan.o: fan.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/compatmac.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_bus.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_drivers.h
+numa.o: numa.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/acpi.h
+osl.o: osl.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kmod.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nmi.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_bus.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/acpi/efi.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/efi.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/acpi/pci.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ia64.h)
+pci_bind.o: pci_bind.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/acpi.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_bus.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_drivers.h
+pci_irq.o: pci_irq.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/acpi.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/x86/io/apic.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/iosapic.h) \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_bus.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_drivers.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/x86.h)
+pci_link.o: pci_link.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_bus.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_drivers.h
+pci_root.o: pci_root.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/acpi.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_bus.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_drivers.h
+power.o: power.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/compatmac.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_bus.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_drivers.h
+processor.o: processor.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pm.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/compatmac.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_bus.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_drivers.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/smp.h)
+system.o: system.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/poll.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sysrq.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/compatmac.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pm.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_bus.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_drivers.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/x86.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/acpi/sleep.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mc146818rtc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/hw_irq.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pm.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/magic/sysrq.h)
+tables.o: tables.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/irq.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/acpi.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/bootmem.h
+thermal.o: thermal.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/compatmac.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kmod.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_bus.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_drivers.h
+toshiba_acpi.o: toshiba_acpi.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_drivers.h
+utils.o: utils.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_bus.h \
+   /home/uClinux-dist/linux-2.4.x/include/acpi/acpi_drivers.h

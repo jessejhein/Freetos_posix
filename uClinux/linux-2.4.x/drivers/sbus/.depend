@@ -1,0 +1,21 @@
+dvma.o: dvma.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/dma.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sun4.h)
+sbus.o: sbus.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/dma.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sparc32.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pci.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sun/auxio.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sun4.h)
