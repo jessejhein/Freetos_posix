@@ -1,40 +1,40 @@
 msg.o: msg.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/msg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/list.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/msg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/spinlock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/list.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
    util.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h)
 sem.o: sem.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/time.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/spinlock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/time.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
    util.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h)
 shm.o: shm.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/shm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/file.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mman.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/shm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/file.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mman.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
    util.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h)
 util.o: util.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/shm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/msg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/highuid.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sysvipc.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/shm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/msg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/vmalloc.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/highuid.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sysvipc.h) \
    util.h

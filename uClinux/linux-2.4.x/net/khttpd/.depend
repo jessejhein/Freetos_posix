@@ -2,178 +2,178 @@ accept.o: accept.c \
    structure.h \
    prototypes.h \
    sysctl.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/smp_lock.h
 datasending.o: datasending.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/tcp.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/locks.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/tcp.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/smp_lock.h \
    structure.h \
    prototypes.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/khttpd/numcpu.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/khttpd/numcpu.h)
 logging.o: logging.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/tcp.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/tcp.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
    structure.h \
    prototypes.h
 main.o: main.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/wait.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/unistd.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/signal.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/wait.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/unistd.h \
    structure.h \
    prototypes.h \
    sysctl.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/khttpd/numcpu.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/khttpd/numcpu.h)
 misc.o: misc.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ctype.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/net.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/unistd.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/file.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/ip.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/sock.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/atomic.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/semaphore.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/processor.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ctype.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/net.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/unistd.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/file.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/ip.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/sock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/atomic.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/semaphore.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/processor.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
    structure.h \
    prototypes.h
 prototypes.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/net.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/time.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/wait.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/sock.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/net.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/time.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/wait.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/sock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
    structure.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/khttpd/numcpu.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/khttpd/numcpu.h)
 	@touch prototypes.h
 rfc.o: rfc.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ctype.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/net.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/unistd.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/file.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/ip.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/sock.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/atomic.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/semaphore.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/processor.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ctype.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/net.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/unistd.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/file.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/ip.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/sock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/atomic.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/semaphore.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/processor.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
    prototypes.h \
    structure.h \
    sysctl.h
 rfc_time.o: rfc_time.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/time.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ctype.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/time.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ctype.h \
    prototypes.h
 security.o: security.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/net.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/un.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/unistd.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/ip.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/sock.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/tcp.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/atomic.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/semaphore.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/processor.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/file.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/net.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/un.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/unistd.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/ip.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/sock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/tcp.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/atomic.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/semaphore.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/processor.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/file.h \
    sysctl.h \
    security.h \
    prototypes.h
 sockets.o: sockets.c \
    prototypes.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/net.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/sock.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/net.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/sock.h
 structure.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/time.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/wait.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/time.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/wait.h
 	@touch structure.h
 sysctl.o: sysctl.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/net.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sysctl.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/un.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/unistd.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/ip.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/sock.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/tcp.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/atomic.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/semaphore.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/processor.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/file.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/net.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sysctl.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/un.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/unistd.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/ip.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/sock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/tcp.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/atomic.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/semaphore.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/processor.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/file.h \
    prototypes.h
 userspace.o: userspace.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/net.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/un.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/unistd.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/wait.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/ip.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/sock.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/tcp.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/atomic.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/semaphore.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/processor.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/file.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/net.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/un.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/unistd.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/wait.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/ip.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/sock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/tcp.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/atomic.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/semaphore.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/processor.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/file.h \
    structure.h \
    prototypes.h \
    sysctl.h
 waitheaders.o: waitheaders.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/file.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/file.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
    structure.h \
    prototypes.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/khttpd/numcpu.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/khttpd/numcpu.h)
 .PRECIOUS:	prototypes.h \
 	structure.h \
 

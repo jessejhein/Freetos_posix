@@ -1,32 +1,32 @@
 adapter.o: adapter.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/miscdevice.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ibm_ocp_gpio.h \
-   /home/uClinux-dist/linux-2.4.x/arch/microblaze/xilinx_ocp/xbasic_types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/miscdevice.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/irq.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ibm_ocp_gpio.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/microblaze/xilinx_ocp/xbasic_types.h \
    xgpio.h \
    xgpio_i.h
 xgpio.o: xgpio.c \
    xgpio.h \
    xgpio_i.h \
-   /home/uClinux-dist/linux-2.4.x/arch/microblaze/xilinx_ocp/xstatus.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/microblaze/xilinx_ocp/xstatus.h
 xgpio_g.o: xgpio_g.c \
    xgpio.h
 xgpio.h: \
-   /home/uClinux-dist/linux-2.4.x/arch/microblaze/xilinx_ocp/xbasic_types.h \
-   /home/uClinux-dist/linux-2.4.x/arch/microblaze/xilinx_ocp/xstatus.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/microblaze/xilinx_ocp/xbasic_types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/microblaze/xilinx_ocp/xstatus.h \
    xgpio_l.h
 	@touch xgpio.h
 xgpio_i.h: \
    xgpio.h
 	@touch xgpio_i.h
 xgpio_l.h: \
-   /home/uClinux-dist/linux-2.4.x/arch/microblaze/xilinx_ocp/xbasic_types.h \
-   /home/uClinux-dist/linux-2.4.x/arch/microblaze/xilinx_ocp/xio.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/microblaze/xilinx_ocp/xbasic_types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/microblaze/xilinx_ocp/xio.h
 	@touch xgpio_l.h
 .PRECIOUS:	xgpio.h \
 	xgpio_i.h \

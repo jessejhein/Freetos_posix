@@ -1,0 +1,153 @@
+[ -d /home/yan/MainData/workspace/uClinux/images ] || mkdir /home/yan/MainData/workspace/uClinux/images
+make ARCH=armnommu CROSS_COMPILE=arm-elf- -C /home/yan/MainData/workspace/uClinux/vendors/Samsung/44B0/. image
+make[1]: Entering directory `/home/yan/MainData/workspace/uClinux/vendors/Samsung/44B0'
+[ -d /home/yan/MainData/workspace/uClinux/images ] || mkdir -p /home/yan/MainData/workspace/uClinux/images
+genromfs -v -V "ROMdisk" -f /home/yan/MainData/workspace/uClinux/images/romfs.img -d /home/yan/MainData/workspace/uClinux/romfs
+0    ROMdisk              [0xffffffff, 0xffffffff] 37777777777, sz     0, at 0x0     
+1    .                    [0x1601    , 0x91cbaa  ] 0040755, sz     0, at 0x20    
+1    ..                   [0x1601    , 0x890f56  ] 0040755, sz     0, at 0x40     [link to 0x20    ]
+1    bin                  [0x1601    , 0x91cbd1  ] 0040755, sz     0, at 0x60    
+2    .                    [0x1601    , 0x91cbd1  ] 0040755, sz     0, at 0x80     [link to 0x60    ]
+2    ..                   [0x1601    , 0x91cbaa  ] 0040755, sz     0, at 0xa0     [link to 0x20    ]
+2    demo                 [0x1601    , 0x91d289  ] 0100744, sz 27384, at 0xc0    
+2    boa                  [0x1601    , 0x91d28a  ] 0100744, sz 99952, at 0x6be0  
+2    busybox              [0x1601    , 0x91d28b  ] 0100744, sz 115524, at 0x1f270 
+2    date                 [0x1601    , 0x91d28b  ] 0100744, sz     0, at 0x3b5e0  [link to 0x1f270 ]
+2    dmesg                [0x1601    , 0x91d28b  ] 0100744, sz     0, at 0x3b600  [link to 0x1f270 ]
+2    hostname             [0x1601    , 0x91d28b  ] 0100744, sz     0, at 0x3b620  [link to 0x1f270 ]
+2    kill                 [0x1601    , 0x91d28b  ] 0100744, sz     0, at 0x3b640  [link to 0x1f270 ]
+2    mount                [0x1601    , 0x91d28b  ] 0100744, sz     0, at 0x3b660  [link to 0x1f270 ]
+2    umount               [0x1601    , 0x91d28b  ] 0100744, sz     0, at 0x3b680  [link to 0x1f270 ]
+2    route                [0x1601    , 0x91d295  ] 0100744, sz 69768, at 0x3b6a0 
+2    basename             [0x1601    , 0x91d28b  ] 0100744, sz     0, at 0x4c750  [link to 0x1f270 ]
+2    du                   [0x1601    , 0x91d28b  ] 0100744, sz     0, at 0x4c770  [link to 0x1f270 ]
+2    killall              [0x1601    , 0x91d28b  ] 0100744, sz     0, at 0x4c790  [link to 0x1f270 ]
+2    uptime               [0x1601    , 0x91d28b  ] 0100744, sz     0, at 0x4c7b0  [link to 0x1f270 ]
+2    dhcpcd               [0x1601    , 0x91d28c  ] 0100744, sz 87008, at 0x4c7d0 
+2    ftp                  [0x1601    , 0x91d28d  ] 0100744, sz 114816, at 0x61bd0 
+2    inetd                [0x1601    , 0x91d28e  ] 0100744, sz 38856, at 0x7dc70 
+2    expand               [0x1601    , 0x91d290  ] 0100744, sz 28196, at 0x87460 
+2    init                 [0x1601    , 0x91d291  ] 0100744, sz 29136, at 0x8e2b0 
+2    ping                 [0x1601    , 0x91d292  ] 0100744, sz 61420, at 0x954a0 
+2    portmap              [0x1601    , 0x91d293  ] 0100744, sz 81524, at 0xa44b0 
+2    ifconfig             [0x1601    , 0x91d296  ] 0100744, sz 70052, at 0xb8350 
+2    arp                  [0x1601    , 0x91d297  ] 0100744, sz 67216, at 0xc9520 
+2    sh                   [0x1601    , 0x91d298  ] 0100744, sz 76188, at 0xd9bd0 
+2    telnet               [0x1601    , 0x91d299  ] 0100744, sz 117272, at 0xec590 
+2    telnetd              [0x1601    , 0x91d29a  ] 0100744, sz 48988, at 0x108fd0
+1    dev                  [0x1601    , 0x91cc11  ] 0040755, sz     0, at 0x114f50
+2    .                    [0x1601    , 0x91cc11  ] 0040755, sz     0, at 0x114f70 [link to 0x114f50]
+2    ..                   [0x1601    , 0x91cbaa  ] 0040755, sz     0, at 0x114f90 [link to 0x20    ]
+2    tty                  [0x1601    , 0x91ce1e  ] 0020644, sz     0, at 0x114fb0
+2    console              [0x1601    , 0x91ce49  ] 0020644, sz     0, at 0x114fd0
+2    cua0                 [0x1601    , 0x91ce52  ] 0020644, sz     0, at 0x114ff0
+2    cua1                 [0x1601    , 0x91ce79  ] 0020644, sz     0, at 0x115010
+2    mem                  [0x1601    , 0x91cf22  ] 0020644, sz     0, at 0x115030
+2    kmem                 [0x1601    , 0x91cf49  ] 0020644, sz     0, at 0x115050
+2    null                 [0x1601    , 0x91d065  ] 0020644, sz     0, at 0x115070
+2    zero                 [0x1601    , 0x91d230  ] 0020644, sz     0, at 0x115090
+2    random               [0x1601    , 0x91d234  ] 0020644, sz     0, at 0x1150b0
+2    urandom              [0x1601    , 0x91d238  ] 0020644, sz     0, at 0x1150d0
+2    ram0                 [0x1601    , 0x91d23c  ] 0060644, sz     0, at 0x1150f0
+2    ram1                 [0x1601    , 0x91d240  ] 0060644, sz     0, at 0x115110
+2    ptyp0                [0x1601    , 0x91d244  ] 0020644, sz     0, at 0x115130
+2    ptyp1                [0x1601    , 0x91d248  ] 0020644, sz     0, at 0x115150
+2    ptyp2                [0x1601    , 0x91d24b  ] 0020644, sz     0, at 0x115170
+2    ptyp3                [0x1601    , 0x91d24c  ] 0020644, sz     0, at 0x115190
+2    ptyp4                [0x1601    , 0x91d24d  ] 0020644, sz     0, at 0x1151b0
+2    ptyp5                [0x1601    , 0x91d24e  ] 0020644, sz     0, at 0x1151d0
+2    ptyp6                [0x1601    , 0x91d24f  ] 0020644, sz     0, at 0x1151f0
+2    ptyp7                [0x1601    , 0x91d250  ] 0020644, sz     0, at 0x115210
+2    ptyp8                [0x1601    , 0x91d251  ] 0020644, sz     0, at 0x115230
+2    ptyp9                [0x1601    , 0x91d252  ] 0020644, sz     0, at 0x115250
+2    ptypa                [0x1601    , 0x91d253  ] 0020644, sz     0, at 0x115270
+2    ptypb                [0x1601    , 0x91d254  ] 0020644, sz     0, at 0x115290
+2    ptypc                [0x1601    , 0x91d255  ] 0020644, sz     0, at 0x1152b0
+2    ptypd                [0x1601    , 0x91d256  ] 0020644, sz     0, at 0x1152d0
+2    ptype                [0x1601    , 0x91d257  ] 0020644, sz     0, at 0x1152f0
+2    ptypf                [0x1601    , 0x91d258  ] 0020644, sz     0, at 0x115310
+2    rom0                 [0x1601    , 0x91d259  ] 0060644, sz     0, at 0x115330
+2    rom1                 [0x1601    , 0x91d25a  ] 0060644, sz     0, at 0x115350
+2    rom2                 [0x1601    , 0x91d25b  ] 0060644, sz     0, at 0x115370
+2    rom3                 [0x1601    , 0x91d25c  ] 0060644, sz     0, at 0x115390
+2    rom4                 [0x1601    , 0x91d25d  ] 0060644, sz     0, at 0x1153b0
+2    rom5                 [0x1601    , 0x91d25e  ] 0060644, sz     0, at 0x1153d0
+2    rom6                 [0x1601    , 0x91d25f  ] 0060644, sz     0, at 0x1153f0
+2    rom7                 [0x1601    , 0x91d260  ] 0060644, sz     0, at 0x115410
+2    rom8                 [0x1601    , 0x91d261  ] 0060644, sz     0, at 0x115430
+2    rom9                 [0x1601    , 0x91d262  ] 0060644, sz     0, at 0x115450
+2    tty0                 [0x1601    , 0x91d263  ] 0020644, sz     0, at 0x115470
+2    tty1                 [0x1601    , 0x91d264  ] 0020644, sz     0, at 0x115490
+2    tty2                 [0x1601    , 0x91d265  ] 0020644, sz     0, at 0x1154b0
+2    tty3                 [0x1601    , 0x91d266  ] 0020644, sz     0, at 0x1154d0
+2    ttyS0                [0x1601    , 0x91d267  ] 0020644, sz     0, at 0x1154f0
+2    ttyS1                [0x1601    , 0x91d268  ] 0020644, sz     0, at 0x115510
+2    ttyp0                [0x1601    , 0x91d269  ] 0020644, sz     0, at 0x115530
+2    ttyp1                [0x1601    , 0x91d26a  ] 0020644, sz     0, at 0x115550
+2    ttyp2                [0x1601    , 0x91d26b  ] 0020644, sz     0, at 0x115570
+2    ttyp3                [0x1601    , 0x91d26c  ] 0020644, sz     0, at 0x115590
+2    ttyp4                [0x1601    , 0x91d26d  ] 0020644, sz     0, at 0x1155b0
+2    ttyp5                [0x1601    , 0x91d26e  ] 0020644, sz     0, at 0x1155d0
+2    ttyp6                [0x1601    , 0x91d26f  ] 0020644, sz     0, at 0x1155f0
+2    ttyp7                [0x1601    , 0x91d270  ] 0020644, sz     0, at 0x115610
+2    ttyp8                [0x1601    , 0x91d271  ] 0020644, sz     0, at 0x115630
+2    ttyp9                [0x1601    , 0x91d272  ] 0020644, sz     0, at 0x115650
+2    ttypa                [0x1601    , 0x91d273  ] 0020644, sz     0, at 0x115670
+2    ttypb                [0x1601    , 0x91d274  ] 0020644, sz     0, at 0x115690
+2    ttypc                [0x1601    , 0x91d275  ] 0020644, sz     0, at 0x1156b0
+2    ttypd                [0x1601    , 0x91d276  ] 0020644, sz     0, at 0x1156d0
+2    ttype                [0x1601    , 0x91d277  ] 0020644, sz     0, at 0x1156f0
+2    ttypf                [0x1601    , 0x91d278  ] 0020644, sz     0, at 0x115710
+2    mtd0                 [0x1601    , 0x91d279  ] 0020644, sz     0, at 0x115730
+2    mtd1                 [0x1601    , 0x91d27a  ] 0020644, sz     0, at 0x115750
+2    mtdblock0            [0x1601    , 0x91d27b  ] 0060644, sz     0, at 0x115770
+2    mtdblock1            [0x1601    , 0x91d27c  ] 0060644, sz     0, at 0x115790
+2    fb0                  [0x1601    , 0x91d27d  ] 0020644, sz     0, at 0x1157b0
+1    etc                  [0x1601    , 0x91cc5e  ] 0040755, sz     0, at 0x1157d0
+2    .                    [0x1601    , 0x91cc5e  ] 0040755, sz     0, at 0x1157f0 [link to 0x1157d0]
+2    ..                   [0x1601    , 0x91cbaa  ] 0040755, sz     0, at 0x115810 [link to 0x20    ]
+2    rc                   [0x1601    , 0x91d280  ] 0100644, sz   617, at 0x115830
+2    inittab              [0x1601    , 0x91d281  ] 0100644, sz    47, at 0x115ac0
+2    services             [0x1601    , 0x91d282  ] 0100644, sz  8205, at 0x115b10
+2    motd                 [0x1601    , 0x91d283  ] 0100644, sz   296, at 0x117b40
+2    passwd               [0x1601    , 0x91d286  ] 0100644, sz    21, at 0x117c90
+2    version              [0x1601    , 0x91d287  ] 0100644, sz    61, at 0x117cd0
+2    ramfs2048.img        [0x1601    , 0x91d288  ] 0100644, sz  2598, at 0x117d30
+2    inetd.conf           [0x1601    , 0x91d28f  ] 0100644, sz    44, at 0x118780
+2    ramfs.img            [0x1601    , 0x91d294  ] 0100644, sz  2874, at 0x1187d0
+1    home                 [0x1601    , 0x91cc9e  ] 0040755, sz     0, at 0x119330
+2    .                    [0x1601    , 0x91cc9e  ] 0040755, sz     0, at 0x119350 [link to 0x119330]
+2    ..                   [0x1601    , 0x91cbaa  ] 0040755, sz     0, at 0x119370 [link to 0x20    ]
+2    httpd                [0x1601    , 0x91ce0e  ] 0040755, sz     0, at 0x119390
+3    .                    [0x1601    , 0x91ce0e  ] 0040755, sz     0, at 0x1193b0 [link to 0x119390]
+3    ..                   [0x1601    , 0x91cc9e  ] 0040755, sz     0, at 0x1193d0 [link to 0x119330]
+3    index.html           [0x1601    , 0x91d284  ] 0100644, sz    61, at 0x1193f0
+1    lib                  [0x1601    , 0x91ccca  ] 0040755, sz     0, at 0x119450
+2    .                    [0x1601    , 0x91ccca  ] 0040755, sz     0, at 0x119470 [link to 0x119450]
+2    ..                   [0x1601    , 0x91cbaa  ] 0040755, sz     0, at 0x119490 [link to 0x20    ]
+1    mnt                  [0x1601    , 0x91cce1  ] 0040755, sz     0, at 0x1194b0
+2    .                    [0x1601    , 0x91cce1  ] 0040755, sz     0, at 0x1194d0 [link to 0x1194b0]
+2    ..                   [0x1601    , 0x91cbaa  ] 0040755, sz     0, at 0x1194f0 [link to 0x20    ]
+1    proc                 [0x1601    , 0x91cd12  ] 0040755, sz     0, at 0x119510
+2    .                    [0x1601    , 0x91cd12  ] 0040755, sz     0, at 0x119530 [link to 0x119510]
+2    ..                   [0x1601    , 0x91cbaa  ] 0040755, sz     0, at 0x119550 [link to 0x20    ]
+1    usr                  [0x1601    , 0x91cd26  ] 0040755, sz     0, at 0x119570
+2    .                    [0x1601    , 0x91cd26  ] 0040755, sz     0, at 0x119590 [link to 0x119570]
+2    ..                   [0x1601    , 0x91cbaa  ] 0040755, sz     0, at 0x1195b0 [link to 0x20    ]
+1    var                  [0x1601    , 0x91cd7e  ] 0040755, sz     0, at 0x1195d0
+2    .                    [0x1601    , 0x91cd7e  ] 0040755, sz     0, at 0x1195f0 [link to 0x1195d0]
+2    ..                   [0x1601    , 0x91cbaa  ] 0040755, sz     0, at 0x119610 [link to 0x20    ]
+1    ramdisk              [0x1601    , 0x91cd8e  ] 0040755, sz     0, at 0x119630
+2    .                    [0x1601    , 0x91cd8e  ] 0040755, sz     0, at 0x119650 [link to 0x119630]
+2    ..                   [0x1601    , 0x91cbaa  ] 0040755, sz     0, at 0x119670 [link to 0x20    ]
+1    tmp                  [0x1601    , 0x91d27e  ] 0120777, sz     8, at 0x119690
+1    sbin                 [0x1601    , 0x91d27f  ] 0120777, sz     4, at 0x1196c0
+1    index.html           [0x1601    , 0x91d285  ] 0100644, sz    61, at 0x1196f0
+arm-elf-ld -r -o /home/yan/MainData/workspace/uClinux/linux-2.4.x/romfs.o \
+		-b binary /home/yan/MainData/workspace/uClinux/images/romfs.img
+arm-elf-objcopy -O binary -R .note -R .comment \
+		-S /home/yan/MainData/workspace/uClinux/linux-2.4.x/linux /home/yan/MainData/workspace/uClinux/images/image.ram
+arm-elf-objcopy: /home/yan/MainData/workspace/uClinux/linux-2.4.x/linux: No such file or directory
+make[1]: *** [image] Error 1
+make[1]: Leaving directory `/home/yan/MainData/workspace/uClinux/vendors/Samsung/44B0'
+make: *** [image] Error 2

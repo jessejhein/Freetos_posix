@@ -1,167 +1,167 @@
 aes.o: aes.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/byteorder.h
 api.o: api.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/rwsem.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/rwsem.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
    internal.h
 autoload.o: autoload.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kmod.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kmod.h \
    internal.h
 blowfish.o: blowfish.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/scatterlist.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/scatterlist.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h
 cast5.o: cast5.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h
 cipher.o: cipher.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/highmem.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/scatterlist.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/highmem.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/scatterlist.h \
    internal.h
 compress.o: compress.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/scatterlist.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/scatterlist.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
    internal.h
 crypto_null.o: crypto_null.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/scatterlist.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/scatterlist.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h
 deflate.o: deflate.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/zlib.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/net.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/zlib.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/vmalloc.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/net.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h
 des.o: des.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/scatterlist.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/scatterlist.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h
 digest.o: digest.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/highmem.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/scatterlist.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/highmem.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/scatterlist.h \
    internal.h
 hmac.o: hmac.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/highmem.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/scatterlist.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/highmem.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/scatterlist.h \
    internal.h
 internal.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/highmem.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/hardirq.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/softirq.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/kmod.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/crypto/hmac.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h)
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/highmem.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/hardirq.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/softirq.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/kmod.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/crypto/hmac.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h)
 	@touch internal.h
 md4.o: md4.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/byteorder.h
 md5.o: md5.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/byteorder.h
 proc.o: proc.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/rwsem.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/seq_file.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/rwsem.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/seq_file.h \
    internal.h
 serpent.o: serpent.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/byteorder.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h
 sha1.o: sha1.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/scatterlist.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/scatterlist.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/byteorder.h
 sha256.o: sha256.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/scatterlist.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/scatterlist.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/byteorder.h
 sha512.o: sha512.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/scatterlist.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/scatterlist.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/byteorder.h
 tcrypt.o: tcrypt.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/scatterlist.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/highmem.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/scatterlist.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/highmem.h \
    tcrypt.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/crypto/hmac.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/crypto/hmac.h)
 tcrypt.h: \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/crypto/hmac.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/crypto/hmac.h)
 	@touch tcrypt.h
 twofish.o: twofish.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/crypto.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/crypto.h
 .PRECIOUS:	internal.h \
 	tcrypt.h \
 

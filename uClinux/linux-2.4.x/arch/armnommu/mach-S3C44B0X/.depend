@@ -1,35 +1,35 @@
 arch.o: arch.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/elf.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/setup.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/mach/arch.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/tty.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/elf.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/setup.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/mach-types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/mach/arch.h
 dma.o: dma.c \
-   /home/uClinux-dist/linux-2.4.x/include/asm/page.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/dma.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/mach/dma.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/page.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/pgtable.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/dma.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/mach/dma.h
 fs44b0-leds.o: fs44b0-leds.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/mach-types.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/leds.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/arch/hardware.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/leds/timer.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/leds/cpu.h)
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/mach-types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/leds.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/system.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/arch/hardware.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/leds/timer.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/leds/cpu.h)
 irq.o: irq.c \
-   /home/uClinux-dist/linux-2.4.x/include/asm/hardware.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/hardware.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h
 time.o: time.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/time.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/arch/hardware.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arm/clk.h)
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/time.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/arch/hardware.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/arm/clk.h)

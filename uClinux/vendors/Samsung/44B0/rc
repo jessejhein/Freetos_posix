@@ -13,5 +13,8 @@
  cat /etc/motd
  ifconfig lo 127.0.0.1
  route add -net 127.0.0.0 netmask 255.255.255.0 lo
- ifconfig eth0 192.168.253.2 netmask 255.255.255.0 up
+ ifconfig eth0 192.168.1.50 netmask 255.255.255.0 up
+ portmap &
+ mount -t nfs -o rsize=1024,wsize=1024,timeo=3,udp 192.168.1.5:/home/nfs_open /var
+ #mount -t nfs -o rsize=1024,wsize=1024,timeo=3,udp 192.168.1.5:/home/nfs_open /var/tmp
  

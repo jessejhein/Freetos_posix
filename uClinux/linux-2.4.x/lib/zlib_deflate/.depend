@@ -1,11 +1,11 @@
 deflate.o: deflate.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/zutil.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/zutil.h \
    defutil.h
 deflate_syms.o: deflate_syms.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/zlib.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/zlib.h
 deftree.o: deftree.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/zutil.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/zutil.h \
    defutil.h

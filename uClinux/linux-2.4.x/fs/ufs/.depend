@@ -1,114 +1,114 @@
 balloc.o: balloc.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ufs_fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/quotaops.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ufs_fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/locks.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/quotaops.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/bitops.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/byteorder.h \
    swab.h \
    util.h
 cylinder.o: cylinder.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ufs_fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ufs_fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/locks.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/bitops.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/byteorder.h \
    swab.h \
    util.h
 dir.o: dir.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ufs_fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/locks.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ufs_fs.h \
    swab.h \
    util.h
 file.o: file.c \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ufs_fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/system.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ufs_fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fcntl.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/locks.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pagemap.h
 ialloc.o: ialloc.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ufs_fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/quotaops.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ufs_fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/locks.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/quotaops.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/bitops.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/byteorder.h \
    swab.h \
    util.h
 inode.o: inode.c \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ufs_fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/system.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ufs_fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/locks.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/smp_lock.h \
    swab.h \
    util.h
 namei.o: namei.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ufs_fs.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ufs_fs.h
 super.o: super.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ufs_fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/bitops.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/system.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ufs_fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/locks.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
    swab.h \
    util.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ufs/fs/write.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/ufs/fs/write.h)
 symlink.o: symlink.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h
 truncate.o: truncate.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ufs_fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ufs_fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fcntl.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/locks.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
    swab.h \
    util.h
 util.o: util.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/locks.h \
    swab.h \
    util.h
 util.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
    swab.h
 	@touch util.h
 .PRECIOUS:	util.h \

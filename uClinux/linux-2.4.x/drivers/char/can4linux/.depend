@@ -1,34 +1,34 @@
 can_close.o: can_close.c \
    can_defs.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ppc.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/ppc.h)
 can_core.o: can_core.c \
    can_defs.h
 can_debug.o: can_debug.c \
    can_defs.h
 can_defs.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/malloc.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/wrapper.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/poll.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/segment.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/dma.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/tty.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/major.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/malloc.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/wrapper.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/poll.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/segment.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/system.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/irq.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/dma.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/signal.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/timer.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
    can_debug.h \
    can_sja1000.h \
    can_sja1000.h \
@@ -38,8 +38,8 @@ can_defs.h: \
    can_sja1000.h \
    can_sja1000.h \
    can4linux.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sysctl.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ppc.h)
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sysctl.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/ppc.h)
 	@touch can_defs.h
 can_error.o: can_error.c \
    can_defs.h
@@ -53,21 +53,21 @@ can_select.o: can_select.c \
    can_defs.h
 can_sja1000funcs.o: can_sja1000funcs.c \
    can_defs.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/delay.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ppc.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/time/measure.h)
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/delay.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/ppc.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/time/measure.h)
 can_sysctl.o: can_sysctl.c \
    can_defs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sysctl.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ctype.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sysctl.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ctype.h
 can_util.o: can_util.c \
    can_defs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ppc.h) \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/ppc.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h
 can_write.o: can_write.c \
    can_defs.h
 .PRECIOUS:	can_defs.h \

@@ -1,634 +1,634 @@
 adma100.o: adma100.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
    adma100.h
 adma100.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h
 	@touch adma100.h
 aec62xx.o: aec62xx.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    aec62xx.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 aec62xx.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 	@touch aec62xx.h
 alim15x3.o: alim15x3.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    alim15x3.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/wdc/ali15x3.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sparc64.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/wdc/ali15x3.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sparc64.h)
 alim15x3.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 	@touch alim15x3.h
 amd74xx.o: amd74xx.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide-timing.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide-timing.h \
    amd74xx.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 amd74xx.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 	@touch amd74xx.h
 cmd640.o: cmd640.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/cmd640/enhanced.h)
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/timer.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/blk/dev/cmd640/enhanced.h)
 cmd640.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h
 	@touch cmd640.h
 cmd64x.o: cmd64x.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    cmd64x.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ppc.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/ppc.h)
 cmd64x.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 	@touch cmd64x.h
 cs5530.o: cs5530.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/timer.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/irq.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    cs5530.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 cs5530.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 	@touch cs5530.h
 cy82c693.o: cy82c693.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    cy82c693.h
 cy82c693.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h
 	@touch cy82c693.h
 generic.o: generic.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/timer.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
    generic.h
 generic.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h
 	@touch generic.h
 hpt34x.o: hpt34x.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/timer.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/irq.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    hpt34x.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/hpt34x/autodma.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/hpt34x/autodma.h)
 hpt34x.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 	@touch hpt34x.h
 hpt366.o: hpt366.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/timer.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/irq.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    hpt366.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 hpt366.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 	@touch hpt366.h
 it8172.o: it8172.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    it8172.h
 it8172.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/idedma.h)
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/blk/dev/idedma.h)
 	@touch it8172.h
 ns87415.o: ns87415.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/timer.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
    ns87415.h
 ns87415.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h
 	@touch ns87415.h
 opti621.o: opti621.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/timer.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    opti621.h
 opti621.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h
 	@touch opti621.h
 pdc202xx_new.o: pdc202xx_new.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/timer.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/irq.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    pdc202xx_new.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 pdc202xx_new.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pdc202xx/force.h)
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/pdc202xx/force.h)
 	@touch pdc202xx_new.h
 pdc202xx_old.o: pdc202xx_old.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/timer.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/irq.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    pdc202xx_old.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/idedma.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pdc202xx/burst.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pdc202xx/master.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/blk/dev/idedma.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/pdc202xx/burst.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/pdc202xx/master.h)
 pdc202xx_old.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pdc202xx/force.h)
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/pdc202xx/force.h)
 	@touch pdc202xx_old.h
 piix.o: piix.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    piix.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ia64.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/ia64.h)
 piix.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 	@touch piix.h
 rz1000.o: rz1000.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/timer.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
    rz1000.h
 rz1000.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h
 	@touch rz1000.h
 sc1200.o: sc1200.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pm.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/timer.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/irq.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    sc1200.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 sc1200.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 	@touch sc1200.h
 serverworks.o: serverworks.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    serverworks.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 serverworks.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 	@touch serverworks.h
 sgiioc4.o: sgiioc4.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/timer.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
    sgiioc4.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h)
 sgiioc4.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 	@touch sgiioc4.h
 siimage.o: siimage.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    siimage.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 siimage.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 	@touch siimage.h
 sis5513.o: sis5513.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide-timing.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/timer.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/irq.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide-timing.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    sis5513.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 sis5513.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 	@touch sis5513.h
 sl82c105.o: sl82c105.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/dma.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/timer.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/dma.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    sl82c105.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/idedma.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/blk/dev/idedma.h)
 sl82c105.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h
 	@touch sl82c105.h
 slc90e66.o: slc90e66.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    slc90e66.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/idedma.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/blk/dev/idedma.h)
 slc90e66.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 	@touch slc90e66.h
 triflex.o: triflex.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide_modes.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/timer.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide_modes.h \
    triflex.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h)
 triflex.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h)
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h)
 	@touch triflex.h
 trm290.o: trm290.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
    trm290.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/idedma.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/blk/dev/idedma.h)
 trm290.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h
 	@touch trm290.h
 via82cxxx.o: via82cxxx.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/ide/ide-timing.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ide-timing.h \
    via82cxxx.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 via82cxxx.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h
 	@touch via82cxxx.h
 .PRECIOUS:	adma100.h \
 	aec62xx.h \

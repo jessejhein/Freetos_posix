@@ -1,35 +1,35 @@
 af_econet.o: af_econet.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/socket.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sockios.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/in.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/if_ether.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/netdevice.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/inetdevice.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/route.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/inet.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/etherdevice.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/if_arp.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/wireless.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/sock.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/inet_common.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/if_ec.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/udp.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/ip.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/econet/aunudp.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/econet/native.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/socket.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sockios.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/in.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/if_ether.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/inetdevice.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/route.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/inet.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/etherdevice.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/if_arp.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/wireless.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/sock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/inet_common.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/if_ec.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/udp.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/ip.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/spinlock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/system.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/bitops.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/econet/aunudp.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/econet/native.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/smp_lock.h

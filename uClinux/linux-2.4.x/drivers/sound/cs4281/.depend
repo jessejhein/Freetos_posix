@@ -1,32 +1,32 @@
 cs4281m.o: cs4281m.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/list.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sound.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/soundcard.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/bitops.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/dma.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/poll.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/wrapper.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/hardirq.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/list.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sound.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/soundcard.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/bitops.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/dma.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/poll.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/wrapper.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/hardirq.h \
    cs4281_hwdefs.h \
    cs4281_wrapper.h \
    cs4281pm-24.h \
    cs4281pm-24.c
 cs4281pm-24.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pm.h \
    cs4281pm.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pm.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/pm.h)
 	@touch cs4281pm-24.h
 .PRECIOUS:	cs4281pm-24.h \
 

@@ -1,85 +1,85 @@
 bfind.o: bfind.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
    hfsplus_fs.h
 bnode.o: bnode.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/swap.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/swap.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
    hfsplus_fs.h \
    hfsplus_raw.h
 brec.o: brec.c \
    hfsplus_fs.h \
    hfsplus_raw.h
 btree.o: btree.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/div64.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/div64.h \
    hfsplus_fs.h \
    hfsplus_raw.h
 catalog.o: catalog.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
    hfsplus_fs.h \
    hfsplus_raw.h
 dir.o: dir.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/random.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/random.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
    hfsplus_fs.h \
    hfsplus_raw.h
 extents.o: extents.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
    hfsplus_fs.h \
    hfsplus_raw.h
 hfsplus_fs.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
    hfsplus_raw.h
 	@touch hfsplus_fs.h
 hfsplus_raw.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h
 	@touch hfsplus_raw.h
 inode.o: inode.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
    hfsplus_fs.h \
    hfsplus_raw.h
 options.o: options.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
    hfsplus_fs.h
 super.o: super.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/vfs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/locks.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/vfs.h \
    hfsplus_fs.h
 tables.o: tables.c \
    hfsplus_fs.h
 unicode.o: unicode.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/nls.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/nls.h \
    hfsplus_fs.h \
    hfsplus_raw.h
 wrapper.o: wrapper.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
    hfsplus_fs.h \
    hfsplus_raw.h
 .PRECIOUS:	hfsplus_fs.h \

@@ -1,68 +1,68 @@
 vxfs_bmap.o: vxfs_bmap.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
    vxfs.h \
    vxfs_inode.h
 vxfs_fshead.o: vxfs_fshead.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
    vxfs.h \
    vxfs_inode.h \
    vxfs_extern.h \
    vxfs_fshead.h
 vxfs.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
    vxfs_kcompat.h
 	@touch vxfs.h
 vxfs_immed.o: vxfs_immed.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pagemap.h \
    vxfs.h \
    vxfs_inode.h
 vxfs_inode.o: vxfs_inode.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
    vxfs.h \
    vxfs_inode.h \
    vxfs_extern.h
 vxfs_kcompat.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h
 	@touch vxfs_kcompat.h
 vxfs_lookup.o: vxfs_lookup.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/highmem.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/highmem.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pagemap.h \
    vxfs.h \
    vxfs_dir.h \
    vxfs_inode.h \
    vxfs_extern.h
 vxfs_olt.o: vxfs_olt.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
    vxfs.h \
    vxfs_olt.h
 vxfs_subr.o: vxfs_subr.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pagemap.h \
    vxfs_kcompat.h \
    vxfs_extern.h
 vxfs_super.o: vxfs_super.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
    vxfs.h \
    vxfs_extern.h \
    vxfs_dir.h \

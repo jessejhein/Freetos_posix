@@ -1,18 +1,18 @@
 adapter.o: adapter.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkpg.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blk.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
-   /home/uClinux-dist/linux-2.4.x/arch/microblaze/xilinx_ocp/xbasic_types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkpg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/irq.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blk.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/microblaze/xilinx_ocp/xbasic_types.h \
    xsysace.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h)
 xsysace.o: xsysace.c \
    xsysace.h \
    xsysace_l.h
@@ -22,8 +22,8 @@ xsysace_compactflash.o: xsysace_compactflash.c \
 xsysace_g.o: xsysace_g.c \
    xsysace.h
 xsysace.h: \
-   /home/uClinux-dist/linux-2.4.x/arch/microblaze/xilinx_ocp/xbasic_types.h \
-   /home/uClinux-dist/linux-2.4.x/arch/microblaze/xilinx_ocp/xstatus.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/microblaze/xilinx_ocp/xbasic_types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/microblaze/xilinx_ocp/xstatus.h \
    xsysace_l.h
 	@touch xsysace.h
 xsysace_intr.o: xsysace_intr.c \
@@ -35,8 +35,8 @@ xsysace_jtagcfg.o: xsysace_jtagcfg.c \
 xsysace_l.o: xsysace_l.c \
    xsysace_l.h
 xsysace_l.h: \
-   /home/uClinux-dist/linux-2.4.x/arch/microblaze/xilinx_ocp/xbasic_types.h \
-   /home/uClinux-dist/linux-2.4.x/arch/microblaze/xilinx_ocp/xio.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/microblaze/xilinx_ocp/xbasic_types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/microblaze/xilinx_ocp/xio.h
 	@touch xsysace_l.h
 xsysace_selftest.o: xsysace_selftest.c \
    xsysace.h \

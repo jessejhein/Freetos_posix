@@ -1,1 +1,1 @@
-#define CONFIG_EXT2_FS 1
+#undef  CONFIG_EXT2_FS

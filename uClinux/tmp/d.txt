@@ -1,0 +1,959 @@
+make ARCH=armnommu CROSS_COMPILE=arm-elf- -C linux-2.4.x dep
+make[1]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x'
+rm -f include/asm-armnommu/arch include/asm-armnommu/proc
+(cd include/asm-armnommu; ln -sf arch-S3C44B0X arch; ln -sf proc-armv proc)
+make[2]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/armnommu/tools'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep getconstants.c | sed s,getconstants.o,/home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm-armnommu/constants.h, > .depend
+make all
+make[3]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/armnommu/tools'
+awk -f gen-mach-types mach-types > /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm-armnommu/mach-types.h
+arm-elf-gcc -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -S -o - getconstants.c | \
+ sed 's/^\(#define .* \)#\(.*\)/\1\2/;/^#define/!d' | \
+ cat constants-hdr - > /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm-armnommu/constants.h.tmp
+cmp /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm-armnommu/constants.h.tmp /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm-armnommu/constants.h >/dev/null 2>&1 || mv /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm-armnommu/constants.h.tmp /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm-armnommu/constants.h; rm -f /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm-armnommu/constants.h.tmp
+make[3]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/armnommu/tools'
+make[2]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/armnommu/tools'
+make[2]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/armnommu/boot'
+make[2]: Nothing to be done for `dep'.
+make[2]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/armnommu/boot'
+rm -f .depend .hdepend
+make _sfdep_kernel _sfdep_drivers _sfdep_mmnommu _sfdep_fs _sfdep_net _sfdep_ipc _sfdep_lib _sfdep_crypto _sfdep_arch/armnommu/mach-S3C44B0X _sfdep_arch/armnommu/kernel _sfdep_arch/armnommu/mm _sfdep_arch/armnommu/lib _sfdep_arch/armnommu/nwfpe _FASTDEP_ALL_SUB_DIRS="kernel drivers mmnommu fs net ipc lib crypto arch/armnommu/mach-S3C44B0X arch/armnommu/kernel arch/armnommu/mm arch/armnommu/lib arch/armnommu/nwfpe"
+make[2]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x'
+make -C kernel fastdep
+make[3]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/kernel'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- acct.c capability.c context.c dma.c exec_domain.c exit.c fork.c info.c itimer.c kmod.c ksyms.c module.c panic.c pm.c printk.c ptrace.c resource.c sched.c signal.c softirq.c sys.c sysctl.c time.c timer.c uid16.c user.c > .depend
+make[3]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/kernel'
+make -C drivers fastdep
+make[3]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include --  > .depend
+make _sfdep_acpi _sfdep_atm _sfdep_block _sfdep_bluetooth _sfdep_cdrom _sfdep_char _sfdep_dio _sfdep_fc4 _sfdep_gsc _sfdep_hil _sfdep_hotplug _sfdep_i2c _sfdep_ide _sfdep_ieee1394 _sfdep_input _sfdep_isdn _sfdep_macintosh _sfdep_md _sfdep_media _sfdep_message/fusion _sfdep_message/i2o _sfdep_misc _sfdep_mtd _sfdep_net _sfdep_net/hamradio _sfdep_nubus _sfdep_parport _sfdep_pci _sfdep_pcmcia _sfdep_pnp _sfdep_sbus _sfdep_scsi _sfdep_serial _sfdep_sound _sfdep_tc _sfdep_telephony _sfdep_usb _sfdep_usb/gadget _sfdep_video _sfdep_zorro _FASTDEP_ALL_SUB_DIRS="acpi atm block bluetooth cdrom char dio fc4 gsc hil hotplug i2c ide ieee1394 input isdn macintosh md media message/fusion message/i2o misc mtd net net/hamradio nubus parport pci pcmcia pnp sbus scsi serial sound tc telephony usb usb/gadget video zorro"
+make[4]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers'
+make -C acpi fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/acpi'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -Os  -nostdinc -iwithprefix include -- ac.c acpi_ksyms.c asus_acpi.c battery.c blacklist.c bus.c button.c ec.c fan.c numa.c osl.c pci_bind.c pci_irq.c pci_link.c pci_root.c power.c processor.c system.c tables.c thermal.c toshiba_acpi.c utils.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/acpi'
+make -C atm fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/atm'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- ambassador.c ambassador.h atmdev_init.c atmtcp.c eni.c eni.h firestream.c firestream.h fore200e.c fore200e.h fore200e_mkfirm.c he.c he.h horizon.c horizon.h idt77105.c idt77105.h idt77252.c idt77252.h idt77252_tables.h iphase.c iphase.h lanai.c midway.h nicstar.c nicstar.h nicstarmac.c nicstarmac.h suni.c suni.h tonga.h uPD98401.h uPD98402.c uPD98402.h zatm.c zatm.h zeprom.h > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/atm'
+make -C block fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/block'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- acsi.c acsi_slm.c amiflop.c ataflop.c blkmem.c blkpg.c cciss.c cciss_cmd.h cciss.h cciss_scsi.c cciss_scsi.h cpqarray.c cpqarray.h DAC960.c DAC960.h elevator.c floppy.c genhd.c ida_cmd.h ida_ioctl.h ll_rw_blk.c loop.c nbd.c ps2esdi.c rd.c smart1,2.h swim3.c swim_iop.c umem.c xd.c xd.h z2ram.c > .depend
+make _sfdep_paride _sfdep_xilinx_sysace _FASTDEP_ALL_SUB_DIRS="paride xilinx_sysace"
+make[6]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/block'
+make -C paride fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/block/paride'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- aten.c bpck6.c bpck.c comm.c dstr.c epat.c epia.c fit2.c fit3.c friq.c frpw.c kbic.c ktti.c on20.c on26.c paride.c paride.h pcd.c pd.c pf.c pg.c ppc6lnx.c pseudo.h pt.c setup.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/block/paride'
+make -C xilinx_sysace fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/block/xilinx_sysace'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/microblaze/xilinx_ocp -nostdinc -iwithprefix include -- adapter.c xsysace.c xsysace_compactflash.c xsysace_g.c xsysace.h xsysace_intr.c xsysace_jtagcfg.c xsysace_l.c xsysace_l.h xsysace_selftest.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/block/xilinx_sysace'
+make[6]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/block'
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/block'
+make -C bluetooth fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/bluetooth'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- bfusb.c bluecard_cs.c bt3c_cs.c btuart_cs.c dtl1_cs.c hci_bcsp.c hci_bcsp.h hci_h4.c hci_h4.h hci_ldisc.c hci_uart.h hci_usb.c hci_usb.h hci_vhci.c hci_vhci.h > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/bluetooth'
+make -C cdrom fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/cdrom'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- aztcd.c aztcd.h cdrom.c cdu31a.c cdu31a.h cm206.c cm206.h gscd.c gscd.h isp16.c isp16.h mcd.c mcd.h mcdx.c mcdx.h optcd.c optcd.h sbpcd2.c sbpcd3.c sbpcd4.c sbpcd.c sbpcd.h sjcd.c sjcd.h sonycd535.c sonycd535.h > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/cdrom'
+make -C char fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- 68328serial.c 68328serial.h acquirewdt.c adbmouse.c advantechwdt.c alim1535d_wdt.c alim7101_wdt.c amd768_rng.c amd76x_pm.c amd76x_pm.h amd7xx_tco.c amigamouse.c amikeyb.c amiserial.c applicom.c applicom.h atarimouse.c atixlmouse.c au1000_gpio.c au1000_ts.c au1000_usbraw.c au1000_usbtty.c au1x00-serial.c bf533_serial.c bf533_serial.h bf535_serial.c bf535_serial.h briq_panel.c busmouse.c busmouse.h cd1865.h cnxtserial.c cnxtserial.h conmakehash.c console.c console_macros.h consolemap.c cyclades.c de2eeprom.c de2fpga.c de2spi.c de2spi.h de2ts.c decserial.c defkeymap.c digi1.h digi_bios.h digiFep1.h digi_fep.h digi.h digiPCI.h dn_keyb.c dragonixspi.c ds1286.c ds1302.c ds1620.c dsp56k.c dtlk.c dummy_keyb.c dz.c dz.h ec3104_keyb.c efirtc.c epca.c epcaconfig.h epca.h esp.c eurotechwdt.c exp.c fep.h fetchop.c generic_serial.c genrtc.c gio_c5471.c h8.c h8.h hcdp_serial.c hp600_keyb.c hp_keyb.c hp_psaux.c hvc_console.c hw_random.c i810_rng.c i810-tco.c i810-tco.h i8k.c ib700wdt.c indydog.c ip27-rtc.c ip2.c ip2main.c isicom.c istallion.c ite_gpio.c keyboard.c lcd.c lcd.h lcdtxt.c ledman.c logibusmouse.c lp.c m5249audio.c m5272audio.c machzwd.c mba44b0touch.c mc68328digi.c mcf5272.h mcf_descriptors.h mcf_qspi.c mcf_qspi.h mcfserial.c mcfserial.h mcf_usb.c mcf_usb_defs.h mcf_usb.h mcfwatchdog.c mem.c mips_rtc.c misc.c mixcomwd.c mk712.c moxa.c msbusmouse.c mux.c mxser.c n_hdlc.c NIOSserial.c NIOSserial.h n_r3964.c n_tty.c nvram.c nwbutton.c nwbutton.h nwflash.c pc110pad.c pc110pad.h pc_keyb.c pc_keyb_hd64465.c pcwd.c pcxx.c pcxx.h pdc_console.c ppdev.c pty.c q40_keyb.c qpmouse.c qtronix.c qtronixmap.c random.c raw.c riscom8.c riscom8.h riscom8_reg.h rocket.c rocket_int.h rsf16fmi.h rtc.c sb1250_duart.c sbc60xxwdt.c sc1200wdt.c sc520_wdt.c scan_keyb.c scan_keyb.h scc.h scx200.c scx200_gpio.c scx200_wdt.c selection.c ser_a2232.c ser_a2232fw.h ser_a2232.h serial167.c serial_21285.c serial_amba.c serial_atmel.c serial_atmel.h serial.c serial_c5471.c serial_dsc21.c serial_ks8695.c serial_ks8695.h serial_netarm.c serial_s3c2500.c serial_s3c2500.h serial_s3c3410.c serial_s3c3410.h serial_s3c44b0x.c serial_s3c44b0x.h serial_s3c4530.c serial_s3c4530.h serial_samsung.c serial_tx3912.c serial_tx3912.h serial_txx927.c serial_txx9.c sgiserial.c sgiserial.h sh-sci.c sh-sci.h shwdt.c sn_serial.c softdog.c sonypi.c sonypi.h specialix.c specialix_io8.h spi.c stallion.c sxboards.h sx.c sx.h sxwindow.h synclink.c synclinkmp.c sysrq.c tipar.c toshiba.c tpqic02.c tty_io.c tty_ioctl.c v850e_uart.c vac-serial.c vc_screen.c vme_scc.c vt.c w83877f_wdt.c wafer5823wdt.c wd501p.h wdt285.c wdt977.c wdt.c wdt_c5471.c wdt_pci.c xymem.c > .depend
+make _sfdep_agp _sfdep_can4linux _sfdep_drm _sfdep_drm-4.0 _sfdep_ftape _sfdep_ipmi _sfdep_joystick _sfdep_mwave _sfdep_pcmcia _sfdep_rio _sfdep_xilinx_gpio _FASTDEP_ALL_SUB_DIRS="agp can4linux drm drm-4.0 ftape ipmi joystick mwave pcmcia rio xilinx_gpio"
+make[6]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char'
+make -C agp fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/agp'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- agpgart_be.c agpgart_fe.c agp.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/agp'
+make -C can4linux fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/can4linux'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -DVERSION=\"3.0_ColdFire_FlexCAN\" -DCan_MAJOR=91  -DMCF5282 -DMAX_CHANNELS=1 -nostdinc -iwithprefix include -- can4linux.h can_close.c can_core.c can_debug.c can_debug.h can_defs.h can_error.c can_ioctl.c can_open.c can_read.c can_select.c can_sja1000funcs.c can_sja1000.h can_sysctl.c can_util.c can_write.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/can4linux'
+make -C drm fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/drm'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- ati_pcigart.h drm_agpsupport.h drm_auth.h drm_bufs.h drm_context.h drm_dma.h drm_drawable.h drm_drv.h drm_fops.h drm.h drm_init.h drm_ioctl.h drm_lists.h drm_lock.h drm_memory.h drm_os_linux.h drmP.h drm_proc.h drm_sarea.h drm_scatter.h drm_stub.h drm_vm.h ffb_context.c ffb_drv.c ffb_drv.h ffb.h gamma_dma.c gamma_drm.h gamma_drv.c gamma_drv.h gamma.h i810_dma.c i810_drm.h i810_drv.c i810_drv.h i810.h i830_dma.c i830_drm.h i830_drv.c i830_drv.h i830.h i830_irq.c mga_dma.c mga_drm.h mga_drv.c mga_drv.h mga.h mga_state.c mga_ucode.h mga_warp.c r128_cce.c r128_drm.h r128_drv.c r128_drv.h r128.h r128_state.c radeon_cp.c radeon_drm.h radeon_drv.c radeon_drv.h radeon.h radeon_irq.c radeon_mem.c radeon_state.c savage_dma.c savage_drm.h savage_drv.c savage_drv.h savage.h savage_state.c sis_drm.h sis_drv.c sis_drv.h sis_ds.c sis_ds.h sis.h sis_mm.c tdfx_drv.c tdfx.h via_drm.h via_drv.c via_drv.h via_ds.c via_ds.h via.h via_map.c via_mm.c via_mm.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/drm'
+make -C drm-4.0 fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/drm-4.0'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- agpsupport.c auth.c bufs.c context.c ctxbitmap.c dma.c drawable.c drm.h drmP.h ffb_context.c ffb_drv.c ffb_drv.h fops.c gamma_dma.c gamma_drv.c gamma_drv.h i810_bufs.c i810_context.c i810_dma.c i810_drm.h i810_drv.c i810_drv.h init.c ioctl.c lists.c lock.c memory.c mga_bufs.c mga_context.c mga_dma.c mga_drm.h mga_drv.c mga_drv.h mga_state.c proc.c r128_bufs.c r128_cce.c r128_context.c r128_drm.h r128_drv.c r128_drv.h r128_state.c radeon_bufs.c radeon_context.c radeon_cp.c radeon_drm.h radeon_drv.c radeon_drv.h radeon_state.c tdfx_context.c tdfx_drv.c tdfx_drv.h vm.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/drm-4.0'
+make -C ftape fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/ftape'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include --  > .depend
+make _sfdep_compressor _sfdep_lowlevel _sfdep_zftape _FASTDEP_ALL_SUB_DIRS="compressor lowlevel zftape"
+make[8]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/ftape'
+make -C compressor fastdep
+make[9]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/ftape/compressor'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- lzrw3.c lzrw3.h zftape-compress.c zftape-compress.h > .depend
+make[9]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/ftape/compressor'
+make -C lowlevel fastdep
+make[9]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/ftape/lowlevel'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- fc-10.c fc-10.h fdc-io.c fdc-io.h fdc-isr.c fdc-isr.h ftape-bsm.c ftape-bsm.h ftape-buffer.c ftape-buffer.h ftape-calibr.c ftape-calibr.h ftape-ctl.c ftape-ctl.h ftape-ecc.c ftape-ecc.h ftape-format.c ftape-format.h ftape-init.c ftape-init.h ftape-io.c ftape-io.h ftape-proc.c ftape-proc.h ftape-read.c ftape-read.h ftape-rw.c ftape-rw.h ftape-setup.c ftape_syms.c ftape_syms.h ftape-tracing.c ftape-tracing.h ftape-write.c ftape-write.h > .depend
+make[9]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/ftape/lowlevel'
+make -C zftape fastdep
+make[9]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/ftape/zftape'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -DZFT_OBSOLETE -nostdinc -iwithprefix include -- zftape-buffers.c zftape-buffers.h zftape-ctl.c zftape-ctl.h zftape-eof.c zftape-eof.h zftape-init.c zftape-init.h zftape-read.c zftape-read.h zftape-rw.c zftape-rw.h zftape_syms.c zftape_syms.h zftape-vtbl.c zftape-vtbl.h zftape-write.c zftape-write.h > .depend
+make[9]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/ftape/zftape'
+make[8]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/ftape'
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/ftape'
+make -C ipmi fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/ipmi'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- ipmi_devintf.c ipmi_kcs_intf.c ipmi_kcs_sm.c ipmi_kcs_sm.h ipmi_msghandler.c ipmi_watchdog.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/ipmi'
+make -C joystick fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/joystick'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- a3d.c adi.c amijoy.c analog.c cobra.c cs461x.c db9.c emu10k1-gp.c gamecon.c gameport.c gf2k.c grip.c iforce.c interact.c lightning.c magellan.c ns558.c pcigame.c serio.c serport.c sidewinder.c spaceball.c spaceorb.c stinger.c tmdc.c turbografx.c warrior.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/joystick'
+make -C mwave fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/mwave'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -DMW_TRACE -nostdinc -iwithprefix include -- 3780i.c 3780i.h mwavedd.c mwavedd.h mwavepub.h smapi.c smapi.h tp3780i.c tp3780i.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/mwave'
+make -C pcmcia fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/pcmcia'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- serial_cs.c synclink_cs.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/pcmcia'
+make -C rio fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/rio'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- board.h bootpkt.h brates.h cdproto.h chan.h cirrus.h cmdblk.h cmd.h cmdpkt.h control.h daemon.h data.h debug.h defaults.h eisa.h enable.h error.h errors.h formpkt.h func.h host.h hosthw.h link.h linux_compat.h list.h lrt.h ltt.h lttwake.h map.h mca.h mesg.h param.h parmmap.h pci.h phb.h pkt.h poll.h port.h proto.h protsts.h qbuf.h rioboard.h rioboot.c riocmd.c rioctrl.c riodrvr.h rio.h rioinfo.h rioinit.c riointr.c rioioctl.h rio_linux.c rio_linux.h riolocks.h rioparam.c riopcicopy.c rioroute.c riospace.h riotable.c riotime.h riotty.c riotypes.h riowinif.h riscos.h rom.h route.h rtahw.h rup.h rupstat.h sam.h selftest.h space.h sysmap.h timeouts.h top.h typdef.h unixrup.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/rio'
+make -C xilinx_gpio fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/xilinx_gpio'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/microblaze/xilinx_ocp -nostdinc -iwithprefix include -- adapter.c xgpio.c xgpio_g.c xgpio.h xgpio_i.h xgpio_l.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char/xilinx_gpio'
+make[6]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char'
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/char'
+make -C dio fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/dio'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- dio.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/dio'
+make -C fc4 fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/fc4'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- fc-al.h fc.c fc.h fcp.h fcp_impl.h fc_syms.c socal.c socal.h soc.c soc.h > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/fc4'
+make -C gsc fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/gsc'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- asp.c busdevice.h dino.c eisa.c eisa_eeprom.c eisa_enumerator.c gsc.c lasi.c serial.c wax.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/gsc'
+make -C hil fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/hil'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- hil_kbd.c hilkbd.c hil_mlc.c hil_ptr.c hp_sdc.c hp_sdc_mlc.c hp_sdc_rtc.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/hil'
+make -C hotplug fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/hotplug'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- acpiphp_core.c acpiphp_glue.c acpiphp.h acpiphp_pci.c acpiphp_res.c cpqphp_core.c cpqphp_ctrl.c cpqphp.h cpqphp_nvram.c cpqphp_nvram.h cpqphp_pci.c cpqphp_proc.c ibmphp_core.c ibmphp_ebda.c ibmphp.h ibmphp_hpc.c ibmphp_pci.c ibmphp_res.c pci_hotplug_core.c pci_hotplug.h pci_hotplug_util.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/hotplug'
+make -C i2c fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/i2c'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- i2c-adap-ite.c i2c-adap-ixdp2400.c i2c-adap-ixp2000.c i2c-adap-ixp425.c i2c-adap-mcf_gpio.c i2c-adap-netarm_gpio.c i2c-algo-bit.c i2c-algo-ite.c i2c-algo-pcf.c i2c-algo-sibyte.c i2c-core.c i2c-dev.c i2c-elektor.c i2c-elv.c i2c-frodo.c i2c-guide.c i2c-iop3xx.c i2c-iop3xx.h i2c-ite.h i2c-keywest.c i2c-keywest.h i2c-max1617.c i2c-omaha.c i2c-pcf8584.h i2c-philips-par.c i2c-proc.c i2c-sibyte.c i2c-velleman.c scx200_acb.c scx200_i2c.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/i2c'
+make -C ide fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- ide.c ide-cd.c ide-cd.h ide-default.c ide-disk.c ide-dma.c ide-floppy.c ide-geometry.c ide-io.c ide-iops.c ide-lib.c ide_modes.h ide-pnp.c ide-probe.c ide-probe-mini.c ide-proc.c ide-tape.c ide-taskfile.c ide-timing.h ocidec.c ocidec.h setup-pci.c > .depend
+make _sfdep_arm _sfdep_h8300 _sfdep_legacy _sfdep_pci _sfdep_ppc _sfdep_raid _FASTDEP_ALL_SUB_DIRS="arm h8300 legacy pci ppc raid"
+make[6]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide'
+make -C arm fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/arm'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I../ -nostdinc -iwithprefix include -- icside.c rapide.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/arm'
+make -C h8300 fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/h8300'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- aki3068_ide.c h8max_ide.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/h8300'
+make -C legacy fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/legacy'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I../ -nostdinc -iwithprefix include -- ali14xx.c buddha.c dtc2278.c falconide.c gayle.c hd.c ht6560b.c ide-cs.c macide.c pdc4030.c pdc4030.h q40ide.c qd65xx.c qd65xx.h sibyte.c uclinux.c umc8672.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/legacy'
+make -C pci fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/pci'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I../ -nostdinc -iwithprefix include -- adma100.c adma100.h aec62xx.c aec62xx.h alim15x3.c alim15x3.h amd74xx.c amd74xx.h cmd640.c cmd640.h cmd64x.c cmd64x.h cs5530.c cs5530.h cy82c693.c cy82c693.h generic.c generic.h hpt34x.c hpt34x.h hpt366.c hpt366.h it8172.c it8172.h ns87415.c ns87415.h opti621.c opti621.h pdc202xx_new.c pdc202xx_new.h pdc202xx_old.c pdc202xx_old.h piix.c piix.h rz1000.c rz1000.h sc1200.c sc1200.h serverworks.c serverworks.h sgiioc4.c sgiioc4.h siimage.c siimage.h sis5513.c sis5513.h sl82c105.c sl82c105.h slc90e66.c slc90e66.h triflex.c triflex.h trm290.c trm290.h via82cxxx.c via82cxxx.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/pci'
+make -C ppc fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ppc'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I../ -nostdinc -iwithprefix include -- mpc8xx.c pmac.c swarm.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/ppc'
+make -C raid fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/raid'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I../ -nostdinc -iwithprefix include -- ataraid.c ataraid.h hptraid.c hptraid.h pdcraid.c pdcraid.h silraid.c silraid.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide/raid'
+make[6]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide'
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ide'
+make -C ieee1394 fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ieee1394'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- amdtp.c amdtp.h cmp.c cmp.h csr.c csr.h dma.c dma.h dv1394.c dv1394.h dv1394-private.h eth1394.c eth1394.h highlevel.c highlevel.h hosts.c hosts.h ieee1394_core.c ieee1394_core.h ieee1394.h ieee1394_hotplug.h ieee1394-ioctl.h ieee1394_transactions.c ieee1394_transactions.h ieee1394_types.h iso.c iso.h nodemgr.c nodemgr.h ohci1394.c ohci1394.h pcilynx.c pcilynx.h raw1394.c raw1394.h raw1394-private.h sbp2.c sbp2.h video1394.c video1394.h > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/ieee1394'
+make -C input fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/input'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- evdev.c input.c joydev.c keybdev.c mousedev.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/input'
+make -C isdn fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- isdn_audio.c isdn_audio.h isdn_bsdcomp.c isdn_common.c isdn_common.h isdn_concap.c isdn_concap.h isdn_net.c isdn_net.h isdn_ppp.c isdn_ppp.h isdn_tty.c isdn_ttyfax.c isdn_ttyfax.h isdn_tty.h isdn_v110.c isdn_v110.h isdn_x25iface.c isdn_x25iface.h > .depend
+make _sfdep_act2000 _sfdep_avmb1 _sfdep_divert _sfdep_eicon _sfdep_hisax _sfdep_hysdn _sfdep_icn _sfdep_isdnloop _sfdep_pcbit _sfdep_sc _sfdep_tpam _FASTDEP_ALL_SUB_DIRS="act2000 avmb1 divert eicon hisax hysdn icn isdnloop pcbit sc tpam"
+make[6]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn'
+make -C act2000 fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/act2000'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- act2000.h act2000_isa.c act2000_isa.h capi.c capi.h module.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/act2000'
+make -C avmb1 fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/avmb1'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- avmcard.h avm_cs.c b1.c b1dma.c b1isa.c b1pci.c b1pcmcia.c c4.c capi.c capicmd.h capidev.h capidrv.c capidrv.h capifs.c capifs.h capilli.h capiutil.c capiutil.h kcapi.c t1isa.c t1pci.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/avmb1'
+make -C divert fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/divert'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- divert_init.c divert_procfs.c isdn_divert.c isdn_divert.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/divert'
+make -C eicon fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/eicon'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- adapter.h bri.c common.c constant.h divalog.h divas.h Divas_mod.c dsp_defs.h dspdids.h eicon_dsp.h eicon.h eicon_idi.c eicon_idi.h eicon_io.c eicon_isa.c eicon_isa.h eicon_mod.c eicon_pci.c eicon_pci.h fourbri.c fpga.c idi.c idi.h kprintf.c lincfg.c linchr.c linio.c linsys.c log.c pc.h pc_maint.h pri.c pr_pc.h sys.h uxio.h xlog.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/eicon'
+make -C hisax fastdep
+md5sum: MD5 check failed for 'isac.c'
+md5sum: MD5 check failed for 'isdnl1.c'
+md5sum: MD5 check failed for 'isdnl2.c'
+md5sum: MD5 check failed for 'isdnl3.c'
+md5sum: MD5 check failed for 'tei.c'
+md5sum: MD5 check failed for 'callc.c'
+md5sum: MD5 check failed for 'cert.c'
+md5sum: MD5 check failed for 'l3dss1.c'
+md5sum: MD5 check failed for 'l3_1tr6.c'
+md5sum: MD5 check failed for 'elsa.c'
+md5sum: MD5 check failed for 'diva.c'
+md5sum: MD5 check failed for 'sedlbauer.c'
+md5sum: MD5 check failed for 'hfc_pci.c'
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/hisax'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -DHISAX_MAX_CARDS= -nostdinc -iwithprefix include -- amd7930_fn.c amd7930_fn.h arcofi.c arcofi.h asuscom.c avm_a1.c avma1_cs.c avm_a1p.c avm_pci.c bkm_a4t.c bkm_a8.c bkm_ax.h callc.c cert.c config.c diva.c elsa.c elsa_cs.c elsa_ser.c enternow.h enternow_pci.c fsm.c fsm.h gazel.c hfc_2bds0.c hfc_2bds0.h hfc_2bs0.c hfc_2bs0.h hfc_pci.c hfc_pci.h hfcscard.c hfc_sx.c hfc_sx.h hisax_debug.h hisax_fcpcipnp.c hisax_fcpcipnp.h hisax.h hisax_if.h hisax_isac.c hisax_isac.h hscx.c hscx.h hscx_irq.c icc.c icc.h ipac.h ipacx.c ipacx.h isac.c isac.h isar.c isar.h isdnhdlc.c isdnhdlc.h isdnl1.c isdnl1.h isdnl2.c isdnl2.h isdnl3.c isdnl3.h isurf.c ix1_micro.c jade.c jade.h jade_irq.c l3_1tr6.c l3_1tr6.h l3dss1.c l3dss1.h l3ni1.c l3ni1.h lmgr.c mic.c netjet.c netjet.h niccy.c nj_s.c nj_u.c q931.c s0box.c saphir.c sedlbauer.c sedlbauer_cs.c sportster.c st5481_b.c st5481_d.c st5481.h st5481_hdlc.c st5481_hdlc.h st5481_init.c st5481_usb.c tei.c teleint.c teles0.c teles3.c telespci.c w6692.c w6692.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/hisax'
+make -C hysdn fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/hysdn'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- boardergo.c boardergo.h hycapi.c hysdn_boot.c hysdn_defs.h hysdn_init.c hysdn_net.c hysdn_pof.h hysdn_procconf.c hysdn_proclog.c hysdn_sched.c ince1pc.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/hysdn'
+make -C icn fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/icn'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- icn.c icn.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/icn'
+make -C isdnloop fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/isdnloop'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- isdnloop.c isdnloop.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/isdnloop'
+make -C pcbit fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/pcbit'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- callbacks.c callbacks.h capi.c capi.h drv.c edss1.c edss1.h layer2.c layer2.h module.c pcbit.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/pcbit'
+make -C sc fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/sc'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- card.h command.c debug.c debug.h event.c hardware.h includes.h init.c interrupt.c ioctl.c message.c message.h packet.c scioc.h shmem.c timer.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/sc'
+make -C tpam fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/tpam'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- tpam_commands.c tpam_crcpc.c tpam.h tpam_hdlc.c tpam_main.c tpam_memory.c tpam_nco.c tpam_queues.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn/tpam'
+make[6]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn'
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/isdn'
+make -C macintosh fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/macintosh'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- adb.c adbhid.c adb-iop.c ans-lcd.c apm_emu.c mac_hid.c macio-adb.c mac_keyb.c macserial.c macserial.h mediabay.c nvram.c rtc.c via-cuda.c via-macii.c via-maciisi.c via-pmu68k.c via-pmu.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/macintosh'
+make -C md fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/md'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- linear.c lvm.c lvm-fs.c lvm-internal.h lvm-snap.c md.c multipath.c raid0.c raid1.c raid5.c xor.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/md'
+make -C media fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/media'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include --  > .depend
+make _sfdep_radio _sfdep_video _FASTDEP_ALL_SUB_DIRS="radio video"
+make[6]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/media'
+make -C radio fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/media/radio'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- miropcm20-radio.c miropcm20-rds.c miropcm20-rds-core.c miropcm20-rds-core.h radio-aimslab.c radio-aztech.c radio-cadet.c radio-gemtek.c radio-gemtek-pci.c radio-maestro.c radio-maxiradio.c radio-rtrack2.c radio-sf16fmi.c radio-sf16fmr2.c radio-terratec.c radio-trust.c radio-typhoon.c radio-zoltrix.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/media/radio'
+make -C video fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/media/video'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- adv7175.c audiochip.h bt819.c bt832.c bt832.h bt848.h bt856.c bttv-cards.c bttv-driver.c bttv.h bttv-if.c bttvp.h bw-qcam.c bw-qcam.h cpia.c cpia.h cpia_pp.c cpia_usb.c c-qcam.c cs8420.h i2c-compat.h i2c-old.c i2c-parport.c ibmmpeg2.h id.h meye.c meye.h msp3400.c msp3400.h planb.c planb.h pms.c saa5249.c saa7110.c saa7111.c saa7121.h saa7146.h saa7146reg.h saa7185.c saa7196.h stradis.c swarm_saa7114h.c tda7432.c tda9875.c tda9887.c tuner-3036.c tuner.c tuner.h tvaudio.c tvaudio.h tvmixer.c videodev.c vino.c vino.h w9966.c zoran.h zoran_procfs.c zr36057.h zr36060.h zr36067.c zr36120.c zr36120.h zr36120_i2c.c zr36120_mem.c zr36120_mem.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/media/video'
+make[6]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/media'
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/media'
+make -C message/fusion fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/message/fusion'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I.  -nostdinc -iwithprefix include -- ascq_tbl.c isense.c isense.h linux_compat.h mptbase.c mptbase.h mptctl.c mptctl.h mptlan.c mptlan.h mptscsih.c mptscsih.h scsi3.h scsiops.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/message/fusion'
+make -C message/i2o fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/message/i2o'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- i2o_block.c i2o_config.c i2o_core.c i2o_lan.c i2o_lan.h i2o_pci.c i2o_proc.c i2o_scsi.c i2o_scsi.h > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/message/i2o'
+make -C misc fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/misc'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include --  > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/misc'
+make -C mtd fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/mtd'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- afs.c cmdlinepart.c ftl.c inftlcore.c inftlmount.c mtdblock.c mtdblock_ro.c mtdchar.c mtdconcat.c mtdcore.c mtdpart.c nftlcore.c nftlmount.c redboot.c > .depend
+make _sfdep_chips _sfdep_devices _sfdep_maps _sfdep_nand _FASTDEP_ALL_SUB_DIRS="chips devices maps nand"
+make[6]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/mtd'
+make -C chips fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/mtd/chips'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- amd_flash.c cfi_cmdset_0001.c cfi_cmdset_0002.c cfi_cmdset_0020.c cfi_probe.c chipreg.c gen_probe.c jedec.c jedec_probe.c map_absent.c map_ram.c map_rom.c sharp.c stm_flash.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/mtd/chips'
+make -C devices fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/mtd/devices'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- blkmtd.c doc1000.c doc2000.c doc2001.c doc2001plus.c docecc.c docprobe.c lart.c ms02-nv.c ms02-nv.h mtdram.c pmc551.c slram.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/mtd/devices'
+make -C maps fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/mtd/maps'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- advanta.c amd766rom.c amd76xrom.c autcpu12-nvram.c bf533-flash.c cdb89712.c ceiva.c cfi_flagadm.c cobra5272.c coyote.c cstm_mips_ixx.c dbox2-flash.c dc21285.c dilnetpc.c dnp5280.c dnp5282.c dragonix_map.c edb7312.c elan-104nc.c epxa10db-flash.c fortunet.c ich2rom.c impa7.c integrator-flash.c iq80310.c ixp425.c keyTechnology.c keywest.c l440gx.c lasat.c m5272c3.c mbvanilla-flash.c mbx860.c netsc520.c nettel.c nettel-uc.c nora.c ocelot.c octagon-5066.c pb1xxx-flash.c pci.c pcmciamtd.c physmap64.c physmap.c pnc2000.c redwood.c rpxlite.c sa1100-flash.c sbc_gxx.c sc520cdp.c scb2_flash.c scx200_docflash.c se4000.c snaparm.c snapgeode.c solutionengine.c sun_uflash.c tqm8xxl.c tsunami_flash.c uclinux.c vmax301.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/mtd/maps'
+make -C nand fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/mtd/nand'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- armsys_44b0x.c autcpu12.c edb7312.c nand.c nand_ecc.c nand_ids.c spia.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/mtd/nand'
+make[6]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/mtd'
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/mtd'
+make -C net fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- 3c501.c 3c503.c 3c503.h 3c505.c 3c505.h 3c507.c 3c509.c 3c515.c 3c523.c 3c523.h 3c527.c 3c527.h 3c59x.c 7990.c 7990.h 8139cp.c 8139too.c 8139toocp.c 82596.c 8390_bak.c 8390.c 8390.h a2065.c a2065.h ac3200.c acenic.c acenic_firmware.h acenic.h aironet4500_card.c aironet4500_core.c aironet4500.h aironet4500_proc.c aironet4500_rid.c am79c961a.c am79c961a.h amd8111e.c amd8111e.h apne.c ariadne.c ariadne.h arlan.c arlan.h arlan-proc.c at1700.c atari_bionet.c atarilance.c atari_pamsnet.c atp.c atp.h au1000_eth.c au1000_eth.h auto_irq.c b44.c b44.h bagetlance.c bmac.c bmac.h bsd_comp.c cirrus.c cirrus.h cs89x0.c cs89x0.h de4x5.c de4x5.h de600.c de620.c de620.h declance.c defxx.c defxx.h depca.c depca.h dgrs_asstruct.h dgrs_bcomm.h dgrs.c dgrs_es4h.h dgrs_ether.h dgrs_firmware.c dgrs.h dgrs_i82596.h dgrs_plx9060.h dl2k.c dl2k.h dmfe.c dummy.c e2100.c eepro100.c eepro.c eexpress.c eexpress.h epic100.c eql.c es3210.c eth16i.c eth_c5471.c eth_c5471.h eth_c5471hw.c ether00.c ethertap.c ewrk3.c ewrk3.h fealnx.c fec.c fec.h fmv18x.c gmac.c gmac.h gt96100eth.c gt96100eth.h hamachi.c hp100.c hp100.h hp.c hplance.c hplance.h hp-plus.c hydra.c hydra.h i82586.h ibmlana.c ibmlana.h ioc3-eth.c isa-skeleton.c jazzsonic.c kern_compat.h lance.c lasi_82596.c linuxfet.c linuxfet.h lne390.c loopback.c lp486e.c mac8390.c mac89x0.c mace.c mace.h macmace.c macsonic.c md32_common.h meth.c meth.h mii.c mppe.h mv64340_eth.c mv64340_eth.h mvme147.c myri_code.h myri_sbus.c myri_sbus.h natsemi.c ne2.c ne2k-pci.c ne3210.c ne.c netarmeth.c netarmeth.h net_init.c ni5010.c ni5010.h ni52.c ni52.h ni65.c ni65.h ns7520_eth.c ns7520_eth.h ns83820.c oaknet.c pci-scan.c pci-scan.h pci-skeleton.c pcnet32.c plip.c ppp_async.c ppp_deflate.c ppp_generic.c ppp_mppe.c pppoe.c pppox.c ppp_synctty.c ptifddi_asm.h ptifddi.c ptifddi.h r8169.c rc4_enc.c rc4_locl.h rc4_skey.c rcif.h rclanmtl.c rclanmtl.h rcpci45.c rrunner.c rrunner.h rtl8139.c s3c2500.c s3c2500.h s3c4510.c s3c4510.h s3c4530.c s3c4530.h saa9730.c saa9730.h sb1000.c sb1250-mac.c seeq8005.c seeq8005.h setup.c sgiseeq.c sgiseeq.h sha1dgst.c sha_locl.h shaper.c sis900.c sis900.h sk_g16.c sk_g16.h sk_mca.c sk_mca.h slhc.c slip.c slip.h smc91111.c smc91111.h smc9194.c smc9194.h smc-mca.c smc-mca.h smc-ultra32.c smc-ultra.c sonic.c sonic.h Space.c starfire.c stnic.c strip.c sun3_82586.c sun3_82586.h sun3lance.c sunbmac.c sunbmac.h sundance.c sungem.c sungem.h sunhme.c sunhme.h sunlance.c sunqe.c sunqe.h tc35815.c tg3.c tg3.h tlan.c tlan.h tun.c typhoon.c typhoon-firmware.h typhoon.h uCcs8900.c uCcs8900.h via-rhine.c wavelan.c wavelan.h wavelan.p.h wd.c winbond-840.c yellowfin.c znet.c zorro8390.c > .depend
+make _sfdep_appletalk _sfdep_arcnet _sfdep_bonding _sfdep_e100 _sfdep_e1000 _sfdep_fc _sfdep_ibm_emac _sfdep_irda _sfdep_ks8695 _sfdep_pcmcia _sfdep_sk98lin _sfdep_skfp _sfdep_tokenring _sfdep_tulip _sfdep_wan _sfdep_wireless _sfdep_xilinx_enet _FASTDEP_ALL_SUB_DIRS="appletalk arcnet bonding e100 e1000 fc ibm_emac irda ks8695 pcmcia sk98lin skfp tokenring tulip wan wireless xilinx_enet"
+make[6]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net'
+make -C appletalk fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/appletalk'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- cops.c cops_ffdrv.h cops.h cops_ltdrv.h ipddp.c ipddp.h ltpc.c ltpc.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/appletalk'
+make -C arcnet fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/arcnet'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- arcnet.c arc-rawmode.c arc-rimi.c com20020.c com20020-isa.c com20020-pci.c com90io.c com90xx.c rfc1051.c rfc1201.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/arcnet'
+make -C bonding fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/bonding'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- bond_3ad.c bond_3ad.h bond_alb.c bond_alb.h bonding.h bond_main.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/bonding'
+make -C e100 fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/e100'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- e100_config.c e100_config.h e100_eeprom.c e100.h e100_main.c e100_phy.c e100_phy.h e100_test.c e100_ucode.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/e100'
+make -C e1000 fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/e1000'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- e1000_ethtool.c e1000.h e1000_hw.c e1000_hw.h e1000_main.c e1000_osdep.h e1000_param.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/e1000'
+make -C fc fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/fc'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- iph5526.c iph5526_ip.h iph5526_novram.c iph5526_scsi.h tach.h tach_structs.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/fc'
+make -C ibm_emac fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/ibm_emac'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- ibm_emac.h ibm_ocp_debug.c ibm_ocp_enet.c ibm_ocp_enet.h ibm_ocp_mal.c ibm_ocp_mal.h ibm_ocp_phy.c ibm_ocp_phy.h ibm_ocp_zmii.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/ibm_emac'
+make -C irda fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/irda'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- act200l.c actisys.c ali-ircc.c au1k_ir.c donauboe.c donauboe.h ep7211_ir.c esi.c girbil.c irda-usb.c irport.c irtty.c litelink.c ma600.c mcp2120.c nsc-ircc.c old_belkin.c sa1100_ir.c smc-ircc.c tekram.c toshoboe.c vlsi_ir.c w83977af_ir.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/irda'
+make -C ks8695 fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/ks8695'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I. -DARM_LINUX -DEXPORT_SYMTAB -Wno-strict-prototypes  -nostdinc -iwithprefix include -- ks8695_cache.c ks8695_cache.h ks8695_chipdef.h ks8695_drv.h ks8695_fxhw.c ks8695_fxhw.h ks8695_ioctrl.h ks8695_kcompat.h ks8695_main.c platform.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/ks8695'
+make -C pcmcia fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/pcmcia'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- 3c574_cs.c 3c589_cs.c aironet4500_cs.c axnet_cs.c com20020_cs.c fmvj18x_cs.c i82593.h ibmtr_cs.c netwave_cs.c nmclan_cs.c ositech.h pcnet_cs.c ray_cs.c ray_cs.h rayctl.h smc91c92_cs.c wavelan_cs.c wavelan_cs.h wavelan.h xirc2ps_cs.c xircom_cb.c xircom_tulip_cb.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/pcmcia'
+make -C sk98lin fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/sk98lin'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I. -DSK_USE_CSUM -DGENESIS -DYUKON   -nostdinc -iwithprefix include -- build_no.c skaddr.c skcsum.c skdim.c skge.c skgehwt.c skgeinit.c skgemib.c skgepnmi.c skgesirq.c ski2c.c sklm80.c skproc.c skqueue.c skrlmt.c sktimer.c skvpd.c skxmac2.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/sk98lin'
+make -C skfp fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/skfp'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I. -DPCI -DMEM_MAPPED_IO -Wno-strict-prototypes  -nostdinc -iwithprefix include -- can.c cfm.c drvfbi.c ecm.c ess.c fplustm.c hwmtm.c hwt.c lnkstat.c pcmplc.c pmf.c queue.c rmt.c skfddi.c smt.c smtdef.c smtinit.c smtparse.c smttimer.c srf.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/skfp'
+make -C tokenring fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/tokenring'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- 3c359.c 3c359.h 3c359_microcode.h abyss.c abyss.h ibmtr.c lanstreamer.c lanstreamer.h madgemc.c madgemc.h olympic.c olympic.h smctr.c smctr_firmware.h smctr.h tms380tr.c tms380tr.h tms380tr_microcode.h tmsisa.c tmspci.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/tokenring'
+make -C tulip fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/tulip'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- 21142.c eeprom.c interrupt.c media.c pnic2.c pnic.c timer.c tulip_core.c tulip.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/tulip'
+make -C wan fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/wan'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- c101.c chinook.c comx.c comx.h comx-hw-comx.c comxhw.h comx-hw-locomx.c comx-hw-mixcom.c comx-hw-munich.c comx-proto-fr.c comx-proto-lapb.c comx-proto-ppp.c cosa.c cosa.h cycx_drv.c cycx_main.c cycx_x25.c dlci.c dscc4.c falc-lh.h farsync.c farsync.h hd64570.h hd6457x.c hdlc_cisco.c hdlc_fr.c hdlc_generic.c hdlc_ppp.c hdlc_raw.c hdlc_raw_eth.c hdlc_x25.c hostess_sv11.c hscx.h lapbether.c mixcom.h munich32x.h n2.c sbni.c sbni.h sdla.c sdla_chdlc.c sdladrv.c sdla_fr.c sdla_ft1.c sdlamain.c sdla_ppp.c sdla_x25.c sealevel.c syncppp.c wanpipe_multppp.c x25_asy.c x25_asy.h z85230.c z85230.h > .depend
+make _sfdep_8253x _sfdep_lmc _FASTDEP_ALL_SUB_DIRS="8253x lmc"
+make[8]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/wan'
+make -C 8253x fastdep
+make[9]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/wan/8253x'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- 8253xchr.c 8253xctl.h 8253xdbg.c 8253x.h 8253xini.c 8253xint.c 8253xioc.h 8253xmcs.c 8253xmcs.h 8253xnet.c 8253xplx.c 8253xsyn.c 8253xtty.c 8253xutl.c amcc5920.c crc32.c crc32dcl.h crc32.h endian.h PciRegs.h Reg9050.h ring.h sp502.h > .depend
+make[9]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/wan/8253x'
+make -C lmc fastdep
+make[9]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/wan/lmc'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I.  -nostdinc -iwithprefix include -- lmc_debug.c lmc_debug.h lmc.h lmc_ioctl.h lmc_main.c lmc_media.c lmc_media.h lmc_prot.h lmc_proto.c lmc_proto.h lmc_proto_raw.h lmc_var.h lmc_ver.h > .depend
+make[9]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/wan/lmc'
+make[8]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/wan'
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/wan'
+make -C wireless fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/wireless'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- airo.c airo_cs.c airport.c hermes.c hermes.h hermes_rid.h ieee802_11.h orinoco.c orinoco_cs.c orinoco.h orinoco_pci.c orinoco_plx.c orinoco_tmd.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/wireless'
+make -C xilinx_enet fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/xilinx_enet'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/microblaze/xilinx_ocp -nostdinc -iwithprefix include -- adapter.c xemac.c xemac_g.c xemac.h xemac_i.h xemac_intr.c xemac_intr_dma.c xemac_intr_fifo.c xemac_l.h xemac_options.c xemac_phy.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/xilinx_enet'
+make[6]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net'
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net'
+make -C net/hamradio fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/hamradio'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- 6pack.c baycom_epp.c baycom_par.c baycom_ser_fdx.c baycom_ser_hdx.c bpqether.c dmascc.c hdlcdrv.c mkiss.c mkiss.h scc.c yam1200.h yam9600.h yam.c z8530.h > .depend
+make _sfdep_soundmodem _FASTDEP_ALL_SUB_DIRS="soundmodem"
+make[6]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/hamradio'
+make -C soundmodem fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/hamradio/soundmodem'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- gentbl.c sm_afsk1200.c sm_afsk2400_7.c sm_afsk2400_8.c sm_afsk2666.c sm.c smdma.h sm_fsk9600.c sm.h sm_hapn4800.c sm_psk4800.c sm_sbc.c sm_tbl_afsk1200.h sm_tbl_afsk2400_7.h sm_tbl_afsk2400_8.h sm_tbl_afsk2666.h sm_tbl_fsk9600.h sm_tbl_hapn4800.h sm_tbl_psk4800.h sm_wss.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/hamradio/soundmodem'
+make[6]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/hamradio'
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/net/hamradio'
+make -C nubus fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/nubus'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- nubus.c nubus_syms.c proc.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/nubus'
+make -C parport fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/parport'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- daisy.c ieee1284.c ieee1284_ops.c init.c multiface.h parport_amiga.c parport_arc.c parport_atari.c parport_cs.c parport_dragonix.c parport_gsc.c parport_hd64465.c parport_mfc3.c parport_pc.c parport_serial.c parport_sunbpp.c probe.c procfs.c share.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/parport'
+make -C pci fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/pci'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- compat.c gen-devlist.c names.c pci.c proc.c quirks.c setup-bus.c setup-irq.c setup-res.c syscall.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/pci'
+make -C pcmcia fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/pcmcia'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- au1000_db1x00.c au1000_generic.c au1000_pb1x00.c au1000_xxs1500.c bulkmem.c cardbus.c cirrus.h cistpl.c cs.c cs_internal.h ds.c hd64465_ss.c i82092aa.h i82092.c i82365.c i82365.h m8xx_pcmcia.c o2micro.h pci_socket.c pci_socket.h ricoh.h rsrc_mgr.c sa1100_adsbitsy.c sa1100_assabet.c sa1100_badge4.c sa1100_cerf.c sa1100_flexanet.c sa1100_freebird.c sa1100_generic.c sa1100_generic.h sa1100_graphicsclient.c sa1100_graphicsmaster.c sa1100.h sa1100_h3600.c sa1100_jornada720.c sa1100_neponset.c sa1100_pangolin.c sa1100_pfs168.c sa1100_shannon.c sa1100_simpad.c sa1100_stork.c sa1100_xp860.c sa1100_yopy.c sa1111_generic.c sa1111_generic.h tcic.c tcic.h ti113x.h topic.h vg468.h yenta.c yenta.h > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/pcmcia'
+make -C pnp fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/pnp'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- isapnp.c isapnp_proc.c quirks.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/pnp'
+make -C sbus fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/sbus'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- dvma.c sbus.c > .depend
+make _sfdep_audio _sfdep_char _FASTDEP_ALL_SUB_DIRS="audio char"
+make[6]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/sbus'
+make -C audio fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/sbus/audio'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- amd7930.c amd7930.h audio.c cs4215.h cs4231.c cs4231.h dbri.c dbri.h dmy.c dummy.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/sbus/audio'
+make -C char fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/sbus/char'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- aurora.c aurora.h bbc_envctrl.c bbc_i2c.c bbc_i2c.h bpp.c cd180.h cpwatchdog.c display7seg.c envctrl.c flash.c jsflash.c max1617.h openprom.c pcikbd.c pcikbd.h riowatchdog.c rtc.c sab82532.c su.c sunkbd.c sunkbd.h sunkbdmap.c sunkeymap.c sunmouse.c sunmouse.h sunserial.c sunserial.h uctrl.c vfc_dev.c vfc.h vfc_i2c.c vfc_i2c.h zs.c zs.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/sbus/char'
+make[6]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/sbus'
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/sbus'
+make -C scsi fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- 3w-xxxx.c 3w-xxxx.h 53c700.c 53c700.h 53c7,8xx.c 53c7,8xx.h 53c7xx.c 53c7xx.h 53c8xx_d.h 53c8xx_u.h a2091.c a2091.h a3000.c a3000.h advansys.c advansys.h aha152x.c aha152x.h aha1542.c aha1542.h aha1740.c aha1740.h aic7xxx_old.c AM53C974.c AM53C974.h amiga7xx.c amiga7xx.h atari_dma_emul.c atari_NCR5380.c atari_scsi.c atari_scsi.h atp870u.c atp870u.h blz1230.c blz1230.h blz2060.c blz2060.h BusLogic.c BusLogic.h bvme6000.c bvme6000.h constants.c constants.h cpqfcTSchip.h cpqfcTScontrol.c cpqfcTS.h cpqfcTSi2c.c cpqfcTSinit.c cpqfcTSioctl.h cpqfcTSstructs.h cpqfcTStrigger.c cpqfcTStrigger.h cpqfcTSworker.c cyberstorm.c cyberstorm.h cyberstormII.c cyberstormII.h dc390.h dec_esp.c dec_esp.h dmx3191d.c dmx3191d.h dpt_i2o.c dpti.h dtc.c dtc.h eata.c eata_dma.c eata_dma.h eata_dma_proc.c eata_dma_proc.h eata_generic.h eata.h eata_pio.c eata_pio.h eata_pio_proc.c esp.c esp.h fastlane.c fastlane.h fcal.c fcal.h fd_mcs.c fd_mcs.h fdomain.c fdomain.h FlashPoint.c gdth.c gdth.h gdth_ioctl.h gdth_proc.c gdth_proc.h g_NCR5380.c g_NCR5380.h gvp11.c gvp11.h hosts.c hosts.h i60uscsi.c i60uscsi.h i91uscsi.c i91uscsi.h ibmmca.c ibmmca.h ide-scsi.c ide-scsi.h imm.c imm.h in2000.c in2000.h ini9100u.c ini9100u.h inia100.c inia100.h ips.c ips.h jazz_esp.c jazz_esp.h lasi700.c lasi700.h mac53c94.c mac53c94.h mac_esp.c mac_esp.h mac_NCR5380.c mac_scsi.c mac_scsi.h mca_53c9x.c mca_53c9x.h megaraid2.c megaraid2.h megaraid.c megaraid.h mesh.c mesh.h mvme147.c mvme147.h mvme16x.c mvme16x.h NCR5380.c NCR5380.h NCR53c406a.c NCR53c406a.h ncr53c8xx.c ncr53c8xx.h NCR53C9x.c NCR53C9x.h NCR_D700.c NCR_D700.h nsp32.c nsp32_debug.c nsp32.h nsp32_io.h oktagon_esp.c oktagon_esp.h oktagon_io.S osst.c osst_detect.h osst.h osst_options.h pas16.c pas16.h pci2000.c pci2000.h pci2220i.c pci2220i.h pluto.c pluto.h ppa.c ppa.h psi240i.c psi240i.h psi_chip.h psi_dale.h psi_roy.h ql12160_fw.h ql1280_fw.h qla1280.c qla1280.h qlogicfas.c qlogicfas.h qlogicfc_asm.c qlogicfc.c qlogicfc.h qlogicisp_asm.c qlogicisp.c qlogicisp.h qlogicpti_asm.c qlogicpti.c qlogicpti.h scsi.c scsicam.c scsi_debug.c scsi_debug.h scsi_dma.c scsi_error.c scsi.h scsi_ioctl.c scsiiom.c scsi_lib.c scsi_merge.c scsi_module.c scsi_obsolete.c scsi_obsolete.h scsi_proc.c scsi_queue.c scsi_scan.c scsi_syms.c sd.c sd.h seagate.c seagate.h sg.c sgiwd93.c sgiwd93.h sim710.c sim710_d.h sim710.h sim710_u.h sr.c sr.h sr_ioctl.c sr_vendor.c st.c st.h st_options.h sun3_NCR5380.c sun3_scsi.c sun3_scsi.h sun3_scsi_vme.c sun3x_esp.c sun3x_esp.h sym53c416.c sym53c416.h sym53c8xx.c sym53c8xx_comm.h sym53c8xx_defs.h sym53c8xx.h t128.c t128.h tmscsim.c tmscsim.h u14-34f.c u14-34f.h ultrastor.c ultrastor.h wd33c93.c wd33c93.h wd7000.c wd7000.h zalon7xx.c zalon7xx.h > .depend
+make _sfdep_../acorn/scsi _sfdep_aacraid _sfdep_aic7xxx _sfdep_pcmcia _sfdep_sym53c8xx_2 _FASTDEP_ALL_SUB_DIRS="../acorn/scsi aacraid aic7xxx pcmcia sym53c8xx_2"
+make[6]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi'
+make -C ../acorn/scsi fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/acorn/scsi'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- acornscsi.c acornscsi.h acornscsi-io.S arxescsi.c cumana_1.c cumana_2.c ecoscsi.c eesox.c fas216.c fas216.h msgqueue.c msgqueue.h oak.c powertec.c queue.c queue.h scsi.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/acorn/scsi'
+make -C aacraid fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi/aacraid'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi -nostdinc -iwithprefix include -- aachba.c aacraid.h commctrl.c comminit.c commsup.c dpcsup.c linit.c rx.c sa.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi/aacraid'
+make -C aic7xxx fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi/aic7xxx'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi -Werror -nostdinc -iwithprefix include -- aic7770.c aic7770_osm.c aic79xx_core.c aic79xx.h aic79xx_inline.h aic79xx_osm.c aic79xx_osm.h aic79xx_osm_pci.c aic79xx_pci.c aic79xx_proc.c aic79xx_reg.h aic79xx_reg_print.c aic79xx_seq.h aic7xxx_93cx6.c aic7xxx_93cx6.h aic7xxx_core.c aic7xxx.h aic7xxx_inline.h aic7xxx_osm.c aic7xxx_osm.h aic7xxx_osm_pci.c aic7xxx_pci.c aic7xxx_proc.c aic7xxx_reg.h aic7xxx_reg_print.c aic7xxx_seq.h aiclib.c aiclib.h cam.h queue.h scsi_iu.h scsi_message.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi/aic7xxx'
+make -C pcmcia fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi/pcmcia'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- aha152x_stub.c fdomain_stub.c nsp_cs.c nsp_cs.h nsp_debug.c nsp_io.h nsp_message.c qlogic_stub.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi/pcmcia'
+make -C sym53c8xx_2 fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi/sym53c8xx_2'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I. -nostdinc -iwithprefix include -- sym53c8xx.h sym_conf.h sym_defs.h sym_fw1.h sym_fw2.h sym_fw.c sym_fw.h sym_glue.c sym_glue.h sym_hipd.c sym_hipd.h sym_malloc.c sym_misc.c sym_misc.h sym_nvram.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi/sym53c8xx_2'
+make[6]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi'
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi'
+make -C serial fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/serial'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- hardware.h ser2.c serial_21285.c serial_8250.c serial_8250.h serial_8250_pnp.c serial_amba.c serial_anakin.c serial_clps711x.c serial_core.c serial_s3c44b0x.c serial_sa1100.c serial_uart00.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/serial'
+make -C sound fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/sound'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- 724hwmcode.h ac97.c ac97_codec.c ac97.h ac97_plugin_ad1980.c ac97_plugin_wm97xx.c aci.c aci.h ad1816.c ad1848.c ad1848.h ad1848_mixer.h ad1889.c ad1889.h adlib_card.c aedsp16.c ali5455.c au1000.c audio.c audio_syms.c awe_hw.h awe_wave.c awe_wave.h bin2hex.c btaudio.c cmpci.c coproc.h cs4232.c cs4232.h cs461x.h cs461x_image.h cs46xx.c cs46xxpm-24.h cs46xxpm.h cs46xx_wrapper-24.h dev_table.c dev_table.h dmabuf.c dm.h es1370.c es1371.c esssolo1.c forte.c gus_card.c gus.h gus_hw.h gus_linearvol.h gus_midi.c gus_vol.c gus_wave.c hal2.c hal2.h harmony.c hex2hex.c Hwmcode.h i810_audio.c ics2101.c ite8172.c iwmem.h kahlua.c mad16.c maestro3.c maestro3.h maestro.c maestro.h maestro_tables.h maui.c midibuf.c midi_ctrl.h midi_syms.c midi_synth.c midi_synth.h mpu401.c mpu401.h msnd.c msnd_classic.c msnd_classic.h msnd.h msnd_pinnacle.c msnd_pinnacle.h nec_vrc5477.c nm256_audio.c nm256_coeff.h nm256.h opl3.c opl3.h opl3_hw.h opl3sa2.c opl3sa.c os.h pas2_card.c pas2.h pas2_midi.c pas2_mixer.c pas2_pcm.c pss.c rme96xx.c rme96xx.h sb_audio.c sb_card.c sb_common.c sb_ess.c sb_ess.h sb.h sb_midi.c sb_mixer.c sb_mixer.h sequencer.c sequencer_syms.c sgalaxy.c skeleton.c sonicvibes.c sound_calls.h soundcard.c sound_config.h sound_core.c sound_firmware.c sound_firmware.h sound_syms.c sound_timer.c soundvers.h sscape.c swarm_cs4297a.c sys_timer.c trident.c trident.h trix.c tuning.h uart401.c uart6850.c ulaw.h via82cxxx_audio.c vidc.c vidc_fill.S vidc.h v_midi.c v_midi.h vwsnd.c waveartist.c waveartist.h wavfront.c wf_midi.c ymfpci.c ymfpci.h ymfpci_image.h yss225.c yss225.h > .depend
+make _sfdep_cs4281 _sfdep_dmasound _sfdep_emu10k1 _FASTDEP_ALL_SUB_DIRS="cs4281 dmasound emu10k1"
+make[6]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/sound'
+make -C cs4281 fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/sound/cs4281'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- cs4281_hwdefs.h cs4281m.c cs4281pm-24.c cs4281pm-24.h cs4281pm.h cs4281_wrapper.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/sound/cs4281'
+make -C dmasound fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/sound/dmasound'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- awacs_defs.h dac3550a.c dmasound_atari.c dmasound_awacs.c dmasound_core.c dmasound.h dmasound_paula.c dmasound_q40.c tas3001c.c tas3001c.h trans_16.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/sound/dmasound'
+make -C emu10k1 fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/sound/emu10k1'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- 8010.h audio.c audio.h cardmi.c cardmi.h cardmo.c cardmo.h cardwi.c cardwi.h cardwo.c cardwo.h ecard.c ecard.h efxmgr.c efxmgr.h emuadxmg.c hwaccess.c hwaccess.h icardmid.h icardwav.h irqmgr.c irqmgr.h main.c midi.c midi.h mixer.c passthrough.c passthrough.h recmgr.c recmgr.h timer.c timer.h voicemgr.c voicemgr.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/sound/emu10k1'
+make[6]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/sound'
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/sound'
+make -C tc fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/tc'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- lk201.c lk201.h lk201-remap.c tc.c zs.c zs.h > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/tc'
+make -C telephony fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/telephony'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- ixj.c ixj.h ixj_pcmcia.c ixj-ver.h phonedev.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/telephony'
+make -C usb fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/usb'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- acm.c aiptek.c audio.c audio.h auerbuf.c auerbuf.h auerchain.c auerchain.h auerchar.c auerchar.h auerisdn_b.c auerisdn_b.h auerisdn.c auerisdn.h auermain.c auermain.h auerserv.h ax8817x.c bluetooth.c brlvger.c catc.c CDCEther.c CDCEther.h dabfirmware.h dabusb.c dabusb.h dc2xx.c devices.c devio.c drivers.c dsbr100.c emi26.c emi26_fw.h hcd.c hcd.h hid-core.c hid-debug.h hiddev.c hid.h hid-input.c hpusbscsi.c hpusbscsi.h hub.c hub.h ibmcam.c inode.c kaweth.c kawethfw.h kbtab.c konicawc.c mdc800.c microtek.c microtek.h ov511.c ov511.h pegasus.c pegasus.h powermate.c printer.c pwc-ctrl.c pwc.h pwc-if.c pwc-ioctl.h pwc_kiara.h pwc-misc.c pwc_nala.h pwc_timon.h pwc-uncompress.c pwc-uncompress.h rio500.c rio500_usb.h rtl8150.c scanner.c scanner.h se401.c se401.h speedtch.c stv680.c stv680.h tiglusb.c tiglusb.h ultracam.c usb.c usb-debug.c usbkbd.c usblcd.c usb-midi.c usb-midi.h usbmouse.c usbnet.c usb-skeleton.c usbvideo.c usbvideo.h uss720.c vicam.c w9968cf.c w9968cf_decoder.h w9968cf_externaldef.h w9968cf.h wacom.c > .depend
+make _sfdep_host _sfdep_serial _sfdep_storage _FASTDEP_ALL_SUB_DIRS="host serial storage"
+make[6]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/usb'
+make -C host fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/usb/host'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- ehci-dbg.c ehci.h ehci-hcd.c ehci-hub.c ehci-mem.c ehci-q.c ehci-sched.c hc_simple.c hc_simple.h hc_sl811.c hc_sl811.h hc_sl811_rh.c sl811.c sl811.h uhci.c uhci-debug.h uhci.h usb-ohci.c usb-ohci.h usb-uhci.c usb-uhci-debug.h usb-uhci.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/usb/host'
+make -C serial fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/usb/serial'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- belkin_sa.c belkin_sa.h cyberjack.c digi_acceleport.c empeg.c ftdi_sio.c ftdi_sio.h io_16654.h io_edgeport.c io_edgeport.h io_fw_boot2.h io_fw_boot.h io_fw_down2.h io_fw_down3.h io_fw_down.h io_ionsp.h io_tables.h io_ti.c io_ti.h io_usbvend.h ipaq.c ipaq.h ir-usb.c keyspan.c keyspan.h keyspan_mpr_fw.h keyspan_pda.c keyspan_pda_fw.h keyspan_pda.S keyspan_usa18x_fw.h keyspan_usa19_fw.h keyspan_usa19qi_fw.h keyspan_usa19qw_fw.h keyspan_usa19w_fw.h keyspan_usa26msg.h keyspan_usa28_fw.h keyspan_usa28msg.h keyspan_usa28xa_fw.h keyspan_usa28xb_fw.h keyspan_usa28x_fw.h keyspan_usa49msg.h keyspan_usa49w_fw.h keyspan_usa49wlc_fw.h keyspan_usa90msg.h kl5kusb105.c kl5kusb105.h kobil_sct.c kobil_sct.h mct_u232.c mct_u232.h omninet.c pl2303.c pl2303.h usbserial.c usb-serial.h visor.c visor.h whiteheat.c whiteheat_fw.h whiteheat.h xircom_pgs_fw.h xircom_pgs.S > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/usb/serial'
+make -C storage fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/usb/storage'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I../../scsi/ -nostdinc -iwithprefix include -- datafab.c datafab.h debug.c debug.h dpcm.c dpcm.h freecom.c freecom.h initializers.c initializers.h isd200.c isd200.h jumpshot.c jumpshot.h protocol.c protocol.h scsiglue.c scsiglue.h sddr09.c sddr09.h sddr55.c sddr55.h shuttle_usbat.c shuttle_usbat.h transport.c transport.h unusual_devs.h usb.c usb.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/usb/storage'
+make[6]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/usb'
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/usb'
+make -C usb/gadget fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/usb/gadget'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- ether.c net2280.c net2280.h usbstring.c zero.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/usb/gadget'
+make -C video fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/video'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- acornfb.c acornfb.h amifb.c atafb.c aty128fb.c aty128.h au1100fb.c au1100fb.h bwtwofb.c cgfourteenfb.c cgsixfb.c cgthreefb.c chipsfb.c clgenfb.c clgenfb.h controlfb.c controlfb.h creatorfb.c cvisionppc.h cyber2000fb.c cyber2000fb.h cyberfb.c cyberfb.h dn_accel.h dn_cfb4.c dn_cfb8.c dnfb.c dragonfb.c dummycon.c epson1355fb.c epson1356fb.c epson1356fb.h fbcmap.c fbcon-afb.c fbcon.c fbcon-cfb16.c fbcon-cfb24.c fbcon-cfb2.c fbcon-cfb32.c fbcon-cfb4.c fbcon-cfb8.c fbcon-hga.c fbcon-ilbm.c fbcon-iplan2p2.c fbcon-iplan2p4.c fbcon-iplan2p8.c fbcon-mac.c fbcon-mfb.c fbcon-sti.c fbcon-vga.c fbcon-vga-planes.c fbgen.c fbmem.c fbmon.c fm2fb.c font_6x11.c font_8x16.c font_8x8.c font_acorn_8x8.c font_pearl_8x8.c fonts.c font_sun12x22.c font_sun8x16.c g364fb.c hgafb.c hitfb.c hpfb.c igafb.c iga.h imsttfb.c leofb.c macfb.c macmodes.c maxinefb.c maxinefb.h mc68x328fb.c mdacon.c modedb.c mq200fb.c mq200fb.h neofb.c neofb.h newport_con.c offb.c p9100fb.c p9100.h platinumfb.c platinumfb.h pm2fb.c pm2fb.h pm3fb.c pm3fb.h pmag-ba-fb.c pmag-ba-fb.h pmagb-b-fb.c pmagb-b-fb.h promcon.c pvr2fb.c q40fb.c radeonfb.c radeon.h retz3fb.c retz3fb.h s1d13706fb.c s1d13706fb.h s3c44b0xfb_bak.c s3c44b0xfb_bak.h s3c44b0xfb.c s3c44b0xfb.h S3triofb.c sa1100fb.c sa1100fb.h sbusfb.c sgivwfb.c sgivwfb.h skeletonfb.c sstfb.c sstfb.h sun3fb.c tcxfb.c tdfxfb.c tgafb.c tgafb.h tridentfb.c tridentfb.h tx3912fb.c tx3912fb.h valkyriefb.c valkyriefb.h vesafb.c vfb.c vfb_small.c vga16fb.c vgacon.c vga.h virgefb.c virgefb.h > .depend
+make _sfdep_aty _sfdep_intel _sfdep_matrox _sfdep_riva _sfdep_sis _sfdep_sti _FASTDEP_ALL_SUB_DIRS="aty intel matrox riva sis sti"
+make[6]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/video'
+make -C aty fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/video/aty'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- atyfb_base.c atyfb.h mach64_accel.c mach64_ct.c mach64_cursor.c mach64_gx.c mach64.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/video/aty'
+make -C intel fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/video/intel'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- builtinmodes.c intelfbdrv.c intelfb.h intelfbhw.c intelfbhw.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/video/intel'
+make -C matrox fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/video/matrox'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- g450_pll.c g450_pll.h i2c-matroxfb.c matroxfb_accel.c matroxfb_accel.h matroxfb_base.c matroxfb_base.h matroxfb_crtc2.c matroxfb_crtc2.h matroxfb_DAC1064.c matroxfb_DAC1064.h matroxfb_g450.c matroxfb_g450.h matroxfb_maven.c matroxfb_maven.h matroxfb_misc.c matroxfb_misc.h matroxfb_proc.c matroxfb_Ti3026.c matroxfb_Ti3026.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/video/matrox'
+make -C riva fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/video/riva'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- accel.c fbdev.c nv4ref.h nvreg.h rivafb.h riva_hw.c riva_hw.h riva_tbl.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/video/riva'
+make -C sis fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/video/sis'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- 300vtbl.h 310vtbl.h init301.c init301.h init.c initdef.h init.h oem300.h oem310.h osdef.h sis_accel.c sis_accel.h sis.h sis_main.c sis_main.h vgatypes.h vstruct.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/video/sis'
+make -C sti fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/video/sti'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- sticon.c sticore.c sticore.h stifb.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/video/sti'
+make[6]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/video'
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/video'
+make -C zorro fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/zorro'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- gen-devlist.c names.c proc.c zorro.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/zorro'
+make[4]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers'
+make[3]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers'
+make -C mmnommu fastdep
+make[3]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/mmnommu'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- bootmem.c filemap.c memory.c mlock.c mmap.c mprotect.c mremap.c numa.c oom_kill.c page_alloc2.c page_alloc.c slab.c swap.c swapfile.c swap_state.c vmalloc.c vmscan.c > .depend
+make[3]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/mmnommu'
+make -C fs fastdep
+make[3]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- attr.c bad_inode.c binfmt_aout.c binfmt_elf.c binfmt_em86.c binfmt_flat.c binfmt_misc.c binfmt_script.c binfmt_som.c block_dev.c buffer.c char_dev.c dcache.c devices.c dnotify.c dquot.c exec.c fcntl.c fifo.c file.c filesystems.c file_table.c inode.c iobuf.c ioctl.c locks.c namei.c namespace.c open.c pipe.c quota.c quota_v1.c quota_v2.c readdir.c read_write.c select.c seq_file.c stat.c super.c xattr.c > .depend
+make _sfdep_adfs _sfdep_affs _sfdep_autofs _sfdep_autofs4 _sfdep_befs _sfdep_bfs _sfdep_coda _sfdep_cramfs _sfdep_devfs _sfdep_devpts _sfdep_efs _sfdep_ext2 _sfdep_ext3 _sfdep_fat _sfdep_freevxfs _sfdep_hfs _sfdep_hfsplus _sfdep_hpfs _sfdep_intermezzo _sfdep_isofs _sfdep_jbd _sfdep_jffs _sfdep_jffs2 _sfdep_jfs _sfdep_lockd _sfdep_minix _sfdep_msdos _sfdep_ncpfs _sfdep_nfs _sfdep_nfsd _sfdep_nls _sfdep_ntfs _sfdep_openpromfs _sfdep_partitions _sfdep_proc _sfdep_qnx4 _sfdep_ramfs _sfdep_reiserfs _sfdep_romfs _sfdep_smbfs _sfdep_sysv _sfdep_udf _sfdep_ufs _sfdep_umsdos _sfdep_vfat _FASTDEP_ALL_SUB_DIRS="adfs affs autofs autofs4 befs bfs coda cramfs devfs devpts efs ext2 ext3 fat freevxfs hfs hfsplus hpfs intermezzo isofs jbd jffs jffs2 jfs lockd minix msdos ncpfs nfs nfsd nls ntfs openpromfs partitions proc qnx4 ramfs reiserfs romfs smbfs sysv udf ufs umsdos vfat"
+make[4]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs'
+make -C adfs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/adfs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- adfs.h dir.c dir_f.c dir_f.h dir_fplus.c dir_fplus.h file.c inode.c map.c super.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/adfs'
+make -C affs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/affs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- amigaffs.c bitmap.c dir.c file.c inode.c namei.c super.c symlink.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/affs'
+make -C autofs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/autofs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- autofs_i.h dir.c dirhash.c init.c inode.c root.c symlink.c waitq.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/autofs'
+make -C autofs4 fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/autofs4'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- autofs_i.h expire.c init.c inode.c root.c symlink.c waitq.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/autofs4'
+make -C befs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/befs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- attribute.c befs_fs_types.h befs.h btree.c btree.h datastream.c datastream.h debug.c endian.h inode.c inode.h io.c io.h linuxvfs.c super.c super.h > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/befs'
+make -C bfs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/bfs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- bfs_defs.h dir.c file.c inode.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/bfs'
+make -C coda fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/coda'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- cache.c cnode.c coda_linux.c dir.c file.c inode.c pioctl.c psdev.c symlink.c sysctl.c upcall.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/coda'
+make -C cramfs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/cramfs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- inode.c uncompress.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/cramfs'
+make -C devfs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/devfs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- base.c util.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/devfs'
+make -C devpts fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/devpts'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- devpts_i.h inode.c root.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/devpts'
+make -C efs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/efs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- dir.c file.c inode.c namei.c super.c symlink.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/efs'
+make -C ext2 fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/ext2'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- balloc.c bitmap.c dir.c file.c fsync.c ialloc.c inode.c ioctl.c namei.c super.c symlink.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/ext2'
+make -C ext3 fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/ext3'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- balloc.c bitmap.c dir.c file.c fsync.c ialloc.c inode.c ioctl.c namei.c super.c symlink.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/ext3'
+make -C fat fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/fat'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- buffer.c cache.c cvf.c dir.c fatfs_syms.c file.c inode.c misc.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/fat'
+make -C freevxfs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/freevxfs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- vxfs_bmap.c vxfs_dir.h vxfs_extern.h vxfs_fshead.c vxfs_fshead.h vxfs.h vxfs_immed.c vxfs_inode.c vxfs_inode.h vxfs_kcompat.h vxfs_lookup.c vxfs_olt.c vxfs_olt.h vxfs_subr.c vxfs_super.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/freevxfs'
+make -C hfs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/hfs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- balloc.c bdelete.c bfind.c bins_del.c binsert.c bitmap.c bitops.c bnode.c brec.c btree.c catalog.c dir.c dir_cap.c dir_dbl.c dir_nat.c extent.c file.c file_cap.c file_hdr.c hfs_btree.h hfs.h inode.c mdb.c part_tbl.c string.c super.c sysdep.c trans.c version.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/hfs'
+make -C hfsplus fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/hfsplus'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- bfind.c bnode.c brec.c btree.c catalog.c dir.c extents.c hfsplus_fs.h hfsplus_raw.h inode.c options.c super.c tables.c unicode.c wrapper.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/hfsplus'
+make -C hpfs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/hpfs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- alloc.c anode.c buffer.c dentry.c dir.c dnode.c ea.c file.c hpfs_fn.h hpfs.h inode.c map.c name.c namei.c super.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/hpfs'
+make -C intermezzo fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/intermezzo'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- cache.c dcache.c dir.c ext_attr.c file.c fileset.c inode.c journal.c journal_ext2.c journal_ext3.c journal_obdfs.c journal_reiserfs.c journal_tmpfs.c journal_xfs.c kml_reint.c kml_unpack.c methods.c presto.c psdev.c replicator.c super.c sysctl.c upcall.c vfs.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/intermezzo'
+make -C isofs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/isofs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- compress.c dir.c inode.c joliet.c namei.c rock.c rock.h util.c zisofs.h > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/isofs'
+make -C jbd fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/jbd'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- checkpoint.c commit.c journal.c recovery.c revoke.c transaction.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/jbd'
+make -C jffs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/jffs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- inode-v23.c intrep.c intrep.h jffs_fm.c jffs_fm.h jffs_proc.c jffs_proc.h > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/jffs'
+make -C jffs2 fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/jffs2'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -DCONFIG_JFFS2_FS_DEBUG=1 -g -Werror  -nostdinc -iwithprefix include -- background.c build.c compr.c compr_rtime.c compr_rubin.c compr_rubin.h comprtest.c compr_zlib.c dir.c erase.c file.c fs.c gc.c histo.h histo_mips.h ioctl.c malloc.c nodelist.c nodelist.h nodemgmt.c os-linux.h pushpull.c pushpull.h read.c readinode.c scan.c super.c super-v24.c symlink.c wbuf.c write.c writev.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/jffs2'
+make -C jfs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/jfs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -D_JFS_4K -nostdinc -iwithprefix include -- file.c inode.c jfs_btree.h jfs_debug.c jfs_debug.h jfs_defragfs.h jfs_dinode.h jfs_dmap.c jfs_dmap.h jfs_dtree.c jfs_dtree.h jfs_extent.c jfs_extent.h jfs_filsys.h jfs_imap.c jfs_imap.h jfs_incore.h jfs_inode.c jfs_inode.h jfs_lock.h jfs_logmgr.c jfs_logmgr.h jfs_metapage.c jfs_metapage.h jfs_mount.c jfs_superblock.h jfs_txnmgr.c jfs_txnmgr.h jfs_types.h jfs_umount.c jfs_unicode.c jfs_unicode.h jfs_uniupr.c jfs_xattr.h jfs_xtree.c jfs_xtree.h namei.c resize.c super.c symlink.c xattr.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/jfs'
+make -C lockd fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/lockd'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- clntlock.c clntproc.c host.c lockd_syms.c mon.c svc4proc.c svc.c svclock.c svcproc.c svcshare.c svcsubs.c xdr4.c xdr.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/lockd'
+make -C minix fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/minix'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- bitmap.c dir.c file.c inode.c itree_common.c itree_v1.c itree_v2.c namei.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/minix'
+make -C msdos fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/msdos'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- msdosfs_syms.c namei.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/msdos'
+make -C ncpfs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/ncpfs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- dir.c file.c inode.c ioctl.c mmap.c ncplib_kernel.c ncplib_kernel.h ncpsign_kernel.c ncpsign_kernel.h sock.c symlink.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/ncpfs'
+make -C nfs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/nfs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- dir.c direct.c file.c flushd.c inode.c mount_clnt.c nfs2xdr.c nfs3proc.c nfs3xdr.c nfsroot.c pagelist.c proc.c read.c symlink.c unlink.c write.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/nfs'
+make -C nfsd fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/nfsd'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- auth.c export.c lockd.c nfs3proc.c nfs3xdr.c nfscache.c nfsctl.c nfsfh.c nfsproc.c nfssvc.c nfsxdr.c stats.c vfs.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/nfsd'
+make -C nls fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/nls'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- nls_base.c nls_big5.c nls_cp1250.c nls_cp1251.c nls_cp1255.c nls_cp437.c nls_cp737.c nls_cp775.c nls_cp850.c nls_cp852.c nls_cp855.c nls_cp857.c nls_cp860.c nls_cp861.c nls_cp862.c nls_cp863.c nls_cp864.c nls_cp865.c nls_cp866.c nls_cp869.c nls_cp874.c nls_cp932.c nls_cp936.c nls_cp949.c nls_cp950.c nls_euc-jp.c nls_euc-kr.c nls_gb2312.c nls_iso8859-13.c nls_iso8859-14.c nls_iso8859-15.c nls_iso8859-1.c nls_iso8859-2.c nls_iso8859-3.c nls_iso8859-4.c nls_iso8859-5.c nls_iso8859-6.c nls_iso8859-7.c nls_iso8859-8.c nls_iso8859-9.c nls_koi8-r.c nls_koi8-ru.c nls_koi8-u.c nls_sjis.c nls_tis-620.c nls_utf8.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/nls'
+make -C ntfs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/ntfs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -DNTFS_VERSION=\"1.1.22\"  -nostdinc -iwithprefix include -- attr.c attr.h dir.c dir.h fs.c inode.c inode.h macros.h ntfsendian.h ntfstypes.h struct.h super.c super.h support.c support.h sysctl.c sysctl.h unistr.c unistr.h util.c util.h > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/ntfs'
+make -C openpromfs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/openpromfs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- inode.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/openpromfs'
+make -C partitions fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/partitions'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- acorn.c acorn.h amiga.c amiga.h atari.c atari.h check.c check.h efi.c efi.h ibm.c ibm.h ldm.c ldm.h mac.c mac.h msdos.c msdos.h osf.c osf.h sgi.c sgi.h sun.c sun.h ultrix.c ultrix.h > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/partitions'
+make -C proc fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/proc'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- array.c base.c generic.c inode.c kcore.c kmsg.c proc_devtree.c proc_misc.c proc_tty.c root.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/proc'
+make -C qnx4 fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/qnx4'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- bitmap.c dir.c file.c fsync.c inode.c namei.c truncate.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/qnx4'
+make -C ramfs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/ramfs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- inode.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/ramfs'
+make -C reiserfs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/reiserfs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- bitmap.c buffer2.c dir.c do_balan.c file.c fix_node.c hashes.c ibalance.c inode.c ioctl.c item_ops.c journal.c lbalance.c namei.c objectid.c prints.c procfs.c resize.c stree.c super.c tail_conversion.c version.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/reiserfs'
+make -C romfs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/romfs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- inode.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/romfs'
+make -C smbfs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/smbfs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -DSMBFS_PARANOIA -nostdinc -iwithprefix include -- cache.c dir.c file.c getopt.c getopt.h inode.c ioctl.c proc.c proto.h smb_debug.h sock.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/smbfs'
+make -C sysv fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/sysv'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- balloc.c dir.c file.c ialloc.c inode.c itree.c namei.c super.c symlink.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/sysv'
+make -C udf fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/udf'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- balloc.c crc.c dir.c directory.c ecma_167.h file.c fsync.c ialloc.c inode.c lowlevel.c misc.c namei.c osta_udf.h partition.c super.c symlink.c truncate.c udfdecl.h udfend.h udf_i.h udf_sb.h udftime.c unicode.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/udf'
+make -C ufs fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/ufs'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- balloc.c cylinder.c dir.c file.c ialloc.c inode.c namei.c super.c swab.h symlink.c truncate.c util.c util.h > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/ufs'
+make -C umsdos fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/umsdos'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- dir.c emd.c inode.c ioctl.c mangle.c namei.c rdir.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/umsdos'
+make -C vfat fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/vfat'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- namei.c vfatfs_syms.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs/vfat'
+make[4]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs'
+make[3]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/fs'
+make -C net fastdep
+make[3]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- netsyms.c socket.c sysctl_net.c > .depend
+make _sfdep_802 _sfdep_8021q _sfdep_appletalk _sfdep_atm _sfdep_ax25 _sfdep_bluetooth _sfdep_bridge _sfdep_core _sfdep_decnet _sfdep_econet _sfdep_ethernet _sfdep_ipsec _sfdep_ipv4 _sfdep_ipv4/netfilter _sfdep_ipv6 _sfdep_ipx _sfdep_irda _sfdep_khttpd _sfdep_lapb _sfdep_netlink _sfdep_netrom _sfdep_packet _sfdep_rose _sfdep_sched _sfdep_sctp _sfdep_sunrpc _sfdep_unix _sfdep_wanrouter _sfdep_x25 _FASTDEP_ALL_SUB_DIRS="802 8021q appletalk atm ax25 bluetooth bridge core decnet econet ethernet ipsec ipv4 ipv4/netfilter ipv6 ipx irda khttpd lapb netlink netrom packet rose sched sctp sunrpc unix wanrouter x25"
+make[4]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net'
+make -C 802 fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/802'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- cl2llc.c fc.c fddi.c hippi.c llc_macinit.c llc_sendpdu.c llc_utility.c p8022.c p8023.c psnap.c sysctl_net_802.c tr.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/802'
+make -C 8021q fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/8021q'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- vlan.c vlan_dev.c vlan.h vlanproc.c vlanproc.h > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/8021q'
+make -C appletalk fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/appletalk'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- aarp.c ddp.c sysctl_net_atalk.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/appletalk'
+make -C atm fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/atm'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- addr.c addr.h atm_misc.c br2684.c clip.c common.c common.h ipcommon.c ipcommon.h lec_arpc.h lec.c lec.h mpc.c mpc.h mpoa_caches.c mpoa_caches.h mpoa_proc.c pppoatm.c proc.c protocols.h pvc.c raw.c resources.c resources.h signaling.c signaling.h svc.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/atm'
+make -C ax25 fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/ax25'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- af_ax25.c ax25_addr.c ax25_dev.c ax25_ds_in.c ax25_ds_subr.c ax25_ds_timer.c ax25_iface.c ax25_in.c ax25_ip.c ax25_out.c ax25_route.c ax25_std_in.c ax25_std_subr.c ax25_std_timer.c ax25_subr.c ax25_timer.c ax25_uid.c sysctl_net_ax25.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/ax25'
+make -C bluetooth fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/bluetooth'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- af_bluetooth.c hci_conn.c hci_core.c hci_event.c hci_sock.c l2cap.c lib.c sco.c syms.c > .depend
+make _sfdep_bnep _sfdep_cmtp _sfdep_rfcomm _FASTDEP_ALL_SUB_DIRS="bnep cmtp rfcomm"
+make[6]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/bluetooth'
+make -C bnep fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/bluetooth/bnep'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- bnep.h core.c netdev.c sock.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/bluetooth/bnep'
+make -C cmtp fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/bluetooth/cmtp'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- capi.c cmtp.h core.c sock.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/bluetooth/cmtp'
+make -C rfcomm fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/bluetooth/rfcomm'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- core.c crc.c sock.c tty.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/bluetooth/rfcomm'
+make[6]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/bluetooth'
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/bluetooth'
+make -C bridge fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/bridge'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- br.c br_device.c br_fdb.c br_forward.c br_if.c br_input.c br_ioctl.c br_netfilter.c br_notify.c br_private.h br_private_stp.h br_private_timer.h br_stp_bpdu.c br_stp.c br_stp_if.c br_stp_timer.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/bridge'
+make -C core fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/core'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- datagram.c dev.c dev_mcast.c dst.c dv.c ethtool.c filter.c iovec.c neighbour.c netfilter.c pktgen.c profile.c rtnetlink.c scm.c skbuff.c sock.c sysctl_net_core.c utils.c wireless.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/core'
+make -C decnet fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/decnet'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- af_decnet.c dn_dev.c dn_fib.c dn_neigh.c dn_nsp_in.c dn_nsp_out.c dn_route.c dn_rules.c dn_table.c dn_timer.c sysctl_net_decnet.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/decnet'
+make -C econet fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/econet'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- af_econet.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/econet'
+make -C ethernet fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/ethernet'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- eth.c pe2.c sysctl_net_ether.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/ethernet'
+make -C ipsec fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/ipsec'
+make[5]: Nothing to be done for `fastdep'.
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/ipsec'
+make -C ipv4 fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/ipv4'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- af_inet.c arp.c devinet.c fib_frontend.c fib_hash.c fib_rules.c fib_semantics.c icmp.c igmp.c inetpeer.c ipconfig.c ip_forward.c ip_fragment.c ip_gre.c ip_input.c ipip.c ipmr.c ip_nat_dumb.c ip_options.c ip_output.c ip_sockglue.c proc.c protocol.c raw.c route.c syncookies.c sysctl_net_ipv4.c tcp.c tcp_diag.c tcp_input.c tcp_ipv4.c tcp_minisocks.c tcp_output.c tcp_timer.c udp.c utils.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/ipv4'
+make -C ipv4/netfilter fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/ipv4/netfilter'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- arptable_filter.c arp_tables.c arpt_mangle.c ipchains_core.c ip_conntrack_amanda.c ip_conntrack_core.c ip_conntrack_ftp.c ip_conntrack_h323.c ip_conntrack_irc.c ip_conntrack_pptp.c ip_conntrack_pptp_priv.h ip_conntrack_proto_generic.c ip_conntrack_proto_gre.c ip_conntrack_proto_icmp.c ip_conntrack_proto_tcp.c ip_conntrack_proto_udp.c ip_conntrack_standalone.c ip_conntrack_tftp.c ipfwadm_core.c ip_fw_compat.c ip_fw_compat_masq.c ip_fw_compat_redir.c ip_nat_amanda.c ip_nat_core.c ip_nat_ftp.c ip_nat_h323.c ip_nat_helper.c ip_nat_irc.c ip_nat_pptp.c ip_nat_proto_gre.c ip_nat_proto_icmp.c ip_nat_proto_tcp.c ip_nat_proto_udp.c ip_nat_proto_unknown.c ip_nat_rule.c ip_nat_snmp_basic.c ip_nat_standalone.c ip_nat_tftp.c ip_queue.c iptable_filter.c iptable_mangle.c ip_tables.c ipt_ah.c ipt_connmark.c ipt_CONNMARK.c ipt_conntrack.c ipt_dscp.c ipt_DSCP.c ipt_ecn.c ipt_ECN.c ipt_esp.c ipt_helper.c ipt_iprange.c ipt_length.c ipt_limit.c ipt_LOG.c ipt_mac.c ipt_mark.c ipt_MARK.c ipt_MASQUERADE.c ipt_MIRROR.c ipt_multiport.c ipt_NETMAP.c ipt_owner.c ipt_pkttype.c ipt_recent.c ipt_REDIRECT.c ipt_REJECT.c ipt_state.c ipt_string.c ipt_tcpmss.c ipt_TCPMSS.c ipt_time.c ipt_tos.c ipt_TOS.c ipt_ttl.c ipt_ULOG.c ipt_unclean.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/ipv4/netfilter'
+make -C ipv6 fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/ipv6'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- addrconf.c af_inet6.c anycast.c datagram.c exthdrs.c icmp.c ip6_fib.c ip6_flowlabel.c ip6_fw.c ip6_input.c ip6_output.c ipv6_sockglue.c ipv6_syms.c mcast.c ndisc.c proc.c protocol.c raw.c reassembly.c route.c sit.c sysctl_net_ipv6.c tcp_ipv6.c udp.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/ipv6'
+make -C ipx fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/ipx'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- af_ipx.c af_spx.c sysctl_net_ipx.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/ipx'
+make -C irda fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/irda'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- af_irda.c crc.c discovery.c irda_device.c iriap.c iriap_event.c irias_object.c irlap.c irlap_event.c irlap_frame.c irlmp.c irlmp_event.c irlmp_frame.c irproc.c irqueue.c irsyms.c irsysctl.c irttp.c parameters.c qos.c timer.c wrapper.c > .depend
+make _sfdep_ircomm _sfdep_irlan _sfdep_irnet _FASTDEP_ALL_SUB_DIRS="ircomm irlan irnet"
+make[6]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/irda'
+make -C ircomm fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/irda/ircomm'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- ircomm_core.c ircomm_event.c ircomm_lmp.c ircomm_param.c ircomm_ttp.c ircomm_tty_attach.c ircomm_tty.c ircomm_tty_ioctl.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/irda/ircomm'
+make -C irlan fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/irda/irlan'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- irlan_client.c irlan_client_event.c irlan_common.c irlan_eth.c irlan_event.c irlan_filter.c irlan_provider.c irlan_provider_event.c > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/irda/irlan'
+make -C irnet fastdep
+make[7]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/irda/irnet'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- irnet.h irnet_irda.c irnet_irda.h irnet_ppp.c irnet_ppp.h > .depend
+make[7]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/irda/irnet'
+make[6]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/irda'
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/irda'
+make -C khttpd fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/khttpd'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- accept.c datasending.c logging.c main.c make_times_h.c misc.c prototypes.h rfc.c rfc_time.c security.c security.h sockets.c structure.h sysctl.c sysctl.h userspace.c waitheaders.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/khttpd'
+make -C lapb fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/lapb'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- lapb_iface.c lapb_in.c lapb_out.c lapb_subr.c lapb_timer.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/lapb'
+make -C netlink fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/netlink'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- af_netlink.c netlink_dev.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/netlink'
+make -C netrom fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/netrom'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- af_netrom.c nr_dev.c nr_in.c nr_loopback.c nr_out.c nr_route.c nr_subr.c nr_timer.c sysctl_net_netrom.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/netrom'
+make -C packet fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/packet'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- af_packet.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/packet'
+make -C rose fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/rose'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- af_rose.c rose_dev.c rose_in.c rose_link.c rose_loopback.c rose_out.c rose_route.c rose_subr.c rose_timer.c sysctl_net_rose.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/rose'
+make -C sched fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/sched'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- cls_api.c cls_fw.c cls_route.c cls_rsvp6.c cls_rsvp.c cls_rsvp.h cls_tcindex.c cls_u32.c estimator.c police.c sch_api.c sch_atm.c sch_cbq.c sch_csz.c sch_dsmark.c sch_fifo.c sch_generic.c sch_gred.c sch_htb.c sch_ingress.c sch_prio.c sch_red.c sch_sfq.c sch_tbf.c sch_teql.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/sched'
+make -C sctp fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/sctp'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- adler32.c associola.c bind_addr.c command.c crc32c.c debug.c endpointola.c hashdriver.c input.c inqueue.c ipv6.c objcnt.c output.c outqueue.c primitive.c proc.c protocol.c sla1.c sm_make_chunk.c sm_sideeffect.c sm_statefuns.c sm_statetable.c socket.c ssnmap.c sysctl.c transport.c tsnmap.c ulpevent.c ulpqueue.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/sctp'
+make -C sunrpc fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/sunrpc'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- auth.c auth_null.c auth_unix.c clnt.c pmap_clnt.c sched.c stats.c sunrpc_syms.c svcauth.c svcauth_des.c svc.c svcsock.c sysctl.c timer.c xdr.c xprt.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/sunrpc'
+make -C unix fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/unix'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- af_unix.c garbage.c sysctl_net_unix.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/unix'
+make -C wanrouter fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/wanrouter'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- af_wanpipe.c wanmain.c wanproc.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/wanrouter'
+make -C x25 fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/x25'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- af_x25.c sysctl_net_x25.c x25_dev.c x25_facilities.c x25_in.c x25_link.c x25_out.c x25_route.c x25_subr.c x25_timer.c > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net/x25'
+make[4]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net'
+make[3]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/net'
+make -C ipc fastdep
+make[3]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/ipc'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- msg.c sem.c shm.c util.c util.h > .depend
+make[3]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/ipc'
+make -C lib fastdep
+make[3]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/lib'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- brlock.c bust_spinlocks.c cmdline.c crc32.c crc32defs.h crc32table.h ctype.c dec_and_lock.c dump_stack.c errno.c firmware_class.c gen_crc32table.c inflate2.c inflate.c rbtree.c rwsem.c rwsem-spinlock.c string.c vsprintf.c > .depend
+make _sfdep_zlib_deflate _sfdep_zlib_inflate _FASTDEP_ALL_SUB_DIRS="zlib_deflate zlib_inflate"
+make[4]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/lib'
+make -C zlib_deflate fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/lib/zlib_deflate'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I /home/yan/MainData/workspace/uClinux/linux-2.4.x/lib/zlib_deflate -nostdinc -iwithprefix include -- deflate.c deflate_syms.c deftree.c defutil.h > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/lib/zlib_deflate'
+make -C zlib_inflate fastdep
+make[5]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/lib/zlib_inflate'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float -I /home/yan/MainData/workspace/uClinux/linux-2.4.x/lib/zlib_inflate -nostdinc -iwithprefix include -- infblock.c infblock.h infcodes.c infcodes.h inffast.c inffast.h inffixed.h inflate.c inflate_syms.c inftrees.c inftrees.h infutil.c infutil.h > .depend
+make[5]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/lib/zlib_inflate'
+make[4]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/lib'
+make[3]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/lib'
+make -C crypto fastdep
+make[3]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/crypto'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- aes.c api.c autoload.c blowfish.c cast5.c cipher.c compress.c crypto_null.c deflate.c des.c digest.c hmac.c internal.h md4.c md5.c proc.c serpent.c sha1.c sha256.c sha512.c tcrypt.c tcrypt.h twofish.c > .depend
+make[3]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/crypto'
+make -C arch/armnommu/mach-S3C44B0X fastdep
+make[3]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/armnommu/mach-S3C44B0X'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- arch.c dma.c fs44b0-leds.c irq.c time.c > .depend
+make[3]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/armnommu/mach-S3C44B0X'
+make -C arch/armnommu/kernel fastdep
+make[3]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/armnommu/kernel'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- arch.c armksyms.c arthur.c bios32.c calls.S compat.c debug-armo.S debug-armv.S debug.c dec21285.c dma-arc.c dma.c dma-footbridge.c dma-isa.c dma-rpc.c ecard.c entry-armo.S entry-armv.S entry-common.S entry-header.S fiq.c ftv-pci.c head-arm-c5471.S head-arm-dsc21.S head-arm-netarm.S head-armo.S head-armv.S init_task.c io.c irq-arch.c irq.c isa.c leds-ftvpci.c oldlatches.c plx90x0.c process.c ptrace.c ptrace.h semaphore.c setup.c signal.c sys_arm.c time-acorn.c time.c traps.c via82c505.c > .depend
+make[3]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/armnommu/kernel'
+make -C arch/armnommu/mm fastdep
+make[3]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/armnommu/mm'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- consistent.c csumpartialcopygeneric.S discontig.c extable.c fault-armo.c fault-armv.c fault-armv-s3c.c fault-common.c init.c ioremap.c memory.c mm-armv.c proc-arm2,3.S proc-arm6,7.S proc-arm720.S proc-arm740.S proc-arm920.S proc-arm940.S proc-arm940T.S proc-sa110.S proc-syms.c small_page.c > .depend
+make[3]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/armnommu/mm'
+make -C arch/armnommu/lib fastdep
+make[3]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/armnommu/lib'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- backtrace.S changebit.S clearbit.S copy_page.S csumipv6.S csumpartialcopygeneric.S csumpartialcopy.S csumpartialcopyuser.S csumpartial.S delay.S ecard.S findbit.S floppydma.S io-acorn.S io.c io-pcio.S io-readsb.S io-readsl-armv3.S io-readsl-armv4.S io-readsw-armv3.S io-readsw-armv4.S io-shark.c io-writesb.S io-writesl.S io-writesw-armv3.S io-writesw-armv4.S memchr.S memcpy.S memset.S memzero.S setbit.S strchr.S strncpy_from_user.S strnlen_user.S strrchr.S testchangebit.S testclearbit.S testsetbit.S uaccess-armo.S uaccess.S > .depend
+make[3]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/armnommu/lib'
+make -C arch/armnommu/nwfpe fastdep
+make[3]: Entering directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/armnommu/nwfpe'
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/scripts/mkdep -D__KERNEL__ -I/home/yan/MainData/workspace/uClinux/linux-2.4.x/include  -Wall -Wstrict-prototypes -Wno-trigraphs -O2 -fno-strict-aliasing -fno-common -fno-common -pipe -fno-builtin -D__linux__ -g -DNO_MM -mapcs-32 -march=armv4 -mtune=arm7tdmi -mshort-load-bytes -msoft-float  -nostdinc -iwithprefix include -- ARM-gcc.h config.h double_cpdo.c entry26.S entry.S extended_cpdo.c fpa11.c fpa11_cpdo.c fpa11_cpdt.c fpa11_cprt.c fpa11.h fpmodule.c fpmodule.h fpopcode.c fpopcode.h fpsr.h milieu.h single_cpdo.c softfloat.c softfloat.h > .depend
+make[3]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x/arch/armnommu/nwfpe'
+make[2]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x'
+find /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/scsi /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/math-emu \( -name SCCS -o -name .svn \) -prune -o -follow -name \*.h ! -name modversions.h -print | xargs scripts/mkdep --  > .hdepend
+find: /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/proc-armv/proc-armv: Too many levels of symbolic links
+find: /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/arch-S3C44B0X/arch-S3C44B0X: Too many levels of symbolic links
+find: /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/arch/arch-S3C44B0X: Too many levels of symbolic links
+find: /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/proc/proc-armv: Too many levels of symbolic links
+/home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/bug.h is empty
+find: /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/asm-armnommu: Too many levels of symbolic links
+scripts/mkdep -- init/*.c > .depend
+make[1]: Leaving directory `/home/yan/MainData/workspace/uClinux/linux-2.4.x'

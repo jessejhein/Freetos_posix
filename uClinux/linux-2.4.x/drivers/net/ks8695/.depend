@@ -2,47 +2,47 @@ ks8695_cache.o: ks8695_cache.c \
    ks8695_drv.h \
    ks8695_cache.h
 ks8695_cache.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
    ks8695_drv.h
 	@touch ks8695_cache.h
 ks8695_chipdef.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/netdevice.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/etherdevice.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/etherdevice.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/skbuff.h \
    platform.h
 	@touch ks8695_chipdef.h
 ks8695_drv.h: \
    ks8695_kcompat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/byteorder.h \
    ks8695_chipdef.h \
    ks8695_fxhw.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/netdevice.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/etherdevice.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/malloc.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/capability.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/etherdevice.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/timer.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/malloc.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/bitops.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/irq.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/capability.h
 	@touch ks8695_drv.h
 ks8695_fxhw.o: ks8695_fxhw.c \
    ks8695_drv.h \
@@ -53,52 +53,52 @@ ks8695_fxhw.h: \
    ks8695_drv.h
 	@touch ks8695_fxhw.h
 ks8695_ioctrl.h: \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/link/type.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/station/ex.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/switch/get.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/switch/set.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/switch/subid.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/on.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/port/vlan.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/priority.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/adv/link/selection.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/adv/ctrl.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/adv/mirroring.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/adv/threshold.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/adv/dscp.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/internal/led.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/internal/misc.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/internal/spanningtree.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/link/type.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/station/ex.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/switch/get.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/switch/set.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/switch/subid.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/on.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/port/vlan.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/priority.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/adv/link/selection.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/adv/ctrl.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/adv/mirroring.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/adv/threshold.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/adv/dscp.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/internal/led.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/internal/misc.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/internal/spanningtree.h)
 	@touch ks8695_ioctrl.h
 ks8695_kcompat.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/interrupt.h
 	@touch ks8695_kcompat.h
 ks8695_main.o: ks8695_main.c \
    ks8695_drv.h \
    ks8695_ioctrl.h \
    ks8695_cache.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mach/lite300.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/link/type.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/station/ex.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/switch/get.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/switch/set.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/switch/subid.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/on.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/port/vlan.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/priority.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/adv/link/selection.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/adv/ctrl.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/adv/mirroring.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/adv/threshold.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/adv/dscp.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/internal/led.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/internal/misc.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sw/subid/internal/spanningtree.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/mach/lite300.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/link/type.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/station/ex.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/switch/get.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/switch/set.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/switch/subid.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/on.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/port/vlan.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/priority.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/adv/link/selection.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/adv/ctrl.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/adv/mirroring.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/adv/threshold.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/adv/dscp.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/internal/led.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/internal/misc.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/sw/subid/internal/spanningtree.h)
 .PRECIOUS:	ks8695_cache.h \
 	ks8695_chipdef.h \
 	ks8695_drv.h \

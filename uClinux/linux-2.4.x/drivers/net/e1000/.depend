@@ -1,42 +1,42 @@
 e1000_ethtool.o: e1000_ethtool.c \
    e1000.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h
 e1000.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stddef.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/netdevice.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/etherdevice.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/capability.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/in.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ip.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/tcp.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/udp.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/pkt_sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/list.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/reboot.h \
-   /home/uClinux-dist/linux-2.4.x/include/net/checksum.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/tqueue.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mii.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ethtool.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/if_vlan.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stddef.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/byteorder.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/etherdevice.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/timer.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/bitops.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/irq.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/capability.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/in.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ip.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/tcp.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/udp.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/pkt_sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/list.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/reboot.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/net/checksum.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/tqueue.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mii.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ethtool.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/if_vlan.h \
    e1000_hw.h
 	@touch e1000.h
 e1000_hw.o: e1000_hw.c \
@@ -46,15 +46,15 @@ e1000_hw.h: \
 	@touch e1000_hw.h
 e1000_main.o: e1000_main.c \
    e1000.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/e1000/napi.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pm.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/e1000/napi.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/pm.h)
 e1000_osdep.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h
 	@touch e1000_osdep.h
 e1000_param.o: e1000_param.c \
    e1000.h

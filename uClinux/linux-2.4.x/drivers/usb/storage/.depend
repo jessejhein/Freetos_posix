@@ -4,17 +4,17 @@ datafab.o: datafab.c \
    usb.h \
    debug.h \
    datafab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h
 debug.o: debug.c \
    debug.h
 debug.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blk.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/cdrom.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/scsi/scsi.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/debug.h)
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blk.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/cdrom.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi/scsi.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/debug.h)
 	@touch debug.h
 dpcm.o: dpcm.c \
    transport.h \
@@ -23,22 +23,22 @@ dpcm.o: dpcm.c \
    debug.h \
    dpcm.h \
    sddr09.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/sddr09.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/sddr09.h)
 freecom.o: freecom.c \
    transport.h \
    protocol.h \
    usb.h \
    debug.h \
    freecom.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/debug.h)
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/debug.h)
 initializers.o: initializers.c \
    initializers.h \
    debug.h \
    transport.h
 initializers.h: \
    usb.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/sddr09.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/sddr09.h)
 	@touch initializers.h
 isd200.o: isd200.c \
    transport.h \
@@ -47,21 +47,21 @@ isd200.o: isd200.c \
    debug.h \
    scsiglue.h \
    isd200.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ide.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/debug.h)
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ide.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/debug.h)
 jumpshot.o: jumpshot.c \
    transport.h \
    protocol.h \
    usb.h \
    debug.h \
    jumpshot.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h
 protocol.o: protocol.c \
    protocol.h \
    usb.h \
@@ -69,8 +69,8 @@ protocol.o: protocol.c \
    scsiglue.h \
    transport.h
 protocol.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blk.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/scsi/scsi.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blk.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi/scsi.h \
    usb.h
 	@touch protocol.h
 scsiglue.o: scsiglue.c \
@@ -78,11 +78,11 @@ scsiglue.o: scsiglue.c \
    usb.h \
    debug.h \
    transport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h
 scsiglue.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blk.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/scsi/scsi.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/scsi/hosts.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blk.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi/scsi.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi/hosts.h
 	@touch scsiglue.h
 sddr09.o: sddr09.c \
    transport.h \
@@ -90,57 +90,57 @@ sddr09.o: sddr09.c \
    usb.h \
    debug.h \
    sddr09.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h
 sddr55.o: sddr55.c \
    transport.h \
    protocol.h \
    usb.h \
    debug.h \
    sddr55.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/debug.h)
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/debug.h)
 shuttle_usbat.o: shuttle_usbat.c \
    transport.h \
    protocol.h \
    usb.h \
    debug.h \
    shuttle_usbat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h
 transport.o: transport.c \
    transport.h \
    protocol.h \
    usb.h \
    debug.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/debug.h)
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/debug.h)
 transport.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blk.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blk.h \
    usb.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/scsi/scsi.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/hp8200e.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/sddr09.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/sddr55.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/freecom.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/datafab.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/jumpshot.h)
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi/scsi.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/hp8200e.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/sddr09.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/sddr55.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/freecom.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/datafab.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/jumpshot.h)
 	@touch transport.h
 unusual_devs.h: \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/hp8200e.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/dpcm.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/sddr09.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/isd200.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/jumpshot.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/freecom.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/datafab.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/sddr55.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/hp8200e.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/dpcm.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/sddr09.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/isd200.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/jumpshot.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/freecom.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/datafab.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/sddr55.h)
 	@touch unusual_devs.h
 usb.o: usb.c \
    usb.h \
@@ -149,38 +149,38 @@ usb.o: usb.c \
    protocol.h \
    debug.h \
    initializers.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/hp8200e.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/hp8200e.h) \
    shuttle_usbat.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/sddr09.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/sddr09.h) \
    sddr09.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/sddr55.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/sddr55.h) \
    sddr55.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/dpcm.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/dpcm.h) \
    dpcm.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/freecom.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/freecom.h) \
    freecom.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/isd200.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/isd200.h) \
    isd200.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/datafab.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/datafab.h) \
    datafab.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/usb/storage/jumpshot.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/usb/storage/jumpshot.h) \
    jumpshot.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
    unusual_devs.h \
    unusual_devs.h
 usb.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/usb.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/blk.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/completion.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/atomic.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/scsi/scsi.h \
-   /home/uClinux-dist/linux-2.4.x/drivers/scsi/hosts.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/usb.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/blk.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/completion.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/spinlock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/atomic.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi/scsi.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/drivers/scsi/hosts.h
 	@touch usb.h
 .PRECIOUS:	debug.h \
 	initializers.h \
