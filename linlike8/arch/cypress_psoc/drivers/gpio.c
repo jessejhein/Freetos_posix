@@ -12,6 +12,9 @@
  *				so, remove the enter key from interrupt mode, change to scan mode in each timer isr
  * 03-08-2004	yan		improve the rotary encoder
  * 13-10-2004	Hei		modify for the PUSH_KEY function
+ * 17-12-2004	Hei		modified the rotatry key function so that it can match the new PCB 
+ *						remark: disable the orginal code for the rotatary key in the gpio
+ * 14-02-2005	Hei		modified the code for the new method of the switch encoder, using the gpio_isr interupt to change the current_key and previous_key, from the difference to determine the direction.
  */
 
 #include "app.h"									// this linlike8
@@ -26,7 +29,8 @@
 #endif
 
 //#include "psoc_gpio_bit.h"								// led_hw_off()
-
+unsigned char previous_key;
+unsigned char current_key;
 struct gpio_data gpio_var;
 //#if (KB_MOD==1)
 //struct timer_list deboucing_timer;
@@ -36,9 +40,9 @@ struct gpio_data gpio_var;
 void gpio_open(void)
 {
 #if (KB_MOD==1)
-        UPPER_KEY_SET_HIGH;								// init. all pins -- logic high since pull high internal
+        //UPPER_KEY_SET_HIGH;								// init. all pins -- logic high since pull high internal
         ENTER_KEY_SET_HIGH;
-	DOWN_KEY_SET_HIGH;
+	//DOWN_KEY_SET_HIGH;
 	gpio_var.key_deb_f = 0;								// 0 as clr key flag
 	gpio_var.key_deb_f_1 = 0;							// for the PUSH_KEY function
 	gpio_var.key_fr_hi_lo = 1;							// init. in pull-high for scan key
@@ -52,9 +56,74 @@ void gpio_open(void)
 #pragma	interrupt_handler	gpio_isr						// shouald add this isr name at boot.asm from PSoC Designer
 void gpio_isr(void)
 {
-	
+	if (UPPER_KEY_DET) current_key |= 0x10;
+		else current_key &= 0x01;
+	if (DOWN_KEY_DET) current_key |= 0x01;
+		else current_key &= 0x10;
+	switch (previous_key) {
+			case 0x00:
+				switch (current_key){
+					case 0x00 :											//no change
+						break;
+					case 0x01:											//since there is a hex inventer between the decoder and the PSOC so the all the application have been invert, for example, the CW application become the CCW application
+						APP_DOWN_KEY_DOWN_CASE;							
+						break;
+					case 0x10:
+						APP_UP_KEY_DOWN_CASE; 
+						break;
+					case 0x11:
+						break;
+						}
+					break;
+					/*
+			case 0x01:												//these code have been disable to reduce the resolution of the rotatary key, if higher reslution is needed, these code can be enabled again.
+				switch (current_key){
+					case 0x00 :
+						APP_UP_KEY_DOWN_CASE;											
+						break;
+					case 0x01:											
+						break;							//no change
+					case 0x10:
+						break;
+					case 0x11:
+						APP_DOWN_KEY_DOWN_CASE;	
+						break;
+						}
+					break;
+					
+			case 0x10:
+				switch (current_key){
+					case 0x00 :
+						APP_DOWN_KEY_DOWN_CASE;									
+						break;
+					case 0x01:											
+						break;							//no change
+					case 0x10:
+						break;
+					case 0x11:
+						APP_UP_KEY_DOWN_CASE;	
+						break;
+						}
+					break;
+				case 0x11:
+					switch (current_key){
+					case 0x00 :
+						break;
+					case 0x01:	
+						APP_UP_KEY_DOWN_CASE;											
+						break;							
+					case 0x10:
+						APP_DOWN_KEY_DOWN_CASE;	
+						break;
+					case 0x11:
+						break;
+						}
+					break;
+					*/
+					}
+					previous_key = current_key;						
 	// fast interrupt
-	
+/*	
 #if (KB_MOD==1)
 //unsigned char i;
 //buz_hw_on;
@@ -87,6 +156,7 @@ void gpio_isr(void)
 	mark_bh(GPIO_BH);								// enable bh gpio task
 	do_softirq();									// botton half of interrupt, if needed, enable interrupt in 2nd-half
 //led_hw_on;
+*/
 }
 
 void gpio_softirq(void)
