@@ -1,41 +1,41 @@
 autofs_i.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/auto_fs4.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/list.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/wait.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/auto_fs4.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/list.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/wait.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h
 	@touch autofs_i.h
 expire.o: expire.c \
    autofs_i.h
 init.o: init.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
    autofs_i.h
 inode.o: inode.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/file.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/file.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/locks.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/bitops.h \
    autofs_i.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h
 root.o: root.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/param.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/stat.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/param.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/smp_lock.h \
    autofs_i.h
 symlink.o: symlink.c \
    autofs_i.h
 waitq.o: waitq.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/file.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/signal.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/file.h \
    autofs_i.h
 .PRECIOUS:	autofs_i.h \
 

@@ -31,6 +31,7 @@
     Paul Gortmaker	: Discontinued PCI support - use ne2k-pci.c instead.
     Greg Ungerer        : added some coldfire addressing code.
     Yoshinori Sato      : added H8/300H support.
+    yan				: for arm - 44b0 - www.21spacetime.net
 
 */
 
@@ -207,8 +208,8 @@ int __init ne_probe(struct net_device *dev)
 	static int once = 0;
 	if (once)
 		return -ENXIO;
-	dev->base_addr = base_addr = 0x08000000;//NE2000_ADDR;
-	dev->irq = 22;//EXINT3//24;//NE2000_IRQ_VECTOR;
+	dev->base_addr = base_addr = 0x06000000;		// www.21spacetime.net ethenet cs
+	dev->irq = 24;									// its irq; BUG as interrupt conflict in 21spacetime bd.
 	once++;
 #endif
 
@@ -303,13 +304,13 @@ static int __init ne_probe1(struct net_device *dev, int ioaddr)
 	else{
 	  	int regd;
                 outb_p(E8390_NODMA+E8390_PAGE1+E8390_STOP, ioaddr + E8390_CMD);
-		regd = inb_p(ioaddr + (0x0d<<8));
-		outb_p(0xff, ioaddr + (0x0d<<8));
+		regd = inb_p(ioaddr + (0x0d));
+		outb_p(0xff, ioaddr + (0x0d));
 		outb_p(E8390_NODMA+E8390_PAGE0, ioaddr + E8390_CMD);
 		inb_p(ioaddr + EN0_COUNTER0); /* Clear the counter by reading. */
 		if (inb_p(ioaddr + EN0_COUNTER0) != 0) {
 			outb_p(reg0, ioaddr);
-			outb_p(regd, ioaddr + (0x0d<<8));	/* Restore the old values. */
+			outb_p(regd, ioaddr + (0x0d));	/* Restore the old values. */
 			ret = -ENODEV;
 			goto err_out;
 		}
@@ -466,7 +467,8 @@ static int __init ne_probe1(struct net_device *dev, int ioaddr)
     }
 #elif defined(CONFIG_BOARD_MBA44)
     {
-	unsigned char ne_defethaddr[6] = {0x52, 0x54, 0xab, 0x12, 0x34, 0x56};
+	//unsigned char ne_defethaddr[6] = {0x52, 0x54, 0xab, 0x12, 0x34, 0x56};
+	unsigned char ne_defethaddr[6] = {0x00, 0x00, 0xe8, 0x12, 0x34, 0x56};
 //	ne_defethaddr[5]++;
 
 //	printk("ARMSYS RTL8019, Http://www.hzlitai.com.cn\n");
@@ -477,8 +479,7 @@ static int __init ne_probe1(struct net_device *dev, int ioaddr)
     //printk("\nSA_prom[%d]=%x",i,SA_prom[i]);
 	}     
 	SA_prom[14] = SA_prom[15] = 0x57;
-  //#if (ETH_ADDR_SFT==0)
-  #if (ETH_ADDR_SFT==8)
+  #if (ETH_ADDR_SFT==0)
 	wordlength = 1;
 	/* We must set the 8390 for 8bit mode. */
         outb_p(0x48, ioaddr + EN0_DCFG);
@@ -896,7 +897,8 @@ retry:
 			int high = inb_p(nic_base + EN0_RSARHI);
 			int low = inb_p(nic_base + EN0_RSARLO);
 			addr = (high << 8) + low;
-			if ((start_page << 8) + count == addr)
+//			if ((start_page << 8) + count == addr)
+			if ((start_page) + count == addr)
 				break;
 		} while (--tries > 0);
 
@@ -904,7 +906,8 @@ retry:
 		{
 			printk(KERN_WARNING "%s: Tx packet transfer address mismatch,"
 				"%#4.4x (expected) vs. %#4.4x (actual).\n",
-				dev->name, (start_page << 8) + count, addr);
+				dev->name, (start_page) + count, addr);
+//				dev->name, (start_page << 8) + count, addr);
 			if (retries++ == 0)
 				goto retry;
 		}

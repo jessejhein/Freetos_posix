@@ -1,1 +1,1 @@
-#define CONFIG_UNIX 1
+#undef  CONFIG_UNIX

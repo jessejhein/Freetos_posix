@@ -1,35 +1,35 @@
 3780i.o: 3780i.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/unistd.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/irq.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/unistd.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/system.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/irq.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/bitops.h \
    smapi.h \
    mwavedd.h \
    3780i.h
 3780i.h: \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h
 	@touch 3780i.h
 mwavedd.o: mwavedd.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/major.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/miscdevice.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/serial.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/spinlock.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/major.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/miscdevice.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/serial.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sched.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/spinlock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/spinlock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
    smapi.h \
    mwavedd.h \
    3780i.h \
@@ -38,31 +38,31 @@ mwavedd.h: \
    3780i.h \
    tp3780i.h \
    mwavepub.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioctl.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioctl.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h
 	@touch mwavedd.h
 mwavepub.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/miscdevice.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/miscdevice.h
 	@touch mwavepub.h
 smapi.o: smapi.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mc146818rtc.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mc146818rtc.h \
    smapi.h \
    mwavedd.h
 tp3780i.o: tp3780i.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ptrace.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ptrace.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
    smapi.h \
    mwavedd.h \
    tp3780i.h \
    3780i.h \
    mwavepub.h
 tp3780i.h: \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
    mwavepub.h
 	@touch tp3780i.h
 .PRECIOUS:	3780i.h \

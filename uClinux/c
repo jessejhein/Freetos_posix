@@ -1,0 +1,38 @@
+#------- pls put this file into uCLinux root directory
+#---------- this file aims to compile uClinux kernel
+#--------------------------------------------------------
+
+#------- ready platform file(s)
+#---------- arm 44b0x 21spacetime
+#------------- ethernet
+cp vendors/Samsung/44B0/21spacetime/ne.c linux-2.4.x/drivers/net/
+cp vendors/Samsung/44B0/21spacetime/8390.h linux-2.4.x/drivers/net/
+#cp vendors/Samsung/44B0/hz_armsys/ne.c linux-2.4.x/drivers/net/
+#cp vendors/Samsung/44B0/hz_armsys/8390.h linux-2.4.x/drivers/net/
+#------------- uClinux soft-links, because of CVS limitation
+#ln -s asm-armnommu linux-2.4.x/include/asm
+#ln -s arch-S3C44B0X linux-2.4.x/include/asm-armnommu/arch
+#ln -s proc-armv linux-2.4.x/include/asm-armnommu/proc
+#--------------------------------------------------------
+
+#------- real compile
+mkdir -p tmp
+rm tmp/*
+(make dep 2>&1) >tmp/d.txt && (make lib_only 2>&1) >tmp/l.txt && (make user_only 2>&1) >tmp/u.txt && (make romfs 2>&1) >tmp/r.txt && (make image 2>&1) >tmp/i.txt; (make 2>&1) >tmp/m.txt
+#--------------------------------------------------------
+
+#------- post process
+#---------- remove uClinux soft-links, because of CVS limitation
+#rm linux-2.4.x/include/asm-armnommu/proc
+#rm linux-2.4.x/include/asm-armnommu/arch
+#rm linux-2.4.x/include/asm
+#---------- show the output and copy to suitable place for image files
+#cp images/image.ram /boot/44b0/image_ram.bin
+cp images/image.rom /boot/44b0/image_rom.bin
+cp images/romfs.img /boot/44b0/romfs_img.bin
+#cp images/image.rom ~/tmp/image_rom.bin
+#cp images/romfs.img ~/tmp/romfs_img.bin
+tail -n 50 tmp/i.txt
+tail -n 50 tmp/m.txt
+ls -la /boot/44b0/
+#--------------------------------------------------------

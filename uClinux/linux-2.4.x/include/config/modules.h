@@ -1,1 +1,1 @@
-#define CONFIG_MODULES 1
+#undef  CONFIG_MODULES

@@ -117,7 +117,7 @@ struct ei_device {
 #ifdef	CONFIG_NE2000_16b
 #define	ETH_ADDR_SFT	(9) //#(1)
 #else
-#define	ETH_ADDR_SFT	(8) //#(0)
+#define	ETH_ADDR_SFT	(0)
 #endif
 
 #if defined(CONFIG_MAC) ||  \

@@ -8,14 +8,14 @@ skcsum.o: skcsum.c \
 skdim.o: skdim.c \
    h/skdrv1st.h \
    h/skdrv2nd.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel_stat.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/smp.h)
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel_stat.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/smp.h)
 skge.o: skge.c \
    h/skversion.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h \
    h/skdrv1st.h \
    h/skdrv2nd.h
 skgehwt.o: skgehwt.c \
@@ -53,7 +53,7 @@ sklm80.o: sklm80.c \
    h/lm80.h \
    h/skdrv2nd.h
 skproc.o: skproc.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/proc_fs.h \
    h/skdrv1st.h \
    h/skdrv2nd.h
 skqueue.o: skqueue.c \

@@ -1,1 +1,1 @@
-#define CONFIG_VT 1
+#undef  CONFIG_VT

@@ -8,10 +8,10 @@ init301.h: \
    vgatypes.h \
    vstruct.h \
    sis.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sisfb.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sisfb.h
 	@touch init301.h
 init.o: init.c \
    init.h \
@@ -23,100 +23,100 @@ init.h: \
    vgatypes.h \
    vstruct.h \
    sis.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sisfb.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fb.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sisfb.h
 	@touch init.h
 osdef.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/sis/300.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/sis/315.h)
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/fb/sis/300.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/fb/sis/315.h)
 	@touch osdef.h
 sis_accel.o: sis_accel.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/vt_kern.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/capability.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/agp_backend.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sisfb.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtrr.h) \
-   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
-   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
-   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
-   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
-   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/tty.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fb.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/console.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/selection.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/vt_kern.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/capability.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/agp_backend.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sisfb.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/mtrr.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/video/fbcon.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/video/fbcon-cfb32.h \
    osdef.h \
    vgatypes.h \
    vstruct.h \
    sis_accel.h \
    sis.h
 sis_accel.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/spinlock.h
 	@touch sis_accel.h
 sis_main.o: sis_main.c \
-   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fb.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/console.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/selection.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/vt_kern.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/capability.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/agp_backend.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/version.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/module.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/kernel.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/errno.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/string.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/mm.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/tty.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/slab.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/delay.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fb.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/console.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/selection.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioport.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/init.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/pci.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/vmalloc.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/vt_kern.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/capability.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/fs.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/agp_backend.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/types.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/spinlock.h \
    osdef.h \
-   /home/uClinux-dist/linux-2.4.x/include/linux/sisfb.h \
-   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtrr.h) \
-   /home/uClinux-dist/linux-2.4.x/include/video/fbcon.h \
-   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb8.h \
-   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb16.h \
-   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb24.h \
-   /home/uClinux-dist/linux-2.4.x/include/video/fbcon-cfb32.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/sisfb.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/asm/io.h \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/mtrr.h) \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/video/fbcon.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/video/fbcon-cfb8.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/video/fbcon-cfb16.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/video/fbcon-cfb24.h \
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/video/fbcon-cfb32.h \
    vgatypes.h \
    sis_main.h \
    sis.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/sis/300.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/sis/315.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/fb/sis/300.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/fb/sis/315.h)
 sis_main.h: \
    vstruct.h \
    sis.h \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/sis/300.h) \
-   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fb/sis/315.h)
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/fb/sis/300.h) \
+   $(wildcard /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/config/fb/sis/315.h)
 	@touch sis_main.h
 vgatypes.h: \
-   /home/uClinux-dist/linux-2.4.x/include/linux/ioctl.h
+   /home/yan/MainData/workspace/uClinux/linux-2.4.x/include/linux/ioctl.h
 	@touch vgatypes.h
 .PRECIOUS:	init301.h \
 	init.h \
