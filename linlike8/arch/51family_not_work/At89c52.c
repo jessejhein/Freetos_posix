@@ -20,6 +20,8 @@
  * include files 
  ****************************************************************
  */
+#include "main.h"                                          // main header file => main application and its functions
+#include "ctrller.h"                                       // Header file for hardware driver 
 
 #ifdef AT89C52
 #include <at89x52.h>                                       // call for sdcc compiler, include at89c52 structure
@@ -30,6 +32,12 @@
  * Local Data
  ****************************************************************
  */
+//#ifdef TIMER0
+//idata unsigned int delayMSec;                               // global veriable for delay 
+//#endif	// end of "#ifdef TIMER0"
+#ifdef UART1
+idata unsigned char uart1TxFlag;
+#endif  // end of "#ifdef UART1"
  
 /* 
  * name : CtrllerInit
@@ -42,6 +50,24 @@ void CtrllerInit(void)
     //*****************************************************************************************************
             // enable all interrupts
  IE |= 0x80;                                                                                    // enable All Flag
+
+#ifdef DEV_KIT_0
+    // development kit #0 
+    //*****************************************************************************************************
+ TestOff();
+ //P2 = (0x00);
+ //P0_0 = 0;		
+ //dis485Tx();
+#ifdef LED_BUZZER
+        	// clear all Leds and Buzzer 
+ OutputDeviceOFF(BUZZER);
+ OutputDeviceOFF(REDLED);
+ OutputDeviceOFF(GREENLED);
+ 
+#endif  // end of "#ifdef LED_BUZZER"
+ 
+
+#endif	// end of "#ifdef DEV_KIT_0"
 
 }
 
@@ -101,7 +127,14 @@ void uart1HwSetup(void)
  */
 unsigned char EnTxCom1(void) reentrant
 {
-      SBUF = ;
+ if (uart1TxFlag!=TRUE) {
+      //en485Tx();
+      uart1TxFlag = TRUE;
+      SBUF = Uart1TxBuf[pRdUart1TxBuf];
+      pRdUart1TxBuf++;
+      if (pRdUart1TxBuf>=MAX_UART_TXRX_BUF) pRdUart1TxBuf = 0;
+     }
+ return(TRUE);
 }
 
 /*
@@ -118,6 +151,15 @@ void Uart1ISR (void) interrupt 4 using 1
  if (RI) {
          RI = 0;                               // after verifying which interrupts(TX/RX), clr
                                                // interrupt immediately, since this flag will
+                       // active the interrupt on high status
+         pWrUart1RxBufBackup = pWrUart1RxBuf;                                   /* inc. pointer                                                                                   */
+         pWrUart1RxBufBackup++;
+         if (pWrUart1RxBufBackup>=MAX_UART_TXRX_BUF) pWrUart1RxBufBackup = 0;
+         if (pWrUart1RxBufBackup!=pRdUart1RxBuf) {                      /* buf not ful                  */
+                 Uart1RxBuf[pWrUart1RxBuf] = SBUF;              /* Rx one byte                                                                                            */
+                 pWrUart1RxBuf = pWrUart1RxBufBackup;
+                }
+         //else                                                                                 // buf full return error
         }
 
         // Tx
@@ -128,6 +170,15 @@ void Uart1ISR (void) interrupt 4 using 1
                                        // interrupt immediately, since this flag will
 
                                        // active the interrupt on high status
+      if (pRdUart1TxBuf!=pWrUart1TxBuf) {                                                    // buf not empty, Tx again
+         SBUF = Uart1TxBuf[pRdUart1TxBuf];                                                      // read one byte to transmit out
+         pRdUart1TxBuf++;                                                                                                       // update read ptr of Tx buf
+          if (pRdUart1TxBuf>=MAX_UART_TXRX_BUF) pRdUart1TxBuf = 0;
+        }
+      else {                         //  => don't put data into SBUF, then stop the TX
+         uart1TxFlag = FALSE;       // clear Tx flag as complete tx 
+         //dis485Tx();
+        }
      }
 
 }
@@ -150,6 +201,7 @@ void uart1HwClose(void)
 //void timer0Setup(unsigned int delay, unsigned char mode) reentrant
 void timer0HwSetup(void) 
 {
+// delayMSec = delay;
  
         	// Initialize for timer 
         	//*****************************************************************************************************
@@ -184,6 +236,8 @@ void Timer0ISR (void) interrupt 1 using 1
 	//*****************************************************************************************************
  TL0 = (65536-50000) % 256;                                  // delay for 50mSec
  TH0 = (65536-50000) / 256;
+// TL0 = (65536-delayMSec) % 256;
+// TH0 = (65536-delayMSec) / 256;
  // HW auto. clear TF0
 
  runTimer();// call to 2nd part of isr of timer
@@ -192,4 +246,15 @@ void Timer0ISR (void) interrupt 1 using 1
 
 #endif	// end of "#ifdef AT89C52"
     
+
+/*
+#include "util.h"                                       // header file of utilities
+
+#ifdef PORT_CTRL
+        	// Initialize for port ctrl 
+
+ cntPortCtrl = 0;                                           // port control app. bit as 0 to start
+#endif	// end of "#ifdef PORT_CTRL"
+*/
+
 
