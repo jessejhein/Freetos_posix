@@ -1,0 +1,385 @@
+addr.o: addr.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   signaling.h \
+   addr.h
+addr.h: \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h
+	@touch addr.h
+atm_misc.o: atm_misc.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sonet.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/bitops.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/atomic.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/errno.h
+br2684.o: br2684.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/list.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/netdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/etherdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/arp.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/rtnetlink.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ip.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/arp.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmbr2684.h \
+   common.h \
+   ipcommon.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atm/br2684/ipfilter.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/br2684/fast/trans.h)
+clip.o: clip.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/netdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/wait.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/if_arp.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/notifier.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmclip.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmarp.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ip.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/in.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/if.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/inetdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/bitops.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/route.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/icmp.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/param.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/atomic.h \
+   common.h \
+   resources.h \
+   ipcommon.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/atmclip.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atm/clip/no/icmp.h)
+common.o: common.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kmod.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/net.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmclip.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmarp.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sonet.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/socket.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/capability.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/time.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/bitops.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/sock.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/atomic.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/poll.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/ioctls.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atm/lane.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atm/lane/module.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmlec.h \
+   lec.h \
+   lec_arpc.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atm/mpoa/module.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atm/mpoa.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmmpc.h \
+   mpc.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atm/tcp.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atm/tcp/module.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atm_tcp.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atm/clip.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atm/clip/module.h) \
+   /home/uClinux-dist/linux-2.4.x/include/net/atmclip.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pppoatm.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pppoatm/module.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atm/br2684.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atm/br2684/module.h) \
+   resources.h \
+   common.h \
+   protocols.h \
+   addr.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/atmclip.h \
+   signaling.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/bridge.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/bridge/module.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h)
+common.h: \
+   /home/uClinux-dist/linux-2.4.x/include/linux/net.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/poll.h
+	@touch common.h
+ipcommon.o: ipcommon.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/netdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/in.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmclip.h \
+   common.h \
+   ipcommon.h
+ipcommon.h: \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/netdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h
+	@touch ipcommon.h
+lec_arpc.h: \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/if_ether.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmlec.h
+	@touch lec_arpc.h
+lec.o: lec.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/bitops.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/if_ether.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/netdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/rtnetlink.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/etherdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/sock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ip.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/arp.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/dst.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/tr.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/trdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmlec.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/bridge.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/bridge/module.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/if_bridge.h \
+   ../bridge/br_private.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   lec.h \
+   lec_arpc.h \
+   resources.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/param.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/atomic.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/inetdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/route.h
+lec.h: \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/netdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmlec.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/bridge.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/bridge/module.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/if_bridge.h
+	@touch lec.h
+mpc.o: mpc.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timer.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/bitops.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/if_ether.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/netdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/etherdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/sock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ip.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/checksum.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/arp.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/dst.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmlec.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmmpc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   lec.h \
+   mpc.h \
+   resources.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h)
+mpc.h: \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmmpc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   mpoa_caches.h
+	@touch mpc.h
+mpoa_caches.o: mpoa_caches.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmmpc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/time.h \
+   mpoa_caches.h \
+   mpc.h
+mpoa_caches.h: \
+   /home/uClinux-dist/linux-2.4.x/include/linux/netdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmmpc.h
+	@touch mpoa_caches.h
+mpoa_proc.o: mpoa_proc.c \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/time.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmmpc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atm.h \
+   mpc.h \
+   mpoa_caches.h
+pppoatm.o: pppoatm.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ppp_defs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/if_ppp.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ppp_channel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmppp.h \
+   common.h
+proc.o: proc.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/netdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmclip.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmarp.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/if_arp.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/atomic.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/param.h \
+   resources.h \
+   common.h \
+   signaling.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atm/clip.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atm/clip/module.h) \
+   /home/uClinux-dist/linux-2.4.x/include/net/atmclip.h \
+   ipcommon.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atm/lane.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atm/lane/module.h) \
+   lec.h \
+   lec_arpc.h
+pvc.o: pvc.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/net.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/bitops.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/sock.h \
+   resources.h \
+   common.h
+raw.o: raw.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   common.h \
+   protocols.h
+resources.o: resources.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ctype.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sonet.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/bitops.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/sock.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/segment.h \
+   common.h \
+   resources.h \
+   addr.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h)
+resources.h: \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h
+	@touch resources.h
+signaling.o: signaling.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/wait.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmsap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmsvc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/bitops.h \
+   resources.h \
+   signaling.h
+signaling.h: \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmsvc.h
+	@touch signaling.h
+svc.o: svc.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/net.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/skbuff.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/wait.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmsap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmsvc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/atmdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/bitops.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/sock.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   resources.h \
+   common.h \
+   signaling.h \
+   addr.h
+.PRECIOUS:	addr.h \
+	common.h \
+	ipcommon.h \
+	lec_arpc.h \
+	lec.h \
+	mpc.h \
+	mpoa_caches.h \
+	resources.h \
+	signaling.h \
+

@@ -1,0 +1,120 @@
+netsyms.o: netsyms.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/net.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/in.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/netdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/inetdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fddidevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/trdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fcdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ethtool.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/neighbour.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/snmp.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/dst.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/checksum.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/etherdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/route.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/hippi.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/hippidevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/pkt_sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/scm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/if_bridge.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/if_vlan.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/random.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/net/divert.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/divert.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/net.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/inet.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ip.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/protocol.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/arp.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atm/clip.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atm/clip/module.h) \
+   /home/uClinux-dist/linux-2.4.x/include/net/atmclip.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/ip.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/udp.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/tcp.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/icmp.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/inet_common.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/inet.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mroute.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/igmp.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ipv6.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ipv6/module.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/khttpd.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/khttpd/module.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ip/sctp/module.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/in6.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/icmpv6.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/ipv6.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/ndisc.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/transp_v6.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/addrconf.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/rtnetlink.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ipx/module.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/atalk/module.h) \
+   /home/uClinux-dist/linux-2.4.x/include/net/sock.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sysctl.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/filter.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arpd.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/vlan/8021q.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/vlan/8021q/module.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/bridge.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/bridge/module.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/dlci/module.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/netlink/dev.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/netlink/dev/module.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/tr.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/fddi.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/kmod.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/net/hw/flowcontrol.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/net/fastroute.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/net/sched.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/net/estimator.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/net/cls/police.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/net/cls.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/netfilter.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/netfilter.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/netfilter_ipv4.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/net/radio.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/net/pcmcia/radio.h) \
+   /home/uClinux-dist/linux-2.4.x/include/net/iw_handler.h
+socket.o: socket.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/socket.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/file.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/net.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/netdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/wanrouter.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/netlink.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/rtnetlink.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/poll.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/cache.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/highmem.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/kmod.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/net.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kmod.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/sock.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/scm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/netfilter.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/smp.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/wan/router.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/bluez.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/netlink/dev.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/netfilter.h)
+sysctl_net.o: sysctl_net.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sysctl.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/inet.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/net.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ipv6.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/tr.h)

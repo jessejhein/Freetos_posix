@@ -1,0 +1,201 @@
+bootmem.o: bootmem.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel_stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swapctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/bootmem.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mmzone.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/dma.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/virtconvert.h
+filemap.o: filemap.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/shm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mman.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/file.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swapctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/iobuf.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/mman.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/virtconvert.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/highmem.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/contiguous/page/alloc.h)
+memory.o: memory.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/iobuf.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/tlb.h
+mlock.o: mlock.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/shm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mman.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h
+mmap.o: mmap.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/shm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mman.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swapctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/file.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/personality.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgalloc.h
+mprotect.o: mprotect.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/shm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mman.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgalloc.h
+mremap.o: mremap.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/shm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mman.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swap.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgalloc.h
+numa.o: numa.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/bootmem.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mmzone.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/discontigmem.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/numa.h)
+oom_kill.o: oom_kill.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swapctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/timex.h
+page_alloc2.o: page_alloc2.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swapctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/bootmem.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/compiler.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mem/map.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/uncached/mem.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/uncached/256.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/uncached/512.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/uncached/1024.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/uncached/2048.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/uncached/4096.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/uncached/8192.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/highmem.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/ram.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/romfs/fs.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ext2/fs.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/minix/fs.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/contiguous/page/alloc.h)
+page_alloc.o: page_alloc.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swapctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/bootmem.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/discontigmem.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/highmem.h)
+slab.o: slab.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/compiler.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/seq_file.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/contiguous/page/alloc.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/debug/slab.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ucsimm.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ucdimm.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/dragen2.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cwez328.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/cwvz328.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/smp.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/no/mmu/large/allocs.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h)
+swap.o: swap.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel_stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swapctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/dma.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h
+swapfile.o: swapfile.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel_stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swapctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/shm.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h
+swap_state.o: swap_state.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel_stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swapctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgtable.h
+vmalloc.o: vmalloc.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgalloc.h
+vmscan.o: vmscan.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel_stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/swapctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/highmem.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/file.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/pgalloc.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/quota.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/contiguous/page/alloc.h)
