@@ -1,0 +1,81 @@
+init/do_mounts.o: init/do_mounts.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/devfs_fs_kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/unistd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ctype.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blk.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nfs_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nfs_fs_sb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nfs_mount.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/minix_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ext2_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/romfs_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/cramfs_fs.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/initrd.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/s390.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/root/nfs.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/ram.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/fd.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ppc/iseries.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/devfs/fs.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/all/ppc.h) \
+   /home/uClinux-dist/linux-2.4.x/include/../lib/inflate.c
+init/main.o: init/main.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/proc_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/devfs_fs_kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/unistd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ctype.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/utsname.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioport.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blk.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/hdreg.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/iobuf.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/bootmem.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/file.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/tty.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/io.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/bugs.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/s390.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/acpi.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/acpi.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pci.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pci.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/dio.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/dio.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/zorro.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/zorro.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mtrr.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/nubus.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nubus.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/isapnp.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/isapnp.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/irda.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/x86/local/apic.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/smp.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/v850e.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/nios.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/tc.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sysvipc.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/smp.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/modules.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/blk/dev/initrd.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/proc/fs.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sysctl.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/acpi/interpreter.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/sbus.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ppc.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/mca.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/arch/acorn.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/pcmcia.h)
+init/version.o: init/version.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/uts.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/utsname.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/compile.h
