@@ -1,0 +1,95 @@
+                        .module maink.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./maink.c
+ 0000                   .dbfunc e start_kernel _start_kernel fV
+ 0000           _start_kernel::
+ 0000                   .dbline -1
+ 0000                   .dbline 24
+ 0000           ; /*
+ 0000           ;  *    init/main.c
+ 0000           ;  *
+ 0000           ;  *    09-04-2004      yan     create this following linux
+ 0000           ;  *
+ 0000           ;  */
+ 0000           ; 
+ 0000           ; #include "app.h"
+ 0000           ; #include "sched.h"
+ 0000           ; #include "system.h"
+ 0000           ; 
+ 0000           ; void start_kernel(void);
+ 0000           ; extern void setup_arch(void);
+ 0000           ; extern void sched_init(void);
+ 0000           ; extern void softirq_init(void);
+ 0000           ; #if (TIMER_MOD==1)
+ 0000           ; extern void time_init(void);
+ 0000           ; #endif
+ 0000           ; #if (CONTEXT_SW==1)
+ 0000           ; void kernel_thread(void);
+ 0000           ; #endif
+ 0000           ; 
+ 0000           ; void start_kernel(void)
+ 0000           ; {
+ 0000                   .dbline 25
+ 0000           ;       setup_arch();
+ 0000 7C0000            xcall _setup_arch
+ 0003                   .dbline 26
+ 0003           ;       sched_init();                                                                   // <-+ this subr. must place as same layer of process0()
+ 0003 7C0000            xcall _sched_init
+ 0006                   .dbline 28
+ 0006           ;       //fork_init();                                                                  //   |
+ 0006           ;       softirq_init();                                                                 //   |
+ 0006 7C0000            xcall _softirq_init
+ 0009                   .dbline 30
+ 0009           ;       #if (TIMER_MOD==1)
+ 0009           ;       time_init();                                                                    //   |          // must place after sched_int(), since after timer init, sched can be start to work
+ 0009 7C0000            xcall _time_init
+ 000C                   .dbline 33
+ 000C           ;       #endif
+ 000C           ; #if (CONTEXT_SW==1)
+ 000C           ;       kernel_thread();                                                                //   |
+ 000C 9006              xcall _kernel_thread
+ 000E                   .dbline 35
+ 000E           ; #endif
+ 000E           ;       sti();                                                                          //   |          // start interrupt, kernel start ??? diff. to linux
+ 000E 7101                      or  F, 01h
+ 0010           
+ 0010                   .dbline 36
+ 0010           ;       idle_process();//for (;;);//cpu_idle();                                            <-+ this subr. must place as same layer of sched_init()
+ 0010 7C0000            xcall _mwlike8_server
+ 0013                   .dbline -2
+ 0013                   .dbline 37
+ 0013           ; }
+ 0013           L1:
+ 0013                   .dbline 0 ; func end
+ 0013 7F                ret
+ 0014                   .dbend
+ 0014                   .dbfunc e kernel_thread _kernel_thread fV
+ 0014           _kernel_thread::
+ 0014                   .dbline -1
+ 0014                   .dbline 42
+ 0014           ; 
+ 0014           ;               // should place at arch/XXX/process.c
+ 0014           ; #if (CONTEXT_SW==1)
+ 0014           ; void kernel_thread(void)
+ 0014           ; {
+ 0014                   .dbline 43
+ 0014           ;       do_fork(1, PROCESS0_SYS_APP_STACK_SIZE, (p_func) &init_process);                                // create init process
+ 0014 5000              mov A,>PL_mwlike8_process1
+ 0016 08                push A
+ 0017 5000              mov A,<PL_mwlike8_process1
+ 0019 08                push A
+ 001A 5053              mov A,83
+ 001C 08                push A
+ 001D 5001              mov A,1
+ 001F 08                push A
+ 0020 7C0000            xcall _do_fork
+ 0023 38FC              add SP,-4
+ 0025                   .dbline -2
+ 0025                   .dbline 44
+ 0025           ; }
+ 0025           L2:
+ 0025                   .dbline 0 ; func end
+ 0025 7F                ret
+ 0026                   .dbend
+                        .area func_lit
+ 0000 0000      PL_mwlike8_process1:    .word _mwlike8_process1

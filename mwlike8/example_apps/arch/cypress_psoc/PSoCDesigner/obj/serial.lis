@@ -1,0 +1,828 @@
+                        .module serial.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./serial.c
+ 0000                   .dbfunc e serial_open _serial_open fV
+ 0000           _serial_open::
+ 0000                   .dbline -1
+ 0000                   .dbline 38
+ 0000           ; /*
+ 0000           ;  * Copyright (c) 24-05-2004 cheng chung yan yan@amonics.com> / <chungyan5@hkem.com for 8-bit system
+ 0000           ;  *
+ 0000           ;  * this module is serial in cypress psoc, driver specification. So each arch. has different code here
+ 0000           ;  * 
+ 0000           ;  * using cypress psoc serial
+ 0000           ;  *
+ 0000           ;  */
+ 0000           ; 
+ 0000           ; #include "app.h"                                                                      // this linlike8
+ 0000           ; #if (SERIAL_MOD==1)
+ 0000           ; #if (SWITCH_CASE==0)
+ 0000           ;       #include "sched.h"                                                              // linlike8 system
+ 0000           ;       #include "timer.h"
+ 0000           ; #endif
+ 0000           ; #include "cirbuf.h"                                                                   // pre_wr_cir254buf()
+ 0000           ; #include "uart_1.h"
+ 0000           ; 
+ 0000           ; unsigned char serial_rx_buf[MAX_SERIAL_BUF];
+ 0000           ; struct {
+ 0000           ;       unsigned        wr :4;
+ 0000           ;       unsigned        rd :4;
+ 0000           ; } serial_rx;
+ 0000           ; unsigned char serial_tx_buf[MAX_SERIAL_TX_BUF];
+ 0000           ; struct {
+ 0000           ;       unsigned        wr :3;                                                          // max. of tx buf. is 7
+ 0000           ;       unsigned        rd :4;
+ 0000           ;       unsigned        tx_complete_flag :1;                                            // true as completed, false is non-completed
+ 0000           ; } serial_tx;
+ 0000           ; #if (SWITCH_CASE==1)
+ 0000           ; struct wr_compl_struct {
+ 0000           ;       unsigned tmp    :7;
+ 0000           ;       unsigned state  :1;
+ 0000           ; } wr_compl_var;
+ 0000           ; #endif
+ 0000           ; 
+ 0000           ; void serial_open(void)
+ 0000           ; {
+ 0000                   .dbline 39
+ 0000           ;       serial_rx.wr = 0;
+ 0000 260500            and [_serial_rx],0
+ 0003                   .dbline 40
+ 0003           ;       serial_rx.rd = 0;
+ 0003                   .dbline 41
+ 0003           ;       serial_tx.wr = 0;
+ 0003 260180            and [_serial_tx],-128
+ 0006                   .dbline 42
+ 0006           ;       serial_tx.rd = 0;
+ 0006                   .dbline 43
+ 0006           ;       serial_tx.tx_complete_flag = 1;
+ 0006 2E0180            or [_serial_tx],-128
+ 0009                   .dbline 46
+ 0009           ; 
+ 0009           ; #if (SWITCH_CASE==1)
+ 0009           ;       wr_compl_var.state = 0;
+ 0009 26007F            and [_wr_compl_var],127
+ 000C                   .dbline 48
+ 000C           ; #endif
+ 000C           ;         UART_1_EnableInt(); 
+ 000C 10                push X
+ 000D 7C0000            xcall _UART_1_EnableInt
+ 0010                   .dbline 49
+ 0010           ;         UART_1_Start(UART_PARITY_NONE);
+ 0010 5000              mov A,0
+ 0012 7C0000            xcall _UART_1_Start
+ 0015 20                pop X
+ 0016                   .dbline -2
+ 0016                   .dbline 50
+ 0016           ; }
+ 0016           L3:
+ 0016                   .dbline 0 ; func end
+ 0016 7F                ret
+ 0017                   .dbend
+ 0017                   .dbfunc e serial_tx_isr _serial_tx_isr fV
+ 0017           ;              k -> X+0
+ 0017           _serial_tx_isr::
+ 0017                   .dbline -1
+ 0017 08                push A
+ 0018 5100              mov A,[__r0]
+ 001A 08                push A
+ 001B 5100              mov A,[__r1]
+ 001D 08                push A
+ 001E 5100              mov A,[__r2]
+ 0020 08                push A
+ 0021 5100              mov A,[__r3]
+ 0023 08                push A
+ 0024 5100              mov A,[__r4]
+ 0026 08                push A
+ 0027 5100              mov A,[__r5]
+ 0029 08                push A
+ 002A 5100              mov A,[__r6]
+ 002C 08                push A
+ 002D 5100              mov A,[__r7]
+ 002F 08                push A
+ 0030 5100              mov A,[__r8]
+ 0032 08                push A
+ 0033 5100              mov A,[__r9]
+ 0035 08                push A
+ 0036 5100              mov A,[__r10]
+ 0038 08                push A
+ 0039 5100              mov A,[__r11]
+ 003B 08                push A
+ 003C 5100              mov A,[__rX]
+ 003E 08                push A
+ 003F 5100              mov A,[__rY]
+ 0041 08                push A
+ 0042 5100              mov A,[__rZ]
+ 0044 08                push A
+ 0045 10                push X
+ 0046 4F                mov X,SP
+ 0047 3801              add SP,1
+ 0049                   .dbline 55
+ 0049           ; #endif
+ 0049           ; 
+ 0049           ; #pragma       interrupt_handler       serial_tx_isr                                           // shouald add this isr name at boot.asm from PSoC Designer
+ 0049           ; void serial_tx_isr(void)
+ 0049           ; {
+ 0049                   .dbline 58
+ 0049           ; #if (SERIAL_MOD==1)
+ 0049           ;       unsigned char k;
+ 0049           ;       if (bUART_1_ReadTxStatus() & UART_TX_BUFFER_EMPTY) {
+ 0049 10                push X
+ 004A 7C0000            xcall _bUART_1_ReadTxStatus
+ 004D 20                pop X
+ 004E 5300              mov [__r0],A
+ 0050 470010            tst [__r0],16
+ 0053 A05C              jz L5
+ 0055                   .dbline 58
+ 0055                   .dbline 59
+ 0055           ;               if ((k=pre_rd_cir254buf((unsigned char)serial_tx.wr,(unsigned char)serial_tx.rd,MAX_SERIAL_TX_BUF))!=255) {
+ 0055 5003              mov A,3
+ 0057 08                push A
+ 0058 5101              mov A,[_serial_tx]
+ 005A 67                asr A
+ 005B 67                asr A
+ 005C 67                asr A
+ 005D 210F              and A,15
+ 005F 08                push A
+ 0060 5101              mov A,[_serial_tx]
+ 0062 2107              and A,7
+ 0064 08                push A
+ 0065 7C0000            xcall _pre_rd_cir254buf
+ 0068 38FD              add SP,-3
+ 006A 5400              mov [X+0],A
+ 006C 39FF              cmp A,-1
+ 006E A03C              jz L7
+ 0070                   .dbline 59
+ 0070                   .dbline 60
+ 0070           ;                       UART_1_SendData(serial_tx_buf[(unsigned char)serial_tx.rd]);
+ 0070 5F0001            mov [__r1],[_serial_tx]
+ 0073 550000            mov [__r0],0
+ 0076 6800              asr [__r0]
+ 0078 6E00              rrc [__r1]
+ 007A 6800              asr [__r0]
+ 007C 6E00              rrc [__r1]
+ 007E 6800              asr [__r0]
+ 0080 6E00              rrc [__r1]
+ 0082 26000F            and [__r1],15
+ 0085 260000            and [__r0],0
+ 0088 060002            add [__r1],<_serial_tx_buf
+ 008B 0E0002            adc [__r0],>_serial_tx_buf
+ 008E 3E00              mvi A,[__r1]
+ 0090 10                push X
+ 0091 7C0000            xcall _UART_1_SendData
+ 0094 20                pop X
+ 0095                   .dbline 61
+ 0095           ;                       serial_tx.rd = (unsigned)k;
+ 0095 5101              mov A,[_serial_tx]
+ 0097 2187              and A,-121
+ 0099 5300              mov [__r0],A
+ 009B 5200              mov A,[X+0]
+ 009D 210F              and A,15
+ 009F 64                asl A
+ 00A0 64                asl A
+ 00A1 64                asl A
+ 00A2 2178              and A,120
+ 00A4 2C00              or [__r0],A
+ 00A6 5F0100            mov [_serial_tx],[__r0]
+ 00A9                   .dbline 62
+ 00A9 8006              xjmp L8
+ 00AB           L7:
+ 00AB                   .dbline 62
+ 00AB           ;               } else serial_tx.tx_complete_flag = 1;                                  // change to empty of tx
+ 00AB 2E0180            or [_serial_tx],-128
+ 00AE 5101              mov A,[_serial_tx]
+ 00B0           L8:
+ 00B0                   .dbline 63
+ 00B0           L5:
+ 00B0                   .dbline -2
+ 00B0                   .dbline 65
+ 00B0           ;       }
+ 00B0           ; #endif
+ 00B0           ; }
+ 00B0           L4:
+ 00B0 38FF              add SP,-1
+ 00B2 20                pop X
+ 00B3 18                pop A
+ 00B4 5300              mov [__rZ],A
+ 00B6 18                pop A
+ 00B7 5300              mov [__rY],A
+ 00B9 18                pop A
+ 00BA 5300              mov [__rX],A
+ 00BC 18                pop A
+ 00BD 5300              mov [__r11],A
+ 00BF 18                pop A
+ 00C0 5300              mov [__r10],A
+ 00C2 18                pop A
+ 00C3 5300              mov [__r9],A
+ 00C5 18                pop A
+ 00C6 5300              mov [__r8],A
+ 00C8 18                pop A
+ 00C9 5300              mov [__r7],A
+ 00CB 18                pop A
+ 00CC 5300              mov [__r6],A
+ 00CE 18                pop A
+ 00CF 5300              mov [__r5],A
+ 00D1 18                pop A
+ 00D2 5300              mov [__r4],A
+ 00D4 18                pop A
+ 00D5 5300              mov [__r3],A
+ 00D7 18                pop A
+ 00D8 5300              mov [__r2],A
+ 00DA 18                pop A
+ 00DB 5300              mov [__r1],A
+ 00DD 18                pop A
+ 00DE 5300              mov [__r0],A
+ 00E0 18                pop A
+ 00E1                   .dbline 0 ; func end
+ 00E1 7E                reti
+ 00E2                   .dbsym l k 0 c
+ 00E2                   .dbend
+ 00E2                   .dbfunc e serial_rx_isr _serial_rx_isr fV
+ 00E2           ;              i -> X+1
+ 00E2           ;      bRxStatus -> X+0
+ 00E2           _serial_rx_isr::
+ 00E2                   .dbline -1
+ 00E2 08                push A
+ 00E3 5100              mov A,[__r0]
+ 00E5 08                push A
+ 00E6 5100              mov A,[__r1]
+ 00E8 08                push A
+ 00E9 5100              mov A,[__r2]
+ 00EB 08                push A
+ 00EC 5100              mov A,[__r3]
+ 00EE 08                push A
+ 00EF 5100              mov A,[__r4]
+ 00F1 08                push A
+ 00F2 5100              mov A,[__r5]
+ 00F4 08                push A
+ 00F5 5100              mov A,[__r6]
+ 00F7 08                push A
+ 00F8 5100              mov A,[__r7]
+ 00FA 08                push A
+ 00FB 5100              mov A,[__r8]
+ 00FD 08                push A
+ 00FE 5100              mov A,[__r9]
+ 0100 08                push A
+ 0101 5100              mov A,[__r10]
+ 0103 08                push A
+ 0104 5100              mov A,[__r11]
+ 0106 08                push A
+ 0107 5100              mov A,[__rX]
+ 0109 08                push A
+ 010A 5100              mov A,[__rY]
+ 010C 08                push A
+ 010D 5100              mov A,[__rZ]
+ 010F 08                push A
+ 0110 10                push X
+ 0111 4F                mov X,SP
+ 0112 3802              add SP,2
+ 0114                   .dbline 69
+ 0114           ; 
+ 0114           ; #pragma       interrupt_handler       serial_rx_isr                                           // shouald add this isr name at boot.asm from PSoC Designer
+ 0114           ; void serial_rx_isr(void)
+ 0114           ; {
+ 0114                   .dbline 73
+ 0114           ; #if (SERIAL_MOD==1)
+ 0114           ;       unsigned char i;
+ 0114           ;       unsigned char bRxStatus;
+ 0114           ;       if ( bRxStatus=bUART_1_ReadRxStatus() & UART_RX_COMPLETE ) {
+ 0114 10                push X
+ 0115 7C0000            xcall _bUART_1_ReadRxStatus
+ 0118 20                pop X
+ 0119 2108              and A,8
+ 011B 5400              mov [X+0],A
+ 011D 3900              cmp A,0
+ 011F A051              jz L10
+ 0121                   .dbline 73
+ 0121                   .dbline 74
+ 0121           ;               if ( ! (bRxStatus & UART_RX_NO_ERROR) ) {
+ 0121 4800E0            tst [X+0],-32
+ 0124 B04C              jnz L12
+ 0126                   .dbline 74
+ 0126                   .dbline 75
+ 0126           ;                       if ((i=pre_wr_cir254buf(serial_rx.wr,serial_rx.rd,MAX_SERIAL_BUF))!=255) {
+ 0126 5009              mov A,9
+ 0128 08                push A
+ 0129 5105              mov A,[_serial_rx]
+ 012B 67                asr A
+ 012C 67                asr A
+ 012D 67                asr A
+ 012E 67                asr A
+ 012F 210F              and A,15
+ 0131 08                push A
+ 0132 5105              mov A,[_serial_rx]
+ 0134 210F              and A,15
+ 0136 08                push A
+ 0137 7C0000            xcall _pre_wr_cir254buf
+ 013A 38FD              add SP,-3
+ 013C 5401              mov [X+1],A
+ 013E 39FF              cmp A,-1
+ 0140 A02B              jz L14
+ 0142                   .dbline 75
+ 0142                   .dbline 76
+ 0142           ;                               serial_rx_buf[serial_rx.wr] = bUART_1_ReadRxData();
+ 0142 10                push X
+ 0143 7C0000            xcall _bUART_1_ReadRxData
+ 0146 20                pop X
+ 0147 5F0005            mov [__r3],[_serial_rx]
+ 014A 550000            mov [__r2],0
+ 014D 26000F            and [__r3],15
+ 0150 260000            and [__r2],0
+ 0153 060006            add [__r3],<_serial_rx_buf
+ 0156 0E0006            adc [__r2],>_serial_rx_buf
+ 0159 3F00              mvi [__r3],A
+ 015B                   .dbline 77
+ 015B           ;                               serial_rx.wr = i;
+ 015B 5105              mov A,[_serial_rx]
+ 015D 21F0              and A,-16
+ 015F 5300              mov [__r0],A
+ 0161 5201              mov A,[X+1]
+ 0163 210F              and A,15
+ 0165 2C00              or [__r0],A
+ 0167 5F0500            mov [_serial_rx],[__r0]
+ 016A                   .dbline 78
+ 016A 8006              xjmp L15
+ 016C           L14:
+ 016C                   .dbline 78
+ 016C           ;                       } else bUART_1_ReadRxData();                                    // any cases, i must need to clear the UART rx register data, then prepare for next interrupt
+ 016C 10                push X
+ 016D 7C0000            xcall _bUART_1_ReadRxData
+ 0170 20                pop X
+ 0171           L15:
+ 0171                   .dbline 79
+ 0171           ;               }
+ 0171           L12:
+ 0171                   .dbline 80
+ 0171           L10:
+ 0171                   .dbline -2
+ 0171                   .dbline 82
+ 0171           ;       }
+ 0171           ; #endif
+ 0171           ; }
+ 0171           L9:
+ 0171 38FE              add SP,-2
+ 0173 20                pop X
+ 0174 18                pop A
+ 0175 5300              mov [__rZ],A
+ 0177 18                pop A
+ 0178 5300              mov [__rY],A
+ 017A 18                pop A
+ 017B 5300              mov [__rX],A
+ 017D 18                pop A
+ 017E 5300              mov [__r11],A
+ 0180 18                pop A
+ 0181 5300              mov [__r10],A
+ 0183 18                pop A
+ 0184 5300              mov [__r9],A
+ 0186 18                pop A
+ 0187 5300              mov [__r8],A
+ 0189 18                pop A
+ 018A 5300              mov [__r7],A
+ 018C 18                pop A
+ 018D 5300              mov [__r6],A
+ 018F 18                pop A
+ 0190 5300              mov [__r5],A
+ 0192 18                pop A
+ 0193 5300              mov [__r4],A
+ 0195 18                pop A
+ 0196 5300              mov [__r3],A
+ 0198 18                pop A
+ 0199 5300              mov [__r2],A
+ 019B 18                pop A
+ 019C 5300              mov [__r1],A
+ 019E 18                pop A
+ 019F 5300              mov [__r0],A
+ 01A1 18                pop A
+ 01A2                   .dbline 0 ; func end
+ 01A2 7E                reti
+ 01A3                   .dbsym l i 1 c
+ 01A3                   .dbsym l bRxStatus 0 c
+ 01A3                   .dbend
+ 01A3                   .dbfunc e write _write fc
+ 01A3           ;              i -> X+1
+ 01A3           ;            var -> X+0
+ 01A3           ;            __n -> X-6
+ 01A3           ;          __buf -> X-5
+ 01A3           _write::
+ 01A3                   .dbline -1
+ 01A3 10                push X
+ 01A4 4F                mov X,SP
+ 01A5 3802              add SP,2
+ 01A7                   .dbline 86
+ 01A7           ; 
+ 01A7           ; #if (SERIAL_MOD==1)
+ 01A7           ; unsigned char write(unsigned char *__buf, unsigned char __n)
+ 01A7           ; {
+ 01A7                   .dbline 94
+ 01A7           ;       unsigned char i;
+ 01A7           ; //    struct {
+ 01A7           ; //            unsigned j : 7;
+ 01A7           ;               //unsigned k : 1;
+ 01A7           ; //    } var;
+ 01A7           ;       unsigned char var;
+ 01A7           ;       
+ 01A7           ;       if (serial_tx.tx_complete_flag) {                                               // empty of tx
+ 01A7 5101              mov A,[_serial_tx]
+ 01A9 67                asr A
+ 01AA 67                asr A
+ 01AB 67                asr A
+ 01AC 67                asr A
+ 01AD 67                asr A
+ 01AE 67                asr A
+ 01AF 67                asr A
+ 01B0 2101              and A,1
+ 01B2 5300              mov [__r0],A
+ 01B4 260001            and [__r0],1
+ 01B7 A006              jz L17
+ 01B9                   .dbline 94
+ 01B9                   .dbline 96
+ 01B9           ;               //var.k = 1;
+ 01B9           ;               var = 1;
+ 01B9 560001            mov [X+0],1
+ 01BC                   .dbline 97
+ 01BC 8057              xjmp L22
+ 01BE           L17:
+ 01BE                   .dbline 97
+ 01BE           ;       } else {
+ 01BE                   .dbline 99
+ 01BE           ;               //var.k = 0;
+ 01BE           ;               var = 0;
+ 01BE 560000            mov [X+0],0
+ 01C1                   .dbline 100
+ 01C1           ;       }
+ 01C1                   .dbline 101
+ 01C1 8052              xjmp L22
+ 01C3           L19:
+ 01C3                   .dbline 101
+ 01C3           ;       for (;var<__n;var++) {
+ 01C3                   .dbline 102
+ 01C3           ;               if ((i=pre_wr_cir254buf((unsigned char)serial_tx.wr,(unsigned char)serial_tx.rd,MAX_SERIAL_TX_BUF))!=255) {
+ 01C3 5003              mov A,3
+ 01C5 08                push A
+ 01C6 5101              mov A,[_serial_tx]
+ 01C8 67                asr A
+ 01C9 67                asr A
+ 01CA 67                asr A
+ 01CB 210F              and A,15
+ 01CD 08                push A
+ 01CE 5101              mov A,[_serial_tx]
+ 01D0 2107              and A,7
+ 01D2 08                push A
+ 01D3 7C0000            xcall _pre_wr_cir254buf
+ 01D6 38FD              add SP,-3
+ 01D8 5401              mov [X+1],A
+ 01DA 39FF              cmp A,-1
+ 01DC A03F              jz L21
+ 01DE                   .dbline 102
+ 01DE                   .dbline 103
+ 01DE           ;                       serial_tx_buf[serial_tx.wr] = *(__buf+var);
+ 01DE 5F0001            mov [__r1],[_serial_tx]
+ 01E1 550000            mov [__r0],0
+ 01E4 260007            and [__r1],7
+ 01E7 260000            and [__r0],0
+ 01EA 060002            add [__r1],<_serial_tx_buf
+ 01ED 0E0002            adc [__r0],>_serial_tx_buf
+ 01F0 5200              mov A,[X+0]
+ 01F2 5300              mov [__r3],A
+ 01F4 550000            mov [__r2],0
+ 01F7 52FC              mov A,[X-4]
+ 01F9 0400              add [__r3],A
+ 01FB 52FB              mov A,[X-5]
+ 01FD 0C00              adc [__r2],A
+ 01FF 3E00              mvi A,[__r3]
+ 0201 3F00              mvi [__r1],A
+ 0203                   .dbline 104
+ 0203           ;                       serial_tx.wr = i;
+ 0203 5101              mov A,[_serial_tx]
+ 0205 21F8              and A,-8
+ 0207 5300              mov [__r0],A
+ 0209 5201              mov A,[X+1]
+ 020B 2107              and A,7
+ 020D 2C00              or [__r0],A
+ 020F 5F0100            mov [_serial_tx],[__r0]
+ 0212                   .dbline 105
+ 0212           ;               } else break;
+ 0212                   .dbline 105
+ 0212           L24:
+ 0212                   .dbline 106
+ 0212           L20:
+ 0212                   .dbline 101
+ 0212 7700              inc [X+0]
+ 0214           L22:
+ 0214                   .dbline 101
+ 0214 5200              mov A,[X+0]
+ 0216 3BFA              cmp A,[X-6]
+ 0218 A003              jz X0
+ 021A CFA8              jc L19
+ 021C           X0:
+ 021C           L21:
+ 021C                   .dbline 108
+ 021C           ;       }
+ 021C           ; //    if (var.k==1) UART_1_SendData(*(__buf));
+ 021C           ;       if (serial_tx.tx_complete_flag) {
+ 021C 5101              mov A,[_serial_tx]
+ 021E 67                asr A
+ 021F 67                asr A
+ 0220 67                asr A
+ 0221 67                asr A
+ 0222 67                asr A
+ 0223 67                asr A
+ 0224 67                asr A
+ 0225 2101              and A,1
+ 0227 5300              mov [__r0],A
+ 0229 260001            and [__r0],1
+ 022C A00F              jz L25
+ 022E                   .dbline 108
+ 022E                   .dbline 109
+ 022E           ;               UART_1_SendData(*(__buf));      // send 1st byte to active the Tx
+ 022E 52FC              mov A,[X-4]
+ 0230 5300              mov [__r1],A
+ 0232 3E00              mvi A,[__r1]
+ 0234 10                push X
+ 0235 7C0000            xcall _UART_1_SendData
+ 0238 20                pop X
+ 0239                   .dbline 110
+ 0239           ;               serial_tx.tx_complete_flag = 0;                                         // change to non-empty of tx
+ 0239 26017F            and [_serial_tx],127
+ 023C                   .dbline 111
+ 023C           ;       }
+ 023C           L25:
+ 023C                   .dbline 112
+ 023C           ;       return (unsigned char) var;
+ 023C 5200              mov A,[X+0]
+ 023E                   .dbline -2
+ 023E           L16:
+ 023E 38FE              add SP,-2
+ 0240 20                pop X
+ 0241                   .dbline 0 ; func end
+ 0241 7F                ret
+ 0242                   .dbsym l i 1 c
+ 0242                   .dbsym l var 0 c
+ 0242                   .dbsym l __n -6 c
+ 0242                   .dbsym l __buf -5 pc
+ 0242                   .dbend
+ 0242                   .dbfunc e read _read fc
+ 0242           ;              k -> X+0
+ 0242           ;          __buf -> X-5
+ 0242           _read::
+ 0242                   .dbline -1
+ 0242 10                push X
+ 0243 4F                mov X,SP
+ 0244 3801              add SP,1
+ 0246                   .dbline 117
+ 0246           ; }
+ 0246           ; 
+ 0246           ; //<rec 1 byte,remove>unsigned char read(unsigned char *__buf, unsigned char __n)      // reduce RAM usage
+ 0246           ; unsigned char read(unsigned char *__buf)//<rec 1 byte,add>
+ 0246           ; {
+ 0246                   .dbline 121
+ 0246           ;       unsigned char k;
+ 0246           ;       //<rec 1 byte,remove>unsigned char j;
+ 0246           ;       //<rec 1 byte,remove>for (j=0;j<__n;j++) {
+ 0246           ;               if ((k=pre_rd_cir254buf(serial_rx.wr,serial_rx.rd,MAX_SERIAL_BUF))!=255) {
+ 0246 5009              mov A,9
+ 0248 08                push A
+ 0249 5105              mov A,[_serial_rx]
+ 024B 67                asr A
+ 024C 67                asr A
+ 024D 67                asr A
+ 024E 67                asr A
+ 024F 210F              and A,15
+ 0251 08                push A
+ 0252 5105              mov A,[_serial_rx]
+ 0254 210F              and A,15
+ 0256 08                push A
+ 0257 7C0000            xcall _pre_rd_cir254buf
+ 025A 38FD              add SP,-3
+ 025C 5400              mov [X+0],A
+ 025E 39FF              cmp A,-1
+ 0260 A044              jz L28
+ 0262                   .dbline 121
+ 0262                   .dbline 123
+ 0262           ;                       //<rec 1 byte,remove>*(__buf+j) = serial_rx_buf[serial_rx.rd];
+ 0262           ;                       *(__buf) = serial_rx_buf[serial_rx.rd];//<rec 1 byte,add>
+ 0262 52FC              mov A,[X-4]
+ 0264 5300              mov [__r1],A
+ 0266 5F0005            mov [__r3],[_serial_rx]
+ 0269 550000            mov [__r2],0
+ 026C 6800              asr [__r2]
+ 026E 6E00              rrc [__r3]
+ 0270 6800              asr [__r2]
+ 0272 6E00              rrc [__r3]
+ 0274 6800              asr [__r2]
+ 0276 6E00              rrc [__r3]
+ 0278 6800              asr [__r2]
+ 027A 6E00              rrc [__r3]
+ 027C 26000F            and [__r3],15
+ 027F 260000            and [__r2],0
+ 0282 060006            add [__r3],<_serial_rx_buf
+ 0285 0E0006            adc [__r2],>_serial_rx_buf
+ 0288 3E00              mvi A,[__r3]
+ 028A 3F00              mvi [__r1],A
+ 028C                   .dbline 124
+ 028C           ;                       serial_rx.rd = k;
+ 028C 5105              mov A,[_serial_rx]
+ 028E 210F              and A,15
+ 0290 5300              mov [__r0],A
+ 0292 5200              mov A,[X+0]
+ 0294 210F              and A,15
+ 0296 64                asl A
+ 0297 64                asl A
+ 0298 64                asl A
+ 0299 64                asl A
+ 029A 21F0              and A,-16
+ 029C 2C00              or [__r0],A
+ 029E 5F0500            mov [_serial_rx],[__r0]
+ 02A1                   .dbline 125
+ 02A1           ;                       return 1;//<rec 1 byte,add>
+ 02A1 5001              mov A,1
+ 02A3 8003              xjmp L27
+ 02A5           L28:
+ 02A5                   .dbline 127
+ 02A5           ;               }//<rec 1 byte,add>
+ 02A5           ;               return 0;//<rec 1 byte,add>
+ 02A5 5000              mov A,0
+ 02A7                   .dbline -2
+ 02A7           L27:
+ 02A7 38FF              add SP,-1
+ 02A9 20                pop X
+ 02AA                   .dbline 0 ; func end
+ 02AA 7F                ret
+ 02AB                   .dbsym l k 0 c
+ 02AB                   .dbsym l __buf -5 pc
+ 02AB                   .dbend
+ 02AB                   .dbfunc e serial_write_complete _serial_write_complete fc
+ 02AB           ;            __n -> X-6
+ 02AB           ;          __buf -> X-5
+ 02AB           _serial_write_complete::
+ 02AB                   .dbline -1
+ 02AB 10                push X
+ 02AC 4F                mov X,SP
+ 02AD 3804              add SP,4
+ 02AF                   .dbline 146
+ 02AF           ;               //<rec 1 byte,remove>} else break;
+ 02AF           ;       //<rec 1 byte,remove>}
+ 02AF           ;       //<rec 1 byte,remove>return j;
+ 02AF           ; }
+ 02AF           ; 
+ 02AF           ; #if (SWITCH_CASE==0)
+ 02AF           ; void serial_write_complete(unsigned char *__buf, unsigned char __n)
+ 02AF           ; {
+ 02AF           ;       // non-tested
+ 02AF           ;       unsigned char i = 0;
+ 02AF           ;       do {
+ 02AF           ;               i += write(__buf + i, __n - i);
+ 02AF           ;               if (i==__n) break;
+ 02AF           ;               else msleep(10);
+ 02AF           ;       } while (1);
+ 02AF           ; }
+ 02AF           ; #else
+ 02AF           ; unsigned char serial_write_complete(unsigned char *__buf, unsigned char __n)
+ 02AF           ; {
+ 02AF                   .dbline 147
+ 02AF 5F0000            mov [__r1],[_wr_compl_var]
+ 02B2 550000            mov [__r0],0
+ 02B5 6800              asr [__r0]
+ 02B7 6E00              rrc [__r1]
+ 02B9 6800              asr [__r0]
+ 02BB 6E00              rrc [__r1]
+ 02BD 6800              asr [__r0]
+ 02BF 6E00              rrc [__r1]
+ 02C1 6800              asr [__r0]
+ 02C3 6E00              rrc [__r1]
+ 02C5 6800              asr [__r0]
+ 02C7 6E00              rrc [__r1]
+ 02C9 6800              asr [__r0]
+ 02CB 6E00              rrc [__r1]
+ 02CD 6800              asr [__r0]
+ 02CF 6E00              rrc [__r1]
+ 02D1 260001            and [__r1],1
+ 02D4 260000            and [__r0],0
+ 02D7 5100              mov A,[__r1]
+ 02D9 5401              mov [X+1],A
+ 02DB 5100              mov A,[__r0]
+ 02DD 5400              mov [X+0],A
+ 02DF 3D0000            cmp [X+0],0
+ 02E2 B006              jnz X2
+ 02E4 3D0100            cmp [X+1],0
+ 02E7 A00D              jz L34
+ 02E9           X2:
+ 02E9 3D0000            cmp [X+0],0
+ 02EC B006              jnz X3
+ 02EE 3D0101            cmp [X+1],1
+ 02F1 A00D              jz L35
+ 02F3           X3:
+ 02F3 8074              xjmp L31
+ 02F5           X1:
+ 02F5                   .dbline 147
+ 02F5           ;       switch (wr_compl_var.state) {
+ 02F5           L34:
+ 02F5                   .dbline 149
+ 02F5           ;               case 0 :
+ 02F5           ;                        wr_compl_var.tmp = 0;
+ 02F5 260080            and [_wr_compl_var],-128
+ 02F8                   .dbline 150
+ 02F8           ;                        wr_compl_var.state = 1;
+ 02F8 2E0080            or [_wr_compl_var],-128
+ 02FB 5100              mov A,[_wr_compl_var]
+ 02FD                   .dbline 151
+ 02FD           ;                       break;
+ 02FD 806A              xjmp L32
+ 02FF           L35:
+ 02FF                   .dbline 153
+ 02FF           ;               case 1 :
+ 02FF           ;                        wr_compl_var.tmp += write(__buf + wr_compl_var.tmp, __n - wr_compl_var.tmp);
+ 02FF 5F0000            mov [__r1],[_wr_compl_var]
+ 0302 550000            mov [__r0],0
+ 0305 26007F            and [__r1],127
+ 0308 260000            and [__r0],0
+ 030B 5100              mov A,[__r1]
+ 030D 5403              mov [X+3],A
+ 030F 5100              mov A,[__r0]
+ 0311 5402              mov [X+2],A
+ 0313 52FA              mov A,[X-6]
+ 0315 5300              mov [__r3],A
+ 0317 550000            mov [__r2],0
+ 031A 5100              mov A,[__r1]
+ 031C 1400              sub [__r3],A
+ 031E 5100              mov A,[__r0]
+ 0320 1C00              sbb [__r2],A
+ 0322 5100              mov A,[__r3]
+ 0324 08                push A
+ 0325 5100              mov A,[__r1]
+ 0327 03FC              add A,[X-4]
+ 0329 5300              mov [__r3],A
+ 032B 5100              mov A,[__r0]
+ 032D 0BFB              adc A,[X-5]
+ 032F 08                push A
+ 0330 5100              mov A,[__r3]
+ 0332 08                push A
+ 0333 9E6E              xcall _write
+ 0335 38FD              add SP,-3
+ 0337 5300              mov [__r0],A
+ 0339 5100              mov A,[_wr_compl_var]
+ 033B 2180              and A,-128
+ 033D 5300              mov [__r2],A
+ 033F 5F0000            mov [__r1],[__r0]
+ 0342 550000            mov [__r0],0
+ 0345 5203              mov A,[X+3]
+ 0347 0200              add A,[__r1]
+ 0349 5300              mov [__r1],A
+ 034B 5202              mov A,[X+2]
+ 034D 0A00              adc A,[__r0]
+ 034F 5F0000            mov [__r0],[__r1]
+ 0352 26007F            and [__r0],127
+ 0355 5100              mov A,[__r2]
+ 0357 2A00              or A,[__r0]
+ 0359 5300              mov [_wr_compl_var],A
+ 035B                   .dbline 154
+ 035B           ;                        if (wr_compl_var.tmp>=__n) wr_compl_var.state = 0;
+ 035B 5100              mov A,[_wr_compl_var]
+ 035D 217F              and A,127
+ 035F 3BFA              cmp A,[X-6]
+ 0361 A003              jz X4
+ 0363 C004              jc L32
+ 0365           X4:
+ 0365                   .dbline 154
+ 0365 26007F            and [_wr_compl_var],127
+ 0368                   .dbline 155
+ 0368           ;                       break;
+ 0368           L31:
+ 0368           L32:
+ 0368                   .dbline 157
+ 0368           ;       }
+ 0368           ;       return (unsigned char) wr_compl_var.state;
+ 0368 5100              mov A,[_wr_compl_var]
+ 036A 67                asr A
+ 036B 67                asr A
+ 036C 67                asr A
+ 036D 67                asr A
+ 036E 67                asr A
+ 036F 67                asr A
+ 0370 67                asr A
+ 0371 2101              and A,1
+ 0373                   .dbline -2
+ 0373           L30:
+ 0373 38FC              add SP,-4
+ 0375 20                pop X
+ 0376                   .dbline 0 ; func end
+ 0376 7F                ret
+ 0377                   .dbsym l __n -6 c
+ 0377                   .dbsym l __buf -5 pc
+ 0377                   .dbend
+                        .area bss(ram, con, rel)
+ 0000                   .dbfile ./serial.c
+ 0000           _wr_compl_var::
+ 0000                   .blkb 1
+ 0001                   .dbsym e wr_compl_var _wr_compl_var X
+ 0001           _serial_tx::
+ 0001                   .blkb 1
+ 0002                   .dbsym e serial_tx _serial_tx X
+ 0002           _serial_tx_buf::
+ 0002                   .blkb 3
+ 0005                   .dbsym e serial_tx_buf _serial_tx_buf A[3:3]c
+ 0005           _serial_rx::
+ 0005                   .blkb 1
+ 0006                   .dbsym e serial_rx _serial_rx X
+ 0006           _serial_rx_buf::
+ 0006                   .blkb 9
+ 000F                   .dbsym e serial_rx_buf _serial_rx_buf A[9:9]c

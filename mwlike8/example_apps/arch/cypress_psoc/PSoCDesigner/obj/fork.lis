@@ -1,0 +1,124 @@
+                        .module fork.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./fork.c
+ 0000                   .dbfunc e do_fork _do_fork fV
+ 0000           ;        process -> X-7
+ 0000           ; prev_stack_size -> X-5
+ 0000           ;    process_num -> X-4
+ 0000           _do_fork::
+ 0000                   .dbline -1
+ 0000 10                push X
+ 0001 4F                mov X,SP
+ 0002                   .dbline 18
+ 0002           ; /*
+ 0002           ;  *    linlike8/kernel/fork.c
+ 0002           ;  *
+ 0002           ;  *    10-04-2004      yan     create this following linux
+ 0002           ;  *
+ 0002           ;  *    fork new process
+ 0002           ;  */
+ 0002           ; 
+ 0002           ; #include "app.h"
+ 0002           ; #include "sched.h"
+ 0002           ; #include "current.h"                                                                  // MUST be placed after sched.h
+ 0002           ; #include "system.h"                                                                   // MUST be placed after sched.h
+ 0002           ; 
+ 0002           ; #if (CONTEXT_SW==1)
+ 0002           ;               // process_num - hardcode number, beware to not double
+ 0002           ;               // get the previous process stack size, then cal. the new process stack starting point
+ 0002           ; void do_fork(unsigned char process_num, unsigned char prev_stack_size, p_func process)
+ 0002           ; {
+ 0002                   .dbline 20
+ 0002           ;       //task[process_num] = *current;                                                 // allocate memory for new process, then copy the existing process content to new one
+ 0002           ;       task[process_num].stack_ptr = task[process_num-1].stack_ptr + prev_stack_size;
+ 0002 52FC              mov A,[X-4]
+ 0004 5300              mov [__r1],A
+ 0006 550000            mov [__r0],0
+ 0009 6500              asl [__r1]
+ 000B 6B00              rlc [__r0]
+ 000D 060000            add [__r1],<_task
+ 0010 0E0000            adc [__r0],>_task
+ 0013 52FC              mov A,[X-4]
+ 0015 5300              mov [__r3],A
+ 0017 550000            mov [__r2],0
+ 001A 160001            sub [__r3],1
+ 001D 1E0000            sbb [__r2],0
+ 0020 6500              asl [__r3]
+ 0022 6B00              rlc [__r2]
+ 0024 060000            add [__r3],<_task
+ 0027 0E0000            adc [__r2],>_task
+ 002A 3E00              mvi A,[__r3]
+ 002C 5300              mov [__r2],A
+ 002E 52FB              mov A,[X-5]
+ 0030 0400              add [__r2],A
+ 0032 5100              mov A,[__r2]
+ 0034 3F00              mvi [__r1],A
+ 0036           L2:
+ 0036                   .dbline 21
+ 0036                   .dbline 21
+ 0036 52FC              mov A,[X-4]
+ 0038 5300              mov [__r1],A
+ 003A 550000            mov [__r0],0
+ 003D 6500              asl [__r1]
+ 003F 6B00              rlc [__r0]
+ 0041 060000            add [__r1],<_task
+ 0044 0E0000            adc [__r0],>_task
+ 0047 3E00              mvi A,[__r1]
+ 0049 5300              mov [__r1],A
+ 004B 550000            mov [__r0],0
+ 004E 52FA              mov A,[X-6]
+ 0050 5300              mov [__r3],A
+ 0052 52F9              mov A,[X-7]
+ 0054 10                push X
+ 0055 08                push A
+ 0056 5800              mov X,[__r3]
+ 0058 28                romx
+ 0059 5300              mov [__r2],A
+ 005B 18                pop A
+ 005C 75                inc X
+ 005D 0900              adc A,0
+ 005F 28                romx
+ 0060 5300              mov [__r3],A
+ 0062 20                pop X
+ 0063 5100              mov A,[__r2]
+ 0065 3F00              mvi [__r1],A
+ 0067 5100              mov A,[__r3]
+ 0069 3F00              mvi [__r1],A
+ 006B                   .dbline 21
+ 006B 52FC              mov A,[X-4]
+ 006D 5300              mov [__r1],A
+ 006F 6500              asl [__r1]
+ 0071 6B00              rlc [__r0]
+ 0073 060000            add [__r1],<_task
+ 0076 0E0000            adc [__r0],>_task
+ 0079 3E00              mvi A,[__r1]
+ 007B 7A00              dec [__r1]
+ 007D 0103              add A,3
+ 007F 3F00              mvi [__r1],A
+ 0081                   .dbline 21
+ 0081           L3:
+ 0081                   .dbline 21
+ 0081           ;       place_process_stack();
+ 0081                   .dbline 22
+ 0081           ;       wake_up_process((&task[process_num]));
+ 0081 52FC              mov A,[X-4]
+ 0083 5300              mov [__r1],A
+ 0085 550000            mov [__r0],0
+ 0088 6500              asl [__r1]
+ 008A 6B00              rlc [__r0]
+ 008C 060001            add [__r1],<_task+1
+ 008F 0E0001            adc [__r0],>_task+1
+ 0092 5000              mov A,0
+ 0094 3F00              mvi [__r1],A
+ 0096                   .dbline -2
+ 0096                   .dbline 24
+ 0096           ;       //return ;      return 0 as parent, return pid as child
+ 0096           ; }
+ 0096           L1:
+ 0096 20                pop X
+ 0097                   .dbline 0 ; func end
+ 0097 7F                ret
+ 0098                   .dbsym l process -7 pfX
+ 0098                   .dbsym l prev_stack_size -5 c
+ 0098                   .dbsym l process_num -4 c
+ 0098                   .dbend

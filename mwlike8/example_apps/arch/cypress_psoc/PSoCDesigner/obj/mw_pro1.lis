@@ -1,0 +1,1349 @@
+                        .module mw_pro1.c
+                        .area lit(rom, con, rel)
+ 0000           _AmonicsLogo::
+ 0000 0000              .byte 0,0
+ 0002 0000              .byte 0,0
+ 0004 0000              .byte 0,0
+ 0006 0000              .byte 0,0
+ 0008 0000              .byte 0,0
+ 000A 0000              .byte 0,0
+ 000C 0000              .byte 0,0
+ 000E 0000              .byte 0,0
+ 0010 0000              .byte 0,0
+ 0012 0000              .byte 0,0
+ 0014 0000              .byte 0,0
+ 0016 C0F0              .byte 192,240
+ 0018 F0C0              .byte 240,192
+ 001A 0000              .byte 0,0
+ 001C 0000              .byte 0,0
+ 001E 0000              .byte 0,0
+ 0020 0000              .byte 0,0
+ 0022 0000              .byte 0,0
+ 0024 0000              .byte 0,0
+ 0026 0000              .byte 0,0
+ 0028 0000              .byte 0,0
+ 002A 0000              .byte 0,0
+ 002C 0000              .byte 0,0
+ 002E 0000              .byte 0,0
+ 0030 0000              .byte 0,0
+ 0032 0000              .byte 0,0
+ 0034 0000              .byte 0,0
+ 0036 0000              .byte 0,0
+ 0038 0000              .byte 0,0
+ 003A 0000              .byte 0,0
+ 003C 0000              .byte 0,0
+ 003E 0000              .byte 0,0
+ 0040 0000              .byte 0,0
+ 0042 0000              .byte 0,0
+ 0044 0000              .byte 0,0
+ 0046 0000              .byte 0,0
+ 0048 0000              .byte 0,0
+ 004A 0000              .byte 0,0
+ 004C 0000              .byte 0,0
+ 004E 0000              .byte 0,0
+ 0050 0000              .byte 0,0
+ 0052 0000              .byte 0,0
+ 0054 0000              .byte 0,0
+ 0056 0000              .byte 0,0
+ 0058 0000              .byte 0,0
+ 005A 0000              .byte 0,0
+ 005C 0000              .byte 0,0
+ 005E 0000              .byte 0,0
+ 0060 0000              .byte 0,0
+ 0062 0000              .byte 0,0
+ 0064 0000              .byte 0,0
+ 0066 0000              .byte 0,0
+ 0068 0000              .byte 0,0
+ 006A 0000              .byte 0,0
+ 006C 0000              .byte 0,0
+ 006E 0000              .byte 0,0
+ 0070 0000              .byte 0,0
+ 0072 0000              .byte 0,0
+ 0074 0000              .byte 0,0
+ 0076 0000              .byte 0,0
+ 0078 0000              .byte 0,0
+ 007A 0000              .byte 0,0
+ 007C 0000              .byte 0,0
+ 007E 0000              .byte 0,0
+ 0080 0000              .byte 0,0
+ 0082 0000              .byte 0,0
+ 0084 0000              .byte 0,0
+ 0086 0000              .byte 0,0
+ 0088 0000              .byte 0,0
+ 008A 0000              .byte 0,0
+ 008C 8080              .byte 128,128
+ 008E 8080              .byte 128,128
+ 0090 8080              .byte 128,128
+ 0092 80C0              .byte 128,192
+ 0094 F0FE              .byte 240,254
+ 0096 FFFF              .byte 255,255
+ 0098 FFFF              .byte 255,255
+ 009A FFF8              .byte 255,248
+ 009C C000              .byte 192,0
+ 009E 0000              .byte 0,0
+ 00A0 0000              .byte 0,0
+ 00A2 0000              .byte 0,0
+ 00A4 0000              .byte 0,0
+ 00A6 0000              .byte 0,0
+ 00A8 0000              .byte 0,0
+ 00AA 0000              .byte 0,0
+ 00AC 0000              .byte 0,0
+ 00AE 0000              .byte 0,0
+ 00B0 0000              .byte 0,0
+ 00B2 0000              .byte 0,0
+ 00B4 0000              .byte 0,0
+ 00B6 0000              .byte 0,0
+ 00B8 0000              .byte 0,0
+ 00BA 0000              .byte 0,0
+ 00BC 0000              .byte 0,0
+ 00BE 0000              .byte 0,0
+ 00C0 0000              .byte 0,0
+ 00C2 0000              .byte 0,0
+ 00C4 0000              .byte 0,0
+ 00C6 0000              .byte 0,0
+ 00C8 0000              .byte 0,0
+ 00CA 0000              .byte 0,0
+ 00CC 0000              .byte 0,0
+ 00CE 0000              .byte 0,0
+ 00D0 0000              .byte 0,0
+ 00D2 0000              .byte 0,0
+ 00D4 0000              .byte 0,0
+ 00D6 0000              .byte 0,0
+ 00D8 0000              .byte 0,0
+ 00DA 0000              .byte 0,0
+ 00DC 0000              .byte 0,0
+ 00DE 0000              .byte 0,0
+ 00E0 0000              .byte 0,0
+ 00E2 0000              .byte 0,0
+ 00E4 0000              .byte 0,0
+ 00E6 0000              .byte 0,0
+ 00E8 0000              .byte 0,0
+ 00EA 0000              .byte 0,0
+ 00EC 0000              .byte 0,0
+ 00EE 0000              .byte 0,0
+ 00F0 0000              .byte 0,0
+ 00F2 0000              .byte 0,0
+ 00F4 0000              .byte 0,0
+ 00F6 0000              .byte 0,0
+ 00F8 0000              .byte 0,0
+ 00FA 0000              .byte 0,0
+ 00FC 0000              .byte 0,0
+ 00FE 0000              .byte 0,0
+ 0100 0000              .byte 0,0
+ 0102 00C0              .byte 0,192
+ 0104 E0F0              .byte 224,240
+ 0106 783C              .byte 'x,60
+ 0108 1E0F              .byte 30,15
+ 010A 0707              .byte 7,7
+ 010C 0303              .byte 3,3
+ 010E 0303              .byte 3,3
+ 0110 C3FB              .byte 195,251
+ 0112 FF7F              .byte 255,127
+ 0114 0F3F              .byte 15,63
+ 0116 FFFF              .byte 255,255
+ 0118 FFFF              .byte 255,255
+ 011A FFFF              .byte 255,255
+ 011C FFFF              .byte 255,255
+ 011E F8C0              .byte 248,192
+ 0120 0000              .byte 0,0
+ 0122 0000              .byte 0,0
+ 0124 0000              .byte 0,0
+ 0126 0000              .byte 0,0
+ 0128 0000              .byte 0,0
+ 012A 0000              .byte 0,0
+ 012C 0000              .byte 0,0
+ 012E 0000              .byte 0,0
+ 0130 0000              .byte 0,0
+ 0132 0000              .byte 0,0
+ 0134 0000              .byte 0,0
+ 0136 0000              .byte 0,0
+ 0138 0000              .byte 0,0
+ 013A 0000              .byte 0,0
+ 013C 0000              .byte 0,0
+ 013E 0000              .byte 0,0
+ 0140 0000              .byte 0,0
+ 0142 0000              .byte 0,0
+ 0144 0000              .byte 0,0
+ 0146 0000              .byte 0,0
+ 0148 0000              .byte 0,0
+ 014A 0000              .byte 0,0
+ 014C 0000              .byte 0,0
+ 014E 0000              .byte 0,0
+ 0150 0000              .byte 0,0
+ 0152 0000              .byte 0,0
+ 0154 0000              .byte 0,0
+ 0156 0000              .byte 0,0
+ 0158 0000              .byte 0,0
+ 015A 0000              .byte 0,0
+ 015C 0000              .byte 0,0
+ 015E 0000              .byte 0,0
+ 0160 0000              .byte 0,0
+ 0162 0000              .byte 0,0
+ 0164 0000              .byte 0,0
+ 0166 0000              .byte 0,0
+ 0168 0000              .byte 0,0
+ 016A 0000              .byte 0,0
+ 016C 0000              .byte 0,0
+ 016E 0000              .byte 0,0
+ 0170 0000              .byte 0,0
+ 0172 0000              .byte 0,0
+ 0174 0000              .byte 0,0
+ 0176 0000              .byte 0,0
+ 0178 0000              .byte 0,0
+ 017A 0000              .byte 0,0
+ 017C 0000              .byte 0,0
+ 017E 0000              .byte 0,0
+ 0180 0000              .byte 0,0
+ 0182 FFFF              .byte 255,255
+ 0184 FF01              .byte 255,1
+ 0186 0000              .byte 0,0
+ 0188 0000              .byte 0,0
+ 018A 0000              .byte 0,0
+ 018C 00C0              .byte 0,192
+ 018E F8FE              .byte 248,254
+ 0190 7F0F              .byte 127,15
+ 0192 0100              .byte 1,0
+ 0194 0000              .byte 0,0
+ 0196 010F              .byte 1,15
+ 0198 3FFF              .byte 63,255
+ 019A FFFF              .byte 255,255
+ 019C FFFF              .byte 255,255
+ 019E FFFF              .byte 255,255
+ 01A0 FFF8              .byte 255,248
+ 01A2 C000              .byte 192,0
+ 01A4 0000              .byte 0,0
+ 01A6 0000              .byte 0,0
+ 01A8 0000              .byte 0,0
+ 01AA 0000              .byte 0,0
+ 01AC 0080              .byte 0,128
+ 01AE 8080              .byte 128,128
+ 01B0 8000              .byte 128,0
+ 01B2 0000              .byte 0,0
+ 01B4 8080              .byte 128,128
+ 01B6 8000              .byte 128,0
+ 01B8 0000              .byte 0,0
+ 01BA 0000              .byte 0,0
+ 01BC 8080              .byte 128,128
+ 01BE 8000              .byte 128,0
+ 01C0 0000              .byte 0,0
+ 01C2 0000              .byte 0,0
+ 01C4 0000              .byte 0,0
+ 01C6 0080              .byte 0,128
+ 01C8 8080              .byte 128,128
+ 01CA 0000              .byte 0,0
+ 01CC 0000              .byte 0,0
+ 01CE 0000              .byte 0,0
+ 01D0 0000              .byte 0,0
+ 01D2 0080              .byte 0,128
+ 01D4 8080              .byte 128,128
+ 01D6 8080              .byte 128,128
+ 01D8 0000              .byte 0,0
+ 01DA 0000              .byte 0,0
+ 01DC 0000              .byte 0,0
+ 01DE 1C3E              .byte 28,62
+ 01E0 7F7F              .byte 127,127
+ 01E2 7F7F              .byte 127,127
+ 01E4 3E1C              .byte 62,28
+ 01E6 0000              .byte 0,0
+ 01E8 0000              .byte 0,0
+ 01EA 0000              .byte 0,0
+ 01EC 0000              .byte 0,0
+ 01EE 0000              .byte 0,0
+ 01F0 0000              .byte 0,0
+ 01F2 0000              .byte 0,0
+ 01F4 0000              .byte 0,0
+ 01F6 0000              .byte 0,0
+ 01F8 0000              .byte 0,0
+ 01FA 0000              .byte 0,0
+ 01FC 0000              .byte 0,0
+ 01FE 0000              .byte 0,0
+ 0200 0000              .byte 0,0
+ 0202 071F              .byte 7,31
+ 0204 3FFC              .byte 63,252
+ 0206 F0C0              .byte 240,192
+ 0208 8080              .byte 128,128
+ 020A C0F8              .byte 192,248
+ 020C FE7F              .byte 254,127
+ 020E 0F0F              .byte 15,15
+ 0210 0E0E              .byte 14,14
+ 0212 0E0E              .byte 14,14
+ 0214 0E0E              .byte 14,14
+ 0216 0E8E              .byte 14,142
+ 0218 CEEF              .byte 206,239
+ 021A FF7F              .byte 255,127
+ 021C FFFF              .byte 255,255
+ 021E FFFF              .byte 255,255
+ 0220 FFFF              .byte 255,255
+ 0222 FFFF              .byte 255,255
+ 0224 F8C0              .byte 248,192
+ 0226 0000              .byte 0,0
+ 0228 0000              .byte 0,0
+ 022A 0000              .byte 0,0
+ 022C 03FF              .byte 3,255
+ 022E FFFF              .byte 255,255
+ 0230 FFFF              .byte 255,255
+ 0232 0E07              .byte 14,7
+ 0234 07FF              .byte 7,255
+ 0236 FFFF              .byte 255,255
+ 0238 FEFC              .byte 254,252
+ 023A 0607              .byte 6,7
+ 023C 0FFF              .byte 15,255
+ 023E FFFF              .byte 255,255
+ 0240 FE00              .byte 254,0
+ 0242 F0FC              .byte 240,252
+ 0244 FEFF              .byte 254,255
+ 0246 FF03              .byte 255,3
+ 0248 0303              .byte 3,3
+ 024A FFFF              .byte 255,255
+ 024C FEFC              .byte 254,252
+ 024E E001              .byte 224,1
+ 0250 03FF              .byte 3,255
+ 0252 FFFF              .byte 255,255
+ 0254 FFFF              .byte 255,255
+ 0256 0707              .byte 7,7
+ 0258 FFFF              .byte 255,255
+ 025A FFFE              .byte 255,254
+ 025C FC00              .byte 252,0
+ 025E 0003              .byte 0,3
+ 0260 07FF              .byte 7,255
+ 0262 FFFF              .byte 255,255
+ 0264 FF00              .byte 255,0
+ 0266 F0FC              .byte 240,252
+ 0268 FEFF              .byte 254,255
+ 026A 8F03              .byte 143,3
+ 026C 0F3F              .byte 15,63
+ 026E 3F3E              .byte 63,62
+ 0270 3C00              .byte 60,0
+ 0272 7CFF              .byte 124,255
+ 0274 FFFB              .byte 255,251
+ 0276 F3E3              .byte 243,227
+ 0278 C7BF              .byte 199,191
+ 027A 3F00              .byte 63,0
+ 027C 0000              .byte 0,0
+ 027E 0000              .byte 0,0
+ 0280 0000              .byte 0,0
+ 0282 0000              .byte 0,0
+ 0284 C0C0              .byte 192,192
+ 0286 E1F1              .byte 225,241
+ 0288 FBFF              .byte 251,255
+ 028A FFFF              .byte 255,255
+ 028C FFEE              .byte 255,238
+ 028E CECE              .byte 206,206
+ 0290 CE0E              .byte 206,14
+ 0292 0E0E              .byte 14,14
+ 0294 0E07              .byte 14,7
+ 0296 0703              .byte 7,3
+ 0298 03C1              .byte 3,193
+ 029A C0C0              .byte 192,192
+ 029C C1FF              .byte 193,255
+ 029E FFFF              .byte 255,255
+ 02A0 FFFF              .byte 255,255
+ 02A2 FFFF              .byte 255,255
+ 02A4 FFFF              .byte 255,255
+ 02A6 FFF8              .byte 255,248
+ 02A8 E0C0              .byte 224,192
+ 02AA C000              .byte 192,0
+ 02AC C0FF              .byte 192,255
+ 02AE FFFF              .byte 255,255
+ 02B0 FFFF              .byte 255,255
+ 02B2 C080              .byte 192,128
+ 02B4 C0FF              .byte 192,255
+ 02B6 FFFF              .byte 255,255
+ 02B8 FFFF              .byte 255,255
+ 02BA C080              .byte 192,128
+ 02BC E0FF              .byte 224,255
+ 02BE FFFF              .byte 255,255
+ 02C0 FFC0              .byte 255,192
+ 02C2 8F3F              .byte 143,63
+ 02C4 7FFF              .byte 127,255
+ 02C6 FFC0              .byte 255,192
+ 02C8 C0C0              .byte 192,192
+ 02CA FFFF              .byte 255,255
+ 02CC 7F3F              .byte 127,63
+ 02CE 0F80              .byte 15,128
+ 02D0 C0FF              .byte 192,255
+ 02D2 FFFF              .byte 255,255
+ 02D4 FFFF              .byte 255,255
+ 02D6 80C0              .byte 128,192
+ 02D8 FFFF              .byte 255,255
+ 02DA FFFF              .byte 255,255
+ 02DC FFC0              .byte 255,192
+ 02DE 0080              .byte 0,128
+ 02E0 C0FF              .byte 192,255
+ 02E2 FFFF              .byte 255,255
+ 02E4 FFC0              .byte 255,192
+ 02E6 8F3F              .byte 143,63
+ 02E8 7FFF              .byte 127,255
+ 02EA FFF8              .byte 255,248
+ 02EC E0E0              .byte 224,224
+ 02EE E070              .byte 224,'p
+ 02F0 3800              .byte 56,0
+ 02F2 FCF9              .byte 252,249
+ 02F4 E3C3              .byte 227,195
+ 02F6 C7DF              .byte 199,223
+ 02F8 FFFF              .byte 255,255
+ 02FA 3F00              .byte 63,0
+ 02FC 0000              .byte 0,0
+ 02FE 0000              .byte 0,0
+ 0300 0000              .byte 0,0
+ 0302 0030              .byte 0,48
+ 0304 4848              .byte 'H,'H
+ 0306 9820              .byte 152,32
+ 0308 E020              .byte 224,32
+ 030A 20C0              .byte 32,192
+ 030C 00C0              .byte 0,192
+ 030E A0C0              .byte 160,192
+ 0310 00C0              .byte 0,192
+ 0312 2020              .byte 32,32
+ 0314 0020              .byte 0,32
+ 0316 E800              .byte 232,0
+ 0318 00A0              .byte 0,160
+ 031A A0C0              .byte 160,192
+ 031C 00F8              .byte 0,248
+ 031E 00E8              .byte 0,232
+ 0320 00C0              .byte 0,192
+ 0322 A020              .byte 160,32
+ 0324 00F0              .byte 0,240
+ 0326 2000              .byte 32,0
+ 0328 0000              .byte 0,0
+ 032A 0020              .byte 0,32
+ 032C E800              .byte 232,0
+ 032E E040              .byte 224,64
+ 0330 20E0              .byte 32,224
+ 0332 0000              .byte 0,0
+ 0334 00F0              .byte 0,240
+ 0336 0808              .byte 8,8
+ 0338 08F0              .byte 8,240
+ 033A 20E0              .byte 32,224
+ 033C 2020              .byte 32,32
+ 033E C020              .byte 192,32
+ 0340 F020              .byte 240,32
+ 0342 00E8              .byte 0,232
+ 0344 00C0              .byte 0,192
+ 0346 2021              .byte 32,33
+ 0348 01A1              .byte 1,161
+ 034A 60C0              .byte 96,192
+ 034C 0008              .byte 0,8
+ 034E F800              .byte 248,0
+ 0350 0000              .byte 0,0
+ 0352 0000              .byte 0,0
+ 0354 00E0              .byte 0,224
+ 0356 98E0              .byte 152,224
+ 0358 0000              .byte 0,0
+ 035A 00E0              .byte 0,224
+ 035C 20E0              .byte 32,224
+ 035E 20C0              .byte 32,192
+ 0360 20E0              .byte 32,224
+ 0362 2020              .byte 32,32
+ 0364 C000              .byte 192,0
+ 0366 F800              .byte 248,0
+ 0368 E800              .byte 232,0
+ 036A 20F1              .byte 32,241
+ 036C 2908              .byte 41,8
+ 036E 20E8              .byte 32,232
+ 0370 00C0              .byte 0,192
+ 0372 A1C0              .byte 161,192
+ 0374 00E1              .byte 0,225
+ 0376 2121              .byte 33,33
+ 0378 C0A0              .byte 192,160
+ 037A 2000              .byte 32,0
+ 037C 0000              .byte 0,0
+ 037E 0000              .byte 0,0
+ 0380 0000              .byte 0,0
+ 0382 0003              .byte 0,3
+ 0384 0202              .byte 2,2
+ 0386 0108              .byte 1,8
+ 0388 0F0A              .byte 15,10
+ 038A 0201              .byte 2,1
+ 038C 0001              .byte 0,1
+ 038E 0202              .byte 2,2
+ 0390 0001              .byte 0,1
+ 0392 0202              .byte 2,2
+ 0394 0002              .byte 0,2
+ 0396 0302              .byte 3,2
+ 0398 0003              .byte 0,3
+ 039A 0203              .byte 2,3
+ 039C 0003              .byte 0,3
+ 039E 0003              .byte 0,3
+ 03A0 0002              .byte 0,2
+ 03A2 0201              .byte 2,1
+ 03A4 0003              .byte 0,3
+ 03A6 0202              .byte 2,2
+ 03A8 0000              .byte 0,0
+ 03AA 0002              .byte 0,2
+ 03AC 0302              .byte 3,2
+ 03AE 0302              .byte 3,2
+ 03B0 0003              .byte 0,3
+ 03B2 0200              .byte 2,0
+ 03B4 0001              .byte 0,1
+ 03B6 0202              .byte 2,2
+ 03B8 0201              .byte 2,1
+ 03BA 080F              .byte 8,15
+ 03BC 0A02              .byte 10,2
+ 03BE 0100              .byte 1,0
+ 03C0 0302              .byte 3,2
+ 03C2 0203              .byte 2,3
+ 03C4 0201              .byte 2,1
+ 03C6 0202              .byte 2,2
+ 03C8 0003              .byte 0,3
+ 03CA 0203              .byte 2,3
+ 03CC 0002              .byte 0,2
+ 03CE 0302              .byte 3,2
+ 03D0 0000              .byte 0,0
+ 03D2 0002              .byte 0,2
+ 03D4 0300              .byte 3,0
+ 03D6 0002              .byte 0,2
+ 03D8 0302              .byte 3,2
+ 03DA 0003              .byte 0,3
+ 03DC 0003              .byte 0,3
+ 03DE 0003              .byte 0,3
+ 03E0 080F              .byte 8,15
+ 03E2 0A02              .byte 10,2
+ 03E4 0100              .byte 1,0
+ 03E6 0300              .byte 3,0
+ 03E8 0300              .byte 3,0
+ 03EA 0203              .byte 2,3
+ 03EC 0200              .byte 2,0
+ 03EE 0203              .byte 2,3
+ 03F0 0201              .byte 2,1
+ 03F2 0202              .byte 2,2
+ 03F4 0003              .byte 0,3
+ 03F6 0000              .byte 0,0
+ 03F8 0202              .byte 2,2
+ 03FA 0100              .byte 1,0
+ 03FC 0000              .byte 0,0
+ 03FE 0000              .byte 0,0
+ 0400                   .dbfile ./mw_pro1.c
+ 0400                   .dbsym e AmonicsLogo _AmonicsLogo A[1024:1024]c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./mw_pro1.c
+ 0000                   .dbfunc e mwlike8_process1 _mwlike8_process1 fV
+ 0000           ;            vec -> X+4
+ 0000           ;              a -> X+2
+ 0000           ;   timeout_task -> X+1
+ 0000           ;          event -> X+0
+ 0000           _mwlike8_process1::
+ 0000                   .dbline -1
+ 0000 10                push X
+ 0001 4F                mov X,SP
+ 0002 3816              add SP,22
+ 0004                   .dbline 181
+ 0004           ; #include "app.h"
+ 0004           ; 
+ 0004           ; #ifdef I386_LINUX
+ 0004           ; #include <stdio.h>
+ 0004           ; #include <stdlib.h>
+ 0004           ; #define MWINCLUDECOLORS
+ 0004           ; #include "microwin/nano-X.h"
+ 0004           ; #endif
+ 0004           ; #ifdef CYPRESS_PSOC
+ 0004           ; #include "nano-X.h"
+ 0004           ; #include "sched.h"
+ 0004           ; #include "timer.h"
+ 0004           ; #include "printf.h"
+ 0004           ; #endif
+ 0004           ; 
+ 0004           ; #ifdef I386_LINUX
+ 0004           ; GR_WINDOW_ID  wid;
+ 0004           ; GR_GC_ID      gc;
+ 0004           ; GR_BITMAP eyeclose_bits[] = {
+ 0004           ;       0xfffe, 0x00ff, 0xfe00, 0xfff0, 0x001f, 0xfe00, 0xffc0, 0x0007, 
+ 0004           ;       0xfe00, 0xff01, 0xff01, 0xfe00, 0xfe0f, 0xffe0, 0xfe00, 0xfc3f, 
+ 0004           ;       0xfff8, 0x7e00, 0xf87f, 0xfffc, 0x3e00, 0xf0ff, 0xfffe, 0x1e00, 
+ 0004           ;       0xe1ff, 0xffff, 0x0e00, 0xe3ff, 0xffff, 0x8e00, 0xc7ff, 0xffff, 
+ 0004           ;       0xc600, 0xc7ff, 0xffff, 0xc600, 0x8fff, 0xffff, 0xe200, 0x8fff, 
+ 0004           ;       0xffff, 0xe200, 0x8fff, 0xffff, 0xe200, 0x1fff, 0xffff, 0xf000, 
+ 0004           ;       0x1fff, 0xffff, 0xf000, 0x1fff, 0xffff, 0xf000, 0x1fff, 0xffff, 
+ 0004           ;       0xf000, 0x1fff, 0xffff, 0xf000, 0x1fff, 0xffff, 0xf000, 0x1fff, 
+ 0004           ;       0xffff, 0xf000, 0x01ff, 0xfffe, 0x0000, 0x0001, 0xff00, 0x0000, 
+ 0004           ;       0x8000, 0x0000, 0x0200, 0x8800, 0x0000, 0x2200, 0x8ff0, 0x001f, 
+ 0004           ;       0xe200, 0xc7ff, 0xffff, 0xc600, 0xc7ff, 0xffff, 0xc600, 0xe3ff, 
+ 0004           ;       0xffff, 0x8e00, 0xe1ff, 0xffff, 0x0e00, 0xf0ff, 0xfffe, 0x1e00, 
+ 0004           ;       0xf87f, 0xfffc, 0x3e00, 0xfc3f, 0xfff8, 0x7e00, 0xfe0f, 0xffe0, 
+ 0004           ;       0xfe00, 0xff01, 0xff01, 0xfe00, 0xffc0, 0x0007, 0xfe00, 0xfff0, 
+ 0004           ;       0x001f, 0xfe00, 0xfffe, 0x00ff, 0xfe00, };
+ 0004           ; #endif
+ 0004           ; #ifdef CYPRESS_PSOC
+ 0004           ; const unsigned char AmonicsLogo[]=
+ 0004           ; { 
+ 0004           ; 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // Page:1
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0, 0xF0, 
+ 0004           ;       0xF0, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // Page:2
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 
+ 0004           ;       0x80, 0x80, 0x80, 0xC0, 0xF0, 0xFE, 0xFF, 0xFF, 
+ 0004           ;       0xFF, 0xFF, 0xFF, 0xF8, 0xC0, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       
+ 0004           ;       0x00, 0x00, 0x00, 0xC0, 0xE0, 0xF0, 0x78, 0x3C, // Page:3
+ 0004           ;       0x1E, 0x0F, 0x07, 0x07, 0x03, 0x03, 0x03, 0x03, 
+ 0004           ;       0xC3, 0xFB, 0xFF, 0x7F, 0x0F, 0x3F, 0xFF, 0xFF, 
+ 0004           ;       0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xF8, 0xC0, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       
+ 0004           ;       0x00, 0x00, 0xFF, 0xFF, 0xFF, 0x01, 0x00, 0x00, // Page:4
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0xC0, 0xF8, 0xFE, 
+ 0004           ;       0x7F, 0x0F, 0x01, 0x00, 0x00, 0x00, 0x01, 0x0F, 
+ 0004           ;       0x3F, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 
+ 0004           ;       0xFF, 0xF8, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 
+ 0004           ;       0x80, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 
+ 0004           ;       0x80, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x80, 0x80, 0x80, 0x80, 0x80, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1C, 0x3E, 
+ 0004           ;       0x7F, 0x7F, 0x7F, 0x7F, 0x3E, 0x1C, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       
+ 0004           ;       0x00, 0x00, 0x07, 0x1F, 0x3F, 0xFC, 0xF0, 0xC0, // Page:5
+ 0004           ;       0x80, 0x80, 0xC0, 0xF8, 0xFE, 0x7F, 0x0F, 0x0F, 
+ 0004           ;       0x0E, 0x0E, 0x0E, 0x0E, 0x0E, 0x0E, 0x0E, 0x8E, 
+ 0004           ;       0xCE, 0xEF, 0xFF, 0x7F, 0xFF, 0xFF, 0xFF, 0xFF, 
+ 0004           ;       0xFF, 0xFF, 0xFF, 0xFF, 0xF8, 0xC0, 0x00, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x03, 0xFF, 0xFF, 0xFF, 
+ 0004           ;       0xFF, 0xFF, 0x0E, 0x07, 0x07, 0xFF, 0xFF, 0xFF, 
+ 0004           ;       0xFE, 0xFC, 0x06, 0x07, 0x0F, 0xFF, 0xFF, 0xFF, 
+ 0004           ;       0xFE, 0x00, 0xF0, 0xFC, 0xFE, 0xFF, 0xFF, 0x03, 
+ 0004           ;       0x03, 0x03, 0xFF, 0xFF, 0xFE, 0xFC, 0xE0, 0x01, 
+ 0004           ;       0x03, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x07, 0x07, 
+ 0004           ;       0xFF, 0xFF, 0xFF, 0xFE, 0xFC, 0x00, 0x00, 0x03, 
+ 0004           ;       0x07, 0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0xF0, 0xFC, 
+ 0004           ;       0xFE, 0xFF, 0x8F, 0x03, 0x0F, 0x3F, 0x3F, 0x3E, 
+ 0004           ;       0x3C, 0x00, 0x7C, 0xFF, 0xFF, 0xFB, 0xF3, 0xE3, 
+ 0004           ;       0xC7, 0xBF, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0xC0, 0xC0, 0xE1, 0xF1, // Page:6
+ 0004           ;       0xFB, 0xFF, 0xFF, 0xFF, 0xFF, 0xEE, 0xCE, 0xCE, 
+ 0004           ;       0xCE, 0x0E, 0x0E, 0x0E, 0x0E, 0x07, 0x07, 0x03, 
+ 0004           ;       0x03, 0xC1, 0xC0, 0xC0, 0xC1, 0xFF, 0xFF, 0xFF, 
+ 0004           ;       0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xF8, 
+ 0004           ;       0xE0, 0xC0, 0xC0, 0x00, 0xC0, 0xFF, 0xFF, 0xFF, 
+ 0004           ;       0xFF, 0xFF, 0xC0, 0x80, 0xC0, 0xFF, 0xFF, 0xFF, 
+ 0004           ;       0xFF, 0xFF, 0xC0, 0x80, 0xE0, 0xFF, 0xFF, 0xFF, 
+ 0004           ;       0xFF, 0xC0, 0x8F, 0x3F, 0x7F, 0xFF, 0xFF, 0xC0, 
+ 0004           ;       0xC0, 0xC0, 0xFF, 0xFF, 0x7F, 0x3F, 0x0F, 0x80, 
+ 0004           ;       0xC0, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x80, 0xC0, 
+ 0004           ;       0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xC0, 0x00, 0x80, 
+ 0004           ;       0xC0, 0xFF, 0xFF, 0xFF, 0xFF, 0xC0, 0x8F, 0x3F, 
+ 0004           ;       0x7F, 0xFF, 0xFF, 0xF8, 0xE0, 0xE0, 0xE0, 0x70, 
+ 0004           ;       0x38, 0x00, 0xFC, 0xF9, 0xE3, 0xC3, 0xC7, 0xDF, 
+ 0004           ;       0xFF, 0xFF, 0x3F, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       
+ 0004           ;       0x00, 0x00, 0x00, 0x30, 0x48, 0x48, 0x98, 0x20, // Page:7
+ 0004           ;       0xE0, 0x20, 0x20, 0xC0, 0x00, 0xC0, 0xA0, 0xC0, 
+ 0004           ;       0x00, 0xC0, 0x20, 0x20, 0x00, 0x20, 0xE8, 0x00, 
+ 0004           ;       0x00, 0xA0, 0xA0, 0xC0, 0x00, 0xF8, 0x00, 0xE8, 
+ 0004           ;       0x00, 0xC0, 0xA0, 0x20, 0x00, 0xF0, 0x20, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x20, 0xE8, 0x00, 0xE0, 0x40, 
+ 0004           ;       0x20, 0xE0, 0x00, 0x00, 0x00, 0xF0, 0x08, 0x08, 
+ 0004           ;       0x08, 0xF0, 0x20, 0xE0, 0x20, 0x20, 0xC0, 0x20, 
+ 0004           ;       0xF0, 0x20, 0x00, 0xE8, 0x00, 0xC0, 0x20, 0x21, 
+ 0004           ;       0x01, 0xA1, 0x60, 0xC0, 0x00, 0x08, 0xF8, 0x00, 
+ 0004           ;       0x00, 0x00, 0x00, 0x00, 0x00, 0xE0, 0x98, 0xE0, 
+ 0004           ;       0x00, 0x00, 0x00, 0xE0, 0x20, 0xE0, 0x20, 0xC0, 
+ 0004           ;       0x20, 0xE0, 0x20, 0x20, 0xC0, 0x00, 0xF8, 0x00, 
+ 0004           ;       0xE8, 0x00, 0x20, 0xF1, 0x29, 0x08, 0x20, 0xE8, 
+ 0004           ;       0x00, 0xC0, 0xA1, 0xC0, 0x00, 0xE1, 0x21, 0x21, 
+ 0004           ;       0xC0, 0xA0, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 
+ 0004           ;       
+ 0004           ;       0x00, 0x00, 0x00, 0x03, 0x02, 0x02, 0x01, 0x08, // Page:8
+ 0004           ;       0x0F, 0x0A, 0x02, 0x01, 0x00, 0x01, 0x02, 0x02, 
+ 0004           ;       0x00, 0x01, 0x02, 0x02, 0x00, 0x02, 0x03, 0x02, 
+ 0004           ;       0x00, 0x03, 0x02, 0x03, 0x00, 0x03, 0x00, 0x03, 
+ 0004           ;       0x00, 0x02, 0x02, 0x01, 0x00, 0x03, 0x02, 0x02, 
+ 0004           ;       0x00, 0x00, 0x00, 0x02, 0x03, 0x02, 0x03, 0x02, 
+ 0004           ;       0x00, 0x03, 0x02, 0x00, 0x00, 0x01, 0x02, 0x02, 
+ 0004           ;       0x02, 0x01, 0x08, 0x0F, 0x0A, 0x02, 0x01, 0x00, 
+ 0004           ;       0x03, 0x02, 0x02, 0x03, 0x02, 0x01, 0x02, 0x02, 
+ 0004           ;       0x00, 0x03, 0x02, 0x03, 0x00, 0x02, 0x03, 0x02, 
+ 0004           ;       0x00, 0x00, 0x00, 0x02, 0x03, 0x00, 0x00, 0x02, 
+ 0004           ;       0x03, 0x02, 0x00, 0x03, 0x00, 0x03, 0x00, 0x03, 
+ 0004           ;       0x08, 0x0F, 0x0A, 0x02, 0x01, 0x00, 0x03, 0x00, 
+ 0004           ;       0x03, 0x00, 0x02, 0x03, 0x02, 0x00, 0x02, 0x03, 
+ 0004           ;       0x02, 0x01, 0x02, 0x02, 0x00, 0x03, 0x00, 0x00, 
+ 0004           ;       0x02, 0x02, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00
+ 0004           ; 
+ 0004           ; };
+ 0004           ; extern unsigned char ClearPaper[];
+ 0004           ; #endif
+ 0004           ; 
+ 0004           ; void mwlike8_process1(void)
+ 0004           ; {
+ 0004                   .dbline 190
+ 0004           ;       
+ 0004           ;       GR_EVENT        event;          // current event
+ 0004           ;       #define TIME_OUT_INIT           0
+ 0004           ;       #define TIME_OUT_INIT1          TIME_OUT_INIT + 1
+ 0004           ;       #define TIME_OUT_INIT2          TIME_OUT_INIT1 + 1
+ 0004           ;       #define TIME_OUT_INIT3          TIME_OUT_INIT2 + 1
+ 0004           ;       #define TIME_OUT_STATIC_SCR     TIME_OUT_INIT3 + 1
+ 0004           ;       #define TIME_OUT_               TIME_OUT_STATIC_SCR + 1
+ 0004           ;       unsigned char timeout_task = TIME_OUT_INIT;
+ 0004 560100            mov [X+1],0
+ 0007                   .dbline 192
+ 0007           ;       
+ 0007           ;                                                int a = 0;
+ 0007 560300            mov [X+3],0
+ 000A 560200            mov [X+2],0
+ 000D                   .dbline 220
+ 000D           ;                                                char vec[10];
+ 000D           ;       
+ 000D           ; #ifdef I386_LINUX
+ 000D           ;     if (GrOpen() < 0)
+ 000D           ;     {
+ 000D           ;         fprintf (stderr, "GrOpen failed");
+ 000D           ;         exit (1);
+ 000D           ;     }
+ 000D           ; 
+ 000D           ;     wid = GrNewWindowEx (GR_WM_PROPS_APPFRAME |
+ 000D           ;                          GR_WM_PROPS_CAPTION  |
+ 000D           ;                          GR_WM_PROPS_CLOSEBOX,
+ 000D           ;                          "H W H",
+ 000D           ;                          GR_ROOT_WINDOW_ID, 
+ 000D           ;                          1, 1, 100, 40, WHITE);
+ 000D           ; 
+ 000D           ;     GrSelectEvents (wid, GR_EVENT_MASK_EXPOSURE | 
+ 000D           ;                          GR_EVENT_MASK_CLOSE_REQ);
+ 000D           ;                        
+ 000D           ;     gc = GrNewGC();
+ 000D           ;     GrSetGCUseBackground(gc, GR_FALSE);
+ 000D           ;     GrSetGCForeground(gc, RED);
+ 000D           ; 
+ 000D           ;     //GrMapWindow (wid);
+ 000D           ;       GrBitmap(wid, gc, 0, 0, 39, 39, eyeclose_bits);
+ 000D           ; #endif
+ 000D           ; #ifdef CYPRESS_PSOC
+ 000D           ;       msleep(100);                                                                    // let mwlinke8 server has enough time to init.
+ 000D 500A              mov A,10
+ 000F 08                push A
+ 0010 7C0000            xcall _schedule_timeout
+ 0013                   .dbline 222
+ 0013           ; //    GrMapWindow();
+ 0013           ;       GrBitmap(AmonicsLogo);
+ 0013 5000              mov A,>_AmonicsLogo
+ 0015 08                push A
+ 0016 5000              mov A,<_AmonicsLogo
+ 0018 08                push A
+ 0019 7C0000            xcall _GrBitmapDrv
+ 001C 38FD              add SP,-3
+ 001E                   .dbline 223
+ 001E           ;       buz_one_shot();
+ 001E 2E0004            or [_io_bit_ctrl],4
+ 0021 5100              mov A,[_io_bit_ctrl]
+ 0023 82B5              xjmp L6
+ 0025           L5:
+ 0025                   .dbline 226
+ 0025           ; #endif
+ 0025           ;     
+ 0025           ;       while (1) {
+ 0025                   .dbline 227
+ 0025           ;               GrGetNextEventTimeout(&event, 300);                                     // check events
+ 0025 5001              mov A,1
+ 0027 08                push A
+ 0028 502C              mov A,44
+ 002A 08                push A
+ 002B 5100              mov A,[__r0]
+ 002D 08                push A
+ 002E 10                push X
+ 002F 7C0000            xcall _GrGetNextEventTimeout
+ 0032 38FC              add SP,-4
+ 0034                   .dbline 228
+ 0034 5200              mov A,[X+0]
+ 0036 5300              mov [__r1],A
+ 0038 550000            mov [__r0],0
+ 003B 260007            and [__r1],7
+ 003E 260000            and [__r0],0
+ 0041 5100              mov A,[__r1]
+ 0043 540F              mov [X+15],A
+ 0045 5100              mov A,[__r0]
+ 0047 540E              mov [X+14],A
+ 0049 3D0E00            cmp [X+14],0
+ 004C B006              jnz X5
+ 004E 3D0F01            cmp [X+15],1
+ 0051 A287              jz L9
+ 0053           X5:
+ 0053 3D0E00            cmp [X+14],0
+ 0056 B006              jnz X6
+ 0058 3D0F02            cmp [X+15],2
+ 005B A125              jz L26
+ 005D           X6:
+ 005D 3D0E00            cmp [X+14],0
+ 0060 B006              jnz X7
+ 0062 3D0F03            cmp [X+15],3
+ 0065 A1C8              jz L37
+ 0067           X7:
+ 0067 3D0E00            cmp [X+14],0
+ 006A B006              jnz X8
+ 006C 3D0F04            cmp [X+15],4
+ 006F A003              jz L12
+ 0071           X8:
+ 0071 8267              xjmp L8
+ 0073           X0:
+ 0073                   .dbline 228
+ 0073           ;               switch (event.type) {
+ 0073                   .dbline 230
+ 0073           ;                       case GR_EVENT_TYPE_EXPOSURE:                                    // display init. screen on startup
+ 0073           ;                               break;
+ 0073           L12:
+ 0073                   .dbline 241
+ 0073 5201              mov A,[X+1]
+ 0075 5411              mov [X+17],A
+ 0077 561000            mov [X+16],0
+ 007A 3D1000            cmp [X+16],0
+ 007D B006              jnz X9
+ 007F 3D1100            cmp [X+17],0
+ 0082 A035              jz L16
+ 0084           X9:
+ 0084 3D1000            cmp [X+16],0
+ 0087 B006              jnz X10
+ 0089 3D1101            cmp [X+17],1
+ 008C A030              jz L17
+ 008E           X10:
+ 008E 3D1000            cmp [X+16],0
+ 0091 B006              jnz X11
+ 0093 3D1102            cmp [X+17],2
+ 0096 A02B              jz L18
+ 0098           X11:
+ 0098 3D1000            cmp [X+16],0
+ 009B B006              jnz X12
+ 009D 3D1103            cmp [X+17],3
+ 00A0 A026              jz L19
+ 00A2           X12:
+ 00A2 3D1000            cmp [X+16],0
+ 00A5 B006              jnz X13
+ 00A7 3D1104            cmp [X+17],4
+ 00AA A02C              jz L20
+ 00AC           X13:
+ 00AC 3D1000            cmp [X+16],0
+ 00AF B006              jnz X14
+ 00B1 3D1105            cmp [X+17],5
+ 00B4 A08D              jz L24
+ 00B6           X14:
+ 00B6 8222              xjmp L9
+ 00B8           X1:
+ 00B8                   .dbline 241
+ 00B8           ;       
+ 00B8           ; #ifdef I386_LINUX
+ 00B8           ;                       case GR_EVENT_TYPE_CLOSE_REQ:
+ 00B8           ;                               GrClose();
+ 00B8           ;                               exit(0);
+ 00B8           ; #endif
+ 00B8           ;       
+ 00B8           ;                       case GR_EVENT_TYPE_TIMEOUT:
+ 00B8           ;                       
+ 00B8           ;               // display each regular time
+ 00B8           ;                                switch (timeout_task) {
+ 00B8           L16:
+ 00B8                   .dbline 243
+ 00B8           ;                                       case TIME_OUT_INIT :                            //      for around 1 sec for logo
+ 00B8           ;                                                timeout_task = TIME_OUT_INIT1;
+ 00B8 560101            mov [X+1],1
+ 00BB                   .dbline 244
+ 00BB           ;                                               break;
+ 00BB 821D              xjmp L9
+ 00BD           L17:
+ 00BD                   .dbline 246
+ 00BD           ;                                       case TIME_OUT_INIT1 :
+ 00BD           ;                                                timeout_task = TIME_OUT_INIT2;
+ 00BD 560102            mov [X+1],2
+ 00C0                   .dbline 247
+ 00C0           ;                                               break;
+ 00C0 8218              xjmp L9
+ 00C2           L18:
+ 00C2                   .dbline 249
+ 00C2           ;                                       case TIME_OUT_INIT2 :
+ 00C2           ;                                                timeout_task = TIME_OUT_INIT3;
+ 00C2 560103            mov [X+1],3
+ 00C5                   .dbline 250
+ 00C5           ;                                               break;
+ 00C5 8213              xjmp L9
+ 00C7           L19:
+ 00C7                   .dbline 253
+ 00C7           ;                                       case TIME_OUT_INIT3 :                           
+ 00C7           ; #ifdef CYPRESS_PSOC
+ 00C7           ;                                                GrBitmap(ClearPaper);
+ 00C7 5000              mov A,>_ClearPaper
+ 00C9 08                push A
+ 00CA 5000              mov A,<_ClearPaper
+ 00CC 08                push A
+ 00CD 7C0000            xcall _GrBitmapDrv
+ 00D0 38FE              add SP,-2
+ 00D2                   .dbline 255
+ 00D2           ; #endif
+ 00D2           ;                                                timeout_task = TIME_OUT_STATIC_SCR;
+ 00D2 560104            mov [X+1],4
+ 00D5                   .dbline 256
+ 00D5           ;                                               break;
+ 00D5 8203              xjmp L9
+ 00D7           L20:
+ 00D7                   .dbline 258
+ 00D7           ;                                       case TIME_OUT_STATIC_SCR :
+ 00D7           ;                                                GrText_const(0,0,"i/p Pwr:", 8, 0);GrText_const(14,0,"mW", 2, 0);
+ 00D7 5000              mov A,0
+ 00D9 08                push A
+ 00DA 5008              mov A,8
+ 00DC 08                push A
+ 00DD 5000              mov A,0
+ 00DF 08                push A
+ 00E0 08                push A
+ 00E1 502E              mov A,>L21
+ 00E3 08                push A
+ 00E4 502E              mov A,<L21
+ 00E6 08                push A
+ 00E7 5000              mov A,0
+ 00E9 08                push A
+ 00EA 08                push A
+ 00EB 7C0000            xcall _GrText
+ 00EE                   .dbline 258
+ 00EE 5000              mov A,0
+ 00F0 08                push A
+ 00F1 5002              mov A,2
+ 00F3 08                push A
+ 00F4 5000              mov A,0
+ 00F6 08                push A
+ 00F7 08                push A
+ 00F8 502B              mov A,>L22
+ 00FA 08                push A
+ 00FB 502B              mov A,<L22
+ 00FD 08                push A
+ 00FE 5000              mov A,0
+ 0100 08                push A
+ 0101 500E              mov A,14
+ 0103 08                push A
+ 0104 7C0000            xcall _GrText
+ 0107 38F0              add SP,-16
+ 0109                   .dbline 259
+ 0109           ;                                                GrText_const(0,1,"o/p Pwr:", 8, 0);GrText_const(14,1,"mW", 2, 0);
+ 0109 5000              mov A,0
+ 010B 08                push A
+ 010C 5008              mov A,8
+ 010E 08                push A
+ 010F 5000              mov A,0
+ 0111 08                push A
+ 0112 08                push A
+ 0113 5022              mov A,>L23
+ 0115 08                push A
+ 0116 5022              mov A,<L23
+ 0118 08                push A
+ 0119 5001              mov A,1
+ 011B 08                push A
+ 011C 5000              mov A,0
+ 011E 08                push A
+ 011F 7C0000            xcall _GrText
+ 0122                   .dbline 259
+ 0122 5000              mov A,0
+ 0124 08                push A
+ 0125 5002              mov A,2
+ 0127 08                push A
+ 0128 5000              mov A,0
+ 012A 08                push A
+ 012B 08                push A
+ 012C 502B              mov A,>L22
+ 012E 08                push A
+ 012F 502B              mov A,<L22
+ 0131 08                push A
+ 0132 5001              mov A,1
+ 0134 08                push A
+ 0135 500E              mov A,14
+ 0137 08                push A
+ 0138 7C0000            xcall _GrText
+ 013B 38F0              add SP,-16
+ 013D                   .dbline 260
+ 013D           ;                                                timeout_task = TIME_OUT_;
+ 013D 560105            mov [X+1],5
+ 0140                   .dbline 261
+ 0140           ;                                               break;
+ 0140 8198              xjmp L9
+ 0142           L24:
+ 0142                   .dbline 265
+ 0142           ;                                       case TIME_OUT_ :
+ 0142           ; #ifdef CYPRESS_PSOC
+ 0142           ;                                               // bug in overflow, a = 32767 only
+ 0142           ;                                                print_integer(vec, "05", a);
+ 0142 5202              mov A,[X+2]
+ 0144 08                push A
+ 0145 5203              mov A,[X+3]
+ 0147 08                push A
+ 0148 501F              mov A,>L25
+ 014A 08                push A
+ 014B 501F              mov A,<L25
+ 014D 08                push A
+ 014E 5A00              mov [__r1],X
+ 0150 060004            add [__r1],4
+ 0153 5100              mov A,[__r0]
+ 0155 08                push A
+ 0156 5100              mov A,[__r1]
+ 0158 08                push A
+ 0159 7C0000            xcall _print_integer
+ 015C                   .dbline 266
+ 015C           ;                                                GrText_buf(3,3,vec, 5, 0);
+ 015C 5000              mov A,0
+ 015E 08                push A
+ 015F 5005              mov A,5
+ 0161 08                push A
+ 0162 5A00              mov [__r1],X
+ 0164 060004            add [__r1],4
+ 0167 5100              mov A,[__r0]
+ 0169 08                push A
+ 016A 5100              mov A,[__r1]
+ 016C 08                push A
+ 016D 5000              mov A,0
+ 016F 08                push A
+ 0170 08                push A
+ 0171 5003              mov A,3
+ 0173 08                push A
+ 0174 08                push A
+ 0175 7C0000            xcall _GrText
+ 0178 38F2              add SP,-14
+ 017A                   .dbline 267
+ 017A           ;                                                a++;
+ 017A 7703              inc [X+3]
+ 017C 0F0200            adc [X+2],0
+ 017F                   .dbline 273
+ 017F           ; #endif
+ 017F           ; #ifdef I386_LINUX
+ 017F           ;                                                GrText (wid, gc, 50, 50,
+ 017F           ;                                                       "H W C#2",  -1, GR_TFASCII);
+ 017F           ; #endif
+ 017F           ;                                               break;
+ 017F                   .dbline 276
+ 017F           ;                                }
+ 017F           ;                                
+ 017F           ;                               break;
+ 017F 8159              xjmp L9
+ 0181           L26:
+ 0181                   .dbline 278
+ 0181           ;                       case GR_EVENT_TYPE_KEY_DOWN :
+ 0181           ;                                GrText_const(1,5,"DOWN", 4, 0);
+ 0181 5000              mov A,0
+ 0183 08                push A
+ 0184 5004              mov A,4
+ 0186 08                push A
+ 0187 5000              mov A,0
+ 0189 08                push A
+ 018A 08                push A
+ 018B 501A              mov A,>L27
+ 018D 08                push A
+ 018E 501A              mov A,<L27
+ 0190 08                push A
+ 0191 5005              mov A,5
+ 0193 08                push A
+ 0194 5001              mov A,1
+ 0196 08                push A
+ 0197 7C0000            xcall _GrText
+ 019A 38F8              add SP,-8
+ 019C                   .dbline 279
+ 019C 5200              mov A,[X+0]
+ 019E 5300              mov [__r1],A
+ 01A0 550000            mov [__r0],0
+ 01A3 6800              asr [__r0]
+ 01A5 6E00              rrc [__r1]
+ 01A7 6800              asr [__r0]
+ 01A9 6E00              rrc [__r1]
+ 01AB 6800              asr [__r0]
+ 01AD 6E00              rrc [__r1]
+ 01AF 260003            and [__r1],3
+ 01B2 260000            and [__r0],0
+ 01B5 5100              mov A,[__r1]
+ 01B7 5413              mov [X+19],A
+ 01B9 5100              mov A,[__r0]
+ 01BB 5412              mov [X+18],A
+ 01BD 3D1200            cmp [X+18],0
+ 01C0 B006              jnz X15
+ 01C2 3D1300            cmp [X+19],0
+ 01C5 A017              jz L31
+ 01C7           X15:
+ 01C7 3D1200            cmp [X+18],0
+ 01CA B006              jnz X16
+ 01CC 3D1301            cmp [X+19],1
+ 01CF A028              jz L33
+ 01D1           X16:
+ 01D1 3D1200            cmp [X+18],0
+ 01D4 B006              jnz X17
+ 01D6 3D1302            cmp [X+19],2
+ 01D9 A039              jz L35
+ 01DB           X17:
+ 01DB 80FD              xjmp L9
+ 01DD           X2:
+ 01DD                   .dbline 279
+ 01DD           ;                                switch (event.keystroke.ch) {
+ 01DD           L31:
+ 01DD                   .dbline 281
+ 01DD           ;                                        case GR_KEY_ENTER : 
+ 01DD           ;                                                GrText_const(5,5," ENTER", 6, 0);
+ 01DD 5000              mov A,0
+ 01DF 08                push A
+ 01E0 5006              mov A,6
+ 01E2 08                push A
+ 01E3 5000              mov A,0
+ 01E5 08                push A
+ 01E6 08                push A
+ 01E7 5013              mov A,>L32
+ 01E9 08                push A
+ 01EA 5013              mov A,<L32
+ 01EC 08                push A
+ 01ED 5005              mov A,5
+ 01EF 08                push A
+ 01F0 08                push A
+ 01F1 7C0000            xcall _GrText
+ 01F4 38F8              add SP,-8
+ 01F6                   .dbline 282
+ 01F6           ;                                               break;
+ 01F6 80E2              xjmp L9
+ 01F8           L33:
+ 01F8                   .dbline 284
+ 01F8           ;                                        case GR_SPECIAL_KEY_ARROW_UP : 
+ 01F8           ;                                                GrText_const(5,5," UP   ", 6, 0);
+ 01F8 5000              mov A,0
+ 01FA 08                push A
+ 01FB 5006              mov A,6
+ 01FD 08                push A
+ 01FE 5000              mov A,0
+ 0200 08                push A
+ 0201 08                push A
+ 0202 500C              mov A,>L34
+ 0204 08                push A
+ 0205 500C              mov A,<L34
+ 0207 08                push A
+ 0208 5005              mov A,5
+ 020A 08                push A
+ 020B 08                push A
+ 020C 7C0000            xcall _GrText
+ 020F 38F8              add SP,-8
+ 0211                   .dbline 285
+ 0211           ;                                               break;
+ 0211 80C7              xjmp L9
+ 0213           L35:
+ 0213                   .dbline 287
+ 0213           ;                                        case GR_SPECIAL_KEY_ARROW_DOWN : 
+ 0213           ;                                                GrText_const(5,5," DOWN ", 6, 0);
+ 0213 5000              mov A,0
+ 0215 08                push A
+ 0216 5006              mov A,6
+ 0218 08                push A
+ 0219 5000              mov A,0
+ 021B 08                push A
+ 021C 08                push A
+ 021D 5005              mov A,>L36
+ 021F 08                push A
+ 0220 5005              mov A,<L36
+ 0222 08                push A
+ 0223 5005              mov A,5
+ 0225 08                push A
+ 0226 08                push A
+ 0227 7C0000            xcall _GrText
+ 022A 38F8              add SP,-8
+ 022C                   .dbline 288
+ 022C           ;                                               break;
+ 022C                   .dbline 290
+ 022C           ;                                }
+ 022C           ;                               break;
+ 022C 80AC              xjmp L9
+ 022E           L37:
+ 022E                   .dbline 292
+ 022E           ;                       case GR_EVENT_TYPE_KEY_UP :
+ 022E           ;                                GrText_const(1,5,"UP  ", 4, 0);
+ 022E 5000              mov A,0
+ 0230 08                push A
+ 0231 5004              mov A,4
+ 0233 08                push A
+ 0234 5000              mov A,0
+ 0236 08                push A
+ 0237 08                push A
+ 0238 5000              mov A,>L38
+ 023A 08                push A
+ 023B 5000              mov A,<L38
+ 023D 08                push A
+ 023E 5005              mov A,5
+ 0240 08                push A
+ 0241 5001              mov A,1
+ 0243 08                push A
+ 0244 7C0000            xcall _GrText
+ 0247 38F8              add SP,-8
+ 0249                   .dbline 293
+ 0249 5200              mov A,[X+0]
+ 024B 5300              mov [__r1],A
+ 024D 550000            mov [__r0],0
+ 0250 6800              asr [__r0]
+ 0252 6E00              rrc [__r1]
+ 0254 6800              asr [__r0]
+ 0256 6E00              rrc [__r1]
+ 0258 6800              asr [__r0]
+ 025A 6E00              rrc [__r1]
+ 025C 260003            and [__r1],3
+ 025F 260000            and [__r0],0
+ 0262 5100              mov A,[__r1]
+ 0264 5415              mov [X+21],A
+ 0266 5100              mov A,[__r0]
+ 0268 5414              mov [X+20],A
+ 026A 3D1400            cmp [X+20],0
+ 026D B006              jnz X18
+ 026F 3D1500            cmp [X+21],0
+ 0272 A017              jz L42
+ 0274           X18:
+ 0274 3D1400            cmp [X+20],0
+ 0277 B006              jnz X19
+ 0279 3D1501            cmp [X+21],1
+ 027C A028              jz L43
+ 027E           X19:
+ 027E 3D1400            cmp [X+20],0
+ 0281 B006              jnz X20
+ 0283 3D1502            cmp [X+21],2
+ 0286 A039              jz L44
+ 0288           X20:
+ 0288 8050              xjmp L9
+ 028A           X3:
+ 028A                   .dbline 293
+ 028A           ;                                switch (event.keystroke.ch) {
+ 028A           L42:
+ 028A                   .dbline 295
+ 028A           ;                                        case GR_KEY_ENTER : 
+ 028A           ;                                                GrText_const(5,5," ENTER", 6, 0);
+ 028A 5000              mov A,0
+ 028C 08                push A
+ 028D 5006              mov A,6
+ 028F 08                push A
+ 0290 5000              mov A,0
+ 0292 08                push A
+ 0293 08                push A
+ 0294 5013              mov A,>L32
+ 0296 08                push A
+ 0297 5013              mov A,<L32
+ 0299 08                push A
+ 029A 5005              mov A,5
+ 029C 08                push A
+ 029D 08                push A
+ 029E 7C0000            xcall _GrText
+ 02A1 38F8              add SP,-8
+ 02A3                   .dbline 296
+ 02A3           ;                                               break;
+ 02A3 8035              xjmp L9
+ 02A5           L43:
+ 02A5                   .dbline 298
+ 02A5           ;                                        case GR_SPECIAL_KEY_ARROW_UP : 
+ 02A5           ;                                                GrText_const(5,5," UP   ", 6, 0);
+ 02A5 5000              mov A,0
+ 02A7 08                push A
+ 02A8 5006              mov A,6
+ 02AA 08                push A
+ 02AB 5000              mov A,0
+ 02AD 08                push A
+ 02AE 08                push A
+ 02AF 500C              mov A,>L34
+ 02B1 08                push A
+ 02B2 500C              mov A,<L34
+ 02B4 08                push A
+ 02B5 5005              mov A,5
+ 02B7 08                push A
+ 02B8 08                push A
+ 02B9 7C0000            xcall _GrText
+ 02BC 38F8              add SP,-8
+ 02BE                   .dbline 299
+ 02BE           ;                                               break;
+ 02BE 801A              xjmp L9
+ 02C0           L44:
+ 02C0                   .dbline 301
+ 02C0           ;                                        case GR_SPECIAL_KEY_ARROW_DOWN : 
+ 02C0           ;                                                GrText_const(5,5," DOWN ", 6, 0);
+ 02C0 5000              mov A,0
+ 02C2 08                push A
+ 02C3 5006              mov A,6
+ 02C5 08                push A
+ 02C6 5000              mov A,0
+ 02C8 08                push A
+ 02C9 08                push A
+ 02CA 5005              mov A,>L36
+ 02CC 08                push A
+ 02CD 5005              mov A,<L36
+ 02CF 08                push A
+ 02D0 5005              mov A,5
+ 02D2 08                push A
+ 02D3 08                push A
+ 02D4 7C0000            xcall _GrText
+ 02D7 38F8              add SP,-8
+ 02D9                   .dbline 302
+ 02D9           ;                                               break;
+ 02D9                   .dbline 304
+ 02D9           ;                                }
+ 02D9           ;                               break;
+ 02D9           L8:
+ 02D9           L9:
+ 02D9                   .dbline 306
+ 02D9           L6:
+ 02D9                   .dbline 226
+ 02D9 8D4B              xjmp L5
+ 02DB           X4:
+ 02DB                   .dbline -2
+ 02DB                   .dbline 307
+ 02DB           ;               }
+ 02DB           ;       }
+ 02DB           ; }
+ 02DB           L4:
+ 02DB 38EA              add SP,-22
+ 02DD 20                pop X
+ 02DE                   .dbline 0 ; func end
+ 02DE 7F                ret
+ 02DF                   .dbsym l vec 4 A[10:10]c
+ 02DF                   .dbsym l a 2 I
+ 02DF                   .dbsym l timeout_task 1 c
+ 02DF                   .dbsym l event 0 X
+ 02DF                   .dbend
+                        .area lit(rom, con, rel)
+ 0400           L38:
+ 0400 5550202000        .byte 'U,'P,32,32,0
+ 0405           L36:
+ 0405 20444F574E2000    .byte 32,'D,'O,'W,'N,32,0
+ 040C           L34:
+ 040C 20555020202000    .byte 32,'U,'P,32,32,32,0
+ 0413           L32:
+ 0413 20454E54455200    .byte 32,'E,'N,'T,'E,'R,0
+ 041A           L27:
+ 041A 444F574E00        .byte 'D,'O,'W,'N,0
+ 041F           L25:
+ 041F 303500            .byte 48,53,0
+ 0422           L23:
+ 0422 6F2F70205077723A00        .byte 'o,47,'p,32,'P,'w,'r,58,0
+ 042B           L22:
+ 042B 6D5700            .byte 'm,'W,0
+ 042E           L21:
+ 042E 692F70205077723A00        .byte 'i,47,'p,32,'P,'w,'r,58,0

@@ -1,0 +1,91 @@
+                        .module srvmain.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./srvmain.c
+ 0000                   .dbfunc e mwlike8_server _mwlike8_server fV
+ 0000           ;              i -> X+0
+ 0000           _mwlike8_server::
+ 0000                   .dbline -1
+ 0000 10                push X
+ 0001 4F                mov X,SP
+ 0002 3801              add SP,1
+ 0004                   .dbline 22
+ 0004           ; /*
+ 0004           ;  * Copyright (c) 1999, 2000, 2001, 2003 Greg Haerr <greg@censoft.com>
+ 0004           ;  * Portions Copyright (c) 2002 by Koninklijke Philips Electronics N.V.
+ 0004           ;  * Copyright (c) 1991 David I. Bell
+ 0004           ;  * Copyright (c) 2004 cheng chung yan <chungyan5@hkem.com / yan@amonics.com> for 8-bit system running in linlike8
+ 0004           ;  * Permission is granted to use, distribute, or modify this source,
+ 0004           ;  * provided that this copyright notice remains intact.
+ 0004           ;  *
+ 0004           ;  * Main module of graphics server.
+ 0004           ;  */
+ 0004           ; 
+ 0004           ; #include "app.h"                                                                      // linlike8 os
+ 0004           ; 
+ 0004           ; #include "sched.h"
+ 0004           ; #include "nano-X.h"                                                                   // NR_EVENT
+ 0004           ; #include "device.h"                                                                   // scr_open()
+ 0004           ; #include "timer.h"
+ 0004           ; 
+ 0004           ; extern void io_open(void);
+ 0004           ; 
+ 0004           ; void mwlike8_server(void)
+ 0004           ; {
+ 0004                   .dbline 32
+ 0004           ;       
+ 0004           ; #if (KB_MOD==1)
+ 0004           ;       // keyboard events
+ 0004           ;       //=========================================================
+ 0004           ;       unsigned char i;
+ 0004           ; #endif
+ 0004           ; 
+ 0004           ;               // init this process
+ 0004           ; #if (GUI_LCD==1)
+ 0004           ;       scr_open();                                                                     // hardware init.
+ 0004 7C0000            xcall _scr_open
+ 0007                   .dbline 34
+ 0007           ; #endif
+ 0007           ;       io_open();
+ 0007 7C0000            xcall _io_open
+ 000A 8004              xjmp L6
+ 000C           L5:
+ 000C                   .dbline 45
+ 000C                   .dbline 55
+ 000C 7C0000            xcall _schedule
+ 000F                   .dbline 56
+ 000F           L6:
+ 000F                   .dbline 45
+ 000F 8FFC              xjmp L5
+ 0011           X0:
+ 0011                   .dbline -2
+ 0011                   .dbline 57
+ 0011           ;       
+ 0011           ; #if (AUTO_ZERO==0)
+ 0011           ;       unsigned char k;                                                                // mwlike8 server init.
+ 0011           ;       wr_ptr_events_vect = 0;
+ 0011           ;       rd_ptr_events_vect = 0;
+ 0011           ;       for (k=0;i<NR_EVENT;k++) events_vect[i].type = GR_EVENT_TYPE_NONE;
+ 0011           ; #endif
+ 0011           ; 
+ 0011           ;               // main job of this process
+ 0011           ;               //      detect user input
+ 0011           ;       while (1) {
+ 0011           ;               
+ 0011           ;               // linlike8 system
+ 0011           ;               //******************************************
+ 0011           ;               
+ 0011           ;               // appl.
+ 0011           ;               //******************************************
+ 0011           ;               
+ 0011           ;               // system context switch
+ 0011           ;               //******************************************
+ 0011           ;               sched_yield();                                                          // any time should switch away to let other process to run, unless somethign need to run in this process0
+ 0011           ;       }
+ 0011           ; }
+ 0011           L4:
+ 0011 38FF              add SP,-1
+ 0013 20                pop X
+ 0014                   .dbline 0 ; func end
+ 0014 7F                ret
+ 0015                   .dbsym l i 0 c
+ 0015                   .dbend

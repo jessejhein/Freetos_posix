@@ -1,0 +1,128 @@
+                        .module cirbuf.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./cirbuf.c
+ 0000                   .dbfunc e pre_wr_cir254buf _pre_wr_cir254buf fc
+ 0000           ;      wr_backup -> X+0
+ 0000           ;            max -> X-6
+ 0000           ;             rd -> X-5
+ 0000           ;             wr -> X-4
+ 0000           _pre_wr_cir254buf::
+ 0000                   .dbline -1
+ 0000 10                push X
+ 0001 4F                mov X,SP
+ 0002 3801              add SP,1
+ 0004                   .dbline 24
+ 0004           ; /*    Copyright (C) 2004 cheng chung yan <yan@amonics.com> for 8-bit system linlike8
+ 0004           ;  *    lib C in linlike8 8 bit system
+ 0004           ;  *
+ 0004           ;  *    cirbuf.c
+ 0004           ;  *
+ 0004           ;  *    Design Concept
+ 0004           ;  *            Make a circular buffer template.
+ 0004           ;  *            this is only a template, not for real code to work, please implement this code into your application area.
+ 0004           ;  *
+ 0004           ;  *                    | wr ptr
+ 0004           ;  *            top     V                              bottom
+ 0004           ;  *            |<------------------------------------>| buffer         wr and rd ptr, they both must go upward, then circular
+ 0004           ;  *                            ^                                       wr ptr must go prior rd
+ 0004           ;  *                            | rd ptr
+ 0004           ;  *
+ 0004           ;  *  Testing Procedures
+ 0004           ;  *    before you compile, you must copy whole directory of linlike8/ to your local home
+ 0004           ;  *    compile this file in linux gcc environment : " make cirbuf_to_run.o"
+ 0004           ;  *    testing by : "main_compile_dir/cirbuf_to_run.o"
+ 0004           ;  *
+ 0004           ;  */
+ 0004           ; 
+ 0004           ; unsigned char pre_wr_cir254buf(unsigned char wr, unsigned char rd, unsigned char max)
+ 0004           ; {
+ 0004                   .dbline 25
+ 0004           ;       unsigned char wr_backup = wr + 1;
+ 0004 52FC              mov A,[X-4]
+ 0006 0101              add A,1
+ 0008 5400              mov [X+0],A
+ 000A                   .dbline 26
+ 000A           ;       if (wr_backup==max) wr_backup = 0;
+ 000A 5200              mov A,[X+0]
+ 000C 3BFA              cmp A,[X-6]
+ 000E B004              jnz L2
+ 0010                   .dbline 26
+ 0010 560000            mov [X+0],0
+ 0013           L2:
+ 0013                   .dbline 27
+ 0013           ;       if (wr_backup==rd) return 255;
+ 0013 5200              mov A,[X+0]
+ 0015 3BFB              cmp A,[X-5]
+ 0017 B005              jnz L4
+ 0019                   .dbline 27
+ 0019 50FF              mov A,-1
+ 001B 8003              xjmp L1
+ 001D           L4:
+ 001D                   .dbline 28
+ 001D           ;       else return wr_backup;
+ 001D 5200              mov A,[X+0]
+ 001F                   .dbline -2
+ 001F           L1:
+ 001F 38FF              add SP,-1
+ 0021 20                pop X
+ 0022                   .dbline 0 ; func end
+ 0022 7F                ret
+ 0023                   .dbsym l wr_backup 0 c
+ 0023                   .dbsym l max -6 c
+ 0023                   .dbsym l rd -5 c
+ 0023                   .dbsym l wr -4 c
+ 0023                   .dbend
+ 0023                   .dbfunc e pre_rd_cir254buf _pre_rd_cir254buf fc
+ 0023           ;      rd_backup -> X+0
+ 0023           ;            max -> X-6
+ 0023           ;             rd -> X-5
+ 0023           ;             wr -> X-4
+ 0023           _pre_rd_cir254buf::
+ 0023                   .dbline -1
+ 0023 10                push X
+ 0024 4F                mov X,SP
+ 0025 3801              add SP,1
+ 0027                   .dbline 32
+ 0027           ; }
+ 0027           ; 
+ 0027           ; unsigned char pre_rd_cir254buf(unsigned char wr, unsigned char rd, unsigned char max)
+ 0027           ; {
+ 0027                   .dbline 34
+ 0027           ;       unsigned char rd_backup;
+ 0027           ;       if (rd==wr) return 255;
+ 0027 52FB              mov A,[X-5]
+ 0029 3BFC              cmp A,[X-4]
+ 002B B005              jnz L7
+ 002D                   .dbline 34
+ 002D 50FF              mov A,-1
+ 002F 8012              xjmp L6
+ 0031           L7:
+ 0031                   .dbline 35
+ 0031           ;       else {
+ 0031                   .dbline 36
+ 0031           ;               rd_backup = rd + 1;
+ 0031 52FB              mov A,[X-5]
+ 0033 0101              add A,1
+ 0035 5400              mov [X+0],A
+ 0037                   .dbline 37
+ 0037           ;               if (rd_backup==max) rd_backup = 0;
+ 0037 5200              mov A,[X+0]
+ 0039 3BFA              cmp A,[X-6]
+ 003B B004              jnz L9
+ 003D                   .dbline 37
+ 003D 560000            mov [X+0],0
+ 0040           L9:
+ 0040                   .dbline 38
+ 0040           ;               return rd_backup;
+ 0040 5200              mov A,[X+0]
+ 0042                   .dbline -2
+ 0042           L6:
+ 0042 38FF              add SP,-1
+ 0044 20                pop X
+ 0045                   .dbline 0 ; func end
+ 0045 7F                ret
+ 0046                   .dbsym l rd_backup 0 c
+ 0046                   .dbsym l max -6 c
+ 0046                   .dbsym l rd -5 c
+ 0046                   .dbsym l wr -4 c
+ 0046                   .dbend

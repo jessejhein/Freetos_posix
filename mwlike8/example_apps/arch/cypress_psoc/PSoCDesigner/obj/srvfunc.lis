@@ -1,0 +1,844 @@
+                        .module srvfunc.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./srvfunc.c
+ 0000                   .dbfunc e io_open _io_open fV
+ 0000           _io_open::
+ 0000                   .dbline -1
+ 0000                   .dbline 34
+ 0000           ; /*
+ 0000           ;  * Copyright (c) 1999, 2000, 2001, 2002, 2003 Greg Haerr <greg@censoft.com>
+ 0000           ;  * Portions Copyright (c) 2002 by Koninklijke Philips Electronics N.V.
+ 0000           ;  * Copyright (c) 2000 Alex Holden <alex@linuxhacker.org>
+ 0000           ;  * Copyright (c) 1991 David I. Bell
+ 0000           ;  * Copyright (c) 2004 cheng chung yan <chungyan5@hkem.com / yan@amonics.com> for 8-bit system
+ 0000           ;  * Permission is granted to use, distribute, or modify this source,
+ 0000           ;  * provided that this copyright notice remains intact.
+ 0000           ;  */
+ 0000           ; 
+ 0000           ; #include "app.h"
+ 0000           ; #include "nano-X.h"
+ 0000           ; #include "sched.h"                                                                    // timer.h
+ 0000           ; #include "timer.h"                                                                    // msleep()
+ 0000           ; #include "psoc_gpio_bit.h"                                                            // led_hw_off()
+ 0000           ; #include "cirbuf.h"                                                                   // pre_wr_cir254buf()
+ 0000           ; 
+ 0000           ; //#include "serial.h"
+ 0000           ; 
+ 0000           ;               // LED and Buzzer
+ 0000           ; //struct io_bit_struct buzzer_ctrl;
+ 0000           ; //struct io_bit_struct led_ctrl;
+ 0000           ; struct io_bit_struct io_bit_ctrl;
+ 0000           ; #if (ADD_LED>0)
+ 0000           ; struct ADD_LED_STRUCT add_led;
+ 0000           ; #endif
+ 0000           ;               // events
+ 0000           ; GR_EVENT events_vect[NR_EVENT];
+ 0000           ; struct EVENT_PTR ptr_events_vect;
+ 0000           ; //unsigned char wr_ptr_events_vect;
+ 0000           ; //unsigned char rd_ptr_events_vect;
+ 0000           ; 
+ 0000           ; void io_open(void)
+ 0000           ; {
+ 0000                   .dbline 35
+ 0000           ;       buz_hw_off;                                                                     // hw init.
+ 0000 4108F7            and REG[8],-9
+ 0003                   .dbline 36
+ 0003           ;       led_hw_off;
+ 0003 430880            or REG[8],-128
+ 0006                   .dbline 37
+ 0006           ;       buz_off();
+ 0006 2603E0            and [_io_bit_ctrl],-32
+ 0009                   .dbline 38
+ 0009           ;       led_off();
+ 0009                   .dbline 49
+ 0009           ; #if (ADD_LED>0)
+ 0009           ;       led_1st_off();
+ 0009           ;       #if (ADD_LED>1)
+ 0009           ;       led_2nd_off();
+ 0009           ;       #endif
+ 0009           ;       #if (ADD_LED>2)
+ 0009           ;       led_3rd_off();
+ 0009           ;       #endif
+ 0009           ; #endif
+ 0009           ;       #if (SWITCH_CASE==1)
+ 0009           ;       io_bit_ctrl.GrGetNextEventTimeout_status = 0;
+ 0009                   .dbline -2
+ 0009                   .dbline 51
+ 0009           ;       #endif
+ 0009           ; }
+ 0009           L4:
+ 0009                   .dbline 0 ; func end
+ 0009 7F                ret
+ 000A                   .dbend
+                        .area bss(ram, con, rel)
+ 0000                   .dbfile ./srvfunc.c
+ 0000           L6:
+ 0000                   .blkb 1
+ 0001           L7:
+ 0001                   .blkb 2
+                        .area text(rom, con, rel)
+ 000A                   .dbfile ./srvfunc.c
+ 000A                   .dbfunc e GrGetNextEventTimeout _GrGetNextEventTimeout fc
+ 000A                   .dbsym s ggnet_timer L7 i
+ 000A                   .dbsym s ggnet_i L6 c
+ 000A           ;              k -> X+0
+ 000A           ;        timeout -> X-7
+ 000A           ;             ep -> X-5
+ 000A           _GrGetNextEventTimeout::
+ 000A                   .dbline -1
+ 000A 10                push X
+ 000B 4F                mov X,SP
+ 000C 3807              add SP,7
+ 000E                   .dbline 187
+ 000E           ; 
+ 000E           ; // return -1, event buf. full; all others as completed in this number index
+ 000E           ; /*char wr_event(char event_type)
+ 000E           ; {
+ 000E           ;       if ((i=pre_wr_cir254buf(wr_ptr_events_vect,rd_ptr_events_vect,NR_EVENT))!=255) {
+ 000E           ;               events_vect[wr_ptr_events_vect].type = event_type;
+ 000E           ;               wr_ptr_events_vect = i;
+ 000E           ;       }
+ 000E           ;       //
+ 000E           ;       unsigned char tmp1 = wr_ptr_events_vect;
+ 000E           ;       unsigned char tmp = (wr_ptr_events_vect==NR_EVENT) ? 0 : wr_ptr_events_vect + 1;
+ 000E           ;       if (tmp==rd_ptr_events_vect) return ((char) -1);
+ 000E           ;       events_vect[wr_ptr_events_vect].type = event_type;
+ 000E           ;       wr_ptr_events_vect = tmp;
+ 000E           ;       return tmp1;
+ 000E           ; }*/
+ 000E           ; 
+ 000E           ; /*
+ 000E           ;  * Map the window to make it (and possibly its children) visible on the screen.
+ 000E           ;  * (this subr. is placed in server side, but be called from client, i.e. coding running in client side)
+ 000E           ;  */
+ 000E           ; //void
+ 000E           ; //GrMapWindow(void)
+ 000E           ; //{
+ 000E           ; //    unsigned char i;
+ 000E           ; //    if ((i=pre_wr_cir254buf(ptr_events_vect.wr,ptr_events_vect.rd,NR_EVENT))!=255) {
+ 000E           ; //            events_vect[ptr_events_vect.wr].type = GR_EVENT_TYPE_EXPOSURE;
+ 000E           ; //            ptr_events_vect.wr = i;
+ 000E           ; //    }
+ 000E           ; //}
+ 000E           ; 
+ 000E           ; /*
+ 000E           ;  * Return the next event from the event queue, or
+ 000E           ;  * wait for a new one if one is not ready.  If timeout
+ 000E           ;  * is nonzero, return timeout event if time elapsed.
+ 000E           ;  * timeout in millisecond
+ 000E           ;  * Assume the ep event as zero content
+ 000E           ;  * (this subr. is placed in server side, but be called from client, i.e. coding running in client side)
+ 000E           ;  * max. timeout is 12500mSec
+ 000E           ;  */
+ 000E           ; #define TIME_OUT_INTERVAL     50                                                      // in mill. second
+ 000E           ; #if (SWITCH_CASE==0)
+ 000E           ; void
+ 000E           ; GrGetNextEventTimeout(GR_EVENT *ep, GR_TIMEOUT timeout)
+ 000E           ; {
+ 000E           ;       unsigned char max_time_out = timeout/TIME_OUT_INTERVAL;
+ 000E           ;       unsigned char i = 0;
+ 000E           ;       //unsigned char buz_j;
+ 000E           ;       //unsigned char led_j;
+ 000E           ;       unsigned char k;                                                                // for circular buffer
+ 000E           ;       ep->type = GR_EVENT_TYPE_NONE;
+ 000E           ;       
+ 000E           ;       do {
+ 000E           ;               // sleep regular time as TIME_OUT_INTERVAL
+ 000E           ;               msleep(TIME_OUT_INTERVAL);
+ 000E           ;               
+ 000E           ;               // check event job 
+ 000E           ;               if ((k=pre_rd_cir254buf((unsigned char) ptr_events_vect.wr,(unsigned char) ptr_events_vect.rd,NR_EVENT))==255) {        // no event
+ 000E           ;                       if (i==max_time_out) ep->type = GR_EVENT_TYPE_TIMEOUT;
+ 000E           ;                       else i++;
+ 000E           ;               } else {                                                                                // event occurs
+ 000E           ;                       *ep = events_vect[(unsigned char) ptr_events_vect.rd];
+ 000E           ;                       //ep->type = events_vect[rd_ptr_events_vect].type;
+ 000E           ;                       ptr_events_vect.rd = k;
+ 000E           ;               }
+ 000E           ;               
+ 000E           ;               // buzzer control job
+ 000E           ;               switch (io_bit_ctrl.buzzer_stat) {
+ 000E           ;                       case BUZZER_OFF :
+ 000E           ;                                buz_hw_off;
+ 000E           ;                               break;
+ 000E           ;                       case BUZZER_POS_PULSE :
+ 000E           ;                                buz_hw_on;
+ 000E           ;                                //io_bit_ctrl.buzzer_stat = BUZZER_POS_PULSE_1;
+ 000E           ;                                io_bit_ctrl.buzzer_stat = BUZZER_OFF;
+ 000E           ;                               break;
+ 000E           ;                       /*case BUZZER_POS_PULSE_1 :
+ 000E           ;                                if (max_time_out>4) {                                  // 4 as 4 X 50mSec = 200mSec
+ 000E           ;                                        if (i>=4) io_bit_ctrl.buzzer_stat = BUZZER_OFF;
+ 000E           ;                                } else {
+ 000E           ;                                        if (i>=max_time_out) io_bit_ctrl.buzzer_stat = BUZZER_OFF;
+ 000E           ;                                }
+ 000E           ;                               break;
+ 000E           ;                       case BUZZER_REP_PULSE :
+ 000E           ;                                buz_j = buzzer_ctrl.cnt;
+ 000E           ;                                buzzer_ctrl.stat = BUZZER_REP_PULSE_1;
+ 000E           ;                               break;
+ 000E           ;                       case BUZZER_REP_PULSE_1 :
+ 000E           ;                                if ((buz_j--)>(buzzer_ctrl.cnt/2)) {
+ 000E           ;                                       buz_hw_on;
+ 000E           ;                                } else {
+ 000E           ;                                       if (buz_j==0) buz_j = buzzer_ctrl.cnt;
+ 000E           ;                                       buz_hw_off;
+ 000E           ;                                }
+ 000E           ;                               break;*/
+ 000E           ;               }
+ 000E           ;               
+ 000E           ;               // led control job
+ 000E           ;               switch (io_bit_ctrl.led_stat) {
+ 000E           ;                       case LED_OFF :
+ 000E           ;                                led_hw_off;
+ 000E           ;                               break;
+ 000E           ;                       case LED_POS_PULSE :
+ 000E           ;                                led_hw_on;
+ 000E           ;                                io_bit_ctrl.led_stat = LED_OFF;
+ 000E           ;                               break;
+ 000E           ;                       case LED_ON :
+ 000E           ;                                led_hw_on;
+ 000E           ;                               break;
+ 000E           ;                       case LED_NEG_PULSE :
+ 000E           ;                                led_hw_off;
+ 000E           ;                                io_bit_ctrl.led_stat = LED_ON;
+ 000E           ;                               break;
+ 000E           ;                       /*case LED_REP_PULSE :
+ 000E           ;                                led_j = led_ctrl.cnt;
+ 000E           ;                                led_ctrl.stat = LED_REP_PULSE_1;
+ 000E           ;                               break;
+ 000E           ;                       case LED_REP_PULSE_1 :
+ 000E           ;                                if ((led_j--)>(led_ctrl.cnt/2)) {
+ 000E           ;                                       led_hw_on;
+ 000E           ;                                } else {
+ 000E           ;                                       if (led_j==0) led_j = led_ctrl.cnt;
+ 000E           ;                                       led_hw_off;
+ 000E           ;                                }
+ 000E           ;                               break;*/
+ 000E           ;               }
+ 000E           ;               
+ 000E           ;       } while (ep->type==GR_EVENT_TYPE_NONE);
+ 000E           ; }
+ 000E           ; #else
+ 000E           ; //void GrGetNextEventTimeout_timeout_alarm(void);
+ 000E           ; // return 
+ 000E           ; //    GR_EVENT_TYPE_NONE -- not completed
+ 000E           ; //    NOT GR_EVENT_TYPE_NONE -- valid event
+ 000E           ; GR_EVENT_TYPE GrGetNextEventTimeout(GR_EVENT *ep, GR_TIMEOUT timeout)
+ 000E           ; {
+ 000E                   .dbline 192
+ 000E           ;       unsigned char k;                                                                // for circular buffer
+ 000E           ;       static unsigned char ggnet_i;
+ 000E           ;       //static struct timer_list ggnet_timer;
+ 000E           ;       static unsigned int ggnet_timer;
+ 000E           ;       ep->type = GR_EVENT_TYPE_NONE;
+ 000E 52FC              mov A,[X-4]
+ 0010 5300              mov [__r1],A
+ 0012 52FC              mov A,[X-4]
+ 0014 5300              mov [__r3],A
+ 0016 3E00              mvi A,[__r3]
+ 0018 21F8              and A,-8
+ 001A 3F00              mvi [__r1],A
+ 001C                   .dbline 193
+ 001C 5F0003            mov [__r1],[_io_bit_ctrl]
+ 001F 550000            mov [__r0],0
+ 0022 6800              asr [__r0]
+ 0024 6E00              rrc [__r1]
+ 0026 6800              asr [__r0]
+ 0028 6E00              rrc [__r1]
+ 002A 6800              asr [__r0]
+ 002C 6E00              rrc [__r1]
+ 002E 260003            and [__r1],3
+ 0031 260000            and [__r0],0
+ 0034 5100              mov A,[__r1]
+ 0036 5402              mov [X+2],A
+ 0038 5100              mov A,[__r0]
+ 003A 5401              mov [X+1],A
+ 003C 3D0100            cmp [X+1],0
+ 003F B006              jnz X3
+ 0041 3D0200            cmp [X+2],0
+ 0044 A021              jz L11
+ 0046           X3:
+ 0046 3D0100            cmp [X+1],0
+ 0049 B006              jnz X4
+ 004B 3D0201            cmp [X+2],1
+ 004E A028              jz L12
+ 0050           X4:
+ 0050 3D0100            cmp [X+1],0
+ 0053 B006              jnz X5
+ 0055 3D0202            cmp [X+2],2
+ 0058 A032              jz L13
+ 005A           X5:
+ 005A 3D0100            cmp [X+1],0
+ 005D B006              jnz X6
+ 005F 3D0203            cmp [X+2],3
+ 0062 A04A              jz L16
+ 0064           X6:
+ 0064 8192              xjmp L8
+ 0066           X0:
+ 0066                   .dbline 193
+ 0066           ;       switch (io_bit_ctrl.GrGetNextEventTimeout_status) {
+ 0066           L11:
+ 0066                   .dbline 195
+ 0066           ;               case 0 :
+ 0066           ;                        ggnet_i = 0;
+ 0066 550000            mov [L6],0
+ 0069                   .dbline 196
+ 0069           ;                        io_bit_ctrl.GrGetNextEventTimeout_status = 1;
+ 0069 5103              mov A,[_io_bit_ctrl]
+ 006B 21E7              and A,-25
+ 006D 5300              mov [__r0],A
+ 006F 2E0008            or [__r0],8
+ 0072 5F0300            mov [_io_bit_ctrl],[__r0]
+ 0075                   .dbline 197
+ 0075           ;                       break;
+ 0075 8181              xjmp L9
+ 0077           L12:
+ 0077                   .dbline 202
+ 0077           ;               case 1 :
+ 0077           ;                        //ggnet_timer.data.timer_function = (p_func) GrGetNextEventTimeout_timeout_alarm;//after solve the problem, put back into alarm()
+ 0077           ;                        //if (malarm((p_func) GrGetNextEventTimeout_timeout_alarm, TIME_OUT_INTERVAL, &ggnet_timer)>=0)// start timer, sleep regular time as TIME_OUT_INTERVAL
+ 0077           ;                        //     io_bit_ctrl.GrGetNextEventTimeout_status = 2;
+ 0077           ;                        ggnet_timer = 0;
+ 0077 550200            mov [L7+1],0
+ 007A 550100            mov [L7],0
+ 007D                   .dbline 203
+ 007D           ;                        io_bit_ctrl.GrGetNextEventTimeout_status = 2;
+ 007D 5103              mov A,[_io_bit_ctrl]
+ 007F 21E7              and A,-25
+ 0081 5300              mov [__r0],A
+ 0083 2E0010            or [__r0],16
+ 0086 5F0300            mov [_io_bit_ctrl],[__r0]
+ 0089                   .dbline 204
+ 0089           ;                       break;
+ 0089 816D              xjmp L9
+ 008B           L13:
+ 008B                   .dbline 206
+ 008B           ;               case 2 :                                                                // wait alarm for each timeout
+ 008B           ;                        if ((++ggnet_timer)==1024) io_bit_ctrl.GrGetNextEventTimeout_status = 3;
+ 008B 5102              mov A,[L7+1]
+ 008D 0101              add A,1
+ 008F 5300              mov [__r1],A
+ 0091 5101              mov A,[L7]
+ 0093 0900              adc A,0
+ 0095 5300              mov [__r0],A
+ 0097 5F0200            mov [L7+1],[__r1]
+ 009A 5301              mov [L7],A
+ 009C 3C0104            cmp [L7],4
+ 009F B157              jnz L9
+ 00A1 3C0000            cmp [__r1],0
+ 00A4 B152              jnz L9
+ 00A6           X7:
+ 00A6                   .dbline 206
+ 00A6 2E0318            or [_io_bit_ctrl],24
+ 00A9 5103              mov A,[_io_bit_ctrl]
+ 00AB                   .dbline 207
+ 00AB           ;                       break;
+ 00AB 814B              xjmp L9
+ 00AD           L16:
+ 00AD                   .dbline 209
+ 00AD           ;               case 3 :
+ 00AD           ;                        io_bit_ctrl.GrGetNextEventTimeout_status = 0;                  // check event job
+ 00AD 2603E7            and [_io_bit_ctrl],-25
+ 00B0                   .dbline 210
+ 00B0           ;                        if ((k=pre_rd_cir254buf((unsigned char) ptr_events_vect.wr,(unsigned char) ptr_events_vect.rd,NR_EVENT))==255) {// no event
+ 00B0 5002              mov A,2
+ 00B2 08                push A
+ 00B3 5104              mov A,[_ptr_events_vect]
+ 00B5 67                asr A
+ 00B6 67                asr A
+ 00B7 67                asr A
+ 00B8 67                asr A
+ 00B9 210F              and A,15
+ 00BB 08                push A
+ 00BC 5104              mov A,[_ptr_events_vect]
+ 00BE 210F              and A,15
+ 00C0 08                push A
+ 00C1 7C0000            xcall _pre_rd_cir254buf
+ 00C4 38FD              add SP,-3
+ 00C6 5400              mov [X+0],A
+ 00C8 39FF              cmp A,-1
+ 00CA B04F              jnz L17
+ 00CC                   .dbline 210
+ 00CC                   .dbline 211
+ 00CC           ;                                if (ggnet_i==timeout/TIME_OUT_INTERVAL) {
+ 00CC 5F0000            mov [__r1],[L6]
+ 00CF 5000              mov A,0
+ 00D1 08                push A
+ 00D2 5032              mov A,50
+ 00D4 08                push A
+ 00D5 52F9              mov A,[X-7]
+ 00D7 08                push A
+ 00D8 52FA              mov A,[X-6]
+ 00DA 08                push A
+ 00DB 7C0000            xcall __divmodu_16X16_16
+ 00DE 18                pop A
+ 00DF 5300              mov [__r3],A
+ 00E1 18                pop A
+ 00E2 5300              mov [__r2],A
+ 00E4 38FE              add SP,-2
+ 00E6 5000              mov A,0
+ 00E8 3A00              cmp A,[__r2]
+ 00EA B01F              jnz L19
+ 00EC 5100              mov A,[__r1]
+ 00EE 3A00              cmp A,[__r3]
+ 00F0 B019              jnz L19
+ 00F2           X8:
+ 00F2                   .dbline 211
+ 00F2                   .dbline 212
+ 00F2           ;                                        ep->type = GR_EVENT_TYPE_TIMEOUT;
+ 00F2 52FC              mov A,[X-4]
+ 00F4 5300              mov [__r1],A
+ 00F6 52FC              mov A,[X-4]
+ 00F8 5300              mov [__r3],A
+ 00FA 3E00              mvi A,[__r3]
+ 00FC 5300              mov [__r2],A
+ 00FE 2600F8            and [__r2],-8
+ 0101 2E0004            or [__r2],4
+ 0104 5100              mov A,[__r2]
+ 0106 3F00              mvi [__r1],A
+ 0108                   .dbline 213
+ 0108           ;                                }
+ 0108 8050              xjmp L18
+ 010A           L19:
+ 010A                   .dbline 214
+ 010A           ;                                else {
+ 010A                   .dbline 215
+ 010A           ;                                        ggnet_i++;
+ 010A 7600              inc [L6]
+ 010C                   .dbline 216
+ 010C           ;                                        io_bit_ctrl.GrGetNextEventTimeout_status = 1;
+ 010C 5103              mov A,[_io_bit_ctrl]
+ 010E 21E7              and A,-25
+ 0110 5300              mov [__r0],A
+ 0112 2E0008            or [__r0],8
+ 0115 5F0300            mov [_io_bit_ctrl],[__r0]
+ 0118                   .dbline 217
+ 0118           ;                                }
+ 0118                   .dbline 218
+ 0118 8040              xjmp L18
+ 011A           L17:
+ 011A                   .dbline 218
+ 011A           ;                        } else {                                                       //      event occurs
+ 011A                   .dbline 219
+ 011A           ;                               *ep = events_vect[(unsigned char) ptr_events_vect.rd];
+ 011A 52FC              mov A,[X-4]
+ 011C 5300              mov [__r1],A
+ 011E 5F0004            mov [__r3],[_ptr_events_vect]
+ 0121 550000            mov [__r2],0
+ 0124 6800              asr [__r2]
+ 0126 6E00              rrc [__r3]
+ 0128 6800              asr [__r2]
+ 012A 6E00              rrc [__r3]
+ 012C 6800              asr [__r2]
+ 012E 6E00              rrc [__r3]
+ 0130 6800              asr [__r2]
+ 0132 6E00              rrc [__r3]
+ 0134 26000F            and [__r3],15
+ 0137 260000            and [__r2],0
+ 013A 060005            add [__r3],<_events_vect
+ 013D 0E0005            adc [__r2],>_events_vect
+ 0140 3E00              mvi A,[__r3]
+ 0142 3F00              mvi [__r1],A
+ 0144                   .dbline 220
+ 0144           ;                               ptr_events_vect.rd = k;
+ 0144 5104              mov A,[_ptr_events_vect]
+ 0146 210F              and A,15
+ 0148 5300              mov [__r0],A
+ 014A 5200              mov A,[X+0]
+ 014C 210F              and A,15
+ 014E 64                asl A
+ 014F 64                asl A
+ 0150 64                asl A
+ 0151 64                asl A
+ 0152 21F0              and A,-16
+ 0154 2C00              or [__r0],A
+ 0156 5F0400            mov [_ptr_events_vect],[__r0]
+ 0159                   .dbline 221
+ 0159           ;                        }
+ 0159           L18:
+ 0159                   .dbline 224
+ 0159 5F0003            mov [__r1],[_io_bit_ctrl]
+ 015C 550000            mov [__r0],0
+ 015F 6800              asr [__r0]
+ 0161 6E00              rrc [__r1]
+ 0163 6800              asr [__r0]
+ 0165 6E00              rrc [__r1]
+ 0167 260001            and [__r1],1
+ 016A 260000            and [__r0],0
+ 016D 5100              mov A,[__r1]
+ 016F 5404              mov [X+4],A
+ 0171 5100              mov A,[__r0]
+ 0173 5403              mov [X+3],A
+ 0175 3D0300            cmp [X+3],0
+ 0178 B006              jnz X9
+ 017A 3D0400            cmp [X+4],0
+ 017D A00D              jz L24
+ 017F           X9:
+ 017F 3D0300            cmp [X+3],0
+ 0182 B006              jnz X10
+ 0184 3D0401            cmp [X+4],1
+ 0187 A008              jz L25
+ 0189           X10:
+ 0189 800C              xjmp L21
+ 018B           X1:
+ 018B                   .dbline 224
+ 018B           ; 
+ 018B           ;                        // buzzer control job
+ 018B           ;                        switch (io_bit_ctrl.buzzer_stat) {
+ 018B           L24:
+ 018B                   .dbline 226
+ 018B           ;                               case BUZZER_OFF :
+ 018B           ;                                        buz_hw_off;
+ 018B 4108F7            and REG[8],-9
+ 018E                   .dbline 227
+ 018E           ;                                       break;
+ 018E 8007              xjmp L22
+ 0190           L25:
+ 0190                   .dbline 229
+ 0190           ;                               case BUZZER_POS_PULSE :
+ 0190           ;                                        buz_hw_on;
+ 0190 430808            or REG[8],8
+ 0193                   .dbline 231
+ 0193           ;                                        //io_bit_ctrl.buzzer_stat = BUZZER_POS_PULSE_1;
+ 0193           ;                                        io_bit_ctrl.buzzer_stat = BUZZER_OFF;
+ 0193 2603FB            and [_io_bit_ctrl],-5
+ 0196                   .dbline 232
+ 0196           ;                                       break;
+ 0196           L21:
+ 0196           L22:
+ 0196                   .dbline 256
+ 0196 5F0003            mov [__r1],[_io_bit_ctrl]
+ 0199 550000            mov [__r0],0
+ 019C 260003            and [__r1],3
+ 019F 260000            and [__r0],0
+ 01A2 5100              mov A,[__r1]
+ 01A4 5406              mov [X+6],A
+ 01A6 5100              mov A,[__r0]
+ 01A8 5405              mov [X+5],A
+ 01AA 3D0500            cmp [X+5],0
+ 01AD B006              jnz X11
+ 01AF 3D0600            cmp [X+6],0
+ 01B2 A021              jz L29
+ 01B4           X11:
+ 01B4 3D0500            cmp [X+5],0
+ 01B7 B006              jnz X12
+ 01B9 3D0601            cmp [X+6],1
+ 01BC A01C              jz L30
+ 01BE           X12:
+ 01BE 3D0500            cmp [X+5],0
+ 01C1 B006              jnz X13
+ 01C3 3D0602            cmp [X+6],2
+ 01C6 A01C              jz L31
+ 01C8           X13:
+ 01C8 3D0500            cmp [X+5],0
+ 01CB B006              jnz X14
+ 01CD 3D0603            cmp [X+6],3
+ 01D0 A017              jz L32
+ 01D2           X14:
+ 01D2 8024              xjmp L26
+ 01D4           X2:
+ 01D4                   .dbline 256
+ 01D4           ; /*                            case BUZZER_POS_PULSE_1 :
+ 01D4           ;                                        k = timeout/TIME_OUT_INTERVAL;
+ 01D4           ;                                        if (k>2) {                                     // 4 as 4 X 50mSec = 200mSec
+ 01D4           ;                                                if (ggnet_i>=2) io_bit_ctrl.buzzer_stat = BUZZER_OFF;
+ 01D4           ;                                        } else {
+ 01D4           ;                                                if (ggnet_i>=k) io_bit_ctrl.buzzer_stat = BUZZER_OFF;
+ 01D4           ;                                        }
+ 01D4           ;                                       break;*/
+ 01D4           ;                               /*case BUZZER_REP_PULSE :
+ 01D4           ;                                        buz_j = buzzer_ctrl.cnt;
+ 01D4           ;                                        buzzer_ctrl.stat = BUZZER_REP_PULSE_1;
+ 01D4           ;                                       break;
+ 01D4           ;                               case BUZZER_REP_PULSE_1 :
+ 01D4           ;                                        if ((buz_j--)>(buzzer_ctrl.cnt/2)) {
+ 01D4           ;                                               buz_hw_on;
+ 01D4           ;                                        } else {
+ 01D4           ;                                               if (buz_j==0) buz_j = buzzer_ctrl.cnt;
+ 01D4           ;                                               buz_hw_off;
+ 01D4           ;                                        }
+ 01D4           ;                                       break;*/
+ 01D4           ;                        }
+ 01D4           ;                       
+ 01D4           ;                        // led control job
+ 01D4           ;                        switch (io_bit_ctrl.led_stat) {
+ 01D4           L29:
+ 01D4                   .dbline 258
+ 01D4           ;                               case LED_OFF :
+ 01D4           ;                                        led_hw_off;
+ 01D4 430880            or REG[8],-128
+ 01D7                   .dbline 259
+ 01D7           ;                                       break;
+ 01D7 801F              xjmp L27
+ 01D9           L30:
+ 01D9                   .dbline 261
+ 01D9           ;                               case LED_POS_PULSE :
+ 01D9           ;                                        led_hw_on;
+ 01D9 41087F            and REG[8],127
+ 01DC                   .dbline 262
+ 01DC           ;                                        io_bit_ctrl.led_stat = LED_OFF;
+ 01DC 2603FC            and [_io_bit_ctrl],-4
+ 01DF 5103              mov A,[_io_bit_ctrl]
+ 01E1                   .dbline 263
+ 01E1           ;                                       break;
+ 01E1 8015              xjmp L27
+ 01E3           L31:
+ 01E3                   .dbline 265
+ 01E3           ;                               case LED_ON :
+ 01E3           ;                                        led_hw_on;
+ 01E3 41087F            and REG[8],127
+ 01E6                   .dbline 266
+ 01E6           ;                                       break;
+ 01E6 8010              xjmp L27
+ 01E8           L32:
+ 01E8                   .dbline 268
+ 01E8           ;                               case LED_NEG_PULSE :
+ 01E8           ;                                        led_hw_off;
+ 01E8 430880            or REG[8],-128
+ 01EB                   .dbline 269
+ 01EB           ;                                        io_bit_ctrl.led_stat = LED_ON;
+ 01EB 5103              mov A,[_io_bit_ctrl]
+ 01ED 21FC              and A,-4
+ 01EF 5300              mov [__r0],A
+ 01F1 2E0002            or [__r0],2
+ 01F4 5F0300            mov [_io_bit_ctrl],[__r0]
+ 01F7                   .dbline 270
+ 01F7           ;                                       break;
+ 01F7           L26:
+ 01F7           L27:
+ 01F7                   .dbline 341
+ 01F7           ;                               /*case LED_REP_PULSE :
+ 01F7           ;                                        ggnet_led_j = led_ctrl.cnt;
+ 01F7           ;                                        led_ctrl.stat = LED_REP_PULSE_1;
+ 01F7           ;                                       break;
+ 01F7           ;                               case LED_REP_PULSE_1 :
+ 01F7           ;                                        if ((ggnet_led_j--)>(led_ctrl.cnt/2)) {
+ 01F7           ;                                               led_hw_on;
+ 01F7           ;                                        } else {
+ 01F7           ;                                               if (ggnet_led_j==0) ggnet_led_j = led_ctrl.cnt;
+ 01F7           ;                                               led_hw_off;
+ 01F7           ;                                        }
+ 01F7           ;                                       break;*/
+ 01F7           ;                        }
+ 01F7           ;                       
+ 01F7           ; #if (ADD_LED>0)
+ 01F7           ;                        // additional led control job
+ 01F7           ;                        switch (add_led.first) {
+ 01F7           ;                               case LED_OFF :
+ 01F7           ;                                        led_1st_hw_off;
+ 01F7           ;                                       break;
+ 01F7           ;                               case LED_POS_PULSE :
+ 01F7           ;                                        led_1st_hw_on;
+ 01F7           ;                                        add_led.first = LED_OFF;
+ 01F7           ;                                       break;
+ 01F7           ;                               case LED_ON :
+ 01F7           ;                                        led_1st_hw_on;
+ 01F7           ;                                       break;
+ 01F7           ;                               case LED_NEG_PULSE :
+ 01F7           ;                                        led_1st_hw_off;
+ 01F7           ;                                        add_led.first = LED_ON;
+ 01F7           ;                                       break;
+ 01F7           ;                        }
+ 01F7           ;       #if (ADD_LED>1)
+ 01F7           ;                        switch (add_led.second) {
+ 01F7           ;                               case LED_OFF :
+ 01F7           ;                                        led_2nd_hw_off;
+ 01F7           ;                                       break;
+ 01F7           ;                               case LED_POS_PULSE :
+ 01F7           ;                                        led_2nd_hw_on;
+ 01F7           ;                                        add_led.second = LED_OFF;
+ 01F7           ;                                       break;
+ 01F7           ;                               case LED_ON :
+ 01F7           ;                                        led_2nd_hw_on;
+ 01F7           ;                                       break;
+ 01F7           ;                               case LED_NEG_PULSE :
+ 01F7           ;                                        led_2nd_hw_off;
+ 01F7           ;                                        add_led.second = LED_ON;
+ 01F7           ;                                       break;
+ 01F7           ;                        }
+ 01F7           ;       #endif
+ 01F7           ;       #if (ADD_LED>2)
+ 01F7           ;                        switch (add_led.third) {
+ 01F7           ;                               case LED_OFF :
+ 01F7           ;                                        led_3rd_hw_off;
+ 01F7           ;                                       break;
+ 01F7           ;                               case LED_POS_PULSE :
+ 01F7           ;                                        led_3rd_hw_on;
+ 01F7           ;                                        add_led.third = LED_OFF;
+ 01F7           ;                                       break;
+ 01F7           ;                               case LED_ON :
+ 01F7           ;                                        led_3rd_hw_on;
+ 01F7           ;                                       break;
+ 01F7           ;                               case LED_NEG_PULSE :
+ 01F7           ;                                        led_3rd_hw_off;
+ 01F7           ;                                        add_led.third = LED_ON;
+ 01F7           ;                                       break;
+ 01F7           ;                        }
+ 01F7           ;       #endif
+ 01F7           ;                       break;
+ 01F7           ; #endif
+ 01F7           ;       }
+ 01F7           L8:
+ 01F7           L9:
+ 01F7                   .dbline 342
+ 01F7           ;       return ep->type;
+ 01F7 52FC              mov A,[X-4]
+ 01F9 5300              mov [__r1],A
+ 01FB 3E00              mvi A,[__r1]
+ 01FD 2107              and A,7
+ 01FF                   .dbline -2
+ 01FF           L5:
+ 01FF 38F9              add SP,-7
+ 0201 20                pop X
+ 0202                   .dbline 0 ; func end
+ 0202 7F                ret
+ 0203                   .dbsym l k 0 c
+ 0203                   .dbsym l timeout -7 i
+ 0203                   .dbsym l ep -5 pX
+ 0203                   .dbend
+ 0203                   .dbfunc e GrText _GrText fV
+ 0203           ;              i -> X+0
+ 0203           ;          flags -> X-11
+ 0203           ;          count -> X-10
+ 0203           ;        str_RAM -> X-9
+ 0203           ;        str_ROM -> X-7
+ 0203           ;              y -> X-5
+ 0203           ;              x -> X-4
+ 0203           _GrText::
+ 0203                   .dbline -1
+ 0203 10                push X
+ 0204 4F                mov X,SP
+ 0205 3801              add SP,1
+ 0207                   .dbline 360
+ 0207           ; }
+ 0207           ; //void GrGetNextEventTimeout_timeout_alarm(void)
+ 0207           ; //{
+ 0207           ; //    io_bit_ctrl.GrGetNextEventTimeout_status = 3;
+ 0207           ; //}
+ 0207           ; #endif
+ 0207           ; 
+ 0207           ; #if (GUI_LCD==1)
+ 0207           ; /*
+ 0207           ;  * Draw a text string in the specified drawable using the
+ 0207           ;  * specified graphics context.
+ 0207           ;  *
+ 0207           ;  * flags
+ 0207           ;  *    bit 0 - '0' as high light off, '1' as high light on
+ 0207           ;  */
+ 0207           ; void
+ 0207           ; GrText(GR_COORD x, GR_COORD y, const unsigned char* str_ROM, unsigned char* str_RAM, GR_COUNT count, GR_TEXTFLAGS flags)
+ 0207           ; {
+ 0207                   .dbline 362
+ 0207           ;       unsigned char i;
+ 0207           ;       i = count + x;
+ 0207 52F6              mov A,[X-10]
+ 0209 03FC              add A,[X-4]
+ 020B 5400              mov [X+0],A
+ 020D                   .dbline 364
+ 020D           ;       
+ 020D           ;       if (str_ROM==0) {                                                               // if future has more better solution, throw aways this method
+ 020D 3DF900            cmp [X-7],0
+ 0210 B04F              jnz L43
+ 0212 3DFA00            cmp [X-6],0
+ 0215 B04A              jnz L43
+ 0217           X16:
+ 0217                   .dbline 364
+ 0217                   .dbline 365
+ 0217           ;               for (;x<i;x++,str_RAM++)
+ 0217 801D              xjmp L39
+ 0219           L36:
+ 0219                   .dbline 366
+ 0219 52F5              mov A,[X-11]
+ 021B 08                push A
+ 021C 52F8              mov A,[X-8]
+ 021E 5300              mov [__r1],A
+ 0220 3E00              mvi A,[__r1]
+ 0222 08                push A
+ 0223 52FB              mov A,[X-5]
+ 0225 08                push A
+ 0226 52FC              mov A,[X-4]
+ 0228 08                push A
+ 0229 7C0000            xcall _GrTextDrv
+ 022C 38FC              add SP,-4
+ 022E           L37:
+ 022E                   .dbline 365
+ 022E 77FC              inc [X-4]
+ 0230 77F8              inc [X-8]
+ 0232 0FF700            adc [X-9],0
+ 0235           L39:
+ 0235                   .dbline 365
+ 0235 52FC              mov A,[X-4]
+ 0237 3B00              cmp A,[X+0]
+ 0239 A003              jz X17
+ 023B CFDD              jc L36
+ 023D           X17:
+ 023D                   .dbline 367
+ 023D 802A              xjmp L35
+ 023F           X15:
+ 023F                   .dbline 367
+ 023F           ;                       GrTextDrv(x, y, *str_RAM, flags);
+ 023F           ;       } else {
+ 023F                   .dbline 368
+ 023F           ;               for (;x<i;x++,str_ROM++)
+ 023F           L40:
+ 023F                   .dbline 369
+ 023F 52F5              mov A,[X-11]
+ 0241 08                push A
+ 0242 52FA              mov A,[X-6]
+ 0244 5300              mov [__r1],A
+ 0246 52F9              mov A,[X-7]
+ 0248 10                push X
+ 0249 5800              mov X,[__r1]
+ 024B 28                romx
+ 024C 20                pop X
+ 024D 08                push A
+ 024E 52FB              mov A,[X-5]
+ 0250 08                push A
+ 0251 52FC              mov A,[X-4]
+ 0253 08                push A
+ 0254 7C0000            xcall _GrTextDrv
+ 0257 38FC              add SP,-4
+ 0259           L41:
+ 0259                   .dbline 368
+ 0259 77FC              inc [X-4]
+ 025B 77FA              inc [X-6]
+ 025D 0FF900            adc [X-7],0
+ 0260           L43:
+ 0260                   .dbline 368
+ 0260 52FC              mov A,[X-4]
+ 0262 3B00              cmp A,[X+0]
+ 0264 A003              jz X18
+ 0266 CFD8              jc L40
+ 0268           X18:
+ 0268                   .dbline 370
+ 0268           L35:
+ 0268                   .dbline -2
+ 0268                   .dbline 371
+ 0268           ;                       GrTextDrv(x, y, *str_ROM, flags);
+ 0268           ;       }
+ 0268           ; }
+ 0268           L33:
+ 0268 38FF              add SP,-1
+ 026A 20                pop X
+ 026B                   .dbline 0 ; func end
+ 026B 7F                ret
+ 026C                   .dbsym l i 0 c
+ 026C                   .dbsym l flags -11 c
+ 026C                   .dbsym l count -10 c
+ 026C                   .dbsym l str_RAM -9 pc
+ 026C                   .dbsym l str_ROM -7 pc
+ 026C                   .dbsym l y -5 c
+ 026C                   .dbsym l x -4 c
+ 026C                   .dbend
+                        .area bss(ram, con, rel)
+ 0003                   .dbfile ./srvfunc.c
+ 0003           _io_bit_ctrl::
+ 0003                   .blkb 1
+ 0004                   .dbsym e io_bit_ctrl _io_bit_ctrl X
+ 0004           _ptr_events_vect::
+ 0004                   .blkb 1
+ 0005                   .dbsym e ptr_events_vect _ptr_events_vect X
+ 0005           _events_vect::
+ 0005                   .blkb 2
+ 0007                   .dbsym e events_vect _events_vect A[2:2]X

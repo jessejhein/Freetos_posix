@@ -1,0 +1,119 @@
+# DO NOT DELETE
+./obj/boot.o :  C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.inc\
+   C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8ssc.inc\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\lib\GLOBA~H_.INC
+./obj/cirbuf.o : 
+./obj/fork.o :  C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\app.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\current.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\sched.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\system.h
+./obj/gpio.o :  C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\app.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\cirbuf.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\device.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\gpio.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\GPIO_~V0.H\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\INTER~MF.H\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\kb.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\mwtypes.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\nano-X.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\sched.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\timer.h
+./obj/main.o : 
+./obj/maink.o :  C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\app.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\sched.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\system.h
+./obj/mw_pro1.o :  C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/_const.h\
+   C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/limits.h\
+   C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/stdlib.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\app.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\device.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\mwtypes.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\nano-X.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\printf.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\sched.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\timer.h
+./obj/printf.o : \
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\printf.h
+./obj/sched.o :  C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\app.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\current.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\sched.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\system.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\timer.h
+./obj/serial.o :  ./lib/uart_1.h\
+   C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\app.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\cirbuf.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\sched.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\timer.h
+./obj/setup.o : \
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\app.h
+./obj/softirq.o :  C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\app.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\hardirq.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\IRQ_C~PB.H\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\sched.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\softirq.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\system.h
+./obj/srvfunc.o :  C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\app.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\cirbuf.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\device.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\mwtypes.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\nano-X.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\PSOC_~43.H\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\sched.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\timer.h
+./obj/srvmain.o : \
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\app.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\device.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\mwtypes.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\nano-X.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\sched.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\timer.h
+./obj/time.o :  ./lib/PSoCAPI.h ./lib/Timer8_1.h ./lib/UART_1.h\
+   C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\app.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\gpio.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\INTER~MF.H\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\sched.h
+./obj/timer.o :  C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\app.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\cirbuf.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\current.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\device.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\gpio.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\GPIO_~V0.H\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\INTER~MF.H\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\kb.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\mwtypes.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\nano-X.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\sched.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\system.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\timer.h
+./obj/twlm6023.o :  C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\app.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\device.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\mwtypes.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\nano-X.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\system.h\
+   G:\Data\MainData\KNOWL~EI\COMPU~LR\gui\mwlike8\backup\EXAMP~!_\arch\CYPRE~L!\PSOCD~QT\twlm6023.h
+./lib/obj/psocconfig.o :  ./lib/GLOBA~H_.INC\
+   C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.inc
+./lib/obj/psocconfigtbl.o : \
+   C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.inc
+./lib/obj/psocgpioint.o :  ./lib/PSOCG~VN.INC\
+   C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.inc
+./lib/obj/timer8_1.o :  ./lib/Timer8_1.inc\
+   C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.inc
+./lib/obj/timer8_1int.o :  ./lib/Timer8_1.inc\
+   C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.inc
+./lib/obj/uart_1.o :  ./lib/UART_1.inc\
+   C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.inc
+./lib/obj/uart_1int.o :  ./lib/UART_1.inc\
+   C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.inc
+./lib/obj/uart_1plus.o :  ./lib/UART_1.inc\
+   C:/PROGRA~1/CYPRES~2/PSOCDE~1/tools/include/CY8C27~1/m8c.inc

@@ -1,0 +1,500 @@
+                        .module gpio.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./interrupt.h
+ 0000                   .dbfunc s mark_bh _mark_bh fV
+ 0000           ;             nr -> X-4
+ 0000           _mark_bh:
+ 0000                   .dbline -1
+ 0000 10                push X
+ 0001 4F                mov X,SP
+ 0002                   .dbline 22
+ 0002           ; /*
+ 0002           ;  * Copyright (c) 24-05-2004 cheng chung yan yan@amonics.com> for 8-bit system
+ 0002           ;  *
+ 0002           ;  * this module is gpio in cypress psoc, driver specification. So each arch. has different codes here
+ 0002           ;  * 
+ 0002           ;  * date               author          reason
+ 0002           ;  * 26-07-2004 yan             not user friendly : when rotary key running in circular, ENTER key can't detected by interrupt
+ 0002           ;  *                                                it is because rotary pin mode set as low level interrupt trigger in psoc. 
+ 0002           ;  *                                                when circular running of rotary key, it is level interrupt until completed rotary one key.
+ 0002           ;  *                                                so, change the interrupt mode of rotary pin as any changing in psoc
+ 0002           ;  * 27-07-2004 yan             gpio interrupt of psoc detect one interrupt from rotary key, but can't detect another enter key at same time
+ 0002           ;  *                            so, remove the enter key from interrupt mode, change to scan mode in each timer isr
+ 0002           ;  * 03-08-2004 yan             improve the rotary encoder
+ 0002           ;  */
+ 0002           ; 
+ 0002           ; #include "app.h"                                                                      // this linlike8
+ 0002           ; #include <m8c.h>                                                                      // M8C_EnableIntMask()
+ 0002           ; #include "interrupt.h"                                                                        // mark_bh()
+ 0002           ; #include "gpio.h"                                                                     //
+ 0002           ; #if (KB_MOD==1)
+ 0002           ;       #include "kb.h"                                                                 // kb hw driver(application dependent, so diff. appl. has diff. kb.h)
+ 0002           ;       #include "gpio_kb_app.h"                                                        // kb app.
+ 0002                   .dbline 23
+ 0002           ;       #include "sched.h"                                                                      // schedule_timeout()
+ 0002 550001            mov [__r0],1
+ 0005 52FC              mov A,[X-4]
+ 0007 2107              and A,7
+ 0009 A006              jz X0
+ 000B           X1:
+ 000B 6500              asl [__r0]
+ 000D 78                dec A
+ 000E BFFC              jnz X1
+ 0010           X0:
+ 0010 5100              mov A,[_softirq_vec]
+ 0012 2A00              or A,[__r0]
+ 0014 5300              mov [_softirq_vec],A
+ 0016                   .dbline -2
+ 0016                   .dbline 24
+ 0016           ;       #include "timer.h"                                                                      // timer_list
+ 0016           L2:
+ 0016 20                pop X
+ 0017                   .dbline 0 ; func end
+ 0017 7F                ret
+ 0018                   .dbsym l nr -4 c
+ 0018                   .dbend
+ 0018                   .dbfile ./gpio.c
+ 0018                   .dbfunc e gpio_open _gpio_open fV
+ 0018           _gpio_open::
+ 0018                   .dbline -1
+ 0018                   .dbline 36
+ 0018           ; #endif
+ 0018           ; 
+ 0018           ; //#include "psoc_gpio_bit.h"                                                          // led_hw_off()
+ 0018           ; 
+ 0018           ; struct gpio_data gpio_var;
+ 0018           ; //#if (KB_MOD==1)
+ 0018           ; //struct timer_list deboucing_timer;
+ 0018           ; //void kb_deboudcing(void);
+ 0018           ; //#endif
+ 0018           ; 
+ 0018           ; void gpio_open(void)
+ 0018           ; {
+ 0018                   .dbline 38
+ 0018           ; #if (KB_MOD==1)
+ 0018           ;         UPPER_KEY_SET_HIGH;                                                           // init. all pins -- logic high since pull high internal
+ 0018 431408            or REG[20],8
+ 001B                   .dbline 39
+ 001B           ;         ENTER_KEY_SET_HIGH;
+ 001B 430C02            or REG[12],2
+ 001E                   .dbline 40
+ 001E           ;       DOWN_KEY_SET_HIGH;
+ 001E 430C08            or REG[12],8
+ 0021                   .dbline 41
+ 0021           ;       gpio_var.key_deb_f = 0;                                                         // 0 as clr key flag
+ 0021 2600FD            and [_gpio_var],-3
+ 0024                   .dbline 42
+ 0024           ;       gpio_var.key_fr_hi_lo = 1;                                                      // init. in pull-high for scan key
+ 0024 2E0004            or [_gpio_var],4
+ 0027                   .dbline 47
+ 0027           ;       #if (PUSH_KEY==1)
+ 0027           ;       gpio_var.key_fr_hi_lo |= 0x06;
+ 0027           ;       #endif
+ 0027           ; #endif
+ 0027           ;         M8C_EnableIntMask( INT_MSK0, INT_MSK0_GPIO );                                 // prepare GPIO
+ 0027 43E020            or REG[-32],32
+ 002A                   .dbline -2
+ 002A                   .dbline 48
+ 002A           ; }
+ 002A           L6:
+ 002A                   .dbline 0 ; func end
+ 002A 7F                ret
+ 002B                   .dbend
+ 002B                   .dbfunc e gpio_isr _gpio_isr fV
+ 002B           _gpio_isr::
+ 002B                   .dbline -1
+ 002B 08                push A
+ 002C 5100              mov A,[__r0]
+ 002E 08                push A
+ 002F 5100              mov A,[__r1]
+ 0031 08                push A
+ 0032 5100              mov A,[__r2]
+ 0034 08                push A
+ 0035 5100              mov A,[__r3]
+ 0037 08                push A
+ 0038 5100              mov A,[__r4]
+ 003A 08                push A
+ 003B 5100              mov A,[__r5]
+ 003D 08                push A
+ 003E 5100              mov A,[__r6]
+ 0040 08                push A
+ 0041 5100              mov A,[__r7]
+ 0043 08                push A
+ 0044 5100              mov A,[__r8]
+ 0046 08                push A
+ 0047 5100              mov A,[__r9]
+ 0049 08                push A
+ 004A 5100              mov A,[__r10]
+ 004C 08                push A
+ 004D 5100              mov A,[__r11]
+ 004F 08                push A
+ 0050 5100              mov A,[__rX]
+ 0052 08                push A
+ 0053 5100              mov A,[__rY]
+ 0055 08                push A
+ 0056 5100              mov A,[__rZ]
+ 0058 08                push A
+ 0059                   .dbline 52
+ 0059           ; 
+ 0059           ; #pragma       interrupt_handler       gpio_isr                                                // shouald add this isr name at boot.asm from PSoC Designer
+ 0059           ; void gpio_isr(void)
+ 0059           ; {
+ 0059                   .dbline 66
+ 0059           ;       
+ 0059           ;       // fast interrupt
+ 0059           ;       
+ 0059           ; #if (KB_MOD==1)
+ 0059           ; //unsigned char i;
+ 0059           ; //buz_hw_on;
+ 0059           ; //led_hw_off;
+ 0059           ;       // scan key (this source change back to compatible all platform later)
+ 0059           ;       //******************************************************************************
+ 0059           ; //    if (gpio_var.key_fr_hi_lo!=(ENTER_KEY_DET&&1)) {
+ 0059           ; //    if (!ENTER_KEY_DET) {
+ 0059           ; //            gpio_var.scan_key_event = 0;// interrupt from push button
+ 0059           ;       #if (ROTARY_KEY==1)
+ 0059           ;       if (UPPER_KEY_DET) {                                                            // after interrupt(rising) from pin A
+ 0059 491408            tst REG[20],8
+ 005C A02F              jz L8
+ 005E                   .dbline 66
+ 005E                   .dbline 67
+ 005E           ;               if (DOWN_KEY_DET) {                                                     //      if pin B is high, anti-clockwise
+ 005E 490C08            tst REG[12],8
+ 0061 A00F              jz L10
+ 0063                   .dbline 67
+ 0063                   .dbline 68
+ 0063           ;                       gpio_var.scan_key_event = 1;
+ 0063 5100              mov A,[_gpio_var]
+ 0065 21E7              and A,-25
+ 0067 5300              mov [__r0],A
+ 0069 2E0008            or [__r0],8
+ 006C 5F0000            mov [_gpio_var],[__r0]
+ 006F                   .dbline 69
+ 006F 8010              xjmp L11
+ 0071           L10:
+ 0071                   .dbline 69
+ 0071           ;               } else {                                                                //      if pin B is low, clockwise
+ 0071                   .dbline 70
+ 0071           ;                       gpio_var.scan_key_event = 2;
+ 0071 5100              mov A,[_gpio_var]
+ 0073 21E7              and A,-25
+ 0075 5300              mov [__r0],A
+ 0077 2E0010            or [__r0],16
+ 007A 5F0000            mov [_gpio_var],[__r0]
+ 007D                   .dbline 71
+ 007D           ;                       DOWN_KEY_SET_HIGH;
+ 007D 430C08            or REG[12],8
+ 0080                   .dbline 72
+ 0080           ;               }
+ 0080           L11:
+ 0080           L12:
+ 0080                   .dbline 73
+ 0080           ;               UPPER_KEY_INTR_FALLING;                                                 //      enable pin A interrupt(falling)
+ 0080                   .dbline 73
+ 0080 7110              or F,0x10  ; iopage = 1
+ 0082 431608            or REG[22],8
+ 0085                   .dbline 73
+ 0085 4117F7            and REG[23],-9
+ 0088 70EF              and F,0xEF ; iopage = 0
+ 008A                   .dbline 73
+ 008A                   .dbline 73
+ 008A                   .dbline 74
+ 008A 800E              xjmp L9
+ 008C           L8:
+ 008C                   .dbline 74
+ 008C           ;       } else {                                                                        // after interrupt(falling) from pin A
+ 008C           L15:
+ 008C                   .dbline 75
+ 008C                   .dbline 75
+ 008C 7110              or F,0x10  ; iopage = 1
+ 008E 4116F7            and REG[22],-9
+ 0091                   .dbline 75
+ 0091 431708            or REG[23],8
+ 0094 70EF              and F,0xEF ; iopage = 0
+ 0096                   .dbline 75
+ 0096           L16:
+ 0096                   .dbline 75
+ 0096           ;               UPPER_KEY_INTR_RISING;                                                  //      enable pin A interrupt(rising)
+ 0096                   .dbline 76
+ 0096           ;               UPPER_KEY_SET_HIGH;
+ 0096 431408            or REG[20],8
+ 0099                   .dbline 77
+ 0099           ;       }
+ 0099           L9:
+ 0099                   .dbline 79
+ 0099           ; //    UPPER_KEY_SET_HIGH;
+ 0099           ;       ENTER_KEY_SET_HIGH;                                                     //      restore to high level
+ 0099 430C02            or REG[12],2
+ 009C                   .dbline 80
+ 009C           ;       DOWN_KEY_SET_HIGH;
+ 009C 430C08            or REG[12],8
+ 009F                   .dbline 85
+ 009F           ;       #endif
+ 009F           ; 
+ 009F           ; #endif
+ 009F           ;       
+ 009F           ;       mark_bh(GPIO_BH);                                                               // enable bh gpio task
+ 009F 5001              mov A,1
+ 00A1 08                push A
+ 00A2 9F5C              xcall _mark_bh
+ 00A4 38FF              add SP,-1
+ 00A6                   .dbline 86
+ 00A6           ;       do_softirq();                                                                   // botton half of interrupt, if needed, enable interrupt in 2nd-half
+ 00A6 7C0000            xcall _do_softirq
+ 00A9                   .dbline -2
+ 00A9                   .dbline 88
+ 00A9           ; //led_hw_on;
+ 00A9           ; }
+ 00A9           L7:
+ 00A9 18                pop A
+ 00AA 5300              mov [__rZ],A
+ 00AC 18                pop A
+ 00AD 5300              mov [__rY],A
+ 00AF 18                pop A
+ 00B0 5300              mov [__rX],A
+ 00B2 18                pop A
+ 00B3 5300              mov [__r11],A
+ 00B5 18                pop A
+ 00B6 5300              mov [__r10],A
+ 00B8 18                pop A
+ 00B9 5300              mov [__r9],A
+ 00BB 18                pop A
+ 00BC 5300              mov [__r8],A
+ 00BE 18                pop A
+ 00BF 5300              mov [__r7],A
+ 00C1 18                pop A
+ 00C2 5300              mov [__r6],A
+ 00C4 18                pop A
+ 00C5 5300              mov [__r5],A
+ 00C7 18                pop A
+ 00C8 5300              mov [__r4],A
+ 00CA 18                pop A
+ 00CB 5300              mov [__r3],A
+ 00CD 18                pop A
+ 00CE 5300              mov [__r2],A
+ 00D0 18                pop A
+ 00D1 5300              mov [__r1],A
+ 00D3 18                pop A
+ 00D4 5300              mov [__r0],A
+ 00D6 18                pop A
+ 00D7                   .dbline 0 ; func end
+ 00D7 7E                reti
+ 00D8                   .dbend
+ 00D8                   .dbfunc e gpio_softirq _gpio_softirq fV
+ 00D8           ;              i -> X+2
+ 00D8           ;              i -> X+2
+ 00D8           _gpio_softirq::
+ 00D8                   .dbline -1
+ 00D8 10                push X
+ 00D9 4F                mov X,SP
+ 00DA 3803              add SP,3
+ 00DC                   .dbline 91
+ 00DC           ; 
+ 00DC           ; void gpio_softirq(void)
+ 00DC           ; {
+ 00DC                   .dbline 94
+ 00DC 5F0000            mov [__r1],[_gpio_var]
+ 00DF 550000            mov [__r0],0
+ 00E2 6800              asr [__r0]
+ 00E4 6E00              rrc [__r1]
+ 00E6 6800              asr [__r0]
+ 00E8 6E00              rrc [__r1]
+ 00EA 6800              asr [__r0]
+ 00EC 6E00              rrc [__r1]
+ 00EE 260003            and [__r1],3
+ 00F1 260000            and [__r0],0
+ 00F4 5100              mov A,[__r1]
+ 00F6 5401              mov [X+1],A
+ 00F8 5100              mov A,[__r0]
+ 00FA 5400              mov [X+0],A
+ 00FC 3D0000            cmp [X+0],0
+ 00FF B006              jnz X3
+ 0101 3D0101            cmp [X+1],1
+ 0104 A00D              jz L22
+ 0106           X3:
+ 0106 3D0000            cmp [X+0],0
+ 0109 B006              jnz X4
+ 010B 3D0102            cmp [X+1],2
+ 010E A079              jz L28
+ 0110           X4:
+ 0110 80E9              xjmp L19
+ 0112           X2:
+ 0112                   .dbline 94
+ 0112           ;       
+ 0112           ; #if (KB_MOD==1) 
+ 0112           ;       switch (gpio_var.scan_key_event) {
+ 0112           L22:
+ 0112           L23:
+ 0112                   .dbline 106
+ 0112                   .dbline 106
+ 0112 5002              mov A,2
+ 0114 08                push A
+ 0115 5100              mov A,[_ptr_events_vect]
+ 0117 67                asr A
+ 0118 67                asr A
+ 0119 67                asr A
+ 011A 67                asr A
+ 011B 210F              and A,15
+ 011D 08                push A
+ 011E 5100              mov A,[_ptr_events_vect]
+ 0120 210F              and A,15
+ 0122 08                push A
+ 0123 7C0000            xcall _pre_wr_cir254buf
+ 0126 38FD              add SP,-3
+ 0128 5402              mov [X+2],A
+ 012A 39FF              cmp A,-1
+ 012C A054              jz L26
+ 012E                   .dbline 106
+ 012E                   .dbline 106
+ 012E 5F0000            mov [__r1],[_ptr_events_vect]
+ 0131 550000            mov [__r0],0
+ 0134 26000F            and [__r1],15
+ 0137 260000            and [__r0],0
+ 013A 060000            add [__r1],<_events_vect
+ 013D 0E0000            adc [__r0],>_events_vect
+ 0140 3E00              mvi A,[__r1]
+ 0142 7A00              dec [__r1]
+ 0144 5300              mov [__r2],A
+ 0146 2600F8            and [__r2],-8
+ 0149 2E0002            or [__r2],2
+ 014C 5100              mov A,[__r2]
+ 014E 3F00              mvi [__r1],A
+ 0150                   .dbline 106
+ 0150 5F0000            mov [__r1],[_ptr_events_vect]
+ 0153 550000            mov [__r0],0
+ 0156 26000F            and [__r1],15
+ 0159 260000            and [__r0],0
+ 015C 060000            add [__r1],<_events_vect
+ 015F 0E0000            adc [__r0],>_events_vect
+ 0162 3E00              mvi A,[__r1]
+ 0164 7A00              dec [__r1]
+ 0166 5300              mov [__r2],A
+ 0168 2600E7            and [__r2],-25
+ 016B 2E0010            or [__r2],16
+ 016E 5100              mov A,[__r2]
+ 0170 3F00              mvi [__r1],A
+ 0172                   .dbline 106
+ 0172 5100              mov A,[_ptr_events_vect]
+ 0174 21F0              and A,-16
+ 0176 5300              mov [__r0],A
+ 0178 5202              mov A,[X+2]
+ 017A 210F              and A,15
+ 017C 2C00              or [__r0],A
+ 017E 5F0000            mov [_ptr_events_vect],[__r0]
+ 0181                   .dbline 106
+ 0181           L26:
+ 0181                   .dbline 106
+ 0181           L24:
+ 0181                   .dbline 106
+ 0181           ; //            case 0 : 
+ 0181           ; //                     if (gpio_var.key_deb_f==0) {
+ 0181           ;                                       // setting deboucing timer
+ 0181           ; //                            deboucing_timer.data.timer_function = (p_func) kb_deboudcing;//after solve the problem, put back into alarm()
+ 0181           ; //                            if (malarm((p_func) kb_deboudcing, 10, &deboucing_timer)>=0)            // 10mSec is enough for push key deboucing
+ 0181           ; //                                    gpio_var.key_deb_f = 1; 
+ 0181           ; //                     }
+ 0181           ; //                    break;
+ 0181           ;       #if (ROTARY_KEY==1)
+ 0181           ;               case 1 : 
+ 0181           ;                       // appl. level code here for DOWN key in DOWN case
+ 0181           ;                        APP_DOWN_KEY_DOWN_CASE;
+ 0181                   .dbline 107
+ 0181           ;                        gpio_var.scan_key_event = 0;                                   // clr the previous key-in
+ 0181 2600E7            and [_gpio_var],-25
+ 0184 5100              mov A,[_gpio_var]
+ 0186                   .dbline 108
+ 0186           ;                       break;
+ 0186 8073              xjmp L20
+ 0188           L28:
+ 0188           L29:
+ 0188                   .dbline 111
+ 0188                   .dbline 111
+ 0188 5002              mov A,2
+ 018A 08                push A
+ 018B 5100              mov A,[_ptr_events_vect]
+ 018D 67                asr A
+ 018E 67                asr A
+ 018F 67                asr A
+ 0190 67                asr A
+ 0191 210F              and A,15
+ 0193 08                push A
+ 0194 5100              mov A,[_ptr_events_vect]
+ 0196 210F              and A,15
+ 0198 08                push A
+ 0199 7C0000            xcall _pre_wr_cir254buf
+ 019C 38FD              add SP,-3
+ 019E 5402              mov [X+2],A
+ 01A0 39FF              cmp A,-1
+ 01A2 A054              jz L32
+ 01A4                   .dbline 111
+ 01A4                   .dbline 111
+ 01A4 5F0000            mov [__r1],[_ptr_events_vect]
+ 01A7 550000            mov [__r0],0
+ 01AA 26000F            and [__r1],15
+ 01AD 260000            and [__r0],0
+ 01B0 060000            add [__r1],<_events_vect
+ 01B3 0E0000            adc [__r0],>_events_vect
+ 01B6 3E00              mvi A,[__r1]
+ 01B8 7A00              dec [__r1]
+ 01BA 5300              mov [__r2],A
+ 01BC 2600F8            and [__r2],-8
+ 01BF 2E0002            or [__r2],2
+ 01C2 5100              mov A,[__r2]
+ 01C4 3F00              mvi [__r1],A
+ 01C6                   .dbline 111
+ 01C6 5F0000            mov [__r1],[_ptr_events_vect]
+ 01C9 550000            mov [__r0],0
+ 01CC 26000F            and [__r1],15
+ 01CF 260000            and [__r0],0
+ 01D2 060000            add [__r1],<_events_vect
+ 01D5 0E0000            adc [__r0],>_events_vect
+ 01D8 3E00              mvi A,[__r1]
+ 01DA 7A00              dec [__r1]
+ 01DC 5300              mov [__r2],A
+ 01DE 2600E7            and [__r2],-25
+ 01E1 2E0008            or [__r2],8
+ 01E4 5100              mov A,[__r2]
+ 01E6 3F00              mvi [__r1],A
+ 01E8                   .dbline 111
+ 01E8 5100              mov A,[_ptr_events_vect]
+ 01EA 21F0              and A,-16
+ 01EC 5300              mov [__r0],A
+ 01EE 5202              mov A,[X+2]
+ 01F0 210F              and A,15
+ 01F2 2C00              or [__r0],A
+ 01F4 5F0000            mov [_ptr_events_vect],[__r0]
+ 01F7                   .dbline 111
+ 01F7           L32:
+ 01F7                   .dbline 111
+ 01F7           L30:
+ 01F7                   .dbline 111
+ 01F7           ;               case 2 : 
+ 01F7           ;                       // appl. level code here for UP key in DOWN case
+ 01F7           ;                        APP_UP_KEY_DOWN_CASE;
+ 01F7                   .dbline 112
+ 01F7           ;                        gpio_var.scan_key_event = 0;                                   // clr the previous key-in
+ 01F7 2600E7            and [_gpio_var],-25
+ 01FA                   .dbline 113
+ 01FA           ;                       break;
+ 01FA           L19:
+ 01FA           L20:
+ 01FA                   .dbline -2
+ 01FA                   .dbline 118
+ 01FA           ;       #endif
+ 01FA           ;       }
+ 01FA           ; #endif
+ 01FA           ; 
+ 01FA           ; }
+ 01FA           L18:
+ 01FA 38FD              add SP,-3
+ 01FC 20                pop X
+ 01FD                   .dbline 0 ; func end
+ 01FD 7F                ret
+ 01FE                   .dbsym l i 2 c
+ 01FE                   .dbsym l i 2 c
+ 01FE                   .dbend
+                        .area bss(ram, con, rel)
+ 0000                   .dbfile ./gpio.c
+ 0000           _gpio_var::
+ 0000                   .blkb 1
+ 0001                   .dbsym e gpio_var _gpio_var X

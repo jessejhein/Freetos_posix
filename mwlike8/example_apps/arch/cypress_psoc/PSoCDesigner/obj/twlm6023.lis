@@ -1,0 +1,1116 @@
+                        .module twlm6023.c
+                        .area lit(rom, con, rel)
+ 0000           _Font_Table::
+ 0000 0000              .byte 0,0
+ 0002 0000              .byte 0,0
+ 0004 0040              .byte 0,64
+ 0006 0000              .byte 0,0
+ 0008 0060              .byte 0,96
+ 000A 3018              .byte 48,24
+ 000C 0C06              .byte 12,6
+ 000E 0200              .byte 2,0
+ 0010 007C              .byte 0,124
+ 0012 4242              .byte 'B,'B
+ 0014 3E00              .byte 62,0
+ 0016 0000              .byte 0,0
+ 0018 0000              .byte 0,0
+ 001A 047E              .byte 4,126
+ 001C 0000              .byte 0,0
+ 001E 0000              .byte 0,0
+ 0020 0000              .byte 0,0
+ 0022 4462              .byte 'D,'b
+ 0024 524C              .byte 'R,'L
+ 0026 0000              .byte 0,0
+ 0028 0000              .byte 0,0
+ 002A 2442              .byte 36,'B
+ 002C 4A34              .byte 'J,52
+ 002E 0000              .byte 0,0
+ 0030 0030              .byte 0,48
+ 0032 2824              .byte 40,36
+ 0034 7E20              .byte 126,32
+ 0036 0000              .byte 0,0
+ 0038 004E              .byte 0,'N
+ 003A 4A4A              .byte 'J,'J
+ 003C 3200              .byte 50,0
+ 003E 0000              .byte 0,0
+ 0040 003C              .byte 0,60
+ 0042 4A4A              .byte 'J,'J
+ 0044 3200              .byte 50,0
+ 0046 0000              .byte 0,0
+ 0048 0002              .byte 0,2
+ 004A 621A              .byte 'b,26
+ 004C 0600              .byte 6,0
+ 004E 0000              .byte 0,0
+ 0050 0034              .byte 0,52
+ 0052 4A4A              .byte 'J,'J
+ 0054 3400              .byte 52,0
+ 0056 0000              .byte 0,0
+ 0058 001E              .byte 0,30
+ 005A 1212              .byte 18,18
+ 005C 7E00              .byte 126,0
+ 005E 0000              .byte 0,0
+ 0060 0000              .byte 0,0
+ 0062 0000              .byte 0,0
+ 0064 2400              .byte 36,0
+ 0066 0000              .byte 0,0
+ 0068 0000              .byte 0,0
+ 006A 0040              .byte 0,64
+ 006C 3400              .byte 52,0
+ 006E 0000              .byte 0,0
+ 0070 0010              .byte 0,16
+ 0072 2828              .byte 40,40
+ 0074 2844              .byte 40,'D
+ 0076 0000              .byte 0,0
+ 0078 0028              .byte 0,40
+ 007A 2828              .byte 40,40
+ 007C 2828              .byte 40,40
+ 007E 0000              .byte 0,0
+ 0080 0044              .byte 0,'D
+ 0082 2828              .byte 40,40
+ 0084 2810              .byte 40,16
+ 0086 0000              .byte 0,0
+ 0088 0004              .byte 0,4
+ 008A 02B2              .byte 2,178
+ 008C 120C              .byte 18,12
+ 008E 0000              .byte 0,0
+ 0090 007C              .byte 0,124
+ 0092 C6FA              .byte 198,250
+ 0094 8EE6              .byte 142,230
+ 0096 3C00              .byte 60,0
+ 0098 0060              .byte 0,96
+ 009A 1C12              .byte 28,18
+ 009C 1C60              .byte 28,96
+ 009E 0000              .byte 0,0
+ 00A0 007E              .byte 0,126
+ 00A2 4A4A              .byte 'J,'J
+ 00A4 3C00              .byte 60,0
+ 00A6 0000              .byte 0,0
+ 00A8 007C              .byte 0,124
+ 00AA 8282              .byte 130,130
+ 00AC 8244              .byte 130,'D
+ 00AE 0000              .byte 0,0
+ 00B0 007E              .byte 0,126
+ 00B2 4242              .byte 'B,'B
+ 00B4 423C              .byte 'B,60
+ 00B6 0000              .byte 0,0
+ 00B8 007E              .byte 0,126
+ 00BA 4A4A              .byte 'J,'J
+ 00BC 4A42              .byte 'J,'B
+ 00BE 0000              .byte 0,0
+ 00C0 007E              .byte 0,126
+ 00C2 1212              .byte 18,18
+ 00C4 0200              .byte 2,0
+ 00C6 0000              .byte 0,0
+ 00C8 003C              .byte 0,60
+ 00CA 4242              .byte 'B,'B
+ 00CC 5234              .byte 'R,52
+ 00CE 0000              .byte 0,0
+ 00D0 007E              .byte 0,126
+ 00D2 0808              .byte 8,8
+ 00D4 087E              .byte 8,126
+ 00D6 0000              .byte 0,0
+ 00D8 0000              .byte 0,0
+ 00DA 007E              .byte 0,126
+ 00DC 0000              .byte 0,0
+ 00DE 0000              .byte 0,0
+ 00E0 0060              .byte 0,96
+ 00E2 4040              .byte 64,64
+ 00E4 3E00              .byte 62,0
+ 00E6 0000              .byte 0,0
+ 00E8 007E              .byte 0,126
+ 00EA 0814              .byte 8,20
+ 00EC 2240              .byte 34,64
+ 00EE 0000              .byte 0,0
+ 00F0 007E              .byte 0,126
+ 00F2 4040              .byte 64,64
+ 00F4 4000              .byte 64,0
+ 00F6 0000              .byte 0,0
+ 00F8 007E              .byte 0,126
+ 00FA 0418              .byte 4,24
+ 00FC 1004              .byte 16,4
+ 00FE 7E00              .byte 126,0
+ 0100 007E              .byte 0,126
+ 0102 0408              .byte 4,8
+ 0104 307E              .byte 48,126
+ 0106 0000              .byte 0,0
+ 0108 003C              .byte 0,60
+ 010A 4242              .byte 'B,'B
+ 010C 423C              .byte 'B,60
+ 010E 0000              .byte 0,0
+ 0110 007E              .byte 0,126
+ 0112 0A0A              .byte 10,10
+ 0114 0E00              .byte 14,0
+ 0116 0000              .byte 0,0
+ 0118 003C              .byte 0,60
+ 011A 4242              .byte 'B,'B
+ 011C 625C              .byte 'b,92
+ 011E 0000              .byte 0,0
+ 0120 007E              .byte 0,126
+ 0122 1212              .byte 18,18
+ 0124 324C              .byte 50,'L
+ 0126 0000              .byte 0,0
+ 0128 0000              .byte 0,0
+ 012A 2C4A              .byte 44,'J
+ 012C 5234              .byte 'R,52
+ 012E 0000              .byte 0,0
+ 0130 0002              .byte 0,2
+ 0132 027E              .byte 2,126
+ 0134 0202              .byte 2,2
+ 0136 0000              .byte 0,0
+ 0138 003E              .byte 0,62
+ 013A 4040              .byte 64,64
+ 013C 403E              .byte 64,62
+ 013E 0000              .byte 0,0
+ 0140 000E              .byte 0,14
+ 0142 3040              .byte 48,64
+ 0144 300E              .byte 48,14
+ 0146 0000              .byte 0,0
+ 0148 001E              .byte 0,30
+ 014A 601C              .byte 96,28
+ 014C 3860              .byte 56,96
+ 014E 1E00              .byte 30,0
+ 0150 0042              .byte 0,'B
+ 0152 3408              .byte 52,8
+ 0154 3442              .byte 52,'B
+ 0156 0000              .byte 0,0
+ 0158 0002              .byte 0,2
+ 015A 0C70              .byte 12,'p
+ 015C 0C02              .byte 12,2
+ 015E 0000              .byte 0,0
+ 0160 0062              .byte 0,'b
+ 0162 524A              .byte 'R,'J
+ 0164 4A46              .byte 'J,'F
+ 0166 4200              .byte 'B,0
+ 0168 0000              .byte 0,0
+ 016A 0000              .byte 0,0
+ 016C FF81              .byte 255,129
+ 016E 0000              .byte 0,0
+ 0170 0000              .byte 0,0
+ 0172 0006              .byte 0,6
+ 0174 38C0              .byte 56,192
+ 0176 0000              .byte 0,0
+ 0178 0000              .byte 0,0
+ 017A 81FF              .byte 129,255
+ 017C 0000              .byte 0,0
+ 017E 0000              .byte 0,0
+ 0180 0000              .byte 0,0
+ 0182 000C              .byte 0,12
+ 0184 020C              .byte 2,12
+ 0186 0000              .byte 0,0
+ 0188 0000              .byte 0,0
+ 018A 4040              .byte 64,64
+ 018C 4040              .byte 64,64
+ 018E 4000              .byte 64,0
+ 0190 0000              .byte 0,0
+ 0192 0000              .byte 0,0
+ 0194 0608              .byte 6,8
+ 0196 0000              .byte 0,0
+ 0198 0000              .byte 0,0
+ 019A 6454              .byte 'd,'T
+ 019C 547C              .byte 'T,124
+ 019E 0000              .byte 0,0
+ 01A0 0000              .byte 0,0
+ 01A2 7F44              .byte 127,'D
+ 01A4 4438              .byte 'D,56
+ 01A6 0000              .byte 0,0
+ 01A8 0000              .byte 0,0
+ 01AA 3844              .byte 56,'D
+ 01AC 4428              .byte 'D,40
+ 01AE 0000              .byte 0,0
+ 01B0 0000              .byte 0,0
+ 01B2 3844              .byte 56,'D
+ 01B4 447F              .byte 'D,127
+ 01B6 0000              .byte 0,0
+ 01B8 0000              .byte 0,0
+ 01BA 3854              .byte 56,'T
+ 01BC 5458              .byte 'T,'X
+ 01BE 0000              .byte 0,0
+ 01C0 0000              .byte 0,0
+ 01C2 047E              .byte 4,126
+ 01C4 0500              .byte 5,0
+ 01C6 0000              .byte 0,0
+ 01C8 0000              .byte 0,0
+ 01CA 2E51              .byte 46,'Q
+ 01CC 513F              .byte 'Q,63
+ 01CE 0000              .byte 0,0
+ 01D0 0000              .byte 0,0
+ 01D2 7F04              .byte 127,4
+ 01D4 0478              .byte 4,'x
+ 01D6 0000              .byte 0,0
+ 01D8 0000              .byte 0,0
+ 01DA 0000              .byte 0,0
+ 01DC 7D00              .byte 125,0
+ 01DE 0000              .byte 0,0
+ 01E0 0000              .byte 0,0
+ 01E2 4080              .byte 64,128
+ 01E4 7D00              .byte 125,0
+ 01E6 0000              .byte 0,0
+ 01E8 0000              .byte 0,0
+ 01EA 7F10              .byte 127,16
+ 01EC 3844              .byte 56,'D
+ 01EE 0000              .byte 0,0
+ 01F0 0000              .byte 0,0
+ 01F2 0000              .byte 0,0
+ 01F4 7F00              .byte 127,0
+ 01F6 0000              .byte 0,0
+ 01F8 007C              .byte 0,124
+ 01FA 0404              .byte 4,4
+ 01FC 7C04              .byte 124,4
+ 01FE 0478              .byte 4,'x
+ 0200 0000              .byte 0,0
+ 0202 7C04              .byte 124,4
+ 0204 0478              .byte 4,'x
+ 0206 0000              .byte 0,0
+ 0208 0000              .byte 0,0
+ 020A 3844              .byte 56,'D
+ 020C 4438              .byte 'D,56
+ 020E 0000              .byte 0,0
+ 0210 0000              .byte 0,0
+ 0212 FE22              .byte 254,34
+ 0214 221C              .byte 34,28
+ 0216 0000              .byte 0,0
+ 0218 0000              .byte 0,0
+ 021A 1C22              .byte 28,34
+ 021C 22FE              .byte 34,254
+ 021E 0000              .byte 0,0
+ 0220 0000              .byte 0,0
+ 0222 007C              .byte 0,124
+ 0224 0404              .byte 4,4
+ 0226 0000              .byte 0,0
+ 0228 0000              .byte 0,0
+ 022A 4854              .byte 'H,'T
+ 022C 5424              .byte 'T,36
+ 022E 0000              .byte 0,0
+ 0230 0000              .byte 0,0
+ 0232 0004              .byte 0,4
+ 0234 7E44              .byte 126,'D
+ 0236 0000              .byte 0,0
+ 0238 0000              .byte 0,0
+ 023A 3C40              .byte 60,64
+ 023C 407C              .byte 64,124
+ 023E 0000              .byte 0,0
+ 0240 0000              .byte 0,0
+ 0242 0438              .byte 4,56
+ 0244 4038              .byte 64,56
+ 0246 0400              .byte 4,0
+ 0248 0000              .byte 0,0
+ 024A 3C40              .byte 60,64
+ 024C 3C40              .byte 60,64
+ 024E 3C00              .byte 60,0
+ 0250 0000              .byte 0,0
+ 0252 4438              .byte 'D,56
+ 0254 3844              .byte 56,'D
+ 0256 0000              .byte 0,0
+ 0258 0000              .byte 0,0
+ 025A 029C              .byte 2,156
+ 025C 601C              .byte 96,28
+ 025E 0200              .byte 2,0
+ 0260 0000              .byte 0,0
+ 0262 0064              .byte 0,'d
+ 0264 544C              .byte 'T,'L
+ 0266 0000              .byte 0,0
+ 0268                   .dbfile ./twlm6023.c
+ 0268                   .dbsym e Font_Table _Font_Table A[616:77:8]c
+ 0268           _Font_SPACE::
+ 0268 0000              .byte 0,0
+ 026A 0000              .byte 0,0
+ 026C 0000              .byte 0,0
+ 026E 0000              .byte 0,0
+ 0270                   .dbsym e Font_SPACE _Font_SPACE A[8:8]c
+ 0270           _Font_DEGREE::
+ 0270 000C              .byte 0,12
+ 0272 1212              .byte 18,18
+ 0274 0C00              .byte 12,0
+ 0276 0000              .byte 0,0
+ 0278                   .dbsym e Font_DEGREE _Font_DEGREE A[8:8]c
+ 0278           _Font_EXC::
+ 0278 0000              .byte 0,0
+ 027A 005E              .byte 0,94
+ 027C 0000              .byte 0,0
+ 027E 0000              .byte 0,0
+ 0280                   .dbsym e Font_EXC _Font_EXC A[8:8]c
+ 0280           _ClearPaper::
+ 0280 00                .byte 0
+ 0281                   .dbsym e ClearPaper _ClearPaper A[1:1]c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile ./twlm6023.c
+ 0000                   .dbfunc e scr_open _scr_open fV
+ 0000           _scr_open::
+ 0000                   .dbline -1
+ 0000                   .dbline 127
+ 0000           ; /*
+ 0000           ;  * Copyright (c) 05-05-2004 cheng chung yan <yan@amonics.com> for 8-bit system
+ 0000           ;  *
+ 0000           ;  * In mono LCD, 128X64 configuration, topway(http://www.topwaydisplay.com/) lm6023
+ 0000           ;  * hardware setting under Laser Control circuit by PSoC
+ 0000           ;  *
+ 0000           ;  * Char mode
+ 0000           ;  * hardware setting 
+ 0000           ;  *    PSoC
+ 0000           ;                 // chip's hardware setting
+ 0000           ;                 //      * 24MHz cpu clk
+ 0000           ;                 //      * reset and CS as pull high (for faster response on active low)
+ 0000           ;                 //      * A0, D6 and D7 as strong (for faster response on any stage)
+ 0000           ;                    init. 
+ 0000           ;                         * from util/sys start init.
+ 0000           ;                                 * chip select disable 
+ 0000           ;                                 * reset 
+ 0000           ;                         * local init.
+ 0000           ;  *    LCD
+ 0000           ;                 whole screen - 128X64
+ 0000           ;                 font - 8x8
+ 0000           ;  */
+ 0000           ; 
+ 0000           ; #include "app.h"                                                                      // linlike8 os
+ 0000           ; 
+ 0000           ; #if (GUI_LCD==1)
+ 0000           ; #include "nano-X.h"
+ 0000           ; #include "device.h"                                                                   // scr_open
+ 0000           ; #include "system.h"                                                                   // cli()
+ 0000           ; #include "twlm6023.h"                                                                 // hw bet. lcd and mcu
+ 0000           ; 
+ 0000           ; // Continuous ASCII Code so use 2D Table
+ 0000           ; const unsigned char Font_Table[][8]=
+ 0000           ; {
+ 0000           ;       //{ 0x00, 0x00, 0x14, 0x0E, 0x14, 0x00, 0x00, 0x00 },           // ASCII=0x2A
+ 0000           ;       //{ 0x00, 0x10, 0x10, 0x7C, 0x10, 0x10, 0x00, 0x00 },           // ASCII=0x2B
+ 0000           ;       //{ 0x00, 0x00, 0x00, 0x00, 0x80, 0x60, 0x00, 0x00 },           // ASCII=0x2C
+ 0000           ;       //{ 0x00, 0x00, 0x10, 0x10, 0x10, 0x00, 0x00, 0x00 },           // ASCII=0x2D
+ 0000           ;       { 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00 },             // ASCII=0x2E
+ 0000           ;       { 0x00, 0x60, 0x30, 0x18, 0x0C, 0x06, 0x02, 0x00 },             // ASCII=0x2F
+ 0000           ;       { 0x00, 0x7C, 0x42, 0x42, 0x3E, 0x00, 0x00, 0x00 },             // ASCII=0x30
+ 0000           ;       { 0x00, 0x00, 0x04, 0x7E, 0x00, 0x00, 0x00, 0x00 },             // ASCII=0x31
+ 0000           ;       { 0x00, 0x00, 0x44, 0x62, 0x52, 0x4C, 0x00, 0x00 },             // ASCII=0x32
+ 0000           ;       { 0x00, 0x00, 0x24, 0x42, 0x4A, 0x34, 0x00, 0x00 },             // ASCII=0x33
+ 0000           ;       { 0x00, 0x30, 0x28, 0x24, 0x7E, 0x20, 0x00, 0x00 },             // ASCII=0x34
+ 0000           ;       { 0x00, 0x4E, 0x4A, 0x4A, 0x32, 0x00, 0x00, 0x00 },             // ASCII=0x35
+ 0000           ;       { 0x00, 0x3C, 0x4A, 0x4A, 0x32, 0x00, 0x00, 0x00 },             // ASCII=0x36
+ 0000           ;       { 0x00, 0x02, 0x62, 0x1A, 0x06, 0x00, 0x00, 0x00 },             // ASCII=0x37
+ 0000           ;       { 0x00, 0x34, 0x4A, 0x4A, 0x34, 0x00, 0x00, 0x00 },             // ASCII=0x38
+ 0000           ;       { 0x00, 0x1E, 0x12, 0x12, 0x7E, 0x00, 0x00, 0x00 },             // ASCII=0x39
+ 0000           ;       { 0x00, 0x00, 0x00, 0x00, 0x24, 0x00, 0x00, 0x00 },             // ASCII=0x3A
+ 0000           ;       { 0x00, 0x00, 0x00, 0x40, 0x34, 0x00, 0x00, 0x00 },             // ASCII=0x3B
+ 0000           ;       { 0x00, 0x10, 0x28, 0x28, 0x28, 0x44, 0x00, 0x00 },             // ASCII=0x3C
+ 0000           ;       { 0x00, 0x28, 0x28, 0x28, 0x28, 0x28, 0x00, 0x00 },             // ASCII=0x3D
+ 0000           ;       { 0x00, 0x44, 0x28, 0x28, 0x28, 0x10, 0x00, 0x00 },             // ASCII=0x3E
+ 0000           ;       { 0x00, 0x04, 0x02, 0xB2, 0x12, 0x0C, 0x00, 0x00 },             // ASCII=0x3F
+ 0000           ;       { 0x00, 0x7C, 0xC6, 0xFA, 0x8E, 0xE6, 0x3C, 0x00 },             // ASCII=0x40
+ 0000           ;       { 0x00, 0x60, 0x1C, 0x12, 0x1C, 0x60, 0x00, 0x00 },             // ASCII=0x41
+ 0000           ;       { 0x00, 0x7E, 0x4A, 0x4A, 0x3C, 0x00, 0x00, 0x00 },             // ASCII=0x42
+ 0000           ;       { 0x00, 0x7C, 0x82, 0x82, 0x82, 0x44, 0x00, 0x00 },             // ASCII=0x43
+ 0000           ;       { 0x00, 0x7E, 0x42, 0x42, 0x42, 0x3C, 0x00, 0x00 },             // ASCII=0x44
+ 0000           ;       { 0x00, 0x7E, 0x4A, 0x4A, 0x4A, 0x42, 0x00, 0x00 },             // ASCII=0x45
+ 0000           ;       { 0x00, 0x7E, 0x12, 0x12, 0x02, 0x00, 0x00, 0x00 },             // ASCII=0x46
+ 0000           ;       { 0x00, 0x3C, 0x42, 0x42, 0x52, 0x34, 0x00, 0x00 },             // ASCII=0x47
+ 0000           ;       { 0x00, 0x7E, 0x08, 0x08, 0x08, 0x7E, 0x00, 0x00 },             // ASCII=0x48
+ 0000           ;       { 0x00, 0x00, 0x00, 0x7E, 0x00, 0x00, 0x00, 0x00 },             // ASCII=0x49
+ 0000           ;       { 0x00, 0x60, 0x40, 0x40, 0x3E, 0x00, 0x00, 0x00 },             // ASCII=0x4A
+ 0000           ;       { 0x00, 0x7E, 0x08, 0x14, 0x22, 0x40, 0x00, 0x00 },             // ASCII=0x4B
+ 0000           ;       { 0x00, 0x7E, 0x40, 0x40, 0x40, 0x00, 0x00, 0x00 },             // ASCII=0x4C
+ 0000           ;       { 0x00, 0x7E, 0x04, 0x18, 0x10, 0x04, 0x7E, 0x00 },             // ASCII=0x4D
+ 0000           ;       { 0x00, 0x7E, 0x04, 0x08, 0x30, 0x7E, 0x00, 0x00 },             // ASCII=0x4E
+ 0000           ;       { 0x00, 0x3C, 0x42, 0x42, 0x42, 0x3C, 0x00, 0x00 },             // ASCII=0x4F
+ 0000           ;       { 0x00, 0x7E, 0x0A, 0x0A, 0x0E, 0x00, 0x00, 0x00 },             // ASCII=0x50
+ 0000           ;       { 0x00, 0x3C, 0x42, 0x42, 0x62, 0x5C, 0x00, 0x00 },             // ASCII=0x51
+ 0000           ;       { 0x00, 0x7E, 0x12, 0x12, 0x32, 0x4C, 0x00, 0x00 },             // ASCII=0x52
+ 0000           ;       { 0x00, 0x00, 0x2C, 0x4A, 0x52, 0x34, 0x00, 0x00 },             // ASCII=0x53
+ 0000           ;       { 0x00, 0x02, 0x02, 0x7E, 0x02, 0x02, 0x00, 0x00 },             // ASCII=0x54
+ 0000           ;       { 0x00, 0x3E, 0x40, 0x40, 0x40, 0x3E, 0x00, 0x00 },             // ASCII=0x55
+ 0000           ;       { 0x00, 0x0E, 0x30, 0x40, 0x30, 0x0E, 0x00, 0x00 },             // ASCII=0x56
+ 0000           ;       { 0x00, 0x1E, 0x60, 0x1C, 0x38, 0x60, 0x1E, 0x00 },             // ASCII=0x57
+ 0000           ;       { 0x00, 0x42, 0x34, 0x08, 0x34, 0x42, 0x00, 0x00 },             // ASCII=0x58
+ 0000           ;       { 0x00, 0x02, 0x0C, 0x70, 0x0C, 0x02, 0x00, 0x00 },             // ASCII=0x59
+ 0000           ;       { 0x00, 0x62, 0x52, 0x4A, 0x4A, 0x46, 0x42, 0x00 },             // ASCII=0x5A
+ 0000           ;       { 0x00, 0x00, 0x00, 0x00, 0xFF, 0x81, 0x00, 0x00 },             // ASCII=0x5B
+ 0000           ;       { 0x00, 0x00, 0x00, 0x06, 0x38, 0xC0, 0x00, 0x00 },             // ASCII=0x5C
+ 0000           ;       { 0x00, 0x00, 0x81, 0xFF, 0x00, 0x00, 0x00, 0x00 },             // ASCII=0x5D
+ 0000           ;       { 0x00, 0x00, 0x00, 0x0C, 0x02, 0x0C, 0x00, 0x00 },             // ASCII=0x5E
+ 0000           ;       { 0x00, 0x00, 0x40, 0x40, 0x40, 0x40, 0x40, 0x00 },             // ASCII=0x5F
+ 0000           ;       { 0x00, 0x00, 0x00, 0x00, 0x06, 0x08, 0x00, 0x00 },             // ASCII=0x60
+ 0000           ;       { 0x00, 0x00, 0x64, 0x54, 0x54, 0x7C, 0x00, 0x00 },             // ASCII=0x61
+ 0000           ;       { 0x00, 0x00, 0x7F, 0x44, 0x44, 0x38, 0x00, 0x00 },             // ASCII=0x62
+ 0000           ;       { 0x00, 0x00, 0x38, 0x44, 0x44, 0x28, 0x00, 0x00 },             // ASCII=0x63
+ 0000           ;       { 0x00, 0x00, 0x38, 0x44, 0x44, 0x7F, 0x00, 0x00 },             // ASCII=0x64
+ 0000           ;       { 0x00, 0x00, 0x38, 0x54, 0x54, 0x58, 0x00, 0x00 },             // ASCII=0x65
+ 0000           ;       { 0x00, 0x00, 0x04, 0x7E, 0x05, 0x00, 0x00, 0x00 },             // ASCII=0x66
+ 0000           ;       { 0x00, 0x00, 0x2E, 0x51, 0x51, 0x3F, 0x00, 0x00 },             // ASCII=0x67
+ 0000           ;       { 0x00, 0x00, 0x7F, 0x04, 0x04, 0x78, 0x00, 0x00 },             // ASCII=0x68
+ 0000           ;       { 0x00, 0x00, 0x00, 0x00, 0x7D, 0x00, 0x00, 0x00 },             // ASCII=0x69
+ 0000           ;       { 0x00, 0x00, 0x40, 0x80, 0x7D, 0x00, 0x00, 0x00 },             // ASCII=0x6A
+ 0000           ;       { 0x00, 0x00, 0x7F, 0x10, 0x38, 0x44, 0x00, 0x00 },             // ASCII=0x6B
+ 0000           ;       { 0x00, 0x00, 0x00, 0x00, 0x7F, 0x00, 0x00, 0x00 },             // ASCII=0x6C
+ 0000           ;       { 0x00, 0x7C, 0x04, 0x04, 0x7C, 0x04, 0x04, 0x78 },             // ASCII=0x6D
+ 0000           ;       { 0x00, 0x00, 0x7C, 0x04, 0x04, 0x78, 0x00, 0x00 },             // ASCII=0x6E
+ 0000           ;       { 0x00, 0x00, 0x38, 0x44, 0x44, 0x38, 0x00, 0x00 },             // ASCII=0x6F
+ 0000           ;       { 0x00, 0x00, 0xFE, 0x22, 0x22, 0x1C, 0x00, 0x00 },             // ASCII=0x70
+ 0000           ;       { 0x00, 0x00, 0x1C, 0x22, 0x22, 0xFE, 0x00, 0x00 },             // ASCII=0x71
+ 0000           ;       { 0x00, 0x00, 0x00, 0x7C, 0x04, 0x04, 0x00, 0x00 },             // ASCII=0x72
+ 0000           ;       { 0x00, 0x00, 0x48, 0x54, 0x54, 0x24, 0x00, 0x00 },             // ASCII=0x73
+ 0000           ;       { 0x00, 0x00, 0x00, 0x04, 0x7E, 0x44, 0x00, 0x00 },             // ASCII=0x74
+ 0000           ;       { 0x00, 0x00, 0x3C, 0x40, 0x40, 0x7C, 0x00, 0x00 },             // ASCII=0x75
+ 0000           ;       { 0x00, 0x00, 0x04, 0x38, 0x40, 0x38, 0x04, 0x00 },             // ASCII=0x76
+ 0000           ;       { 0x00, 0x00, 0x3C, 0x40, 0x3C, 0x40, 0x3C, 0x00 },             // ASCII=0x77
+ 0000           ;       { 0x00, 0x00, 0x44, 0x38, 0x38, 0x44, 0x00, 0x00 },             // ASCII=0x78
+ 0000           ;       { 0x00, 0x00, 0x02, 0x9C, 0x60, 0x1C, 0x02, 0x00 },             // ASCII=0x79
+ 0000           ;       { 0x00, 0x00, 0x00, 0x64, 0x54, 0x4C, 0x00, 0x00 },             // ASCII=0x7A
+ 0000           ; 
+ 0000           ; };
+ 0000           ; 
+ 0000           ; const unsigned char Font_SPACE[]={ 00, 00, 00, 00, 00, 00, 00, 00 };                            // ASCII=0x20
+ 0000           ; const unsigned char Font_DEGREE[]={ 0x00, 0x0C, 0x12, 0x12, 0x0C, 0x00, 0x00, 0x00 };           // ASCII=0xA7
+ 0000           ; const unsigned char Font_EXC[]={ 00, 00, 00, 0x5e, 00, 00, 00, 00 };                            // ASCII=0x21
+ 0000           ; const unsigned char ClearPaper[]={0};
+ 0000           ; 
+ 0000           ; void wrTxLm6023(unsigned char wrAddr, unsigned char wrData);
+ 0000           ; 
+ 0000           ; void scr_open(void)
+ 0000           ; {
+ 0000                   .dbline 129
+ 0000           ;         
+ 0000           ;         disResetP;
+ 0000 431002            or REG[16],2
+ 0003                   .dbline 132
+ 0003           ;         
+ 0003           ;               // send out hardware reset pulse
+ 0003           ;         enResetP;                                                                     // delay >1uSec ~ 1.4uSec, under 24MHz cpu clk
+ 0003 4110FD            and REG[16],-3
+ 0006                   .dbline 133
+ 0006           ;         asm("nop");
+ 0006 40                        nop
+ 0007           
+ 0007                   .dbline 134
+ 0007           ;         asm("nop");
+ 0007 40                        nop
+ 0008           
+ 0008                   .dbline 135
+ 0008           ;         asm("nop");
+ 0008 40                        nop
+ 0009           
+ 0009                   .dbline 136
+ 0009           ;         asm("nop");
+ 0009 40                        nop
+ 000A           
+ 000A                   .dbline 137
+ 000A           ;         asm("nop");
+ 000A 40                        nop
+ 000B           
+ 000B                   .dbline 138
+ 000B           ;         asm("nop");
+ 000B 40                        nop
+ 000C           
+ 000C                   .dbline 139
+ 000C           ;         disResetP;                                                                    // some transient ~ 0.4uSec
+ 000C 431002            or REG[16],2
+ 000F                   .dbline 140
+ 000F           ;         asm("nop");                                                                   // delay >1uSec ~ 1.2uSec
+ 000F 40                        nop
+ 0010           
+ 0010                   .dbline 141
+ 0010           ;         asm("nop");
+ 0010 40                        nop
+ 0011           
+ 0011                   .dbline 142
+ 0011           ;         asm("nop");
+ 0011 40                        nop
+ 0012           
+ 0012                   .dbline 143
+ 0012           ;         asm("nop");
+ 0012 40                        nop
+ 0013           
+ 0013                   .dbline 144
+ 0013           ;         asm("nop");
+ 0013 40                        nop
+ 0014           
+ 0014                   .dbline 145
+ 0014           ;         asm("nop");
+ 0014 40                        nop
+ 0015           
+ 0015                   .dbline 150
+ 0015           ;         
+ 0015           ;               // set LCD bias, default as 1/8 by hw reset pin, show skip
+ 0015           ;         
+ 0015           ;               // set power supply control, default close voltage follower, voltage adjustment and voltage higher by hw reset pin, show skip
+ 0015           ;         wrTxLm6023(0x00, 0x2f);                                                       // turn ON all voltage control
+ 0015 502F              mov A,47
+ 0017 08                push A
+ 0018 5000              mov A,0
+ 001A 08                push A
+ 001B 9015              xcall _wrTxLm6023
+ 001D 38FE              add SP,-2
+ 001F                   .dbline 153
+ 001F           ;         
+ 001F           ;               // set register control, i.e contrast
+ 001F           ;         wrTxLm6023(0x00, 0x94);                                                       // set contrast in bit 4 to bit 0 => 0x0f as middle
+ 001F 5094              mov A,-108
+ 0021 08                push A
+ 0022 5000              mov A,0
+ 0024 08                push A
+ 0025 900B              xcall _wrTxLm6023
+ 0027                   .dbline 159
+ 0027           ;         
+ 0027           ;               // ADC setting, i.e. normal or invert display, default as normal; So skip
+ 0027           ;         //wrTxLm6023(0x00, 0xa0);
+ 0027           ;         
+ 0027           ;               // turn ON LCD
+ 0027           ;         wrTxLm6023(0x00, 0xaf);                                                               // bit 0 as 1 to ON, 0 as OFF LCD
+ 0027 50AF              mov A,-81
+ 0029 08                push A
+ 002A 5000              mov A,0
+ 002C 08                push A
+ 002D 9003              xcall _wrTxLm6023
+ 002F 38FC              add SP,-4
+ 0031                   .dbline -2
+ 0031                   .dbline 164
+ 0031           ;         
+ 0031           ;         //wrTxLm6023(0x00, 0xa7);
+ 0031           ;         //wrTxLm6023(0x00, 0xa5);                                                             // ON all pixel
+ 0031           ;         
+ 0031           ; }
+ 0031           L3:
+ 0031                   .dbline 0 ; func end
+ 0031 7F                ret
+ 0032                   .dbend
+ 0032                   .dbfunc e wrTxLm6023 _wrTxLm6023 fV
+ 0032           ;              i -> X+0
+ 0032           ;         wrData -> X-5
+ 0032           ;         wrAddr -> X-4
+ 0032           _wrTxLm6023::
+ 0032                   .dbline -1
+ 0032 10                push X
+ 0033 4F                mov X,SP
+ 0034 3801              add SP,1
+ 0036                   .dbline 172
+ 0036           ; 
+ 0036           ;         //----------------------------------------------------------------------------
+ 0036           ;         // Description : write data/command into LCD module
+ 0036           ;         // parameters : 
+ 0036           ;         //      wrPara : bit 7 ( , , , , , , , A0) bit 0
+ 0036           ;         //      wrData : Tx data
+ 0036           ;         //----------------------------------------------------------------------------
+ 0036           ; void wrTxLm6023(unsigned char wrAddr, unsigned char wrData) {
+ 0036                   .dbline 176
+ 0036           ;         
+ 0036           ;         unsigned char i;
+ 0036           ;         
+ 0036           ;       cli();                                                                          // disable interrupt, make sure the clock time
+ 0036 70FE                      and F, FEh
+ 0038           
+ 0038                   .dbline 181
+ 0038           ;       
+ 0038           ;         // prepare data port for pull-high
+ 0038           ;         
+ 0038           ;         // chip select                                                  all timing is cal. under 5V supply
+ 0038           ;         enCsP;                                                  // <-| Min. 30 ns from LCD; 24MHz cpu Min. as 4.6us
+ 0038 4110F7            and REG[16],-9
+ 003B                   .dbline 184
+ 003B           ;                                                                 //   |
+ 003B           ;         // A0                                                        |
+ 003B           ;         if (wrAddr&0x01) highA0P;                               //   |  <-| Min. 50 ns from LCD; 24MHz cpu Min. as 3.6us
+ 003B 48FC01            tst [X-4],1
+ 003E A006              jz L5
+ 0040                   .dbline 184
+ 0040 431020            or REG[16],32
+ 0043 8004              xjmp L6
+ 0045           L5:
+ 0045                   .dbline 185
+ 0045           ;         else lowA0P;                                            //   |    |
+ 0045 4110DF            and REG[16],-33
+ 0048           L6:
+ 0048                   .dbline 188
+ 0048 560000            mov [X+0],0
+ 004B 8018              xjmp L10
+ 004D           L7:
+ 004D                   .dbline 188
+ 004D           ;                                                                 //   |    |
+ 004D           ;         // serial tx data for 8 cycle                                |    |
+ 004D           ;         for (i=0;i<8;i++) {                                     //   |    |
+ 004D                   .dbline 191
+ 004D           ;                                                                 //   |    |
+ 004D           ;                 // low serial data clock                             |    |
+ 004D           ;                 lowSClk;                                        //   |    |     <-| Min. 250 ns from LCD; 24MHz cpu Min. as 3.2us       <-| Min. 70 ns from LCD; 24MHz cpu Min. as 1.8us        
+ 004D 41107F            and REG[16],127
+ 0050                   .dbline 194
+ 0050           ;                                                                 //   |    |       |                                                       |
+ 0050           ;                 // prepare data                                      |    |       |                                                       |
+ 0050           ;                 if (wrData&0x80) highSD;                        //   |    |       ...                                                     |                                                     <-| Min. 100 ns from LCD; 24MHz cpu Min. as 0.8us
+ 0050 48FB80            tst [X-5],-128
+ 0053 A006              jz L11
+ 0055                   .dbline 194
+ 0055 430802            or REG[8],2
+ 0058 8004              xjmp L12
+ 005A           L11:
+ 005A                   .dbline 195
+ 005A           ;                 else lowSD;                                     //   |    |       ...                                                     |                                                       | 
+ 005A 4108FD            and REG[8],-3
+ 005D           L12:
+ 005D                   .dbline 196
+ 005D 66FB              asl [X-5]
+ 005F                   .dbline 199
+ 005F 431080            or REG[16],-128
+ 0062                   .dbline 201
+ 0062           L8:
+ 0062                   .dbline 188
+ 0062 7700              inc [X+0]
+ 0064           L10:
+ 0064                   .dbline 188
+ 0064 3D0008            cmp [X+0],8
+ 0067 A003              jz X0
+ 0069 CFE3              jc L7
+ 006B           X0:
+ 006B                   .dbline 203
+ 006B           ;                 wrData <<= 1;                                   //   |    |       |                                                       |                                                       | 
+ 006B           ;                                                                 //   |    |     <-| next cycle sclk changing,                             |                                                       |  
+ 006B           ;                 // high serial data clock                            |    |                                                               |                                                       | 
+ 006B           ;                 highSClk;                                       // <-|  <-|  <-| Min. 100ns from LCD; 24MHz cpu Min. as 1.2us           <-|   <-| Min. 500ns from LCD; 24MHz cpu Min. as 5us    <-|   <-| Min. 100ns from LCD; 24MHz cpu Min. as 1.4us  <-| Min. 100ns from LCD; 24MHz cpu Min. as 2.4us
+ 006B           ;                                                                 //             |                                                                |                                                       |                                                 |
+ 006B           ;         }                                                       //             |                                                                |                                                       |                                                 |
+ 006B           ;                                                                 //             |                                                                ...                                                     ...                                               ...
+ 006B           ;         disCsP;                                                 //           <-|                                                                ...                                                     ...                                               ...
+ 006B 431008            or REG[16],8
+ 006E                   .dbline 207
+ 006E           ;                                                                 //                                                                              |                                                       |                                                 |
+ 006E           ;                                                                 //                                                                            <-| next cycle A0 changing                              <-| next cycle SCLK changing                      <-| next cycle SCLK changing
+ 006E           ;         
+ 006E           ;       sti();
+ 006E 7101                      or  F, 01h
+ 0070           
+ 0070                   .dbline -2
+ 0070                   .dbline 208
+ 0070           ; }
+ 0070           L4:
+ 0070 38FF              add SP,-1
+ 0072 20                pop X
+ 0073                   .dbline 0 ; func end
+ 0073 7F                ret
+ 0074                   .dbsym l i 0 c
+ 0074                   .dbsym l wrData -5 c
+ 0074                   .dbsym l wrAddr -4 c
+ 0074                   .dbend
+ 0074                   .dbfunc e GrBitmapDrv _GrBitmapDrv fV
+ 0074           ;        tmpByte -> X+5
+ 0074           ;         pageNo -> X+4
+ 0074           ;         tmpInt -> X+2
+ 0074           ;    dataCounter -> X+0
+ 0074           ;          pData -> X-5
+ 0074           _GrBitmapDrv::
+ 0074                   .dbline -1
+ 0074 10                push X
+ 0075 4F                mov X,SP
+ 0076 3806              add SP,6
+ 0078                   .dbline 223
+ 0078           ; 
+ 0078           ; /*
+ 0078           ;  * Draw a rectangular area in the specified drawable using the specified
+ 0078           ;  * graphics, as determined by the specified bit map.  This differs from
+ 0078           ;  * rectangle drawing in that the rectangle is drawn using the foreground
+ 0078           ;  * color and possibly the background color as determined by the bit map.
+ 0078           ;  * Each row of bits is aligned to the next bitmap word boundary (so there
+ 0078           ;  * is padding at the end of the row).  The background bit values are only
+ 0078           ;  * written if the usebackground flag is set in the GC.
+ 0078           ;  *
+ 0078           ;  *    for whole screen only temporary
+ 0078           ;  */
+ 0078           ; void
+ 0078           ; GrBitmapDrv(const unsigned char* pData)
+ 0078           ; {
+ 0078                   .dbline 230
+ 0078           ;         unsigned char pageNo;
+ 0078           ;         unsigned char tmpByte;
+ 0078           ;         unsigned int tmpInt;
+ 0078           ;         unsigned int dataCounter;
+ 0078           ;         
+ 0078           ;         // init.
+ 0078           ;         dataCounter = 0;
+ 0078 560100            mov [X+1],0
+ 007B 560000            mov [X+0],0
+ 007E                   .dbline 233
+ 007E 560400            mov [X+4],0
+ 0081 8096              xjmp L17
+ 0083           L14:
+ 0083                   .dbline 233
+ 0083           ;         
+ 0083           ;         // each page
+ 0083           ;         for (pageNo=0;pageNo<8;pageNo++) {
+ 0083                   .dbline 235
+ 0083           ;         
+ 0083           ;                 tmpByte = 0xb0 | pageNo;                                // set page address
+ 0083 5204              mov A,[X+4]
+ 0085 29B0              or A,-80
+ 0087 5405              mov [X+5],A
+ 0089                   .dbline 236
+ 0089           ;                 wrTxLm6023(0x00, tmpByte);
+ 0089 5205              mov A,[X+5]
+ 008B 08                push A
+ 008C 5000              mov A,0
+ 008E 08                push A
+ 008F 9FA1              xcall _wrTxLm6023
+ 0091 38FE              add SP,-2
+ 0093                   .dbline 238
+ 0093           ;                 
+ 0093           ;                 wrTxLm6023(0x00, 0x10);                                      // set coloumn address (higher) at 0 position
+ 0093 5010              mov A,16
+ 0095 08                push A
+ 0096 5000              mov A,0
+ 0098 08                push A
+ 0099 9F97              xcall _wrTxLm6023
+ 009B                   .dbline 239
+ 009B           ;                 wrTxLm6023(0x00, 0x00);                                      // set coloumn address (lower)
+ 009B 5000              mov A,0
+ 009D 08                push A
+ 009E 08                push A
+ 009F 9F91              xcall _wrTxLm6023
+ 00A1 38FC              add SP,-4
+ 00A3                   .dbline 242
+ 00A3           ;                 
+ 00A3           ;                 // each segment in one page (adjust the code for more efficiency later)
+ 00A3           ;                 tmpInt = (pageNo+1)*128;
+ 00A3 5204              mov A,[X+4]
+ 00A5 5300              mov [__r1],A
+ 00A7 550000            mov [__r0],0
+ 00AA 060001            add [__r1],1
+ 00AD 0E0000            adc [__r0],0
+ 00B0 6500              asl [__r1]
+ 00B2 6B00              rlc [__r0]
+ 00B4 6500              asl [__r1]
+ 00B6 6B00              rlc [__r0]
+ 00B8 6500              asl [__r1]
+ 00BA 6B00              rlc [__r0]
+ 00BC 6500              asl [__r1]
+ 00BE 6B00              rlc [__r0]
+ 00C0 6500              asl [__r1]
+ 00C2 6B00              rlc [__r0]
+ 00C4 6500              asl [__r1]
+ 00C6 6B00              rlc [__r0]
+ 00C8 6500              asl [__r1]
+ 00CA 6B00              rlc [__r0]
+ 00CC 5100              mov A,[__r1]
+ 00CE 5403              mov [X+3],A
+ 00D0 5100              mov A,[__r0]
+ 00D2 5402              mov [X+2],A
+ 00D4                   .dbline 243
+ 00D4 8033              xjmp L21
+ 00D6           L18:
+ 00D6                   .dbline 243
+ 00D6           ;                 for (;dataCounter<tmpInt;dataCounter++) {
+ 00D6                   .dbline 244
+ 00D6           ;                         if (pData!=ClearPaper) wrTxLm6023(0x01, *(pData+dataCounter));              // set data, coloumn address will auto. inc. inside LCD
+ 00D6 3DFB80            cmp [X-5],>_ClearPaper
+ 00D9 B006              jnz X1
+ 00DB 3DFC80            cmp [X-4],<_ClearPaper
+ 00DE A01A              jz L22
+ 00E0           X1:
+ 00E0                   .dbline 244
+ 00E0 5201              mov A,[X+1]
+ 00E2 03FC              add A,[X-4]
+ 00E4 5300              mov [__r1],A
+ 00E6 5200              mov A,[X+0]
+ 00E8 0BFB              adc A,[X-5]
+ 00EA 10                push X
+ 00EB 5800              mov X,[__r1]
+ 00ED 28                romx
+ 00EE 20                pop X
+ 00EF 08                push A
+ 00F0 5001              mov A,1
+ 00F2 08                push A
+ 00F3 9F3D              xcall _wrTxLm6023
+ 00F5 38FE              add SP,-2
+ 00F7 800B              xjmp L23
+ 00F9           L22:
+ 00F9                   .dbline 245
+ 00F9           ;                         else wrTxLm6023(0x01, 0);                                    // clear screen
+ 00F9 5000              mov A,0
+ 00FB 08                push A
+ 00FC 5001              mov A,1
+ 00FE 08                push A
+ 00FF 9F31              xcall _wrTxLm6023
+ 0101 38FE              add SP,-2
+ 0103           L23:
+ 0103                   .dbline 246
+ 0103           L19:
+ 0103                   .dbline 243
+ 0103 7701              inc [X+1]
+ 0105 0F0000            adc [X+0],0
+ 0108           L21:
+ 0108                   .dbline 243
+ 0108 5200              mov A,[X+0]
+ 010A 3B02              cmp A,[X+2]
+ 010C B007              jnz X3
+ 010E 5201              mov A,[X+1]
+ 0110 3B03              cmp A,[X+3]
+ 0112 A003              jz X2
+ 0114           X3:
+ 0114 CFC1              jc L18
+ 0116           X2:
+ 0116                   .dbline 248
+ 0116           L15:
+ 0116                   .dbline 233
+ 0116 7704              inc [X+4]
+ 0118           L17:
+ 0118                   .dbline 233
+ 0118 3D0408            cmp [X+4],8
+ 011B A003              jz X4
+ 011D CF65              jc L14
+ 011F           X4:
+ 011F                   .dbline -2
+ 011F                   .dbline 249
+ 011F           ;                 }
+ 011F           ;                         
+ 011F           ;         }
+ 011F           ; }
+ 011F           L13:
+ 011F 38FA              add SP,-6
+ 0121 20                pop X
+ 0122                   .dbline 0 ; func end
+ 0122 7F                ret
+ 0123                   .dbsym l tmpByte 5 c
+ 0123                   .dbsym l pageNo 4 c
+ 0123                   .dbsym l tmpInt 2 i
+ 0123                   .dbsym l dataCounter 0 i
+ 0123                   .dbsym l pData -5 pc
+ 0123                   .dbend
+ 0123                   .dbfunc e GrTextDrv _GrTextDrv fV
+ 0123           ;              p -> X+1
+ 0123           ;              i -> X+0
+ 0123           ;          flags -> X-7
+ 0123           ;      font_code -> X-6
+ 0123           ;              y -> X-5
+ 0123           ;              x -> X-4
+ 0123           _GrTextDrv::
+ 0123                   .dbline -1
+ 0123 10                push X
+ 0124 4F                mov X,SP
+ 0125 3805              add SP,5
+ 0127                   .dbline 261
+ 0127           ; 
+ 0127           ; /*
+ 0127           ;  * Draw a text in the specified drawable using the
+ 0127           ;  * specified graphics context.
+ 0127           ;  *
+ 0127           ;  * flags
+ 0127           ;  *    bit 0 - '0' as high light off, '1' as high light on
+ 0127           ;  */
+ 0127           ; void
+ 0127           ; GrTextDrv(GR_COORD x, GR_COORD y, unsigned char font_code,
+ 0127           ;       GR_TEXTFLAGS flags)
+ 0127           ; {
+ 0127                   .dbline 265
+ 0127           ;         unsigned char i;
+ 0127           ;         const unsigned char* p;
+ 0127           ;       
+ 0127           ;               wrTxLm6023(0x00, 0xb0 | y);                                  // set page address
+ 0127 52FB              mov A,[X-5]
+ 0129 29B0              or A,-80
+ 012B 08                push A
+ 012C 5000              mov A,0
+ 012E 08                push A
+ 012F 9F01              xcall _wrTxLm6023
+ 0131 38FE              add SP,-2
+ 0133                   .dbline 267
+ 0133           ;               
+ 0133           ;               x *= 8;                                                 // set coloumn address 
+ 0133 52FC              mov A,[X-4]
+ 0135 64                asl A
+ 0136 64                asl A
+ 0137 64                asl A
+ 0138 54FC              mov [X-4],A
+ 013A                   .dbline 268
+ 013A           ;               wrTxLm6023(0x00, 0x0f & x );                                         // lower
+ 013A 52FC              mov A,[X-4]
+ 013C 210F              and A,15
+ 013E 08                push A
+ 013F 5000              mov A,0
+ 0141 08                push A
+ 0142 9EEE              xcall _wrTxLm6023
+ 0144                   .dbline 269
+ 0144           ;               wrTxLm6023(0x00, ((x>>4) & 0x1f) | 0x10 );                           // higher
+ 0144 52FC              mov A,[X-4]
+ 0146 67                asr A
+ 0147 67                asr A
+ 0148 67                asr A
+ 0149 67                asr A
+ 014A 210F              and A,15
+ 014C 5300              mov [__r0],A
+ 014E 26001F            and [__r0],31
+ 0151 2E0010            or [__r0],16
+ 0154 5100              mov A,[__r0]
+ 0156 08                push A
+ 0157 5000              mov A,0
+ 0159 08                push A
+ 015A 9ED6              xcall _wrTxLm6023
+ 015C 38FC              add SP,-4
+ 015E                   .dbline 271
+ 015E           ;               
+ 015E           ;               switch (font_code) {
+ 015E 52FA              mov A,[X-6]
+ 0160 5404              mov [X+4],A
+ 0162 560300            mov [X+3],0
+ 0165 3D0300            cmp [X+3],0
+ 0168 B006              jnz X6
+ 016A 3D0420            cmp [X+4],32
+ 016D A034              jz L28
+ 016F           X6:
+ 016F 3D0300            cmp [X+3],0
+ 0172 B006              jnz X7
+ 0174 3D0421            cmp [X+4],33
+ 0177 A03A              jz L30
+ 0179           X7:
+ 0179 5203              mov A,[X+3]
+ 017B 3180              xor A,-128
+ 017D 5300              mov [__rY],A
+ 017F 5000              mov A,0
+ 0181 3180              xor A,-128
+ 0183 5300              mov [__rZ],A
+ 0185 550000            mov [__rX],0
+ 0188 5204              mov A,[X+4]
+ 018A 1120              sub A,32
+ 018C 2C00              or [__rX],A
+ 018E 5100              mov A,[__rY]
+ 0190 1A00              sbb A,[__rZ]
+ 0192 2C00              or [__rX],A
+ 0194 C025              jc L25
+ 0196           X8:
+ 0196           L31:
+ 0196 3D0300            cmp [X+3],0
+ 0199 B006              jnz X9
+ 019B 3D04A7            cmp [X+4],-89
+ 019E A00B              jz L29
+ 01A0           X9:
+ 01A0 8019              xjmp L25
+ 01A2           X5:
+ 01A2                   .dbline 271
+ 01A2           L28:
+ 01A2                   .dbline 273
+ 01A2           ;                       case 0x20 : 
+ 01A2           ;                                p = Font_SPACE;
+ 01A2 560268            mov [X+2],<_Font_SPACE
+ 01A5 560168            mov [X+1],>_Font_SPACE
+ 01A8                   .dbline 274
+ 01A8           ;                               break;
+ 01A8 8036              xjmp L26
+ 01AA           L29:
+ 01AA                   .dbline 276
+ 01AA           ;                       case 0xa7 : 
+ 01AA           ;                                p = Font_DEGREE;
+ 01AA 560270            mov [X+2],<_Font_DEGREE
+ 01AD 560170            mov [X+1],>_Font_DEGREE
+ 01B0                   .dbline 277
+ 01B0           ;                               break;
+ 01B0 802E              xjmp L26
+ 01B2           L30:
+ 01B2                   .dbline 279
+ 01B2           ;                       case 0x21 : 
+ 01B2           ;                                p = Font_EXC;
+ 01B2 560278            mov [X+2],<_Font_EXC
+ 01B5 560178            mov [X+1],>_Font_EXC
+ 01B8                   .dbline 280
+ 01B8           ;                               break;
+ 01B8 8026              xjmp L26
+ 01BA           L25:
+ 01BA                   .dbline 283
+ 01BA           ;                       default : 
+ 01BA           ;                                //p = Font_Table[font_code-0x2A];
+ 01BA           ;                                p = Font_Table[font_code-0x2E];
+ 01BA 52FA              mov A,[X-6]
+ 01BC 5300              mov [__r1],A
+ 01BE 550000            mov [__r0],0
+ 01C1 16002E            sub [__r1],46
+ 01C4 1E0000            sbb [__r0],0
+ 01C7 6500              asl [__r1]
+ 01C9 6B00              rlc [__r0]
+ 01CB 6500              asl [__r1]
+ 01CD 6B00              rlc [__r0]
+ 01CF 6500              asl [__r1]
+ 01D1 6B00              rlc [__r0]
+ 01D3 5100              mov A,[__r1]
+ 01D5 0100              add A,<_Font_Table
+ 01D7 5402              mov [X+2],A
+ 01D9 5100              mov A,[__r0]
+ 01DB 0900              adc A,>_Font_Table
+ 01DD 5401              mov [X+1],A
+ 01DF                   .dbline 284
+ 01DF           ;                               break;
+ 01DF           L26:
+ 01DF                   .dbline 287
+ 01DF           ;               }
+ 01DF           ;               
+ 01DF           ;               for (i=0;i<8;i++)                                       // wr. 8 bytes data for one fonts (8x8 in size), set data, coloumn address will auto. inc. inside LCD
+ 01DF 560000            mov [X+0],0
+ 01E2 8047              xjmp L35
+ 01E4           L32:
+ 01E4                   .dbline 289
+ 01E4           ;                       //if (flags&0x01) {
+ 01E4           ;                       if (flags) {
+ 01E4 3DF900            cmp [X-7],0
+ 01E7 A022              jz L36
+ 01E9                   .dbline 289
+ 01E9                   .dbline 290
+ 01E9           ;                               wrTxLm6023(0x01, ~(*(p+i)) );
+ 01E9 5200              mov A,[X+0]
+ 01EB 5300              mov [__r1],A
+ 01ED 550000            mov [__r0],0
+ 01F0 5202              mov A,[X+2]
+ 01F2 0400              add [__r1],A
+ 01F4 5201              mov A,[X+1]
+ 01F6 0C00              adc [__r0],A
+ 01F8 5100              mov A,[__r0]
+ 01FA 10                push X
+ 01FB 5800              mov X,[__r1]
+ 01FD 28                romx
+ 01FE 20                pop X
+ 01FF 73                cpl A
+ 0200 08                push A
+ 0201 5001              mov A,1
+ 0203 08                push A
+ 0204 9E2C              xcall _wrTxLm6023
+ 0206 38FE              add SP,-2
+ 0208                   .dbline 291
+ 0208 801F              xjmp L37
+ 020A           L36:
+ 020A                   .dbline 291
+ 020A           ;                       } else {
+ 020A                   .dbline 292
+ 020A           ;                               wrTxLm6023(0x01, *(p+i));
+ 020A 5200              mov A,[X+0]
+ 020C 5300              mov [__r1],A
+ 020E 550000            mov [__r0],0
+ 0211 5202              mov A,[X+2]
+ 0213 0400              add [__r1],A
+ 0215 5201              mov A,[X+1]
+ 0217 0C00              adc [__r0],A
+ 0219 5100              mov A,[__r0]
+ 021B 10                push X
+ 021C 5800              mov X,[__r1]
+ 021E 28                romx
+ 021F 20                pop X
+ 0220 08                push A
+ 0221 5001              mov A,1
+ 0223 08                push A
+ 0224 9E0C              xcall _wrTxLm6023
+ 0226 38FE              add SP,-2
+ 0228                   .dbline 293
+ 0228           ;                       }
+ 0228           L37:
+ 0228           L33:
+ 0228                   .dbline 287
+ 0228 7700              inc [X+0]
+ 022A           L35:
+ 022A                   .dbline 287
+ 022A 3D0008            cmp [X+0],8
+ 022D A003              jz X10
+ 022F CFB4              jc L32
+ 0231           X10:
+ 0231                   .dbline -2
+ 0231                   .dbline 294
+ 0231           ; }
+ 0231           L24:
+ 0231 38FB              add SP,-5
+ 0233 20                pop X
+ 0234                   .dbline 0 ; func end
+ 0234 7F                ret
+ 0235                   .dbsym l p 1 pc
+ 0235                   .dbsym l i 0 c
+ 0235                   .dbsym l flags -7 c
+ 0235                   .dbsym l font_code -6 c
+ 0235                   .dbsym l y -5 c
+ 0235                   .dbsym l x -4 c
+ 0235                   .dbend
