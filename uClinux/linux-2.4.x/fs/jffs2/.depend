@@ -1,0 +1,206 @@
+background.o: background.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/unistd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/completion.h \
+   nodelist.h
+build.o: build.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   nodelist.h
+compr.o: compr.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2.h
+compr_rtime.o: compr_rtime.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h
+compr_rubin.o: compr_rubin.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   compr_rubin.h \
+   histo_mips.h
+compr_rubin.h: \
+   pushpull.h
+	@touch compr_rubin.h
+comprtest.o: comprtest.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/types.h
+compr_zlib.o: compr_zlib.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/compatmac.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/zlib.h \
+   nodelist.h
+dir.o: dir.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/compatmac.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2_fs_i.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2_fs_sb.h \
+   nodelist.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/crc32.h
+erase.o: erase.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   nodelist.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/crc32.h
+file.o: file.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/compatmac.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2.h \
+   nodelist.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/crc32.h
+fs.o: fs.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/list.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   nodelist.h
+gc.o: gc.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   nodelist.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/crc32.h
+ioctl.o: ioctl.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h
+malloc.o: malloc.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2.h \
+   nodelist.h
+nodelist.o: nodelist.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   nodelist.h
+nodelist.h: \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2_fs_sb.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2_fs_i.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/jffs2/fs/debug.h)
+	@touch nodelist.h
+nodemgmt.o: nodemgmt.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   nodelist.h
+os-linux.h: \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/jffs2/fs/nand.h)
+	@touch os-linux.h
+pushpull.o: pushpull.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   pushpull.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h
+read.o: read.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   nodelist.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/crc32.h
+readinode.o: readinode.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2.h \
+   nodelist.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/crc32.h
+scan.o: scan.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   nodelist.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/crc32.h
+super.o: super.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/list.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   nodelist.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/jffs2/fs/debug.h)
+super-v24.o: super-v24.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/list.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   nodelist.h
+symlink.o: symlink.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2.h \
+   nodelist.h
+wbuf.o: wbuf.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/interrupt.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/crc32.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/nand.h \
+   nodelist.h
+write.o: write.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/jffs2.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   nodelist.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/crc32.h
+writev.o: writev.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mtd/mtd.h \
+   nodelist.h
+.PRECIOUS:	compr_rubin.h \
+	nodelist.h \
+	os-linux.h \
+

@@ -1,0 +1,150 @@
+dir.o: dir.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ncp_fs.h \
+   ncplib_kernel.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/extras.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/strong.h)
+file.o: file.c \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ncp_fs.h \
+   ncplib_kernel.h
+inode.o: inode.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/file.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ncp_fs.h \
+   ncplib_kernel.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/extras.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/strong.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/packet/signing.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/nls.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/smalldos.h)
+ioctl.o: ioctl.c \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ioctl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/highuid.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/vmalloc.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ncp_fs.h \
+   ncplib_kernel.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/packet/signing.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/ioctl/locking.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/nls.h)
+mmap.o: mmap.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/shm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mman.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ncp_fs.h \
+   ncplib_kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h
+ncplib_kernel.o: ncplib_kernel.c \
+   ncplib_kernel.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/nfs/ns.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/os2/ns.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/debugdentry.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/ioctl/locking.h) \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/nls.h)
+ncplib_kernel.h: \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/byteorder.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/unaligned.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/string.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/nls.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nls.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ctype.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ncp_fs.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/ioctl/locking.h)
+	@touch ncplib_kernel.h
+ncpsign_kernel.o: ncpsign_kernel.c \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/packet/signing.h) \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ncp.h \
+   ncpsign_kernel.h
+ncpsign_kernel.h: \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ncp_fs.h
+	@touch ncpsign_kernel.h
+sock.o: sock.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/socket.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/in.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/net.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/netdevice.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/signal.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/scm.h \
+   /home/uClinux-dist/linux-2.4.x/include/net/sock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ipx.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/poll.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/file.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ncp_fs.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/packet/signing.h) \
+   ncpsign_kernel.h
+symlink.o: symlink.c \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ncpfs/extras.h) \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/segment.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ncp_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   ncplib_kernel.h
+.PRECIOUS:	ncplib_kernel.h \
+	ncpsign_kernel.h \
+

@@ -1,0 +1,1 @@
+#define CONFIG_ARM_CLK (64000000)

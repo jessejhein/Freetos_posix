@@ -1,0 +1,12 @@
+msdosfs_syms.o: msdosfs_syms.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/msdos_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h
+namei.o: namei.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/msdos_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h

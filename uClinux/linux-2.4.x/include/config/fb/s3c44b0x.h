@@ -1,0 +1,1 @@
+#define CONFIG_FB_S3C44B0X 1

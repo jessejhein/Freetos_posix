@@ -1,0 +1,8 @@
+inode.o: inode.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h

@@ -1,0 +1,17 @@
+namei.o: namei.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/msdos_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/nls.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ctype.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h
+vfatfs_syms.o: vfatfs_syms.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/msdos_fs.h

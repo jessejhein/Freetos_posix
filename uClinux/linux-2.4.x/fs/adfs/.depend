@@ -1,0 +1,81 @@
+adfs.h: \
+   dir_f.h
+	@touch adfs.h
+dir.o: dir.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/adfs_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   adfs.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/adfs/fs/rw.h)
+dir_f.o: dir_f.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/adfs_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   adfs.h \
+   dir_f.h
+dir_fplus.o: dir_fplus.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/adfs_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   adfs.h \
+   dir_fplus.h
+file.o: file.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   adfs.h
+inode.o: inode.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/adfs_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   adfs.h
+map.o: map.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/adfs_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/spinlock.h \
+   adfs.h
+super.o: super.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/version.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/adfs_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/bitops.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/system.h \
+   adfs.h \
+   dir_f.h \
+   dir_fplus.h
+.PRECIOUS:	adfs.h \
+

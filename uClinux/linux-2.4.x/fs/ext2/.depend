@@ -1,0 +1,60 @@
+balloc.o: balloc.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ext2_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/quotaops.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ext2/check.h)
+bitmap.o: bitmap.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ext2_fs.h
+dir.o: dir.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ext2_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h
+file.o: file.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ext2_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h
+fsync.o: fsync.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ext2_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h
+ialloc.o: ialloc.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ext2_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/quotaops.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ext2/check.h)
+inode.o: inode.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ext2_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/smp_lock.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/highuid.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/quotaops.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h
+ioctl.o: ioctl.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ext2_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h
+namei.o: namei.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ext2_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h
+super.o: super.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ext2_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/locks.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/blkdev.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   $(wildcard /home/uClinux-dist/linux-2.4.x/include/config/ext2/check.h)
+symlink.o: symlink.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/ext2_fs.h

@@ -1,0 +1,72 @@
+dir.o: dir.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/msdos_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/limits.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/umsdos_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h
+emd.o: emd.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/msdos_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/umsdos_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/dcache.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/delay.h
+inode.o: inode.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/module.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/init.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/msdos_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/umsdos_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/list.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/pagemap.h
+ioctl.o: ioctl.c \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/mm.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/msdos_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/umsdos_fs.h
+mangle.o: mangle.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/umsdos_fs.h
+namei.o: namei.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/kernel.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/types.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fcntl.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/string.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/msdos_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/umsdos_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h
+rdir.o: rdir.c \
+   /home/uClinux-dist/linux-2.4.x/include/linux/sched.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/msdos_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/errno.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/stat.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/limits.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/umsdos_fs.h \
+   /home/uClinux-dist/linux-2.4.x/include/linux/slab.h \
+   /home/uClinux-dist/linux-2.4.x/include/asm/uaccess.h
