@@ -69,6 +69,35 @@ void CtrllerInit(void)
 
 #endif	// end of "#ifdef DEV_KIT_0"
 
+#ifdef TIMER0
+	// TImer 0, each interrupt as 50mSec
+	//*****************************************************************************************************
+
+         // 51 family reg. 
+      	//*****************************************************************************************************
+ TMOD = (TMOD&0xf0) | 0x01;						/* timer, Ctrl by TR0, mode 1										  */
+ TL0 = (65536-TIMER_DURATION) % 256;
+ TH0 = (65536-TIMER_DURATION) / 256;
+ TR0 = 1;												// enable timer 0
+ ET0 = 1;												// enable timer 0 interrupt
+
+         // 1 sec interrupt init. 
+      	//*****************************************************************************************************
+ Timer0Flag = 0;                                         // start from 0
+ Timer0OneSecReg = Timer0Flag + 20;                      // prepare for next 1 sec interrupt 
+#endif	// end of "#ifdef TIMER0"
+
+#ifdef UART1
+	// Uart 
+	//*****************************************************************************************************
+ SCON = 0x50;											// mode 1 and rec enable 
+															// enable time 1 as baud rate controller 
+ TMOD = (TMOD&0x0f) | 0x20;						// timer 1, Ctrl by TR1, mode 2
+ TH1 = 0xfd;											// 9600 baud 
+ TR1 = 1;												// enable timer 1
+ ES = 1;													// enable UART1 interrupt
+#endif	// end of "#ifdef UART"
+
 }
 
 /* 
@@ -177,6 +206,7 @@ void Uart1ISR (void) interrupt 4 using 1
         }
       else {                         //  => don't put data into SBUF, then stop the TX
          uart1TxFlag = FALSE;       // clear Tx flag as complete tx 
+        OutputDeviceOFF(TRANCTRL);                 // disable RS485
          //dis485Tx();
         }
      }
@@ -241,6 +271,47 @@ void Timer0ISR (void) interrupt 1 using 1
  // HW auto. clear TF0
 
  runTimer();// call to 2nd part of isr of timer
+ 
+ #ifdef CRTX
+	// CRTX Kernal Time Ticker
+	//*****************************************************************************************************
+ if (i) {
+	 crtx_timer();						// each about 100ms, call crtx_timer() once
+	 i = FALSE;
+ 	}
+ else i = TRUE;
+#endif	// end of "#ifdef CRTX"
+
+	// 1 Sec. timer flag 
+	//*****************************************************************************************************
+ if (Timer0Flag==Timer0OneSecReg) {                                                   // 1 sec matching 
+          Timer0OneSecReg = Timer0Flag + 20;                    // prepare for next 1 sec interrupt 
+          Timer0OneSecFlag++;                                   // update 1 sec flag 
+         }
+
+   // increment timer0 flag 
+	//*****************************************************************************************************
+ Timer0Flag++;
+}
+ 
+}
+#endif	// end of "#ifdef TIMER0"
+
+#ifdef TIMER0
+/********************************************************************************************************/
+// Name        : Delay
+// Description : delay a duration from min. 1 sec. to max. 255 sec.( i.e. about 4 min. )
+// parameter   : unsigned char sec -- unit in sec. 
+// return      : FALSE -- busy; TRUE -- idle or complete delay 
+/********************************************************************************************************/
+unsigned char Delay(unsigned char sec) reentrant
+{
+ unsigned char delayFlag;
+ 
+ delayFlag = Timer0OneSecFlag + sec;
+ while (delayFlag!=Timer0OneSecFlag); 
+
+ return(TRUE);
 }
 #endif	// end of "#ifdef TIMER0"
 
