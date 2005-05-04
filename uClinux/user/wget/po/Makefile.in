@@ -1,4 +1,3 @@
-# Generated automatically from Makefile.in.in by configure.
 # Makefile for program source directory in GNU NLS utilities package.
 # Copyright (C) 1995, 1996, 1997 by Ulrich Drepper <drepper@gnu.ai.mit.edu>
 #
@@ -15,6 +14,7 @@ SHELL = /bin/sh
 
 srcdir = .
 top_srcdir = ..
+
 
 prefix = /usr/local
 exec_prefix = ${prefix}
@@ -34,7 +34,7 @@ XGETTEXT = PATH=../src:$$PATH
 MSGMERGE = PATH=../src:$$PATH msgmerge
 
 DEFS = -DHAVE_CONFIG_H
-CFLAGS +=  -O
+CFLAGS +=  -O2 -Wall -Wno-implicit
 CPPFLAGS = 
 
 INCLUDES = -I.. -I$(top_srcdir)/intl

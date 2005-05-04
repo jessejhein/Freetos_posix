@@ -1,4 +1,3 @@
-# Generated automatically from Makefile.in by configure.
 # Makefile for `wget' utility
 # Copyright (C) 1995, 1996, 1997 Free Software Foundation, Inc.
 
@@ -23,6 +22,7 @@
 SHELL = /bin/sh
 
 srcdir = .
+
 
 RM = rm -f
 

@@ -1,4 +1,3 @@
-# Generated automatically from Makefile.in by configure.
 # Makefile for `wget' utility
 # Copyright (C) 1995, 1996, 1997 Free Software Foundation, Inc.
 
@@ -25,6 +24,7 @@ SHELL = /bin/sh
 
 top_srcdir = ..
 srcdir     = .
+
 ANSI2KNR = 
 o = .o
 
@@ -38,7 +38,7 @@ localedir    = $(prefix)/share/locale
 CPPFLAGS = 
 # The following line is losing on some versions of make!
 DEFS     = -DHAVE_CONFIG_H -DSYSTEM_WGETRC=\"$(sysconfdir)/wgetrc\" -DLOCALEDIR=\"$(localedir)\"
-CFLAGS   +=  -O
+CFLAGS   +=  -O2 -Wall -Wno-implicit
 LDFLAGS  += 
 LIBS     = 
 exeext   = 
@@ -53,7 +53,7 @@ RM = rm -f
 ETAGS = etags
 
 # Conditional compiles
-ALLOCA = alloca.o
+ALLOCA = 
 MD5_OBJ = md5$o
 OPIE_OBJ = ftp-opie$o
 
@@ -86,10 +86,6 @@ OBJ = $(ALLOCA) cmpt$o connect$o fnmatch$o ftp$o ftp-basic$o  \
 
 wget$(exeext): $(OBJ)
 	$(LINK) $(OBJ) $(LIBS) $(LIBM) $(LDLIBS)
-
-# work around an internal bug in the m68k-elf crosscompiler
-ftp-basic.o: ftp-basic.c
-	$(COMPILE) -O0 -c $<
 
 ansi2knr: ansi2knr.o
 	$(CC) -o ansi2knr ansi2knr.o $(LIBS) $(LIBM) $(LDLIBS)

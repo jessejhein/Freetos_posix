@@ -1,4 +1,3 @@
-# Generated automatically from Makefile.in by configure.
 # Makefile for `Wget' utility
 # Copyright (C) 1995, 1996, 1997 Free Software Foundation, Inc.
 
@@ -25,6 +24,7 @@ SHELL = /bin/sh
 
 srcdir = .
 
+
 #
 # User configuration section
 #
@@ -42,7 +42,7 @@ manext      = 1
 localedir   = $(prefix)/share/locale
 
 #CC = gcc
-CFLAGS +=  -O
+CFLAGS +=  -O2 -Wall -Wno-implicit
 CPPFLAGS = 
 DEFS = -DHAVE_CONFIG_H -DSYSTEM_WGETRC=\"$(sysconfdir)/wgetrc\" -DLOCALEDIR=\"$(localedir)\"
 LIBS = 
@@ -78,9 +78,6 @@ check: all
 
 $(SUBDIRS): FORCE
 	cd $@ && $(MAKE) $(MAKEDEFS)
-
-romfs:
-	$(ROMFSINST) src/wget /bin/wget
 
 # install everything
 install: install.bin install.info install.wgetrc install.mo # install.man
