@@ -36,7 +36,7 @@ CONFIG_SET_MEM_PARAM=y
 DRAM_BASE=0c000000
 DRAM_SIZE=00800000
 FLASH_MEM_BASE=00000000
-FLASH_SIZE=0x00200000
+FLASH_SIZE=00200000
 CONFIG_RAMKERNEL=y
 # CONFIG_ROMKERNEL is not set
 # CONFIG_BOARD_SMDK40100 is not set
@@ -61,7 +61,7 @@ CONFIG_ARM_CLK=64000000
 #
 # CONFIG_HOTPLUG is not set
 # CONFIG_PCMCIA is not set
-# CONFIG_NET is not set
+CONFIG_NET=y
 # CONFIG_SYSVIPC is not set
 # CONFIG_REDUCED_MEMORY is not set
 # CONFIG_BSD_PROCESS_ACCT is not set
@@ -77,6 +77,135 @@ CONFIG_KERNEL_ELF=y
 # CONFIG_LEDS is not set
 # CONFIG_ALIGNMENT_TRAP is not set
 # CONFIG_RAM_ATTACHED_ROMFS is not set
+
+#
+# Networking options
+#
+CONFIG_PACKET=y
+# CONFIG_PACKET_MMAP is not set
+# CONFIG_NETLINK_DEV is not set
+# CONFIG_NETFILTER is not set
+# CONFIG_FILTER is not set
+# CONFIG_UNIX is not set
+CONFIG_INET=y
+# CONFIG_IP_MULTICAST is not set
+# CONFIG_IP_ADVANCED_ROUTER is not set
+# CONFIG_IP_PNP is not set
+# CONFIG_NET_ARP_LIMIT is not set
+# CONFIG_NET_IPIP is not set
+# CONFIG_NET_IPGRE is not set
+# CONFIG_INET_ECN is not set
+# CONFIG_SYN_COOKIES is not set
+# CONFIG_VLAN_8021Q is not set
+# CONFIG_IPX is not set
+# CONFIG_ATALK is not set
+
+#
+# Appletalk devices
+#
+# CONFIG_DEV_APPLETALK is not set
+# CONFIG_DECNET is not set
+# CONFIG_BRIDGE is not set
+
+#
+# QoS and/or fair queueing
+#
+# CONFIG_NET_SCHED is not set
+# CONFIG_IPSEC is not set
+
+#
+# Network testing
+#
+# CONFIG_NET_PKTGEN is not set
+
+#
+# Network device support
+#
+CONFIG_NETDEVICES=y
+
+#
+# ARCnet devices
+#
+# CONFIG_ARCNET is not set
+# CONFIG_DUMMY is not set
+# CONFIG_BONDING is not set
+# CONFIG_EQUALIZER is not set
+# CONFIG_TUN is not set
+
+#
+# Ethernet (10 or 100Mbit)
+#
+CONFIG_NET_ETHERNET=y
+# CONFIG_ARM_AM79C961A is not set
+# CONFIG_ARM_CIRRUS is not set
+# CONFIG_SUNLANCE is not set
+# CONFIG_SUNBMAC is not set
+# CONFIG_SUNQE is not set
+# CONFIG_SUNGEM is not set
+# CONFIG_NET_VENDOR_3COM is not set
+# CONFIG_LANCE is not set
+# CONFIG_NET_VENDOR_SMC is not set
+# CONFIG_NET_VENDOR_RACAL is not set
+CONFIG_NET_ISA=y
+# CONFIG_E2100 is not set
+# CONFIG_EWRK3 is not set
+# CONFIG_EEXPRESS is not set
+# CONFIG_EEXPRESS_PRO is not set
+# CONFIG_HPLAN_PLUS is not set
+# CONFIG_HPLAN is not set
+# CONFIG_LP486E is not set
+# CONFIG_ETH16I is not set
+CONFIG_NE2000=y
+# CONFIG_NE2000_16b is not set
+# CONFIG_NET_PCI is not set
+# CONFIG_NET_POCKET is not set
+# CONFIG_FEC is not set
+# CONFIG_CS89x0 is not set
+# CONFIG_UCCS8900 is not set
+
+#
+# Ethernet (1000 Mbit)
+#
+# CONFIG_ACENIC is not set
+# CONFIG_DL2K is not set
+# CONFIG_E1000 is not set
+# CONFIG_MYRI_SBUS is not set
+# CONFIG_NS83820 is not set
+# CONFIG_HAMACHI is not set
+# CONFIG_YELLOWFIN is not set
+# CONFIG_R8169 is not set
+# CONFIG_SK98LIN is not set
+# CONFIG_TIGON3 is not set
+# CONFIG_FDDI is not set
+# CONFIG_PLIP is not set
+# CONFIG_PPP is not set
+# CONFIG_SLIP is not set
+
+#
+# Wireless LAN (non-hamradio)
+#
+# CONFIG_NET_RADIO is not set
+
+#
+# Token Ring devices
+#
+# CONFIG_TR is not set
+# CONFIG_NET_FC is not set
+
+#
+# Wan interfaces
+#
+# CONFIG_WAN is not set
+
+#
+# Amateur Radio support
+#
+# CONFIG_HAMRADIO is not set
+
+#
+# IrDA (infrared) support
+#
+# CONFIG_IRDA is not set
 
 #
 # ATA/IDE/MFM/RLL support
@@ -166,6 +295,7 @@ CONFIG_NOFLASH=y
 # CONFIG_CRAMFS is not set
 # CONFIG_TMPFS is not set
 CONFIG_RAMFS=y
+CONFIG_RAMFS=y
 # CONFIG_ISO9660_FS is not set
 # CONFIG_JOLIET is not set
 # CONFIG_ZISOFS is not set
@@ -191,8 +321,32 @@ CONFIG_ROMFS_FS=y
 # CONFIG_UDF_RW is not set
 # CONFIG_UFS_FS is not set
 # CONFIG_UFS_FS_WRITE is not set
-# CONFIG_NCPFS_NLS is not set
+
+#
+# Network File Systems
+#
+# CONFIG_CODA_FS is not set
+# CONFIG_INTERMEZZO_FS is not set
+CONFIG_NFS_FS=y
+CONFIG_NFS_V3=y
+# CONFIG_NFS_DIRECTIO is not set
+# CONFIG_ROOT_NFS is not set
+# CONFIG_NFSD is not set
+# CONFIG_NFSD_V3 is not set
+# CONFIG_NFSD_TCP is not set
+CONFIG_SUNRPC=y
+CONFIG_LOCKD=y
+CONFIG_LOCKD_V4=y
 # CONFIG_SMB_FS is not set
+# CONFIG_NCP_FS is not set
+# CONFIG_NCPFS_PACKET_SIGNING is not set
+# CONFIG_NCPFS_IOCTL_LOCKING is not set
+# CONFIG_NCPFS_STRONG is not set
+# CONFIG_NCPFS_NFS_NS is not set
+# CONFIG_NCPFS_OS2_NS is not set
+# CONFIG_NCPFS_SMALLDOS is not set
+# CONFIG_NCPFS_NLS is not set
+# CONFIG_NCPFS_EXTRAS is not set
 # CONFIG_ZISOFS_FS is not set
 
 #
@@ -338,6 +492,7 @@ CONFIG_SERIAL_CORE_CONSOLE=y
 #
 # CONFIG_I2O is not set
 # CONFIG_I2O_BLOCK is not set
+# CONFIG_I2O_LAN is not set
 # CONFIG_I2O_SCSI is not set
 # CONFIG_I2O_PROC is not set
 
