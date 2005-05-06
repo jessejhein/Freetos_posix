@@ -14612,7 +14612,7 @@ CONFIG_MTDRAM_ABS_POS
 
 CFI Flash device mapping on the Flaga Digital Module
 CONFIG_MTD_CFI_FLAGADM
-  Mapping for the Flaga digital module.  If you don´t have one, ignore
+  Mapping for the Flaga digital module.  If you donï¿½t have one, ignore
   this setting.
 
 Momenco Ocelot boot flash device
@@ -24186,7 +24186,7 @@ CONFIG_RPXLITE
 
   HERMES_PRO:
     Hermes-Pro ISDN/LAN router with integrated 8 x hub
-    Manufacturer: Multidata Gesellschaft für Datentechnik und Informatik
+    Manufacturer: Multidata Gesellschaft fï¿½r Datentechnik und Informatik
       <http://www.multidata.de/>
     Date of Release: 2000 (?)
     End of life: -
@@ -25813,7 +25813,7 @@ CONFIG_SET_MEM_PARAM
 
 Tulsa
 CONFIG_SA1100_PFS168
-  The Radisys Corp. PFS-168 (aka Tulsa) is an Intel® StrongArm® SA-1110 based
+  The Radisys Corp. PFS-168 (aka Tulsa) is an Intelï¿½ StrongArmï¿½ SA-1110 based
   computer which includes the SA-1111 Microprocessor Companion Chip and other
   custom I/O designed to add connectivity and multimedia features for vending
   and business machine applications. Say Y here if you require support for
@@ -28884,6 +28884,11 @@ CONFIG_SOUND_WM97XX
   say M here.  The module will be called ac97_plugin_wm97xx.o.
   
   If unsure, say N.
+
+# Samsung 44b0x
+#CONFIG_ARM_CLK
+#  64000000 -- for 10MHz Crystal
+#  60000000 -- for 8MHz Crystal
 
 #
 # A couple of things I keep forgetting:
