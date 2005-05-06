@@ -349,9 +349,10 @@ if [ "$CONFIG_BOARD_MBA44" = "y" ]; then
     define_bool CONFIG_NO_PGT_CACHE         y
     define_bool CONFIG_CPU_WITH_CACHE       y
     define_bool CONFIG_CPU_WITH_MCR_INSTRUCTION n
-    define_int  CONFIG_ARM_CLK              64000000 #72000000 #60000000
 #    define_bool CONFIG_SERIAL_S3C44B0X      y
 #    define_int  CONFIG_FORCE_MAX_ZONEORDER  5
+#	int 'MCLK'	CONFIG_ARM_CLK	60000000
+	define_int  CONFIG_ARM_CLK  60000000
     if [ "$CONFIG_SET_MEM_PARAM" = "n" ]; then
        define_hex DRAM_BASE      0x0C000000
        define_hex DRAM_SIZE      0x00800000
