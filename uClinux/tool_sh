@@ -29,17 +29,17 @@ then
 	
 	#------- real compile
 	mkdir -p tmp
-	rm tmp/*
+	rm tmp/*.txt
 	(make dep 2>&1) >tmp/d.txt && (make lib_only 2>&1) >tmp/l.txt && (make user_only 2>&1) >tmp/u.txt && (make romfs 2>&1) >tmp/r.txt && (make image 2>&1) >tmp/i.txt; (make 2>&1) >tmp/m.txt
 	#--------------------------------------------------------
 
 	#------- post process
 	#---------- show the output and copy to suitable place for image files
 	#cp images/image.ram /boot/44b0/image_ram.bin
-	cp images/image.rom /boot/44b0/image_rom.bin
-	cp images/romfs.img /boot/44b0/romfs_img.bin
-	#cp images/image.rom ~/tmp/image_rom.bin
-	#cp images/romfs.img ~/tmp/romfs_img.bin
+	cp images/image.rom /boot/44b0/image_rom_21space.bin
+	cp images/romfs.img /boot/44b0/romfs_img_21space.bin
+#	cp images/image.rom /boot/44b0/image_rom.bin
+#	cp images/romfs.img /boot/44b0/romfs_img.bin
 	tail -n 50 tmp/i.txt
 	tail -n 50 tmp/m.txt
 	ls -la /boot/44b0/
@@ -52,7 +52,7 @@ then
 	rm linux-2.4.x/include/asm-armnommu/arch
 	rm linux-2.4.x/include/asm
 	rm config.arch
-	rm -rf romfs
+	rm -rf romfs images tmp/*.txt
 	rm lib/uClibc
 
 #------------- uClinux soft-links, because of CVS limitation
