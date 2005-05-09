@@ -1,6 +1,7 @@
 /****************************************************************************
  *
  *      Get keystroke in Linux System
+ * 		keystroke is standard including keyboard, console
  *
  *      Example(s)
  *      * step by step to use this module 
