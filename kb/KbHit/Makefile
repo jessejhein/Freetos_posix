@@ -11,7 +11,7 @@ $(TARGT): $(OBJ)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm $(RM_STUFFS)
+	rm -f $(RM_STUFFS)
 	if [ -f $(TARGT) ]; \
 	then \
 		rm $(TARGT); \
