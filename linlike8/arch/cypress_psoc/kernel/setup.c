@@ -5,11 +5,12 @@
  *
  */
 
-#include "app.h"
+#include "config.h"
+#include "app.h"// may be remove later 
 
 extern void gpio_open(void);
 #if (SERIAL_MOD==1)
-extern void serial_open(void);
+extern void uart_open(void);
 #endif
 #if (I2C_MOD==1)
 extern void i2c_open(void);
@@ -25,7 +26,7 @@ void setup_arch(void)
 //	kb_open();
 //#endif
 #if (SERIAL_MOD==1)
-	serial_open();
+	uart_open();
 #endif
 #if (I2C_MOD==1)
 	i2c_open();
