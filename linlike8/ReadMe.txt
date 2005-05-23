@@ -98,6 +98,7 @@ Parameters
         * how many running task - NR_TASKS in app.h
         * processX stack size - PROCESSX_STACK_SIZE in app.h
 * modules selection
+        * config.h
         * app.h - modulars
                 * enable module - set to 1 
                 * disable module - set to 0
@@ -443,6 +444,36 @@ Keyboard Management
                         * http://www.cypressmicro.com/support/appnotes/an2086.pdf - 500uSec for debouncing by a new counter
                         * google search of "encoder switch" inside http://www.cypressmicro.com/
                 
+-----------------------------------------------------------------------------------------------------
+Uart
+* Parameters
+	* select in %ROOT_DIR%/config.h
+* Block Diagram
+		   ...
+			|
+		linlike8
+			|
+		  psoc--+--uart0
+* API(see %ROOT_DIR%/include/asm-cypress_psoc/serial.h)
+* Source
+	* %ROOT_DIR%/arch/cypress_psoc/drivers/serial.c
+	* %ROOT_DIR%/include/asm-cypress_psoc/serial.h
+	* %ROOT_DIR%/config.h
+-----------------------------------------------------------------------------------------------------
+Standard Lib
+* Block Diagram
+		   ...
+			|
+		linlike8
+			|
+		standard lib
+			|
+		  psoc--+--uart0
+		  		+--i2c0
+* API(see %ROOT_DIR%/include/linlike8/unistd.h)
+* Source
+	* %ROOT_DIR%/lib/unistd.c
+
 ========================================================================================================
 Testing Done for 
 * 2 processes forever loop. They will be switched each 10 mSec.
