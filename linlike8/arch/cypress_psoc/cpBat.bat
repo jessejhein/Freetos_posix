@@ -118,6 +118,8 @@ copy %APP_DIR%\process0.c %COMPILE_DIR%\
 copy %APP_DIR%\process1.c %COMPILE_DIR%\
 @if ERRORLEVEL 1 goto ERR_EXIT
 
+@REM exit
+@REM ================================================================================================
 :OK_EXIT
 color
 @ECHO It all completed
