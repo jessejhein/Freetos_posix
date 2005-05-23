@@ -8,7 +8,8 @@
 
 #define	DEBUG	0
 
-#include "sem.h"
+//	this module
+#include <semaphore.h>
 
 #if (DEBUG==1)
 #include <stdio.h>
@@ -41,13 +42,10 @@ void sem_init(char* sem_var, unsigned char init_val)
 	*sem_var = init_val;
 }
 
-// return 
-//	-ve -- semaphore busy
-//	>=0 -- semaphore ready to use
-char sem_wait(char* sem_var)
+char sem_trywait(char* sem_var)
 {
 	if ((*sem_var-1)>=0) return --(*sem_var);
-	else return -1;
+	else return (char) -1;
 }
 
 void sem_post(char* sem_var)
