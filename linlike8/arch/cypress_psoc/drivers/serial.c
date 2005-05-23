@@ -5,9 +5,16 @@
  * 
  * using cypress psoc serial
  *
+ *5-11-2004	Hei		modified for the return number of the serial_complete_write so that the return number would be the number of bytes transmitted
+ *
+ *			remark: There is error for the transmit of data after sending one byte of data--the start of package(02), to solve the problem, it is needed to disable the global interupt before sending the data and enable the interupt after sending the data
  */
 
-#include "app.h"									// this linlike8
+// including, get data linking from others ===============================================
+//	linlike8 configuration
+#include "config.h"
+#include "app.h"
+#include "system.h"
 #if (SERIAL_MOD==1)
 #if (SWITCH_CASE==0)
 	#include "sched.h"								// linlike8 system
@@ -34,7 +41,7 @@ struct wr_compl_struct {
 } wr_compl_var;
 #endif
 
-void serial_open(void)
+void uart_open(void)
 {
 	serial_rx.wr = 0;
 	serial_rx.rd = 0;
@@ -82,7 +89,7 @@ void serial_rx_isr(void)
 }
 
 #if (SERIAL_MOD==1)
-unsigned char write(unsigned char *__buf, unsigned char __n)
+unsigned char uart_write(unsigned char *__buf, unsigned char __n)
 {
 	unsigned char i;
 //	struct {
@@ -90,7 +97,7 @@ unsigned char write(unsigned char *__buf, unsigned char __n)
 		//unsigned k : 1;
 //	} var;
 	unsigned char var;
-	
+	cli();													//diable the global interupt
 	if (serial_tx.tx_complete_flag) {						// empty of tx
 		//var.k = 1;
 		var = 1;
@@ -109,11 +116,12 @@ unsigned char write(unsigned char *__buf, unsigned char __n)
 		UART_1_SendData(*(__buf));	// send 1st byte to active the Tx
 		serial_tx.tx_complete_flag = 0;						// change to non-empty of tx
 	}
+	sti();													//enable the global interupt
 	return (unsigned char) var;
 }
 
 //<rec 1 byte,remove>unsigned char read(unsigned char *__buf, unsigned char __n)	// reduce RAM usage
-unsigned char read(unsigned char *__buf)//<rec 1 byte,add>
+unsigned char uart_read(unsigned char *__buf)//<rec 1 byte,add>
 {
 	unsigned char k;
 	//<rec 1 byte,remove>unsigned char j;
@@ -131,18 +139,18 @@ unsigned char read(unsigned char *__buf)//<rec 1 byte,add>
 }
 
 #if (SWITCH_CASE==0)
-void serial_write_complete(unsigned char *__buf, unsigned char __n)
+void uart_write_complete(unsigned char *__buf, unsigned char __n)
 {
 	// non-tested
 	unsigned char i = 0;
 	do {
-		i += write(__buf + i, __n - i);
+		i += serial_write(__buf + i, __n - i);
 		if (i==__n) break;
 		else msleep(10);
 	} while (1);
 }
 #else
-unsigned char serial_write_complete(unsigned char *__buf, unsigned char __n)
+unsigned char uart_write_complete(unsigned char *__buf, unsigned char __n)
 {
 	switch (wr_compl_var.state) {
 		case 0 :
@@ -150,13 +158,16 @@ unsigned char serial_write_complete(unsigned char *__buf, unsigned char __n)
 			 wr_compl_var.state = 1;
 			break;
 		case 1 :
-			 wr_compl_var.tmp += write(__buf + wr_compl_var.tmp, __n - wr_compl_var.tmp);
-			 if (wr_compl_var.tmp>=__n) wr_compl_var.state = 0;
+			 wr_compl_var.tmp += uart_write(__buf + wr_compl_var.tmp, __n - wr_compl_var.tmp);
+			 if (wr_compl_var.tmp>=__n)
+			 { 
+			 wr_compl_var.state = 0;
+			 return __n;
+			 }
 			break;
 	}
-	return (unsigned char) wr_compl_var.state;
+	return 0;
 }
 #endif
 
 #endif
-
