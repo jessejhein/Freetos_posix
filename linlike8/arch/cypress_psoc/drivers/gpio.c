@@ -56,6 +56,7 @@ void gpio_open(void)
 #pragma	interrupt_handler	gpio_isr						// shouald add this isr name at boot.asm from PSoC Designer
 void gpio_isr(void)
 {
+#if (KB_MOD==1)
 	if (UPPER_KEY_DET) current_key |= 0x10;
 		else current_key &= 0x01;
 	if (DOWN_KEY_DET) current_key |= 0x01;
@@ -122,6 +123,7 @@ void gpio_isr(void)
 					*/
 					}
 					previous_key = current_key;						
+#endif
 	// fast interrupt
 /*	
 #if (KB_MOD==1)
