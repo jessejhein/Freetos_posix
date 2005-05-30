@@ -15,22 +15,34 @@
  *				work only in SWITCH_CASE == 1
  */
 
+// including, get data linking from others ===============================================
+//	os config.
+#include "config.h"
+//	gui mwlike config.
+#include "config_mwlike8.h"
 #include "app.h"
+//	local declaration
 #include "nano-X.h"
 #include "sched.h"									// timer.h
 #include "timer.h"									// msleep()
-#include "psoc_gpio_bit.h"								// led_hw_off()
+//#include "psoc_gpio_bit.h"								// led_hw_off()
 #include "cirbuf.h"									// pre_wr_cir254buf()
 
-//#include "serial.h"
+// data
+//==============================================================
+
+//	LEDs
+p_funct_nano leds_on_drv[LED_NUM];
+p_funct_nano leds_off_drv[LED_NUM];
+p_funct_nano funct_ptr;
+unsigned char led_status[LED_NUM];
+
+
 
 		// LED and Buzzer
 //struct io_bit_struct buzzer_ctrl;
 //struct io_bit_struct led_ctrl;
 struct io_bit_struct io_bit_ctrl;
-#if (ADD_LED>0)
-struct ADD_LED_STRUCT add_led;
-#endif
 		// events
 GR_EVENT events_vect[NR_EVENT];
 struct EVENT_PTR ptr_events_vect;
@@ -39,19 +51,16 @@ struct EVENT_PTR ptr_events_vect;
 
 void io_open(void)
 {
-	buz_hw_off;									// hw init.
-	led_hw_off;
-	buz_off();
-	led_off();
-#if (ADD_LED>0)
-	led_1st_off();
-	#if (ADD_LED>1)
-	led_2nd_off();
-	#endif
-	#if (ADD_LED>2)
-	led_3rd_off();
-	#endif
-#endif
+	unsigned char tmp;
+	for (tmp=0;tmp<LED_NUM;tmp++) {
+		funct_ptr = leds_off_drv[tmp];
+		funct_ptr();
+		led_off(tmp);
+	}
+//	buz_hw_off;									// hw init.
+//	buz_off();
+	
+
 	#if (SWITCH_CASE==1)
 	io_bit_ctrl.GrGetNextEventTimeout_status = 0;
 	#endif
@@ -235,15 +244,15 @@ GR_EVENT_TYPE GrGetNextEventTimeout(GR_EVENT *ep, GR_TIMEOUT timeout)
 				 }
 
 			 // buzzer control job
-			 switch (io_bit_ctrl.buzzer_stat) {
-				case BUZZER_OFF :
-					 buz_hw_off;
-					break;
-				case BUZZER_POS_PULSE :
-					 buz_hw_on;
+//			 switch (io_bit_ctrl.buzzer_stat) {
+//				case BUZZER_OFF :
+//					 buz_hw_off;
+//					break;
+//				case BUZZER_POS_PULSE :
+//					 buz_hw_on;
 					 //io_bit_ctrl.buzzer_stat = BUZZER_POS_PULSE_1;
-					 io_bit_ctrl.buzzer_stat = BUZZER_OFF;
-					break;
+//					 io_bit_ctrl.buzzer_stat = BUZZER_OFF;
+//					break;
 /*				case BUZZER_POS_PULSE_1 :
 					 k = timeout/TIME_OUT_INTERVAL;
 					 if (k>2) {					// 4 as 4 X 50mSec = 200mSec
@@ -264,94 +273,44 @@ GR_EVENT_TYPE GrGetNextEventTimeout(GR_EVENT *ep, GR_TIMEOUT timeout)
 						buz_hw_off;
 					 }
 					break;*/
-			 }
+//			 }
 			
 			 // led control job
-			 switch (io_bit_ctrl.led_stat) {
-				case LED_OFF :
-					 led_hw_off;
-					break;
-				case LED_POS_PULSE :
-					 led_hw_on;
-					 io_bit_ctrl.led_stat = LED_OFF;
-					break;
-				case LED_ON :
-					 led_hw_on;
-					break;
-				case LED_NEG_PULSE :
-					 led_hw_off;
-					 io_bit_ctrl.led_stat = LED_ON;
-					break;
-				/*case LED_REP_PULSE :
-					 ggnet_led_j = led_ctrl.cnt;
-					 led_ctrl.stat = LED_REP_PULSE_1;
-					break;
-				case LED_REP_PULSE_1 :
-					 if ((ggnet_led_j--)>(led_ctrl.cnt/2)) {
-						led_hw_on;
-					 } else {
-						if (ggnet_led_j==0) ggnet_led_j = led_ctrl.cnt;
-						led_hw_off;
-					 }
-					break;*/
-			 }
-			
-#if (ADD_LED>0)
-			 // additional led control job
-			 switch (add_led.first) {
-				case LED_OFF :
-					 led_1st_hw_off;
-					break;
-				case LED_POS_PULSE :
-					 led_1st_hw_on;
-					 add_led.first = LED_OFF;
-					break;
-				case LED_ON :
-					 led_1st_hw_on;
-					break;
-				case LED_NEG_PULSE :
-					 led_1st_hw_off;
-					 add_led.first = LED_ON;
-					break;
-			 }
-	#if (ADD_LED>1)
-			 switch (add_led.second) {
-				case LED_OFF :
-					 led_2nd_hw_off;
-					break;
-				case LED_POS_PULSE :
-					 led_2nd_hw_on;
-					 add_led.second = LED_OFF;
-					break;
-				case LED_ON :
-					 led_2nd_hw_on;
-					break;
-				case LED_NEG_PULSE :
-					 led_2nd_hw_off;
-					 add_led.second = LED_ON;
-					break;
-			 }
-	#endif
-	#if (ADD_LED>2)
-			 switch (add_led.third) {
-				case LED_OFF :
-					 led_3rd_hw_off;
-					break;
-				case LED_POS_PULSE :
-					 led_3rd_hw_on;
-					 add_led.third = LED_OFF;
-					break;
-				case LED_ON :
-					 led_3rd_hw_on;
-					break;
-				case LED_NEG_PULSE :
-					 led_3rd_hw_off;
-					 add_led.third = LED_ON;
-					break;
-			 }
-	#endif
+			for (k=0;k<LED_NUM;k++) {
+				switch (led_status[k]) {
+					case LED_OFF :
+						funct_ptr = leds_off_drv[k];
+						funct_ptr();
+						break;
+					case LED_POS_PULSE :
+						funct_ptr = leds_on_drv[k];
+						funct_ptr();
+						led_status[k] = LED_OFF;
+						break;
+					case LED_ON :
+						funct_ptr = leds_on_drv[k];
+						funct_ptr();
+						break;
+					case LED_NEG_PULSE :
+						funct_ptr = leds_off_drv[k];
+						funct_ptr();
+						led_status[k] = LED_ON;
+						break;
+					/*case LED_REP_PULSE :
+						 ggnet_led_j = led_ctrl.cnt;
+						 led_ctrl.stat = LED_REP_PULSE_1;
+						break;
+					case LED_REP_PULSE_1 :
+						 if ((ggnet_led_j--)>(led_ctrl.cnt/2)) {
+							led_hw_on;
+						 } else {
+							if (ggnet_led_j==0) ggnet_led_j = led_ctrl.cnt;
+							led_hw_off;
+						 }
+						break;*/
+				}
+			}
 			break;
-#endif
 	}
 	return ep->type;
 }

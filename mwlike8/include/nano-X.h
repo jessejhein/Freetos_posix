@@ -1,7 +1,7 @@
 #ifndef	_NANO_X_H
 #define	_NANO_X_H
 /* 
- * Copyright (c) 05-05-2004 cheng chung yan <chungyan5@hkem.com / yan@amonics.com> for 8-bit system
+ * Copyright (c) 05-05-2004 cheng chung yan <yan@amonics.com> for 8-bit system
  * Permission is granted to use, distribute, or modify this source,
  * provided that this copyright notice remains intact.
  *
@@ -46,6 +46,9 @@ typedef union {
   GR_EVENT_KEYSTROKE keystroke;		/**< keystroke events */
 } GR_EVENT;
 
+// function pointer
+typedef void const (*p_funct_nano)(void);
+
 /* Public graphics routines. */
 //void		GrGetNextEventTimeout(GR_EVENT *ep, GR_TIMEOUT timeout);
 
@@ -67,6 +70,7 @@ typedef union {
 #include "device.h"									// GrBitmapDri()
 
 /* Public graphics routines. */
+extern void io_open(void);							// gui i/o
 extern	void	GrMapWindow(void);
 #if (GUI_LCD==1)
 #define 	GrBitmap(pData)			GrBitmapDrv(pData)
@@ -108,6 +112,10 @@ struct io_bit_struct {
 	#endif
 };
 extern struct io_bit_struct io_bit_ctrl;
+extern unsigned char led_status[];
+extern p_funct_nano leds_on_drv[];
+extern p_funct_nano leds_off_drv[];
+extern p_funct_nano funct_ptr;
 #define	BUZZER_OFF		0
 #define	BUZZER_POS_PULSE	BUZZER_OFF + 1
 #define	BUZZER_POS_PULSE_1	BUZZER_POS_PULSE + 1
@@ -128,45 +136,32 @@ extern struct io_bit_struct io_bit_ctrl;
 //#define	LED_REP_PULSE	LED_POS_PULSE + 1
 //#define	LED_REP_PULSE_1	LED_REP_PULSE + 1
 //extern struct io_bit_struct led_ctrl;
-#define	led_off()		io_bit_ctrl.led_stat = LED_OFF
-#define	led_one_pos_shot()	io_bit_ctrl.led_stat = LED_POS_PULSE
-#define	led_on()		io_bit_ctrl.led_stat = LED_ON
-#define	led_one_neg_shot()	io_bit_ctrl.led_stat = LED_NEG_PULSE
+#define	led_off(which)			led_status[which] = LED_OFF
+#define	led_off_rt(which)	do {								\
+								led_off(which);					\
+								funct_ptr = leds_off_drv[which];\
+								funct_ptr();					\
+							} while (0)
+#define	led_one_pos_shot(which)	led_status[which] = LED_POS_PULSE
+#define	led_one_pos_shot_rt(which)	do {						\
+								led_one_pos_shot(which);		\
+								funct_ptr = leds_on_drv[which];	\
+								funct_ptr();					\
+							} while (0)
+#define	led_on(which)			led_status[which] = LED_ON
+#define	led_on_rt(which)	do {								\
+								led_on(which);					\
+								funct_ptr = leds_on_drv[which];	\
+								funct_ptr();					\
+							} while (0)
+#define	led_one_neg_shot(which)	led_status[which] = LED_NEG_PULSE
+#define	led_one_neg_shot_rt(which)	do {						\
+								led_one_neg_shot(which);		\
+								funct_ptr = leds_off_drv[which];\
+								funct_ptr();					\
+							} while (0)
 /*#define	led_rep_pul(freq) do {							\
 				led_ctrl.stat = BUZZER_REP_PULSE;		\
 				led_ctrl.cnt = (1/freq/0.05);			\
 			} while (0)*/
-#if (ADD_LED>0)
-	// extra LEDs
-struct ADD_LED_STRUCT {
-	unsigned first :2;
-	#if (ADD_LED>1)
-	unsigned second :2;
-	#endif
-	#if (ADD_LED>2)
-	unsigned third :2;
-	#endif
-};
-extern struct ADD_LED_STRUCT add_led;
-		// 1st LED
-#define	led_1st_off()		add_led.first = LED_OFF
-#define	led_1st_one_pos_shot()	add_led.first = LED_POS_PULSE
-#define	led_1st_on()		add_led.first = LED_ON
-#define	led_1st_one_neg_shot()	add_led.first = LED_NEG_PULSE
-	#if (ADD_LED>1)
-		// 2nd LED
-#define	led_2nd_off()		add_led.second = LED_OFF
-#define	led_2nd_one_pos_shot()	add_led.second = LED_POS_PULSE
-#define	led_2nd_on()		add_led.second = LED_ON
-#define	led_2nd_one_neg_shot()	add_led.second = LED_NEG_PULSE
-	#endif
-	#if (ADD_LED>2)
-		// 3rd LED
-#define	led_3rd_off()		add_led.third = LED_OFF
-#define	led_3rd_one_pos_shot()	add_led.third = LED_POS_PULSE
-#define	led_3rd_on()		add_led.third = LED_ON
-#define	led_3rd_one_neg_shot()	add_led.third = LED_NEG_PULSE
-	#endif
-#endif
-
 #endif /* _NANO_X_H*/
