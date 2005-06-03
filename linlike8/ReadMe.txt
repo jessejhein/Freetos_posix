@@ -1,7 +1,7 @@
 ReadMe.txt of linlike8(linux-like in 8-bit mcu) 
 
 Contents: (arithmetical order)
-* API (linux-like, i.e. POSIX)
+* API (linux-like, i.e. POSIX) for applications
 * Contact
 * Description 
 * Directory Structure 
@@ -61,6 +61,7 @@ Description
 
 ========================================================================================================
 Features 
+* context switch OR switch case mode
 * manually to yield running process switching to next process
 * sleep process
 * alarm (but do not test 2 or above alarm in system)
@@ -124,7 +125,7 @@ Experiences in any technique problem
                 * solution => in boot.asm, its interrupt vector for timer is changed to its default value, we must manually to change back to _timer_interrupt for linlike8 timer ISR
 
 ========================================================================================================
-API (linux-like, i.e. POSIX)
+API (linux-like, i.e. POSIX) for applications
 * schedule, including sched.h
         * sched_yield()
                 * release current process, let scheduler to place another process to run
@@ -211,6 +212,10 @@ Flowing graphic
                 process0
                         it is a Forever Loop, call Change Cpu Sleep command to save power, then call yield() to enter to other process
                         however, it also can be one of applcation task which needs to looping for something
+                        OR 
+                        in switch case mode
+                        appl. init.
+                        appl. while loop for diff. tasks
 
 -----------------------------------------------------------------------------------------------------
 Scheduling
@@ -512,6 +517,7 @@ References
         
 ========================================================================================================
 ToDo
+* aims to work on switch case mode, temporary pending auto. switch task mode, since normally 8 bit mcu does not have enough RAM to do task switching
 * hang inside scheduing due to all processes to sleep, solve it
 * sleep() => change to marco, then reduce some source code in size for X100
 * seperate libc from kernel linlike8
