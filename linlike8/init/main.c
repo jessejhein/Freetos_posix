@@ -5,6 +5,8 @@
  *
  */
 
+//	os config.
+#include "config.h"
 #include "app.h"
 #include "sched.h"
 #include "system.h"
