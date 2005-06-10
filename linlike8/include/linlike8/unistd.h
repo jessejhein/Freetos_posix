@@ -17,12 +17,17 @@
 
 //	methods ===========================================================
 
-//	serial open ==========================================================================
+//	device open ==========================================================================
 //	parameters
 //		what_device -- which physical device to use: UART0, UART1, I2C0
 //	return
 //		return the file descriptor, then let read/write to use this file descriptor
 extern char open(char what_device);
+
+//	io ctrl
+#if (I2C_MOD==1)
+extern unsigned char ioctl(unsigned char device, unsigned char flag, unsigned char data);
+#endif
 
 //	serial write
 //	parameters
