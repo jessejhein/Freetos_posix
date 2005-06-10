@@ -202,20 +202,20 @@ Flowing graphic
         +-------------------------------+
         
         where 
-                kernel_thread
-                        create "Init Process", PID as 1, by calling fork() (including wake-up command)
-                        do_fork()
-                                allocate task[]
-                                place stack pointer
-                                place the start address of process
-                                set to task_running
-                process0
-                        it is a Forever Loop, call Change Cpu Sleep command to save power, then call yield() to enter to other process
-                        however, it also can be one of applcation task which needs to looping for something
-                        OR 
-                        in switch case mode
-                        appl. init.
-                        appl. while loop for diff. tasks
+            kernel_thread
+                create "Init Process", PID as 1, by calling fork() (including wake-up command)
+                do_fork()
+                        allocate task[]
+                        place stack pointer
+                        place the start address of process
+                        set to task_running
+            process0
+                it is a Forever Loop, call Change Cpu Sleep command to save power, then call yield() to enter to other process
+                however, it also can be one of applcation task which needs to looping for something
+                OR 
+                in switch case mode
+                appl. init.
+                appl. while loop for diff. tasks
 
 -----------------------------------------------------------------------------------------------------
 Scheduling
@@ -463,6 +463,21 @@ Uart
 * Source
 	* %ROOT_DIR%/arch/cypress_psoc/drivers/serial.c
 	* %ROOT_DIR%/include/asm-cypress_psoc/serial.h
+	* %ROOT_DIR%/config.h
+-----------------------------------------------------------------------------------------------------
+I2C
+* Parameters
+	* select in %ROOT_DIR%/config.h
+* Block Diagram
+		   ...
+			|
+		linlike8
+			|
+		  psoc--+--i2c0
+* API(see %ROOT_DIR%/include/asm-cypress_psoc/i2c.h)
+* Source
+	* %ROOT_DIR%/arch/cypress_psoc/drivers/i2c.c
+	* %ROOT_DIR%/include/asm-cypress_psoc/i2c.h
 	* %ROOT_DIR%/config.h
 -----------------------------------------------------------------------------------------------------
 Standard Lib
