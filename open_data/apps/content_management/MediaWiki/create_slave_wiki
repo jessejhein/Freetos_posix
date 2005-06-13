@@ -1,0 +1,40 @@
+# script to auto. generate slave of wiki
+
+#       get parameters
+if [ $# -ne 2 ]
+then
+	echo "Usage - $0 source dest"
+        echo "Such as create_slave_wiki /opt/mediawiki ~/tmp/wiki"
+        echo "make sure you have have writting right in dest."
+	exit 1
+fi
+
+#		create dest. if need 
+if [ -s $2 ]
+then
+	echo								# nothing to do if dest. exist
+else
+	mkdir -p $2
+fi
+
+#       make the soft-link for core files
+ln -s $1/img_auth.php $2/
+ln -s $1/install-utils.inc $2/
+ln -s $1/redirect.php $2/
+ln -s $1/redirect.phtml $2/
+ln -s $1/Version.php $2/
+ln -s $1/wiki.phtml $2/
+ln -s $1/tests $2/
+ln -s $1/skins $2/
+ln -s $1/maintenance $2/
+ln -s $1/languages $2/
+ln -s $1/irc $2/
+ln -s $1/includes $2/
+ln -s $1/extensions $2/
+ln -s $1/docs $2/
+ln -s $1/config $2/
+
+#       copy the parameter files for specific for this site
+cp -rf $1/math $2/
+cp -rf $1/images $2/
+cp -rf $1/index.php $2/
