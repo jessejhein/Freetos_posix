@@ -16,6 +16,8 @@
  */
 
 // including, get data linking from others ===============================================
+//	this appl. layer configuration
+#include <pin_define.h>
 //	os config.
 #include "config.h"
 //	gui mwlike config.
@@ -31,11 +33,11 @@
 // data
 //==============================================================
 
-//	LEDs
-p_funct_nano leds_on_drv[LED_NUM];
-p_funct_nano leds_off_drv[LED_NUM];
+//	IO, such as LED(s), Buzzer(s) ... 
+p_funct_nano leds_on_drv[IO_NUM];
+p_funct_nano leds_off_drv[IO_NUM];
 p_funct_nano funct_ptr;
-unsigned char led_status[LED_NUM];
+unsigned char led_status[IO_NUM];
 
 
 
@@ -49,17 +51,28 @@ struct EVENT_PTR ptr_events_vect;
 //unsigned char wr_ptr_events_vect;
 //unsigned char rd_ptr_events_vect;
 
+// methods ===============================================================================
+
+//	init =================================================================================
 void io_open(void)
 {
 	unsigned char tmp;
-	for (tmp=0;tmp<LED_NUM;tmp++) {
+
+//		init. hw connection
+	init_io();
+	
+//		io ctrl to off state
+	for (tmp=0;tmp<IO_NUM;tmp++) {
 		funct_ptr = leds_off_drv[tmp];
 		funct_ptr();
 		led_off(tmp);
 	}
-//	buz_hw_off;									// hw init.
-//	buz_off();
-	
+
+//		LCD module hw and boot-up seq. 
+#if (LCD_MOD==1)
+	scr_open();
+#endif
+
 
 	#if (SWITCH_CASE==1)
 	io_bit_ctrl.GrGetNextEventTimeout_status = 0;
@@ -243,40 +256,9 @@ GR_EVENT_TYPE GrGetNextEventTimeout(GR_EVENT *ep, GR_TIMEOUT timeout)
 					 io_bit_ctrl.GrGetNextEventTimeout_status = 1;
 				 }
 
-			 // buzzer control job
-//			 switch (io_bit_ctrl.buzzer_stat) {
-//				case BUZZER_OFF :
-//					 buz_hw_off;
-//					break;
-//				case BUZZER_POS_PULSE :
-//					 buz_hw_on;
-					 //io_bit_ctrl.buzzer_stat = BUZZER_POS_PULSE_1;
-//					 io_bit_ctrl.buzzer_stat = BUZZER_OFF;
-//					break;
-/*				case BUZZER_POS_PULSE_1 :
-					 k = timeout/TIME_OUT_INTERVAL;
-					 if (k>2) {					// 4 as 4 X 50mSec = 200mSec
-						 if (ggnet_i>=2) io_bit_ctrl.buzzer_stat = BUZZER_OFF;
-					 } else {
-						 if (ggnet_i>=k) io_bit_ctrl.buzzer_stat = BUZZER_OFF;
-					 }
-					break;*/
-				/*case BUZZER_REP_PULSE :
-					 buz_j = buzzer_ctrl.cnt;
-					 buzzer_ctrl.stat = BUZZER_REP_PULSE_1;
-					break;
-				case BUZZER_REP_PULSE_1 :
-					 if ((buz_j--)>(buzzer_ctrl.cnt/2)) {
-						buz_hw_on;
-					 } else {
-						if (buz_j==0) buz_j = buzzer_ctrl.cnt;
-						buz_hw_off;
-					 }
-					break;*/
-//			 }
-			
-			 // led control job
-			for (k=0;k<LED_NUM;k++) {
+#if (IO_MOD>0)
+			 // i/o control job
+			for (k=0;k<IO_NUM;k++) {
 				switch (led_status[k]) {
 					case LED_OFF :
 						funct_ptr = leds_off_drv[k];
@@ -296,20 +278,9 @@ GR_EVENT_TYPE GrGetNextEventTimeout(GR_EVENT *ep, GR_TIMEOUT timeout)
 						funct_ptr();
 						led_status[k] = LED_ON;
 						break;
-					/*case LED_REP_PULSE :
-						 ggnet_led_j = led_ctrl.cnt;
-						 led_ctrl.stat = LED_REP_PULSE_1;
-						break;
-					case LED_REP_PULSE_1 :
-						 if ((ggnet_led_j--)>(led_ctrl.cnt/2)) {
-							led_hw_on;
-						 } else {
-							if (ggnet_led_j==0) ggnet_led_j = led_ctrl.cnt;
-							led_hw_off;
-						 }
-						break;*/
 				}
 			}
+#endif	// end of #if (IO_MOD>0)
 			break;
 	}
 	return ep->type;
@@ -320,7 +291,7 @@ GR_EVENT_TYPE GrGetNextEventTimeout(GR_EVENT *ep, GR_TIMEOUT timeout)
 //}
 #endif
 
-#if (GUI_LCD==1)
+#if (LCD_MOD==1)
 /*
  * Draw a text string in the specified drawable using the
  * specified graphics context.
