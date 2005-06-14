@@ -107,13 +107,15 @@ unsigned char is_step_in_this_item_menu(unsigned char node_num, unsigned char fi
 void next_node(void)
 {
 	//if (node[exist_node_num].connect_child==0) {					// this situation must not exist, since this method is called inside the sub-menu of this connected node
-		tmp = *(node[exist_node_num].file + node[exist_node_num].files_no);
-		if (tmp==0)	{
-			exist_node_num = node[exist_node_num].parent_node;		// change the node no. 1st
-			node[exist_node_num].connect_child = 0;					// then reset this parent node to non-connected
-		} else {
-			node[exist_node_num].connect_child = 1;					// must set the old node connected flag
-			exist_node_num = tmp;									// then change the node no.
+		if (node[exist_node_num].file!=0)							// if file ptr is 0, i.e. no child any more
+			tmp = *(node[exist_node_num].file + node[exist_node_num].files_no);
+		else tmp = 0;
+		if (tmp==0)	{												// no child
+			exist_node_num = node[exist_node_num].parent_node;		//	change the node no. 1st
+			node[exist_node_num].connect_child = 0;					//	then reset this parent node to non-connected
+		} else {													// has child
+			node[exist_node_num].connect_child = 1;					//	must set the old node connected flag
+			exist_node_num = tmp;									//	then change the node no.
 		}
 	//} else {
 	//}
@@ -141,18 +143,18 @@ int main()
 	node0_files[1] = 2;					// node0 file1 pts to node2
 	node0_files[2] = 1;					// node0 file2 pts to node1
 	#define	NODE1_MAX_FILE				2
-	unsigned char node1_files[NODE1_MAX_FILE];
-	node1_files[0] = 0;
-	node1_files[1] = 0;
+//	unsigned char node1_files[NODE1_MAX_FILE];
+//	node1_files[0] = 0;
+//	node1_files[1] = 0;
 	#define	NODE2_MAX_FILE				3
 	unsigned char node2_files[NODE2_MAX_FILE];
 	node2_files[0] = 0;
 	node2_files[1] = 3;
 	node2_files[2] = 0;
 	#define	NODE3_MAX_FILE				2
-	unsigned char node3_files[NODE3_MAX_FILE];
-	node3_files[0] = 0;
-	node3_files[1] = 0;
+//	unsigned char node3_files[NODE3_MAX_FILE];
+//	node3_files[0] = 0;
+//	node3_files[1] = 0;
 
 	node[0].max_files = NODE0_MAX_FILE;	// only have 3 items in main menu
 	node[0].files_no = 0;				// init. pt to item 0
@@ -163,7 +165,7 @@ int main()
 	node[1].files_no = 0;
 	node[1].connect_child = 0;
 	node[1].parent_node = 0;
-	node[1].file = node1_files;
+	node[1].file = 0;
 	node[2].max_files = NODE2_MAX_FILE;
 	node[2].files_no = 0;
 	node[2].connect_child = 0;
@@ -173,7 +175,7 @@ int main()
 	node[3].files_no = 0;
 	node[3].connect_child = 0;
 	node[3].parent_node = 2;
-	node[3].file = node3_files;
+	node[3].file = 0;
 
 //		screen
 	unsigned int disp_cnt = 0;
