@@ -7,10 +7,6 @@
 // scheduling ===========================================================
 #define	SWITCH_CASE						1	// 1 as turn ON switch case mode, otherwise 0
 
-// init. system =========================================================
-extern void os_init_app(void);
-#define	init_process()	os_init_app()
-
 // uart module ===========================================================
 #define	SERIAL_MOD						1
 //#define	UART_MOD	0	==> adding this module default, later to adding this parameter
@@ -36,4 +32,18 @@ extern void os_init_app(void);
 	#if (I2C_SLAVE==1)
 		#define LOCAL_SLAVE_ID			1
 	#endif
+#endif
+
+//	keyboard module ========================================================
+//		you must modify boot.asm
+//			;ljmp	PSoC_GPIO_ISR
+//			ljmp	_gpio_isr
+//		modify hw configuration depends on kb.h
+//		adding timer in TIMER_MOD
+#define	KB_MOD							1
+#if (KB_MOD>0)
+//			enable all pins interrupt
+#define	PUSH_KEY	0
+//			enable 2 pins interrupt only: push key and pin A 
+#define	ROTARY_KEY	1
 #endif
