@@ -25,6 +25,9 @@ extern void GrTextDrv(GR_COORD x, GR_COORD y, unsigned char font_code, GR_TEXTFL
 extern p_funct_nano leds_on_drv[];
 extern p_funct_nano leds_off_drv[];
 
+//		LCD
+extern const unsigned char ClearPaper[];
+
 //extern void kb_open(void);
 //extern void kb_read(void);
 
