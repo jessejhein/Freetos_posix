@@ -17,13 +17,18 @@
  * 14-02-2005	Hei		modified the code for the new method of the switch encoder, using the gpio_isr interupt to change the current_key and previous_key, from the difference to determine the direction.
  */
 
+// including, get data linking from others ===============================================
+//	this appl. layer
+#include <pin_define.h>
+//	linlike8 configuration
+#include "config.h"
+//	mwlike8
+#include "gpio_kb_app.h"
 #include "app.h"									// this linlike8
 #include <m8c.h>									// M8C_EnableIntMask()
 #include "interrupt.h"									// mark_bh()
 #include "gpio.h"									//
 #if (KB_MOD==1)
-	#include "kb.h"									// kb hw driver(application dependent, so diff. appl. has diff. kb.h)
-	#include "gpio_kb_app.h"							// kb app.
 	#include "sched.h"									// schedule_timeout()
 	#include "timer.h"									// timer_list
 #endif

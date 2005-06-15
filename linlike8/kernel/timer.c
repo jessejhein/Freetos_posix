@@ -7,6 +7,13 @@
  *	13-10-2004	Hei	modify for the push key function
  */
 
+// including, get data linking from others ===============================================
+//	this appl. layer
+#include <pin_define.h>
+//	linlike8 configuration
+#include "config.h"
+//	mwlike8
+#include "gpio_kb_app.h"
 #include "app.h"
 #include "sched.h"									// schedule_timeout()
 #include "current.h"									// current
@@ -14,9 +21,7 @@
 #include "timer.h"									// timer_list
 #include "system.h"									// sti()             
 #if (KB_MOD==1)
-	#include "kb.h"									// kb hw driver(application dependent, so diff. appl. has diff. kb.h)
 	#include "gpio.h"
-	#include "gpio_kb_app.h"							// kb app.
 #endif
 
 #if (TIMER_MOD==1)
