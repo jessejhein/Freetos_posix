@@ -37,11 +37,16 @@ Technical Info.
 	
        <init>
       -----------------> [init]
+      						matching hw connections
       						close all LEDs and its variable
 
        <on/off/+ve pulse/-ve pulse led>
       -----------------------------------> [ON/OFF/+ve pulse/-ve pulse LED(which led)]
 													set corresponding LED status
+
+       <insert event>
+      -----------------------------------> [insert a event(what event)]
+													insert event to event queue
 
 	  <main Loop from OS>
 	  	main processes (should be put in srvmain.c for linlike8 switch mode)
@@ -53,6 +58,8 @@ Technical Info.
 	  			+---> ... 
 	  			|
 * Methods
+	insert a event(what event)
+		insert event to event queue
 	init
 		close all hw LEDs
 			by reading the off LED function array[LED_NUM]
@@ -61,10 +68,13 @@ Technical Info.
 	get next events
 		variables
 			LED status array[LED_NUM]
-		...
-		timeout event for internal
-			looping for all LEDs
-				do what LED status array[LED_NUM] ask to do
+		chk event
+			timeout event
+				return timeout event
+				timeout event for internal
+					looping for all LEDs
+						do what LED status array[LED_NUM] ask to do
+			... event
 	ON/OFF/+ve pulse/-ve pulse LED(which led)
 		variables
 			which LED

@@ -25,6 +25,8 @@
 #include "app.h"
 //	local declaration
 #include "nano-X.h"
+#include "gpio_kb_app.h"
+//
 #include "sched.h"									// timer.h
 #include "timer.h"									// msleep()
 //#include "psoc_gpio_bit.h"								// led_hw_off()
@@ -39,6 +41,7 @@ p_funct_nano leds_off_drv[IO_NUM];
 p_funct_nano funct_ptr;
 unsigned char led_status[IO_NUM];
 
+#define	CHK_EVENT_CYCLE_TIME	512
 
 
 		// LED and Buzzer
@@ -232,11 +235,10 @@ GR_EVENT_TYPE GrGetNextEventTimeout(GR_EVENT *ep, GR_TIMEOUT timeout)
 			 io_bit_ctrl.GrGetNextEventTimeout_status = 2;
 			break;
 		case 2 :								// wait alarm for each timeout
-			 if ((++ggnet_timer)==512) io_bit_ctrl.GrGetNextEventTimeout_status = 3;
+			 if ((++ggnet_timer)>=CHK_EVENT_CYCLE_TIME) io_bit_ctrl.GrGetNextEventTimeout_status = 3;
 			break;
 		case 3 :
-			 io_bit_ctrl.GrGetNextEventTimeout_status = 0;			// check event job
-			 if ((k=pre_rd_cir254buf((unsigned char) ptr_events_vect.wr,(unsigned char) ptr_events_vect.rd,NR_EVENT))!=255) {// event occurs
+			if ((k=pre_rd_cir254buf((unsigned char) ptr_events_vect.wr,(unsigned char) ptr_events_vect.rd,NR_EVENT))!=255) {// event occurs
 		//		 if (ggnet_i==timeout/TIME_OUT_INTERVAL) {
 		//			 ep->type = GR_EVENT_TYPE_TIMEOUT;
 		//		 }
@@ -247,14 +249,14 @@ GR_EVENT_TYPE GrGetNextEventTimeout(GR_EVENT *ep, GR_TIMEOUT timeout)
 		//43	 } else {	
 				*ep = events_vect[(unsigned char) ptr_events_vect.rd];
 				ptr_events_vect.rd = k;
-			 }
-			 if (ggnet_i==timeout/TIME_OUT_INTERVAL) {
-					 ep->type = GR_EVENT_TYPE_TIMEOUT;
-				 }
-				 else {
-					 ggnet_i++;
-					 io_bit_ctrl.GrGetNextEventTimeout_status = 1;
-				 }
+				//io_bit_ctrl.GrGetNextEventTimeout_status = 3;			// others event, check for timeout event again next time
+			} else if (ggnet_i==timeout/TIME_OUT_INTERVAL) {
+				ep->type = GR_EVENT_TYPE_TIMEOUT;
+				io_bit_ctrl.GrGetNextEventTimeout_status = 0;			// after timeout, goto very beginning
+			} else {
+				ggnet_i++;
+				io_bit_ctrl.GrGetNextEventTimeout_status = 1;			// nothing, prapare for next timeout
+			}
 
 #if (IO_MOD>0)
 			 // i/o control job
@@ -314,6 +316,16 @@ GrText(GR_COORD x, GR_COORD y, const unsigned char* str_ROM, unsigned char* str_
 	}
 }
 #endif
+
+void insert_event_timeout(void)
+{
+	unsigned char i;
+	if ((i=pre_wr_cir254buf(ptr_events_vect.wr,ptr_events_vect.rd,NR_EVENT))!=255) {	// insert event
+		events_vect[ptr_events_vect.wr].type = GR_EVENT_TYPE_TIMEOUT;
+		ptr_events_vect.wr = i;
+		//io_bit_ctrl.GrGetNextEventTimeout_status = 3;									// may be add this, see the performance
+	}
+}
 
 /*extern unsigned char rd_event_queue(unsigned char* ptr_event_type);
 static void
