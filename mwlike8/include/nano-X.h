@@ -9,6 +9,7 @@
  * include only this header file.
  */
 
+#include "config_mwlike8.h"
 #include "mwtypes.h"			/* exported engine MW* types*/
 
 /*
@@ -72,7 +73,7 @@ typedef void const (*p_funct_nano)(void);
 /* Public graphics routines. */
 extern void io_open(void);							// gui i/o
 extern	void	GrMapWindow(void);
-#if (GUI_LCD==1)
+#if (LCD_MOD==1)
 #define 	GrBitmap(pData)			GrBitmapDrv(pData)
 #define 	GrText_buf(x, y, str, count, flags)	GrText(x, y, 0, str, count, flags)
 #define 	GrText_const(x, y, str, count, flags)	GrText(x, y, str, 0, count, flags)
@@ -86,6 +87,7 @@ extern void	GrGetNextEventTimeout(GR_EVENT *ep, GR_TIMEOUT timeout);
 //	NOT GR_EVENT_TYPE_NONE -- valid event
 extern GR_EVENT_TYPE GrGetNextEventTimeout(GR_EVENT *ep, GR_TIMEOUT timeout);
 #endif
+extern void insert_event_timeout(void);
 
 // static events list
 extern GR_EVENT events_vect[];
