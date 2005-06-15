@@ -27,17 +27,21 @@
  * 06-10-2004	hei		the "+", "-" can be showed in the LCD.
  */
 
+// including, get data linking from others ===============================================
+//	this appl. layer
+#include <pin_define.h>
+//	gui mwlike config.
+#include "config_mwlike8.h"
+
 #include "app.h"									// linlike8 os
 
-#if (GUI_LCD==1)
 #include "nano-X.h"
 #include "device.h"									// scr_open
 #include "system.h"									// cli()
-#include "twlm6023.h"									// hw bet. lcd and mcu
 
-	
+//	data =================================================================================
 
-// Continuous ASCII Code so use 2D Table
+//		Continuous ASCII Code so use 2D Table
 const unsigned char Font_Table[][8]=
 {
 	{ 0x00, 0x00, 0x14, 0x0E, 0x14, 0x00, 0x00, 0x00 },		// ASCII=0x2A
@@ -130,6 +134,8 @@ const unsigned char Font_EXC[]={ 00, 00, 00, 0x5e, 00, 00, 00, 00 };            
 const unsigned char ClearPaper[]={0};
 
 void wrTxLm6023(unsigned char wrAddr, unsigned char wrData);
+
+// methods ===============================================================================
 
 void scr_open(void)
 {
@@ -300,5 +306,3 @@ GrTextDrv(GR_COORD x, GR_COORD y, unsigned char font_code,
 				wrTxLm6023(0x01, *(p+i));
 			}
 }
-#endif
-
