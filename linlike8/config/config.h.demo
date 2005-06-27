@@ -5,7 +5,18 @@
  */
 
 // scheduling ===========================================================
-#define	SWITCH_CASE						1	// 1 as turn ON switch case mode, otherwise 0
+#define	SWITCH_CASE			1	// 1 as turn ON switch case mode, otherwise 0
+#define	CONTEXT_SW			0	// context switch enable
+
+#define	AUTO_ZERO			1	// init. data to zero
+								//	Some mcu system will clean all init. RAM to zero auto., however, some they don't
+								//	if already done, we can cut the init. code for variable = 0;, so define
+								//		0 as have not init to zero, must program code to do, i.e. variable = 0;
+								//		1 as already done auto zero from system, program code do not need
+
+// start function for user application ====================================
+extern void mwlike8_server(void);
+#define	idle_process()	mwlike8_server()
 
 // uart module ===========================================================
 #define	SERIAL_MOD						1
@@ -17,7 +28,7 @@
 #endif
 
 //	I2C module ===========================================================
-#define	I2C_MOD							1
+#define	I2C_MOD							0
 //		CAUTION : cannot enable master and slave at same time, otherwise system hang
 #if (I2C_MOD==1)
 //		master
@@ -40,7 +51,7 @@
 //			ljmp	_gpio_isr
 //		modify hw configuration depends on kb.h
 //		adding timer in TIMER_MOD
-#define	KB_MOD							1
+#define	KB_MOD							0
 #if (KB_MOD>0)
 //			enable all pins interrupt
 #define	PUSH_KEY	0
