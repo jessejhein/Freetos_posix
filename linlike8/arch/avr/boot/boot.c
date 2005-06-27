@@ -8,6 +8,8 @@
 
 extern void start_kernel(void);
 
+void main(void);
+
 void main()
 {
 // cpu hardware init
