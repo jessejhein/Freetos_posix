@@ -7,7 +7,7 @@
 // including, get data linking from others
 //==============================================================
 //	linlike8 configuration
-#include "config.h"
+#include <linlike8/config.h>
 //	this lib
 #include <unistd.h>
 #if (SERIAL_MOD>0)		

@@ -19,13 +19,13 @@
 //	this appl. layer configuration
 #include <pin_define.h>
 //	os config.
-#include "config.h"
+#include <linlike8/config.h>
 //	gui mwlike config.
 #include "config_mwlike8.h"
 #include "app.h"
 //	local declaration
 #include "nano-X.h"
-#include "gpio_kb_app.h"
+//#include "gpio_kb_app.h"
 //
 #include "sched.h"									// timer.h
 #include "timer.h"									// msleep()

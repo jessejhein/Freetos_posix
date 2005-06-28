@@ -5,7 +5,7 @@
  *
  */
 
-#include "config.h"
+#include <linlike8/config.h>
 #include "app.h"// may be remove later 
 
 extern void gpio_open(void);

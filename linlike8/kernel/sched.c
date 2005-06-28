@@ -9,7 +9,7 @@
 #include "app.h"
 #include "sched.h"
 #include "current.h"									// MUST be placed after sched.h
-#include "system.h"
+#include <asm/system.h>
 #include "timer.h"									// timer_list
 
 void sched_init(void);

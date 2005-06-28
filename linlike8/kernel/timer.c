@@ -11,15 +11,15 @@
 //	this appl. layer
 #include <pin_define.h>
 //	linlike8 configuration
-#include "config.h"
+#include <linlike8/config.h>
 //	mwlike8
-#include "gpio_kb_app.h"
+//#include "gpio_kb_app.h"
 #include "app.h"
 #include "sched.h"									// schedule_timeout()
 #include "current.h"									// current
 #include "interrupt.h"									// mark_bh()
 #include "timer.h"									// timer_list
-#include "system.h"									// sti()             
+#include <asm/system.h>								// sti
 #if (KB_MOD==1)
 	#include "gpio.h"
 #endif

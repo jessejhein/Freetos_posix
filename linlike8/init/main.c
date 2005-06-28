@@ -6,18 +6,20 @@
  */
 
 //	os config.
-#include "config.h"
-#include "app.h"
-#include "sched.h"
-#include "system.h"
+#include <linlike8/config.h>
+/*#include "app.h"
+#include "sched.h"*/
+#include <asm/system.h>								// sti
 
 void start_kernel(void);
 extern void setup_arch(void);
+#if (CONTEXT_SW==1)
 extern void sched_init(void);
-extern void softirq_init(void);
-#if (TIMER_MOD==1)
-extern void time_init(void);
 #endif
+extern void softirq_init(void);
+/*#if (TIMER_MOD==1)
+extern void time_init(void);
+#endif*/
 #if (CONTEXT_SW==1)
 void kernel_thread(void);
 #endif
@@ -25,7 +27,9 @@ void kernel_thread(void);
 void start_kernel(void)
 {
 	setup_arch();
+#if (CONTEXT_SW==1)
 	sched_init();									// <-+ this subr. must place as same layer of process0()
+#endif
 	//fork_init();									//   |
 	softirq_init();									//   |
 	#if (TIMER_MOD==1)

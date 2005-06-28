@@ -12,9 +12,9 @@
 
 // including, get data linking from others ===============================================
 //	linlike8 configuration
-#include "config.h"
+#include <linlike8/config.h>
 #include "app.h"
-#include "system.h"
+#include <asm/system.h>
 #if (SERIAL_MOD==1)
 #if (SWITCH_CASE==0)
 	#include "sched.h"								// linlike8 system

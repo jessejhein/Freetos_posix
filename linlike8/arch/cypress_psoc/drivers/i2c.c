@@ -20,7 +20,7 @@
 //	this appl. layer
 #include <pin_define.h>
 //	linlike8 configuration
-#include "config.h"
+#include <linlike8/config.h>
 #include "app.h"									// this linlike8
 
 #include "comm.h"

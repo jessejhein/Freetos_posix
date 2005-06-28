@@ -6,12 +6,14 @@
  *	fork new process
  */
 
+//	linlike8 configuration
+#include <linlike8/config.h>
+#if (CONTEXT_SW==1)
 #include "app.h"
 #include "sched.h"
 #include "current.h"									// MUST be placed after sched.h
 #include "system.h"									// MUST be placed after sched.h
 
-#if (CONTEXT_SW==1)
 		// process_num - hardcode number, beware to not double
 		// get the previous process stack size, then cal. the new process stack starting point
 void do_fork(unsigned char process_num, unsigned char prev_stack_size, p_func process)
