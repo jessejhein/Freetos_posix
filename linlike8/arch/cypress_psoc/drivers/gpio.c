@@ -21,9 +21,9 @@
 //	this appl. layer
 #include <pin_define.h>
 //	linlike8 configuration
-#include "config.h"
+#include <linlike8/config.h>
 //	mwlike8
-#include "gpio_kb_app.h"
+//#include "gpio_kb_app.h"
 #include "app.h"									// this linlike8
 #include <m8c.h>									// M8C_EnableIntMask()
 #include "interrupt.h"									// mark_bh()
@@ -166,7 +166,7 @@ void gpio_isr(void)
 */
 }
 
-void gpio_softirq(void)
+void io_softirq(void)
 {
 	
 #if (KB_MOD==1) 

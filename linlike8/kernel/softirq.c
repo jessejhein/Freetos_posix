@@ -5,20 +5,22 @@
  *
  */
 
-#include "app.h"
-#include "system.h"									// sti             
-#include "hardirq.h"									// irq_cpustat.h, in_interrupt
-#include "irq_cpustat.h"								// irq_cpustat_t
-#include "softirq.h"									// local_bh_disable
-#include "sched.h"									// schedule()
+//	os config.
+#include <linlike8/config.h>
+/*#include "app.h"*/
+#include <asm/system.h>								// sti
+#include <asm/hardirq.h>							// irq_cpustat.h, in_interrupt
+#include <linlike8/irq_cpustat.h>					// irq_cpustat_t
+#include <asm/softirq.h>							// local_bh_disable
+/*#include "sched.h"									// schedule()*/
 
-irq_cpustat_t irq_stat[1];								// must be '1', since linlike8 just support single MCU; where to init. in linux ???
+irq_cpustat_t irq_stat[1];							// must be '1', since linlike8 just support single MCU; where to init. in linux ???
 unsigned char softirq_vec;
 
 #if (TIMER_MOD==1)                    
 extern void timer_softirq(void);
 #endif                                                                   
-extern void gpio_softirq(void);
+extern void io_softirq(void);
 
 void softirq_init(void)
 {
@@ -30,15 +32,15 @@ void softirq_init(void)
 			
 void do_softirq(void)
 {
-	if (in_interrupt()) return;							// if any previous soft irq is running, avoid nesting, return to let it to run cont., current soft irq will be run after previous by looping
+	if (in_interrupt()) return;					// if any previous soft irq is running, avoid nesting, return to let it to run cont., current soft irq will be run after previous by looping
 	local_softirq_disable();
 	sti();										// start to enable interrupt again
 	while (softirq_vec) {
 #if (TIMER_MOD==1)                    
 		if (softirq_vec&0x01) {timer_softirq();softirq_vec&=~0x01;}		// timer is always has interrupt, so let it to chk and do 1st to reduce each interrupt time consuming
-		else if (softirq_vec&0x02) {gpio_softirq();softirq_vec&=~0x02;}
+		else if (softirq_vec&0x02) {io_softirq();softirq_vec&=~0x02;}
 #else
-		if (softirq_vec&0x02) {gpio_softirq();softirq_vec&=~0x02;}
+		if (softirq_vec&0x02) {io_softirq();softirq_vec&=~0x02;}
 #endif
 		//else if (softirq_vec&0x04) ;						// after complete one softirq, directly go to while loop goto chk and out
 		// ... 
