@@ -58,3 +58,16 @@ extern void mwlike8_server(void);
 //			enable 2 pins interrupt only: push key and pin A 
 #define	ROTARY_KEY	1
 #endif
+
+//	Timer module ========================================================
+//		you must modify boot.asm : "ljmp	_timer_interrupt"
+//			;ljmp	_Timer8_1_ISR
+//			ljmp	_timer_interrupt
+//		set the number of TIMER_OUT
+//			//KB_MOD
+//			on/off step timer
+#define	TIMER_MOD	1
+	#if (TIMER_MOD>0)
+	#define	NR_TIMER_OUT	0							// how many sleep() you can call
+			//	for mwlike8, you must have ONE NR_TIMER_OUT at least
+	#endif
