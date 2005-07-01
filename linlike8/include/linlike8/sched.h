@@ -9,6 +9,7 @@
  *
  */
 
+#if (CONTEXT_SW==1)
  											// state of process
 #define	TASK_RUNNING		0							//	ready for running / already in running
 #define	TASK_INTERRUPTIBLE	1							//	sleep mode, but can be wake up by signal
@@ -32,7 +33,9 @@ extern struct task_struct task[];
 
 //extern void wake_up_process(struct task_struct* p);
 #define	wake_up_process(p)	p->state = TASK_RUNNING
+#endif // (CONTEXT_SW==1)
 typedef void const (*p_func)(void);				// this specific for psoc, later to change to general
+#if (CONTEXT_SW==1)
 		// Description : fork a new process 
 		// Parameters : process_num - process number, manually to create this
 		//		prev_stack_size - stack size of previous process
@@ -41,6 +44,7 @@ extern void do_fork(unsigned char process_num, unsigned char prev_stack_size, p_
 //extern void sched_yield(void);
 #define	sched_yield()	schedule()
 extern void schedule(void);
+#endif // (CONTEXT_SW==1)
 
 #if (TIMER_MOD==1)
 extern unsigned char jiffies;

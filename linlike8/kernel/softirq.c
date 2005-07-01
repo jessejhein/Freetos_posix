@@ -17,9 +17,10 @@
 irq_cpustat_t irq_stat[1];							// must be '1', since linlike8 just support single MCU; where to init. in linux ???
 unsigned char softirq_vec;
 
-#if (TIMER_MOD==1)                    
+/*#if (TIMER_MOD==1)                    
 extern void timer_softirq(void);
 #endif                                                                   
+*/
 extern void io_softirq(void);
 
 void softirq_init(void)
@@ -35,7 +36,7 @@ void do_softirq(void)
 	if (in_interrupt()) return;					// if any previous soft irq is running, avoid nesting, return to let it to run cont., current soft irq will be run after previous by looping
 	local_softirq_disable();
 	sti();										// start to enable interrupt again
-	while (softirq_vec) {
+/*	while (softirq_vec) {
 #if (TIMER_MOD==1)                    
 		if (softirq_vec&0x01) {timer_softirq();softirq_vec&=~0x01;}		// timer is always has interrupt, so let it to chk and do 1st to reduce each interrupt time consuming
 		else if (softirq_vec&0x02) {io_softirq();softirq_vec&=~0x02;}
@@ -49,6 +50,6 @@ void do_softirq(void)
 	local_softirq_enable();
 #if (AUTO_SW_MOD==1)
 	schedule();
-#endif
+#endif*/
 }
 

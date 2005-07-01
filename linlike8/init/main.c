@@ -17,9 +17,9 @@ extern void setup_arch(void);
 extern void sched_init(void);
 #endif
 extern void softirq_init(void);
-/*#if (TIMER_MOD==1)
+#if (TIMER_MOD==1)
 extern void time_init(void);
-#endif*/
+#endif
 #if (CONTEXT_SW==1)
 void kernel_thread(void);
 #endif

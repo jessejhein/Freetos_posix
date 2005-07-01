@@ -9,17 +9,18 @@
 
 // including, get data linking from others ===============================================
 //	this appl. layer
-#include <pin_define.h>
+//#include <pin_define.h>
 //	linlike8 configuration
 #include <linlike8/config.h>
 //	mwlike8
 //#include "gpio_kb_app.h"
-#include "app.h"
-#include "sched.h"									// schedule_timeout()
-#include "current.h"									// current
-#include "interrupt.h"									// mark_bh()
-#include "timer.h"									// timer_list
-#include <asm/system.h>								// sti
+//#include "app.h"
+//	os header
+#include <linlike8/sched.h>							// schedule_timeout()
+//#include "current.h"								// current
+#include <linlike8/interrupt.h>							// mark_bh()
+#include <linlike8/timer.h>								// timer_list
+//#include <asm/system.h>								// sti
 #if (KB_MOD==1)
 	#include "gpio.h"
 #endif
@@ -68,12 +69,19 @@ void timer_softirq(void)
 		if (timer_vector[i]!=0) {
 			struct timer_list timer_event = *timer_vector[i];
 			if (timer_event.expires==jiffies) {
+#if (CONTEXT_SW==1)
+	#if (CYPRESS_PSOC_RAM_UNDER_256==1)
 				if ((timer_event.data.timer_data&0xff00)==0xff00) wake_up_process(((struct task_struct*) (&task[(timer_event.data.timer_data&0x00ff)]) ));// related to sched.c only
-//				if ((struct timer_list timer_vector[i])->data!=0) wake_up_process(((struct task_struct*) ((struct timer_list timer_vector[i])->data)));
+	#else
+				if ((struct timer_list timer_vector[i])->data!=0) wake_up_process(((struct task_struct*) ((struct timer_list timer_vector[i])->data)));
+	#endif
 				else {
+#endif	// (CONTEXT_SW==1)
 					timer_event.data.timer_function();
 					del_timer(i);
+#if (CONTEXT_SW==1)
 				}
+#endif	// (CONTEXT_SW==1)
 				//after timer interrupt, should have schedule again for updated process to run; do it in future; now just let programmer to yield other process, then run into this process again
 			}
 		}
@@ -81,7 +89,7 @@ void timer_softirq(void)
 //		gpio_var.timer_semop = 0;
 //	}
 	}
-#endif
+#endif	// (NR_TIMER_OUT>0)
 		
 #if (KB_MOD==1)
 #if (ROTARY_KEY==1)
@@ -132,7 +140,7 @@ void timer_softirq(void)
 		}			
 
 #endif
-#endif
+#endif	// (KB_MOD==1)
 
 }
 
@@ -152,16 +160,16 @@ char add_timer(struct timer_list* ptimer_addr)
 		//	however, compiler of psoc is don't care the higher byte in parameter input(RAM address data) in subr.
 		//	this compiler is still handle the higher byte when comparing RAM address data
 #else
-		if (timer_vector[i]==ptimer_addr)
+		if (timer_vector[(unsigned char)i]==ptimer_addr)
 #endif
 			return i;
 	for (i=0;i<NR_TIMER_OUT;i++)							//		find out the empty place for new timer
-		if (timer_vector[i]==0)
+		if (timer_vector[(unsigned char)i]==0)
 			break;
 	if (i==NR_TIMER_OUT) {
 		return (char) -1;
 	}
-	timer_vector[i] = ptimer_addr;
+	timer_vector[(unsigned char)i] = ptimer_addr;
 	return i;
 }
 
