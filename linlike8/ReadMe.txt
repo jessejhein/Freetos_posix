@@ -334,13 +334,6 @@ Interrupt
 Time Management
 * each tick between 10mSec
 * Flowing
-        * init.
-                +-------------------------------+
-                | arch/X/kernel/time.c::        |
-                |-------------------------------|
-                | time_init: (fr. start_kernel) |
-                |   timer hw init.              |
-                +-------------------------------+
         * interrupt 
                 +-------------------------------+       +-------------------------------+       +---------------------------------------+
                 | arch/X/kernel/time.c::        |       | kernel/timer.c::              |       | include/linlike8/interrupt.h::        |
