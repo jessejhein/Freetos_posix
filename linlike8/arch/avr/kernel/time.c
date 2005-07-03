@@ -33,13 +33,20 @@ void time_init(void)
 //		i.e. 100Hz, 100 times overflow per second inside timer
 //		1MHz(Sys. clk) / 1024(prescaler, TCCR = 101) ~= 1024; 1024/10 ~= 100
 //		so compare value is 10
-	TCCR0 = (1<<CS02)|(1<<CS00);				// set for 1024 prescaler
-	OCR0 = 10;
-	TIMSK = 1<<OCIE0;							// compare match enable
-	TIFR = 1<<OCF0;								// clr pending interrupt
+//			set for 1024 prescaler
+//			CTC mode
+	TCCR0 = (1<<CS02)|(1<<CS00)|(1<<WGM01);
+	OCR0 = 9;									// should be 10mSec, but not so accuracy, so use 9
+	//10;
+	TIMSK |= 1<<OCIE0;							// compare match enable
+	TIFR |= 1<<OCF0;							// clr pending interrupt
+	/////////////////////////////////// enable for overflow interrupt
+	//TIMSK |= 1<<TOIE0;
+	//TIFR |= 1<<TOV0;
 }
 #endif
 
+//INTERRUPT(SIG_OVERFLOW0)
 INTERRUPT(SIG_OUTPUT_COMPARE0)
 {
 	do_timer();									//	should in do_timer_interrupt(), timer interrupt code, need to complete in short time

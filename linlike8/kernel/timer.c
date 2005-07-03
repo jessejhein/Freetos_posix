@@ -77,8 +77,8 @@ void timer_softirq(void)
 	#endif
 				else {
 #endif	// (CONTEXT_SW==1)
+					del_timer(i);							// must del this timer 1st, since may be user code will re-add this timer again
 					timer_event.data.timer_function();
-					del_timer(i);
 #if (CONTEXT_SW==1)
 				}
 #endif	// (CONTEXT_SW==1)
@@ -210,6 +210,6 @@ char _malarm(p_func function, unsigned char jiffies_cnt, struct timer_list* time
 //	}
 //	return i;
 }
-#endif
+#endif // (NR_TIMER_OUT>0)
 #endif
 
