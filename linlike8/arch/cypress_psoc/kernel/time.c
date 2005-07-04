@@ -5,12 +5,17 @@
  *
  */
 
+// including, get data linking from others
+//==============================================================
+//	os config.
+#include <linlike8/config.h>
+
 #include <m8c.h>									// part specific constants and macros
 #include "PSoCAPI.h"									// PSoC API definitions for all User Modules
 
 #include "app.h"
 #include "sched.h"
-#include "interrupt.h"									// do_softirq
+#include <linlike8/interrupt.h>						// do_softirq
 #include "gpio.h"									// gpio_var.timer_10msec_f
 
 extern void do_IRQ(void);

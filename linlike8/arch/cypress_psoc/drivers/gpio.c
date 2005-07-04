@@ -26,8 +26,8 @@
 //#include "gpio_kb_app.h"
 #include "app.h"									// this linlike8
 #include <m8c.h>									// M8C_EnableIntMask()
-#include "interrupt.h"									// mark_bh()
-#include "gpio.h"									//
+#include <linlike8/interrupt.h>						// mark_bh()
+#include "gpio.h"									// 
 #if (KB_MOD==1)
 	#include "sched.h"									// schedule_timeout()
 	#include "timer.h"									// timer_list
