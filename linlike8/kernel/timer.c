@@ -18,7 +18,9 @@
 //	os header
 #include <linlike8/sched.h>							// schedule_timeout()
 //#include "current.h"								// current
+#if (TIMER_MOD==1)
 #include <linlike8/interrupt.h>							// mark_bh()
+#endif
 #include <linlike8/timer.h>								// timer_list
 //#include <asm/system.h>								// sti
 #if (KB_MOD==1)

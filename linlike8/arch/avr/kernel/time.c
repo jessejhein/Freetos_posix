@@ -12,7 +12,9 @@
 #include <avr/signal.h>								// interrupt signal
 //	os header
 #include <linlike8/sched.h>
+#if (TIMER_MOD==1)
 #include <linlike8/interrupt.h>
+#endif
 
 // data
 //==============================================================
@@ -44,7 +46,6 @@ void time_init(void)
 	//TIMSK |= 1<<TOIE0;
 	//TIFR |= 1<<TOV0;
 }
-#endif
 
 //INTERRUPT(SIG_OVERFLOW0)
 INTERRUPT(SIG_OUTPUT_COMPARE0)
@@ -52,3 +53,4 @@ INTERRUPT(SIG_OUTPUT_COMPARE0)
 	do_timer();									//	should in do_timer_interrupt(), timer interrupt code, need to complete in short time
 	do_softirq();								//	botton half of interrupt, if needed, enable interrupt in 2nd-half
 }
+#endif // (TIMER_MOD==1)
