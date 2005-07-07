@@ -8,13 +8,14 @@
 
 extern void start_kernel(void);
 
-void main(void);
+int main(void);
 
-void main()
+int main()
 {
 // cpu hardware init
 
 // goto init kernel
 //	need to improve to reduce stack usage, replaced by ljmp
 	start_kernel();					
+	return 0;
 }
