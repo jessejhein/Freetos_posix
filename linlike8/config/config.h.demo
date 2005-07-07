@@ -19,12 +19,11 @@ extern void mwlike8_server(void);
 #define	idle_process()	mwlike8_server()
 
 // uart module ===========================================================
-#define	SERIAL_MOD						1
-//#define	UART_MOD	0	==> adding this module default, later to adding this parameter
-#if (SERIAL_MOD>0)
+#define	UART_MOD						0
+#if (UART_MOD>0)
 //		uart buffer size
-	#define	MAX_SERIAL_BUF				12	// must >= 9 in laser control application
-	#define	MAX_SERIAL_TX_BUF			8	// >= 2
+	#define	MAX_UART_BUF				12	// must >= 9 in laser control application
+	#define	MAX_UART_TX_BUF				8	// >= 2
 //		RS485 mode
 	#define	RS485						0	// enable RS485 or not
 #endif
