@@ -73,3 +73,6 @@ extern void mwlike8_server(void);
 	#define	NR_TIMER_OUT			0				// how many sleep() you can call
 			//	for mwlike8, you must have ONE NR_TIMER_OUT at least
 	#endif
+
+//	eeprom module ========================================================
+#define	EEPROM_MOD					0
