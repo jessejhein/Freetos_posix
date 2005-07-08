@@ -33,7 +33,7 @@
 	#endif
 #include "serial.h"	
 #define MAX_DELAY	50											//delay for the write so that the receiver has enough time to analyse the data
-#define MAX_I2C_BUF	8
+#define MAX_I2C_BUF	10
 unsigned char i2c_rx_buf[MAX_I2C_BUF];							// buffer for data from master to this slave
 unsigned char i2c_tmp_buffer[MAX_I2C_BUF];						//buffer for the data store from the master temperately for the slave
 unsigned char i2c_tx_buf[MAX_I2C_BUF];							// buffer for data send to master from this slave
