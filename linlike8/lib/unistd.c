@@ -57,6 +57,7 @@ unsigned char ioctl(unsigned char device, unsigned char flag, unsigned char data
 //	write ================================================================================
 unsigned char write(char fd, unsigned char* ptr_pkg, unsigned char __n )	
 {
+#if ((SERIAL_MOD>0)||(I2C_MOD>0))
 	switch (fd) {
 #if (SERIAL_MOD>0)		
 		case UART0 : 
@@ -76,12 +77,14 @@ unsigned char write(char fd, unsigned char* ptr_pkg, unsigned char __n )
 			break;
 		#endif
 	}
+#endif
 	return 0;
 }
 
 //	read =================================================================================
 unsigned char read (unsigned char fd, unsigned char* ptr_pkg, unsigned char __n)	
 {
+#if ((SERIAL_MOD>0)||(I2C_MOD>0))
 	switch (fd) {
 		#if (SERIAL_MOD>0)		
 		 case UART0 : 
@@ -103,5 +106,6 @@ unsigned char read (unsigned char fd, unsigned char* ptr_pkg, unsigned char __n)
 			break;
 		#endif
 	}
+#endif
 	return 0;
 }
