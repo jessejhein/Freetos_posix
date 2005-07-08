@@ -24,6 +24,11 @@
 //		return the file descriptor, then let read/write to use this file descriptor
 extern char open(char what_device);
 
+#if (I2C_MOD==1)
+extern unsigned char i2c_slave_address;
+#endif
+
+
 //	io ctrl
 #if (I2C_MOD==1)
 extern unsigned char ioctl(unsigned char device, unsigned char flag, unsigned char data);
