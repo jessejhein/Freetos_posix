@@ -9,11 +9,11 @@
 
 // including, get data linking from others ===============================================
 //	this appl. layer
-//#include <pin_define.h>
+#include <pin_define.h>
 //	linlike8 configuration
 #include <linlike8/config.h>
 //	mwlike8
-//#include "gpio_kb_app.h"
+
 //#include "app.h"
 //	os header
 #include <linlike8/sched.h>							// schedule_timeout()
@@ -24,6 +24,7 @@
 #include <linlike8/timer.h>								// timer_list
 //#include <asm/system.h>								// sti
 #if (KB_MOD==1)
+	#include "gpio_kb_app.h"
 	#include "gpio.h"
 #endif
 

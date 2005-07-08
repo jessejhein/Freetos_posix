@@ -11,10 +11,10 @@
 #include <pin_define.h>
 
 #include "app.h"
-#include "sched.h"
+#include <linlike8\sched.h>
 #include "current.h"									// MUST be placed after sched.h
 #include <asm/system.h>
-#include "timer.h"									// timer_list
+#include <linlike8\timer.h>									// timer_list
 
 #if (CONTEXT_SW==1)
 void sched_init(void);

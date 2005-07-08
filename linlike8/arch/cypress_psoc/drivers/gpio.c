@@ -23,14 +23,14 @@
 //	linlike8 configuration
 #include <linlike8/config.h>
 //	mwlike8
-//#include "gpio_kb_app.h"
 #include "app.h"									// this linlike8
 #include <m8c.h>									// M8C_EnableIntMask()
 #include <linlike8/interrupt.h>						// mark_bh()
 #include "gpio.h"									// 
 #if (KB_MOD==1)
-	#include "sched.h"									// schedule_timeout()
-	#include "timer.h"									// timer_list
+	#include "gpio_kb_app.h"
+	#include <linlike8/sched.h>									// schedule_timeout()
+	#include <linlike8/timer.h>									// timer_list
 #endif
 
 //#include "psoc_gpio_bit.h"								// led_hw_off()

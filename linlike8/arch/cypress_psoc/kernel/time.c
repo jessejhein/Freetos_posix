@@ -14,7 +14,7 @@
 #include "PSoCAPI.h"									// PSoC API definitions for all User Modules
 
 #include "app.h"
-#include "sched.h"
+#include <linlike8/sched.h>
 #include <linlike8/interrupt.h>						// do_softirq
 #include "gpio.h"									// gpio_var.timer_10msec_f
 
