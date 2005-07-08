@@ -6,15 +6,19 @@
  *	09-04-2004	yan	create this following linux
  */
 
+// including, get data linking from others ===============================================
+//	appl. declaration
+#include <pin_define.h>
+
 #include "app.h"
 #include "sched.h"
 #include "current.h"									// MUST be placed after sched.h
 #include <asm/system.h>
 #include "timer.h"									// timer_list
 
+#if (CONTEXT_SW==1)
 void sched_init(void);
 struct task_struct task[NR_TASKS];
-#if (CONTEXT_SW==1)
 unsigned char current_ptr;
 unsigned char next_ptr;
 #endif
@@ -23,6 +27,7 @@ unsigned char next_ptr;
 extern void init_timer(void);
 #endif
 
+#if (CONTEXT_SW==1)
 void sched_init(void)
 {
 	//unsigned char cpu = smp_processor_id();					// get existing process id
@@ -35,14 +40,13 @@ void sched_init(void)
 				// the following does not same to linux
 				// init. process 0
 #if (AUTO_ZERO==0)
-#if (CONTEXT_SW==1)
 	current_ptr = 0;
 	next_ptr = 0;
-#endif
 #endif
 	get_process0_sp();								// task[0].stack_ptr = SP, since Process0 is also starting from this layer, see main.c
 	wake_up_process(current);
 }
+#endif	// (CONTEXT_SW==1)
 
 //void wake_up_process(struct task_struct* p)
 //{
