@@ -38,3 +38,31 @@ ln -s $1/config $2/
 cp -rf $1/math $2/
 cp -rf $1/images $2/
 cp -rf $1/index.php $2/
+
+#		after this script
+#		you need to install this wiki from the web page
+#		then add the following options:
+#
+#			Security
+#			# High Security : login user can view and edit only
+#			#*********************************************************
+#
+#			# no new user can register by themselve
+#			$wgWhitelistAccount = array ( "sysop" => 1, "developer" => 1 );
+#
+#			# Entirely disable Anonymous Edits
+#			$wgWhitelistEdit = true;
+#
+#			# Pages anonymous (not-logged-in) users may see the following pages ONLY
+#			$wgWhitelistRead = array ("Special:Userlogin", "Wikipedia:Help");
+#
+#			Graphic
+#			$wgUploadDirectory  = "$IP/../../var/www/XXX_wiki/images";
+#			
+#			AND
+#
+#			# Graphic
+#			#*********************************************************
+#
+#			include("extensions/Graphviz.php");
+#			$wgGraphVizSettings->dotCommand = "/usr/bin/dot";
