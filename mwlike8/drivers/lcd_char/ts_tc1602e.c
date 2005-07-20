@@ -10,9 +10,14 @@
                 //      * 24MHz cpu clk
  */
 
+// including, get data linking from others ===============================================
+//	this appl. layer
+#include <pin_define.h>
+//	gui mwlike config.
+#include "config_mwlike8.h"
+
 #include "app.h"									// linlike8 os
 
-#if (GUI_LCD==1)
 #include "nano-X.h"
 #include "system.h"									// cli()
 #include "ts_tc1602e.h"									// hw bet. lcd and mcu
@@ -114,6 +119,3 @@ GrTextDrv(GR_COORD x, GR_COORD y, unsigned char font_code,
 			 wr_ts_tc1602e(0, font_code);
 	}
 }
-
-#endif
-
