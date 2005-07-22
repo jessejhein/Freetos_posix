@@ -27,8 +27,8 @@
 #include "nano-X.h"
 //#include "gpio_kb_app.h"
 //
-#include "sched.h"									// timer.h
-#include "timer.h"									// msleep()
+#include <linlike8\sched.h>									// timer.h
+#include <linlike8\timer.h>									// msleep()
 //#include "psoc_gpio_bit.h"								// led_hw_off()
 #include "cirbuf.h"									// pre_wr_cir254buf()
 

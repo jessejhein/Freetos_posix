@@ -37,7 +37,7 @@
 
 #include "nano-X.h"
 #include "device.h"									// scr_open
-#include "system.h"									// cli()
+#include <asm\system.h>									// cli()
 
 //	data =================================================================================
 
