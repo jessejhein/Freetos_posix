@@ -70,10 +70,14 @@ Technical Info.
 			LED status array[LED_NUM]
 		chk event
 			timeout event
-				return timeout event
-				timeout event for internal
-					looping for all LEDs
-						do what LED status array[LED_NUM] ask to do
+			|	clear the repeat down key flag and repeat up key flag
+			|	or other flag
+			|	remark: without break for the timeout event, break it after the manual timeout event, therefore the manual timeout event can be called for a period of time
+			|--->manual timeout event
+			|			return timeout event
+			|			timeout event for internal
+			|			looping for all LEDs
+			|				do what LED status array[LED_NUM] ask to do
 			... event
 	ON/OFF/+ve pulse/-ve pulse LED(which led)
 		variables

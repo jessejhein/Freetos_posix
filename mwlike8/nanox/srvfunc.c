@@ -317,11 +317,11 @@ GrText(GR_COORD x, GR_COORD y, const unsigned char* str_ROM, unsigned char* str_
 }
 #endif
 
-void insert_event_timeout(void)
+void insert_event_timeout_manual(void)
 {
 	unsigned char i;
 	if ((i=pre_wr_cir254buf(ptr_events_vect.wr,ptr_events_vect.rd,NR_EVENT))!=255) {	// insert event
-		events_vect[ptr_events_vect.wr].type = GR_EVENT_TYPE_TIMEOUT;
+		events_vect[ptr_events_vect.wr].type = GR_EVENT_TYPE_TIMEOUT_MANUAL;
 		ptr_events_vect.wr = i;
 		//io_bit_ctrl.GrGetNextEventTimeout_status = 3;									// may be add this, see the performance
 	}

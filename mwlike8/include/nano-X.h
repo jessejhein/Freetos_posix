@@ -67,6 +67,7 @@ typedef void const (*p_funct_nano)(void);
 #define	GR_EVENT_TYPE_KEY_DOWN		2
 #define	GR_EVENT_TYPE_KEY_UP		3
 #define GR_EVENT_TYPE_TIMEOUT		4
+#define GR_EVENT_TYPE_TIMEOUT_MANUAL 5
 
 #include "device.h"									// GrBitmapDri()
 
@@ -87,7 +88,7 @@ extern void	GrGetNextEventTimeout(GR_EVENT *ep, GR_TIMEOUT timeout);
 //	NOT GR_EVENT_TYPE_NONE -- valid event
 extern GR_EVENT_TYPE GrGetNextEventTimeout(GR_EVENT *ep, GR_TIMEOUT timeout);
 #endif
-extern void insert_event_timeout(void);
+extern void insert_event_timeout_manual(void);
 
 // static events list
 extern GR_EVENT events_vect[];
