@@ -8,6 +8,7 @@
  *	PSoC
                 // chip's hardware setting
                 //      * 24MHz cpu clk
+ *	Hei	10-03-2005	modified for the cur position
  */
 
 // including, get data linking from others ===============================================
@@ -39,7 +40,7 @@ void scr_open(void)
 	wr_ts_tc1602e(1, 0x3c);
 	// usleep(40);
 	for (i=0;i<500;i++);
-	wr_ts_tc1602e(1, 0x0c);
+	wr_ts_tc1602e(1, 0x0f);					//modified for the cur position
 	// usleep(40);
 	for (i=0;i<500;i++);
 	wr_ts_tc1602e(1, 0x01);
@@ -117,5 +118,7 @@ GrTextDrv(GR_COORD x, GR_COORD y, unsigned char font_code,
 		default :
 			 wr_ts_tc1602e(1, 0x80 + x + y*0x40);
 			 wr_ts_tc1602e(0, font_code);
+			 wr_ts_tc1602e(1, 0x80 + x + (y)*0x40);
 	}
+	
 }
