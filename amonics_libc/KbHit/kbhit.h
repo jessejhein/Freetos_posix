@@ -5,13 +5,13 @@
  *
  *      Example(s)
  *      * step by step to use this module 
-                include "/home/open_data/MainData/KnowledgeDb/ComputerSysDevelopment/apps/kb/KbHit/kbhit.h"
+                include "kbhit.h"
                 char key_in;
                 init_keyboard();                        // init. keyboard
                 if (kbhit()==1) key_in = readch();      // if kbhit get a key, then call readch() to read that key
                 close_keyboard();                       // release keyboard setting for kbhit function
 	* in your linking, add
-		$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(OBJ) /home/open_data/MainData/KnowledgeDb/ComputerSysDevelopment/apps/kb/KbHit/kbhit.o
+		$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(OBJ) kbhit.o
  *
  *      Related Functions:   
  *
