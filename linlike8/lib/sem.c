@@ -37,18 +37,18 @@ int main()
 }
 #endif
 
-void sem_init(char* sem_var, unsigned char init_val)
+void sem_init(signed char* sem_var, unsigned char init_val)
 {
 	*sem_var = init_val;
 }
 
-char sem_trywait(char* sem_var)
+signed char sem_trywait(signed char* sem_var)
 {
 	if ((*sem_var-1)>=0) return --(*sem_var);
 	else return (char) -1;
 }
 
-void sem_post(char* sem_var)
+void sem_post(signed char* sem_var)
 {
 	++(*sem_var);
 }

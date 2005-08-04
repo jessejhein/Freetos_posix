@@ -7,12 +7,12 @@
  */
 
 // put the init. value into semaphore variable
-extern void sem_init(char* sem_var, unsigned char init_val);
+extern void sem_init(signed char* sem_var, unsigned char init_val);
 
 // return 
 //	-ve -- semaphore busy
 //	>=0 -- semaphore ready to use
-extern char sem_trywait(char* sem_var);
+extern signed char sem_trywait(signed char* sem_var);
 
-extern void sem_post(char* sem_var);
+extern void sem_post(signed char* sem_var);
 
