@@ -23,8 +23,8 @@
 #include <linlike8/config.h>
 #include "app.h"									// this linlike8
 
-#include "comm.h"
 #if (I2C_MOD==1)
+#include "comm.h"
 #include <m8c.h>									// part specific constants and macros
 #include "PSoCAPI.h"									// PSoC API definitions for all User Modules
 	#if (AUTO_SW_MOD==0)
