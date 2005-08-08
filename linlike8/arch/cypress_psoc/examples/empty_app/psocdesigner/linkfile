@@ -1,0 +1,6 @@
+-F0x30 -g -blit:0x150.0x7fff 
+ -bdata:0.0x6ff -bSSCParmBlk:0x00F7.0x00FF -BInterruptRAM:0 -Bvirtual_registers  
+ -Baaa_RAM 
+ -o"output/lsrctrl" 
+ ./obj/cirbuf.o ./obj/fork.o ./obj/gpio.o ./obj/i2c.o ./obj/main.o ./obj/maink.o ./obj/sched.o ./obj/sem.o ./obj/serial.o ./obj/setup.o ./obj/softirq.o ./obj/srvmain.o ./obj/time.o ./obj/timer.o ./obj/unistd.o ./obj/updownptr.o   
+ E:/YAN_EC~1/linlike8/arch/CYPRES~1/examples/EMPTY_~1/PSOCDE~1/lib/libPSoc.a -LC:/PROGRA~1/CYPRES~1/PSOCDE~1/tools/lib/LMM/eightpages C:/PROGRA~1/CYPRES~1/PSOCDE~1/tools/lib/CY8C29000/cms.a  

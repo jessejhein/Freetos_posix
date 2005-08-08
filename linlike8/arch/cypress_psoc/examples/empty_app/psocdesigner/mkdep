@@ -1,0 +1,15 @@
+-a -f project.dep -p./lib/obj/ -o.o -- -IC:/PROGRA~1/CYPRES~1/PSOCDE~1/tools/include -I./lib -IC:/PROGRA~1/CYPRES~1/PSOCDE~1/tools/include/CY8C29~1 -- 
+lib/adcinc14_1.asm   
+lib/adcinc14_1int.asm   
+lib/dac9_1.asm   
+lib/dac9_2.asm   
+lib/pga_1.asm   
+lib/pga_2.asm   
+lib/psocconfig.asm   
+lib/psocconfigtbl.asm   
+lib/psocgpioint.asm   
+lib/timer8_1.asm   
+lib/timer8_1int.asm   
+lib/uart_1.asm   
+lib/uart_1int.asm   
+lib/uart_1plus.asm 
