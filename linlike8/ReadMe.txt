@@ -49,17 +49,6 @@ Version Number (0.01.XX is testing version, 0.02.XX will be stable version)
                 * contains code to swtich 2 processes by yield() and do it mannually by programmer
 
 ========================================================================================================
-Description 
-* the name of this os as linux like os in 8-bit mcu
-* This os runs inside small mcu devices, most are 8-bit mcu, such as 51 family, Cypress PSoC ...
-* Linux like os, since Linux can't support this small device, but want to keep likely linux and easy to port the application back to linux 
-	* such as
-		* coding style
-		* API name (i.e. POSIX API)
-		* ... 
-        * it is because linux is a open source and very good os, we choose it, and we do not need to maintain a os by ourself, we can concentrate in development applications. However, we hope the application code can be re-used, and we also have 8-bit mcu application, so we develope a linux like os in 8-bit. 
-
-========================================================================================================
 Features 
 * context switch OR switch case mode
 * manually to yield running process switching to next process
