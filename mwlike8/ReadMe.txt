@@ -13,11 +13,6 @@ Version Number (0.01.XX is testing version, 0.02.XX will be stable version)
         		* working version before May 2005
 
 ========================================================================================================
-Description 
-* this mwlike8 aims to make microwindows work in 8-bit mcu
-* this system provides any ui interface
-
-========================================================================================================
 Requirements
 * fixable to control number of LED(s) in ON, OFF, +ve pulse and -ve pulse
 
