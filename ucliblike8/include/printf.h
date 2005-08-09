@@ -53,13 +53,14 @@
 *	MUST provide enough buffer (char* out) to hold the char. data, eg. 3456, must provide 5 bytes including '\0'
 */
 
-	// Parameters for this module
+// 	Parameters for this module
 
-		// modules, if do not any module, set it to zero, then reduce code size
+// 		modules, if do not any module, set it to zero, then reduce code size
 #define	INTEGER			1
 #define FLOAT			0
-	// declarations
+// 	declarations
 
+//		"out" must point to a valid buffer, otherwise Segmentation fault
 #if (INTEGER==1)
 extern void print_integer(char* out, const char* flag_ptr, int i);
 #endif
