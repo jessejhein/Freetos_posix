@@ -10,9 +10,9 @@
 #include <linlike8/config.h>
 //	this lib
 #include <unistd.h>
-#if (SERIAL_MOD>0)		
+#if (UART_MOD>0)		
 //	uart
-#include "serial.h"
+#include "uart.h"
 #endif
 #if (I2C_MOD>0)		
 //	i2c
@@ -57,9 +57,9 @@ unsigned char ioctl(unsigned char device, unsigned char flag, unsigned char data
 //	write ================================================================================
 unsigned char write(char fd, unsigned char* ptr_pkg, unsigned char __n )	
 {
-#if ((SERIAL_MOD>0)||(I2C_MOD>0))
+#if ((UART_MOD>0)||(I2C_MOD>0))
 	switch (fd) {
-#if (SERIAL_MOD>0)		
+#if (UART_MOD>0)		
 		case UART0 : 
 			return uart_write_complete(ptr_pkg, __n);
 //			 ** MUST modify serial_write_complete() has same return to write() in posix **
@@ -84,9 +84,9 @@ unsigned char write(char fd, unsigned char* ptr_pkg, unsigned char __n )
 //	read =================================================================================
 unsigned char read (unsigned char fd, unsigned char* ptr_pkg, unsigned char __n)	
 {
-#if ((SERIAL_MOD>0)||(I2C_MOD>0))
+#if ((UART_MOD>0)||(I2C_MOD>0))
 	switch (fd) {
-		#if (SERIAL_MOD>0)		
+		#if (UART_MOD>0)		
 		 case UART0 : 
 			return uart_read(ptr_pkg);
 			 //** MUST modify read() has same return to read() in posix **
