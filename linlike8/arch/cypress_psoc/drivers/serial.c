@@ -15,7 +15,7 @@
 #include <linlike8/config.h>
 #include "app.h"
 #include <asm/system.h>
-#if (SERIAL_MOD==1)
+#if (UART_MOD==1)
 #if (SWITCH_CASE==0)
 	#include "sched.h"								// linlike8 system
 	#include "timer.h"
@@ -23,12 +23,12 @@
 #include "cirbuf.h"									// pre_wr_cir254buf()
 #include "uart_1.h"
 
-unsigned char serial_rx_buf[MAX_SERIAL_BUF];
+unsigned char serial_rx_buf[MAX_UART_BUF];
 struct {
 	unsigned	wr :4;
 	unsigned	rd :4;
 } serial_rx;
-unsigned char serial_tx_buf[MAX_SERIAL_TX_BUF];
+unsigned char serial_tx_buf[MAX_UART_TX_BUF];
 struct {
 	unsigned	wr :3;								// max. of tx buf. is 7
 	unsigned	rd :4;
@@ -60,10 +60,10 @@ void uart_open(void)
 #pragma	interrupt_handler	serial_tx_isr						// shouald add this isr name at boot.asm from PSoC Designer
 void serial_tx_isr(void)
 {
-#if (SERIAL_MOD==1)
+#if (UART_MOD==1)
 	unsigned char k;
 	if (bUART_1_ReadTxStatus() & UART_TX_BUFFER_EMPTY) {
-		if ((k=pre_rd_cir254buf((unsigned char)serial_tx.wr,(unsigned char)serial_tx.rd,MAX_SERIAL_TX_BUF))!=255) {
+		if ((k=pre_rd_cir254buf((unsigned char)serial_tx.wr,(unsigned char)serial_tx.rd,MAX_UART_TX_BUF))!=255) {
 			UART_1_SendData(serial_tx_buf[(unsigned char)serial_tx.rd]);
 			serial_tx.rd = (unsigned)k;
 		} else serial_tx.tx_complete_flag = 1;					// change to empty of tx
@@ -74,12 +74,12 @@ void serial_tx_isr(void)
 #pragma	interrupt_handler	serial_rx_isr						// shouald add this isr name at boot.asm from PSoC Designer
 void serial_rx_isr(void)
 {
-#if (SERIAL_MOD==1)
+#if (UART_MOD==1)
 	unsigned char i;
 	unsigned char bRxStatus;
 	if ( bRxStatus=bUART_1_ReadRxStatus() & UART_RX_COMPLETE ) {
 		if ( ! (bRxStatus & UART_RX_NO_ERROR) ) {
-			if ((i=pre_wr_cir254buf(serial_rx.wr,serial_rx.rd,MAX_SERIAL_BUF))!=255) {
+			if ((i=pre_wr_cir254buf(serial_rx.wr,serial_rx.rd,MAX_UART_BUF))!=255) {
 				serial_rx_buf[serial_rx.wr] = bUART_1_ReadRxData();
 				serial_rx.wr = i;
 			} else bUART_1_ReadRxData();					// any cases, i must need to clear the UART rx register data, then prepare for next interrupt
@@ -88,7 +88,7 @@ void serial_rx_isr(void)
 #endif
 }
 
-#if (SERIAL_MOD==1)
+#if (UART_MOD==1)
 unsigned char uart_write(unsigned char *__buf, unsigned char __n)
 {
 	unsigned char i;
@@ -106,7 +106,7 @@ unsigned char uart_write(unsigned char *__buf, unsigned char __n)
 		var = 0;
 	}
 	for (;var<__n;var++) {
-		if ((i=pre_wr_cir254buf((unsigned char)serial_tx.wr,(unsigned char)serial_tx.rd,MAX_SERIAL_TX_BUF))!=255) {
+		if ((i=pre_wr_cir254buf((unsigned char)serial_tx.wr,(unsigned char)serial_tx.rd,MAX_UART_TX_BUF))!=255) {
 			serial_tx_buf[serial_tx.wr] = *(__buf+var);
 			serial_tx.wr = i;
 		} else break;
@@ -126,7 +126,7 @@ unsigned char uart_read(unsigned char *__buf)//<rec 1 byte,add>
 	unsigned char k;
 	//<rec 1 byte,remove>unsigned char j;
 	//<rec 1 byte,remove>for (j=0;j<__n;j++) {
-		if ((k=pre_rd_cir254buf(serial_rx.wr,serial_rx.rd,MAX_SERIAL_BUF))!=255) {
+		if ((k=pre_rd_cir254buf(serial_rx.wr,serial_rx.rd,MAX_UART_BUF))!=255) {
 			//<rec 1 byte,remove>*(__buf+j) = serial_rx_buf[serial_rx.rd];
 			*(__buf) = serial_rx_buf[serial_rx.rd];//<rec 1 byte,add>
 			serial_rx.rd = k;
