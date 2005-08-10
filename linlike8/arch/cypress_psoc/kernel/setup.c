@@ -9,7 +9,7 @@
 #include "app.h"// may be remove later 
 
 extern void gpio_open(void);
-#if (SERIAL_MOD==1)
+#if (UART_MOD==1)
 extern void uart_open(void);
 #endif
 #if (I2C_MOD==1)
@@ -25,7 +25,7 @@ void setup_arch(void)
 //#if (KB_MOD==1)
 //	kb_open();
 //#endif
-#if (SERIAL_MOD==1)
+#if (UART_MOD==1)
 	uart_open();
 #endif
 #if (I2C_MOD==1)
