@@ -29,6 +29,14 @@ extern void mwlike8_server(void);
 	#define	MAX_UART_TX_BUF				8	// >= 2
 //		RS485 mode
 	#define	RS485						0	// enable RS485 or not
+//		uart master
+#define	UART_MASTER						1 
+//		uart slave 
+#define UART_SLAVE						0
+#if (UART_SLAVE == 1)
+		#define LOCAL_SLAVE_ID			1
+#endif
+
 #endif
 
 //	I2C module ===========================================================
