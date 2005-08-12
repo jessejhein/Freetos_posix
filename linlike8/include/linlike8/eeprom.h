@@ -9,9 +9,14 @@
 //	init
 extern void eeprom_init(void);
 
+// parameters
+//	addr -- offset value inside eeprom
+//	buf -- pointer of RAM buf. which copy to their after read fr. eeprom
+//	n -- counter
 // return 
 //	0 -- completed
-//	non- 0, busy
-extern unsigned char eeprom_write(void *buf, void *addr, unsigned char n);
-
-extern unsigned char eeprom_read(void *buf, void *addr, unsigned char n);
+//	+ve -- busy
+//	-ve -- error
+// Remarks : no err. handle, so please make sure all parameter is valid data
+extern unsigned char eeprom_write(void *buf, unsigned char addr, unsigned char n);
+extern unsigned char eeprom_read(void *buf, unsigned char addr, unsigned char n);
