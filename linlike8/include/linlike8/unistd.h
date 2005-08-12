@@ -15,6 +15,7 @@
 #define	UART1	1
 #define	I2C0	2
 
+
 //	methods ===========================================================
 
 //	device open ==========================================================================
@@ -24,13 +25,13 @@
 //		return the file descriptor, then let read/write to use this file descriptor
 extern char open(char what_device);
 
-#if (I2C_MOD==1)
-extern unsigned char i2c_slave_address;
+#if (I2C_MOD==1||UART_MOD==1)
+extern unsigned char slave_address;
 #endif
 
 
 //	io ctrl
-#if (I2C_MOD==1)
+#if (I2C_MOD==1||UART_MOD==1)
 extern unsigned char ioctl(unsigned char device, unsigned char flag, unsigned char data);
 #endif
 
@@ -39,7 +40,9 @@ extern unsigned char ioctl(unsigned char device, unsigned char flag, unsigned ch
 //		fd -- open() init. this file descriptor, write() will write data into this file descriptor
 //	return
 //		number of bytes actually written to the file associated with fildes
-extern unsigned char write(char fd, unsigned char* ptr_pkg, unsigned char __n);
+#if ((UART_MOD>0)||(I2C_MOD>0))
+extern unsigned char write(char fd, unsigned char* ptr_pkg, unsigned char __n,struct WR_COMPL_VAR *tmp_uart);
+#endif
 
 //	serial write
 //	return

@@ -28,10 +28,9 @@
 #include <m8c.h>									// part specific constants and macros
 #include "PSoCAPI.h"									// PSoC API definitions for all User Modules
 	#if (AUTO_SW_MOD==0)
-#include "sched.h"								// linlike8 system
-#include "timer.h"
+#include <linlike8/sched.h>									// timer
+#include <linlike8/timer.h>
 	#endif
-#include "serial.h"	
 #define MAX_DELAY	50											//delay for the write so that the receiver has enough time to analyse the data
 #define MAX_I2C_BUF	10
 unsigned char i2c_rx_buf[MAX_I2C_BUF];							// buffer for data from master to this slave
