@@ -22,7 +22,7 @@
 *
 */
 
-#include <ucliblike8/include/printf.h>
+#include <ucliblike8/include/ucliblike8_config.h>
 
 struct format_flag {
 	unsigned	pad_left :1 ;							// 0 - right justify, 1 - left justify
@@ -82,32 +82,72 @@ struct format_flag format_manipulate(const char* flag_ptr)
 	return flag;
 }
 
-#if (INTEGER==1)
-void print_i(char* out, struct format_flag flag, int i)
+#if ((INTEGER==1) || (HEX==1))
+void print_i(char* out, struct format_flag flag, int i, unsigned char base)
 {
-	#define	base	10
-	char padchar;
+//	assume
+//		flag.width is 8
+//	remarks
+//		E -- empty
+//		N -- NULL
+//		0 -- '0' char
+//		X -- valid data, but we don't care
+//		- -- '-' char
 
+	char padchar;
+	unsigned char tmp_a;
+	
 #if (FLOAT==1)
 	if (flag.fulldec) goto next;
 #endif
 
-	*(out + flag.width--) = '\0';							// place a NULL at the end of string
+//				out			 	out + flag.width
+//				|			 	|
+//				v			 	v
+//	out buf.	E E E E E E E E E
+	*(out + flag.width--) = '\0';								// place a NULL at the end of string
+//							  out + flag.width--
+//							  |
+//							  v
+//	out buf.	E E E E E E E E N
 
+//	if -ve value, change to +ve, but keep -ve flag
 #if (FLOAT==1)
 next:
 #endif
-		if (i<0) {									// -ve number
+	if (i<0) {													// -ve number
 		i = -i;
 		flag.neg = 1;
 	}
-	if (i==0) *(out + flag.width--) = '0';						//if i=0
 
-	while (i) {									// convert the integer number to string
-		*(out + flag.width--) = (i % base) + '0';
+//	if zero value
+	if (i==0) *(out + flag.width--) = '0';						// if i=0
+//							out + flag.width--
+//							|
+//							v
+//	out buf.	E E E E E E E 0 N
+
+	while (i) {													// convert the integer number to hex string
+		tmp_a = i % base;
+#if (HEX==1)
+		if (tmp_a<10)
+#endif
+			*(out + flag.width--) = tmp_a + '0';	//	hex string under 10, such as 0, 1 ...
+#if (HEX==1)
+		else *(out + flag.width--) = (tmp_a - 10) + 'A';		//	hex string greater than 10, such as A, B ...
+#endif
 		i /= base;
 	}
+//					  	out + flag.width--
+//					  	|
+//					  	v
+//	out buf.	E E E E E X X X N
+
 	if (flag.neg) *(out + flag.width--) = '-';
+//					  out + flag.width--
+//					  |
+//					  v
+//	out buf.	E E E E - X X X N
 
 #if (FLOAT==1)
 	for(;flag.add_zero;flag.add_zero--){						// add zero for 1.005,1.05,1.012 etc
@@ -120,40 +160,48 @@ next:
 	}
 #endif
 
-	if (++flag.width) {								// if not fit to width, place something in the space
-											//	since the above ++flag.width, so i must adjust back to right position
-//	printf("flagwidth=%d\n",flag.width);						//check point only
+	if (++flag.width) {											// if not fit to width, place something in the space
+																//	since the above ++flag.width, so i must adjust back to right position
 
-
-		if (flag.pad_left) {							// left justify and width value > real width
-			unsigned char j = 0;						//	adding one to flag.width 1st, because
-			char tmp;							//	if fit of digial placement, ++flag.width == 0
+		if (flag.pad_left) {									// left justify and width value > real width
+			unsigned char j = 0;								//	adding one to flag.width 1st, because
+			char tmp;											//	if fit of digial placement, ++flag.width == 0
 			do {
 				tmp = *(out + flag.width + j);
 				*(out + j) = tmp;
 				j++;
-			} while (tmp);							//	chk '\0'
+			} while (tmp);										//	chk '\0'
 		} else {
 			if ((!flag.neg)||(!flag.pad_zero)) flag.width--;
-			if (flag.pad_zero) padchar = '0';				// place zero for empty space and width value > real width
+			if (flag.pad_zero) padchar = '0';					// place zero for empty space and width value > real width
 			else padchar = ' ';
 			do {
 				*(out + flag.width) = padchar;
 				if (flag.width) flag.width--;
 				else break;
 			} while (1);
-			if ((flag.neg)&&(flag.pad_zero)) *out = '-';			//	should be *(out + flag.width), but flag.width must be zere
+			if ((flag.neg)&&(flag.pad_zero)) *out = '-';		//	should be *(out + flag.width), but flag.width must be zere
 		}
 	}
+	
 #if (FLOAT==1)
 complete:		flag.dp=0;
 #endif
 }
+#endif
 
 
+#if (INTEGER==1)
 void print_integer(char* out, const char* flag_ptr, int i)
 {
-	print_i(out,format_manipulate(flag_ptr),i);
+	print_i(out,format_manipulate(flag_ptr),i, 10);
+}
+#endif
+
+#if (HEX==1)
+void print_hex(char* out, const char* flag_ptr, int i)
+{
+	print_i(out,format_manipulate(flag_ptr),i, 16);
 }
 #endif
 
