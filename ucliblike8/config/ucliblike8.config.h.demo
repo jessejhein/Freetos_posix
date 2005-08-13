@@ -1,0 +1,10 @@
+/*
+ * header of configuration for ucliblike8
+ * i.e. Parameters
+ *
+ */
+
+//	modules, if do not any module, set it to zero, then reduce code size
+#define	INTEGER			0				// base 10
+#define	HEX				0				// base 16
+#define FLOAT			0				// base 10
