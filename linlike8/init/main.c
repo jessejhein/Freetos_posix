@@ -7,6 +7,9 @@
 
 //	os config.
 #include <linlike8/config.h>
+#if (EEPROM_MOD==1)
+#include <linlike8/eeprom.h>
+#endif
 /*#include "app.h"
 #include "sched.h"*/
 #include <asm/system.h>								// sti
@@ -26,7 +29,12 @@ void kernel_thread(void);
 
 void start_kernel(void)
 {
-	setup_arch();
+	setup_arch();									// arch. depend. setup
+													// common device setup
+#if (EEPROM_MOD==1)
+	eeprom_init();
+#endif
+	
 #if (CONTEXT_SW==1)
 	sched_init();									// <-+ this subr. must place as same layer of process0()
 #endif
