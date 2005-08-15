@@ -5,6 +5,8 @@
 
 // including, get data linking from others
 //==============================================================
+//	os config.
+#include <linlike8/config.h>
 //	avr sys
 #include <m8c.h> 
 #include "PSoCAPI.h"									// PSoC API definitions for all User Modules
@@ -15,6 +17,7 @@
 // methods
 //==============================================================
 
+#if (EEPROM_MOD==1)
 void eeprom_init(void)
 {
 	E2PROM_1_Start();
@@ -30,3 +33,4 @@ unsigned char eeprom_read(void *buf, unsigned char addr, unsigned char n)
 	E2PROM_1_E2Read(addr, buf, n);
 	return 0;
 }
+#endif
