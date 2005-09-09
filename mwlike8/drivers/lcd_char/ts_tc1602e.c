@@ -21,7 +21,6 @@
 
 #include "nano-X.h"
 #include "system.h"									// cli()
-#include "ts_tc1602e.h"									// hw bet. lcd and mcu
 
 #define	CLEAR_PAPER	0x01
 const unsigned char ClearPaper[]={CLEAR_PAPER};
