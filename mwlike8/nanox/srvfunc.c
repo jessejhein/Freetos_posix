@@ -41,7 +41,7 @@ p_funct_nano leds_off_drv[IO_NUM];
 p_funct_nano funct_ptr;
 unsigned char led_status[IO_NUM];
 
-#define	CHK_EVENT_CYCLE_TIME	512
+#define	CHK_EVENT_CYCLE_TIME	512						// this value suitable for one pulse beep
 
 
 		// LED and Buzzer
@@ -246,10 +246,10 @@ GR_EVENT_TYPE GrGetNextEventTimeout(GR_EVENT *ep, GR_TIMEOUT timeout)
 		//			 ggnet_i++;
 		//			 io_bit_ctrl.GrGetNextEventTimeout_status = 1;
 		//		 }
-		//43	 } else {	
+		//	 } else {	
 				*ep = events_vect[(unsigned char) ptr_events_vect.rd];
 				ptr_events_vect.rd = k;
-				//io_bit_ctrl.GrGetNextEventTimeout_status = 3;			// others event, check for timeout event again next time
+				//io_bit_ctrl.GrGetNextEventTimeout_status = 3;			// others event, check for timeout event again next time, to protect timeout event is more accuracy, avoid too many other events(such as key-input), then delay timeout event
 			} else if (ggnet_i==timeout/TIME_OUT_INTERVAL) {
 				ep->type = GR_EVENT_TYPE_TIMEOUT;
 				io_bit_ctrl.GrGetNextEventTimeout_status = 0;			// after timeout, goto very beginning
@@ -259,27 +259,21 @@ GR_EVENT_TYPE GrGetNextEventTimeout(GR_EVENT *ep, GR_TIMEOUT timeout)
 			}
 
 #if (IO_MOD>0)
-			 // i/o control job
-			for (k=0;k<IO_NUM;k++) {
-				switch (led_status[k]) {
-					case LED_OFF :
-						funct_ptr = leds_off_drv[k];
-						funct_ptr();
-						break;
-					case LED_POS_PULSE :
-						funct_ptr = leds_on_drv[k];
-						funct_ptr();
-						led_status[k] = LED_OFF;
-						break;
-					case LED_ON :
-						funct_ptr = leds_on_drv[k];
-						funct_ptr();
-						break;
-					case LED_NEG_PULSE :
-						funct_ptr = leds_off_drv[k];
-						funct_ptr();
-						led_status[k] = LED_ON;
-						break;
+			if (io_bit_ctrl.GrGetNextEventTimeout_status!=3) {
+				for (k=0;k<IO_NUM;k++) {								// i/o control job
+					switch (led_status[k]) {
+						case LED_NEG_PULSE :
+							led_status[k] = LED_ON;
+						case LED_OFF :
+							funct_ptr = leds_off_drv[k];
+							break;
+						case LED_POS_PULSE :
+							led_status[k] = LED_OFF;
+						case LED_ON :
+							funct_ptr = leds_on_drv[k];
+							break;
+					}
+					funct_ptr();
 				}
 			}
 #endif	// end of #if (IO_MOD>0)
