@@ -10,15 +10,15 @@
 #include <linlike8/config.h>
 #if (UART_MOD>0)		
 //	uart
-#include "uart.h"
+#include <linlike8/uart.h>
 #endif
 #if (I2C_MOD>0)		
 //	i2c
 #include "i2c.h"
 #endif
-
 //	this lib
 #include <unistd.h>
+
 // data
 //==============================================================
 
@@ -26,7 +26,6 @@
 #if (I2C_MOD==1||UART_MOD==1)
 unsigned char	slave_address; 
 #endif
-
 
 // methods
 //========================================================================================
@@ -63,7 +62,7 @@ unsigned char ioctl(unsigned char device, unsigned char flag, unsigned char data
 #endif
 
 //	write ================================================================================
-unsigned char write(char fd, unsigned char* ptr_pkg, unsigned char __n,struct WR_COMPL_VAR *tmp_uart)
+unsigned char write(char fd, unsigned char* ptr_pkg, unsigned char __n, struct WR_COMPL_VAR *tmp_uart)
 {
 #if ((UART_MOD>0)||(I2C_MOD>0))
 	switch (fd) {
