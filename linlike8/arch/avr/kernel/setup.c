@@ -13,6 +13,10 @@
 //	eeprom
 #include <linlike8/eeprom.h>
 #endif
+#if (UART_MOD==1)
+//	eeprom
+#include <linlike8/uart.h>
+#endif
 
 // methods ==============================================================================
 
@@ -20,6 +24,9 @@ void setup_arch(void)
 {
 #if (EEPROM_MOD==1)
 	eeprom_init();
+#endif
+#if (UART_MOD==1)
+	uart_open();
 #endif
 }
 
