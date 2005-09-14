@@ -8,10 +8,11 @@
  */
 
 // including, get data linking from others ===============================================
-//	this appl. layer
-#include <pin_define.h>
 //	linlike8 configuration
 #include <linlike8/config.h>
+//	this appl. layer
+#include <gsm_master/pin_define.h>
+
 //	mwlike8
 
 //#include "app.h"
@@ -33,7 +34,7 @@
 #if (AUTO_ZERO==1)
 unsigned char jiffies;
 #else
-unsigned char jiffies = 0;								// 9-bit, so can handle 2^8 * 10mSec =  days; if type is be modified, change MAX_JIFFY_OFFSET also in include/linlike8/time.h
+unsigned char jiffies = 0;								// 8-bit, so can handle 2^8 * 10mSec =  days; if type is be modified, change MAX_JIFFY_OFFSET also in include/linlike8/time.h
 #endif
 
 #if (NR_TIMER_OUT>0)
