@@ -22,7 +22,7 @@
 *
 */
 
-#include <ucliblike8/include/ucliblike8_config.h>
+#include <ucliblike8/ucliblike8_config.h>
 
 struct format_flag {
 	unsigned	pad_left :1 ;							// 0 - right justify, 1 - left justify
