@@ -10,10 +10,17 @@ extern void start_kernel(void);
 
 int main(void);
 
+void delay_loop(void)
+{
+	unsigned int i;
+	for (i=0;i<60000;i++);
+}
+
 int main()
 {
 // cpu hardware init
-
+	delay_loop();								// wait power and whole cpu to stable
+	
 // goto init kernel
 //	need to improve to reduce stack usage, replaced by ljmp
 	start_kernel();					
