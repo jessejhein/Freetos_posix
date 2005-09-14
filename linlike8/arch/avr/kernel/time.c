@@ -33,13 +33,12 @@ void time_init(void)
 {
 //	i need 10mSec to interrupt once
 //		i.e. 100Hz, 100 times overflow per second inside timer
-//		1MHz(Sys. clk) / 1024(prescaler, TCCR = 101) ~= 1024; 1024/10 ~= 100
-//		so compare value is 10
+//		8MHz(Sys. clk) / 1024(prescaler, TCCR = 101) ~= 8x1024Hz, 1/(8x1024)Hz~=0.1mSec; 0.1mSecx100=10mSec
+//		so compare value is 100
 //			set for 1024 prescaler
 //			CTC mode
 	TCCR0 = (1<<CS02)|(1<<CS00)|(1<<WGM01);
-	OCR0 = 9;									// should be 10mSec, but not so accuracy, so use 9
-	//10;
+	OCR0 = 82;									// should be 10mSec, but not so accuracy, so use 82 by tuning
 	TIMSK |= 1<<OCIE0;							// compare match enable
 	TIFR |= 1<<OCF0;							// clr pending interrupt
 	/////////////////////////////////// enable for overflow interrupt
@@ -48,7 +47,7 @@ void time_init(void)
 }
 
 //INTERRUPT(SIG_OVERFLOW0)
-INTERRUPT(SIG_OUTPUT_COMPARE0)
+SIGNAL(SIG_OUTPUT_COMPARE0)
 {
 	do_timer();									//	should in do_timer_interrupt(), timer interrupt code, need to complete in short time
 	do_softirq();								//	botton half of interrupt, if needed, enable interrupt in 2nd-half
