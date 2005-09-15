@@ -103,11 +103,19 @@ SIGNAL(SIG_UART_DATA)								// chk this in include/avr/iom8535.h
 		UCSRB &= ~(1<<UDRIE);         					// Disable UDRE interrupt
 		uart_tx.tx_complete_flag = 1;					// change to empty of tx
 #if (RS485==1)
-		RX_485_DATA();									// set back to rec. mode
+		UCSRB |= (1<<TXCIE);                   			// Enable UART completed interrupt
 #endif
 	}
 #endif
 }
+
+#if (RS485==1)
+SIGNAL(SIG_UART_TRANS)								// chk this in include/avr/iom8535.h
+{
+	UCSRB &= ~(1<<TXCIE);							// after complete tx all, disable rs485 tx ctrl
+	RX_485_DATA();									// set back to rec. mode
+}
+#endif
 
 SIGNAL(SIG_UART_RECV)									// chk this in include/avr/iom8535.h
 {
