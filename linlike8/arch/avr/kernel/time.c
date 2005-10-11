@@ -13,6 +13,7 @@
 //	os header
 #include <linlike8/sched.h>
 #if (TIMER_MOD==1)
+#define	TIME	1
 #include <linlike8/interrupt.h>
 #endif
 
@@ -38,7 +39,8 @@ void time_init(void)
 //			set for 1024 prescaler
 //			CTC mode
 	TCCR0 = (1<<CS02)|(1<<CS00)|(1<<WGM01);
-	OCR0 = 82;									// should be 10mSec, but not so accuracy, so use 82 by tuning
+	OCR0 = 80;//82;								// should be 10mSec, but not so accuracy, so use 82 by tuning
+												//	tuning with electric power meter fr. ringo lee
 	TIMSK |= 1<<OCIE0;							// compare match enable
 	TIFR |= 1<<OCF0;							// clr pending interrupt
 	/////////////////////////////////// enable for overflow interrupt
