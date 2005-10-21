@@ -7,8 +7,16 @@
 // including, get data linking from others ===============================================
 //	this appl. layer
 #include <pin_define.h>
+//	uart
+#if (AVR==1)
+#include <linlike8/uart.h>
+#endif
+//	big, lttle endian library
+#include <netinet/in.h>
 //	this module
 #include "modbus.h"
+
+#if (MODBUS==1)
 
 unsigned char Mbs_slave;				/* slave number */
 #if 0
@@ -42,7 +50,7 @@ longeur	: length of the packet
 
 no output
 ***********************************************************************************/
-void Mbs_write(unsigned char trame[256], int longeur)
+/*void Mbs_write(unsigned char trame[256], int longeur)
 {
    int i;
    for(i=0;i<longeur;i++)
@@ -51,7 +59,7 @@ void Mbs_write(unsigned char trame[256], int longeur)
 //      if(Mb_ptr_snd_data!=NULL)
 //         (*Mb_ptr_snd_data)(trame[i]);
    }
-}
+}*/
 
 /**********************************************************************************
    	   Mbs : Main slave function 
@@ -60,11 +68,14 @@ void Mbs_write(unsigned char trame[256], int longeur)
 input not used
 no output
 **********************************************************************************/
+#if (AVR==1)
+struct WR_COMPL_VAR wcv_hc;
+#endif
 //void Mbs(void *ptr)
 unsigned char Mbs_status;
-	unsigned char Mbs_fonction,Mbs_c,Mbs_c1,Mbs_c2,Mbs_trame[20];
+	unsigned char Mbs_fonction,Mbs_c,Mbs_c1,Mbs_c2,Mbs_trame[73];	// 73 is application depend, so should define in application side
    int Mbs_adresse,Mbs_longueur,Mbs_local_data,Mbs_i;
-   int Mbs_data_to_write[20];
+//   int Mbs_data_to_write[20];
 void Mbs(void)
 {
    
@@ -72,18 +83,21 @@ void Mbs(void)
 	switch (Mbs_status) {
 		case 0 : 
 		
-//fprintf(stderr,"waiting\n");
-   if (read(Mbs_device,&Mbs_c,1)>0) {
+   if (read(Mbs_device,&Mbs_c,1)>0) {									// read slave addr
 		if (Mbs_c==Mbs_slave) {
+#if (LINUX==1)
 	         if (Mb_verbose) fprintf(stderr,"Master call me !\n");
+#endif
 			Mbs_status++;
 		}
    }
 			break;
 		case 1 : 
 			//Mbs_read(&Mbs_fonction);
-   if (read(Mbs_device,&Mbs_fonction,1)>0) {
+   if (read(Mbs_device,&Mbs_fonction,1)>0) {							// rd function code
+#if (LINUX==1)
 			if (Mb_verbose) fprintf(stderr,"function 0x%x \n",Mbs_c);
+#endif
 	        Mbs_trame[0]=Mbs_slave;
 	        Mbs_trame[1]=Mbs_fonction;
 			switch (Mbs_fonction)
@@ -110,11 +124,12 @@ void Mbs(void)
    }
 			break;
                /*********************************************************************/
+               // 0x03 funciton
 		case 2 : 
          		/* read n byte */
                /* get adress */
 //            Mbs_read(&Mbs_c1);
-   if (read(Mbs_device,&Mbs_c1,1)>0) {
+   if (read(Mbs_device,&Mbs_c1,1)>0) {									// for 0x03 function, rd Start addr.
 			Mbs_status++;
    }
 			break;
@@ -124,14 +139,16 @@ void Mbs(void)
                Mbs_adresse=(Mbs_c1<<8)+Mbs_c2;
                Mbs_trame[2]=Mbs_c1;
                Mbs_trame[3]=Mbs_c2;
+#if (LINUX==1)
                if (Mb_verbose) fprintf(stderr,"adress %d (%x %x) \n",Mbs_adresse,Mbs_c1,Mbs_c2);
+#endif
 			Mbs_status++;
    }
 			break;
 		case 4 : 
                /* get length */
 //               Mbs_read(&Mbs_c1);
-   if (read(Mbs_device,&Mbs_c1,1)>0) {
+   if (read(Mbs_device,&Mbs_c1,1)>0) {									// for 0x03 function, rd no. of pt.
 			Mbs_status++;
    }
 			break;
@@ -140,7 +157,9 @@ void Mbs(void)
    if (read(Mbs_device,&Mbs_c2,1)>0) {
 			Mbs_status++;
                Mbs_longueur=(Mbs_c1<<8)+Mbs_c2;
-               if (Mb_verbose) fprintf(stderr,"lenght %d \n",Mbs_longueur);
+#if (LINUX==1)
+               if (Mb_verbose) fprintf(stderr,"lenght(Mbs_longueur) %d \n",Mbs_longueur);
+#endif
                Mbs_trame[4]=Mbs_c1;
                Mbs_trame[5]=Mbs_c2;
    }
@@ -148,57 +167,82 @@ void Mbs(void)
 		case 6 : 
                /* get crc16 */
     //           Mbs_read(&Mbs_c1);
-   if (read(Mbs_device,&Mbs_c1,1)>0) {
+   if (read(Mbs_device,&Mbs_c1,1)>0) {									// rd CRC
 			Mbs_status++;
    }
 			break;
 		case 7 : 
 //               Mbs_read(&Mbs_c2);
    if (read(Mbs_device,&Mbs_c2,1)>0) {
-			Mbs_status++;
                Mbs_trame[6]=Mbs_c1;
                Mbs_trame[7]=Mbs_c2;
+#if (LINUX==1)
                if (Mb_verbose) fprintf(stderr,"crc  %x%x \n",Mbs_c1,Mbs_c2);
+#endif
 
                /* check crc16 */
                if (Mb_test_crc(Mbs_trame,6))
                {
+#if (LINUX==1)
                   if (Mb_verbose) fprintf(stderr,"crc error\n");
+#endif
                   //if(Mb_ptr_end_slve!=NULL)
                   //   (*Mb_ptr_end_slve)(-1,0,0);
                   break;
                }
+#if (LINUX==1)
                if (Mb_verbose) 
                   for(Mbs_i=0;Mbs_i<=7;Mbs_i++)
                      fprintf(stderr,"sended packet[%d] = %0x\n",Mbs_i,Mbs_trame[Mbs_i]);
+#endif
 
-               /* comput answer packet */
+              // comput answer packet
+				// appl. spec. code
                Mbs_trame[2]=Mbs_longueur*2;
-               for (Mbs_i=0;Mbs_i<Mbs_longueur;Mbs_i++)
-               {
-                  if (Mb_verbose) 
-                     fprintf(stderr,"Mbs_data[%d] = %0x\n",Mbs_adresse+Mbs_i,Mbs_data[Mbs_adresse+Mbs_i]);
-                  Mbs_trame[3+Mbs_i*2]=Mbs_data[Mbs_adresse+Mbs_i]>>8;
-                  Mbs_trame[4+Mbs_i*2]=Mbs_data[Mbs_adresse+Mbs_i]&0xff;
+               for (Mbs_i=0;Mbs_i<(Mbs_longueur/2);Mbs_i++) {
+					unsigned long pulse_val = htonl(pulse_cnt[/*Mbs_adresse-67+*/Mbs_i]);		// -67 is for this application only, later change to general call
+//printf("sended pulse_cnt[] = %lx\n",pulse_cnt[Mbs_i]);
+					__u16* p_pulse_val = (__u16*) &pulse_val;										// in compiler option, add -fno-strict-aliasing
+					Mbs_trame[3+Mbs_i*4]=(unsigned char) ((*p_pulse_val)&0xff);
+					Mbs_trame[4+Mbs_i*4]=(unsigned char) ((*p_pulse_val)>>8);
+					p_pulse_val++;
+					Mbs_trame[5+Mbs_i*4]=(unsigned char) ((*p_pulse_val)&0xff);
+					Mbs_trame[6+Mbs_i*4]=(unsigned char) ((*p_pulse_val)>>8);
+#if (LINUX==1)
+                  //if (Mb_verbose) 
+                  //   fprintf(stderr,"Mbs_data[%d] = %0x\n",Mbs_adresse+Mbs_i,Mbs_data[Mbs_adresse+Mbs_i]);
+#endif
                }
 
                Mb_calcul_crc(Mbs_trame,(Mbs_longueur*2)+3);
 
+#if (LINUX==1)
+#if 0
                if (Mb_verbose)
                {
                   fprintf(stderr,"answer :\n");
                   for(Mbs_i=0;Mbs_i<Mbs_longueur*2+5;Mbs_i++)
                      fprintf(stderr,"answer packet[%d] = %0x\n",Mbs_i,Mbs_trame[Mbs_i]);
                }
+#endif
+#endif
+			Mbs_status++;
    }
 			break;
 		case 8 : 
-               Mbs_write(Mbs_trame,(Mbs_longueur*2)+5);
-               //if(Mb_ptr_end_slve!=NULL)
-               //   (*Mb_ptr_end_slve)(Mbs_fonction,Mbs_adresse,Mbs_longueur);
-			Mbs_status = 200;
+            //Mbs_write(Mbs_trame,(Mbs_longueur*2)+5);
+			{
+			int wr_len = (Mbs_longueur*2)+5;
+			if (write(Mbs_device, Mbs_trame, wr_len			// tx. out
+				#if (AVR==1)
+				, &wcv_hc
+				#endif
+				)==wr_len)
+					Mbs_status = 200;
+			}
 			break;
                /*********************************************************************/
+               // 0x06 funciton
 		case 9 : 
          		/* write on byte */
                /* get adress */
@@ -214,7 +258,9 @@ void Mbs(void)
                Mbs_adresse=(Mbs_c1<<8)+Mbs_c2;
                Mbs_trame[2]=Mbs_c1;
                Mbs_trame[3]=Mbs_c2;
+#if (LINUX==1)
                if (Mb_verbose) fprintf(stderr,"adress %d (%x %x) \n",Mbs_adresse,Mbs_c1,Mbs_c2);
+#endif
    }
 			break;
 		case 11 : 
@@ -229,7 +275,9 @@ void Mbs(void)
    if (read(Mbs_device,&Mbs_c2,1)>0) {
 			Mbs_status++;
                Mbs_local_data=(Mbs_c1<<8)+Mbs_c2;
+#if (LINUX==1)
                if (Mb_verbose) fprintf(stderr,"Mbs_local_data %d \n",Mbs_local_data);
+#endif
                Mbs_trame[4]=Mbs_c1;
                Mbs_trame[5]=Mbs_c2;
    }
@@ -247,31 +295,42 @@ void Mbs(void)
 			Mbs_status++;
                Mbs_trame[6]=Mbs_c1;
                Mbs_trame[7]=Mbs_c2;
+#if (LINUX==1)
                if (Mb_verbose) fprintf(stderr,"crc  %x%x \n",Mbs_c1,Mbs_c2);
+#endif
                /* check crc16 */
                if (Mb_test_crc(Mbs_trame,6))
                {
+#if (LINUX==1)
                   if (Mb_verbose) fprintf(stderr,"crc error\n");
+#endif
                   //if(Mb_ptr_end_slve!=NULL)
                   //   (*Mb_ptr_end_slve)(-1,0,0);
                   break;
                }
+#if (LINUX==1)
                if (Mb_verbose) 
                   for(Mbs_i=0;Mbs_i<=7;Mbs_i++)
                      fprintf(stderr,"sended packet[%d] = %0x\n",Mbs_i,Mbs_trame[Mbs_i]);
+#endif
                
                /* store data */
-               Mbs_data[Mbs_adresse]=Mbs_local_data;
+               Mbs_data[Mbs_adresse]=Mbs_local_data;		// should not work, pls chk
+#if (LINUX==1)
                if (Mb_verbose) 
                   fprintf(stderr,"Mbs_local_data %d stored at : %d %x\n",Mbs_local_data,Mbs_adresse,Mbs_adresse);
+#endif
    }               
 			break;
 		case 15 : 
                /* answer Mbs_trame is the same ;-)*/
-               Mbs_write(Mbs_trame,8);
-               //if(Mb_ptr_end_slve!=NULL)
-               //   (*Mb_ptr_end_slve)(Mbs_fonction,Mbs_adresse,1);
-			Mbs_status = 200;
+            //Mbs_write(Mbs_trame,8);
+			if (write(Mbs_device, Mbs_trame, 8			// tx. out
+				#if (AVR==1)
+				, &wcv_hc
+				#endif
+				)==8)
+					Mbs_status = 200;
 			break;
             /*********************************************************************/
 		case 16 : 
@@ -288,38 +347,49 @@ void Mbs(void)
 			Mbs_status++;
                Mbs_trame[2]=Mbs_c1;
                Mbs_trame[3]=Mbs_c2;
+#if (LINUX==1)
                if (Mb_verbose) fprintf(stderr,"crc  %x%x \n",Mbs_c1,Mbs_c2);
+#endif
                /* check crc16 */
                if (Mb_test_crc(Mbs_trame,2))
                {
+#if (LINUX==1)
                   if (Mb_verbose) fprintf(stderr,"crc error\n");
+#endif
                   //if(Mb_ptr_end_slve!=NULL)
                   //   (*Mb_ptr_end_slve)(-1,0,0);
                   break;
                }
+#if (LINUX==1)
                if (Mb_verbose) 
                   for(Mbs_i=0;Mbs_i<=3;Mbs_i++)
                      fprintf(stderr,"sended packet[%d] = %0x\n",Mbs_i,Mbs_trame[Mbs_i]);
+#endif
 
                /* comput answer packet */
                Mbs_trame[2]=Mb_status;
 
                Mb_calcul_crc(Mbs_trame,3);
 
+#if (LINUX==1)
                if (Mb_verbose)
                {
                   fprintf(stderr,"answer :\n");
                   for(Mbs_i=0;Mbs_i<=4;Mbs_i++)
                      fprintf(stderr,"answer packet[%d] = %0x\n",Mbs_i,Mbs_trame[Mbs_i]);
                }
+#endif
    }
 
 			break;
 		case 18 : 
-               Mbs_write(Mbs_trame,5);
-               //if(Mb_ptr_end_slve!=NULL)
-               //   (*Mb_ptr_end_slve)(Mbs_fonction,0,0);
-			Mbs_status = 200;
+            //Mbs_write(Mbs_trame,5);
+			if (write(Mbs_device, Mbs_trame, 5			// tx. out
+				#if (AVR==1)
+				, &wcv_hc
+				#endif
+				)==5)
+					Mbs_status = 200;
 			break;
             /*********************************************************************/
 /*		case 19 : 
@@ -374,37 +444,42 @@ void Mbs(void)
                //   (*Mb_ptr_end_slve)(Mbs_fonction,0,0);
 			break;*/
 	          /*********************************************************************/
+               // 0x10 funciton
 		case 21 : 
          		/* write n byte  */
                /* get adress */
 //               Mbs_read(&Mbs_c1);
-   if (read(Mbs_device,&Mbs_c1,1)>0) {
+   if (read(Mbs_device,&Mbs_c1,1)>0) {									// start addr hi
 			Mbs_status++;
    }
 			break;
 		case 22 : 
     //           Mbs_read(&Mbs_c2);
-   if (read(Mbs_device,&Mbs_c2,1)>0) {
+   if (read(Mbs_device,&Mbs_c2,1)>0) {									// start addr lo
 			Mbs_status++;
                Mbs_adresse=(Mbs_c1<<8)+Mbs_c2;
                Mbs_trame[2]=Mbs_c1;
                Mbs_trame[3]=Mbs_c2;
+#if (LINUX==1)
                if (Mb_verbose) fprintf(stderr,"adress %d 0x%x%x \n",Mbs_adresse,Mbs_c1,Mbs_c2);
+#endif
    }
 			break;
 		case 23 : 
                /* get length */
 //               Mbs_read(&Mbs_c1);
-   if (read(Mbs_device,&Mbs_c1,1)>0) {
+   if (read(Mbs_device,&Mbs_c1,1)>0) {									// no. of reg. hi 
 			Mbs_status++;
    }
 			break;
 		case 24 : 
 //               Mbs_read(&Mbs_c2);
-   if (read(Mbs_device,&Mbs_c2,1)>0) {
+   if (read(Mbs_device,&Mbs_c2,1)>0) {									// no. of reg. lo
 			Mbs_status++;
                Mbs_longueur=(Mbs_c1<<8)+Mbs_c2;
-               if (Mb_verbose) fprintf(stderr,"length %d \n",Mbs_longueur);
+#if (LINUX==1)
+               if (Mb_verbose) fprintf(stderr,"length(Mbs_longueur) %d \n",Mbs_longueur);
+#endif
                Mbs_trame[4]=Mbs_c1;
                Mbs_trame[5]=Mbs_c2;
    }
@@ -412,7 +487,7 @@ void Mbs(void)
 		case 25 : 
                /* read for nothing */
 //               Mbs_read(&Mbs_c);
-   if (read(Mbs_device,&Mbs_c,1)>0) {
+   if (read(Mbs_device,&Mbs_c,1)>0) {									// byte cnt
 			Mbs_status++;
                Mbs_trame[6]=Mbs_c;
    }
@@ -424,14 +499,14 @@ void Mbs(void)
 			break;
 		case 27 : 
 //                  Mbs_read(&Mbs_c1);
-   if (read(Mbs_device,&Mbs_c1,1)>0) {
+   if (read(Mbs_device,&Mbs_c1,1)>0) {									// data hi
 				Mbs_status++;
    }
 			break;
 		case 28 : 
     //              Mbs_read(&Mbs_c2);
-   if (read(Mbs_device,&Mbs_c2,1)>0) {
-                  Mbs_data_to_write[Mbs_i]=(Mbs_c1<<8)+Mbs_c2;
+   if (read(Mbs_device,&Mbs_c2,1)>0) {									// data lo
+                  //Mbs_data_to_write[Mbs_i]=(Mbs_c1<<8)+Mbs_c2;
                   Mbs_trame[7+(Mbs_i*2)]=Mbs_c1;
                   Mbs_trame[8+(Mbs_i*2)]=Mbs_c2;
 	               Mbs_i++;
@@ -444,60 +519,66 @@ void Mbs(void)
 		case 29 : 
                /* get crc16 */
 //               Mbs_read(&Mbs_c1);
-   if (read(Mbs_device,&Mbs_c1,1)>0) {
+   if (read(Mbs_device,&Mbs_c1,1)>0) {									// get crc
 					Mbs_status++;
    }
 			break;
 		case 30 : 
 //               Mbs_read(&Mbs_c2);
    if (read(Mbs_device,&Mbs_c2,1)>0) {
-					Mbs_status++;
+
+				Mbs_status++;
+				
                Mbs_trame[7+Mbs_longueur*2]=Mbs_c1;
                Mbs_trame[8+Mbs_longueur*2]=Mbs_c2;
+#if (LINUX==1)
                if (Mb_verbose) fprintf(stderr,"crc  %x%x \n",Mbs_c1,Mbs_c2);
-
+#endif
                /* check crc16 */
                if (Mb_test_crc(Mbs_trame,7+Mbs_longueur*2))
                {
+#if (LINUX==1)
                   if (Mb_verbose) fprintf(stderr,"crc error\n");
+#endif
                   //if(Mb_ptr_end_slve!=NULL)
                   //   (*Mb_ptr_end_slve)(-1,0,0);
                   break;
                }
+#if (LINUX==1)
                if (Mb_verbose) 
                   for(Mbs_i=0;Mbs_i<=8+Mbs_longueur*2;Mbs_i++)
                      fprintf(stderr,"sended packet[%d] = %0x\n",Mbs_i,Mbs_trame[Mbs_i]);
+#endif
 
+			// copy data from modbus data
+			// appl. spec. code
+			for (Mbs_i=0;Mbs_i<(Mbs_longueur/2);Mbs_i++) {
+				pulse_cnt[Mbs_i] = (((unsigned long)(Mbs_trame[7+(Mbs_i*4)]))<<24) + (((unsigned long)(Mbs_trame[8+(Mbs_i*4)]))<<16) + 
+									(((unsigned long)(Mbs_trame[9+(Mbs_i*4)]))<<8) + ((unsigned long)(Mbs_trame[10+(Mbs_i*4)]));
+//printf("pulse_cnt[%d] = %lx\n",Mbs_i,pulse_cnt[Mbs_i]);
+			}
 
                /* comput answer packet */
                Mb_calcul_crc(Mbs_trame,6);
 
+#if (LINUX==1)
                if (Mb_verbose)
                {
                   fprintf(stderr,"answer :\n");
                   for(Mbs_i=0;Mbs_i<8;Mbs_i++)
                      fprintf(stderr,"answer packet[%d] = %0x\n",Mbs_i,Mbs_trame[Mbs_i]);
                }
+#endif
    }
 			break;
 		case 31 : 
-               Mbs_write(Mbs_trame,8);
-					Mbs_status++;
-			break;
-		case 32 : 
-               
-               // copy data to modbus data
-               for(Mbs_i=0;Mbs_i<Mbs_longueur;Mbs_i++)
-               {
-fprintf(stderr,"Mbs_adresse=%d, Mbs_i=%d\n",Mbs_adresse,Mbs_i);
-//                  Mbs_data[Mbs_adresse+Mbs_i]=Mbs_data_to_write[Mbs_i];
-                  if (Mb_verbose)
-                     fprintf(stderr,"data[%x] = %x\n",Mbs_adresse+Mbs_i,Mbs_data_to_write[Mbs_i]);
-               }
-               //if(Mb_ptr_end_slve!=NULL)
-               //   (*Mb_ptr_end_slve)(Mbs_fonction,Mbs_adresse,Mbs_longueur);
-                  fprintf(stderr,"end of 0x10 function\n");
-			Mbs_status = 200;
+            //Mbs_write(Mbs_trame,8);
+			if (write(Mbs_device, Mbs_trame, 8			// tx. out
+				#if (AVR==1)
+				, &wcv_hc
+				#endif
+				)==8)
+					Mbs_status = 200;
 			break;
 		case 200 : 
 		   	Mbs_status = 0;
@@ -519,7 +600,11 @@ ptrfoncend : function to call when slave finish to send answer (can be NULL if y
 
 no output
 ***********************************************************************************/
-void Mb_slave(int mbsdevice,int mbsslave, void *ptrfoncsnd, void *ptrfoncrcv, void *ptrfoncend)
+void Mb_slave(int mbsdevice,int mbsslave
+#if (LINUX==1)
+	, void *ptrfoncsnd, void *ptrfoncrcv, void *ptrfoncend
+#endif
+	)
 {
    Mbs_device=mbsdevice;
 	Mbs_slave=mbsslave;
@@ -542,3 +627,5 @@ void Mb_slave_stop()
    pthread_cancel(Mbs_thread);
 }
 #endif	// #if 0
+
+#endif	// #if (MODBUS==1)

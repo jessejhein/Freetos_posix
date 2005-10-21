@@ -13,33 +13,36 @@
 #include <stdlib.h>
 #include <string.h>
 #endif
-//#if 0
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-//#endif	// #if 0
+//#include <sys/types.h>
+//#include <sys/stat.h>
+//#include <fcntl.h>
 #include <unistd.h>
 #if (LINUX==1)
 #include <termios.h>
 #endif
 //#include <pthread.h>
+#include <asm/types.h>								// data type setting from kernel
 
 #if 0
 #define VERSION "0.0.4"
 
 #endif	// #if 0
-struct termios saved_tty_parameters;			/* old serial port setting (restored on close) */
+#if (LINUX==1)
 struct termios Mb_tio;								/* new serail port setting */
+#endif
 
 
 int Mb_verbose;										/* print debug informations */
 int Mb_status;											/* stat of the software : This number is free, it's use with function #07 */
 
+__u16* Mbs_data;											// slave modbus data pointer
+														//	assume this as a 16 bit ptr for each modbus reg. as 16 bit
 
-int *Mbs_data;											/* slave modbus data */
 #if 0
 int Mbs_pid;											/* PID of the slave thread */
 #endif	// #if 0
+
+extern unsigned long pulse_cnt[];
 
 typedef unsigned char byte;						/* create byte type */
 
@@ -54,9 +57,9 @@ typedef struct {
 } Mbm_trame;
 
 /*pointer functions */
-void (*Mb_ptr_rcv_data) ();						/* run when receive a char in master or slave */
-void (*Mb_ptr_snd_data) ();						/* run when send a char  in master or slave */
 #if 0
+void (*Mb_ptr_snd_data) ();						/* run when send a char  in master or slave */
+void (*Mb_ptr_rcv_data) ();						/* run when receive a char in master or slave */
 void (*Mb_ptr_end_slve) ();						/* run when slave finish to send response trame */
 
 #endif	// #if 0
@@ -74,7 +77,11 @@ int Mb_master(Mbm_trame, int [] , int [], void*, void*);
 - pointer function called when slave send a data on serial port (can be NULL if not use)
 - pointer function called when slave receive a data on serial port (can be NULL if not use)
 - pointer function called when slave finish to send data on serial port (can be NULL if not use)*/
-void Mb_slave(int, int, void*, void*, void*);
+void Mb_slave(int, int
+	#if (LINUX==1)
+	, void*, void*, void*
+	#endif
+);
 void Mbs(void);
 
 #if 0
@@ -83,8 +90,10 @@ void Mb_slave_stop(void);											/* stop slave thread */
 
 #endif	// #if 0
 /* commun functions */
+#if (LINUX==1)
 int Mb_open_device(char [], int , int , int ,int );		/* open device and configure it */
 void Mb_close_device();												/* close device and restore old parmeters */
+#endif
 int Mb_test_crc(unsigned char[] ,int );						/* check crc16 */
 int Mb_calcul_crc(unsigned char[] ,int );						/* compute crc16 */
 

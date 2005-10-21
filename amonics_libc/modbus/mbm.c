@@ -52,8 +52,10 @@ void Mbm_get_data(int *len )
 		Mbm_result[i]=read_data;
 		
 		/* call the pointer function if exist */
+#if 0
 		if(Mb_ptr_rcv_data!=NULL)
 			(*Mb_ptr_rcv_data)(read_data);
+#endif
 		if (Mb_verbose)
 			fprintf(stderr,"receiving byte :0x%x %d (%d)\n",read_data,read_data,Mbm_result[i]);
 	}
@@ -81,7 +83,6 @@ int Csm_get_data(int len, int timeout)
 {
 	switch (Csm_get_data_status) {
 		case 0 : 
-		
 		#if (LINUX==1)
 			if (Mb_verbose)
 				fprintf(stderr,"in get data\n");
@@ -95,8 +96,6 @@ int Csm_get_data(int len, int timeout)
 		#endif
 			Csm_get_data_status++;
 			i_Csm_get_data = 0;
-fprintf(stderr,"i_Csm_get_data = 0\n");
-
 			break;
 		case 1 : 
 		
@@ -107,8 +106,6 @@ fprintf(stderr,"i_Csm_get_data = 0\n");
 					fprintf(stderr,"receiving byte :0x%x %d (%d)\n",read_data_Csm_get_data,read_data_Csm_get_data,Mbm_result[i_Csm_get_data]);
 #endif
 				i_Csm_get_data++;
-fprintf(stderr,"len = %d\n", len);
-fprintf(stderr,"i_Csm_get_data = %d\n", i_Csm_get_data);
 				if (i_Csm_get_data>=len) {
 #if (LINUX==1)
 					if (Mb_verbose)
@@ -121,6 +118,7 @@ fprintf(stderr,"i_Csm_get_data = %d\n", i_Csm_get_data);
 			break;
 		case 2 : 
 			Csm_get_data_status = 0;						// go back for next time
+	printf("timeout\n");
 			return 0;	// timeout
 			break;
 	}
@@ -190,8 +188,11 @@ int Mbm_send_and_get_result(byte trame[], int timeout, int long_emit, int longue
 		/* send data */
 		write(Mb_device,&trame[i],1);
 		/* call pointer function if exist */
+#if 0
 		if(Mb_ptr_snd_data!=NULL)
 			(*Mb_ptr_snd_data)(trame[i]);
+#endif
+			
 	}
 
   if (Mb_verbose)
@@ -252,7 +253,6 @@ unsigned char ret_Csm_send_and_get_result_status = 0;
 	int ret_Csm_send_and_get_result;
 int Csm_send_and_get_result(unsigned char trame[], int timeout, int long_emit, int longueur)
 {
-
 	switch (ret_Csm_send_and_get_result_status) {
 		case 0 : 
 	
@@ -260,14 +260,15 @@ int Csm_send_and_get_result(unsigned char trame[], int timeout, int long_emit, i
 	
 #if (LINUX==1)
 	if (Mb_verbose) {
-	}
 		fprintf(stderr,"start writing with long_emit=%d\n", long_emit);
+	}
 #endif
 	for(i_Csm_send_and_get_result=0;i_Csm_send_and_get_result<long_emit;i_Csm_send_and_get_result++)
 	{
-		/* send data */
+		// send data
+//printf("trame %d\n", trame[i_Csm_send_and_get_result]);
 		write(Mb_device,&trame[i_Csm_send_and_get_result],1);
-		/* call pointer function if exist */
+		// call pointer function if exist
 //		if(Mb_ptr_snd_data!=NULL)
 //			(*Mb_ptr_snd_data)(trame[i]);
 	}
@@ -276,13 +277,6 @@ int Csm_send_and_get_result(unsigned char trame[], int timeout, int long_emit, i
   if (Mb_verbose)
 		fprintf(stderr,"write ok\n");
 #endif
-	Mb_tio.c_cc[VMIN]=0;
-	Mb_tio.c_cc[VTIME]=1;
-
-	if (tcsetattr(Mb_device,TCSANOW,&Mb_tio) <0) {
-		perror("Can't set terminal parameters ");
-		return 0;
-	}
 
 	ret_Csm_send_and_get_result_status++;
 
@@ -293,14 +287,6 @@ int Csm_send_and_get_result(unsigned char trame[], int timeout, int long_emit, i
 			break;
 		case 2 :
 		
-	Mb_tio.c_cc[VMIN]=1;
-	Mb_tio.c_cc[VTIME]=0;
-
-	if (tcsetattr(Mb_device,TCSANOW,&Mb_tio) <0) {
-		perror("Can't set terminal parameters ");
-		return 0 ;
-	}
-	
 	ret_Csm_send_and_get_result_status = 0;
 	return ret_Csm_send_and_get_result;
 	
@@ -353,19 +339,21 @@ int Mb_master(Mbm_trame Mbtrame,int data_in[], int data_out[],void *ptrfoncsnd, 
 		function=Mbtrame.function;
 		adresse=Mbtrame.address;
 		nbre=Mbtrame.length;
+#if 0
 		Mb_ptr_snd_data=ptrfoncsnd;
 		Mb_ptr_rcv_data=ptrfoncrcv;
+#endif
 			
 		switch (function)
 		{
 			case 0x03:
 			case 0x04:
 				/* read n byte */
-				trame[0]=slave_Mb_master;
-				trame[1]=function;
-				trame[2]=adresse>>8;
+				trame[0]=slave_Mb_master;							// slave address
+				trame[1]=function;									// function code
+				trame[2]=adresse>>8;								// reg. starting addr.
 				trame[3]=adresse&0xFF;
-				trame[4]=nbre>>8;
+				trame[4]=nbre>>8;									// how many reg. need to read
 				trame[5]=nbre&0xFF;
 				/* comput crc */
 				Mb_calcul_crc(trame,6);
@@ -477,8 +465,6 @@ int Mb_master(Mbm_trame Mbtrame,int data_in[], int data_out[],void *ptrfoncsnd, 
 				return -1;
 				break;
 		}
-	
-	
 		Mb_master_status++;
 		i_Mb_master = 0;
 			break;
@@ -526,7 +512,7 @@ int Mb_master(Mbm_trame Mbtrame,int data_in[], int data_out[],void *ptrfoncsnd, 
 				for (i_Mb_master=0;i_Mb_master<nbre;i_Mb_master++)
 				{
 					data_out[i_Mb_master]=(trame[3+(i_Mb_master*2)]<<8)+trame[4+i_Mb_master*2];
-					if (Mb_verbose)
+//					if (Mb_verbose)
 						fprintf(stderr,"data %d = %0x\n",i_Mb_master,data_out[i_Mb_master]);
 				}
 				break;

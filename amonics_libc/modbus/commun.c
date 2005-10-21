@@ -11,8 +11,20 @@
 #if (LINUX==1)
 #include <fcntl.h>
 #endif
+//	uart
+#if (AVR==1)
+#include <linlike8/uart.h>
+#endif
 //	this module
 #include "modbus.h"
+
+// data =================================================================================
+
+#if (LINUX==1)
+struct termios saved_tty_parameters;			// old serial port setting (restored on close)
+#endif
+
+// methods ==============================================================================
 
 #if (MODBUS==1)
 
@@ -45,8 +57,10 @@ int Mb_test_crc(byte trame[],int n)
 				crc=crc^0xa001;
 		}
 	}
+#if (LINUX==1)
    if (Mb_verbose)
       printf("test crc %0x %0x\n",(crc&255),(crc>>8));
+#endif
 	if ((trame[n+1]!=(crc>>8)) || (trame[n]!=(crc&255)))
       return 1;
    else
@@ -118,11 +132,12 @@ answer  :
 ---------
 device descriptor
 ************************************************************************************/
+#include "../../data_access_gsm/gsm_master/core/pnl_sms.h"
 int Mb_open_device(char Mbc_port[20], int Mbc_speed, int Mbc_parity, int Mbc_bit_l, int Mbc_bit_s)
 {
-  int fd;
-
-  /* open port */
+	int fd;
+	
+  // open port
   //fd = open(Mbc_port,O_RDWR | O_NOCTTY | O_NONBLOCK | O_NDELAY) ;
   fd = open(Mbc_port,O_RDWR | O_NOCTTY | O_NDELAY) ;
   if(fd<0)
@@ -131,15 +146,18 @@ int Mb_open_device(char Mbc_port[20], int Mbc_speed, int Mbc_parity, int Mbc_bit
     exit(-1) ;
   }
 
-  /* save olds settings port */
+//  fcntl(fd, F_SETFL, FASYNC);
+	fcntl(fd, F_SETFL, FNDELAY);
+	
+  // save olds settings port
   if (tcgetattr (fd,&saved_tty_parameters) < 0)
   {
     perror("Can't get terminal parameters ");
     return -1 ;
   }
 
-  /* settings port */
-  bzero(&Mb_tio,sizeof(&Mb_tio));
+  // settings port
+  /*bzero(&Mb_tio,sizeof(&Mb_tio));
 
   switch (Mbc_speed)
   {
@@ -242,26 +260,43 @@ int Mb_open_device(char Mbc_port[20], int Mbc_speed, int Mbc_parity, int Mbc_bit
 	Mb_tio.c_cflag &= ~CSIZE;
 	Mb_tio.c_cflag &= ~CRTSCTS;
   Mb_tio.c_oflag = 0;
-  Mb_tio.c_lflag = 0; /*ICANON;*/
+  Mb_tio.c_lflag = 0; //ICANON;
 	Mb_tio.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
   Mb_tio.c_cc[VMIN]=1;
-  Mb_tio.c_cc[VTIME]=0;
+  Mb_tio.c_cc[VTIME]=0;*/
 
-  /* clean port */
-  tcflush(fd, TCIFLUSH);
-
-//  fcntl(fd, F_SETFL, FASYNC);
-	fcntl(fd, F_SETFL, FNDELAY);
+	cfsetispeed(&saved_tty_parameters, B19200);
+	cfsetospeed(&saved_tty_parameters, B19200);
+	
+	saved_tty_parameters.c_cflag |= (CLOCAL | CREAD);
+	saved_tty_parameters.c_cflag &= ~PARENB;
+	saved_tty_parameters.c_cflag &= ~CSTOPB;
+	saved_tty_parameters.c_cflag &= ~CSIZE;
+	saved_tty_parameters.c_cflag |= CS8;
+	saved_tty_parameters.c_cflag &= ~CRTSCTS;
+	
+	saved_tty_parameters.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
+	
+	saved_tty_parameters.c_iflag &= ~(IXON | IXOFF | IXANY);
+	
   /* activate the settings port */
-  if (tcsetattr(fd,TCSANOW,&Mb_tio) <0)
+  //if (tcsetattr(fd,TCSANOW,&Mb_tio) <0)
+  if (tcsetattr(fd,TCSANOW,&saved_tty_parameters) <0)
   {
     perror("Can't set terminal parameters ");
     return -1 ;
   }
+			
+			{
+unsigned char wr_buf[5];
+wr_buf[0] = 'x';
+wr_buf[1] = 'y';
+wr_buf[2] = 'z';
+//while (write(fd, wr_buf, 3)!=3);
+			}
   
-  /* clean I & O device */
-  tcflush(fd,TCIOFLUSH);
-  
+  /*
+
    if (Mb_verbose)
    {
       printf("setting ok:\n");
@@ -270,8 +305,9 @@ int Mb_open_device(char Mbc_port[20], int Mbc_speed, int Mbc_parity, int Mbc_bit
       printf("data bits     %d\n",Mbc_bit_l);
       printf("stop bits     %d\n",Mbc_bit_s);
       printf("parity        %d\n",Mbc_parity);
-   }
+   }*/
    return fd ;
+
 }
 #endif	// (LINUX==1)
 
