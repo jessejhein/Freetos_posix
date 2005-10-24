@@ -1,0 +1,31 @@
+# $Id$
+# PcbBOM Version 1.0
+# Date: Wed Jul 27 15:31:29 2005 UTC
+# Author: cheng chung yan
+# Title: (unknown) - PCB BOM
+# Quantity, Description, Value, RefDes
+# --------------------------------------------
+15,"Single in line package","SIP10",(unknown) (unknown) (unknown) (unknown) (unknown) (unknown) (unknown) (unknown) (unknown) (unknown) (unknown) (unknown) (unknown) (unknown) (unknown) 
+15,"Single in line package","SIP5",(unknown) (unknown) (unknown) (unknown) (unknown) (unknown) (unknown) (unknown) (unknown) (unknown) (unknown) (unknown) (unknown) (unknown) (unknown) 
+1,"0805","10nF",C201 
+1,"0805","1.5k",R304 
+2,"0805","10k",R306 R101 
+1,"ACY400","Ferrite bead",L301 
+2,"0805","27",R301 R302 
+1,"0805","2.2k",R305 
+1,"LED5","unknown",LED301 
+2,"0805","27p",C207 C208 
+8,"0805","0.1uF",C203 C206 C202 C103 C104 C102 C105 C101 
+1,"RCY100","10uF",C204 
+1,"conn_usb_slave","usb_slave_conn",CONN301 
+2,"DIP8","unknown",U301 U201 
+1,"HC49","6MHz",U302 
+1,"0805","470",R303 
+1,"0805","33nF",C205 
+1,"0805","220",R307 
+3,"SIP5","unknown",CONN302 CONN202 CONN101 
+1,"LQFP48_7","unknown",U303 
+1,"cat5ShieldedGangJack","unknown",CONN201 
+1,"0805","120",R201 
+1,"SO16","unknown",U101 
+1,"DB9F","unknown",CONN102 
