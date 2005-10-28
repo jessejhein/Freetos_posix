@@ -1,0 +1,109 @@
+arcnet.o: arcnet.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_arp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/arp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/arcdevice.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/arcnet.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/arcnet/1201.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/arcnet/1051.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/arcnet/raw.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/arcnet/com90xx.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/inet.h)
+arc-rawmode.o: arc-rawmode.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_arp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/arp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/arcdevice.h
+arc-rimi.o: arc-rimi.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/bootmem.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/arcdevice.h
+com20020.o: com20020.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/arcdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/com20020.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h
+com20020-isa.o: com20020-isa.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/bootmem.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/arcdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/com20020.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h
+com20020-pci.o: com20020-pci.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/arcdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/com20020.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h
+com90io.o: com90io.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/bootmem.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/arcdevice.h
+com90xx.o: com90xx.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/bootmem.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/arcdevice.h
+rfc1051.o: rfc1051.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_arp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/arp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/arcdevice.h
+rfc1201.o: rfc1201.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_arp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/arcdevice.h

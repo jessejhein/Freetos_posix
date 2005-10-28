@@ -1,0 +1,90 @@
+bond_3ad.o: bond_3ad.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_ether.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/spinlock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ethtool.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_bonding.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pkt_sched.h \
+   bonding.h \
+   bond_3ad.h
+bond_3ad.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/byteorder.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h
+	@touch bond_3ad.h
+bond_alb.o: bond_alb.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/etherdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pkt_sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/spinlock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ip.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ipv6.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_arp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_ether.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_bonding.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/ipx.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/arp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/byteorder.h \
+   bonding.h \
+   bond_alb.h
+bond_alb.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_ether.h
+	@touch bond_alb.h
+bonding.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   bond_3ad.h \
+   bond_alb.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/proc/fs.h)
+	@touch bonding.h
+bond_main.o: bond_main.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fcntl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ptrace.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/in.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ip.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/socket.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ctype.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/inet.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/bitops.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/dma.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/inetdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/etherdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/sock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/rtnetlink.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/seq_file.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_bonding.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_ether.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/arp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mii.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ethtool.h \
+   bonding.h \
+   bond_3ad.h \
+   bond_alb.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/proc/fs.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/net/fastroute.h)
+.PRECIOUS:	bond_3ad.h \
+	bond_alb.h \
+	bonding.h \
+

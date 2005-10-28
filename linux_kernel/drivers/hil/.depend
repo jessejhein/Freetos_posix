@@ -1,0 +1,69 @@
+hil_kbd.o: hil_kbd.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/hil.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/input.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/serio.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h
+hilkbd.o: hilkbd.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci_ids.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/input.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/irq.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/hil.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/parisc.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/hardware.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/hp300.h)
+hil_mlc.o: hil_mlc.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/hil_mlc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/list.h
+hil_ptr.o: hil_ptr.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/hil.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/input.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/serio.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h
+hp_sdc.o: hp_sdc.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/hp_sdc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/time.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/hil.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h
+hp_sdc_mlc.o: hp_sdc_mlc.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/hil_mlc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/hp_sdc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h
+hp_sdc_rtc.o: hp_sdc_rtc.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/hp_sdc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/time.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/miscdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/poll.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/rtc.h

@@ -1,0 +1,34 @@
+isapnp.o: isapnp.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/dma.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/irq.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/isapnp.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/pci.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/proc/fs.h)
+isapnp_proc.o: isapnp_proc.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/poll.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/vmalloc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/isapnp.h
+quirks.o: quirks.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/isapnp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h

@@ -1,0 +1,60 @@
+ixj.o: ixj.c \
+   ixj-ver.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/tqueue.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/poll.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/segment.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/isapnp.h \
+   ixj.h
+ixj.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ixjuser.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/phonedev.h
+	@touch ixj.h
+ixj_pcmcia.o: ixj_pcmcia.c \
+   ixj-ver.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/pcmcia/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/pcmcia/cs_types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/pcmcia/cs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/pcmcia/cistpl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/pcmcia/ds.h \
+   ixj.h
+phonedev.o: phonedev.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/phonedev.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kmod.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sem.h
+.PRECIOUS:	ixj.h \
+

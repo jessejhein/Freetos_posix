@@ -1,0 +1,55 @@
+lk201.o: lk201.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/tty.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kbd_ll.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kbd_kern.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/vt_kern.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/keyboard.h \
+   zs.h \
+   lk201.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/magic/sysrq.h)
+tc.o: tc.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/ptrace.h
+zs.o: zs.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/signal.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/tty.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/tty_flip.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/major.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fcntl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/serial/dec/console.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/console.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgtable.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/irq.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/segment.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/bitops.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/decstation.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/baget/mips.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/kgdb.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/magic/sysrq.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sysrq.h \
+   zs.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/devfs/fs.h)

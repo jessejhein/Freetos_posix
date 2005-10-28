@@ -1,0 +1,84 @@
+boardergo.o: boardergo.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/signal.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/vmalloc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   hysdn_defs.h \
+   boardergo.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/hysdn/capi.h)
+hycapi.o: hycapi.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/signal.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   hysdn_defs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernelcapi.h
+hysdn_boot.o: hysdn_boot.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/vmalloc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   hysdn_defs.h \
+   hysdn_pof.h
+hysdn_defs.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/hysdn_if.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/tqueue.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   ince1pc.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/hysdn/capi.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/capi.h \
+   ../avmb1/capicmd.h \
+   ../avmb1/capiutil.h \
+   ../avmb1/capilli.h
+	@touch hysdn_defs.h
+hysdn_init.o: hysdn_init.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/poll.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/vmalloc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   hysdn_defs.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/hysdn/capi.h)
+hysdn_net.o: hysdn_net.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/signal.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/etherdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/inetdevice.h \
+   hysdn_defs.h
+hysdn_procconf.o: hysdn_procconf.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/poll.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   hysdn_defs.h
+hysdn_proclog.o: hysdn_proclog.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/poll.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   hysdn_defs.h
+hysdn_sched.o: hysdn_sched.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/signal.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   hysdn_defs.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/hysdn/capi.h)
+.PRECIOUS:	hysdn_defs.h \
+

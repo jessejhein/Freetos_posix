@@ -1,0 +1,18 @@
+aki3068_ide.o: aki3068_ide.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ide.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/irq.h
+h8max_ide.o: h8max_ide.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/hdreg.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ide.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/irq.h

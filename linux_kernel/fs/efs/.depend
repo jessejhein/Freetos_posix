@@ -1,0 +1,23 @@
+dir.o: dir.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/efs_fs.h
+file.o: file.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/efs_fs.h
+inode.o: inode.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/efs_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/efs_fs_sb.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h
+namei.o: namei.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/efs_fs.h
+super.o: super.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/locks.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/efs_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/efs_vh.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/efs_fs_sb.h
+symlink.o: symlink.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/efs_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h

@@ -1,0 +1,198 @@
+blkmtd.o: blkmtd.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/iobuf.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/list.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/mtd/debug.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/proc/fs.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/mtd/blkdev/erasesize.h)
+doc1000.o: doc1000.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ptrace.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/major.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioctl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/iflash.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/smp.h)
+doc2000.o: doc2000.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/miscdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/nand.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/doc2000.h
+doc2001.o: doc2001.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/miscdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/nand.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/doc2000.h
+doc2001plus.o: doc2001plus.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/miscdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/nand.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/doc2000.h
+docecc.o: docecc.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/miscdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/compatmac.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/doc2000.h
+docprobe.o: docprobe.c \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/sh/secureedge5410.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/miscdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/nand.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/doc2000.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/mtd/docprobe/address.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/mtd/docprobe/high.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/momenco/ocelot.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/momenco/ocelot/g.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/momenco/ocelot/c.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/secureedgemp3.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/nettel.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/mtd/docprobe/55aa.h)
+lart.o: lart.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/partitions.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/sa1100/lart.h)
+ms02-nv.o: ms02-nv.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   ms02-nv.h
+ms02-nv.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h
+	@touch ms02-nv.h
+mtdram.o: mtdram.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/compatmac.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/mtdram/abs/pos.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/mtdram/total/size.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/mtdram/erase/size.h)
+pmc551.o: pmc551.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ptrace.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/major.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioctl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/pci.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/pmc551.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/compatmac.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/mtd/pmc551/debug.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/mtd/pmc551/bugfix.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/mtd/pmc551/aperture/size.h)
+slram.o: slram.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ptrace.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/major.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioctl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h
+.PRECIOUS:	ms02-nv.h \
+

@@ -1,0 +1,42 @@
+balloc.o: balloc.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sysv_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/locks.h
+dir.o: dir.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sysv_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h
+file.o: file.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sysv_fs.h
+ialloc.o: ialloc.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sysv_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/stddef.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/locks.h
+inode.o: inode.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sysv_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/locks.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/highuid.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/byteorder.h
+itree.o: itree.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sysv_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/locks.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h
+namei.o: namei.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sysv_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h
+super.o: super.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sysv_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h
+symlink.o: symlink.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h

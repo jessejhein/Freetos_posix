@@ -1,0 +1,72 @@
+dir.o: dir.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/msdos_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/limits.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/umsdos_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h
+emd.o: emd.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fcntl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/msdos_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/umsdos_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/dcache.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h
+inode.o: inode.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/msdos_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/umsdos_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/list.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h
+ioctl.o: ioctl.c \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/msdos_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/umsdos_fs.h
+mangle.o: mangle.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/umsdos_fs.h
+namei.o: namei.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fcntl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/msdos_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/umsdos_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h
+rdir.o: rdir.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/msdos_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/limits.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/umsdos_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h

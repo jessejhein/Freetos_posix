@@ -1,0 +1,302 @@
+fc-10.o: fc-10.c \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   ../lowlevel/ftape-tracing.h \
+   ../lowlevel/fdc-io.h \
+   ../lowlevel/fc-10.h
+fdc-io.o: fdc-io.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/dma.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/irq.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/qic117.h \
+   ../lowlevel/ftape-tracing.h \
+   ../lowlevel/fdc-io.h \
+   ../lowlevel/fdc-isr.h \
+   ../lowlevel/ftape-io.h \
+   ../lowlevel/ftape-rw.h \
+   ../lowlevel/ftape-ctl.h \
+   ../lowlevel/ftape-calibr.h \
+   ../lowlevel/fc-10.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/fdc/base.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/fdc/irq.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/fdc/dma.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/fdc/thr.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/fdc/max/rate.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/probe/fc10.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/mach2.h)
+fdc-io.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fdreg.h \
+   ../lowlevel/ftape-bsm.h
+	@touch fdc-io.h
+fdc-isr.o: fdc-isr.c \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/dma.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/qic117.h \
+   ../lowlevel/ftape-tracing.h \
+   ../lowlevel/fdc-isr.h \
+   ../lowlevel/fdc-io.h \
+   ../lowlevel/ftape-ctl.h \
+   ../lowlevel/ftape-rw.h \
+   ../lowlevel/ftape-io.h \
+   ../lowlevel/ftape-calibr.h \
+   ../lowlevel/ftape-bsm.h
+ftape-bsm.o: ftape-bsm.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   ../lowlevel/ftape-tracing.h \
+   ../lowlevel/ftape-bsm.h \
+   ../lowlevel/ftape-ctl.h \
+   ../lowlevel/ftape-rw.h
+ftape-bsm.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape-header-segment.h
+	@touch ftape-bsm.h
+ftape-buffer.o: ftape-buffer.c \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/segment.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mman.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/wrapper.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/dma.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   ../lowlevel/ftape-rw.h \
+   ../lowlevel/ftape-read.h \
+   ../lowlevel/ftape-tracing.h
+ftape-calibr.o: ftape-calibr.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/timex.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timex.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   ../lowlevel/ftape-tracing.h \
+   ../lowlevel/ftape-calibr.h \
+   ../lowlevel/fdc-io.h
+ftape-ctl.o: ftape-ctl.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mman.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/wrapper.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/qic117.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/segment.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   ../lowlevel/ftape-tracing.h \
+   ../lowlevel/ftape-io.h \
+   ../lowlevel/ftape-ctl.h \
+   ../lowlevel/ftape-write.h \
+   ../lowlevel/ftape-read.h \
+   ../lowlevel/ftape-rw.h \
+   ../lowlevel/ftape-bsm.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/two/drives.h)
+ftape-ctl.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioctl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtio.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape-vendors.h \
+   ../lowlevel/ftape-rw.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape-header-segment.h
+	@touch ftape-ctl.h
+ftape-ecc.o: ftape-ecc.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   ../lowlevel/ftape-tracing.h \
+   ../lowlevel/ftape-ecc.h
+ftape-ecc.h: \
+   ../lowlevel/ftape-bsm.h
+	@touch ftape-ecc.h
+ftape-format.o: ftape-format.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/qic117.h \
+   ../lowlevel/ftape-tracing.h \
+   ../lowlevel/ftape-io.h \
+   ../lowlevel/ftape-ctl.h \
+   ../lowlevel/ftape-rw.h \
+   ../lowlevel/ftape-ecc.h \
+   ../lowlevel/ftape-bsm.h \
+   ../lowlevel/ftape-format.h
+ftape-init.o: ftape-init.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/signal.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/major.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/qic117.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/zftape.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/zftape.h \
+   ../lowlevel/ftape-init.h \
+   ../lowlevel/ftape_syms.h \
+   ../lowlevel/ftape-io.h \
+   ../lowlevel/ftape-read.h \
+   ../lowlevel/ftape-write.h \
+   ../lowlevel/ftape-ctl.h \
+   ../lowlevel/ftape-rw.h \
+   ../lowlevel/fdc-io.h \
+   ../lowlevel/ftape-buffer.h \
+   ../lowlevel/ftape-proc.h \
+   ../lowlevel/ftape-tracing.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/nr/buffers.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/proc/fs.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/proc/fs.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/no/trace/at/all.h)
+ftape-init.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/signal.h
+	@touch ftape-init.h
+ftape-io.o: ftape-io.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/segment.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioctl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtio.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/qic117.h \
+   ../lowlevel/ftape-tracing.h \
+   ../lowlevel/fdc-io.h \
+   ../lowlevel/ftape-io.h \
+   ../lowlevel/ftape-ctl.h \
+   ../lowlevel/ftape-rw.h \
+   ../lowlevel/ftape-write.h \
+   ../lowlevel/ftape-read.h \
+   ../lowlevel/ftape-init.h \
+   ../lowlevel/ftape-calibr.h
+ftape-io.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/qic117.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape-vendors.h
+	@touch ftape-io.h
+ftape-proc.o: ftape-proc.c \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/proc/fs.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/proc/fs.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/qic117.h \
+   ../lowlevel/ftape-io.h \
+   ../lowlevel/ftape-ctl.h \
+   ../lowlevel/ftape-proc.h \
+   ../lowlevel/ftape-tracing.h
+ftape-proc.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h
+	@touch ftape-proc.h
+ftape-read.o: ftape-read.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/segment.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/qic117.h \
+   ../lowlevel/ftape-tracing.h \
+   ../lowlevel/ftape-read.h \
+   ../lowlevel/ftape-io.h \
+   ../lowlevel/ftape-ctl.h \
+   ../lowlevel/ftape-rw.h \
+   ../lowlevel/ftape-write.h \
+   ../lowlevel/ftape-ecc.h \
+   ../lowlevel/ftape-bsm.h
+ftape-rw.o: ftape-rw.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/qic117.h \
+   ../lowlevel/ftape-tracing.h \
+   ../lowlevel/ftape-rw.h \
+   ../lowlevel/fdc-io.h \
+   ../lowlevel/ftape-init.h \
+   ../lowlevel/ftape-io.h \
+   ../lowlevel/ftape-ctl.h \
+   ../lowlevel/ftape-read.h \
+   ../lowlevel/ftape-ecc.h \
+   ../lowlevel/ftape-bsm.h
+ftape-rw.h: \
+   ../lowlevel/fdc-io.h \
+   ../lowlevel/ftape-init.h \
+   ../lowlevel/ftape-bsm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/unaligned.h
+	@touch ftape-rw.h
+ftape-setup.o: ftape-setup.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/segment.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   ../lowlevel/ftape-tracing.h \
+   ../lowlevel/fdc-io.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/no/trace/at/all.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/fdc/base.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/fdc/irq.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/fdc/dma.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/fdc/thr.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/fdc/max/rate.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/probe/fc10.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/mach2.h)
+ftape_syms.o: ftape_syms.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   ../lowlevel/ftape-tracing.h \
+   ../lowlevel/ftape-init.h \
+   ../lowlevel/fdc-io.h \
+   ../lowlevel/ftape-read.h \
+   ../lowlevel/ftape-write.h \
+   ../lowlevel/ftape-io.h \
+   ../lowlevel/ftape-ctl.h \
+   ../lowlevel/ftape-rw.h \
+   ../lowlevel/ftape-bsm.h \
+   ../lowlevel/ftape-buffer.h \
+   ../lowlevel/ftape-format.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/no/trace/at/all.h)
+ftape_syms.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h
+	@touch ftape_syms.h
+ftape-tracing.o: ftape-tracing.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   ../lowlevel/ftape-tracing.h
+ftape-tracing.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/no/trace/at/all.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/no/trace.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ft/full/debug.h)
+	@touch ftape-tracing.h
+ftape-write.o: ftape-write.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/segment.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ftape.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/qic117.h \
+   ../lowlevel/ftape-tracing.h \
+   ../lowlevel/ftape-write.h \
+   ../lowlevel/ftape-read.h \
+   ../lowlevel/ftape-io.h \
+   ../lowlevel/ftape-ctl.h \
+   ../lowlevel/ftape-rw.h \
+   ../lowlevel/ftape-ecc.h \
+   ../lowlevel/ftape-bsm.h \
+   ../lowlevel/fdc-isr.h
+.PRECIOUS:	fdc-io.h \
+	ftape-bsm.h \
+	ftape-ctl.h \
+	ftape-ecc.h \
+	ftape-init.h \
+	ftape-io.h \
+	ftape-proc.h \
+	ftape-rw.h \
+	ftape_syms.h \
+	ftape-tracing.h \
+

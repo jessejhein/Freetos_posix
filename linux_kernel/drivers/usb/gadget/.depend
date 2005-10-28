@@ -1,0 +1,93 @@
+ether.o: ether.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/list.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/uts.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/byteorder.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/irq.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/unaligned.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/usb_ch9.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/usb_gadget.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/random.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/etherdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ethtool.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/usb/eth/net2280.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/usb/eth/pxa2xx.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/usb/eth/sa1100.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/usb/eth/goku.h)
+net2280.o: net2280.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/list.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/usb_ch9.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/usb_gadget.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/byteorder.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/irq.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/unaligned.h \
+   net2280.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/x86.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ppc.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/not/coherent/cache.h)
+usbstring.o: usbstring.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/list.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/usb_ch9.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/usb_gadget.h
+zero.o: zero.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/list.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/uts.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/byteorder.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/irq.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/unaligned.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/usb_ch9.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/usb_gadget.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/usb/zero/net2280.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/usb/zero/pxa2xx.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/usb/zero/sa1100.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/usb/zero/goku.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/source/sink.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/loopback.h)

@@ -1,0 +1,149 @@
+array.o: array.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel_stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/tty.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mman.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/signal.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/highmem.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/seq_file.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgtable.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/processor.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/arch/s390.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/smp.h)
+base.o: base.c \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/file.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/seq_file.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/namespace.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/smp.h)
+generic.o: generic.c \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/bitops.h
+inode.o: inode.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/file.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/locks.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/limits.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h
+kcore.o: kcore.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/user.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/a.out.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/elf.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/elfcore.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/vmalloc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/highmem.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/kcore/aout.h)
+kmsg.o: kmsg.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/poll.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h
+proc_devtree.o: proc_devtree.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h
+proc_misc.o: proc_misc.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel_stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/tty.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mman.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/signal.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/seq_file.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sysrq.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgtable.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/modules.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/x86.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/sgi/ds1286.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/proc/hardware.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/stram/proc.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/arch/s390.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/alpha.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/smp.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/magic/sysrq.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ppc32.h)
+proc_tty.o: proc_tty.c \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/tty.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/bitops.h
+root.o: root.c \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/bitops.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/sysctl.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/sysvipc.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/binfmt/misc.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/binfmt/misc/module.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/sun/openpromfs.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/sun/openpromfs/module.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/proc/devicetree.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ppc/iseries.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ppc64.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ppc/rtas.h)

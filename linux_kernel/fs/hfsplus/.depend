@@ -1,0 +1,87 @@
+bfind.o: bfind.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   hfsplus_fs.h
+bnode.o: bnode.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   hfsplus_fs.h \
+   hfsplus_raw.h
+brec.o: brec.c \
+   hfsplus_fs.h \
+   hfsplus_raw.h
+btree.o: btree.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/div64.h \
+   hfsplus_fs.h \
+   hfsplus_raw.h
+catalog.o: catalog.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   hfsplus_fs.h \
+   hfsplus_raw.h
+dir.o: dir.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/random.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   hfsplus_fs.h \
+   hfsplus_raw.h
+extents.o: extents.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   hfsplus_fs.h \
+   hfsplus_raw.h
+hfsplus_fs.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   hfsplus_raw.h
+	@touch hfsplus_fs.h
+hfsplus_raw.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h
+	@touch hfsplus_raw.h
+inode.o: inode.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   hfsplus_fs.h \
+   hfsplus_raw.h
+options.o: options.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   hfsplus_fs.h
+super.o: super.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/locks.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/vfs.h \
+   hfsplus_fs.h
+tables.o: tables.c \
+   hfsplus_fs.h
+unicode.o: unicode.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/nls.h \
+   hfsplus_fs.h \
+   hfsplus_raw.h
+wrapper.o: wrapper.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   hfsplus_fs.h \
+   hfsplus_raw.h
+.PRECIOUS:	hfsplus_fs.h \
+	hfsplus_raw.h \
+

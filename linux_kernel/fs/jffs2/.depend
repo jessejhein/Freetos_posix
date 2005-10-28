@@ -1,0 +1,206 @@
+background.o: background.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/unistd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/completion.h \
+   nodelist.h
+build.o: build.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   nodelist.h
+compr.o: compr.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2.h
+compr_rtime.o: compr_rtime.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h
+compr_rubin.o: compr_rubin.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   compr_rubin.h \
+   histo_mips.h
+compr_rubin.h: \
+   pushpull.h
+	@touch compr_rubin.h
+comprtest.o: comprtest.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/types.h
+compr_zlib.o: compr_zlib.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/compatmac.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/zlib.h \
+   nodelist.h
+dir.o: dir.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/compatmac.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2_fs_i.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2_fs_sb.h \
+   nodelist.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/crc32.h
+erase.o: erase.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   nodelist.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/crc32.h
+file.o: file.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/compatmac.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2.h \
+   nodelist.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/crc32.h
+fs.o: fs.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/list.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   nodelist.h
+gc.o: gc.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   nodelist.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/crc32.h
+ioctl.o: ioctl.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h
+malloc.o: malloc.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2.h \
+   nodelist.h
+nodelist.o: nodelist.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   nodelist.h
+nodelist.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2_fs_sb.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2_fs_i.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/jffs2/fs/debug.h)
+	@touch nodelist.h
+nodemgmt.o: nodemgmt.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   nodelist.h
+os-linux.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/jffs2/fs/nand.h)
+	@touch os-linux.h
+pushpull.o: pushpull.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   pushpull.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h
+read.o: read.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   nodelist.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/crc32.h
+readinode.o: readinode.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2.h \
+   nodelist.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/crc32.h
+scan.o: scan.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   nodelist.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/crc32.h
+super.o: super.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/list.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   nodelist.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/jffs2/fs/debug.h)
+super-v24.o: super-v24.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/list.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   nodelist.h
+symlink.o: symlink.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2.h \
+   nodelist.h
+wbuf.o: wbuf.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/crc32.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/nand.h \
+   nodelist.h
+write.o: write.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/jffs2.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   nodelist.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/crc32.h
+writev.o: writev.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mtd/mtd.h \
+   nodelist.h
+.PRECIOUS:	compr_rubin.h \
+	nodelist.h \
+	os-linux.h \
+

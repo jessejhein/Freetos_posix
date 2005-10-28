@@ -1,0 +1,40 @@
+accel.o: accel.c \
+   rivafb.h
+fbdev.o: fbdev.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/selection.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/tty.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fb.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/console.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/mtrr.h) \
+   rivafb.h \
+   nvreg.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/pci.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/all/ppc.h)
+rivafb.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fb.h \
+   /home/yan/MainData/workspace/linux_kernel/include/video/fbcon.h \
+   /home/yan/MainData/workspace/linux_kernel/include/video/fbcon-cfb4.h \
+   /home/yan/MainData/workspace/linux_kernel/include/video/fbcon-cfb8.h \
+   /home/yan/MainData/workspace/linux_kernel/include/video/fbcon-cfb16.h \
+   /home/yan/MainData/workspace/linux_kernel/include/video/fbcon-cfb32.h \
+   riva_hw.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/mtrr.h)
+	@touch rivafb.h
+riva_hw.o: riva_hw.c \
+   riva_hw.h \
+   riva_tbl.h
+riva_hw.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h
+	@touch riva_hw.h
+.PRECIOUS:	rivafb.h \
+	riva_hw.h \
+

@@ -1,0 +1,61 @@
+e100_config.o: e100_config.c \
+   e100_config.h
+e100_config.h: \
+   e100.h
+	@touch e100_config.h
+e100_eeprom.o: e100_eeprom.c \
+   e100.h
+e100.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/etherdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/wait.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/reboot.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/unaligned.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/processor.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ethtool.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/inetdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/bitops.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ip.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_vlan.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mii.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/pm.h)
+	@touch e100.h
+e100_main.o: e100_main.c \
+   /home/yan/MainData/workspace/linux_kernel/include/net/checksum.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/tcp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/udp.h \
+   e100.h \
+   e100_ucode.h \
+   e100_config.h \
+   e100_phy.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/pm.h)
+e100_phy.o: e100_phy.c \
+   e100_phy.h
+e100_phy.h: \
+   e100.h
+	@touch e100_phy.h
+e100_test.o: e100_test.c \
+   e100_phy.h \
+   e100_config.h
+.PRECIOUS:	e100_config.h \
+	e100.h \
+	e100_phy.h \
+

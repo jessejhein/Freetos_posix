@@ -1,0 +1,74 @@
+can_close.o: can_close.c \
+   can_defs.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ppc.h)
+can_core.o: can_core.c \
+   can_defs.h
+can_debug.o: can_debug.c \
+   can_defs.h
+can_defs.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/tty.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/major.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/malloc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/wrapper.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/poll.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/segment.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/irq.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/dma.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/signal.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   can_debug.h \
+   can_sja1000.h \
+   can_sja1000.h \
+   can_sja1000.h \
+   can_sja1000.h \
+   can_sja1000.h \
+   can_sja1000.h \
+   can_sja1000.h \
+   can4linux.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sysctl.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ppc.h)
+	@touch can_defs.h
+can_error.o: can_error.c \
+   can_defs.h
+can_ioctl.o: can_ioctl.c \
+   can_defs.h
+can_open.o: can_open.c \
+   can_defs.h
+can_read.o: can_read.c \
+   can_defs.h
+can_select.o: can_select.c \
+   can_defs.h
+can_sja1000funcs.o: can_sja1000funcs.c \
+   can_defs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/delay.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ppc.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/time/measure.h)
+can_sysctl.o: can_sysctl.c \
+   can_defs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sysctl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ctype.h
+can_util.o: can_util.c \
+   can_defs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ppc.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h
+can_write.o: can_write.c \
+   can_defs.h
+.PRECIOUS:	can_defs.h \
+

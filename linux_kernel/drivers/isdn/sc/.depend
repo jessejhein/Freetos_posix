@@ -1,0 +1,78 @@
+card.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/isdnif.h \
+   message.h
+	@touch card.h
+command.o: command.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   includes.h \
+   hardware.h \
+   message.h \
+   card.h \
+   scioc.h
+debug.o: debug.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h
+event.o: event.c \
+   includes.h \
+   hardware.h \
+   message.h \
+   card.h
+hardware.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/param.h
+	@touch hardware.h
+includes.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/segment.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/wait.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/isdnif.h \
+   debug.h
+	@touch includes.h
+init.o: init.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   includes.h \
+   hardware.h \
+   card.h
+interrupt.o: interrupt.c \
+   includes.h \
+   hardware.h \
+   message.h \
+   card.h
+ioctl.o: ioctl.c \
+   includes.h \
+   hardware.h \
+   message.h \
+   card.h \
+   scioc.h
+message.o: message.c \
+   includes.h \
+   hardware.h \
+   message.h \
+   card.h
+packet.o: packet.c \
+   includes.h \
+   hardware.h \
+   message.h \
+   card.h
+shmem.o: shmem.c \
+   includes.h \
+   hardware.h \
+   card.h
+timer.o: timer.c \
+   includes.h \
+   hardware.h \
+   message.h \
+   card.h
+.PRECIOUS:	card.h \
+	hardware.h \
+	includes.h \
+
