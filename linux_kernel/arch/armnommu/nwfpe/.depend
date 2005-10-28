@@ -1,0 +1,78 @@
+double_cpdo.o: double_cpdo.c \
+   softfloat.h \
+   fpopcode.h \
+   fpa11.h
+entry26.o: entry26.S \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/constants.h
+extended_cpdo.o: extended_cpdo.c \
+   softfloat.h \
+   fpopcode.h \
+   fpa11.h
+fpa11.o: fpa11.c \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   fpa11.h \
+   fpopcode.h \
+   fpmodule.h \
+   fpmodule.inl
+fpa11_cpdo.o: fpa11_cpdo.c \
+   fpa11.h \
+   fpopcode.h
+fpa11_cpdt.o: fpa11_cpdt.c \
+   softfloat.h \
+   fpopcode.h \
+   fpa11.h \
+   fpmodule.h \
+   fpmodule.inl \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h
+fpa11_cprt.o: fpa11_cprt.c \
+   milieu.h \
+   softfloat.h \
+   fpopcode.h \
+   fpa11.h \
+   fpa11.inl \
+   fpmodule.h \
+   fpmodule.inl
+fpa11.h: \
+   fpsr.h \
+   softfloat.h
+	@touch fpa11.h
+fpmodule.o: fpmodule.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/version.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/signal.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   softfloat.h \
+   fpopcode.h \
+   fpmodule.h \
+   fpa11.h \
+   fpa11.inl \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/debug/user.h)
+fpmodule.h: \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/32.h)
+	@touch fpmodule.h
+fpopcode.o: fpopcode.c \
+   softfloat.h \
+   fpopcode.h \
+   fpsr.h \
+   fpa11.h \
+   fpmodule.h \
+   fpmodule.inl
+milieu.h: \
+   ARM-gcc.h
+	@touch milieu.h
+single_cpdo.o: single_cpdo.c \
+   softfloat.h \
+   fpopcode.h \
+   fpa11.h
+softfloat.o: softfloat.c \
+   milieu.h \
+   softfloat.h \
+   softfloat-macros \
+   softfloat-specialize
+.PRECIOUS:	fpa11.h \
+	fpmodule.h \
+	milieu.h \
+

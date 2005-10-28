@@ -1,0 +1,139 @@
+backtrace.o: backtrace.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/no/frame/pointer.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/32.h)
+changebit.o: changebit.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+clearbit.o: clearbit.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+copy_page.o: copy_page.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/constants.h
+csumipv6.o: csumipv6.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+csumpartialcopy.o: csumpartialcopy.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   csumpartialcopygeneric.S
+csumpartialcopyuser.o: csumpartialcopyuser.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/constants.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/32.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/26.h) \
+   csumpartialcopygeneric.S
+csumpartial.o: csumpartial.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+delay.o: delay.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+ecard.o: ecard.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/hardware.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/26.h)
+findbit.o: findbit.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+floppydma.o: floppydma.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+io-acorn.o: io-acorn.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/hardware.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/26.h)
+io.o: io.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h
+io-pcio.o: io-pcio.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/hardware.h
+io-readsb.o: io-readsb.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+io-readsl-armv3.o: io-readsl-armv3.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/hardware.h
+io-readsl-armv4.o: io-readsl-armv4.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+io-readsw-armv3.o: io-readsw-armv3.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/hardware.h
+io-readsw-armv4.o: io-readsw-armv4.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+io-shark.o: io-shark.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h
+io-writesb.o: io-writesb.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+io-writesl.o: io-writesl.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/hardware.h
+io-writesw-armv3.o: io-writesw-armv3.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/hardware.h
+io-writesw-armv4.o: io-writesw-armv4.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+memchr.o: memchr.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+memcpy.o: memcpy.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+memset.o: memset.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+memzero.o: memzero.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+setbit.o: setbit.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+strchr.o: strchr.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+strncpy_from_user.o: strncpy_from_user.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/errno.h
+strnlen_user.o: strnlen_user.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/errno.h
+strrchr.o: strrchr.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+testchangebit.o: testchangebit.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+testclearbit.o: testclearbit.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+testsetbit.o: testsetbit.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+uaccess-armo.o: uaccess-armo.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h
+uaccess.o: uaccess.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/errno.h

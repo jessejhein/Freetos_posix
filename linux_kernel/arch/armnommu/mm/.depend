@@ -1,0 +1,230 @@
+consistent.o: consistent.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/vmalloc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgtable.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgalloc.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/pci.h)
+discontig.o: discontig.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/bootmem.h
+extable.o: extable.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/modules.h)
+fault-armo.o: fault-armo.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/signal.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ptrace.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mman.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgtable.h
+fault-armv.o: fault-armv.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/signal.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ptrace.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mman.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgalloc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgtable.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/unaligned.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/alignment/trap.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/sysctl.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/sa110.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/sa1100.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/debug/errors.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/uclinux.h)
+fault-armv-s3c.o: fault-armv-s3c.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/signal.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ptrace.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mman.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgalloc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgtable.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/unaligned.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/s3c45x0/alignment/procfs.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/sysctl.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/s3c45x0/alignment/trap.h)
+fault-common.o: fault-common.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/signal.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ptrace.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mman.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgtable.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/unaligned.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/26.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/uclinux.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/32.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/debug/user.h)
+init.o: init.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/signal.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ptrace.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mman.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swapctl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/bootmem.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/blk.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/segment.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/mach-types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgalloc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/dma.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/hardware.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/setup.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/mach/arch.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/mach/map.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/discontigmem.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/32.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ram/attached/romfs.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/no/pgt/cache.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/blk/dev/initrd.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/uclinux.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/blk/dev/ramdisk/data.h)
+ioremap.o: ioremap.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h
+memory.o: memory.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h
+mm-armv.o: mm-armv.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/bootmem.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgtable.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgalloc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/page.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/setup.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/mach/map.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/uclinux.h)
+proc-arm2,3.o: proc-arm2,3.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/constants.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/procinfo.h
+proc-arm6,7.o: proc-arm6,7.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/constants.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/procinfo.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/errno.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/with/cache.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/with/mcr/instruction.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/arch/ta7s.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/arch/ta7v.h)
+proc-arm720.o: proc-arm720.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/constants.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/procinfo.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/hardware.h
+proc-arm740.o: proc-arm740.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/constants.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/procinfo.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/hardware.h
+proc-arm920.o: proc-arm920.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/constants.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/procinfo.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/hardware.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/arm920/cpu/idle.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/arm920/force/write/through.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/arm920/i/cache/on.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/arm920/d/cache/on.h)
+proc-arm940.o: proc-arm940.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/constants.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/procinfo.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/hardware.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/arm940/cpu/idle.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/arm940/force/write/through.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/arm940/i/cache/on.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/arm940/d/cache/on.h)
+proc-arm940T.o: proc-arm940T.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/constants.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/procinfo.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/hardware.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/arm940/cpu/idle.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ucbootstrap.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/arm940/i/cache/on.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/arm940/d/cache/on.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cpu/arm940/writethrough.h)
+proc-sa110.o: proc-sa110.S \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/linkage.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/assembler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/constants.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/procinfo.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/hardware.h
+proc-syms.o: proc-syms.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/proc-fns.h
+small_page.o: small_page.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/signal.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ptrace.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mman.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/bitops.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgtable.h
