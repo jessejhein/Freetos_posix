@@ -1,0 +1,40 @@
+af_packet.o: af_packet.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fcntl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/socket.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/in.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/inet.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_packet.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/wireless.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kmod.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/ip.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/protocol.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/sock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/ioctls.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/poll.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_bridge.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/net/divert.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/divert.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/inet.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/net/inet_common.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/dlci.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/packet/multicast.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/packet/mmap.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/sock/packet.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/filter.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/bridge.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/bridge/module.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/kmod.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/net/radio.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/proc/fs.h)

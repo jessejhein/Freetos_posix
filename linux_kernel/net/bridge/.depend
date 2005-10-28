@@ -1,0 +1,116 @@
+br.o: br.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/miscdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/etherdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_bridge.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/brlock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   br_private.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/atm/lane.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/atm/lane/module.h) \
+   ../atm/lec.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/netfilter.h)
+br_device.o: br_device.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_bridge.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   br_private.h
+br_fdb.o: br_fdb.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/spinlock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_bridge.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/atomic.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   br_private.h
+br_forward.o: br_forward.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/inetdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_bridge.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netfilter_bridge.h \
+   br_private.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/netfilter.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/netfilter/debug.h)
+br_if.o: br_if.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_arp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_bridge.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/inetdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/rtnetlink.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/brlock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   br_private.h
+br_input.o: br_input.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/etherdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_bridge.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netfilter_bridge.h \
+   br_private.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/netfilter/debug.h)
+br_ioctl.o: br_ioctl.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_bridge.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/inetdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   br_private.h
+br_netfilter.o: br_netfilter.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ip.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_ether.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netfilter_bridge.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netfilter_ipv4.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/in_route.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/ip.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/checksum.h \
+   br_private.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/netfilter/debug.h)
+br_notify.o: br_notify.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_bridge.h \
+   br_private.h
+br_private.h: \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/miscdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_bridge.h \
+   br_private_timer.h
+	@touch br_private.h
+br_stp_bpdu.o: br_stp_bpdu.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_ether.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_bridge.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netfilter_bridge.h \
+   br_private.h \
+   br_private_stp.h
+br_stp.o: br_stp.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_bridge.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   br_private.h \
+   br_private_stp.h
+br_stp_if.o: br_stp_if.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_bridge.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   br_private.h \
+   br_private_stp.h
+br_stp_timer.o: br_stp_timer.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_bridge.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   br_private.h \
+   br_private_stp.h
+.PRECIOUS:	br_private.h \
+

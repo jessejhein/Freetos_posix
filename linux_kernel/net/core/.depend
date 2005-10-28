@@ -1,0 +1,393 @@
+datagram.o: datagram.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/inet.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/rtnetlink.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/poll.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/highmem.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/protocol.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/sock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/checksum.h
+dev.o: dev.c \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/bitops.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/socket.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sockios.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_ether.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/etherdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/notifier.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/brlock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/sock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/rtnetlink.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_bridge.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/divert.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/dst.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/pkt_sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/profile.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/checksum.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/highmem.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kmod.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/net/radio.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/net/pcmcia/radio.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/wireless.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/iw_handler.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/plip.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/hotplug.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/net/fastroute.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/kmod.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/highmem.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/net/hw/flowcontrol.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/bridge.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/bridge/module.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/net/divert.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/proc/fs.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/net/profile.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/net/sched.h)
+dev_mcast.o: dev_mcast.c \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/bitops.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/socket.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sockios.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/in.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_ether.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/inet.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/etherdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/ip.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/route.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/sock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/arp.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/proc/fs.h)
+dst.o: dst.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/bitops.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/dst.h
+dv.o: dv.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/socket.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/in.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/inet.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ip.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/udp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/etherdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/dst.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/arp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/sock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/ipv6.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/ip.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/checksum.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/divert.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sockios.h
+ethtool.o: ethtool.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ethtool.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h
+filter.o: filter.c \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/filter.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fcntl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/socket.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/in.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/inet.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_packet.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/ip.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/protocol.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/sock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/filter.h
+iovec.o: iovec.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/net.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/in6.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/byteorder.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/checksum.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/sock.h
+neighbour.o: neighbour.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/socket.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/sysctl.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sysctl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/neighbour.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/dst.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/sock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/rtnetlink.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/arpd.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/smp.h)
+netfilter.o: netfilter.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netfilter.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/protocol.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/wait.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/brlock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/inetdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/sock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/route.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ip.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/unistd.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/netfilter/debug.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/net/ip.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/route.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/tcp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netfilter_ipv4.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/bridge.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/bridge/module.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/inet.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ip/route/fwmark.h)
+pktgen.o: pktgen.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ptrace.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ioport.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pci.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/delay.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/inet.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/byteorder.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/bitops.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/dma.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/in.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ip.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/udp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/inetdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/rtnetlink.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_arp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/checksum.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/timex.h
+profile.o: profile.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ip.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/inet.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/checksum.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/processor.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/profile.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/net/profile.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/proc/fs.h)
+rtnetlink.o: rtnetlink.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/socket.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/major.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sockios.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/net.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fcntl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/capability.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/inet.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/ip.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/protocol.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/arp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/route.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/udp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/sock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/pkt_sched.h
+scm.o: scm.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/signal.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/major.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/socket.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/file.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fcntl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/net.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/protocol.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/sock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/scm.h
+skbuff.o: skbuff.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/in.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/inet.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/cache.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/rtnetlink.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/highmem.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/protocol.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/dst.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/sock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/checksum.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/netfilter.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/netfilter/debug.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/bridge.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/bridge/module.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/net/sched.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/hippi.h)
+sock.o: sock.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/errno.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/socket.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/in.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/major.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timer.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sockios.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/net.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fcntl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/poll.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/tcp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/protocol.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/skbuff.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/sock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ipsec.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/filter.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/filter.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/inet.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/net/tcp.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/netdevices.h)
+sysctl_net_core.o: sysctl_net_core.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sysctl.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/sysctl.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/net/divert.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/net.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/net/fastroute.h)
+utils.o: utils.c \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/system.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h
+wireless.o: wireless.c \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/netdevice.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/rtnetlink.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/if_arp.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/wireless.h \
+   /home/yan/MainData/workspace/linux_kernel/include/net/iw_handler.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/proc/fs.h)

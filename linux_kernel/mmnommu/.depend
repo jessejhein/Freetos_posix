@@ -1,0 +1,201 @@
+bootmem.o: bootmem.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel_stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swapctl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/bootmem.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mmzone.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/dma.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/io.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/virtconvert.h
+filemap.o: filemap.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/shm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mman.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/locks.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/file.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swapctl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/iobuf.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgalloc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/mman.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/virtconvert.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/highmem.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/contiguous/page/alloc.h)
+memory.o: memory.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/iobuf.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/tlb.h
+mlock.o: mlock.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/shm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mman.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgtable.h
+mmap.o: mmap.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/shm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mman.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swapctl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/file.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/personality.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgalloc.h
+mprotect.o: mprotect.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/shm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mman.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgalloc.h
+mremap.o: mremap.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/shm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mman.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgalloc.h
+numa.o: numa.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/bootmem.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mmzone.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/spinlock.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/discontigmem.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/numa.h)
+oom_kill.o: oom_kill.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swapctl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/timex.h
+page_alloc2.o: page_alloc2.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swapctl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/bootmem.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/compiler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/mem/map.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/uncached/mem.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/uncached/256.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/uncached/512.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/uncached/1024.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/uncached/2048.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/uncached/4096.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/uncached/8192.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/proc/fs.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/highmem.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/blk/dev/ram.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/romfs/fs.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ext2/fs.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/minix/fs.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/contiguous/page/alloc.h)
+page_alloc.o: page_alloc.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swapctl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/bootmem.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/discontigmem.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/highmem.h)
+slab.o: slab.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/interrupt.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/compiler.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/seq_file.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/contiguous/page/alloc.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/debug/slab.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ucsimm.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/ucdimm.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/dragen2.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cwez328.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/cwvz328.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/smp.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/no/mmu/large/allocs.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/proc/fs.h)
+swap.o: swap.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel_stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swapctl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/dma.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgtable.h
+swapfile.o: swapfile.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel_stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swapctl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/blkdev.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/vmalloc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/shm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgtable.h
+swap_state.o: swap_state.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/mm.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel_stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swapctl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgtable.h
+vmalloc.o: vmalloc.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/vmalloc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/spinlock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/uaccess.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgalloc.h
+vmscan.o: vmscan.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel_stat.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/swapctl.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/smp_lock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/pagemap.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/highmem.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/file.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/pgalloc.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/quota.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/contiguous/page/alloc.h)

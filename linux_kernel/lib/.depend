@@ -1,0 +1,72 @@
+brlock.o: brlock.c \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/smp.h) \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/brlock.h
+bust_spinlocks.o: bust_spinlocks.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/spinlock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/tty.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/wait.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/vt_kern.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/vt.h)
+cmdline.o: cmdline.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h
+crc32.o: crc32.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/crc32.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/atomic.h \
+   crc32defs.h \
+   crc32table.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/crc32.h)
+ctype.o: ctype.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ctype.h
+dec_and_lock.o: dec_and_lock.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/spinlock.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/atomic.h
+dump_stack.o: dump_stack.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h
+firmware_class.o: firmware_class.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/init.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/slab.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kmod.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/proc_fs.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/vmalloc.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/hardirq.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/firmware.h \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/hotplug.h) \
+   $(wildcard /home/yan/MainData/workspace/linux_kernel/include/config/fw/loader.h)
+gen_crc32table.o: gen_crc32table.c \
+   crc32defs.h
+rbtree.o: rbtree.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/rbtree.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h
+rwsem.o: rwsem.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/rwsem.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h
+rwsem-spinlock.o: rwsem-spinlock.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/rwsem.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/sched.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/module.h
+string.o: string.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ctype.h
+vsprintf.o: vsprintf.c \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/types.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/string.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/ctype.h \
+   /home/yan/MainData/workspace/linux_kernel/include/linux/kernel.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/div64.h \
+   /home/yan/MainData/workspace/linux_kernel/include/asm/page.h
