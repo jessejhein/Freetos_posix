@@ -1,1 +1,0 @@
-#define CONFIG_CONSOLE_UART 1

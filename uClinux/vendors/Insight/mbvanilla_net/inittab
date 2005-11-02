@@ -1,4 +1,0 @@
-inet:unknown:/bin/inetd
-ttyS1:unknown:/bin/getty ttyS1 115200
-boa:unknown:/bin/boa
-

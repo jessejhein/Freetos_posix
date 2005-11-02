@@ -1,1 +1,0 @@
-#undef  CONFIG_UCCS8900

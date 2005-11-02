@@ -1,2 +1,0 @@
-CONSOLE_BAUD_RATE = 115200
-include $(ROOTDIR)/vendors/NEC/common/v850e/config.arch

@@ -1,1 +1,0 @@
-#undef  CONFIG_ARM_AM79C961A

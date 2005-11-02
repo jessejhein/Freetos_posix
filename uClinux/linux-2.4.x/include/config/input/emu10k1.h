@@ -1,1 +1,0 @@
-#undef  CONFIG_INPUT_EMU10K1
