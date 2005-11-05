@@ -1,0 +1,63 @@
+#------- pls put this file into uCLinux root directory
+#---------- this file aims to : 
+#------------ compile uClinux kernel
+#------------ commit to cvs 
+#--------------------------------------------------------
+
+#------- chk parameters
+if [ $# -ne 1 ]
+then
+	echo " ================================================= "
+	echo "Steps for prepare uClinux"
+	echo "	collect uClinux from version control system"
+	echo "	any modification"
+	echo "	make menuconfig"
+	echo "	./tool_sh 1"
+	echo "	get the image"
+	echo "	make clean"
+	echo "	./tool_sh 2"
+	echo "	commit back to version control system"
+	echo "REMARK : DO NOT run 'make mrproper', otherwise all configuration settings are lost"
+	echo " ================================================= "
+	echo "Usage - $0 parameter"
+	echo "$0 1 -- compile"
+	echo "$0 2 -- remove un-used stuffs for version control System"
+	exit 1
+fi
+
+#------- compilation
+if [ $1 -eq 1 ]
+then
+
+	#------- ready platform file(s)
+	#---------- arm 44b0x 21spacetime
+	#------------- ethernet
+	cp vendors/Samsung/44B0/21spacetime/ne.c linux-2.4.x/drivers/net/
+	cp vendors/Samsung/44B0/21spacetime/8390.h linux-2.4.x/drivers/net/
+	#cp vendors/Samsung/44B0/hz_armsys/ne.c linux-2.4.x/drivers/net/
+	#cp vendors/Samsung/44B0/hz_armsys/8390.h linux-2.4.x/drivers/net/
+	#--------------------------------------------------------
+	
+	#------- real compile
+	mkdir -p tmp
+	rm -f tmp/*.txt
+	(make dep 2>&1) >tmp/d.txt && (make lib_only 2>&1) >tmp/l.txt && (make user_only 2>&1) >tmp/u.txt && (make romfs 2>&1) >tmp/r.txt && (make image 2>&1) >tmp/i.txt; (make 2>&1) >tmp/m.txt
+	#--------------------------------------------------------
+
+	#------- post process
+	#---------- show the output and copy to suitable place for image files
+	#cp images/image.ram /boot/44b0/image_ram.bin
+#	cp images/image.rom /boot/44b0/image_rom_21space.bin
+#	cp images/romfs.img /boot/44b0/romfs_img_21space.bin
+	cp images/image.rom /boot/44b0/image_rom_21space_testing.bin
+	cp images/romfs.img /boot/44b0/romfs_img_21space_testing.bin
+	tail -n 50 tmp/i.txt
+	tail -n 50 tmp/m.txt
+	ls -la /boot/44b0/
+	#--------------------------------------------------------
+
+#---------- remove uClinux soft-links, because of CVS limitation
+elif [ $1 -eq 2 ]
+then
+	rm -rf romfs images tmp
+fi
