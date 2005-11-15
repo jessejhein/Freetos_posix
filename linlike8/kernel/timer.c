@@ -8,11 +8,10 @@
  */
 
 // including, get data linking from others ===============================================
+//	this appl. layer
+#include <pin_define.h>
 //	linlike8 configuration
 #include <linlike8/config.h>
-//	this appl. layer
-#include <gsm_master/pin_define.h>
-
 //	mwlike8
 
 //#include "app.h"
