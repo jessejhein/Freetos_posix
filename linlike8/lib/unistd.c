@@ -10,7 +10,7 @@
 #include <linlike8/config.h>
 #if (UART_MOD>0)		
 //	uart
-#include <linlike8/uart.h>
+#include "uart.h"
 #endif
 #if (I2C_MOD>0)		
 //	i2c
