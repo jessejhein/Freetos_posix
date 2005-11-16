@@ -53,6 +53,9 @@
 *	MUST provide enough buffer (char* out) to hold the char. data, eg. 3456, must provide 5 bytes including '\0'
 */
 
+// including, get data linking from others ===============================================
+#include <ucliblike8/ucliblike8_config.h>
+
 // 	declarations
 
 //		"out" must point to a valid buffer, otherwise Segmentation fault
