@@ -9,6 +9,9 @@
  *
  */
 
+#ifndef __SCHED_H__
+#define __SCHED_H__
+
 #if (CONTEXT_SW==1)
  											// state of process
 #define	TASK_RUNNING		0							//	ready for running / already in running
@@ -34,7 +37,11 @@ extern struct task_struct task[];
 //extern void wake_up_process(struct task_struct* p);
 #define	wake_up_process(p)	p->state = TASK_RUNNING
 #endif // (CONTEXT_SW==1)
+
+//	general
+typedef void const (*p_void_funct_void)(void);								// declar. a ptr for void funct(void)
 typedef void const (*p_func)(void);				// this specific for psoc, later to change to general
+
 #if (CONTEXT_SW==1)
 		// Description : fork a new process 
 		// Parameters : process_num - process number, manually to create this
@@ -52,3 +59,4 @@ extern void schedule_timeout(unsigned char millisec_time_10);	//extern void sche
 extern void do_timer(void);
 #endif
 
+#endif
