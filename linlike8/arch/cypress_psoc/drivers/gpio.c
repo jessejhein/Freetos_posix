@@ -170,6 +170,7 @@ void io_softirq(void)
 {
 	
 #if (KB_MOD==1) 
+	#if (ROTARY_KEY==1)
 	switch (gpio_var.scan_key_event) {
 //		case 0 : 
 //			 if (gpio_var.key_deb_f==0) {
@@ -179,7 +180,6 @@ void io_softirq(void)
 //					gpio_var.key_deb_f = 1; 
 //			 }
 //			break;
-	#if (ROTARY_KEY==1)
 		case 1 : 
 			// appl. level code here for DOWN key in DOWN case
 			 APP_DOWN_KEY_DOWN_CASE;
@@ -190,8 +190,8 @@ void io_softirq(void)
 			 APP_UP_KEY_DOWN_CASE;
 			 gpio_var.scan_key_event = 0;					// clr the previous key-in
 			break;
-	#endif
 	}
+	#endif
 #endif
 
 }
