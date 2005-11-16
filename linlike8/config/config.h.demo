@@ -30,7 +30,7 @@ extern void mwlike8_server(void);
 //		RS485 mode
 	#define	RS485						0	// enable RS485 or not
 //		uart master
-#define	UART_MASTER						1 
+#define	UART_MASTER						0
 //		uart slave 
 #define UART_SLAVE						0
 #if (UART_SLAVE == 1)
@@ -64,6 +64,7 @@ extern void mwlike8_server(void);
 //		modify hw configuration depends on kb.h
 //		adding timer in TIMER_MOD
 #define	KB_MOD							0
+//			following option must choose ONE only
 #if (KB_MOD>0)
 //			enable all pins interrupt
 #define	PUSH_KEY	0
