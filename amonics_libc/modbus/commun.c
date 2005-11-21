@@ -132,7 +132,7 @@ answer  :
 ---------
 device descriptor
 ************************************************************************************/
-#include "../../data_access_gsm/gsm_master/core/pnl_sms.h"
+//#include "../../data_access_gsm/gsm_master/core/pnl_sms.h"
 int Mb_open_device(char Mbc_port[20], int Mbc_speed, int Mbc_parity, int Mbc_bit_l, int Mbc_bit_s)
 {
 	int fd;
