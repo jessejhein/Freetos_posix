@@ -18,8 +18,10 @@ enum {
 
 extern void do_softirq(void);
 
+#if (TIME==0)
 static void mark_bh(unsigned char nr)
 {
 	softirq_vec |= (0x01 << nr);
 }
+#endif
 
