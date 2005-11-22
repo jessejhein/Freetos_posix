@@ -2,58 +2,46 @@
  * Copyright (c) 24-05-2004 cheng chung yan yan@amonics.com> for 8-bit system
  *
  * this module is uart in avr
- * support : RS232 and RS485
  * 
  * pins define
  * 	RX and TX(since avr contains one UART, so using its default pins) -- see datasheet
- * 	in RS485 mode, tx_rx_ctrl(low active for receive, high active for transmit) pin, this pin defined in app_define module
+ * 
+ * this is only a base demo of avr uart driver, 
+ *	please modify this for your any hardware specific driver code 
  */
 
-
 // including, get data linking from others ===============================================
+//	this appl. layer
+#include <pin_define.h>
+//	linlike8 configuration
+#include <linlike8/config.h>
+#if (UART_MOD==1)
 //	avr platform
 #include <avr/io.h>									// io ctrl
 #include <avr/signal.h>								// interrupt signal
-//#include <avr/interrupt.h>
-//	linlike8 configuration
-#include <linlike8/config.h>
 #include <asm/system.h>
-#if (UART_MOD==1)
+//	linlike8 lib.
 #include <linlike8/cirbuf.h>						// pre_wr_cir254buf()
 //	uart
 #include <linlike8/uart.h>
 
-
 // data =================================================================================
-
-													// set direction of PC.4
-													// set direction of PD.2
-#define	INIT_485_CTRL()		do {								\
-								DDRC |= _BV(PC4);				\
-								DDRD |= _BV(PD2);				\
-							} while (0)							\
-													// rec. state, must PD.2 1st to disable tx.
-#define	RX_485_DATA()		do {								\
-								PORTD &= ~_BV(PD2);				\
-								PORTC &= ~_BV(PC4);				\
-							} while (0)							\
-													// tx. state, must PC.4 1st, to disable rx.
-#define	TX_485_DATA()		do {								\
-								PORTC |= _BV(PC4);				\
-								PORTD |= _BV(PD2);				\
-							} while (0)							\
-													// this code will be put to app_define module later, after tested
 
 unsigned char uart_rx_buf[MAX_UART_BUF];
 struct {
-	unsigned	wr :4;
-	unsigned	rd :4;
+//	unsigned	wr :4;
+	unsigned char	wr;
+//	unsigned	rd :4;
+	unsigned char	rd;
 } uart_rx;
 unsigned char uart_tx_buf[MAX_UART_TX_BUF];
 struct {
-	unsigned	wr :3;								// max. of tx buf. is 7
-	unsigned	rd :4;
-	unsigned	tx_complete_flag :1;						// true as completed, false is non-completed
+//	unsigned	wr :3;								// max. of tx buf. is 7
+	unsigned char	wr;								// max. of tx buf. is 7
+//	unsigned	rd :4;
+	unsigned char	rd;
+//	unsigned	tx_complete_flag :1;				// true as completed, false is non-completed
+	unsigned char	tx_complete_flag;				// true as completed, false is non-completed
 } uart_tx;
 #if (SWITCH_CASE==1)
 struct wr_compl_struct {
@@ -73,19 +61,15 @@ void uart_open(void)
 #if (SWITCH_CASE==1)
 	wr_compl_var.state = 0;
 #endif
+
 #if (RS485==1)
-	INIT_485_CTRL();								
-	RX_485_DATA();
+	init_rs485_gate();
+	rs485_rx_gate();
 #endif
 	//UBRRH = 0x00;
 	UBRRL = 25;											// ref. fr. datasheet, 8MHz MClk, 19.2K baudrate, (unsigned char) (8000000/(19200*16L) -1)
 	UCSRB = ( (1<<RXCIE) | (1<<RXEN) | (1<<TXEN) );		// Enable UART receiver and transmitter, and receive interrupt
 	UCSRC = (1 << URSEL) | (3 << UCSZ0);				// asynchronous 8N1
-	/*
-	DDRC |= _BV(PC3);
-	DDRC |= _BV(PC1);
-	PORTC &= ~_BV(PC1);
-	PORTC &= ~_BV(PC3);*/
 }
 #endif	// (UART_MOD==1)
 
@@ -113,7 +97,7 @@ SIGNAL(SIG_UART_DATA)								// chk this in include/avr/iom8535.h
 SIGNAL(SIG_UART_TRANS)								// chk this in include/avr/iom8535.h
 {
 	UCSRB &= ~(1<<TXCIE);							// after complete tx all, disable rs485 tx ctrl
-	RX_485_DATA();									// set back to rec. mode
+	rs485_rx_gate();								// set back to rec. mode
 }
 #endif
 
@@ -155,7 +139,7 @@ unsigned char uart_write(unsigned char *__buf, unsigned char __n,unsigned char w
 	
 //	if (uart_tx.tx_complete_flag) {
 #if (RS485==1)
-		TX_485_DATA();										// set to tx mode
+		rs485_tx_gate();									// set to tx mode
 #endif
 		UCSRB |= (1<<UDRIE);                    			// Enable UDRE interrupt
 //		UDR = *(__buf);										//	and send 1st byte to active the Tx
