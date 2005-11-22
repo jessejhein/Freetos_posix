@@ -25,7 +25,7 @@ extern void uart_open(void);
 extern unsigned char uart_write(unsigned char *__buf, unsigned char __n,unsigned char which,unsigned char uart);
 
 //		<rec 1 byte,remove>extern unsigned char read(unsigned char *__buf, unsigned char __n);
-unsigned char uart_read(unsigned char *__buf, unsigned char which); //<rec 1 byte,add>
+extern unsigned char uart_read(unsigned char *__buf, unsigned char which); //<rec 1 byte,add>
 
 //		uart write, and make sure it must completes for you when return
 #if (SWITCH_CASE==0)
