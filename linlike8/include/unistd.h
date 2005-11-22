@@ -9,6 +9,9 @@
  *
  */
 
+#ifndef _UNISTD_H
+#define _UNISTD_H       1
+
 //	data ===========================================================
 //		file handling number of uart0
 #define	UART0	0
@@ -47,5 +50,6 @@ extern unsigned char write(char fd, unsigned char* ptr_pkg, unsigned char __n,st
 extern unsigned char read (unsigned char fd, unsigned char* ptr_pkg, unsigned char __n);
 
 //		
-extern unsigned char sleep(unsigned char seconds);
+//extern unsigned char sleep(unsigned char seconds);
 
+#endif /* unistd.h  */
