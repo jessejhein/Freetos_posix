@@ -8,8 +8,15 @@
 
 #define	DEBUG	0
 
+//	this appl. layer configuration
+#include <pin_define.h>
 //	this module
-#include <semaphore.h>
+#if (CYPRESS_PSOC==1)
+#include <linlike8/semaphore.h>
+#endif
+#if (SAMSUNG_44B0X==1)
+#include "../../../linlike8/include/linlike8/semaphore.h"
+#endif
 
 #if (DEBUG==1)
 #include <stdio.h>
