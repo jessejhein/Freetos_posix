@@ -14,6 +14,8 @@ void delay_loop(void)
 {
 	unsigned int i;
 	for (i=0;i<60000;i++);
+	for (i=0;i<60000;i++);
+	for (i=0;i<60000;i++);
 }
 
 int main()
