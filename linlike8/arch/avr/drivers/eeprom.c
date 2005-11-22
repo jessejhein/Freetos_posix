@@ -34,11 +34,10 @@ unsigned char eeprom_write(void *buf, void *addr, unsigned char n)
 			eeprom_status.write = 1;
 			break;
 		case 1 : 
-			if (eeprom_is_ready()) eeprom_status.write = 2;
-			break;
-		case 2 : 
-			eeprom_write_block(buf, addr, n);
-			eeprom_status.write = 0;
+			if (eeprom_is_ready()) {
+				eeprom_write_block(buf, addr, n);
+				eeprom_status.write = 0;
+			}
 			break;
 	}
 	return eeprom_status.write;
