@@ -1,0 +1,20 @@
+ hostname Samsung
+ /bin/expand /etc/ramfs.img /dev/ram0
+ /bin/expand /etc/ramfs2048.img /dev/ram1
+ mount -t proc proc /proc
+ mount -t ext2 /dev/ram0 /var
+ mount -t ext2 /dev/ram1 /ramdisk
+ chmod 777 /ramdisk
+ mkdir /var/config
+ mkdir /var/tmp
+ mkdir /var/log
+ mkdir /var/run
+ mkdir /var/lock
+ cat /etc/motd
+ ifconfig lo 127.0.0.1
+ route add -net 127.0.0.0 netmask 255.255.255.0 lo
+ ifconfig eth0 192.168.1.50 netmask 255.255.255.0 up
+ portmap &
+ mount -t nfs -o rsize=1024,wsize=1024,timeo=3,udp 192.168.1.5:/home/nfs_open /var
+ #mount -t nfs -o rsize=1024,wsize=1024,timeo=3,udp 192.168.1.5:/home/nfs_open /var/tmp
+ 
