@@ -19,7 +19,7 @@ extern void mwlike8_server(void);
 #define	idle_process()	mwlike8_server()
 
 // uart module ===========================================================
-#define	UART_MOD						0
+#define	UART_MOD						1
 
 #if (UART_MOD>0)
 #define MAX_PACKET_DATA_SIZE    6
