@@ -1,0 +1,11 @@
+/usr/bin/basename
+/bin/date
+/bin/dmesg
+/usr/bin/du
+/bin/hostname
+/bin/kill
+/usr/bin/killall
+/bin/mount
+/sbin/route
+/bin/umount
+/usr/bin/uptime
