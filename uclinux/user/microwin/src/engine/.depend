@@ -1,0 +1,1 @@
+devimage.o .depend : $(TOP)/config devimage.c
