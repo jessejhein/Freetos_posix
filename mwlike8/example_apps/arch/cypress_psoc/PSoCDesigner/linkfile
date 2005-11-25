@@ -1,4 +1,0 @@
--F0x30 -g -blit:0x100.0x3fff 
- -bdata:0.0xff  -o"output/mwlike8" 
- ./obj/cirbuf.o ./obj/fork.o ./obj/gpio.o ./obj/main.o ./obj/maink.o ./obj/mw_pro1.o ./obj/printf.o ./obj/sched.o ./obj/serial.o ./obj/setup.o ./obj/softirq.o ./obj/srvfunc.o ./obj/srvmain.o ./obj/time.o ./obj/timer.o ./obj/twlm6023.o   
- G:/Data/MainData/KNOWL~EI/COMPU~LR/gui/mwlike8/backup/EXAMP~!_/arch/CYPRE~L!/PSOCD~QT/lib/libPSoc.a -LC:\PROGRA~1\CYPRES~2\PSOCDE~1/tools C:\PROGRA~1\CYPRES~2\PSOCDE~1/tools/lib/CY8C27000/cms.a C:\PROGRA~1\CYPRES~2\PSOCDE~1/tools/stackzone.o 
