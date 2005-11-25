@@ -12,7 +12,7 @@
 #include <pin_define.h>
 //	this module
 #if (CYPRESS_PSOC==1)
-#include <linlike8/semaphore.h>
+#include <semaphore.h>
 #endif
 #if (SAMSUNG_44B0X==1)
 #include "../../../linlike8/include/linlike8/semaphore.h"
