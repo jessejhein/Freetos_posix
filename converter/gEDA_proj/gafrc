@@ -1,6 +1,0 @@
-(component-library "/home/open_data/MainData/KnowledgeDb/ComputerSysDevelopment/apps/eda/gEDA/available_library/sym_sch/hk_national")
-(component-library "/home/open_data/MainData/KnowledgeDb/ComputerSysDevelopment/apps/eda/gEDA/available_library/sym_sch/hk_analog")
-(component-library "/home/open_data/MainData/KnowledgeDb/ComputerSysDevelopment/apps/eda/gEDA/available_library/sym_sch/hk_connector")
-(component-library "/home/open_data/MainData/KnowledgeDb/ComputerSysDevelopment/apps/eda/gEDA/available_library/sym_sch/hk_ftdi")
-(component-library "/home/open_data/MainData/KnowledgeDb/ComputerSysDevelopment/apps/eda/gEDA/available_library/sym_sch/hk_maxim")
-(component-library "/home/open_data/MainData/KnowledgeDb/ComputerSysDevelopment/apps/eda/gEDA/available_library/sym_sch/hk_memory")
