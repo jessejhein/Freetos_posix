@@ -1,3 +1,0 @@
-/dev/hda1	/		ext3	defaults	1 1
-/dev/ram1	/etc/config	ext2	defaults	0 0
-none		/proc		proc	defaults	0 0

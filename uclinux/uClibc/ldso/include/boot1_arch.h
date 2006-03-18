@@ -1,1 +1,0 @@
-../ldso/arm/boot1_arch.h

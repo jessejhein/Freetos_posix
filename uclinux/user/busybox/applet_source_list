@@ -1,1 +1,0 @@
-APPLET_SOURCES := basename.c date.c dmesg.c du.c hostname.c kill.c mount.c nfsmount.c route.c umount.c uptime.c 

@@ -1,4 +1,0 @@
-#inet:unknown:/bin/inetd
-#flt:unknown:/bin/flatfsd
-ttyS1:unknown:/bin/getty ttyS1 115200
-
