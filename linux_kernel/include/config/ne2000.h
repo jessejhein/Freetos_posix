@@ -1,1 +1,0 @@
-#define CONFIG_NE2000 1
