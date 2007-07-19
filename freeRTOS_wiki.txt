@@ -1,0 +1,90 @@
+==FreeRTOS and POSIX-compliant API==
+*[http://www.freertos.org/ FreeRTOS] is a free real-time operating system used by embedded systems.
+*FreeRTOS can schedule Tasks (Processes) and/or Coroutines.
+*Similar functions can be performed by Threads.
+
+===FreeRTOS Tasks===
+*Tasks work independently.
+*Each task has its own stack.
+*Tasks consume plenty of RAM.
+*Higher priority tasks prempt lower priority tasks at each kernel clock tick.
+*Task of equal priority will time slice.
+*When no ready task are available, the idle task will run.
+
+===FreeRTOS Coroutines===
+*Coroutines work cooperatively.
+*Coroutines are hooked to a specific task (usually the idle task).
+*All coroutines belonging to a task share the same stack.
+*Coroutines uses much less RAM than tasks.
+*A coroutine will switch to another one only when it blocks itself [e.g. by calling crDELAY(xHandle, delay)].
+*There is no guarantee that a coroutine will run again after $delay has elapse. The programmer should ensure that the coroutines should deliberate themselves regularly.*Coroutines has the follwing limitations:
+**Critical variables must be declared static
+**Blocking calls [e.g. crDELAY()] can only be called within the coroutine function, not from a subroutine.
+**Blocking call within a switch statement is not allowed.
+
+===POSIX Thread===
+*Threads are created under a process/thread.
+*Threads work independently, but can share the use of common variables of the same process.
+*Access to common variables should use mutex.
+*POSIX (Portable Operating System Interface for uniX) is a IEEE standard API for Unix OS.
+*POSIX threads are denoted as '''pthread'''.
+
+===Comparison of API between FreeRTOS Coroutine and POSIX Thread===
+
+{|border="1" cellspacing="0" cellpadding="5"
+|+ Table 1.1 Comparison of Selected API between FreeRTOS Coroutine and POSIX Thread
+! FreeRTOS Coroutine !! POSIX Thread
+|-valign="top"
+| 
+   portBASE_TYPE xCoRoutineCreate( <br>
+      crCOROUTINE_CODE pxCoRoutineCode, <br>
+      unsigned portBASE_TYPE uxPriority, <br>
+      unsigned portBASE_TYPE uxIndex
+   );
+|
+   int pthread_create( <br>
+      pthread_t *restrict thread, <br>
+      const pthread_attr_t *restrict attr, <br>
+      void *(*start_routine)(void*), <br>
+      void *restrict arg
+   );
+|-valign="top"
+| 
+   void vACoRoutine( <br>
+      xCoRoutineHandle xHandle, <br>
+      unsigned portBASE_TYPE uxIndex <br>
+   ) <br>
+   { <br>
+      crSTART(xHandle); <br>
+      for(;;){ <br>
+         //Do something <br>
+      }<br>
+      crEND(); <br>
+   }
+|
+   void *Afunction( <br>
+     void *ptr <br>
+   )<br>
+   {<br>    
+       //Do something <br>
+       return NULL; <br>
+   }
+|-valign="top"
+| 
+   void vCoRoutineSchedule( <br>
+      void <br>
+   ); 
+| 
+|-valign="top"
+|
+   void crDELAY( <br>
+     xCoRoutineHandle xHandle, <br>
+     portTickType xTicksToDelay <br>
+   );
+|
+   void usleep( <br>
+     unsigned long usec <br>
+   );
+|-
+|}
+

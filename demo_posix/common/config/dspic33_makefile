@@ -1,0 +1,195 @@
+# OVERVIEW ===================================================================
+# This is an example makefile for dsPic33FJ128GP306 based on FreeRTOS
+#=============================================================================
+
+# This Makefile ==============================================================
+#	make			-- compile all
+#						Steps:
+#						1) Compile $(OBJECTS) with no linking (.c -> .o)
+#						2) Link all *.o to $(TARGET)
+#						3) Convert $(TARGET) to $(TARGET_HEX)
+#	make clean		-- clear all objects, bin, hex and map files
+#=============================================================================
+
+# Note on Linker script ======================================================
+# The official linker script for dsPic33FGJ128GP306 is p33FJ128GP306.gld, found 
+# under /usr/pic30-elf/support/gld. A customized version, clinkscript5011.gld 
+# is included in this project to ensure that the _resetPRI function is located
+# at address 0x200 so that the bootloader can always point this address.
+# Please also include reset.s in the compilation list to achieve the desired 
+# function.
+#=============================================================================
+
+# Project name ===============================================================
+PRJ_NAME := project_name
+
+# Directories ----------------------------------------------------------------
+BASE_ROOT := ../../../../../..
+OS := $(BASE_ROOT)/FreeRTOS/Source
+POSIX := $(BASE_ROOT)/freertos_posix/posix
+COMMON := $(BASE_ROOT)/freertos_posix/demo_posix/common
+DSPIC := $(BASE_ROOT)/freertos_posix/demo_posix/dspic/dspic33
+PIC_H := /usr/pic30-elf/support/h
+PIC_LIB := /usr/pic30-elf/lib
+UIP := $(BASE_ROOT)/uip
+WEBSERVER := $(BASE_ROOT)/webserver_8bit
+APP_PF := .
+
+# Console Commands ------------------------------------------------------------
+CC := pic30-elf-gcc
+B2H	:= pic30-elf-bin2hex
+
+# Flags options ---------------------------------------------------------------
+# -Dmarcro:				Define macro with the string 1 as its definition.
+# 						MPLAB_DSPIC33_PORT is equired by FreeRTOS for dsPic33 series uP
+# -mcpu=target			This option selects the particular target. This option affects how 
+#						some predifined constants are set (e.g. __dsPIC33FJ128GP306__)
+# -O0:					no optimisation of code
+# -Ox:					optimisation of code Level x, x = 1, 2, 3, s
+# -fomit-frame-pointer: Required by FreeRTOS at -O0 (at other -O, this is automatically
+#						enabled) to disable instructions to save, set up and restore
+#						frame pointers. Refer to FreeRTOS Forum at
+#						http://sourceforge.net/forum/message.php?msg_id=3899530
+#						and MPLAB C30 C compiler user guide on Frame Pointer
+# -I:					include the directory of header file (*.h)
+# -idirafter: 			include the directory of header file (*.h) in secondary path
+# -T:					include the linker script file (*.gld)
+# -L:					include the directory of library file (*.a)
+# -Xlinker:				pass argument from pic30-elf-gcc (compiler) to pic30-elf-ld (linker)
+#						e.g. 	-Map file (create a map file)
+#								--print-map (print a map file on screen)
+#								--report-mem (print the memory usage summary on screen)
+# 								--heap=512 (allocate a heap size of 512bytes)
+#								  [for more arguments, refer to: 
+#									MPLAB ASM30 MALAB LINK30 and utilities user's guide and 
+#									MPLAB C30 C compiler user's guide]
+CFLAG1 := -DMPLAB_DSPIC33_PORT -mcpu=33FJ128GP306 -Werror \
+			-Os -fomit-frame-pointer \
+			-idirafter$(OS)/include/ -idirafter$(WEBSERVER)/core \
+			-I$(COMMON)/include/ \
+			-I$(UIP)/uip/ -I$(UIP)/apps/dhcpc \
+			-I$(PIC_H)/ -I$(POSIX)/../Source/include/ -I$(POSIX)/ \
+			-I$(DSPIC)/../drivers/include/ \
+			-I$(APP_PF)/include/ -I$(APP_PF)/uip/ 
+			
+CFLAG2 := -Os -fomit-frame-pointer -mcpu=33FJ128GP306 -Werror \
+			-Xlinker -Map="$(APP_PF)/$(PRJ_NAME).map" -Xlinker --heap=4096 \
+			-L$(PIC_LIB)/ \
+			-T$(DSPIC)/linker/clinkscript_p33FJ128GP306.gld
+
+# Target file -----------------------------------------------------------------
+TARGET := $(PRJ_NAME).bin
+TARGET_HEX := $(PRJ_NAME).hex
+
+# Object files ----------------------------------------------------------------
+# Compulsory Files:
+#   Bootloader:	reset.c
+#	FreeRTOS: 	list.c, queue.c, tasks.c, heap_3.c, port.c, boot.c,
+#				app_idlehook.c, app_idle.c
+#	Driver:		devices.c
+#	POSIX:		thread.c
+# Special Files:
+#	POSIX:		time.c (CAUTION: if this is not included, compiler will use time 
+#						function in standard libary)
+#	Driver:		traps.c (detect critical hardware/software malfunction of dsPic)
+#	Ethernet:	$(DSPIC)/../drivers/dm9000a.c
+#				$(DSPIC)/../drivers/clock-arch.c
+#				$(UIP)/uip/timer.c
+#				$(UIP)/uip/uip.c 
+#				$(UIP)/uip/uip_arp.c 
+#				$(UIP)/uip/psock.c
+#	DHCP Client:$(UIP)/apps/dhcpc/dhcpc.c
+#	Webserver:	$(WEBSERVER)/core/httpd.c
+#				$(WEBSERVER)/core/httpd-fs.c
+#				$(WEBSERVER)/core/http-strings.c
+#				$(APP_PF)/uip/httpd-cgi.c
+#				$(APP_PF)/uip/httpd-hget.c
+#------------------------------------------------------------------------------
+OBJECTS := $(DSPIC)/linker/reset.o \
+			$(OS)/list.o $(OS)/queue.o $(OS)/tasks.o \
+			$(OS)/portable/MemMang/heap_3.o \
+			$(POSIX)/../Source/portable/MPLAB/dspic33/port.o \
+			$(POSIX)/src/pthread.o $(POSIX)/src/time.o \
+			$(DSPIC)/boot/boot.o $(DSPIC)/../drivers/devices.o \
+			$(DSPIC)/../drivers/traps.o \
+			$(COMMON)/app_idlehook.o $(COMMON)/app_idle.o \
+			$(DSPIC)/../drivers/uart.o $(DSPIC)/../drivers/cirbuf.o \
+			$(DSPIC)/../drivers/i2c.o $(DSPIC)/../drivers/i2c_dac.o \
+			$(DSPIC)/../drivers/i2c_eeprom.o $(DSPIC)/../drivers/adc.o \
+			$(DSPIC)/../drivers/pwm.o \
+			$(DSPIC)/../drivers/gpio.o \
+			$(COMMON)/app_led.o $(COMMON)/app_uart.o \
+			$(COMMON)/app_dac.o $(COMMON)/app_adc_eeprom.o \
+			$(COMMON)/app_pwm.o \
+			$(COMMON)/02_drivers.o \
+			$(APP_PF)/led.o
+ 
+#==============================================================================
+
+# Compile and linking =========================================================
+
+# STEP 3 ----------------------------------------------------------------------
+# This first explicit rule in the file, which is the rule that make
+# will attempt to build when you type "make".  The final *.hex is converted 
+# by $(B2H) from $(TARGT). Before make can do "nothing", it must build $(TARGT).
+all: $(TARGET)
+	@echo 'Building target: $(TARGET_HEX)'
+	@echo 'Invoking: pic30-elf-bin2hex'
+	$(B2H) $^ $(TARGET_HEX)
+	@echo 'Finished building target: $(TARGET_HEX)'
+	@echo ' '
+	
+# STEP 2 ----------------------------------------------------------------------
+# An explicit rule tells make how to build "$(TARGT)". Prerequisites
+# are required (so if they are not up-to-date, make will use the implicit
+# rule (i.e. STEP1) to build them before attempting to build $(TARGT)).
+# The $^ is a all prerequisites. If you add more .c files to this 
+# project, usually you can just add their .o name to the end of 
+# the dependancy list, i.e. $(OBJECTS) in parameters
+# -o is an option to specific the output file name, in this case $(TARGET)
+$(TARGET): $(OBJECTS)
+	@echo 'Building target: $@'
+	@echo 'Invoking: pic30-elf-gcc'
+	$(CC) $(CFLAG2) $^ -lc-elf -o $@
+	@echo 'Finished building target: $@'
+	@echo ' '
+	
+# STEP 1 ----------------------------------------------------------------------
+# This "implicit" rule tells make that any file ending in .o is
+# build from two files with the same base name ending in .c and .h,
+# and that the command followed by the two .c and .h files is the
+# way to obtain the .o file.  Whenever any of the rules below
+# specifies that a .o file is required, make will use this rule
+# (in the absence of an explicit rule for that file) to build the
+# .o file.
+# -o is an option to specific the output file name, in this case %.o
+# -c is an option to compile but not link
+%.o : %.c
+	@echo 'Building target: $@'
+	@echo 'Invoking: pic30-elf-gcc'
+	$(CC) $(CFLAG1) -c $< -o $@
+	@echo 'Finished building target: $@'
+	@echo ' '
+	
+%.o : %.s
+	@echo 'Building target: $@'
+	@echo 'Invoking: pic30-elf-gcc'
+	$(CC) $(CFLAG1) -c $< -o $@
+	@echo 'Finished building target: $@'
+	@echo ' '
+
+# configuration ---------------------------------------------------------------
+#	setup symbolic link <asm-dsPic/...> to setup <asm/...>
+config:
+	@if [ ! -d "$(POSIX)/asm" ] ; then ln -s asm-dsPic/ $(POSIX)/asm; fi
+
+# This final rule is what's called a "phony rule" or "phony target",
+# because it isn't used in ary part of the normal build process.
+# By typing "make clean", make will attempt to build this rule and
+# these commands will delete all of the compiler generated files.
+clean:
+	find $(BASE_ROOT)/ \( -name '*.bin' -o -name '*.hex' -o -name '*.map' -o -name '*.o' \) -print -exec rm -f '{}' ';'
+
+# Clean platform depended files, after thet user must do make config again
+mrproper: clean
+	rm -f $(POSIX)/asm
