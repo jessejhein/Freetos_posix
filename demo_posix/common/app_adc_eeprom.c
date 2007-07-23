@@ -32,7 +32,7 @@ extern int fd_uart;
 /************************************************************************************************
  * tskADC()
  ***********************************************************************************************/
-//#if 0
+#if 1
 tskADC()
 {
 	static unsigned char adc_uart_tx[20];
@@ -71,9 +71,9 @@ tskADC()
 	end_process();
     //======================================================================
 }
-//#endif
 
-#if 0
+#else
+
 tskADC()
 {
     static unsigned int analog_reading;    //Store integer value for adc values [0-4095]
