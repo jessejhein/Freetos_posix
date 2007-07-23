@@ -41,7 +41,6 @@
  * Local Functions Declaration
  ************************************************************************************************/
 static void adcAdd(unsigned int ch);               //Add channels to current set
-static void adcRm(unsigned int ch);                //remove channels from current set
 static int adc_read_channel(unsigned int* buf, int count);
 
 #ifdef MPLAB_DSPIC30_PORT
@@ -200,13 +199,12 @@ int adc_open(int flags)
         ADCHSbits.CH0NA = 0;
         //===========================================================================
         // Configure analog i/o  
-        _TRISB0 = 1;
-        _TRISB1 = 1;    
-        ADPCFG = 0xFFFC;        //Enable AN0 (Vref+) and AN1 (Vref-)
+        _TRISB15 = 1;    
+        ADPCFG = 0x7FFF;        //0 => Enabled, 1 => Disabled
         ADPCFGH = 0xFFFF;       //AN16-AN31: Disabled
         //===========================================================================
         // Configure scan input channels    
-        ADCSSL = 0x0003;    //0 => Skip, 1 => Scan
+        ADCSSL = 0x8000;    //0 => Skip, 1 => Scan
         ADCSSH = 0x0000;    //Skipping AN16-AN31
         adc_ch_status[0] = 1;
         adc_ch_status[1] = 1;
@@ -224,12 +222,11 @@ int adc_open(int flags)
         //===========================================================================
         // ADCCON2:
         //  +--Default: Use MUX A, No splitting of Buffer
-        //  +--Voltage Reference Configuration Vref+ and Vref-
+        //  +--Voltage Reference Configuration AVDD and AVSS
         //  +--Scan Input Selections
-        //  +--5 samples between interrupt
-        ADCON2bits.VCFG = 3;    //External Vref+, Vref-
+        ADCON2bits.VCFG = 0;    //AVDD and AVSS
         ADCON2bits.CSCNA = 1;   //Scan input
-        ADCON2bits.SMPI = 1;    //2 channels are scanned
+        ADCON2bits.SMPI = 0;    //1 channel is scanned initially
         //===========================================================================
         // ADCCON1:
         //  +--Default: continue in idle mode, integer format
@@ -239,8 +236,7 @@ int adc_open(int flags)
         ADCON1bits.ASAM = 1;        //auto setting of SAMP bit
         ADCON1bits.AD12B = 1;       //12-bit, 1-channel ADC operation
         ADCON1bits.ADDMABM = 0;     // DMA buffers are built in scatter/gather mode
-        ADCON1bits.ADON = 1;        // Turn on the A/D converter
-    
+        ADCON1bits.ADON = 1;        // Turn on the A/D converter    
         //===========================================================================
         // DMA0 Configuration:
         DMA0CONbits.AMODE = 2;      // Configure DMA for Peripheral indirect mode
@@ -337,8 +333,8 @@ static int adc_read_channel(unsigned int* buf, int count)
  * Inputs:
  *  +--request: Request code - defined in ioctl.h
  *  +--argp: pointer for control config, request code dependent.
- *      +--ADC_ADD_CH, ADC_RM_CH
- *          +--argp[0]: channel id to be added/removed, take values of 0-15
+ *      +--ADC_ADD_CH
+ *          +--argp[0]: channel id to be added, take values of 0-15
  *******************************************************************************
  * Return:
  *  on success zero is returned, -1 indicates error
@@ -356,15 +352,6 @@ int adc_ioctl(int request, unsigned char* argp)
             }
             adc_ch_select = (unsigned int)argp[0];    //Select current channel for reading
             sti();                      //Enable global interrupt
-            break;
-        case ADC_RM_CH:
-            //REMOVE channels from current set==========================
-            cli();                  //Disable global interrupt
-            if(adc_ch_status[argp[0]] == 1){     //If channel in scan list       
-                adcRm((unsigned int)argp[0]);   //Remove individual channel
-                adc_ch_select = 0;               //Reset to AN0
-            }
-            sti();                  //Enable global interrupt
             break;
         default:
             return -1;      //request code not recognised   
@@ -401,37 +388,6 @@ static void adcAdd(unsigned int ch)
     ADCON2bits.SMPI++;  //take one more sample per interrupt
 #ifdef MPLAB_DSPIC33_PORT
     DMA0CNT++; 
-#endif
-}
-
-/*******************************************************************************
- * adcRm
- *******************************************************************************
- * Input:
- *  +--ch: channel to be removed for scanning
- *  +--after execution, channel will become digital input
- ********************************************************************************/
-static void adcRm(unsigned int ch)
-{
-    adc_ch_status[ch] = 0;
-    unsigned int mask;
-    mask = 0x0001 << ch;
-    //=====================================================================
-    //Port config:
-    //  +-- 0 => Analog, 1 => Digital
-    //  +-- Example: ch = 4, ADPCFG = 1111 0000 1110 1011 (0xF0EB) 
-    //      +-- 1111 0000 1110 1011 | 0000 0000 0001 0000 = 1111 0000 1111 1011 (0xF0FB)
-    ADPCFG = ADPCFG | mask;
-    //=====================================================================
-    //Scan select:
-    //  +-- 0 => Skip, 1 => Scan
-    //  +-- Example: ch = 4, ADCSSL = 0000 1111 0001 0100 (0x0F14) 
-    //      +--  ~1111 0000 1111 1011 = 0000 1111 0000 0100 (0x0F04)  
-    ADCSSL = ~ADPCFG;
-    //=====================================================================
-    ADCON2bits.SMPI--;  //take one less sample per interrupt
-#ifdef MPLAB_DSPIC33_PORT
-    DMA0CNT--; 
 #endif
 }
 
