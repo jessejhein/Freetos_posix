@@ -23,7 +23,6 @@
 #if (ADC_MOD>0)
 //=============Request Code Definition: For io control=========================
 #define ADC_ADD_CH			0			//add a channel to current selection			
-#define ADC_RM_CH			1			//remove a channel from current selection
 #endif //ADC_MOD
 
 #if (PWM_MOD>0)
