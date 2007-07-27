@@ -244,6 +244,31 @@ static void dm9000_hash_table(board_info_t *db)
 
 
 
+/*****************************************************************************
+ * Name:                int dmfe_close()
+ * 
+ * Input:               None
+ * 
+ * Output:              0: ok
+ * 
+ * Function:            Reset PHY and power down PHY
+ *                      Disable interrupts and receive packet
+ *****************************************************************************/
+int dmfe_close(void)
+{
+    eth_io_flag = 0;
+
+    board_info_t* db = &macData;    
+
+    phy_write(db, DM9KA_BMCR, 0x8000);
+    iow(db, DM9KA_GPR, 0x01);
+    iow(db, DM9KA_IMR, DM9KA_DIS_ISR);
+    iow(db, DM9KA_RCR, 0x00);
+
+    return 0;
+}
+
+
 
 /********************************************************************************************
  * Name:        int dmfe_read(void)
