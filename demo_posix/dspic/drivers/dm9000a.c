@@ -544,6 +544,10 @@ static u8_t inb(int port)
     Nop(); Nop();
     Nop(); Nop();
     Nop(); Nop();
+    Nop(); Nop();
+    Nop(); Nop();
+    Nop(); Nop();
+    Nop(); Nop();
     data = PREAD();
     ETH_IOCMD( 0x0F );
     PCONFIG(0);
