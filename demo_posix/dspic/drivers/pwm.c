@@ -51,7 +51,7 @@
  ************************************************************************************************/
 static unsigned int pwm_channel = 0;		//selected pwm channel
 static unsigned int pwm_status = 0;		//store status of pwm channel, 0=OFF, 1=ON
-const unsigned int pwm_prescale[] = {1, 8, 64, 256}; //prescale factors 
+static unsigned int pwm_prescale[] = {1, 8, 64, 256}; //prescale factors 
 static int pwm_io_flag;
 
 /************************************************************************************************
