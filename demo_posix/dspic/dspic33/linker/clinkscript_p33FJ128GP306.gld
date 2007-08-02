@@ -38,6 +38,10 @@ __DMA_BASE = 0x4000;
 __DMA_END = 0x47FF;
 __CODE_BASE = 0x200;
 
+/*
+** Added to maximize space for const data (32K)
+*/
+__CONST_BASE = 0x8000;
 
 /*
 ** ==================== Section Map ======================
@@ -79,9 +83,17 @@ SECTIONS
         *(.handle);
         *(.libc) *(.libm) *(.libdsp);  /* keep together in this order */
         *(.lib*);
-        *(.text);
+        /* *(.text);		deleted to maximize space for const data */
   } >program
 
+
+  /*
+  ** Added to maximize space for const data
+  */
+  .const __CONST_BASE :
+  {
+  		*(.const);
+  } >program
 
   /*
   ** Configuration Words
