@@ -1,5 +1,10 @@
 /************************************************************************************************
  * File: 			08_eeprom.c
+ * 
+ * Description:     This program is used to erase the external I2C eeprom 24LC256
+ *                  The program first erase the eeprom page by page,
+ *                  waits for a user character, and then
+ *                  validate the all content of eeprom is 0x00
  ***********************************************************************************************/
 
 #include <pthread.h>
@@ -42,6 +47,7 @@ tskEEPROM()
     
     sleep(5);
     
+    //Erase the entire eeprom, page by page 
     if(done == 0){
 
         lseek(fd_eeprom, 0, SEEK_SET);
@@ -59,19 +65,22 @@ tskEEPROM()
         write(fd_uart, uart_tx, number);
         
         done == 1;
-    }  
-  
+    }
+    
+    //Wait for an input character  
     while(read(fd_uart, uart_tx, 1) <= 0)
         usleep(0);
 
     number = sprintf(uart_tx, "Checking... %c", 0x0d);
     write(fd_uart, uart_tx, number);
-
+    
+    //Reset pointer and read
     lseek(fd_eeprom, 0, SEEK_SET);
     for(i = 0; i<I2C_EEPROM_SIZE; i++){
         while(read(fd_eeprom, &data, 1) != 1)
             usleep(0);
             
+        //If content is not 0x00, print to console            
         if(data != 0){
             number = sprintf(uart_tx, "[%d] = %d%c", i, data, 0x0d);
             write(fd_uart, uart_tx, number);
@@ -79,6 +88,7 @@ tskEEPROM()
         }            
     }
     
+    //Process is successful
     number = sprintf(uart_tx, "%s%c", "Completed.", 0x0d);
     write(fd_uart, uart_tx, number);
     
