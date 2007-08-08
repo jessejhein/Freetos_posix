@@ -75,6 +75,7 @@ static board_info_t macData;
  * Input:               flags: accessing mode
  * 
  * Output:              -1: eth is not linked (EACCES)
+ *                          no lan card (ENXIO)    
  *                      0:  eth is linked
  * 
  * Function:            Initialize dm9000a
@@ -111,6 +112,15 @@ int dmfe_open(int flags)
     db->io_addr = CMD_INDEX;
     db->io_data = CMD_DATA;
     
+    //check for lan card
+    if(ior(db, DM9KA_VIDL) != 0x46)
+    {
+        struct uip_eth_addr mac = {0,0,0,0,0,0};
+        uip_setethaddr(mac);
+        errno = ENXIO;
+        return -1;
+    }
+    
     //Initialize DM9000A registers, set PHY_MODE, and hash table
     dmfe_init_dm9000(db);
 
@@ -122,7 +132,7 @@ int dmfe_open(int flags)
 #endif
 
     //Determine whether the link is successful  
-    if( (ior(db, DM9KA_VIDL) == 0x46) &&  (ior(db, DM9KA_NSR) & 0x40) > 0)
+    if((ior(db, DM9KA_NSR) & 0x40) > 0)
     {
         return 0;
     }
