@@ -122,7 +122,7 @@ int dmfe_open(int flags)
 #endif
 
     //Determine whether the link is successful  
-    if((ior(db, DM9KA_NSR) & 0x40) > 0)
+    if( (ior(db, DM9KA_VIDL) == 0x46) &&  (ior(db, DM9KA_NSR) & 0x40) > 0)
     {
         return 0;
     }
