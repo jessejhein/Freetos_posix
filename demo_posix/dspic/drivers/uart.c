@@ -432,6 +432,7 @@ void _ISR _U1RXInterrupt(void){
  * 
  * Ouput:       the number of bytes written (>= 0)
  *              -1: error, uart is not opened for writing (errno = EBADF)
+ *                         uart is busy in transmiting (errno = EAGAIN)
  * 
  *********************************************************************************************/
 int uart_write(unsigned char device, unsigned char *buf, int count)
@@ -439,6 +440,15 @@ int uart_write(unsigned char device, unsigned char *buf, int count)
     //Perform write if write operation is enabled
     if(uart_io_flag[device] & O_RDWR || uart_io_flag[device] & O_WRONLY)
     {
+        //If transimt has not completed, return busy
+        if(uart_tx[device].tx_complete_flag == 0){
+            errno = EAGAIN;  
+            return -1;            
+        }
+        else{
+            uart_tx[device].tx_complete_flag = 0;
+        }
+        
         int next_data_pos;
         int byte = 0;
         for (; byte<count; byte++) {
@@ -451,10 +461,7 @@ int uart_write(unsigned char device, unsigned char *buf, int count)
                 uart_tx[device].wr = next_data_pos;                                     //increment the ptr
             } else break;
         }
-        //Set transmit complete flag to false
-        if (uart_tx[device].tx_complete_flag) {
-            uart_tx[device].tx_complete_flag = 0;
-        }
+
         //Raise Interrupt flag to initiate transmission
         if(device==0){
             #if(UARTA_RS485>0)
