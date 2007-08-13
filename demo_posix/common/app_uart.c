@@ -27,7 +27,7 @@ extern int fd_uart;		//File descriptor for uart (RS232)
  ***********************************************************************************************/
 tskComPort()
 {
-    static unsigned char uart_rx;
+    static unsigned char uart_rx = 0x55;
     static unsigned char uart_tx[11];
 
     //=======================================================================
@@ -38,7 +38,7 @@ tskComPort()
         usleep(0);
 	uart_rx++;
 	int number = sprintf(uart_tx, "%c%s%c", uart_rx, "@Amonics", 0x0d);
-	write(fd_uart, uart_tx, number);
+	while(write(fd_uart, uart_tx, number) != number) usleep(0);
 
     //=======================================================================
     end_process();
