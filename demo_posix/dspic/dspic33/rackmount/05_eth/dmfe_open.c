@@ -7,6 +7,7 @@
 #include <asm/delay.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <unistd.h>
 
 /*****************************************************************************
  * Local Function Declaration
@@ -39,6 +40,7 @@ struct uip_eth_addr uip_ethaddr = {{0,0,0,0,0,0}};
  * Input:               flags: accessing mode
  * 
  * Output:              -1: eth is not linked (EACCES)
+ *                          no lan card (ENXIO)    
  *                      0:  eth is linked
  * 
  * Function:            Initialize dm9000a
@@ -71,15 +73,28 @@ int dmfe_open(int flags)
     PCONFIG(1);             
     ETH_ISR_EP = 0;
     ETH_ISR_IF = 0;
-    ETH_ISR_IE = 0;
+    ETH_ISR_IE = 1;
     db->io_addr = CMD_INDEX;
     db->io_data = CMD_DATA;
+    
+    //check for lan card
+    if(ior(db, DM9KA_VIDL) != 0x46)
+    {
+        struct uip_eth_addr mac = {0,0,0,0,0,0};
+        uip_setethaddr(mac);
+        errno = ENXIO;
+        return -1;
+    }
     
     //Initialize DM9000A registers, set PHY_MODE, and hash table
     dmfe_init_dm9000(db);
 
     //wait 3 second for autonegotation to complete
+#if(FREERTOS_SCHE_ENABLE == 1)
+    sleep(5);
+#else    
     mdelay(5000); 
+#endif
 
     //Determine whether the link is successful  
     if((ior(db, DM9KA_NSR) & 0x40) > 0)
@@ -110,7 +125,7 @@ static void dmfe_init_dm9000(board_info_t *db)
 
     //Assign I/O mode:
     db->io_mode = ior(db, DM9KA_ISR) >> 6;
-    db->op_mode = media_mode;
+    db->op_mode = DM9KA_10MHD;
     
     //Set PHY_MODE
     set_PHY_mode(db);
@@ -146,33 +161,12 @@ static void set_PHY_mode(board_info_t *db)
 {
     u16_t phy_reg0 = 0x1200;
     u16_t phy_reg4 = 0x01e1;
-    
-    //to be deleted, since use 10MHD only
-    if ( !(db->op_mode & DM9KA_AUTO) )
-    { 
-        switch(db->op_mode)
-        {
-            case DM9KA_10MHD:   
-                phy_reg4 = 0x21; 
-                phy_reg0 = 0x1000;
-                break;
-            case DM9KA_10MFD:
-                phy_reg4 = 0x41;
-                phy_reg0 = 0x1100;
-                break;
-            case DM9KA_100MHD:
-                phy_reg4 = 0x81;
-                phy_reg0 = 0x3000;
-                break;
-            case DM9KA_100MFD: 
-                phy_reg4 = 0x101;
-                phy_reg0 = 0x3100;
-                break;
-            default:
-                break;
-        }
-    }
 
+    if(db->op_mode == DM9KA_10MHD){
+        phy_reg0 = 0x1000;
+        phy_reg4 = 0x21; 
+    }
+    
     phy_write(db, DM9KA_BMCR, phy_reg0);
     phy_write(db, DM9KA_ANAR, phy_reg4);
 }
@@ -223,3 +217,28 @@ static void dm9000_hash_table(board_info_t *db)
     }
 }
 
+
+
+/*****************************************************************************
+ * Name:                int dmfe_close()
+ * 
+ * Input:               None
+ * 
+ * Output:              0: ok
+ * 
+ * Function:            Reset PHY and power down PHY
+ *                      Disable interrupts and receive packet
+ *****************************************************************************/
+int dmfe_close(void)
+{
+    eth_io_flag = 0;
+
+    board_info_t* db = &macData;    
+
+    phy_write(db, DM9KA_BMCR, 0x8000);
+    iow(db, DM9KA_GPR, 0x01);
+    iow(db, DM9KA_IMR, DM9KA_DIS_ISR);
+    iow(db, DM9KA_RCR, 0x00);
+
+    return 0;
+}
