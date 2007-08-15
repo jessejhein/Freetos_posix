@@ -22,7 +22,13 @@ int fd_eth;
 extern board_info_t macData;
 u8_t uip_buf[UIP_BUFSIZE+2];
 
-#if 0
+#define DEFAULT_TEST    0
+#define REG_TEST        1
+#define IO_TEST         2
+
+#define TEST_SELECT     DEFAULT_TEST
+
+#if (TEST_SELECT == IO_TEST)
 /*
  * IO test
  */
@@ -49,9 +55,9 @@ tskHTTPServer()
     
     end_process();
 }
-#else 
+#elseif(TEST_SELECT == REG_TEST)
 /*
- * Ethernet Task
+ * Register Test
  */
 tskHTTPServer()
 {
@@ -161,6 +167,79 @@ tskHTTPServer()
         printHex(rd_ptr, 4);
         newline();
     }
+    
+    end_process();
+}
+#else
+/*
+ * Default Test
+ */
+tskHTTPServer()
+{
+    /*
+     * Initialize dspic and dm9000a
+     */
+    fd_eth = open(ETHERNET, O_RDWR);
+    
+    /*
+     * Common Variable 
+     */
+    board_info_t* db = &macData;    //ethernet object
+    unsigned char key;             //received ASCII char
+    
+    //Initialise address port (CMD) constants for I/O
+    db->io_addr = CMD_INDEX;    //CMD = 0 : INDEX port
+    db->io_data = CMD_DATA;     //CMD = 1 : DATA port
+
+    start_process();
+    
+    //wait for user input
+    while(read(fd_uart, &key, 1) < 1)
+        usleep(0);
+    
+    //Vendor ID Test
+    unsigned int vid = (ior(db, DM9KA_VIDH) << 8) + ior(db, DM9KA_VIDL);
+    if(vid == 0x0A46){
+        printStr("Vendor ID OK.");
+        newline();
+    }
+    else{
+        printStr("Vendor ID Test Failed. [Expected 0x0A46, Read 0x");
+        printHex(vid, 4);
+        printStr("].");
+        newline();
+    }
+    
+    //Mode Test
+    if((ior(db, DM9KA_ISR) & 0x80) > 0){
+        printStr("8-bit mode.");
+        newline();
+    }
+    else{
+        printStr("ERR: 16-bit mode detected.");
+        newline();
+    }
+     
+    //Link Test
+    if((ior(db, DM9KA_NSR) & 0x40) > 0){
+        printStr("Link OK.");
+        newline();
+        //Speed Test
+        if(phy_read(db, DM9KA_ANLPAR) & 0x0020){
+            printStr("10Base-T Half duplex obtained.");
+            newline();
+        }
+        else{
+            printStr("ERR: Speed is not 10Base-T Half duplex.");
+            newline();
+        }
+    }    
+    else{
+        printStr("ERR: DM9000A is not able to link to the Internet.");
+        newline();
+    }
+    
+    newline();
     
     end_process();
 }
