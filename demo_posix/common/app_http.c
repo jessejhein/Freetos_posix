@@ -220,20 +220,20 @@ void print_IPConfig(const struct dhcpc_state *s)
     printStr("==================");
     newline();
     
-//    printStr("   MAC Address....... : ");
-//    printMACAdress((u8_t*) s->mac_addr);
+    printStr("   MAC Address....... : ");
+    printMACAdress((u8_t*) s->mac_addr);
 
     printStr("   IP Address........ : ");
     printIPAdress((u8_t*) s->ipaddr);
 
-//    printStr("   Subnet Mask....... : ");
-//   printIPAdress((u8_t*) s->netmask);
+    printStr("   Subnet Mask....... : ");
+    printIPAdress((u8_t*) s->netmask);
     
-//    printStr("   Default Gateway... : ");
-//    printIPAdress((u8_t*) s->default_router);
+    printStr("   Default Gateway... : ");
+    printIPAdress((u8_t*) s->default_router);
 
-//   printStr("   Default DNS....... : ");
-//    printIPAdress((u8_t*) s->dnsaddr);
+    printStr("   Default DNS....... : ");
+    printIPAdress((u8_t*) s->dnsaddr);
     
     newline();
 }

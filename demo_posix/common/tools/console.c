@@ -4,9 +4,11 @@
  * utility to print things on console
  */
 
+#include <define.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 #include <asm/delay.h>
 #include <asm/types.h>
 
@@ -50,7 +52,7 @@ static void int2hexString(char* buf, __u16 value, int precision)
 void newline(void)
 {
     char buf = 0x0d;
-    write(fd_uart, &buf, 1);    
+    while(write(fd_uart, &buf, 1) < 0) usleep(0);    
 }
 
 //-------------------------------------------------------------
@@ -59,15 +61,13 @@ void printHex(unsigned int value, int precision)
     char hex[5];
     int2hexString(hex, value, precision);
     int number = sprintf(hex, "%s", hex);
-    write(fd_uart, hex, number);
-    mdelay(5);    
+    while(write(fd_uart, hex, number) < 0) usleep(0);
 }
 
 //-------------------------------------------------------------
 void printStr(char* str)
 {
-    write(fd_uart, str, strlen(str));   
-    mdelay(10);       
+    while(write(fd_uart, str, strlen(str)) < 0) usleep(0);   
 }
 
 //-------------------------------------------------------------
@@ -75,8 +75,7 @@ void printDec(unsigned int value)
 {
     char buf[6];
     int number = sprintf(buf, "%d", value);
-    write(fd_uart, buf, number);
-    mdelay(5);        
+    while(write(fd_uart, buf, number) < 0) usleep(0);      
 }
 
 //-------------------------------------------------------------
