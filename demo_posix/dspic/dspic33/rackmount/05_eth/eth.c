@@ -10,9 +10,9 @@
 #include "uip.h"
 #include "uip_arp.h"
 
-
-static void displayRxPacket(board_info_t* db, int flag);
-
+#define REG_TEST        0
+#define IO_TEST         1
+#define TEST_SELECT     REG_TEST
 
 /************************************************************************************************
  * Global Variables
@@ -22,13 +22,95 @@ int fd_eth;
 extern board_info_t macData;
 u8_t uip_buf[UIP_BUFSIZE+2];
 
-#define DEFAULT_TEST    0
-#define REG_TEST        1
-#define IO_TEST         2
+#if (TEST_SELECT == REG_TEST)
+/*
+ * Global Variables
+ */
+static u8_t reg_index = 0x00;
+static u8_t phy_index = 0x00; 
+/*
+ * Local Variables
+ */
+static void readPHYReg(board_info_t* db);
+static void readNormalReg(board_info_t* db);
+static void readRXBuf(board_info_t* db, unsigned char enter_key);
+static void displayRxPacket(board_info_t* db, int flag);
+static void test_dm9000a(board_info_t* db);
+/*
+ * Register Test
+ */
+tskHTTPServer()
+{
+    /*
+     * Initialize dspic and dm9000a
+     */
+    fd_eth = open(ETHERNET, O_RDWR);
+    
+    /*
+     * Common Variable 
+     */
+    board_info_t* db = &macData;    //ethernet object
+    unsigned char key;             //received ASCII char
 
-#define TEST_SELECT     DEFAULT_TEST
-
-#if (TEST_SELECT == IO_TEST)
+    start_process();
+    
+    while(read(fd_uart, &key, 1) < 1)
+        usleep(0);
+    
+    /*
+     * Display register in PHY
+     */
+    switch(key){
+        case 't': case 'T':
+            test_dm9000a(db);
+            break;
+        case 'p': case 'P':
+            readPHYReg(db);
+            break;
+        case 'n': case 'N':
+            readNormalReg(db);           
+            break;
+        case 'r': case 'R':
+            readRXBuf(db, key);
+            break;
+        case '1':
+            printStr("RX WP = ");
+            printHex((ior(db, DM9KA_RWPAH) << 8) + ior(db, DM9KA_RWPAL), 4);
+            newline();
+            break;
+        case '2':
+            printStr("RX RP = ");
+            printHex((ior(db, DM9KA_MRRH) << 8) + ior(db, DM9KA_MRRL), 4);
+            newline();
+            break;
+        default:
+            newline();
+            printStr("Help Screen");
+            newline();
+            printStr("===========");
+            newline();
+            printStr("Enter the Following Key:");
+            newline();
+            printStr(" t: Basic Test for DM9000A");
+            newline();
+            printStr(" p: Read a Physical register (auto-increment)");
+            newline();
+            printStr(" n: Read a Normal register (auto-increment)");
+            newline();
+            printStr(" 1: Read the rx buf read-pointer");
+            newline();
+            printStr(" 2: Read the rx buf write-pointer");
+            newline();
+            printStr(" r: Read a packet from rx buf (auto-increment)");
+            newline();
+            printStr(" R: Read a packet from rx buf (no increment)");
+            newline();
+            newline();
+    }
+    
+    end_process();
+}
+#else
 /*
  * IO test
  */
@@ -49,154 +131,19 @@ tskHTTPServer()
 
     start_process();
     
-    ior(db, 0x2C);
+    ior(db, 0x2C);              //Read 0x2C, Expected 0x19
     
     mdelay(1);
     
     end_process();
 }
-#elseif(TEST_SELECT == REG_TEST)
+#endif
+
 /*
- * Register Test
+ * Test DM9000A
  */
-tskHTTPServer()
+static void test_dm9000a(board_info_t* db)
 {
-    /*
-     * Initialize dspic and dm9000a
-     */
-    fd_eth = open(ETHERNET, O_RDWR);
-    
-    /*
-     * Common Variable 
-     */
-    board_info_t* db = &macData;    //ethernet object
-    unsigned char key;             //received ASCII char
-
-    u8_t reg_index = 0x00;
-    u8_t phy_index = 0x00;      
-
-    start_process();
-    
-    while(read(fd_uart, &key, 1) < 1)
-        usleep(0);
-    
-    /*
-     * Display register in PHY
-     */
-    if(key == 'p' || key == 'P')
-    {
-        u16_t result = phy_read(db, phy_index);
-        
-        printHex((DM9KA_PHY | phy_index), 4); printStr(" = "); printHex(result, 4);        
-        newline();
-
-        phy_index++;
-        
-        if(phy_index>DM9KA_ANER && phy_index<DM9KA_DSCR){
-            phy_index = DM9KA_DSCR;
-        } else if(phy_index>DM9KA_PWDOR && phy_index<DM9KA_SCR){
-            phy_index = DM9KA_SCR;
-        } else if(phy_index>DM9KA_SCR){
-            phy_index = 0;
-        }
-    }
-    /*
-     * Display register in normal register
-     */
-    else if(key == 'n' || key == 'N')
-    {
-        unsigned int result = ior(db, reg_index);
-
-
-        printHex(reg_index, 2); printStr(" = "); printHex(result, 2);        
-        newline();
-
-        reg_index++;
-        
-        if(reg_index>DM9KA_GPR && reg_index<DM9KA_TRPAL){
-            reg_index = DM9KA_TRPAL;
-        } else if(reg_index>DM9KA_RWPAH && reg_index<DM9KA_VIDL){
-            reg_index = DM9KA_VIDL;
-        } else if(reg_index>DM9KA_LEDCR && reg_index<DM9KA_BUSCR){
-            reg_index = DM9KA_BUSCR;
-        } else if(reg_index>DM9KA_INTCR && reg_index<DM9KA_SCCR){
-            reg_index = DM9KA_SCCR;
-        } else if(reg_index>DM9KA_RSCCR && reg_index<DM9KA_MRCMDX){
-            reg_index = DM9KA_MRCMDX;
-        } else if(reg_index>DM9KA_MRCMD && reg_index<DM9KA_MRRL){
-            reg_index = DM9KA_MRRL;
-        } else if(reg_index>DM9KA_MWCMDX && reg_index<DM9KA_MWCMD){
-            reg_index = DM9KA_MWCMD;
-        } else if(reg_index>DM9KA_MWCMD && reg_index<DM9KA_MWRL){
-            reg_index =DM9KA_MWRL;
-        }            
-    }
-    /*
-     * Display value in Rx Buffer
-     */ 
-    else if(key == 'r' || key == 'R')
-    {
-        ior(db, DM9KA_MRCMDX);      //Dummy read, without increment of pointer
-
-        unsigned int rxbyte = inb(db->io_data);  //Get most updated data
-        
-        char label[] = "rx = ";
-        printStr(label);
-        printHex(rxbyte, 2);
-        newline();
-        
-        //Packet available, reset read pointer if 'R'
-        if( (rxbyte & 0x01) ){
-            int flag = (key == 'r')? 0 : 1;
-            displayRxPacket(db, flag);
-        }
-    }
-    else if(key == '1'){
-        unsigned int rd_ptr = (ior(db, DM9KA_RWPAH) << 8) + ior(db, DM9KA_RWPAL);
-        
-        char label[] = "RX WP = ";
-        printStr(label);
-        printHex(rd_ptr, 4);
-        newline();
-    }
-    else if(key == '2'){
-        unsigned int rd_ptr = (ior(db, DM9KA_MRRH) << 8) + ior(db, DM9KA_MRRL);
-
-        char label[] = "RX RP = ";
-        printStr(label);
-        printHex(rd_ptr, 4);
-        newline();
-    }
-    
-    end_process();
-}
-#else
-/*
- * Default Test
- */
-tskHTTPServer()
-{
-    /*
-     * Initialize dspic and dm9000a
-     */
-    fd_eth = open(ETHERNET, O_RDWR);
-    
-    /*
-     * Common Variable 
-     */
-    board_info_t* db = &macData;    //ethernet object
-    unsigned char key;             //received ASCII char
-    
-    //Initialise address port (CMD) constants for I/O
-    db->io_addr = CMD_INDEX;    //CMD = 0 : INDEX port
-    db->io_data = CMD_DATA;     //CMD = 1 : DATA port
-
-    start_process();
-    
-    //wait for user input
-    while(read(fd_uart, &key, 1) < 1)
-        usleep(0);
-    
     //Vendor ID Test
     unsigned int vid = (ior(db, DM9KA_VIDH) << 8) + ior(db, DM9KA_VIDL);
     if(vid == 0x0A46){
@@ -219,7 +166,7 @@ tskHTTPServer()
         printStr("ERR: 16-bit mode detected.");
         newline();
     }
-     
+         
     //Link Test
     if((ior(db, DM9KA_NSR) & 0x40) > 0){
         printStr("Link OK.");
@@ -238,12 +185,88 @@ tskHTTPServer()
         printStr("ERR: DM9000A is not able to link to the Internet.");
         newline();
     }
+        
+    newline();
+}
+
+/*
+ * Read Physical Registers
+ */
+static void readPHYReg(board_info_t* db)
+{
+    u16_t result = phy_read(db, phy_index);
     
+    if(phy_index == DM9KA_BMSR){
+        //Read once more for status register
+        result = phy_read(db, phy_index);
+    }
+        
+    printHex((DM9KA_PHY | phy_index), 4); printStr(" = "); printHex(result, 4);        
+    newline();
+
+    phy_index++;
+    
+    if(phy_index>DM9KA_ANER && phy_index<DM9KA_DSCR){
+        phy_index = DM9KA_DSCR;
+    } else if(phy_index>DM9KA_PWDOR && phy_index<DM9KA_SCR){
+        phy_index = DM9KA_SCR;
+    } else if(phy_index>DM9KA_SCR){
+        phy_index = 0;
+        newline();
+    }
+}
+
+/*
+ * Read Normal Registers
+ */
+static void readNormalReg(board_info_t* db)
+{
+    unsigned int result = ior(db, reg_index);
+
+    printHex(reg_index, 2); printStr(" = "); printHex(result, 2);        
     newline();
     
-    end_process();
+    if(reg_index==DM9KA_IMR){
+        reg_index = 0;
+        newline();
+    } 
+    else{
+        reg_index++;
+        
+        if(reg_index>DM9KA_GPR && reg_index<DM9KA_TRPAL){
+            reg_index = DM9KA_TRPAL;
+        } else if(reg_index>DM9KA_RWPAH && reg_index<DM9KA_VIDL){
+            reg_index = DM9KA_VIDL;
+        } else if(reg_index>DM9KA_LEDCR && reg_index<DM9KA_BUSCR){
+            reg_index = DM9KA_BUSCR;
+        } else if(reg_index>DM9KA_INTCR && reg_index<DM9KA_SCCR){
+            reg_index = DM9KA_SCCR;
+        } else if(reg_index>DM9KA_RSCCR && reg_index<DM9KA_ISR){
+            reg_index = DM9KA_ISR;
+        }        
+    }
 }
-#endif
+
+/*
+ * Read RX Buffer
+ */
+static void readRXBuf(board_info_t* db, unsigned char enter_key)
+{
+    ior(db, DM9KA_MRCMDX);      //Dummy read, without increment of pointer
+
+    unsigned int rxbyte = inb(db->io_data);  //Get most updated data
+        
+    char label[] = "rx = ";
+    printStr(label);
+    printHex(rxbyte, 2);
+    newline();
+        
+    //Packet available, reset read pointer if 'R'
+    if( (rxbyte & 0x01) ){
+        int flag = (enter_key == 'r')? 0 : 1;
+        displayRxPacket(db, flag);
+    }
+}
 
 /*
  * Display rx packet on console
@@ -335,6 +358,9 @@ static void displayRxPacket(board_info_t* db, int flag)
     }
 }
 
+/*
+ * Dummy Laser Ctrl Task
+ */
 tskLaserCtrl()
 {
     start_process();
