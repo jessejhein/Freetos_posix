@@ -57,10 +57,10 @@ B2H	:= pic30-elf-bin2hex
 #								  [for more arguments, refer to: 
 #									MPLAB ASM30 MALAB LINK30 and utilities user's guide and 
 #									MPLAB C30 C compiler user's guide]
-CFLAG1 := -DMPLAB_DSPIC33_PORT -mcpu=33FJ128GP306 -Os -fomit-frame-pointer \
+CFLAG1 := -DMPLAB_DSPIC33_PORT -mcpu=33FJ128GP306 -Os -fomit-frame-pointer -Werror \
 			-idirafter$(OS)/include/ -I$(PIC_H)/ -I$(POSIX)/../Source/include/ \
 			-I$(POSIX)/ -I$(DSPIC)/rackmount/$(PRJ_NAME)/include/ 
-CFLAG2 := -DMPLAB_DSPIC33_PORT -mcpu=33FJ128GP306 -Os -fomit-frame-pointer \
+CFLAG2 := -DMPLAB_DSPIC33_PORT -mcpu=33FJ128GP306 -Os -fomit-frame-pointer -Werror \
 			-Xlinker -Map="$(APP_PF)/$(PRJ_NAME).map" \
 			-L$(PIC_LIB)/ \
 			-T$(DSPIC)/linker/clinkscript_p33FJ128GP306.gld
