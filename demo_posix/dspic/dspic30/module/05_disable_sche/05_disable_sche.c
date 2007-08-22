@@ -10,10 +10,14 @@
 
 int fd_uart, fd_adc, fd_eeprom, fd_pwm;
 
+#ifndef portTICK_RATE_MS
+#define portTICK_RATE_MS            10
+#endif
+
 /************************************************************************************************
  * tskComPort()
  ***********************************************************************************************/
-tskClock()
+void clock_process(void)
 {
     static unsigned char uart_rx;
     static unsigned char uart_tx[25];
@@ -66,9 +70,9 @@ void vSetupHardware( void ){
 void vUserMain(){
     unsigned int arg_led1 = 0;  //Index, must be declared static or global
     while(1){
-        led_process(&arg_led1);
-        pwm_process();
-        adc_process();
+        tskFlashLED(&arg_led1);
+        tskPWM();
+        tskADC();
         clock_process();
         mdelay(100);
     }

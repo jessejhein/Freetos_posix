@@ -14,9 +14,8 @@
  * Configurations for FreeRTOS and its POSIX
  ********************************************************************************/
 
-// Define Application Tasks Here ************************************************
-#define tskIdle()                   void vUserIdle(void)
-#define tskMutex()                  void tskMutex(void *ptr)
+// Define User Idle Task Here **************************************************
+#define idle_process                UserIdleTask
 
 // Enable FreeRTOS Scheduler ***************************************************
 #define FREERTOS_SCHE_ENABLE        1           // if disabled, use coroutine_st

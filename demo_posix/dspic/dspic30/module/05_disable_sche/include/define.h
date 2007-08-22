@@ -14,12 +14,6 @@
  * Configurations for FreeRTOS and its POSIX
  ********************************************************************************/
 
-// Define Application Tasks Here ************************************************
-#define tskFlashLED()               void led_process(void* ptr)
-#define tskADC()                    void adc_process(void)
-#define tskPWM()                    void pwm_process(void)
-#define tskClock()                  void clock_process(void)
-
 // Enable FreeRTOS Scheduler ***************************************************
 #define FREERTOS_SCHE_ENABLE        0           // if disabled, use coroutine_st
 #if(FREERTOS_SCHE_ENABLE == 1)
@@ -153,6 +147,5 @@
 //  =============================================================================
 #define PWM_PRIMARY                 3   //Use OC4 (Channel 3)
 #define ADC_PRIMARY                 4   //Use AN4 
-#define portTICK_RATE_MS            10
 
 #endif /* DEFINE_H_ */
