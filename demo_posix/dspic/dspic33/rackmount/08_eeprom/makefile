@@ -80,7 +80,7 @@ OBJECTS := $(DSPIC)/linker/reset.o \
 			$(DSPIC)/../drivers/i2c.o $(DSPIC)/../drivers/i2c_eeprom.o \
 			$(DSPIC)/../drivers/traps.o \
 			$(COMMON)/app_idlehook.o $(COMMON)/app_idle.o \
-			$(COMMON)/app_led.o \
+			$(COMMON)/app_led.o $(COMMON)/tools/console.o \
 			$(APP_PF)/08_eeprom.o \
 			$(APP_PF)/led.o
 			

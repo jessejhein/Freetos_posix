@@ -12,7 +12,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-extern tskFlashLED();
+extern void* tskFlashLED(void* ptr);
 
 /************************************************************************************************
  * Hardware setup 
@@ -33,10 +33,9 @@ void vSetupHardware( void ){
  * tskEEPROM()
  * erase eeprom
  ***********************************************************************************************/
-tskEEPROM()
+void* tskEEPROM(void* ptr)
 {
-    static int done = 0, number = 0;
-    static unsigned char uart_tx[30];
+    static unsigned char uart_rx;
     static unsigned char page[I2C_EEPROM_PAGE_SIZE];
     static unsigned int i;
     static unsigned char data = 0;
@@ -45,52 +44,68 @@ tskEEPROM()
     start_process();
     //=======================================================================
     
-    sleep(5);
+    //Wait for an input character  
+    while(read(fd_uart, &uart_rx, 1) <= 0)
+        usleep(0);
     
-    //Erase the entire eeprom, page by page 
-    if(done == 0){
-
+    if(uart_rx == 'E' || uart_rx == 'e'){
+        //Erase the entire eeprom, page by page 
         lseek(fd_eeprom, 0, SEEK_SET);
-
-        number = sprintf(uart_tx, "%s%c", "Programming EEPROM...", 0x0d);
-        write(fd_uart, uart_tx, number);
     
-
+        printStr("Programming EEPROM...");
+        newline();
+    
         for(i = 0; i<I2C_EEPROM_SIZE/I2C_EEPROM_PAGE_SIZE; i++){
             while(write(fd_eeprom, page, I2C_EEPROM_PAGE_SIZE) != I2C_EEPROM_PAGE_SIZE)
                 usleep(0);
         }
-    
-        number = sprintf(uart_tx, "%s%c", "Completed.", 0x0d);
-        write(fd_uart, uart_tx, number);
-        
-        done == 1;
-    }
-    
-    //Wait for an input character  
-    while(read(fd_uart, uart_tx, 1) <= 0)
-        usleep(0);
 
-    number = sprintf(uart_tx, "Checking... %c", 0x0d);
-    write(fd_uart, uart_tx, number);
+        printStr("Completed.");
+        newline();
+        newline();   
+    }
+
     
-    //Reset pointer and read
-    lseek(fd_eeprom, 0, SEEK_SET);
-    for(i = 0; i<I2C_EEPROM_SIZE; i++){
-        while(read(fd_eeprom, &data, 1) != 1)
-            usleep(0);
+    else if(uart_rx == 'C' || uart_rx == 'c'){
+    
+        printStr("Checking...");
+        newline();
             
-        //If content is not 0x00, print to console            
-        if(data != 0){
-            number = sprintf(uart_tx, "[%d] = %d%c", i, data, 0x0d);
-            write(fd_uart, uart_tx, number);
-            usleep(20000UL);
-        }            
+        //Reset pointer and read
+        lseek(fd_eeprom, 0, SEEK_SET);
+        for(i = 0; i<I2C_EEPROM_SIZE; i++){
+            while(read(fd_eeprom, &data, 1) != 1)
+                usleep(0);
+                
+            //If content is not 0x00, print to console            
+            if(data != 0){
+                printStr("["); printDec(i); printStr("] = 0x"); printHex(data, 2);
+                newline();
+                newline();
+                usleep(20000UL);
+            }            
+        }
+
+        //Process is successful
+        printStr("Completed.");
+        newline();
+        newline();
     }
     
-    //Process is successful
-    number = sprintf(uart_tx, "%s%c", "Completed.", 0x0d);
-    write(fd_uart, uart_tx, number);
+    else{
+        newline();
+        printStr("Help Screen");
+        newline();
+        printStr("===========");
+        newline();
+        printStr("Enter the Following Key:");
+        newline();
+        printStr(" e: Erase EEPROM");
+        newline();
+        printStr(" c: Check EEPROM Content as zero");
+        newline();
+        newline();
+    }
     
     //=======================================================================
     end_process();
