@@ -14,7 +14,7 @@ struct laser_get_t laser_get;
 /*
  * laser control task
  */
-tskLaserCtrl()
+void* tskLaserCtrl(void* ptr)
 {
     //Initialization
     laser_get.tec[0] = 25.3;

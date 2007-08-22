@@ -14,10 +14,8 @@
  * Configurations for FreeRTOS and its POSIX
  ********************************************************************************/
 
-// Define Application Tasks Here ************************************************
-#define tskIdle()                   void vUserIdle(void)
-#define tskFlashLED()               void tskFlashLED(void *ptr)
-#define tskEEPROM()                 void tskEEPROM(void *ptr)
+// Define User Idle Task Here **************************************************
+#define idle_process                UserIdleTask
 
 // Enable FreeRTOS Scheduler ***************************************************
 #define FREERTOS_SCHE_ENABLE        1        //if disabled, use coroutine_st
@@ -94,8 +92,8 @@
 #define RS485_TX_ON()               _RG1=1
 #define RS485_TX_OFF()              _RG1=0
 //  ============================Buffer Size====================================== 
-#define MAX_UART_RX_BUF             30
-#define MAX_UART_TX_BUF             30
+#define MAX_UART_RX_BUF             50
+#define MAX_UART_TX_BUF             50
 #endif //UART_MOD
 
 // I2C Module *******************************************************************
