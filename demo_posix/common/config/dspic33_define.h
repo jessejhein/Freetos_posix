@@ -14,10 +14,8 @@
  * Configurations for FreeRTOS and its POSIX
  ********************************************************************************/
 
-// Define Application Tasks Here ************************************************
-#define tskIdleName()               void vUserIdle(void)
-#define tsk1Name()                  void tsk1(void *ptr)
-#define tsk2Name()                  void tsk2(void *ptr)
+// Define User Idle Task Here **************************************************
+#define idle_process                UserIdleTask
 
 // Enable FreeRTOS Scheduler ***************************************************
 #define FREERTOS_SCHE_ENABLE        1        //if disabled, use coroutine_st
@@ -236,7 +234,7 @@
                                      }while(0)                                         
 #endif //KB_MOD
 
-// ETHERNET Module ***************************************************************
+/// ETHERNET Module ***************************************************************
 #define ETHERNET_MOD                1       // ethernet enable
 #if (ETHERNET_MOD>0)
 //  ============================Device Handler=================================== 
@@ -277,18 +275,6 @@
 #define PWRITE(x)                   ( LATD = ((PORTD & 0xF00F) | ((((int)x) << 4) & 0x0FF0)) )
 #define PREAD()                     ( (unsigned char)( (PORTD & 0x0FF0) >> 4 ) )                    
 #endif //Data Port
-
-// Pin usage setting ************************************************************
-#define ERR_LED0_EN()               (TRISG &= 0x7FFF)   //_RG15
-#define ERR_LED1_EN()               (TRISC &= 0x7FFF)   //_RC15
-#define ERR_LED0(x)                 do{ \
-                                        if((x)==0) LATG &= 0x7FFF; \
-                                        else LATG |= 0x8000; \
-                                     }while(0) 
-#define ERR_LED1(x)                 do{ \
-                                        if((x)==0) LATC &= 0x7FFF; \
-                                        else LATC |= 0x8000; \
-                                     }while(0)    
 
 // Pin usage setting ************************************************************
 #define ERR_LED0_EN()               (TRISG &= 0x7FFF)   //_RG15
