@@ -4,26 +4,14 @@
  ***********************************************************************************************/
 
 #include <define.h>
+#include <pthread.h>
 
+/*
+ * Keyboard module: Rotory Key
+ */
 #if(KB_MOD > 0)
 #include <time.h>
-
-static unsigned char pkey_state[TOTAL_PUSH_KEY];
-static unsigned char pkey_scan_cnt[TOTAL_PUSH_KEY];
-
-extern unsigned char gpio_buf[MAX_GPIO_BUF];
-extern unsigned char gpio_wr;   //write pointer of cir buf
-extern unsigned char gpio_rd;   //read pointer of cir buf
-#endif
-
 /************************************************************************************************
- * void vApplicationIdleHook(void)
- * +-- a subroutine that runs by Idle Task
- * +-- Idle Task will run every 1/configTICK_RATE_HZ (i.e. 10ms) and when there are no other tasks 
- *     running
- * +-- this function must not call usleep()
- * +-- this function must not implement infinite looping unless no other tasks is running 
- ************************************************************************************************
  * Principle of ENTER key
  * 
  * ------------------------|||                 |||-----------
@@ -39,7 +27,31 @@ extern unsigned char gpio_rd;   //read pointer of cir buf
  *       A -- each 60mSec to scan
  *       B -- after get a key, waiting until release of key
  ************************************************************************************************/
+static unsigned char pkey_state[TOTAL_PUSH_KEY];
+static unsigned char pkey_scan_cnt[TOTAL_PUSH_KEY];
 
+extern unsigned char gpio_buf[MAX_GPIO_BUF];
+extern unsigned char gpio_wr;   //write pointer of cir buf
+extern unsigned char gpio_rd;   //read pointer of cir buf
+#endif
+
+/*
+ * Coroutine Thread
+ */
+#if(CRTHREAD_ENABLE > 0)
+crthread_t crthread[MAX_CRTHREAD] = {NULL};
+unsigned char crPendingCall[MAX_CRTHREAD];
+void* crthread_arg[MAX_CRTHREAD];
+#endif
+
+/************************************************************************************************
+ * void vApplicationIdleHook(void)
+ * +-- a subroutine that runs by Idle Task
+ * +-- Idle Task will run every 1/configTICK_RATE_HZ (i.e. 10ms) and when there are no other tasks 
+ *     running
+ * +-- this function must not call usleep()
+ * +-- this function must not implement infinite looping unless no other tasks is running 
+ ************************************************************************************************/
 void vApplicationIdleHook(void)
 {
 #if(KB_MOD > 0)
@@ -91,9 +103,26 @@ void vApplicationIdleHook(void)
     }
 #endif //end KB_MOD
 
+#if(CRTHREAD_ENABLE > 0)
+    unsigned char i;
+    for(i=0; i<MAX_CRTHREAD; i++)
+    {
+        //If function is not NULL
+        //Check if there is pending calls needed to perform
+        //Decrement pending call if crFunction has completed once
+        if(crthread[i] != NULL){
+            if(crPendingCall[i] > 0){
+                if(*( (*crthread[i])(crthread_arg) ) == 0){
+                    crPendingCall[i]--;
+                }
+            }
+        }
+    }
+#endif
+
     /*
      * Application Idle Task
      */
-    vUserIdle();    //define this task in define.h, 
-                    //  #define tskIdle() void vUserIdle(void)
+    UserIdleTask();     //define this task in define.h, 
+                        //  #define idle_process     UserIdleTask
 }

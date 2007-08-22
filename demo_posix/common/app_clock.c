@@ -30,7 +30,7 @@ time_t sec_t;
 /************************************************************************************************
  * tskComPort()
  ***********************************************************************************************/
-tskClock()
+void* tskClock(void* ptr)
 {
     static unsigned char adc_uart_tx[40];
     static unsigned char adc_channel = ADC_PRIMARY; //channel to read from

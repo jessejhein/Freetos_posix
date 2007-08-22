@@ -33,7 +33,7 @@ extern int fd_uart;
  * tskADC()
  ***********************************************************************************************/
 #if 1
-tskADC()
+void* tskADC(void *ptr)
 {
 	static unsigned char adc_uart_tx[20];
 	static unsigned int adc_reading, eeprom_reading; 	//Store integer value for adc values [0-4095]
@@ -74,7 +74,7 @@ tskADC()
 
 #else
 
-tskADC()
+void* tskADC(void *ptr)
 {
     static unsigned int analog_reading;    //Store integer value for adc values [0-4095]
     static unsigned char adc_ctrl = 0;     //Control values, 4=>add/remove channel 4

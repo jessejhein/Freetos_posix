@@ -12,7 +12,7 @@
 #include <define.h>
 #include <fcntl.h>
 
-extern tskFlashLED();
+extern void* tskFlashLED(void* ptr);
 
 /************************************************************************************************
  * Hardware setup 

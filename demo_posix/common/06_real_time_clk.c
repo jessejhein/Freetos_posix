@@ -13,8 +13,8 @@
 #include <fcntl.h>
 #include <asm/delay.h>
 
-extern tskClock();
-extern tskComPort();
+extern void* tskClock(void* ptr);
+extern void* tskComPort(void* ptr);
 
 pthread_mutex_t myMutex;
 unsigned int eeprom_ptr;

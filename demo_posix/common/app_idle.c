@@ -4,17 +4,17 @@
  ***********************************************************************************************/
 
 #include <define.h>
+#include <stddef.h>
 
 /************************************************************************************************
- * tskIdle()
+ * void* idle_process(void* ptr)
  * +-- a subroutine that runs by Idle Task
  * +-- this function must not call usleep()
  * +-- this function must not implement infinite looping unless no other tasks is running 
  ************************************************************************************************/
-tskIdle()
+void* idle_process(void* ptr)
 {
-	/* Schedule the co-routines from within the idle task hook. */
-//	vCoRoutineSchedule();
+    return NULL;	
 }
 
 

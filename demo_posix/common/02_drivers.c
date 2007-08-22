@@ -20,11 +20,11 @@
 /************************************************************************************************
  * Thread/Coroutine Functions 
  ************************************************************************************************/
-extern tskFlashLED();
-extern tskComPort();
-extern tskDAC();
-extern tskADC();
-extern tskPWM();
+extern void* tskFlashLED(void* ptr);
+extern void* tskComPort(void* ptr);
+extern void* tskDAC(void* ptr);
+extern void* tskADC(void* ptr);
+extern void* tskPWM(void* ptr);
 
 /************************************************************************************************
  * Hardware setup 

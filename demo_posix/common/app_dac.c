@@ -27,7 +27,7 @@ extern int fd_dac;				//file descriptor for i2c
 /************************************************************************************************
  * tskDAC()
  ***********************************************************************************************/
-tskDAC()
+void* tskDAC(void *ptr)
 {
 	static unsigned char ch = DAC_PRIMARY;
 	ioctl(fd_dac, DAC_SET_CTL, &ch);

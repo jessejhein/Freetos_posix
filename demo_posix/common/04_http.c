@@ -15,9 +15,9 @@
 /************************************************************************************************
  * Thread/Coroutine Functions 
  ************************************************************************************************/
-extern tskFlashLED();
-extern tskHTTPServer();
-extern tskLaserCtrl();
+extern void* tskFlashLED(void* ptr);
+extern void* tskHTTPServer(void* ptr);
+extern void* tskLaserCtrl(void* ptr);
 
 /************************************************************************************************
  * Hardware setup 

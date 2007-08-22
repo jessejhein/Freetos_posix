@@ -23,7 +23,7 @@ extern int fd_pwm;		//File descriptor for uart (RS232)
 /************************************************************************************************
  * tskPWM()
  ***********************************************************************************************/
-tskPWM()
+void* tskPWM(void *ptr)
 {
 	static unsigned long channelA = PWM_PRIMARY;					
 	ioctl(fd_pwm, PWM_SELECT_CH, &channelA);		//Select channel

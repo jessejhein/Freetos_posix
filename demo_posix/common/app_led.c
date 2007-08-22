@@ -18,7 +18,7 @@ const unsigned int SLEEP_TIME[] = {1, 3}; //sleep for 1 and 3 sec.
 /************************************************************************************************
  * tskFlashLED()
  ***********************************************************************************************/
-tskFlashLED()
+void* tskFlashLED(void *ptr)
 {
     unsigned int index = *((unsigned int*)ptr);
     unsigned int sleep_index = index%2;

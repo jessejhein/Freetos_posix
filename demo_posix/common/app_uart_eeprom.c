@@ -34,7 +34,7 @@ extern time_t sec_t;
 /************************************************************************************************
  * tskComPort()
  ***********************************************************************************************/
-tskComPort()
+void* tskComPort(void* ptr)
 {
     static unsigned char eeprom_uart_tx[40];
     static unsigned char uart_rx;

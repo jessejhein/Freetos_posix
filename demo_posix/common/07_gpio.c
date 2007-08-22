@@ -7,9 +7,9 @@
 #include <define.h>
 #include <fcntl.h>
 
-extern tskFlashLED();
-extern tskDAC();
-extern tskKB();
+extern void* tskFlashLED(void* ptr);
+extern void* tskDAC(void* ptr);
+extern void* tskKB(void* ptr);
 
 /************************************************************************************************
  * Hardware setup 
