@@ -21,28 +21,11 @@ extern int fd_uart;
  */
 static void int2hexString(char* buf, __u16 value, int precision)
 {
+    char ascii[] = "0123456789ABCDEF";
     int i=0;
     for(i=0; i<precision; i++){
         __u16 remainder = value%16;
-        switch(remainder){
-            case 0x00: buf[precision-1-i] = '0'; break;
-            case 0x01: buf[precision-1-i] = '1'; break;
-            case 0x02: buf[precision-1-i] = '2'; break;
-            case 0x03: buf[precision-1-i] = '3'; break;
-            case 0x04: buf[precision-1-i] = '4'; break;
-            case 0x05: buf[precision-1-i] = '5'; break;
-            case 0x06: buf[precision-1-i] = '6'; break;
-            case 0x07: buf[precision-1-i] = '7'; break;
-            case 0x08: buf[precision-1-i] = '8'; break;
-            case 0x09: buf[precision-1-i] = '9'; break;
-            case 0x0A: buf[precision-1-i] = 'A'; break;
-            case 0x0B: buf[precision-1-i] = 'B'; break;
-            case 0x0C: buf[precision-1-i] = 'C'; break;
-            case 0x0D: buf[precision-1-i] = 'D'; break;
-            case 0x0E: buf[precision-1-i] = 'E'; break;
-            case 0x0F: buf[precision-1-i] = 'F'; break;
-            default: buf[precision-1-i] = '*';
-        }
+        buf[precision-1-i] = ascii[remainder];
         value /=16;
     }
     buf[precision] = 0x00;
