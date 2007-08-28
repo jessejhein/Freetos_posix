@@ -18,14 +18,19 @@
 #define idle_process                UserIdleTask
 
 // Enable FreeRTOS Scheduler ***************************************************
-#define FREERTOS_SCHE_ENABLE        1           // if disabled, use coroutine_st
+#define FREERTOS_SCHE_ENABLE        1        //if disabled, use coroutine_st
 #if(FREERTOS_SCHE_ENABLE == 1)
 #   define start_process()          while(1){
 #   define end_process()            }
+    //==========Enable Coroutine Thread Scheduler in FREERTOS Scheduler========
+    #define CRTHREAD_ENABLE             1
+    #if(CRTHREAD_ENABLE == 1)
+    #define MAX_CRTHREAD                10
+    #endif
 #else
 #   include <coroutine_st.h>
 #   define start_process()          scrBegin
-#   define end_process()            scrFinishV
+#   define end_process()            scrFinish((void*)0)
 #endif
 
 // System Settings **************************************************************
