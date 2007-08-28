@@ -22,10 +22,15 @@
 #if(FREERTOS_SCHE_ENABLE == 1)
 #   define start_process()          while(1){
 #   define end_process()            }
+    //==========Enable Coroutine Thread Scheduler in FREERTOS Scheduler========
+    #define CRTHREAD_ENABLE             1
+    #if(CRTHREAD_ENABLE == 1)
+    #define MAX_CRTHREAD                10
+    #endif
 #else
 #   include <coroutine_st.h>
 #   define start_process()          scrBegin
-#   define end_process()            scrFinishV
+#   define end_process()            scrFinish((void*)0)
 #endif
 
 // System Settings **************************************************************
@@ -257,6 +262,13 @@
 #define DEFAULT_NIC_BYTE1            (0x4D)
 #define DEFAULT_NIC_BYTE2            (0x03)
 #define DEFAULT_NIC_BYTE3            (0x01)
+//  ========================Default Web Server Config=============================
+//Set this to enable password protection when accessing the web page
+//When disableing this function, you should also manually adjust the web pages 
+//(i.e. *.html, *.shtml) accordingly 
+#define ETH_WEB_LOGIN_ENABLE        1
+#define ETH_WEB_USERNAME             "amonics"
+#define ETH_WEB_PASSWORD             "amonics"
 //  ============================MARCOS===========================================
 #define ETH_IOCONFIG()              do{ \
                                         TRISG &= 0xFC3F; \
