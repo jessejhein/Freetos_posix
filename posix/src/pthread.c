@@ -6,6 +6,95 @@
 #include <pthread.h>
 
 /*******************************************************************************************
+ * Name:        int pthread_create( 
+ *                      pthread_t *restrict thread, 
+ *                      const pthread_attr_t *restrict attr, 
+ *                      void* (*start_routine)(void*), 
+ *                      void *restrict arg)
+ * 
+ * Function:    Create a new thread, with attributes specified by attr. 
+ *              Upon successful completion, pthread_create() shall store the ID of 
+ *              the created thread in the location referenced by thread.
+ *              The thread is created executing start_routine with arg as its sole argument.
+ * 
+ * Input:       thread: handler for task
+ *              attr: attribute pointer related to the thread
+ *                    NULL/SCHED_FREERTOS use FreeRTOS Task
+ *                    SCHED_COROUTINE use coroutine
+ *              start_routine: function pointer for the task
+ *              arg: arguments to passed to task
+ *                   for crthread, content of arg should be declared static or global
+ * 
+ * Output:      If successful, the pthread_create() function shall return zero; 
+ *              otherwise, an error number (-1) shall be returned to indicate the error.
+ *******************************************************************************************
+ * The task is created with minimal stack size and idle priority 
+ *******************************************************************************************/
+int pthread_create(pthread_t* thread, pthread_attr_t* attr, void* (*start_routine)(void*), void* arg){
+
+#if(CRTHREAD_ENABLE > 0)
+    //---------------------------------------------------------------------------
+    // Principle of CRTHREAD Scheduler
+    //    search if there is a previous call to same thread
+    //      if found, insert the index number (inactive) to the the first CRTHREAD_EMPTY position
+    //      if not found, insert the function pointer (active) to the first CRTHREAD_EMPTY position
+    //    skip the thread when list is full
+    //
+    // e.g. adding enable to here:
+    //                  crthread[0] = adj
+    //                  crthread[1] = CRTHREAD_EMPTY          <-- (void*)3
+    //                  crthread[2] = CRTHREAD_EMPTY
+    //                  crthread[3] = enable
+    //                  crthread[4] = CRTHREAD_EMPTY
+    //---------------------------------------------------------------------------
+    if(attr != NULL && *attr== SCHED_COROUTINE){
+        unsigned char i;
+        unsigned char indexCr, indexEmpty;
+        unsigned char foundCr = 0;
+        unsigned char foundEmpty = 0;        
+        for(i=0; i<MAX_CRTHREAD; i++){
+            //Find CRTHREAD_EMPTY
+            if(foundEmpty == 0){
+                if(crthread[i] == CRTHREAD_EMPTY){
+                    foundEmpty = 1;
+                    indexEmpty = i;
+                }
+            }
+            //Find start_rountine
+            if(foundCr == 0){
+                if(crthread[i] == (crthread_t) start_routine){
+                    foundCr = 1;
+                    indexCr = i;
+                }
+            }
+            if(foundEmpty == 1 && foundCr == 1){
+                break;
+            }
+        }
+        if(foundEmpty == 1){
+            if(foundCr == 0){
+                crthread[indexEmpty] = (crthread_t) start_routine;
+            }
+            else{
+                crthread[indexEmpty] = (((crthread_t) 0) + indexCr);
+            }
+            crthread_arg[indexEmpty] = arg;
+        }
+        else{
+            return -1;
+        }
+    }
+    else{
+#endif    
+        xTaskCreate((pdTASK_CODE) start_routine, NULL, configMINIMAL_STACK_SIZE, arg, tskIDLE_PRIORITY, thread);
+#if(CRTHREAD_ENABLE > 0)
+    }
+#endif    
+    return 0;
+}
+
+
+/*******************************************************************************************
  * void vSemaphoreCreateBinary( 
  * 								xSemaphoreHandle xSemaphore 
  * 							);
@@ -16,10 +105,11 @@
  * any data - we just want to know if the queue is empty or full.
  * xSemaphore 	Handle to the created semaphore. Should be of type xSemaphoreHandle.
  *******************************************************************************************/
-int pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *attr){
+int pthread_mutex_init(pthread_mutex_t *mutex, pthread_mutexattr_t *attr){
 	vSemaphoreCreateBinary(*mutex);
 	return (*mutex != NULL)? 0 : 1;
 }
+
 
 /*******************************************************************************************
  * int xSemaphoreTake(
@@ -42,6 +132,7 @@ int pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *attr){
 int pthread_mutex_lock(pthread_mutex_t *mutex){
 	return (pdTRUE == xSemaphoreTake(*mutex, (portTickType)0)) ? 0 : 1;
 }
+
 
 /******************************************************************************************* 
  * int xSemaphoreGive( 
