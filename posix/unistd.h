@@ -38,7 +38,7 @@
 #if(FREERTOS_SCHE_ENABLE == 1)
     #define usleep(usec)	vTaskDelay((portTickType)((__u64)usec/(1000*portTICK_RATE_MS)))
 #else
-    #define usleep(usec)   scrReturnV
+    #define usleep(usec)   scrReturn((void*)-1)
 #endif
 
 /****************************************************************************************
@@ -62,7 +62,7 @@
 #if(FREERTOS_SCHE_ENABLE == 1)
     #define sleep(sec)      usleep((__u64)sec*1000000)
 #else
-    #define sleep(sec)      scrReturnV
+    #define sleep(sec)      scrReturn((void*)-1)
 #endif
 
 
