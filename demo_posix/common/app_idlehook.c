@@ -11,22 +11,6 @@
  */
 #if(KB_MOD > 0)
 #include <time.h>
-/************************************************************************************************
- * Principle of ENTER key
- * 
- * ------------------------|||                 |||-----------
- *                         |||-----------------|||
- *  
- *                         |<------- B --------->| 
- * 
- *      |<--A-->|       |        |                   |
- *   case0    case1    case1    case1              case2
- *    ->case1  ->case0  ->case0  ->case2            ->case0
- *                ->case1  ->case1
- * 
- *       A -- each 60mSec to scan
- *       B -- after get a key, waiting until release of key
- ************************************************************************************************/
 static unsigned char pkey_state[TOTAL_PUSH_KEY];
 static unsigned char pkey_scan_cnt[TOTAL_PUSH_KEY];
 
@@ -40,7 +24,6 @@ extern unsigned char gpio_rd;   //read pointer of cir buf
  */
 #if(CRTHREAD_ENABLE > 0)
 crthread_t crthread[MAX_CRTHREAD] = {NULL};
-unsigned char crPendingCall[MAX_CRTHREAD];
 void* crthread_arg[MAX_CRTHREAD];
 #endif
 
@@ -55,10 +38,23 @@ void* crthread_arg[MAX_CRTHREAD];
 void vApplicationIdleHook(void)
 {
 #if(KB_MOD > 0)
+    //---------------------------------------------------------------------------
+    // Principle of ENTER key
+    // 
+    // ------------------------|||                 |||-----------
+    //                         |||-----------------|||
+    //  
+    //                         |<------- B --------->| 
+    // 
+    //      |<--A-->|       |        |                   |
+    //   case0    case1    case1    case1              case2
+    //    ->case1  ->case0  ->case0  ->case2            ->case0
+    //                ->case1  ->case1
+    // 
+    //       A -- each 60mSec to scan
+    //       B -- after get a key, waiting until release of key
+    //---------------------------------------------------------------------------
     int i, key_id, pressed;
-    /*
-     * Scan push keys
-     */
     for(i=0, key_id=BASE_PUSH_KEY; i<TOTAL_PUSH_KEY; i++, key_id++)
     {
         switch (pkey_state[i])
@@ -104,18 +100,52 @@ void vApplicationIdleHook(void)
 #endif //end KB_MOD
 
 #if(CRTHREAD_ENABLE > 0)
-    unsigned char i;
-    for(i=0; i<MAX_CRTHREAD; i++)
+    //---------------------------------------------------------------------------
+    // Principle of CRTHREAD Scheduler
+    //   for each active thread, execute it
+    //   if the active thread is completed, 
+    //      make the next inactive thread active
+    //      renumber the rest of inactive threads
+    // 
+    //   e.g. enable() is finished
+    //        before execution
+    //                  crthread[0] = enable   -> execute
+    //                  crthread[1] = adj      -> execute
+    //                  crthread[2] = disable  -> execute
+    //                  crthread[3] = 0        -> not execute
+    //                  crthread[4] = 1        -> not execute
+    //        after execution
+    //                  crthread[0] = 3
+    //                  crthread[1] = adj
+    //                  crthread[2] = disable
+    //                  crthread[3] = enable
+    //                  crthread[4] = 1
+    //---------------------------------------------------------------------------
+    unsigned char index;
+
+    for(index=0; index<MAX_CRTHREAD; index++)
     {
-        //If function is not NULL
-        //Check if there is pending calls needed to perform
-        //Decrement pending call if crFunction has completed once
-        if(crthread[i] != NULL){
-            if(crPendingCall[i] > 0){
-                if(*( (*crthread[i])(crthread_arg) ) == 0){
-                    crPendingCall[i]--;
+        if(crthread[index] > (((crthread_t) 0 ) + MAX_CRTHREAD) ){
+            if( (*crthread[index])(crthread_arg[index]) == 0 ){
+                unsigned char j, index_new;
+                unsigned char found = 0;
+                //activate next thread (if any)
+                for(j=0; j<MAX_CRTHREAD; j++){
+                    if( crthread[j] == (((crthread_t) 0 ) + index) ){
+                        if(found == 0){
+                            found = 1;
+                            crthread[j] = crthread[index];
+                            index_new = j;
+                        }
+                        else{
+                            crthread[j] = ((crthread_t) 0 ) + index_new;
+                        }
+                    }
                 }
-            }
+                //free the thread
+                crthread[index] = CRTHREAD_EMPTY;
+                crthread_arg[index] = NULL;
+            }            
         }
     }
 #endif
