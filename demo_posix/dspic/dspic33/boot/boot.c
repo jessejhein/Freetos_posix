@@ -45,6 +45,9 @@
 #include <FreeRTOS.h>
 #include <asm/delay.h>
 #include <asm/types.h>
+#if(CRTHREAD_ENABLE > 0)
+#include <pthread.h>
+#endif
 
 #define portTIMER_PRESCALE 8
 
@@ -110,6 +113,14 @@ int main( void )
 	
 	/* Configure any hardware. */
 	vSetupHardware();
+
+#if(CRTHREAD_ENABLE > 0)
+    unsigned char index;
+    for(index=0; index<MAX_CRTHREAD; index++)
+    {
+        crthread[index] = (((crthread_t) 0 ) + MAX_CRTHREAD);
+    }
+#endif
 
 #if (FREERTOS_SCHE_ENABLE == 0)
     prvSetupTimerInterrupt();       //start timer if FreeRTOS scheduler is disabled 
