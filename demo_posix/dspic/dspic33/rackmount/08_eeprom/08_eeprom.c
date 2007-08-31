@@ -50,7 +50,7 @@ void* tskEEPROM(void* ptr)
     
     if(uart_rx == 'E' || uart_rx == 'e'){
         //Erase the entire eeprom, page by page 
-        lseek(fd_eeprom, 0, SEEK_SET);
+        while(lseek(fd_eeprom, 0, SEEK_SET) < 0) usleep(0);
     
         printStr("Programming EEPROM...");
         newline();
@@ -72,7 +72,7 @@ void* tskEEPROM(void* ptr)
         newline();
             
         //Reset pointer and read
-        lseek(fd_eeprom, 0, SEEK_SET);
+        while(lseek(fd_eeprom, 0, SEEK_SET) < 0) usleep(0);
         for(i = 0; i<I2C_EEPROM_SIZE; i++){
             while(read(fd_eeprom, &data, 1) != 1)
                 usleep(0);

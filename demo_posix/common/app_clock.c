@@ -65,7 +65,7 @@ void* tskClock(void* ptr)
 
     if((min%15==0) && (min!=last_save)){
         while(pthread_mutex_lock(&myMutex) != 0) usleep(0);
-        lseek(fd_eeprom, wr_eeprom_ptr, SEEK_SET);
+        while(lseek(fd_eeprom, wr_eeprom_ptr, SEEK_SET) < 0) usleep(0);
         write(fd_eeprom, &sec_t, sizeof(time_t));
         last_save = min;
         wr_eeprom_ptr += sizeof(time_t);

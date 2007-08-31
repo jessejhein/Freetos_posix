@@ -52,10 +52,10 @@ void* tskADC(void *ptr)
 
 #if ( (defined(MPLAB_DSPIC30_PORT) & (EEPROM_MOD > 0)) | (defined(MPLAB_DSPIC33_PORT) & (I2C_EEPROM_MOD > 0)) )
     //Use eeprom-----------------------------------------------------
-	lseek(fd_eeprom, 0, SEEK_SET);
+	while(lseek(fd_eeprom, 0, SEEK_SET) < 0) usleep(0);
 	while(write(fd_eeprom, &adc_reading, sizeof(unsigned int)) < 1)
         usleep(1000);
-	lseek(fd_eeprom, 0, SEEK_SET);
+	while(lseek(fd_eeprom, 0, SEEK_SET) < 0) usleep(0);
 	while(read(fd_eeprom, &eeprom_reading, sizeof(unsigned int)) < 1)
         usleep(1000);
 	output = SYSTEM_VOLT*((float)eeprom_reading/4095);		//compute voltage value

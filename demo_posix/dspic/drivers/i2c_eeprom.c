@@ -22,6 +22,7 @@
  * Local Variables
  ************************************************************************************************/
 static unsigned int i2c_eeprom_pointer = 0;
+static unsigned char i2c_eeprom_busy = 0;
 static int i2c_eeprom_io_flag;
 
 /************************************************************************************************
@@ -85,6 +86,12 @@ int i2c_eeprom_write(unsigned char* buf, int count)
         unsigned int status, data;
         unsigned int error = 0; //0= no error, 1=device fail, 2=eeprom busy
         
+        if(i2c_eeprom_busy > 0){
+            errno = EAGAIN;
+            return -1;
+        }
+
+        i2c_eeprom_busy = 1;
         /*
          * Start to write data
          */
@@ -183,6 +190,7 @@ int i2c_eeprom_write(unsigned char* buf, int count)
         }
        #endif
         
+        i2c_eeprom_busy = 0;        
         return i;
     }
     //Error, raise error flag
@@ -225,6 +233,11 @@ int i2c_eeprom_read(unsigned char* buf, int count)
         int i;
         unsigned int status, data;
         unsigned int error = 0; //0= no error, 1=device fail, 2=eeprom busy
+
+        if(i2c_eeprom_busy > 0){
+            errno = EAGAIN;
+            return -1;
+        }
     
         /*
          * Start to read data
@@ -329,7 +342,9 @@ int i2c_eeprom_read(unsigned char* buf, int count)
             return -1;            
         }
        #endif
-        
+
+        i2c_eeprom_busy = 0;
+                
         return i;
     }
     //Error, raise error flag
@@ -350,12 +365,19 @@ int i2c_eeprom_read(unsigned char* buf, int count)
  * 							+-- SEEK_END:	unimplement
  * 
  * Output:				current offset from base address (can be greater than I2C_EEPROM_SIZE)
+ *                      -1 when another read/write is in progress
  * 
  * Function:			change the current pointer from base address
  ************************************************************************************************/
 int i2c_eeprom_lseek(int offset, int whence){
-	i2c_eeprom_pointer = offset;
-	return i2c_eeprom_pointer;
+
+    if(i2c_eeprom_busy > 0){
+        errno = EAGAIN;
+        return -1;
+    }
+
+    i2c_eeprom_pointer = offset;
+    return i2c_eeprom_pointer;
 }
 
 #endif

@@ -71,7 +71,7 @@ void* tskComPort(void* ptr)
         
         //read eeprom
         while(pthread_mutex_lock(&myMutex) != 0) usleep(0);
-        lseek(fd_eeprom, rd_eeprom_ptr, SEEK_SET);
+        while(lseek(fd_eeprom, rd_eeprom_ptr, SEEK_SET) < 0) usleep(0);;
         while(read(fd_eeprom, &data, sizeof(time_t)) != sizeof(time_t));
         rd_eeprom_ptr += sizeof(time_t);
         pthread_mutex_unlock(&myMutex);
