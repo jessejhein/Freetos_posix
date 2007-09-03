@@ -5,7 +5,7 @@
 
 #include <define.h>
 #include <errno.h>
-
+#define LIBC_CODE_LOC __attribute__ ((section(".libc")))
 /****************************************************************************************
  * Name:        int open(const char *pathname, int flags)
  * 
@@ -23,7 +23,7 @@
  *              -1: when error occur, sub-functions should set errno appropricately
  * 
  ****************************************************************************************/
-int open(const char *pathname, int flags)
+int LIBC_CODE_LOC open(const char *pathname, int flags)
 {
     int tmp;
     tmp = *pathname - 0x30;		// only support 10 devices, from 0x30 to 0x39
@@ -132,7 +132,7 @@ int open(const char *pathname, int flags)
  *              otherwise, -1 shall be returned and errno set to indicate the error.
  * 
  ****************************************************************************************/
-int close(int fd)
+int LIBC_CODE_LOC close(int fd)
 {
 #if (ETHERNET_MOD>0)
     /*
@@ -165,7 +165,7 @@ int close(int fd)
  ****************************************************************************************
  * For i2c devices, if there are multiple devices, write cannot be used in ISR
  ****************************************************************************************/
-int write(int fd, void* buf, int count)
+int LIBC_CODE_LOC write(int fd, void* buf, int count) 
 {
 #if (UART_MOD>0)
     /*
@@ -270,7 +270,7 @@ int write(int fd, void* buf, int count)
  ****************************************************************************************
  * For i2c devices, if there are multiple devices, read cannot be used in ISR
  ****************************************************************************************/
-int read(int fd, void* buf, int count)
+int LIBC_CODE_LOC read(int fd, void* buf, int count)
 {
 #if (UART_MOD>0)
     /*
@@ -373,7 +373,7 @@ int read(int fd, void* buf, int count)
  * Output:      0: change is successful
  *              -1: when error occur
  ****************************************************************************************/
-int ioctl(int fd, int request, void* argp)
+int LIBC_CODE_LOC ioctl(int fd, int request, void* argp) 
 {
 #if (UART_MOD>0)
     /*
@@ -475,7 +475,7 @@ int ioctl(int fd, int request, void* argp)
  * Output:      0: current offset from base address
  *              -1: when error occur
  ****************************************************************************************/
-int lseek(int fd, int offset, int whence)
+int LIBC_CODE_LOC lseek(int fd, int offset, int whence) 
 {
 #if (UART_MOD>0)
     /*
