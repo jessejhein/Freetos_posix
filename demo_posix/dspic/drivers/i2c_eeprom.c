@@ -86,11 +86,6 @@ int i2c_eeprom_write(unsigned char* buf, int count)
         unsigned int status, data;
         unsigned int error = 0; //0= no error, 1=device fail, 2=eeprom busy
         
-        if(i2c_eeprom_busy > 0){
-            errno = EAGAIN;
-            return -1;
-        }
-
         i2c_eeprom_busy = 1;
         /*
          * Start to write data
@@ -234,11 +229,7 @@ int i2c_eeprom_read(unsigned char* buf, int count)
         unsigned int status, data;
         unsigned int error = 0; //0= no error, 1=device fail, 2=eeprom busy
 
-        if(i2c_eeprom_busy > 0){
-            errno = EAGAIN;
-            return -1;
-        }
-    
+        i2c_eeprom_busy = 1;   
         /*
          * Start to read data
          */
