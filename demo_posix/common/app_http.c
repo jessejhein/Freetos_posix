@@ -32,7 +32,7 @@ int fd_eth;
  * Local Function
  ***********************************************************************************************/
 #if(DEBUG_RX == 1)
-static void print_pkg(void);
+static void print_pkt(void);
 #endif
 #if(DEBUG_DHCP == 1)
 static void print_IPConfig(const struct dhcpc_state *s);
