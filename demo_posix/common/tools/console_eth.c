@@ -9,29 +9,29 @@
 #include <console.h>
 
 //-------------------------------------------------------------
-void printMACAdress(void *addr)
+void printMACAdress(__u8 *addr)
 {
     int k;
     for(k=0; k<5; k++)
     {
-        while(printHex( ((__u8*)addr)[k], 2) < 0) usleep(0);
+        while(printHex( addr[k], 2) < 0) usleep(0);
         while(printStr("-") < 0) usleep(0);
     }
-    while(printHex( ((__u8*)addr)[k], 2) < 0) usleep(0);
+    while(printHex( addr[k], 2) < 0) usleep(0);
     while(newline() < 0) usleep(0);   
 }
 
 //-------------------------------------------------------------
-void printMACHeader(void *pheader)  
+void printMACHeader(__u8 *pheader)  
 {
     while(printStr("DA: ") < 0) usleep(0);
-    printMACAdress((__u8*)pheader) < 0);
+    printMACAdress(pheader);
 
     while(printStr("SA: ") < 0) usleep(0);
-    printMACAdress((__u8*)(pheader+6));
+    printMACAdress(pheader+6);
 
     while(printStr("TL: ") < 0) usleep(0);
-    __u8* addr = (__u8*)(pheader+12);
+    __u8* addr = pheader+12;
     while(printHex( addr[0], 2) < 0) usleep(0);
     while(printHex( addr[1], 2) < 0) usleep(0);
     while(newline() < 0) usleep(0);
@@ -61,8 +61,8 @@ void printIPAdress(void *addr)
     for(k=0; k<3; k++)
     {
         while(printDec( ((__u8*)addr)[k]) < 0) usleep(0);
-        printStr(".");
+        while(printStr(".") < 0) usleep(0);
     }
     while(printDec( ((__u8*)addr)[k]) < 0) usleep(0);
-    while)(newline() < 0) usleep(0);    
+    while(newline() < 0) usleep(0);    
 }

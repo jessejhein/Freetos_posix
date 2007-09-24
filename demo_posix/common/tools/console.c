@@ -12,7 +12,7 @@
 #include <asm/delay.h>
 #include <asm/types.h>
 
-#define fd_uart fd_hc
+//#define fd_uart fd_hc
 
 extern int fd_uart;
 
