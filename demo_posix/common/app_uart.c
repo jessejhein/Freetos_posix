@@ -27,8 +27,8 @@ extern int fd_uart;		//File descriptor for uart (RS232)
  ***********************************************************************************************/
 void* tskComPort(void *ptr)
 {
-    static unsigned char uart_rx = 0x55;
-    static unsigned char uart_tx[11];
+    static char uart_rx = 0x55;
+    static char uart_tx[11];
 
     //=======================================================================
     start_process();

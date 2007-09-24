@@ -32,7 +32,7 @@ time_t sec_t;
  ***********************************************************************************************/
 void* tskClock(void* ptr)
 {
-    static unsigned char adc_uart_tx[40];
+    static char adc_uart_tx[40];
     static unsigned char adc_channel = ADC_PRIMARY; //channel to read from
     static unsigned int adc_reading = 0;
     static float output = 0.0;

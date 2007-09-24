@@ -35,7 +35,7 @@ extern int fd_uart;
 #if 1
 void* tskADC(void *ptr)
 {
-	static unsigned char adc_uart_tx[20];
+	static char adc_uart_tx[20];
 	static unsigned int adc_reading, eeprom_reading; 	//Store integer value for adc values [0-4095]
 	static unsigned char adc_channel = ADC_PRIMARY;	//channel to read from
 	static float output = 0.0;							//Store voltage value
@@ -80,8 +80,8 @@ void* tskADC(void *ptr)
     static unsigned char adc_ctrl = 0;     //Control values, 4=>add/remove channel 4
     static float output = 0.0;             //Store voltage value at Channle 4 
     //======================================================================
-    static unsigned char uart_rx[1];               //Receive buffer
-    static unsigned char uart_tx[10];              //Transmit buffer for display
+    static char uart_rx[1];               //Receive buffer
+    static char uart_tx[10];              //Transmit buffer for display
     //======================================================================
     start_process();
 

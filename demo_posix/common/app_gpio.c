@@ -22,7 +22,7 @@ extern int fd_kb;
 void* tskKB(void* ptr)
 {
     static unsigned char key;
-    static unsigned char gpio_uart_tx[20];
+    static char gpio_uart_tx[20];
 
     //=======================================================================
     start_process();
