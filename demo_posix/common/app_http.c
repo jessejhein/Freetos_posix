@@ -83,8 +83,8 @@ void* tskHTTPServer(void* ptr)
         if(len < 0)
         {
 #if(DEBUG == 1)
-            printStr("WARNING: Ethernet Link Broken!");
-            newline();
+            while(printStr("WARNING: Ethernet Link Broken!") < 0) usleep(0);
+            while(newline() < 0) usleep(0);
 #endif            
             while( (fd_eth = open(ETHERNET, O_RDWR)) < 0 ){
                 uip_ipaddr(ipaddr, 0,0,0,0);
@@ -95,8 +95,8 @@ void* tskHTTPServer(void* ptr)
             }
             eth_app_init();
 #if(DEBUG == 1)
-            printStr("Ethernet Link Re-established.");
-            newline();
+            while(printStr("Ethernet Link Re-established.") < 0) usleep(0);
+            while(newline() < 0) usleep(0);
 #endif            
             len = read(fd_eth, uip_buf, sizeof(uip_buf));
         }                                
@@ -155,8 +155,8 @@ void* tskHTTPServer(void* ptr)
                 timer_reset(&arp_timer);
                 uip_arp_timer();
 #if(DEBUG == 1)
-                printStr("ARP Timer reset.");
-                newline();
+                while(printStr("ARP Timer reset.") < 0) usleep(0);
+                while(newline() < 0) usleep(0);
 #endif
             }
         }
@@ -196,15 +196,15 @@ static void print_pkt(void)
     int i, row;
     //Print packet content on console  
     if(uip_len > 0){
-        printStr("Rx Packet: ");
-        printDec((unsigned int) uip_len);
-        newline();
-        printStr("======================");
-        newline(); 
+        while(printStr("Rx Packet: ") < 0) usleep(0);
+        while(printDec((unsigned int) uip_len) < 0) usleep(0);
+        while(newline() < 0) usleep(0);
+        while(printStr("======================") < 0) usleep(0);
+        while(newline() < 0) usleep(0); 
         printMACHeader((struct uip_eth_hdr*)uip_buf);
         printPayload(&uip_buf[UIP_LLH_LEN], uip_len-UIP_LLH_LEN, &row);
-        newline();
-        newline();                
+        while(newline() < 0) usleep(0);
+        while(newline() < 0) usleep(0); 
     }    
 }
 #endif
@@ -215,26 +215,26 @@ static void print_pkt(void)
 #if(DEBUG_DHCP == 1)
 void print_IPConfig(const struct dhcpc_state *s)
 {
-    printStr("DHCP Configuration");
-    newline();
-    printStr("==================");
-    newline();
+    while(printStr("DHCP Configuration") < 0) usleep(0);
+    while(newline() < 0) usleep(0);
+    while(printStr("==================") < 0) usleep(0);
+    while(newline() < 0) usleep(0);
     
-    printStr("   MAC Address....... : ");
+    while(printStr("   MAC Address....... : ") < 0) usleep(0);
     printMACAdress((u8_t*) s->mac_addr);
 
-    printStr("   IP Address........ : ");
+    while(printStr("   IP Address........ : ") < 0) usleep(0);
     printIPAdress((u8_t*) s->ipaddr);
 
-    printStr("   Subnet Mask....... : ");
+    while(printStr("   Subnet Mask....... : ") < 0) usleep(0);
     printIPAdress((u8_t*) s->netmask);
     
-    printStr("   Default Gateway... : ");
+    while(printStr("   Default Gateway... : ") < 0) usleep(0);
     printIPAdress((u8_t*) s->default_router);
 
-    printStr("   Default DNS....... : ");
+    while(printStr("   Default DNS....... : ") < 0) usleep(0);
     printIPAdress((u8_t*) s->dnsaddr);
     
-    newline();
+    while(newline() < 0) usleep(0);
 }
 #endif
