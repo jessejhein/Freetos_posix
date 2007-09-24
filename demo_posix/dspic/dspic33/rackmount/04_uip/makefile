@@ -92,7 +92,7 @@ OBJECTS := $(DSPIC)/linker/reset.o \
 			$(DSPIC)/../drivers/gpio.o $(DSPIC)/../drivers/dm9000a.o \
 			$(DSPIC)/../drivers/clock-arch.o \
 			$(COMMON)/app_idlehook.o $(COMMON)/app_idle.o \
-			$(COMMON)/app_led.o $(COMMON)/tools/console.o \
+			$(COMMON)/app_led.o $(COMMON)/tools/console.o $(COMMON)/tools/console_eth.o \
 			$(COMMON)/app_http.o $(APP_PF)/app_laser.o \
 			$(COMMON)/04_http.o \
 			$(APP_PF)/led.o \
