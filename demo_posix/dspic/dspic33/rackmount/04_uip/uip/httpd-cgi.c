@@ -134,17 +134,17 @@ generate_laser_cgi(void *arg)
 
   switch(f[0] - '0'){
     case STATUS_CGI:
-        ans = snprintf((char *)uip_appdata, UIP_APPDATA_SIZE, "%s", 
+        ans = sprintf((char *)uip_appdata, "%s", 
                 (laser_ctrl.enable[offset] == 0)? "OFF" : "ON" );
         break;
     case CUR_SET_CGI:
-        ans = snprintf((char *)uip_appdata, UIP_APPDATA_SIZE, "%5.1f", laser_set.current_set[offset]);        
+        ans = sprintf((char *)uip_appdata, "%5.1f", laser_set.current_set[offset]);        
         break;
     case TEC_CGI:
-        ans = snprintf((char *)uip_appdata, UIP_APPDATA_SIZE, "%5.1f", laser_get.tec[offset]); 
+        ans = sprintf((char *)uip_appdata, "%5.1f", laser_get.tec[offset]); 
         break;
     case POWER_CGI:
-        ans = snprintf((char *)uip_appdata, UIP_APPDATA_SIZE, "%5.1f", laser_get.power[offset]);
+        ans = sprintf((char *)uip_appdata, "%5.1f", laser_get.power[offset]);
         break;
     default:
         ans = 0;
@@ -173,8 +173,7 @@ generate_about_cgi(void *arg)
 
   switch(f[0] - '0'){
     case MAC_ADDR_CGI:
-        ans = snprintf((char *)uip_appdata, UIP_APPDATA_SIZE, 
-                        "%2.2X-%2.2X-%2.2X-%2.2X-%2.2X-%2.2X",
+        ans = sprintf((char *)uip_appdata, "%2.2X-%2.2X-%2.2X-%2.2X-%2.2X-%2.2X",
                         ((unsigned char *)&uip_ethaddr)[0], 
                         ((unsigned char *)&uip_ethaddr)[1],
                         ((unsigned char *)&uip_ethaddr)[2],
@@ -183,24 +182,21 @@ generate_about_cgi(void *arg)
                         ((unsigned char *)&uip_ethaddr)[5] ); 
         break;
     case IP_ADDR_CGI:
-        ans = snprintf((char *)uip_appdata, UIP_APPDATA_SIZE, 
-                        "%d.%d.%d.%d",
+        ans = sprintf((char *)uip_appdata, "%d.%d.%d.%d",
                         ((unsigned char *)&uip_hostaddr)[0], 
                         ((unsigned char *)&uip_hostaddr)[1],
                         ((unsigned char *)&uip_hostaddr)[2], 
                         ((unsigned char *)&uip_hostaddr)[3] );
         break;
     case SUBNET_MASK_CGI:
-        ans = snprintf((char *)uip_appdata, UIP_APPDATA_SIZE, 
-                        "%d.%d.%d.%d", 
+        ans = sprintf((char *)uip_appdata, "%d.%d.%d.%d", 
                         ((unsigned char *)&uip_netmask)[0], 
                         ((unsigned char *)&uip_netmask)[1],
                         ((unsigned char *)&uip_netmask)[2], 
                         ((unsigned char *)&uip_netmask)[3] );
         break;
     case GATEWAY_CGI:
-        ans = snprintf((char *)uip_appdata, UIP_APPDATA_SIZE, 
-                        "%d.%d.%d.%d", 
+        ans = sprintf((char *)uip_appdata, "%d.%d.%d.%d", 
                         ((unsigned char *)&uip_draddr)[0], 
                         ((unsigned char *)&uip_draddr)[1],
                         ((unsigned char *)&uip_draddr)[2], 
