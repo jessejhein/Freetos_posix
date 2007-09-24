@@ -1,57 +1,57 @@
 /************************************************************************************************
- * File:            led.c
- * Description:     control LED for module board(non-POSIX compliant)
+ * File: 			led.c
+ * Description:		control LED for module board(non-POSIX compliant)
  ***********************************************************************************************/
 
-#include <p30f5011.h>
+#include <define.h>
 #include <asm/system.h>
 
 /************************************************************************************************
  * Turn LED On
  ************************************************************************************************/
 void led_on(unsigned int led){
-    switch(led){
-        case 0:
+	switch(led){
+		case 0:
             LATC |= 0x8000;         //_RC15 = 1; 
-            break;
-        case 1:
+			break;
+		case 1:
             LATC &= 0xDFFF;         //_RC13 = 0;
             LATC |= 0x4000;         //_RC14 = 1;
-            break;
-        case 2:
+			break;
+		case 2:
             LATC &= 0xBFFF;         //_RC14 = 0;
             LATC |= 0x2000;         //_RC13 = 1;
-            break;
-    }
+			break;
+	}
 }
 
 /************************************************************************************************
  * Turn LED Off
  ************************************************************************************************/
 void led_off(unsigned int led){
-    switch(led){
-        case 0:
+	switch(led){
+		case 0:
             LATC &= 0x7FFF;         //_RC15 = 0;
-            break;
-        case 1:
+			break;
+		case 1:
             LATC &= 0xBFFF;         //_RC14 = 0;
-            break;
-        case 2:
-            LATC &= 0xDFFF;         //_RC13 = 0;        
-            break;
-    }
+			break;
+		case 2:
+            LATC &= 0xDFFF;         //_RC13 = 0;		
+			break;
+	}
 }
 
 /************************************************************************************************
  * Current status of LED
  ************************************************************************************************/
 int led_status(unsigned int led){
-    switch(led){
-        case 0: return _RC15;
-        case 1: return _RC14;
-        case 2: return _RC13;                   
-        default:return -1;
-    }   
+	switch(led){
+		case 0:	return _RC15;
+		case 1:	return _RC14;
+		case 2: return _RC13;					
+		default:return -1;
+	}	
 }
 
 /************************************************************************************************

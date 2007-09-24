@@ -1,40 +1,40 @@
 /************************************************************************************************
- * File:            led.c
- * Description:     control LED for benchtop board (non-POSIX compliant)
+ * File: 			led.c
+ * Description:		control LED for benchtop board (non-POSIX compliant)
  ***********************************************************************************************/
 
-#include <p30f5011.h>
+#include <define.h>
 #include <asm/system.h>
 
 /************************************************************************************************
  * Turn LED On
  ************************************************************************************************/
 void led_on(unsigned int led){
-    switch(led){
-        case 0: LATG &= 0xFFFD; break;
-        case 1: LATG |= 0x0001; break;
-    }
+	switch(led){
+		case 0: LATG &= 0xFFFD; break;
+		case 1: LATG |= 0x0001; break;
+	}
 }
 
 /************************************************************************************************
  * Turn LED Off
  ************************************************************************************************/
 void led_off(unsigned int led){
-    switch(led){
-        case 0: LATG |= 0x0002; break;
-        case 1: LATG &= 0xFFFE; break;
-    }
+	switch(led){
+		case 0: LATG |= 0x0002; break;
+		case 1: LATG &= 0xFFFE; break;
+	}
 }
 
 /************************************************************************************************
  * Current status of LED
  ************************************************************************************************/
 int led_status(unsigned int led){
-    switch(led){
-        case 0: return (_RG1 == 1)? 0: 1;
-        case 1: return _RG0;
-        default:return -1;
-    }   
+	switch(led){
+		case 0:	return (_RG1 == 1)? 0: 1;
+		case 1:	return _RG0;
+		default:return -1;
+	}	
 }
 
 /************************************************************************************************
