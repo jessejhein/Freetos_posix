@@ -83,7 +83,7 @@ OBJECTS := $(DSPIC)/linker/reset.o \
 			$(DSPIC)/../drivers/gpio.o \
 			$(COMMON)/app_idlehook.o $(COMMON)/app_idle.o \
 			$(COMMON)/app_led.o $(COMMON)/app_uart.o \
-			$(COMMON)/tools/console_noblock.o \
+			$(COMMON)/tools/console.o \
 			$(COMMON)/10_crthread.o \
 			$(APP_PF)/led.o $(APP_PF)/crthread.o
  
