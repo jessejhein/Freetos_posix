@@ -60,7 +60,7 @@ B2H	:= pic30-elf-bin2hex
 # -fomit-frame-pointer: Required by FreeRTOS, refer to FreeRTOS Forum at
 #						http://sourceforge.net/forum/message.php?msg_id=3899530
 #						and MPLAB C30 C compiler user guide on Frame Pointer
-CFLAG1 := -DMPLAB_DSPIC33_PORT -mcpu=33FJ128GP306 -Werror \
+CFLAG1 := -DMPLAB_DSPIC33_PORT -mcpu=33FJ128GP306 -Werror -mlarge-code -mlarge-data \
 			-Os -fomit-frame-pointer \
 			-idirafter$(OS)/include/ -idirafter$(WEBSERVER)/core \
 			-I$(COMMON)/include/ \
@@ -69,7 +69,7 @@ CFLAG1 := -DMPLAB_DSPIC33_PORT -mcpu=33FJ128GP306 -Werror \
 			-I$(DSPIC)/../drivers/include/ \
 			-I$(APP_PF)/include/ -I$(APP_PF)/uip/ 
 			
-CFLAG2 := -Os -fomit-frame-pointer -mcpu=33FJ128GP306 -Werror \
+CFLAG2 := -Os -fomit-frame-pointer -mcpu=33FJ128GP306 -Werror -mlarge-code -mlarge-data \
 			-Xlinker -Map="$(APP_PF)/$(PRJ_NAME).map" -Xlinker --heap=4096 \
 			-L$(PIC_LIB)/ \
 			-T$(DSPIC)/linker/clinkscript_p33FJ128GP306.gld
