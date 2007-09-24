@@ -25,7 +25,7 @@
 #else
 #   include <coroutine_st.h>
 #   define start_process()          scrBegin
-#   define end_process()            scrFinishV
+#   define end_process()            scrFinish((void*)0)
 #endif
 
 // System Settings **************************************************************

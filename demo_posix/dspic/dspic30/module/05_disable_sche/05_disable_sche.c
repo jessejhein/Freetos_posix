@@ -17,10 +17,10 @@ int fd_uart, fd_adc, fd_eeprom, fd_pwm;
 /************************************************************************************************
  * tskComPort()
  ***********************************************************************************************/
-void clock_process(void)
+void* clock_process(void)
 {
-    static unsigned char uart_rx;
-    static unsigned char uart_tx[25];
+    static char uart_rx;
+    static char uart_tx[25];
     static int number;
 
     //-------------------------------------------------------------------
