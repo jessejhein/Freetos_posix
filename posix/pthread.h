@@ -9,7 +9,6 @@
 #include <FreeRTOS.h>
 #include <task.h>
 #include <semphr.h>
-#include <sched.h>
 
 #if(CRTHREAD_ENABLE > 0)
 /*******************************************************************************************
@@ -136,6 +135,45 @@ extern int pthread_create(pthread_t* thread, pthread_attr_t* attr, void* (*start
  * int pthread_join(pthread_t thread, void **value_ptr);
  *******************************************************************************************/
 #define pthread_join(thread, value_ptr)     while(0)
+
+
+/*******************************************************************************************
+ * Name:        int pthread_attr_init(pthread_attr_t *attr)
+ * 
+ * Function:    The pthread_attr_init() function shall initialize a thread attributes object 
+ *              attr with the default value for all of the individual attributes used by a 
+ *              given implementation.
+ * 
+ * Input:       pointer to attr variable
+ * 
+ * Output:      Upon successful completion, pthread_attr_init() shall return a value of 0; 
+ *              otherwise, an error number shall be returned to indicate the error. (not implemented)
+ *  
+ *******************************************************************************************/
+#define pthread_attr_init(attr_ptr)        while(0)
+
+
+/*******************************************************************************************
+ * Name:        int pthread_attr_setscope(pthread_attr_t *attr, int contentionscope)
+ * 
+ * Function:    pthread_attr_setscope() functions, respectively, shall set the contentionscope 
+ *              attribute in the attr object.
+ * 
+ * Input:       pointer to attr variable
+ *              attr_id (e.g. PTHREAD_SCOPE_SYSTEM)
+ * 
+ * Output:      If successful, the pthread_attr_setscope() functions shall return zero; 
+ *              otherwise, an error number shall be returned to indicate the error. (not implemented)
+ *  
+ *******************************************************************************************/
+enum
+{
+  PTHREAD_SCOPE_SYSTEM,
+#define PTHREAD_SCOPE_SYSTEM    PTHREAD_SCOPE_SYSTEM
+  PTHREAD_SCOPE_PROCESS
+#define PTHREAD_SCOPE_PROCESS   PTHREAD_SCOPE_PROCESS
+};
+#define pthread_attr_setscope(attr_ptr, attr_id)    *attr_ptr = attr_id
 
 
 /*******************************************************************************************

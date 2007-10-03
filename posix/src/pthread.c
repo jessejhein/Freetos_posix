@@ -47,7 +47,7 @@ int pthread_create(pthread_t* thread, pthread_attr_t* attr, void* (*start_routin
     //                  crthread[3] = enable
     //                  crthread[4] = CRTHREAD_EMPTY
     //---------------------------------------------------------------------------
-    if(attr != NULL && *attr== SCHED_COROUTINE){
+    if(attr != NULL && *attr == PTHREAD_SCOPE_SYSTEM){
         unsigned char i;
         unsigned char indexCr, indexEmpty;
         unsigned char foundCr = 0;
