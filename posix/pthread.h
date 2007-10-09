@@ -3,49 +3,24 @@
  * Description:		interface between posix thread, mutex and freertos task, semaphore
  ***********************************************************************************************/
 
-#ifndef PTHREAD_H_
-#define PTHREAD_H_  1
-
-#include <FreeRTOS.h>
-#include <task.h>
-#include <semphr.h>
-
-#if(CRTHREAD_ENABLE > 0)
 /*******************************************************************************************
- * Using CRTHREAD Scheduler
- * ========================
- * 1) CRTHREAD Scheduler is designed to use coroutine_st within the idle task
- * 2) In define.h, enable the CRTHREAD scheduler and set the maximum queue size for CRTHREAD
- *          #define CRTHREAD_ENABLE             1
- *          #if(CRTHREAD_ENABLE == 1)
- *          #define MAX_CRTHREAD                10
- *          #endif 
- * 3) Application Task can create CRTHREAD using standard posix pthread_create(), e.g.
- *          pthread_create(&thread, &attr, crfunction, &crarg);
- *    provided 
- *          attr = SCHED_COROUTINE;
- *    and
- *          crarg is declared static
- * 4) The following code should be placed at the beginning of the source code for
- *    coroutine threads:
- *          #include <define.h>
- *          // Include this section of code to map 
- *          //  start_process() -> scrBegin 
- *          //  end_process()   -> scrFinish(0)
- *          //  sleep()         -> scrReturn(-1)
- *          //  usleep()        -> scrReturn(-1)
- *          #ifdef FREERTOS_SCHE_ENABLE
- *          #   undef FREERTOS_SCHE_ENABLE
- *          #   undef start_process
- *          #   undef end_process
- *          #   define FREERTOS_SCHE_ENABLE     0
- *          #   include <coroutine_st.h>
- *          #   define start_process()          scrBegin
- *          #   define end_process()            scrFinish((void*)0)
- *          #endif
- *          #include <unistd.h>
+ * This header file contains the mixed operation for FreeRTOS Task and CRTHREAD, the selection
+ * of which operation is determined by #define directives
+ *******************************************************************************************
+ * Principle of FreeRTOS Scheduler
+ * ===============================
  * 
+ * When a task is created, the required dynamic memory (minimal stack size) will be acquired
+ * from heap.
  * 
+ * The created task will be executed in a round-robin fashion, i.e Task A -> Task B -> Idle Task
+ * -> Task A -> Task B -> ... 
+ * 
+ * During the context switch between differnt tasks (except Idle Task), all the contents in 
+ * the register stack will be saved, and the task will resume correctly when the saved data
+ * are loaded back to the stack.
+ * 
+ *******************************************************************************************
  * Principle of CRTHREAD Scheduler
  * ===============================
  * 
@@ -58,7 +33,7 @@
  * created CRTHREAD will become inactive until the all the previous instances have been completed.  
  * 
  * NOTE:
- * A problem may occur when many CRTHREDs are created so that the the queue is full at most time.
+ * A problem may occur when many CRTHREADs are created so that the the queue is full at most time.
  * In such case, most of the CRTHREADs will be skipped. Whenever one of the CRTHREAD is completed
  * and a space is available in the queue, only one new CRTHREAD (most probably, the one after usleep())
  * can be added. 
@@ -69,36 +44,356 @@
  * 
  ******************************************************************************************/ 
 
-/*******************************************************************************************
- * CRTHREAD DEFINES
- * crthread_t:  function pointer type for coroutine  
- *              coroutine thread should take the form: void* foo(void* arg)
- *              crthread_t crthread = (crthread_t) &foo;
- * crthread[i] = CRTHREAD_EMPTY indicate that no crthread has been scheduled
- *******************************************************************************************/
-typedef void* (*crthread_t)(void* arg);
-#define CRTHREAD_EMPTY  (((crthread_t) 0 ) + MAX_CRTHREAD)
+#ifndef PTHREAD_H_
+#define PTHREAD_H_  1
 
-//External Variables
-//crthread:        Array of function pointers to store crthreads
-//crthread_arg:    Store the pointers for crthread arguments, contents should be static variables
+#include <FreeRTOS.h>
+#include <task.h>
+#include <semphr.h>
+
+
+
+/*************************************************************************
+ * FreeRTOS Task
+ *************************************************************************/
+
+/************************************************************************
+ * ==Interfaces==
+ ************************************************************************/
+
+/************************************************************************
+ * ===define.h===
+ * 
+ * Description:     a configuration file which contains the compile time configuration
+ * 
+ * Location:        which place in system directory
+ * 
+ * Content:         see below "Compile Time Configurations"
+ *  
+ ************************************************************************/
+
+/************************************************************************
+ * ==Compile Time Configurations==
+ ***********************************************************************/
+
+/************************************************************************
+ * ===inside define.h===                                                
+ * 
+ * ====Enable FreeRTOS Scheduler====
+ * 1) A Task corresponds to an infinite loop
+ */
+#if 0
+
+    /* ====Enable FreeRTOS Scheduler====
+     */
+    #define FREERTOS_SCHE_ENABLE        1        //if disabled, use coroutine_st
+    #if(FREERTOS_SCHE_ENABLE == 1)
+    #   define start_process()          while(1){
+    #   define end_process()            }
+    #else
+    #   include <coroutine_st.h>
+    #   define start_process()          scrBegin
+    #   define end_process()            scrFinish((void*)0)
+    #endif
+
+#endif
+ /***********************************************************************/
+
+/************************************************************************
+ * ==APIs==
+ ************************************************************************/
+
+/************************************************************************
+ * ===API Usage Examples===
+ * 
+ * 1) Starting a new task
+ *    Note: Do not use pthread_join() with FreeRTOS task                                                
+ */
+#if 0
+
+    #include <pthread.h>
+    void* task(void* ptr){
+        static unsigned char arg = 0;
+        pthread_t thread_id;        
+        pthread_create(&thread_id, NULL, foo, &arg);
+    }
+
+#endif
+/*
+ * 2)  Creating a task
+ */
+#if 0
+
+    #include<define.h>
+    #include<unistd.h>
+    void* task(void* ptr){       
+        start_process();
+        {
+            init();
+            
+            while(1){
+                foo();
+                sleep();
+            }
+        }
+        end_process();    
+    }
+    
+#endif
+/*
+ * 3) Using Mutex
+ */
+#if 0
+
+    #include <pthread.h>
+    #include <define.h>
+    
+    pthread_mutex_t myMutex;
+    unsigned int counter = 0;
+
+    void* tskMutex(void* ptr)
+    {
+        unsigned int index = *((unsigned int*)ptr);
+        unsigned char buf[20];
+        char done = 0;
+        int i=0, j=0;
+        
+        start_process();
+            if(done == 0){
+                for(i=0;i<5000;i++){
+                    //wait until myMutex is released
+                    while(pthread_mutex_lock(&myMutex) != 0);
+                    //increment counter
+                    counter++;
+                    //delay
+                    for(j=0; j<index*5000; j++);
+                    //release after use
+                    pthread_mutex_unlock(&myMutex);
+                }
+                done = 1;
+            }       
+        end_process();
+    }
+    
+    void vSetupHardware( void ){
+        //setup myMutex
+        pthread_mutex_init(&myMutex, NULL);
+    }
+    
+    void vUserMain(){
+        //Identify your threads here
+        pthread_t thread_mutex1, thread_mutex2;
+        
+        static unsigned int arg_mutex1 = 1;  //Index, must be declared static or global
+        static unsigned int arg_mutex2 = 2;  //Index, must be declared static or global
+    
+        //Create your threads here
+        pthread_create(&thread_mutex1, NULL, tskMutex, &arg_mutex1);
+        pthread_create(&thread_mutex2, NULL, tskMutex, &arg_mutex2);
+        
+        //Main program thread should waits here while user threads are running  
+        pthread_join(thread_mutex1, NULL);
+        pthread_join(thread_mutex2, NULL);
+    }
+    
+#endif 
+ /***********************************************************************/
+ 
+//-------------------------------------------------------------------------
+
+
+
+
+
+/*************************************************************************
+ * CRTHREAD
+ *************************************************************************/
+
+/************************************************************************
+ * ==Interfaces==
+ ************************************************************************/
+
+/************************************************************************
+ * ===define.h===
+ * 
+ * Description:     a configuration file which contains the compile time configuration
+ * 
+ * Location:        which place in system directory
+ * 
+ * Content:         see below "Compile Time Configurations"
+ *  
+ ************************************************************************/
+
+#if(CRTHREAD_ENABLE > 0)
+/*******************************************************************************************
+ * ===extern crthread_t crthread[]===
+ * Description: Array of function pointers to store crthreads
+ * 
+ * Location:    $(BASE_ROOT)/freertos_posix/demo_posix/common/app_idlehook.c
+ * 
+ * Type:        crthread_t:  function pointer type for coroutine  
+ *                           coroutine thread should take the form: void* foo(void* arg)
+ *                           crthread_t crthread = (crthread_t) &foo;
+ */
+                typedef void* (*crthread_t)(void* arg);
+/* Content:     CRTHREAD_EMPTY:  indicate that no crthread has been scheduled
+ */     
+              #define CRTHREAD_EMPTY  (((crthread_t) 0 ) + MAX_CRTHREAD)
+/*******************************************************************************************/
 extern crthread_t crthread[];
+
+/*******************************************************************************************
+ * ===extern void* crthread_arg[]===
+ * Description: Array to store the pointers for crthread arguments, contents should be static variables
+ * 
+ * Location:    $(BASE_ROOT)/freertos_posix/demo_posix/common/app_idlehook.c
+ *******************************************************************************************/
 extern void* crthread_arg[];
 #endif
 
+/************************************************************************
+ * ==Compile Time Configurations==
+ ***********************************************************************/
+
+/************************************************************************
+ * ===inside define.h===                                                
+ * 
+ * ====Enable FreeRTOS Scheduler====
+ * 1) CRTHREAD Scheduler is designed to use coroutine_st within the idle task
+ * 2) Enable the CRTHREAD scheduler and set the maximum queue size for CRTHREAD
+ */
+#if 0
+
+    /* ====Enable FreeRTOS Scheduler====
+     */
+    #define FREERTOS_SCHE_ENABLE        1        //if disabled, use coroutine_st
+    #if(FREERTOS_SCHE_ENABLE == 1)
+    #   define start_process()          while(1){
+    #   define end_process()            }
+        //==========Enable Coroutine Thread Scheduler in FREERTOS Scheduler========
+        #define CRTHREAD_ENABLE         1
+        #if(CRTHREAD_ENABLE == 1)
+        #define MAX_CRTHREAD            10
+        #endif
+    #else
+    #   include <coroutine_st.h>
+    #   define start_process()          scrBegin
+    #   define end_process()            scrFinish((void*)0)
+    #endif
+
+#endif
+ /***********************************************************************/
+
+/************************************************************************
+ * ==APIs==
+ ************************************************************************/
+
+/************************************************************************
+ * ===API Usage Examples===                                                
+ * 
+ * ====Enable FreeRTOS Scheduler====
+ * 1) The following code should be placed at the beginning of the source code for
+ *    coroutine threads:
+ */
+#if 0
+
+    #include <define.h>
+    //---------------------------------------------------------
+    // Include this section of code to map 
+    //  start_process() -> scrBegin 
+    //  end_process()   -> scrFinish(0)
+    //  sleep()         -> scrReturn(-1)
+    //  usleep()        -> scrReturn(-1)
+    #ifdef FREERTOS_SCHE_ENABLE
+    #   undef FREERTOS_SCHE_ENABLE
+    #   undef start_process
+    #   undef end_process
+    #   define FREERTOS_SCHE_ENABLE     0
+    #   include <coroutine_st.h>
+    #   define start_process()          scrBegin
+    #   define end_process()            scrFinish((void*)0)
+    #endif
+    #include <unistd.h>
+    //---------------------------------------------------------
+    
+    void* foo(void* ptr){
+        static int index = 0;
+        start_process();
+        init();
+        
+        for(index=0; index<MAX; index++){
+            foo2();
+            usleep(0);
+        }
+        end_process();
+    }
+
+#endif
+/*
+ * 2) Application Task can create CRTHREAD using standard posix pthread_create(), e.g.
+ */
+#if 0
+    
+    #include<pthread.h>
+    void* task(void* ptr){
+        static unsigned char arg = 0;
+        static pthread_t thread_cr;
+        pthread_attr_t attr;
+        pthread_attr_init(&attr);
+        pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);
+                    
+        pthread_create(&thread_cr, &attr, foo, &arg);
+        //Optional to wait until foo(&arg) is finished
+        pthread_join(thread_cr, NULL);
+    }
+
+#endif
+ /***********************************************************************/
+
+//----------------------------------------------------------------------------
+
+
 
 
 
 /*******************************************************************************************
- * POSIX THREAD DEFINES
- * pthread_t -> xTaskHandle (void *, and tskTCB, refer to task.h, and tash.c)
- * pthread_attr_t -> unsigned char (expandable if more attributes are needed) 
- * pthread_mutex_t -> xSemaphoreHandle (xQueueHandle, void *, xQUEUE* refer to semphr.h, queue.h, queue.c)
+ * Name:        int pthread_attr_init(pthread_attr_t *attr)
+ * 
+ * Function:    The pthread_attr_init() function shall initialize a thread attributes object 
+ *              attr with the default value for all of the individual attributes used by a 
+ *              given implementation.
+ * 
+ * Input:       pointer to attr variable                                                   */
+                 //pthread_attr_t -> unsigned char (expandable if more attributes are needed)
+               #define pthread_attr_t      unsigned char  
+/* 
+ * Output:      Upon successful completion, pthread_attr_init() shall return a value of 0; 
+ *              otherwise, an error number shall be returned to indicate the error. (not implemented)
+ *  
  *******************************************************************************************/
-#define pthread_t           xTaskHandle
-#define pthread_attr_t      unsigned char
-#define pthread_mutex_t     xSemaphoreHandle
-#define pthread_mutexattr_t int
+#define pthread_attr_init(attr_ptr)        while(0)
+
+/*******************************************************************************************
+ * Name:        int pthread_attr_setscope(pthread_attr_t *attr, int contentionscope)
+ * 
+ * Function:    pthread_attr_setscope() functions, respectively, shall set the contentionscope 
+ *              attribute in the attr object.
+ * 
+ * Input:       pointer to attr variable
+ *              attr_id (e.g. PTHREAD_SCOPE_SYSTEM, PTHREAD_SCOPE_PROCESS)                 */
+                enum
+                {
+                  PTHREAD_SCOPE_SYSTEM,
+                #define PTHREAD_SCOPE_SYSTEM    PTHREAD_SCOPE_SYSTEM
+                  PTHREAD_SCOPE_PROCESS
+                #define PTHREAD_SCOPE_PROCESS   PTHREAD_SCOPE_PROCESS
+                };
+/*
+ *  Output:      If successful, the pthread_attr_setscope() functions shall return zero; 
+ *              otherwise, an error number shall be returned to indicate the error. (not implemented)
+ *  
+ *******************************************************************************************/
+#define pthread_attr_setscope(attr_ptr, attr_id)    *attr_ptr = attr_id
 
 /*******************************************************************************************
  * Name:        int pthread_create( 
@@ -113,10 +408,14 @@ extern void* crthread_arg[];
  *              The thread is created executing start_routine with arg as its sole argument.
  * 
  * Input:       thread: handler for task
- *              attr: attribute pointer related to the thread (dynamic selection of scheduling policy,
+ *                      if caller function is a coroutine, content of thread should be declared
+ *                      static or global                                                    */
+                //pthread_t -> xTaskHandle (void *, and tskTCB, refer to task.h, and tash.c)
+               #define pthread_t           xTaskHandle
+/*              attr: attribute pointer related to the thread (dynamic selection of scheduling policy,
  *                    do not confuse with FREERTOS_SCHE_ENABLE in define.h)
- *                    NULL/SCHED_FREERTOS use FreeRTOS Task
- *                    SCHED_COROUTINE use coroutine 
+ *                    NULL use FreeRTOS Task
+ *                    PTHREAD_SCOPE_SYSTEM use crthread
  *              start_routine: function pointer for the task
  *              arg: arguments to passed to task
  *                   for crthread, content of arg should be declared static or global
@@ -128,53 +427,140 @@ extern void* crthread_arg[];
  *******************************************************************************************/
 extern int pthread_create(pthread_t* thread, pthread_attr_t* attr, void* (*start_routine)(void*), void* arg);
 
-
 /*******************************************************************************************
- * pthread_join() - wait for thread termination
- ******************************************************************************************* 
- * int pthread_join(pthread_t thread, void **value_ptr);
+ * Function:    int pthread_join(pthread_t thread, void **value_ptr);
+ * 
+ * Description: wait for thread termination 
+ * 
+ * Input:       thread:     handler for target thread
+ *              *value_ptr: resources pointed by the pointer will be released (not implemented yet)
+ * 
+ * Output:      (not implemented)
+ *              Upon sucess, return 0
+ *              Upon failure, -1, errno raised
+ *                  ESRCH:   no such thread
+ *                  EDEADLK: detected deadlock
+ *                  EINVAL:  target thread is not joinable
+ * 
+ * Limitations: do not work for (Caller, Target) = (FreeRTOS Task, FreeRTOS Task)
+ *              work for (Caller, Target) = (FreeRTOS Task, coroutine_st)
+ *              work for (Caller, Target) = (coroutine_st, coroutine_st)
+ *******************************************************************************************
+ * Rationale for pthread_join:
+ * ---------------------------
+ * 
+ * CRTHREAD QUEUE
+ * ==============
+ *  crthread[0] = disable
+ *  crthread[1] = CRTHREAD_EMPTY
+ *  crthread[2] = 0
+ *  crthread[3] = 0
+ *      ...
+ *  crthread[MAX_CRTHREAD-1] = CRTHREAD_EMPTY
+ * 
+ * Implementation at pthread_create()
+ * ==================================
+ *  Thread ID = address of crthread[i]
+ *      thread_id = &crthread[i];
+ * 
+ * Implementation at pthread_join()
+ * ==================================
+ *  Finish condition occurs when the content refered by the thread id becomes CRTHREAD_EMPTY
+ *  Otherwise, the thread is running (active/inactive) and the caller thread should sleep
+ *      while(1){
+ *          if(*thread_id == CRTHREAD_EMPTY) break;
+ *          else usleep(0);
+ *      }
+ *******************************************************************************************
+ * Inherited Problem:
+ * ------------------
+ *
+ *               disable finishes              
+ *            within 1 round and set 
+ *       crthread[5] = CRTHREAD_EMPTY        Task B will
+ *              Task B should wake        continue to sleep
+ *                              |               |
+ *                          [2] |           [4] |
+ *                             \|/             \|/
+ *        +--------+--------+------+--------+--------+------+
+ *        | Task A | Task B | Idle | Task A | Task B | Idle |
+ *        +--------+--------+------+--------+--------+------+
+ *                     |      /|\       |               /|\
+ *                 [1] |       |    [3] |                |
+ *                     +-------+        +----------------+
+ *  Task B call pthread_create()     Task A call pthread_create()
+ *  crthread[5] = disable            crthread[5] = xxx
+ *  thread_idB = &crthread[5]        thread_idA = &crthread[5]
+ *  Task B will sleep
+ * 
+ * EVENTS:
+ * [1] Task B calls pthread_create(), one of the crthread, say crthread[5], is assigned to
+ *     the target function (e.g. crthread[5] = disable, hence thread_idB = &crthread[5]).
+ *     Task B will sleep immediately, and expect to wake until disable() is completed.
+ * [2] Idle task will execute the CR_SCHEDULER. If disable() is completed upon exiting the 
+ *     scheduler (i.e. no sleep is called), then crthread[5] = CRTHREAD_EMPTY. Indicating
+ *     Task B should wake up.
+ * [3] If Task A now create a thread and takes up the same position, (i.e. crthread[5] = xxx)
+ *     The CRTHREAD_EMPTY status will be erased.
+ * [4] When Task B checks for the content in thread_idB, it is not equal to CRTHREAD_EMPTY,
+ *     and it continue to sleep.
+ *******************************************************************************************
+ * Solution:
+ * ---------
+ * If performance is not good due to the above problem, consider this:
+ * 
+ * struct {
+ *    unsigned char crthread_id;
+ *    crthread_t crthread;
+ * } CRTHREAD_OBJECT;
+ * 
+ * struct CRTHREAD_OBJECT crthread_list[MAX_CRTHREAD];
+ * unsigned char thread_id_counter = 1;
+ * 
+ * 
+ * CRTHREAD QUEUE
+ * ==============
+ *  crthread_list[0] = { 128, disable }
+ *  crthread_list[1] = { 127, CRTHREAD_EMPTY }
+ *  crthread_list[2] = { 129, 0 }
+ *  crthread_list[3] = { 130, 0 }
+ *      ...
+ *  crthread_list[MAX_CRTHREAD-1] = { 0, CRTHREAD_EMPTY }
+ * 
+ * Implementation at pthread_create()
+ * ==================================
+ *  Thread ID = id generated by counter [range 1-255]
+ *      crthread_list[i].crthread_id = thread_id_counter++;
+ *      crthread_list[i].crthread = disable;
+ *      thread_id = crthread_list[i].crthread_id;
+ *      if(thread_id_counter == 0) thread_id_counter = 1;
+ *  
+ * Implementation at pthread_join()
+ * ==================================
+ *  Finish condition occurs when the content refered by the thread id becomes CRTHREAD_EMPTY
+ *  Otherwise, the thread is running (active/inactive) and the caller thread should sleep
+ *      while(1){
+ *          search (thread_id == crthread_list[i].crthread_id)
+ *          if(id_match == false){
+ *             break; //error
+ *          }
+ *          else{
+ *             if(crthread_list[index].crthread == CRTHREAD_EMPTY){
+ *                crthread_list[index].crthread_id = 0;
+ *                break;
+ *             }
+ *             else usleep(0);
+ *          }
+ *      }
  *******************************************************************************************/
+#if(CRTHREAD_ENABLE > 0)
+#define pthread_join(thread, value_ptr)     while(1){\
+                                                if( *(crthread_t*)thread == CRTHREAD_EMPTY ) break;\
+                                                else usleep(0);\
+                                             }
+#else
 #define pthread_join(thread, value_ptr)     while(0)
-
-
-/*******************************************************************************************
- * Name:        int pthread_attr_init(pthread_attr_t *attr)
- * 
- * Function:    The pthread_attr_init() function shall initialize a thread attributes object 
- *              attr with the default value for all of the individual attributes used by a 
- *              given implementation.
- * 
- * Input:       pointer to attr variable
- * 
- * Output:      Upon successful completion, pthread_attr_init() shall return a value of 0; 
- *              otherwise, an error number shall be returned to indicate the error. (not implemented)
- *  
- *******************************************************************************************/
-#define pthread_attr_init(attr_ptr)        while(0)
-
-
-/*******************************************************************************************
- * Name:        int pthread_attr_setscope(pthread_attr_t *attr, int contentionscope)
- * 
- * Function:    pthread_attr_setscope() functions, respectively, shall set the contentionscope 
- *              attribute in the attr object.
- * 
- * Input:       pointer to attr variable
- *              attr_id (e.g. PTHREAD_SCOPE_SYSTEM)
- * 
- * Output:      If successful, the pthread_attr_setscope() functions shall return zero; 
- *              otherwise, an error number shall be returned to indicate the error. (not implemented)
- *  
- *******************************************************************************************/
-enum
-{
-  PTHREAD_SCOPE_SYSTEM,
-#define PTHREAD_SCOPE_SYSTEM    PTHREAD_SCOPE_SYSTEM
-  PTHREAD_SCOPE_PROCESS
-#define PTHREAD_SCOPE_PROCESS   PTHREAD_SCOPE_PROCESS
-};
-#define pthread_attr_setscope(attr_ptr, attr_id)    *attr_ptr = attr_id
-
+#endif
 
 /*******************************************************************************************
  * Name:        int pthread_mutex_init(
@@ -187,14 +573,16 @@ enum
  *              address of a default mutex attributes object. Upon successful initialization, 
  *              the state of the mutex becomes initialized and unlocked.
  * 
- * Input:       mutex: Handle to the created semaphore.
- *              attr: not implemented, use NULL
- * 
+ * Input:       mutex: Handle to the created semaphore.                                    */
+                       //pthread_mutex_t -> xSemaphoreHandle (xQueueHandle, void *, xQUEUE* refer to semphr.h, queue.h, queue.c)
+                    #define pthread_mutex_t     xSemaphoreHandle
+/*              attr: not implemented, use NULL                                            */
+                    #define pthread_mutexattr_t int
+/* 
  * Output:      If successful, pthread_mutex_init() functions shall return zero; 
  *              otherwise, an error number shall be returned to indicate the error.
  *******************************************************************************************/
 extern int pthread_mutex_init(pthread_mutex_t *mutex, pthread_mutexattr_t *attr);
-
 
 /*******************************************************************************************
  * Name:        int pthread_mutex_lock(pthread_mutex_t *mutex)
@@ -211,7 +599,6 @@ extern int pthread_mutex_init(pthread_mutex_t *mutex, pthread_mutexattr_t *attr)
  *              otherwise, an error number shall be returned to indicate the error.         
  *******************************************************************************************/
 extern int pthread_mutex_lock(pthread_mutex_t *mutex);
-
 
 /*******************************************************************************************
  * Name:        int pthread_mutex_unlock(pthread_mutex_t *mutex)

@@ -6,29 +6,12 @@
 #include <pthread.h>
 
 /*******************************************************************************************
- * Name:        int pthread_create( 
- *                      pthread_t *restrict thread, 
- *                      const pthread_attr_t *restrict attr, 
- *                      void* (*start_routine)(void*), 
- *                      void *restrict arg)
- * 
- * Function:    Create a new thread, with attributes specified by attr. 
- *              Upon successful completion, pthread_create() shall store the ID of 
- *              the created thread in the location referenced by thread.
- *              The thread is created executing start_routine with arg as its sole argument.
- * 
- * Input:       thread: handler for task
- *              attr: attribute pointer related to the thread
- *                    NULL/SCHED_FREERTOS use FreeRTOS Task
- *                    SCHED_COROUTINE use coroutine
- *              start_routine: function pointer for the task
- *              arg: arguments to passed to task
- *                   for crthread, content of arg should be declared static or global
- * 
- * Output:      If successful, the pthread_create() function shall return zero; 
- *              otherwise, an error number (-1) shall be returned to indicate the error.
+ * int pthread_create(pthread_t *restrict thread, 
+ *                    const pthread_attr_t *restrict attr, 
+ *                    void* (*start_routine)(void*), 
+ *                    void *restrict arg)
  *******************************************************************************************
- * The task is created with minimal stack size and idle priority 
+ * For FreeRTOS task, the task is created with minimal stack size and idle priority 
  *******************************************************************************************/
 int pthread_create(pthread_t* thread, pthread_attr_t* attr, void* (*start_routine)(void*), void* arg){
 
@@ -78,18 +61,18 @@ int pthread_create(pthread_t* thread, pthread_attr_t* attr, void* (*start_routin
             else{
                 crthread[indexEmpty] = (((crthread_t) 0) + indexCr);
             }
+            *thread = (pthread_t)(&crthread[indexEmpty]);
             crthread_arg[indexEmpty] = arg;
         }
         else{
             return -1;
         }
     }
-    else{
-#endif    
+    else
+#endif
+    {
         xTaskCreate((pdTASK_CODE) start_routine, NULL, configMINIMAL_STACK_SIZE, arg, tskIDLE_PRIORITY, thread);
-#if(CRTHREAD_ENABLE > 0)
     }
-#endif    
     return 0;
 }
 
