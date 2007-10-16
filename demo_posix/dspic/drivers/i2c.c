@@ -42,7 +42,7 @@ static I2C_STATUS i2c_status;   //indicate the start and stop condition with the
  * Semaphore for multiple i2c devices
  * +-- program must acquire i2c_busy before read/write operation (from start bit to stop bit)
  ************************************************************************************************/
-#if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD > 0) & (I2C_EEPROM_MOD > 0) ) 
+#if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD>0) & (NVM_MOD>0) & (NVM_SRC==NVM_SRC_I2C) ) 
 #include <pthread.h>
 pthread_mutex_t i2c_mutex; 
 #endif
@@ -90,7 +90,7 @@ void i2c_open(void)
         
         i2c_status.val = 0;     //clear status flags
 
-      #if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD > 0) & (I2C_EEPROM_MOD > 0) ) 
+      #if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD>0) & (NVM_MOD>0) & (NVM_SRC==NVM_SRC_I2C) ) 
         pthread_mutex_init(&i2c_mutex, NULL);
       #endif
     }   

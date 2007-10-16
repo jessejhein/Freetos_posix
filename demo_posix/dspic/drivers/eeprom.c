@@ -24,10 +24,7 @@
 #error MPLAB_DSPIC30_PORT not defined! 
 #error This module can only be used with dsPIC30F devices.
 
-#elif (EEPROM_MOD == 0)
-//do not include eeprom module if disabled 
-
-#else
+#elif ( (NVM_MOD>0) & (NVM_SRC==NVM_SRC_ON_CHIP) )
 
 #include <asm/system.h>
 #include <fcntl.h>

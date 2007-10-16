@@ -14,10 +14,8 @@
 #include <fcntl.h>
 #include <errno.h>
 
-#if (I2C_EEPROM_MOD == 0)
-//do not include eeprom module if disabled
+#if ( (NVM_MOD>0) & (NVM_SRC==NVM_SRC_I2C) ) 
 
-#else 
 /************************************************************************************************
  * Local Variables
  ************************************************************************************************/
@@ -28,7 +26,7 @@ static int i2c_eeprom_io_flag;
 /************************************************************************************************
  * External Variables
  ************************************************************************************************/
-#if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD > 0) & (I2C_EEPROM_MOD > 0) ) 
+#if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD>0) & (NVM_MOD>0) & (NVM_SRC==NVM_SRC_I2C) ) 
  #include <pthread.h>
  extern pthread_mutex_t i2c_mutex;
 #endif
