@@ -25,7 +25,7 @@ void vSetupHardware( void ){
     //open uart0 in READ-WRITE mode
     fd_uart = open(UARTA, O_RDWR); 
 
-    fd_eeprom = open(I2C_EEPROM, O_RDWR | O_NONBLOCK);
+    fd_eeprom = open(EEPROM, O_RDWR | O_NONBLOCK);
 }
 
 
@@ -52,24 +52,24 @@ void* tskEEPROM(void* ptr)
         //Erase the entire eeprom, page by page 
         while(lseek(fd_eeprom, 0, SEEK_SET) < 0) usleep(0);
     
-        printStr("Programming EEPROM...");
-        newline();
+        while(printStr("Programming EEPROM...")<0);
+        while(newline()<0);
     
         for(i = 0; i<I2C_EEPROM_SIZE/I2C_EEPROM_PAGE_SIZE; i++){
             while(write(fd_eeprom, page, I2C_EEPROM_PAGE_SIZE) != I2C_EEPROM_PAGE_SIZE)
                 usleep(0);
         }
 
-        printStr("Completed.");
-        newline();
-        newline();   
+        while(printStr("Completed.")<0);
+        while(newline()<0);
+        while(newline()<0);
     }
 
     
     else if(uart_rx == 'C' || uart_rx == 'c'){
     
-        printStr("Checking...");
-        newline();
+        while(printStr("Checking...")<0);
+        while(newline()<0);
             
         //Reset pointer and read
         while(lseek(fd_eeprom, 0, SEEK_SET) < 0) usleep(0);
@@ -79,32 +79,35 @@ void* tskEEPROM(void* ptr)
                 
             //If content is not 0x00, print to console            
             if(data != 0){
-                printStr("["); printDec(i); printStr("] = 0x"); printHex(data, 2);
-                newline();
-                newline();
+                while(printStr("[")<0); 
+                while(printDec(i)<0);
+                while(printStr("] = 0x")<0); 
+                while(printHex(data, 2)<0);
+                while(newline()<0);
+                while(newline()<0);
                 usleep(20000UL);
             }            
         }
 
         //Process is successful
-        printStr("Completed.");
-        newline();
-        newline();
+        while(printStr("Completed.")<0);
+        while(newline()<0);
+        while(newline()<0);
     }
     
     else{
-        newline();
-        printStr("Help Screen");
-        newline();
-        printStr("===========");
-        newline();
-        printStr("Enter the Following Key:");
-        newline();
-        printStr(" e: Erase EEPROM");
-        newline();
-        printStr(" c: Check EEPROM Content as zero");
-        newline();
-        newline();
+        while(newline()<0);
+        while(printStr("Help Screen")<0);
+        while(newline()<0);
+        while(printStr("===========")<0);
+        while(newline()<0);
+        while(printStr("Enter the Following Key:")<0);
+        while(newline()<0);
+        while(printStr(" e: Erase EEPROM")<0);
+        while(newline()<0);
+        while(printStr(" c: Check EEPROM Content as zero")<0);
+        while(newline()<0);
+        while(newline()<0);
     }
     
     //=======================================================================
@@ -126,8 +129,4 @@ void vUserMain(){
 	//Create your threads here
 	pthread_create(&thread_led1, NULL, tskFlashLED, &arg_led1);
 	pthread_create(&thread_eeprom, NULL, tskEEPROM, NULL);
-	
-	//Main program thread should waits here while user threads are running	
-	pthread_join(thread_led1, NULL);
-	pthread_join(thread_led2, NULL);
 }

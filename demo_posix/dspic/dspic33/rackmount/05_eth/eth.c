@@ -74,38 +74,38 @@ tskHTTPServer()
             readRXBuf(db, key);
             break;
         case '1':
-            printStr("RX WP = ");
-            printHex((ior(db, DM9KA_RWPAH) << 8) + ior(db, DM9KA_RWPAL), 4);
-            newline();
+            while(printStr("RX WP = ")<0);
+            while(printHex((ior(db, DM9KA_RWPAH) << 8) + ior(db, DM9KA_RWPAL), 4)<0);
+            while(newline()<0);
             break;
         case '2':
-            printStr("RX RP = ");
-            printHex((ior(db, DM9KA_MRRH) << 8) + ior(db, DM9KA_MRRL), 4);
-            newline();
+            while(printStr("RX RP = ")<0);
+            while(printHex((ior(db, DM9KA_MRRH) << 8) + ior(db, DM9KA_MRRL), 4)<0);
+            while(newline()<0);
             break;
         default:
-            newline();
-            printStr("Help Screen");
-            newline();
-            printStr("===========");
-            newline();
-            printStr("Enter the Following Key:");
-            newline();
-            printStr(" t: Basic Test for DM9000A");
-            newline();
-            printStr(" p: Read a Physical register (auto-increment)");
-            newline();
-            printStr(" n: Read a Normal register (auto-increment)");
-            newline();
-            printStr(" 1: Read the rx buf read-pointer");
-            newline();
-            printStr(" 2: Read the rx buf write-pointer");
-            newline();
-            printStr(" r: Read a packet from rx buf (auto-increment)");
-            newline();
-            printStr(" R: Read a packet from rx buf (no increment)");
-            newline();
-            newline();
+            while(newline()<0);
+            while(printStr("Help Screen")<0);
+            while(newline()<0);
+            while(printStr("===========")<0);
+            while(newline()<0);
+            while(printStr("Enter the Following Key:")<0);
+            while(newline()<0);
+            while(printStr(" t: Basic Test for DM9000A")<0);
+            while(newline()<0);
+            while(printStr(" p: Read a Physical register (auto-increment)")<0);
+            while(newline()<0);
+            while(printStr(" n: Read a Normal register (auto-increment)")<0);
+            while(newline()<0);
+            while(printStr(" 1: Read the rx buf read-pointer")<0);
+            while(newline()<0);
+            while(printStr(" 2: Read the rx buf write-pointer")<0);
+            while(newline()<0);
+            while(printStr(" r: Read a packet from rx buf (auto-increment)")<0);
+            while(newline()<0);
+            while(printStr(" R: Read a packet from rx buf (no increment)")<0);
+            while(newline()<0);
+            while(newline()<0);
     }
     
     end_process();
@@ -147,46 +147,46 @@ static void test_dm9000a(board_info_t* db)
     //Vendor ID Test
     unsigned int vid = (ior(db, DM9KA_VIDH) << 8) + ior(db, DM9KA_VIDL);
     if(vid == 0x0A46){
-        printStr("Vendor ID OK.");
-        newline();
+        while(printStr("Vendor ID OK.")<0);
+        while(newline()<0);
     }
     else{
-        printStr("Vendor ID Test Failed. [Expected 0x0A46, Read 0x");
-        printHex(vid, 4);
-        printStr("].");
-        newline();
+        while(printStr("Vendor ID Test Failed. [Expected 0x0A46, Read 0x")<0);
+        while(printHex(vid, 4)<0);
+        while(printStr("].")<0);
+        while(newline()<0);
     }
     
     //Mode Test
     if((ior(db, DM9KA_ISR) & 0x80) > 0){
-        printStr("8-bit mode.");
-        newline();
+        while(printStr("8-bit mode.")<0);
+        while(newline()<0);
     }
     else{
-        printStr("ERR: 16-bit mode detected.");
-        newline();
+        while(printStr("ERR: 16-bit mode detected.")<0);
+        while(newline()<0);
     }
          
     //Link Test
     if((ior(db, DM9KA_NSR) & 0x40) > 0){
-        printStr("Link OK.");
-        newline();
+        while(printStr("Link OK.")<0);
+        while(newline()<0);
         //Speed Test
         if(phy_read(db, DM9KA_ANLPAR) & 0x0020){
-            printStr("10Base-T Half duplex obtained.");
-            newline();
+            while(printStr("10Base-T Half duplex obtained.")<0);
+            while(newline()<0);
         }
         else{
-            printStr("ERR: Speed is not 10Base-T Half duplex.");
-            newline();
+            while(printStr("ERR: Speed is not 10Base-T Half duplex.")<0);
+            while(newline()<0);
         }
     }    
     else{
-        printStr("ERR: DM9000A is not able to link to the Internet.");
-        newline();
+        while(printStr("ERR: DM9000A is not able to link to the Internet.")<0);
+        while(newline()<0);
     }
         
-    newline();
+    while(newline()<0);
 }
 
 /*
@@ -201,8 +201,10 @@ static void readPHYReg(board_info_t* db)
         result = phy_read(db, phy_index);
     }
         
-    printHex((DM9KA_PHY | phy_index), 4); printStr(" = "); printHex(result, 4);        
-    newline();
+    while(printHex((DM9KA_PHY | phy_index), 4)<0); 
+    while(printStr(" = ")<0);
+    while(printHex(result, 4)<0);        
+    while(newline()<0);
 
     phy_index++;
     
@@ -212,7 +214,7 @@ static void readPHYReg(board_info_t* db)
         phy_index = DM9KA_SCR;
     } else if(phy_index>DM9KA_SCR){
         phy_index = 0;
-        newline();
+        while(newline()<0);
     }
 }
 
@@ -223,12 +225,14 @@ static void readNormalReg(board_info_t* db)
 {
     unsigned int result = ior(db, reg_index);
 
-    printHex(reg_index, 2); printStr(" = "); printHex(result, 2);        
-    newline();
+    while(printHex(reg_index, 2)<0);
+    while(printStr(" = ")<0); 
+    while(printHex(result, 2)<0);        
+    while(newline()<0);
     
     if(reg_index==DM9KA_IMR){
         reg_index = 0;
-        newline();
+        while(newline()<0);
     } 
     else{
         reg_index++;
@@ -257,9 +261,9 @@ static void readRXBuf(board_info_t* db, unsigned char enter_key)
     unsigned int rxbyte = inb(db->io_data);  //Get most updated data
         
     char label[] = "rx = ";
-    printStr(label);
-    printHex(rxbyte, 2);
-    newline();
+    while(printStr(label)<0);
+    while(printHex(rxbyte, 2)<0);
+    while(newline()<0);
         
     //Packet available, reset read pointer if 'R'
     if( (rxbyte & 0x01) ){
@@ -288,14 +292,14 @@ static void displayRxPacket(board_info_t* db, int flag)
     rxbyte = inb(db->io_data);      //do not display ready code
     
     unsigned int status = inb(db->io_data);
-    printStr("status = ");
-    printHex(status, 2);
-    newline();
+    while(printStr("status = ")<0);
+    while(printHex(status, 2)<0);
+    while(newline()<0);
             
     unsigned int len = inb(db->io_data) + (inb(db->io_data) << 8);
-    printStr("len = ");
-    printHex(len, 4);
-    newline();
+    while(printStr("len = ")<0);
+    while(printHex(len, 4)<0);
+    while(newline()<0);
 
     /*
      * Get packet
@@ -305,32 +309,32 @@ static void displayRxPacket(board_info_t* db, int flag)
     /*
      * Destination address
      */
-    printStr("DA: ");
+    while(printStr("DA: ")<0);
     for(k=0; k<6; k++, rx_cnt++){
         rxbyte = inb(db->io_data);
-        printHex(rxbyte, 2);
+        while(printHex(rxbyte, 2)<0);
     }
-    newline();
+    while(newline()<0);
 
     /*
      * Source address
      */
-    printStr("SA: ");
+    while(printStr("SA: ")<0);
     for(k=0; k<6; k++, rx_cnt++){
         rxbyte = inb(db->io_data);
-        printHex(rxbyte, 2);
+        while(printHex(rxbyte, 2)<0);
     }
-    newline();
+    while(newline()<0);
 
     /*
      * Type/len
      */
-    printStr("TL: ");
+    while(printStr("TL: ")<0);
     for(k=0; k<2; k++, rx_cnt++){
         rxbyte = inb(db->io_data);
-        printHex(rxbyte, 2);
+        while(printHex(rxbyte, 2)<0);
     }
-    newline();
+    while(newline()<0);
      
     /*
      * Data
@@ -338,16 +342,16 @@ static void displayRxPacket(board_info_t* db, int flag)
     int row = 0;
     for(; rx_cnt<len; rx_cnt++, row++){
         rxbyte = inb(db->io_data);
-        printHex(rxbyte, 2);
+        while(printHex(rxbyte, 2)<0);
         if(row%16 == 7){
-            printStr(" ");
+            while(printStr(" ")<0);
         }
         if(row%16 == 15){
-            newline();
+            while(newline()<0);
         }
     }
-    newline();
-    newline();
+    while(newline()<0);
+    while(newline()<0);
     
     /*
      * Reset ptr if needed
