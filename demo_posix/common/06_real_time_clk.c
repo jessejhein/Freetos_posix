@@ -31,11 +31,9 @@ void vSetupHardware( void ){
     //open adc in READ-ONLY, NON-BLOCKING IO mode   
     fd_adc = open(ADC, O_RDONLY | O_NONBLOCK);
 
-#if (defined(MPLAB_DSPIC30_PORT) & (EEPROM_MOD > 0))
-    //open internal eeprom in READ-WRITE mode
-    fd_eeprom = open(EEPROM, O_RDWR);
-#elif (defined(MPLAB_DSPIC33_PORT) & (I2C_EEPROM_MOD > 0))
-    fd_eeprom = open(I2C_EEPROM, O_RDWR | O_NONBLOCK);
+#if (NVM_MOD > 0)
+    //open eeprom in READ-WRITE mode
+    fd_eeprom = open(EEPROM, O_RDWR | O_NONBLOCK);
 #endif
     
     pthread_mutex_init(&myMutex, NULL);
@@ -51,8 +49,4 @@ void vUserMain(){
     //Create your threads here
     pthread_create(&th_uart, NULL, tskComPort, NULL);
     pthread_create(&th_clock, NULL, tskClock, NULL);
-    
-    //Main program thread should waits here while user threads are running  
-    pthread_join(th_uart, NULL);
-    pthread_join(th_clock, NULL);
 }

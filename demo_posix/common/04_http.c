@@ -41,9 +41,4 @@ void vUserMain(){
 	pthread_create(&th_led1, NULL, tskFlashLED, &arg_led1);
 	pthread_create(&th_http, NULL, tskHTTPServer, NULL);
     pthread_create(&th_laser_ctrl, NULL, tskLaserCtrl, NULL);
-	
-	//Main program thread should waits here while user threads are running	
-	pthread_join(th_led1, NULL);
-	pthread_join(th_http, NULL);
-    pthread_join(th_laser_ctrl, NULL);
 }

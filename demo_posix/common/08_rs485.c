@@ -48,8 +48,4 @@ void vUserMain()
     //Create your threads here
     pthread_create(&th_led1, NULL, tskFlashLED, &arg_led1);
     pthread_create(&th_uart, NULL, tskComPort, NULL);
-    
-    //Main program thread should waits here while user threads are running  
-    pthread_join(th_led1, NULL);
-    pthread_join(th_uart, NULL);
 }

@@ -40,9 +40,4 @@ void vUserMain(){
     pthread_create(&th_led, NULL, tskFlashLED, &arg_led);
     pthread_create(&th_dac, NULL, tskDAC, NULL);
     pthread_create(&th_kb, NULL, tskKB, NULL);
-    
-    //Main program thread should waits here while user threads are running  
-    pthread_join(th_led, NULL);
-    pthread_join(th_dac, NULL);
-    pthread_join(th_kb, NULL);
 }

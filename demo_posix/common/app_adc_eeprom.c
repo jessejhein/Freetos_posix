@@ -50,7 +50,7 @@ void* tskADC(void *ptr)
 	while(read(fd_adc, &adc_reading, sizeof(unsigned int)) <= 0)
 		usleep(0);
 
-#if ( (defined(MPLAB_DSPIC30_PORT) & (EEPROM_MOD > 0)) | (defined(MPLAB_DSPIC33_PORT) & (I2C_EEPROM_MOD > 0)) )
+#if (NVM_MOD > 0)
     //Use eeprom-----------------------------------------------------
 	while(lseek(fd_eeprom, 0, SEEK_SET) < 0) usleep(0);
 	while(write(fd_eeprom, &adc_reading, sizeof(unsigned int)) < 1)

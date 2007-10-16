@@ -41,11 +41,9 @@ void vSetupHardware( void )
 	fd_dac = open(I2C_DAC, O_WRONLY);
     //open adc in READ-ONLY, NON-BLOCKING IO mode	
 	fd_adc = open(ADC, O_RDONLY | O_NONBLOCK);
-#if (defined(MPLAB_DSPIC30_PORT) & (EEPROM_MOD > 0))
-    //open internal eeprom in READ-WRITE mode
-	fd_eeprom = open(EEPROM, O_RDWR);
-#elif (defined(MPLAB_DSPIC33_PORT) & (I2C_EEPROM_MOD > 0))
-	fd_eeprom = open(I2C_EEPROM, O_RDWR | O_NONBLOCK);
+#if (NVM_MOD > 0)
+    //open eeprom in READ-WRITE mode
+	fd_eeprom = open(EEPROM, O_RDWR | O_NONBLOCK);
 #endif
     //open pwm in WRITE-ONLY mode
 	fd_pwm = open(PWM, O_WRONLY);
@@ -68,12 +66,4 @@ void vUserMain()
 	pthread_create(&th_dac, NULL, tskDAC, NULL);
 	pthread_create(&th_adc, NULL, tskADC, NULL);
 	pthread_create(&th_pwm, NULL, tskPWM, NULL);
-	
-	//Main program thread should waits here while user threads are running	
-	pthread_join(th_led1, NULL);
-	pthread_join(th_led2, NULL);
-	pthread_join(th_uart, NULL);
-	pthread_join(th_dac, NULL);	
-	pthread_join(th_adc, NULL);	
-	pthread_join(th_pwm, NULL);	
 }

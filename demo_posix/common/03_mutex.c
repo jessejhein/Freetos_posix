@@ -48,9 +48,5 @@ void vUserMain(){
 
 	//Create your threads here
 	pthread_create(&thread_mutex1, NULL, tskMutex, &arg_mutex1);
-	pthread_create(&thread_mutex2, NULL, tskMutex, &arg_mutex2);
-	
-	//Main program thread should waits here while user threads are running	
-	pthread_join(thread_mutex1, NULL);
-	pthread_join(thread_mutex2, NULL);
+	pthread_create(&thread_mutex2, NULL, tskMutex, &arg_mutex2);	
 }

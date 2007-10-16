@@ -27,8 +27,10 @@ extern int fd_eeprom;   //File descriptor for eeprom
 extern pthread_mutex_t myMutex;
 extern time_t sec_t;
 
-#if (defined(MPLAB_DSPIC33_PORT) & (I2C_EEPROM_MOD > 0))
+#if (NVM_MOD > 0)
+#ifndef EEPROM_SIZE
 #define EEPROM_SIZE     1024
+#endif
 #endif
 
 /************************************************************************************************

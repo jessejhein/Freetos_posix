@@ -43,19 +43,15 @@ void vUserMain(){
     pthread_create(&thread_led2, NULL, tskFlashLED, &arg_led2);
     pthread_create(&thread_1, NULL, process_1, NULL);
     pthread_create(&thread_2, NULL, process_2, NULL);
-    
-    //Main program thread should waits here while user threads are running  
-    pthread_join(thread_led1, NULL);
-    pthread_join(thread_led2, NULL);
-    pthread_join(thread_1, NULL);
-    pthread_join(thread_2, NULL);
 }
 
 void* process_1(void* ptr){
     //Identify your threads here
     pthread_t thread_1, thread_2, thread_3;
 
-    pthread_attr_t attr = SCHED_COROUTINE;
+    pthread_attr_t attr;
+    pthread_attr_init(&attr);
+    pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);
     
     static unsigned char p1arg_adj[] = {1, 120};  //Index, must be declared static or global
     static unsigned char p1arg_enable = 1;  //Index, must be declared static or global
@@ -79,7 +75,9 @@ void* process_2(void* ptr){
     //Identify your threads here
     pthread_t thread_1, thread_2, thread_3;
     
-    pthread_attr_t attr = SCHED_COROUTINE;
+    pthread_attr_t attr;
+    pthread_attr_init(&attr);
+    pthread_attr_setscope(&attr, PTHREAD_SCOPE_SYSTEM);
     
     static unsigned char p2arg_adj[] = {2, 240};  //Index, must be declared static or global
     static unsigned char p2arg_enable = 2;  //Index, must be declared static or global
