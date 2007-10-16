@@ -7,12 +7,13 @@
 #ifndef DEFINE_H_
 #define DEFINE_H_
 
-// Platform header file**********************************************************
-#include <p30f5011.h>
 
 /********************************************************************************
  * Configurations for FreeRTOS and its POSIX
  ********************************************************************************/
+
+// Platform header file**********************************************************
+#include <p30f5011.h>
 
 // Define User Idle Task Here **************************************************
 #define idle_process                UserIdleTask
@@ -22,10 +23,15 @@
 #if(FREERTOS_SCHE_ENABLE == 1)
 #   define start_process()          while(1){
 #   define end_process()            }
+    //==========Enable Coroutine Thread Scheduler in FREERTOS Scheduler========
+    #define CRTHREAD_ENABLE             1
+    #if(CRTHREAD_ENABLE == 1)
+    #define MAX_CRTHREAD                10
+    #endif
 #else
 #   include <coroutine_st.h>
 #   define start_process()          scrBegin
-#   define end_process()            scrFinishV
+#   define end_process()            scrFinish((void*)0)
 #endif
 
 // System Settings **************************************************************
@@ -60,13 +66,10 @@
 #define MAX_UART_TX_BUF             30
 #endif //UART_MOD
 
-// I2C Module *******************************************************************
+// I2C Module ******************************************************************
 #define I2C_MOD                     0
 #if (I2C_MOD>0)
-//  ============================Device Handler=================================== 
-#define BASE_I2C                    2           // base i2c no.
-#define NO_OF_I2C                   2           // number of i2c devices
-//  ============================Device Config==================================== 
+//  ==========================I2C Speed control================================== 
 //  I2C: Baudrate options for I2C
 //   +-- I2CBRG = (Fcy/Fscl - Fcy/1111111)-1
 //   +-- Fcy = 30MHz, Fscl = 100kHz, 400kHz, or 1MHz
@@ -76,13 +79,18 @@
                                         - ( (unsigned long)SYSTEM_CLK_HZ/1111111) \
                                         - 1 \
                                      )
+#endif //I2C_MOD
 
 // I2C DAC Module ***************************************************************
 #define I2C_DAC_MOD                  0
+#if (I2C_DAC_MOD>0 & I2C_MOD==0)
+    #error "I2C_MOD is off. Please set I2C_MOD = 1 in <define.h>"
+#endif
 #if (I2C_DAC_MOD>0)
-//  ============================Device Handler=================================== 
+//  ============================Devices Handler================================== 
+#define BASE_I2C_DAC                2           // base i2c dac no.
 #define I2C_DAC                      "2"        // i2c device id for DAC
-//  ============================Device Config==================================== 
+//  ======================I2C control for DAC==================================== 
 //  [Factory Preset] [A1] [A0] [R/^W]
 //     1 0 0 1 1       1    1     0        => 0x9E
 #define I2C_DAC_ADDR                0x9E        // DAC address for Writing
@@ -94,22 +102,51 @@
 #define DAC_CHC                     0x14
 #define DAC_CHD                     0x1E
 #endif //I2C_DAC_MOD
-#endif //I2C_MOD
 
-// EEPROM Module ****************************************************************
-#define EEPROM_MOD                  0           // eeprom enable
-#if (EEPROM_MOD>0)
+// Non-volatile Memory *********************************************************
+#define NVM_MOD                     0
+#if (NVM_MOD>0)
 //  ============================Device Handler=================================== 
-#define BASE_EEPROM                 3           // base eeprom no.
-#define EEPROM                      "3"         // eeprom device id
+#define BASE_EEPROM                 3           // base EEPROM no.
+#define EEPROM                      "3"         // device id for EEPROM
 //  ============================Device Config==================================== 
+    #define NVM_SRC_ON_CHIP         0
+    #define NVM_SRC_FLASH           (NVM_SRC_ON_CHIP+1)
+    #define NVM_SRC_I2C             (NVM_SRC_FLASH+1)    
+#define NVM_SRC                      NVM_SRC_ON_CHIP   //Select which EEPROM is used
+//  ==========================I2C EEPROM Config==================================
+// [Factory Preset] [A2] [A1] [A0] [R/W#]
+//    1 0 1 0         0   0    0        => 0xA0
+#if(NVM_SRC==NVM_SRC_I2C)
+#if (I2C_DAC_MOD>0 & I2C_MOD==0)
+    #error "I2C_MOD is off. Please set I2C_MOD = 1 in <define.h>"
+#endif
+#define I2C_EEPROM_ADDR             0xA0        // EEPROM address for Writing
+#define I2C_EEPROM_SIZE             0x8000      // EEPROM Size (in byte)
+#define I2C_EEPROM_PAGE_SIZE        64          // EEPROM Page size for writing (in byte)
+#endif //NVM_SRC_I2C
+//  =========================Flash EEPROM Config================================= 
+#if(NVM_SRC==NVM_SRC_FLASH)
+#define FLASH_EEPROM_BYTE_PER_WORD  2
+#define FLASH_EEPROM_WORD_PER_ROW   32
+#define FLASH_EEPROM_ROW_PER_PAGE   1
+#define FLASH_EEPROM_SIZE           (FLASH_EEPROM_BYTE_PER_WORD* \
+                                      FLASH_EEPROM_WORD_PER_ROW* \
+                                      FLASH_EEPROM_ROW_PER_PAGE)
+#endif //NVM_SRC_FLASH
+//  =======================On-chip EEPROM Config================================= 
+#if(NVM_SRC==NVM_SRC_ON_CHIP)
+#ifndef MPLAB_DSPIC30_PORT
+    #error "Target chip has no on-chip EEPROM"
+#endif
 #define EEPROM_SIZE                 1024        // EEPROM Size (in byte)
-#endif //EEPROM_MOD
+#endif //NVM_SRC_ON_CHIP
+#endif //NVM_MOD
 
-// ADC Module *******************************************************************
+// ADC Module ***************************************************************
 #define ADC_MOD                     0           // adc enable
 #if (ADC_MOD>0)
-//  ============================Device Handler=================================== 
+//  ============================Devices Handler================================== 
 #define BASE_ADC                    4           // base adc no.
 #define ADC                         "4"         // adc device id
 //  ============================Device Config==================================== 
@@ -136,7 +173,7 @@
 #define PWM                         "5"         // pwm device id
 #endif //PWM_MOD
 
-// Keyboard Module **************************************************************
+// Keyboard Module ***************************************************************
 #define KB_MOD                      0           // keyboard enable
 #if (KB_MOD>0)
 //  ============================Device Handler=================================== 
