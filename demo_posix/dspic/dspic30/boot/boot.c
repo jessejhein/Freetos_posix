@@ -81,7 +81,7 @@ void prvSetupTimerInterrupt( void );
  *************************************************************************************************/
 time_t one_sec_cnt;
 int timer_count;                //counts from 0 upto configTICK_RATE_HZ
-#if (FREERTOS_SCHE_ENABLE == 0)
+#ifndef FREERTOS_SCHED 
     time_t jiffies;
 #endif
 volatile int errno = 0;     //Indicate error state of open(), read() write();
@@ -95,14 +95,14 @@ int main( void )
 	/* Configure any hardware. */
 	vSetupHardware();
 
-#if (FREERTOS_SCHE_ENABLE == 0)
+#ifndef FREERTOS_SCHED 
     prvSetupTimerInterrupt();       //start timer if FreeRTOS scheduler is disabled 
 #endif
     
 	/* Create the main task. */
 	vUserMain();
 
-#if (FREERTOS_SCHE_ENABLE == 1)
+#ifdef FREERTOS_SCHED 
 	/* Finally start the scheduler. */
 	vTaskStartScheduler();
 
@@ -134,7 +134,7 @@ const unsigned portLONG ulCompareMatch = ( configCPU_CLOCK_HZ / portTIMER_PRESCA
     /* Initialize counters */
     one_sec_cnt = 0;
     timer_count = 0;
-#if (FREERTOS_SCHE_ENABLE == 0)
+#ifndef FREERTOS_SCHED 
     jiffies = 0;
 #endif
     
@@ -163,7 +163,7 @@ const unsigned portLONG ulCompareMatch = ( configCPU_CLOCK_HZ / portTIMER_PRESCA
 /*-----------------------------------------------------------*/
 void __attribute__((__interrupt__)) _T1Interrupt( void )
 {
-#if (FREERTOS_SCHE_ENABLE == 1)
+#ifdef FREERTOS_SCHED 
     vTaskIncrementTick();
 #else
     jiffies++;
@@ -179,7 +179,7 @@ void __attribute__((__interrupt__)) _T1Interrupt( void )
     /* Clear the timer interrupt. */
     DISI_PROTECT(IFS0bits.T1IF = 0);
 
-#if (FREERTOS_SCHE_ENABLE == 1)
+#ifdef FREERTOS_SCHED 
     #if configUSE_PREEMPTION == 1
         portYIELD();
     #endif
