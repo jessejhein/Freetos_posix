@@ -14,16 +14,13 @@
  * 5)   When U2RX detects a break character, it resets the system for bootloader application  
  ***********************************************************************************************/
 
+#ifdef UART_MOD
+
 #include <define.h>
 #include <fcntl.h>
 #include <errno.h>
 #include <asm/system.h>
 #include <asm/delay.h>
-
-#if (UART_MOD == 0)
-//do not include uart module if disabled
-
-#else 
 
 /************************************************************************************************
  * Buffers for UARTs data

@@ -8,14 +8,11 @@
  * 3)   The driver has a POSIX-like interface with open(), read(), write(), ioctl()
  ***********************************************************************************************/
 
+#ifdef I2C_MOD
+
 #include <define.h>
 #include <sys/ioctl.h>
 #include <asm/system.h>
-
-#if (I2C_MOD == 0)
-//do not include I2C module if disabled
-
-#else 
 
 #define ACK_TIMEOUT 0x0F        //counts to wait for an acknowledgment
 #define i2cIdle()   while(I2CCONbits.SEN||I2CCONbits.PEN||I2CCONbits.RCEN||I2CCONbits.ACKEN||I2CSTATbits.TRSTAT)
@@ -42,7 +39,7 @@ static I2C_STATUS i2c_status;   //indicate the start and stop condition with the
  * Semaphore for multiple i2c devices
  * +-- program must acquire i2c_busy before read/write operation (from start bit to stop bit)
  ************************************************************************************************/
-#if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD>0) & (NVM_MOD>0) & (NVM_SRC==NVM_SRC_I2C) ) 
+#if (I2C_DAC_MOD & NVM_I2C) 
 #include <pthread.h>
 pthread_mutex_t i2c_mutex; 
 #endif
@@ -90,7 +87,7 @@ void i2c_open(void)
         
         i2c_status.val = 0;     //clear status flags
 
-      #if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD>0) & (NVM_MOD>0) & (NVM_SRC==NVM_SRC_I2C) ) 
+      #if (I2C_DAC_MOD & NVM_I2C) 
         pthread_mutex_init(&i2c_mutex, NULL);
       #endif
     }   

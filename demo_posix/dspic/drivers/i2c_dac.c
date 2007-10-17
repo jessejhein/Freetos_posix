@@ -10,15 +10,12 @@
  * 5)   When i2c has multiple devices, read(), write() cannot be used in ISR (Interrupt routine)
  ***********************************************************************************************/
 
-#include <sys/ioctl.h>
+#ifdef I2C_DAC_MOD
+
 #include <define.h>
+#include <sys/ioctl.h>
 #include <fcntl.h>
 #include <errno.h>
-
-#if (I2C_DAC_MOD == 0)
-//do not include DAC module if disabled
-
-#else 
 
 /************************************************************************************************
  * Local Variables
@@ -33,7 +30,7 @@ static int dac_io_flag;
 /************************************************************************************************
  * External Variables
  ************************************************************************************************/
-#if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD>0) & (NVM_MOD>0) & (NVM_SRC==NVM_SRC_I2C) ) 
+#if (I2C_DAC_MOD & NVM_I2C) 
  #include <pthread.h>
  extern pthread_mutex_t i2c_mutex;
 #endif
@@ -90,7 +87,7 @@ int i2c_dac_write(unsigned int *buf)
          */ 
         int2dac(buf[0]);
         
-       #if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD>0) & (NVM_MOD>0) & (NVM_SRC==NVM_SRC_I2C) ) 
+       #if (I2C_DAC_MOD & NVM_I2C) 
         if(pthread_mutex_lock(&i2c_mutex) == 0)
         {
        #endif    
@@ -123,7 +120,7 @@ int i2c_dac_write(unsigned int *buf)
             data = (unsigned char) dac_data.low;        //Write low byte of buf[i]
             if(i2c_write(&data) == 0) error = 1;
     
-       #if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD>0) & (NVM_MOD>0) & (NVM_SRC==NVM_SRC_I2C) ) 
+       #if (I2C_DAC_MOD & NVM_I2C) 
             pthread_mutex_unlock(&i2c_mutex);
         }
         else
@@ -167,7 +164,7 @@ int i2c_dac_read(unsigned int *buf)
         unsigned int status, data;
         unsigned int error = 0;
     
-       #if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD>0) & (NVM_MOD>0) & (NVM_SRC==NVM_SRC_I2C) ) 
+       #if (I2C_DAC_MOD & NVM_I2C) 
         if(pthread_mutex_lock(&i2c_mutex) == 0)
         {
        #endif    
@@ -208,7 +205,7 @@ int i2c_dac_read(unsigned int *buf)
             if(i2c_read(&data) == 0) error = 1;
             dac_data.low = (unsigned char) data;
     
-       #if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD>0) & (NVM_MOD>0) & (NVM_SRC==NVM_SRC_I2C) ) 
+       #if (I2C_DAC_MOD & NVM_I2C) 
             pthread_mutex_unlock(&i2c_mutex); 
         }
         else

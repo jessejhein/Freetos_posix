@@ -26,16 +26,13 @@
  *         and it has adequate processing time for other processes.
  ***********************************************************************************************/
 
+#ifdef ADC_MOD
+
 #include <define.h>
 #include <sys/ioctl.h>
 #include <asm/system.h>
 #include <errno.h>
 #include <fcntl.h>
-
-#if (ADC_MOD == 0)
-//do not include ADC module if disabled
-
-#else 
 
 /************************************************************************************************
  * Local Functions Declaration

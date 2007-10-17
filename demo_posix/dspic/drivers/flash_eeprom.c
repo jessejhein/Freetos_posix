@@ -2,6 +2,8 @@
  * flash_eeprom.c
  */
 
+#ifdef NVM_FLASH
+
 /******************************************************************************
  * This driver serve as an interface between POSIX and Microchip RTSP APIs
  ******************************************************************************/
@@ -11,8 +13,6 @@
 #include <rtsp.h>
 #include <fcntl.h>
 #include <errno.h>
-
-#if( (NVM_MOD>0) & (NVM_SRC==NVM_SRC_FLASH) )
 
 /************************************************************************************************
  * Local Variables

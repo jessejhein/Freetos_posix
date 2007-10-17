@@ -20,17 +20,14 @@
  * 
  *********************************************************************/
 
+#ifdef ETHERNET_MOD
+
 #include <define.h>
 #include <dm9000a.h>
 #include <asm/delay.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>
-
-#if (ETHERNET_MOD == 0)
-//do not include ETHERNET module if disabled
-
-#else
 
 /*****************************************************************************
  * DEBUG 
@@ -125,7 +122,7 @@ int dmfe_open(int flags)
     dmfe_init_dm9000(db);
 
     //wait 3 second for autonegotation to complete
-#if(FREERTOS_SCHE_ENABLE == 1)
+#ifdef FREERTOS_SCHED 
     sleep(5);
 #else    
     mdelay(5000); 

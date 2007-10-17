@@ -5,9 +5,9 @@
  * SUMMARY:
  ***********************************************************************************************/
 
-#include <define.h>
+#ifdef KB_MOD
 
-#if (KB_MOD>0)
+#include <define.h>
 #include <fcntl.h>
 #include <errno.h>
 #include <asm/system.h>

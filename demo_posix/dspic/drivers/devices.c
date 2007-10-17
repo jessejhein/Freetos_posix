@@ -33,7 +33,7 @@ int LIBC_CODE_LOC open(const char *pathname, int flags)
     int tmp;
     tmp = *pathname - 0x30;		// only support 10 devices, from 0x30 to 0x39
 
-#if (UART_MOD>0)
+#ifdef UART_MOD
     //UARTs
     if (tmp<(BASE_UART + NO_OF_UART))
     {
@@ -41,7 +41,7 @@ int LIBC_CODE_LOC open(const char *pathname, int flags)
     }
 #endif
 
-#if (I2C_DAC_MOD>0)
+#ifdef I2C_DAC_MOD
     //I2C DAC 
     if (tmp==BASE_I2C_DAC)
     {
@@ -49,23 +49,25 @@ int LIBC_CODE_LOC open(const char *pathname, int flags)
     }
 #endif
 
-#if (NVM_MOD>0)
+#ifdef NVM_MOD
     if (tmp==BASE_EEPROM)
     {
-        #if (NVM_SRC==NVM_SRC_I2C)
+        #ifdef NVM_I2C
             //I2C EEPROM
             return (i2c_eeprom_open(flags) == 0)? tmp : -1;
-        #elif (NVM_SRC==NVM_SRC_FLASH)
+        #endif   
+        #ifdef NVM_FLASH
             //FLASH EEPROM
             return (flash_eeprom_open(flags) == 0)? tmp : -1;
-        #elif (NVM_SRC==NVM_SRC_ON_CHIP)
+        #endif
+        #ifdef NVM_ON_CHIP
             //ON-CHIP EEPROM
             return (eeprom_open(flags) == 0)? tmp : -1;
         #endif
     }
 #endif
 
-#if (ADC_MOD>0)
+#ifdef ADC_MOD
     // ADC
 	if (tmp==BASE_ADC)
 	{
@@ -73,7 +75,7 @@ int LIBC_CODE_LOC open(const char *pathname, int flags)
 	}
 #endif
 
-#if (PWM_MOD>0)
+#ifdef PWM_MOD
     //PWM
 	if (tmp==BASE_PWM)
 	{
@@ -81,7 +83,7 @@ int LIBC_CODE_LOC open(const char *pathname, int flags)
 	}
 #endif
 
-#if (KB_MOD>0)
+#ifdef KB_MOD
     //KB
     if (tmp==BASE_KB)
     {
@@ -89,7 +91,7 @@ int LIBC_CODE_LOC open(const char *pathname, int flags)
     }
 #endif
 
-#if (ETHERNET_MOD>0)
+#ifdef ETHERNET_MOD
     //ETHERNET
     if (tmp==BASE_ETHERNET)
     {
@@ -113,7 +115,7 @@ int LIBC_CODE_LOC open(const char *pathname, int flags)
  ****************************************************************************************/
 int LIBC_CODE_LOC close(int fd)
 {
-#if (ETHERNET_MOD>0)
+#ifdef ETHERNET_MOD
     //ETHERNET
     if (fd==BASE_ETHERNET)
     {
@@ -143,7 +145,7 @@ int LIBC_CODE_LOC close(int fd)
  ****************************************************************************************/
 int LIBC_CODE_LOC write(int fd, void* buf, int count) 
 {
-#if (UART_MOD>0)
+#ifdef UART_MOD
     //UART
     if (fd < (BASE_UART + NO_OF_UART) )
     {
@@ -151,7 +153,7 @@ int LIBC_CODE_LOC write(int fd, void* buf, int count)
     }
 #endif
 
-#if (I2C_DAC_MOD>0)
+#ifdef I2C_DAC_MOD
     //I2C DAC
     if (fd==BASE_I2C_DAC)
     {
@@ -159,23 +161,25 @@ int LIBC_CODE_LOC write(int fd, void* buf, int count)
     }
 #endif
 
-#if (NVM_MOD>0)
+#ifdef NVM_MOD
     if (fd==BASE_EEPROM)
     {
-        #if (NVM_SRC==NVM_SRC_I2C)
+        #ifdef NVM_I2C
             //I2C EEPROM
             return i2c_eeprom_write(buf, count);
-        #elif (NVM_SRC==NVM_SRC_FLASH)
+        #endif   
+        #ifdef NVM_FLASH
             //FLASH EEPROM
             return flash_eeprom_write(buf, count);
-        #elif (NVM_SRC==NVM_SRC_ON_CHIP)
+        #endif
+        #ifdef NVM_ON_CHIP
             //ON-CHIP EEPROM
             return eeprom_write(buf, count);
         #endif
     }
 #endif
 
-#if (ADC_MOD>0)
+#ifdef ADC_MOD
     //ADC
 	if (fd==BASE_ADC)
 	{
@@ -183,7 +187,7 @@ int LIBC_CODE_LOC write(int fd, void* buf, int count)
 	}
 #endif
 
-#if (PWM_MOD>0)
+#ifdef PWM_MOD
     //PWM
 	if (fd==BASE_PWM)
 	{
@@ -191,7 +195,7 @@ int LIBC_CODE_LOC write(int fd, void* buf, int count)
 	}
 #endif
 
-#if (KB_MOD>0)
+#ifdef KB_MOD
     //KB
     if (fd==BASE_KB)
     {
@@ -199,7 +203,7 @@ int LIBC_CODE_LOC write(int fd, void* buf, int count)
     }
 #endif
 
-#if (ETHERNET_MOD>0)
+#ifdef ETHERNET_MOD
     //ETHERNET
     if (fd==BASE_ETHERNET)
     {
@@ -227,7 +231,7 @@ int LIBC_CODE_LOC write(int fd, void* buf, int count)
  ****************************************************************************************/
 int LIBC_CODE_LOC read(int fd, void* buf, int count)
 {
-#if (UART_MOD>0)
+#ifdef UART_MOD
     //UART
     if (fd<(BASE_UART + NO_OF_UART))
     {
@@ -235,7 +239,7 @@ int LIBC_CODE_LOC read(int fd, void* buf, int count)
     }
 #endif
 
-#if (I2C_DAC_MOD>0)
+#ifdef I2C_DAC_MOD
     //I2C DAC
     if (fd==BASE_I2C_DAC)
     {
@@ -243,23 +247,25 @@ int LIBC_CODE_LOC read(int fd, void* buf, int count)
     }
 #endif
 
-#if (NVM_MOD>0)
+#ifdef NVM_MOD
     if (fd==BASE_EEPROM)
     {
-        #if (NVM_SRC==NVM_SRC_I2C)
+        #ifdef NVM_I2C
             //I2C EEPROM
             return i2c_eeprom_read(buf, count);
-        #elif (NVM_SRC==NVM_SRC_FLASH)
+        #endif   
+        #ifdef NVM_FLASH
             //FLASH EEPROM
             return flash_eeprom_read(buf, count);
-        #elif (NVM_SRC==NVM_SRC_ON_CHIP)
+        #endif
+        #ifdef NVM_ON_CHIP
             //ON-CHIP EEPROM
             return eeprom_read(buf, count);
         #endif
     }
 #endif
 
-#if (ADC_MOD>0)
+#ifdef ADC_MOD
     //ADC
 	if (fd==BASE_ADC)
 	{
@@ -267,7 +273,7 @@ int LIBC_CODE_LOC read(int fd, void* buf, int count)
 	}
 #endif
 
-#if (PWM_MOD>0)
+#ifdef PWM_MOD
     //PWM
 	if (fd==BASE_PWM)
 	{
@@ -275,7 +281,7 @@ int LIBC_CODE_LOC read(int fd, void* buf, int count)
 	}
 #endif
 
-#if (KB_MOD>0)
+#ifdef KB_MOD
     //KB
     if (fd==BASE_KB)
     {
@@ -283,7 +289,7 @@ int LIBC_CODE_LOC read(int fd, void* buf, int count)
     }
 #endif
 
-#if (ETHERNET_MOD>0)
+#ifdef ETHERNET_MOD
     //ETHERNET
     if (fd==BASE_ETHERNET)
     {
@@ -309,7 +315,7 @@ int LIBC_CODE_LOC read(int fd, void* buf, int count)
  ****************************************************************************************/
 int LIBC_CODE_LOC ioctl(int fd, int request, void* argp) 
 {
-#if (UART_MOD>0)
+#ifdef UART_MOD
     //UART
     if (fd<(BASE_UART + NO_OF_UART))
     {
@@ -317,7 +323,7 @@ int LIBC_CODE_LOC ioctl(int fd, int request, void* argp)
     }
 #endif
 
-#if (I2C_DAC_MOD>0)
+#ifdef I2C_DAC_MOD
     //I2C DAC
     if (fd==BASE_I2C_DAC)
     {
@@ -325,14 +331,14 @@ int LIBC_CODE_LOC ioctl(int fd, int request, void* argp)
     }
 #endif
 
-#if (NVM_MOD>0)
+#ifdef NVM_MOD
     if (fd==BASE_EEPROM)
     {
         return 0;
     }
 #endif
 
-#if (ADC_MOD>0)
+#ifdef ADC_MOD
     //ADC
 	if (fd==BASE_ADC)
 	{
@@ -340,7 +346,7 @@ int LIBC_CODE_LOC ioctl(int fd, int request, void* argp)
 	}
 #endif
 
-#if (PWM_MOD>0)
+#ifdef PWM_MOD
     //PWM
 	if (fd==BASE_PWM)
 	{
@@ -348,7 +354,7 @@ int LIBC_CODE_LOC ioctl(int fd, int request, void* argp)
 	}
 #endif
 
-#if (KB_MOD>0)
+#ifdef KB_MOD
     //KB
     if (fd==BASE_KB)
     {
@@ -356,7 +362,7 @@ int LIBC_CODE_LOC ioctl(int fd, int request, void* argp)
     }
 #endif
 
-#if (ETHERNET_MOD>0)
+#ifdef ETHERNET_MOD
     //ETHERNET
     if (fd==BASE_ETHERNET)
     {
@@ -381,7 +387,7 @@ int LIBC_CODE_LOC ioctl(int fd, int request, void* argp)
  ****************************************************************************************/
 int LIBC_CODE_LOC lseek(int fd, int offset, int whence) 
 {
-#if (UART_MOD>0)
+#ifdef UART_MOD
      //UART
      if (fd<(BASE_UART + NO_OF_UART))
      {
@@ -389,7 +395,7 @@ int LIBC_CODE_LOC lseek(int fd, int offset, int whence)
      }
 #endif
 
-#if (I2C_DAC_MOD>0)
+#ifdef I2C_DAC_MOD
     //I2C DAC
     if (fd==BASE_I2C_DAC)
     {
@@ -397,23 +403,25 @@ int LIBC_CODE_LOC lseek(int fd, int offset, int whence)
     }
 #endif
 
-#if (NVM_MOD>0)
+#ifdef NVM_MOD
     if (fd==BASE_EEPROM)
     {
-        #if (NVM_SRC==NVM_SRC_I2C)
+        #ifdef NVM_I2C
             //I2C EEPROM
             return i2c_eeprom_lseek(offset, whence);
-        #elif (NVM_SRC==NVM_SRC_FLASH)
+        #endif   
+        #ifdef NVM_FLASH
             //FLASH EEPROM
             return flash_eeprom_lseek(offset, whence);
-        #elif (NVM_SRC==NVM_SRC_ON_CHIP)
+        #endif
+        #ifdef NVM_ON_CHIP
             //ON-CHIP EEPROM
             return eeprom_lseek(offset, whence);
         #endif
     }
 #endif
 
-#if (ADC_MOD>0)
+#ifdef ADC_MOD
     //ADC
 	if (fd==BASE_ADC)
 	{
@@ -421,7 +429,7 @@ int LIBC_CODE_LOC lseek(int fd, int offset, int whence)
 	}
 #endif
 
-#if (PWM_MOD>0)
+#ifdef PWM_MOD
     //PWM
 	if (fd==BASE_PWM)
 	{
@@ -429,7 +437,7 @@ int LIBC_CODE_LOC lseek(int fd, int offset, int whence)
 	}
 #endif
 
-#if (KB_MOD>0)
+#ifdef KB_MOD
     //KB
     if (fd==BASE_KB)
     {
@@ -437,7 +445,7 @@ int LIBC_CODE_LOC lseek(int fd, int offset, int whence)
     }
 #endif
 
-#if (ETHERNET_MOD>0)
+#ifdef ETHERNET_MOD
     //ETHERNET
     if (fd==BASE_ETHERNET)
     {

@@ -18,14 +18,9 @@
  * 6)   User should initialize the EEPROM locally in <eeprom.h>
  ***********************************************************************************************/
 
+#ifdef NVM_ON_CHIP 
+
 #include <define.h>
-
-#if !defined(MPLAB_DSPIC30_PORT) 
-#error MPLAB_DSPIC30_PORT not defined! 
-#error This module can only be used with dsPIC30F devices.
-
-#elif ( (NVM_MOD>0) & (NVM_SRC==NVM_SRC_ON_CHIP) )
-
 #include <asm/system.h>
 #include <fcntl.h>
 #include <errno.h>

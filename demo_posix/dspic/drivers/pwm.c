@@ -35,16 +35,13 @@
  * 
  ***********************************************************************************************/
 
+#ifdef PWM_MOD
+
 #include <define.h>
 #include <sys/ioctl.h>
 #include <asm/system.h>
 #include <fcntl.h>
 #include <errno.h>
-
-#if (PWM_MOD == 0)
-//do not include pwm module if disabled
-
-#else 
 
 /************************************************************************************************
  * PWM Data

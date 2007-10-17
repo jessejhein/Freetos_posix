@@ -9,12 +9,12 @@
  * 4)   When i2c has multiple devices, read(), write() cannot be used in ISR (Interrupt routine)
  ***********************************************************************************************/
 
+#ifdef NVM_I2C 
+
 #include <define.h>
 #include <sys/ioctl.h>
 #include <fcntl.h>
 #include <errno.h>
-
-#if ( (NVM_MOD>0) & (NVM_SRC==NVM_SRC_I2C) ) 
 
 /************************************************************************************************
  * Local Variables
@@ -26,7 +26,7 @@ static int i2c_eeprom_io_flag;
 /************************************************************************************************
  * External Variables
  ************************************************************************************************/
-#if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD>0) & (NVM_MOD>0) & (NVM_SRC==NVM_SRC_I2C) ) 
+#if (I2C_DAC_MOD & NVM_I2C) 
  #include <pthread.h>
  extern pthread_mutex_t i2c_mutex;
 #endif
@@ -96,7 +96,7 @@ int i2c_eeprom_write(unsigned char* buf, int count)
              */
             if(i==0 || i2c_eeprom_pointer%I2C_EEPROM_PAGE_SIZE == 0)
             {
-             #if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD > 0) & (I2C_EEPROM_MOD > 0) ) 
+             #if (I2C_DAC_MOD & NVM_I2C) 
                 if(pthread_mutex_lock(&i2c_mutex) != 0) return 0; //i2c is busy
              #endif    
 
@@ -163,7 +163,7 @@ int i2c_eeprom_write(unsigned char* buf, int count)
                 error = 1;
                 break;  //byte write failure exit loop
             }
-          #if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD > 0) & (I2C_EEPROM_MOD > 0) ) 
+          #if (I2C_DAC_MOD & NVM_I2C) 
             if(i == count-1 || i2c_eeprom_pointer%I2C_EEPROM_PAGE_SIZE == I2C_EEPROM_PAGE_SIZE-1)
             {
                 pthread_mutex_unlock(&i2c_mutex);
@@ -171,7 +171,7 @@ int i2c_eeprom_write(unsigned char* buf, int count)
           #endif    
         }
     
-       #if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD > 0) & (I2C_EEPROM_MOD > 0) ) 
+       #if (I2C_DAC_MOD & NVM_I2C) 
         if(error == 1){
             pthread_mutex_unlock(&i2c_mutex);       
         }
@@ -239,7 +239,7 @@ int i2c_eeprom_read(unsigned char* buf, int count)
              */
             if(i==0)
             {
-              #if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD > 0) & (I2C_EEPROM_MOD > 0) )
+              #if (I2C_DAC_MOD & NVM_I2C) 
                 if(pthread_mutex_lock(&i2c_mutex) != 0) return 0; //i2c is busy
               #endif
                 
@@ -313,14 +313,14 @@ int i2c_eeprom_read(unsigned char* buf, int count)
                 error = 1;
                 break;      //read failure, exit loop
             }
-          #if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD > 0) & (I2C_EEPROM_MOD > 0) ) 
+          #if (I2C_DAC_MOD & NVM_I2C) 
             if(i == count-1 || i2c_eeprom_pointer == I2C_EEPROM_SIZE-1){
                 pthread_mutex_unlock(&i2c_mutex);       
             }
           #endif
         }
     
-       #if ( defined(MPLAB_DSPIC33_PORT) & (I2C_DAC_MOD > 0) & (I2C_EEPROM_MOD > 0) ) 
+       #if (I2C_DAC_MOD & NVM_I2C) 
         if(error == 1){
             pthread_mutex_unlock(&i2c_mutex);
         }
