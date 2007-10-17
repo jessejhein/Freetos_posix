@@ -6,7 +6,7 @@
 #ifndef UNISTD_H_
 #define UNISTD_H_       1
 
-#if(FREERTOS_SCHE_ENABLE == 1)
+#ifdef FREERTOS_SCHED
 #include <FreeRTOS.h>
 #include <task.h>
 #endif
@@ -35,7 +35,7 @@
  * For 32-bit counter with context switch period of 10ms, maximum number of sec is 4,294,967,295*0.01 
  * = 42,949,672 sec = 3.3 yrs
  ****************************************************************************************/
-#if(FREERTOS_SCHE_ENABLE == 1)
+#ifdef FREERTOS_SCHED
     #define usleep(usec)	vTaskDelay((portTickType)((__u64)usec/(1000*portTICK_RATE_MS)))
 #else
     #define usleep(usec)   scrReturn((void*)-1)
@@ -59,7 +59,7 @@
  * For 32-bit counter with context switch period of 10ms, maximum number of sec is 4,294,967,295*0.01 
  * = 42,949,672 sec = 3.3 yrs
  ****************************************************************************************/
-#if(FREERTOS_SCHE_ENABLE == 1)
+#ifdef FREERTOS_SCHED
     #define sleep(sec)      usleep((__u64)sec*1000000)
 #else
     #define sleep(sec)      scrReturn((void*)-1)

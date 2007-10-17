@@ -10,7 +10,7 @@
  * sti():	SeT Interrupt/Enable Interrupt
  * cli():	CLear Interrupt/Disable Interrupt
  ***************************************************************************************/
-#if(FREERTOS_SCHE_ENABLE == 1)
+#ifdef FREERTOS_SCHED 
 #include <FreeRTOS.h>
 #include <task.h>
 /***************************************************************************************

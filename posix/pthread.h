@@ -86,8 +86,7 @@
 
     /* ====Enable FreeRTOS Scheduler====
      */
-    #define FREERTOS_SCHE_ENABLE        1        //if disabled, use coroutine_st
-    #if(FREERTOS_SCHE_ENABLE == 1)
+    #ifdef FREERTOS_SCHED 
     #   define start_process()          while(1){
     #   define end_process()            }
     #else
@@ -224,7 +223,7 @@
  *  
  ************************************************************************/
 
-#if(CRTHREAD_ENABLE > 0)
+#ifdef CRTHREAD_SCHED
 /*******************************************************************************************
  * ===extern crthread_t crthread[]===
  * Description: Array of function pointers to store crthreads
@@ -266,13 +265,11 @@ extern void* crthread_arg[];
 
     /* ====Enable FreeRTOS Scheduler====
      */
-    #define FREERTOS_SCHE_ENABLE        1        //if disabled, use coroutine_st
-    #if(FREERTOS_SCHE_ENABLE == 1)
+    #ifdef FREERTOS_SCHED 
     #   define start_process()          while(1){
     #   define end_process()            }
         //==========Enable Coroutine Thread Scheduler in FREERTOS Scheduler========
-        #define CRTHREAD_ENABLE         1
-        #if(CRTHREAD_ENABLE == 1)
+        #ifdef CRTHREAD_SCHED
         #define MAX_CRTHREAD            10
         #endif
     #else
@@ -304,11 +301,10 @@ extern void* crthread_arg[];
     //  end_process()   -> scrFinish(0)
     //  sleep()         -> scrReturn(-1)
     //  usleep()        -> scrReturn(-1)
-    #ifdef FREERTOS_SCHE_ENABLE
-    #   undef FREERTOS_SCHE_ENABLE
+    #ifdef FREERTOS_SCHED 
+    #   undef FREERTOS_SCHED
     #   undef start_process
     #   undef end_process
-    #   define FREERTOS_SCHE_ENABLE     0
     #   include <coroutine_st.h>
     #   define start_process()          scrBegin
     #   define end_process()            scrFinish((void*)0)
@@ -412,8 +408,7 @@ extern void* crthread_arg[];
  *                      static or global                                                    */
                 //pthread_t -> xTaskHandle (void *, and tskTCB, refer to task.h, and tash.c)
                #define pthread_t           xTaskHandle
-/*              attr: attribute pointer related to the thread (dynamic selection of scheduling policy,
- *                    do not confuse with FREERTOS_SCHE_ENABLE in define.h)
+/*              attr: attribute pointer related to the thread (dynamic selection of scheduling policy)
  *                    NULL use FreeRTOS Task
  *                    PTHREAD_SCOPE_SYSTEM use crthread
  *              start_routine: function pointer for the task
@@ -553,7 +548,7 @@ extern int pthread_create(pthread_t* thread, pthread_attr_t* attr, void* (*start
  *          }
  *      }
  *******************************************************************************************/
-#if(CRTHREAD_ENABLE > 0)
+#ifdef CRTHREAD_SCHED
 #define pthread_join(thread, value_ptr)     while(1){\
                                                 if( *(crthread_t*)thread == CRTHREAD_EMPTY ) break;\
                                                 else usleep(0);\

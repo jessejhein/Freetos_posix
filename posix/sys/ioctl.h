@@ -8,7 +8,7 @@
 
 #include <define.h>
 
-#if (I2C_MOD>0)
+#ifdef I2C_MOD
 //=============Request Code Definition: For io control=========================
 #define I2C_SET_STATUS			0			//set status bits
 #define I2C_START				0x01		//send start bit
@@ -20,12 +20,12 @@
 #define	 DAC_SET_CTL			0			//Select channel (A, B, C, or D)
 #endif //I2C_MOD
 
-#if (ADC_MOD>0)
+#ifdef ADC_MOD
 //=============Request Code Definition: For io control=========================
 #define ADC_ADD_CH			0			//add a channel to current selection			
 #endif //ADC_MOD
 
-#if (PWM_MOD>0)
+#ifdef PWM_MOD
 //=============Request Code Definition: For io control=========================
 #define PWM_SELECT_CH		0			//select channel to use			
 #define PWM_SET_PERIOD		1			//set pwm period		

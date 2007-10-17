@@ -6,7 +6,7 @@
 #include <asm/types.h>
 
 extern volatile time_t one_sec_cnt;
-#if (FREERTOS_SCHE_ENABLE == 0)
+#ifndef FREERTOS_SCHED 
     extern volatile time_t jiffies;
 #endif
 
@@ -51,7 +51,7 @@ time_t time(time_t *t)
  ***************************************************************************/
 time_t os_time(time_t *t)
 {
-#if (FREERTOS_SCHE_ENABLE == 1)
+#ifdef FREERTOS_SCHED 
     portTickType time = xTaskGetTickCount();
 #else
     time_t time = jiffies;
