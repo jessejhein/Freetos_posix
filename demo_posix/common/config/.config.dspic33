@@ -1,0 +1,36 @@
+# Configurations for Laser Control Applicaiton with
+#		Rackmount Model
+#		Ethernet Module
+#================================================================
+
+#----------------------------------------------------------------
+# OS Scheduler: Select the scheduler to be used.
+#	When FREERTOS_SCHED = n, the project will compile with coroutine_st
+#----------------------------------------------------------------
+FREERTOS_SCHED		=	y
+CRTHREAD_SCHED		=	y
+
+#----------------------------------------------------------------
+# Modules
+#----------------------------------------------------------------
+CONFIG_UART			=	y
+CONFIG_I2C			=	n
+CONFIG_I2C_DAC		=	n
+CONFIG_NVM			=	n
+CONFIG_ADC			=	n
+CONFIG_PWM			=	n
+CONFIG_KEYBOARD		=	n
+CONFIG_ETHERNET		=	n
+
+#----------------------------------------------------------------
+# NVM: Select the type of EEPROM to be used
+#	ON_CHIP; I2C; FLASH
+#----------------------------------------------------------------
+CONFIG_NVM_SRC		=	FLASH
+
+#----------------------------------------------------------------
+# Debug Console
+# 	If enabled, program can use functions in <console.h> like 
+#	printStr(), printDec(), printHex(), newline() etc. 
+#----------------------------------------------------------------
+CONFIG_DEBUG		=	n
