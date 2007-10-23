@@ -11,7 +11,7 @@
 #include <unistd.h>
 #include <stdio.h>
 
-#if (UART_MOD == 0)
+#ifndef UART_MOD
 #error "UART_MOD has been disabled."
 #endif
 

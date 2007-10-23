@@ -4,22 +4,22 @@
 
 #include <define.h>
 
+//---------------------------------------------------------
 // Include this section of code to map 
 //  start_process() -> scrBegin 
 //  end_process()   -> scrFinish(0)
 //  sleep()         -> scrReturn(-1)
 //  usleep()        -> scrReturn(-1)
-#ifdef FREERTOS_SCHE_ENABLE
-#   undef FREERTOS_SCHE_ENABLE
+#ifdef FREERTOS_SCHED
+#   undef FREERTOS_SCHED
 #   undef start_process
 #   undef end_process
-#   define FREERTOS_SCHE_ENABLE     0
 #   include <coroutine_st.h>
 #   define start_process()          scrBegin
 #   define end_process()            scrFinish((void*)0)
 #endif
 #include <unistd.h>
-
+//---------------------------------------------------------
 
 //Local Variable
 static unsigned char busy = 0;

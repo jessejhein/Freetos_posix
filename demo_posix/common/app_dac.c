@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include <sys/ioctl.h>
 
-#if (I2C_DAC_MOD == 0)
+#ifndef I2C_DAC_MOD
 #error "I2C_DAC_MOD has been disabled."
 #endif
 

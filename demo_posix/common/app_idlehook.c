@@ -9,7 +9,7 @@
 /*
  * Keyboard module: Rotory Key
  */
-#if(KB_MOD > 0)
+#ifdef KB_MOD
 #include <time.h>
 static unsigned char pkey_state[TOTAL_PUSH_KEY];
 static unsigned char pkey_scan_cnt[TOTAL_PUSH_KEY];
@@ -22,7 +22,7 @@ extern unsigned char gpio_rd;   //read pointer of cir buf
 /*
  * Coroutine Thread
  */
-#if(CRTHREAD_ENABLE > 0)
+#ifdef CRTHREAD_SCHED
 crthread_t crthread[MAX_CRTHREAD] = {NULL};
 void* crthread_arg[MAX_CRTHREAD];
 #endif
@@ -37,7 +37,7 @@ void* crthread_arg[MAX_CRTHREAD];
  ************************************************************************************************/
 void vApplicationIdleHook(void)
 {
-#if(KB_MOD > 0)
+#ifdef KB_MOD
     //---------------------------------------------------------------------------
     // Principle of ENTER key
     // 
@@ -99,7 +99,7 @@ void vApplicationIdleHook(void)
     }
 #endif //end KB_MOD
 
-#if(CRTHREAD_ENABLE > 0)
+#ifdef CRTHREAD_SCHED
     //---------------------------------------------------------------------------
     // Principle of CRTHREAD Scheduler
     //   for each active thread, execute it
