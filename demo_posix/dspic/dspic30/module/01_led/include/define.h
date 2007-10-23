@@ -18,14 +18,12 @@
 // Define User Idle Task Here **************************************************
 #define idle_process                UserIdleTask
 
-// Enable FreeRTOS Scheduler ***************************************************
-#define FREERTOS_SCHE_ENABLE        1           // if disabled, use coroutine_st
-#if(FREERTOS_SCHE_ENABLE == 1)
+// FreeRTOS Scheduler **********************************************************
+#ifdef FREERTOS_SCHED 
 #   define start_process()          while(1){
 #   define end_process()            }
     //==========Enable Coroutine Thread Scheduler in FREERTOS Scheduler========
-    #define CRTHREAD_ENABLE             1
-    #if(CRTHREAD_ENABLE == 1)
+    #ifdef CRTHREAD_SCHED
     #define MAX_CRTHREAD                10
     #endif
 #else
@@ -41,8 +39,7 @@
 #define SYSTEM_VOLT                 ((float)5.0)                            // Can be used for ADC reading calculation
 
 // UART Module ******************************************************************
-#define UART_MOD                    1           // uart enable
-#if (UART_MOD>0)
+#ifdef UART_MOD
 //  ============================Device Handler=================================== 
 #define BASE_UART                   0           // base uart no.
 #define NO_OF_UART                  2
@@ -67,8 +64,7 @@
 #endif //UART_MOD
 
 // I2C Module ******************************************************************
-#define I2C_MOD                     0
-#if (I2C_MOD>0)
+#ifdef I2C_MOD
 //  ==========================I2C Speed control================================== 
 //  I2C: Baudrate options for I2C
 //   +-- I2CBRG = (Fcy/Fscl - Fcy/1111111)-1
@@ -82,11 +78,10 @@
 #endif //I2C_MOD
 
 // I2C DAC Module ***************************************************************
-#define I2C_DAC_MOD                 0
-#if (I2C_DAC_MOD>0 & I2C_MOD==0)
-    #error "I2C_MOD is off. Please set I2C_MOD = 1 in <define.h>"
+#ifdef I2C_DAC_MOD
+    #ifndef I2C_MOD 
+        #error "I2C_MOD is off."
 #endif
-#if (I2C_DAC_MOD>0)
 //  ============================Devices Handler================================== 
 #define BASE_I2C_DAC                2           // base i2c dac no.
 #define I2C_DAC                      "2"        // i2c device id for DAC
@@ -104,48 +99,41 @@
 #endif //I2C_DAC_MOD
 
 // Non-volatile Memory *********************************************************
-#define NVM_MOD                     0
-#if (NVM_MOD>0)
+#ifdef NVM_MOD
 //  ============================Device Handler=================================== 
 #define BASE_EEPROM                 3           // base EEPROM no.
 #define EEPROM                      "3"         // device id for EEPROM
-//  ============================Device Config==================================== 
-    #define NVM_SRC_ON_CHIP         0
-    #define NVM_SRC_FLASH           (NVM_SRC_ON_CHIP+1)
-    #define NVM_SRC_I2C             (NVM_SRC_FLASH+1)    
-#define NVM_SRC                      NVM_SRC_ON_CHIP   //Select which EEPROM is used
 //  ==========================I2C EEPROM Config==================================
 // [Factory Preset] [A2] [A1] [A0] [R/W#]
 //    1 0 1 0         0   0    0        => 0xA0
-#if(NVM_SRC==NVM_SRC_I2C)
-#if (I2C_DAC_MOD>0 & I2C_MOD==0)
-    #error "I2C_MOD is off. Please set I2C_MOD = 1 in <define.h>"
+#ifdef NVM_I2C
+#ifndef I2C_MOD
+    #error "I2C_MOD is off."
 #endif
 #define I2C_EEPROM_ADDR             0xA0        // EEPROM address for Writing
 #define I2C_EEPROM_SIZE             0x8000      // EEPROM Size (in byte)
 #define I2C_EEPROM_PAGE_SIZE        64          // EEPROM Page size for writing (in byte)
-#endif //NVM_SRC_I2C
+#endif //NVM_I2C
 //  =========================Flash EEPROM Config================================= 
-#if(NVM_SRC==NVM_SRC_FLASH)
+#ifdef NVM_FLASH
 #define FLASH_EEPROM_BYTE_PER_WORD  2
 #define FLASH_EEPROM_WORD_PER_ROW   32
 #define FLASH_EEPROM_ROW_PER_PAGE   1
 #define FLASH_EEPROM_SIZE           (FLASH_EEPROM_BYTE_PER_WORD* \
                                       FLASH_EEPROM_WORD_PER_ROW* \
                                       FLASH_EEPROM_ROW_PER_PAGE)
-#endif //NVM_SRC_FLASH
+#endif //NVM_FLASH
 //  =======================On-chip EEPROM Config================================= 
-#if(NVM_SRC==NVM_SRC_ON_CHIP)
+#ifdef NVM_ON_CHIP
 #ifndef MPLAB_DSPIC30_PORT
     #error "Target chip has no on-chip EEPROM"
 #endif
 #define EEPROM_SIZE                 1024        // EEPROM Size (in byte)
-#endif //NVM_SRC_ON_CHIP
+#endif //NVM_ON_CHIP
 #endif //NVM_MOD
 
 // ADC Module ***************************************************************
-#define ADC_MOD                     0           // adc enable
-#if (ADC_MOD>0)
+#ifdef ADC_MOD
 //  ============================Devices Handler================================== 
 #define BASE_ADC                    4           // base adc no.
 #define ADC                         "4"         // adc device id
@@ -166,16 +154,14 @@
 #endif //ADC_MOD
 
 // PWM Module *******************************************************************
-#define PWM_MOD                     0           // pwm enable
-#if (PWM_MOD>0)
+#ifdef PWM_MOD
 //  ============================Device Handler=================================== 
 #define BASE_PWM                    5           // base pwm no.
 #define PWM                         "5"         // pwm device id
 #endif //PWM_MOD
 
 // Keyboard Module ***************************************************************
-#define KB_MOD                      0           // keyboard enable
-#if (KB_MOD>0)
+#ifdef KB_MOD
 //  ============================Device Handler=================================== 
 #define BASE_KB                     6           // base keyboard no.
 #define KB                          "6"         // keyboard device id
@@ -194,10 +180,12 @@
 #define ROTARY_KEY0_UP                  BASE_ROTARY_KEY
     #define EN_RKEY0_UP                     //_TRISG6
     #define IO_RKEY0_UP                     //_RG6
+    // change input register, interrupt setting 
     #define CN_RKEY0_UP                     //_CN8IE
 #define ROTARY_KEY0_DN                  ROTARY_KEY0_UP + 1
     #define EN_RKEY0_DN                     //_TRISG7
     #define IO_RKEY0_DN                     //_RG7
+    // change input register, interrupt setting 
     #define CN_RKEY0_DN                     //_CN9IE
 #define ROTARY_KEY1_UP                  ROTARY_KEY0_DN + 1
 #define ROTARY_KEY1_DN                  ROTARY_KEY1_UP + 1
