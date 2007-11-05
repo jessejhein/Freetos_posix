@@ -21,7 +21,7 @@
  *
  * Input:       buf:    buffer to print to
  *              value:  value to print
- *              unit:   units to print
+ *              unit:   units to print (NULL if no unit)
  * 
  * Output:      length of characters in buf (5 characters + units)
  *  
