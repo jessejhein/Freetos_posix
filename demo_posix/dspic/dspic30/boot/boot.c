@@ -46,6 +46,9 @@
 #include <asm/delay.h>
 #include <asm/types.h>
 #include <asm/system.h>
+#ifdef CRTHREAD_SCHED
+#include <pthread.h>
+#endif
 
 #define portTIMER_PRESCALE 8
 
@@ -95,10 +98,18 @@ int main( void )
 	/* Configure any hardware. */
 	vSetupHardware();
 
+#ifdef CRTHREAD_SCHED
+    unsigned char index;
+    for(index=0; index<MAX_CRTHREAD; index++)
+    {
+        crthread[index] = (((crthread_t) 0 ) + MAX_CRTHREAD);
+    }
+#endif
+
 #ifndef FREERTOS_SCHED 
     prvSetupTimerInterrupt();       //start timer if FreeRTOS scheduler is disabled 
 #endif
-    
+
 	/* Create the main task. */
 	vUserMain();
 
@@ -111,17 +122,16 @@ int main( void )
     ERR_LED0_EN();
     ERR_LED1_EN();
     while(1){
-    	ERR_LED0(1);
-    	ERR_LED1(1);
+        ERR_LED0(1);
+        ERR_LED1(1);
         mdelay(100); 
         ERR_LED0(0);
         ERR_LED1(0);
         mdelay(100); 
-    } 
+    }  
 #endif
 	return 0;
 }
-
 /*-----------------------------------------------------------*/
 
 /*
@@ -130,14 +140,14 @@ int main( void )
 void prvSetupTimerInterrupt( void )
 {
 const unsigned portLONG ulCompareMatch = ( configCPU_CLOCK_HZ / portTIMER_PRESCALE ) / configTICK_RATE_HZ;
-    
+
     /* Initialize counters */
     one_sec_cnt = 0;
     timer_count = 0;
 #ifndef FREERTOS_SCHED 
     jiffies = 0;
 #endif
-    
+
     /* Prescale of 8. */
     T1CON = 0;
     TMR1 = 0;
@@ -159,8 +169,8 @@ const unsigned portLONG ulCompareMatch = ( configCPU_CLOCK_HZ / portTIMER_PRESCA
     /* Start the timer. */
     T1CONbits.TON = 1;
 }
-
 /*-----------------------------------------------------------*/
+
 void __attribute__((__interrupt__)) _T1Interrupt( void )
 {
 #ifdef FREERTOS_SCHED 
@@ -168,14 +178,14 @@ void __attribute__((__interrupt__)) _T1Interrupt( void )
 #else
     jiffies++;
 #endif
-    
+
     /* record time */
     if(++timer_count == configTICK_RATE_HZ)
     {
        one_sec_cnt++;
        timer_count = 0; 
     }
-
+    
     /* Clear the timer interrupt. */
     DISI_PROTECT(IFS0bits.T1IF = 0);
 
