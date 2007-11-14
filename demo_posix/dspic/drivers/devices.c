@@ -145,6 +145,10 @@ int LIBC_CODE_LOC close(int fd)
  ****************************************************************************************/
 int LIBC_CODE_LOC write(int fd, void* buf, int count) 
 {
+    if(fd < 0)
+    {
+        return -1;
+    }
 #ifdef UART_MOD
     //UART
     if (fd < (BASE_UART + NO_OF_UART) )
@@ -231,6 +235,10 @@ int LIBC_CODE_LOC write(int fd, void* buf, int count)
  ****************************************************************************************/
 int LIBC_CODE_LOC read(int fd, void* buf, int count)
 {
+    if(fd < 0)
+    {
+        return -1;
+    }
 #ifdef UART_MOD
     //UART
     if (fd<(BASE_UART + NO_OF_UART))
@@ -315,6 +323,10 @@ int LIBC_CODE_LOC read(int fd, void* buf, int count)
  ****************************************************************************************/
 int LIBC_CODE_LOC ioctl(int fd, int request, void* argp) 
 {
+    if(fd < 0)
+    {
+        return -1;
+    }
 #ifdef UART_MOD
     //UART
     if (fd<(BASE_UART + NO_OF_UART))
@@ -387,6 +399,10 @@ int LIBC_CODE_LOC ioctl(int fd, int request, void* argp)
  ****************************************************************************************/
 int LIBC_CODE_LOC lseek(int fd, int offset, int whence) 
 {
+    if(fd < 0)
+    {
+        return -1;
+    }
 #ifdef UART_MOD
      //UART
      if (fd<(BASE_UART + NO_OF_UART))
