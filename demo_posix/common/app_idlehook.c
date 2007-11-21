@@ -23,8 +23,8 @@ extern unsigned char gpio_rd;   //read pointer of cir buf
  * Coroutine Thread
  */
 #ifdef CRTHREAD_SCHED
-crthread_t crthread[MAX_CRTHREAD] = {NULL};
-void* crthread_arg[MAX_CRTHREAD];
+struct crElement_t crlist[MAX_CRTHREAD];
+pthread_t crthread_id_counter = (pthread_t)1;
 #endif
 
 /************************************************************************************************
@@ -109,42 +109,43 @@ void vApplicationIdleHook(void)
     // 
     //   e.g. enable() is finished
     //        before execution
-    //                  crthread[0] = enable   -> execute
-    //                  crthread[1] = adj      -> execute
-    //                  crthread[2] = disable  -> execute
-    //                  crthread[3] = 0        -> not execute
-    //                  crthread[4] = 1        -> not execute
+    //                  crlist[0].crthread = enable   -> execute
+    //                  crlist[0].crthread = adj      -> execute
+    //                  crlist[0].crthread = disable  -> execute
+    //                  crlist[0].crthread = 0        -> not execute
+    //                  crlist[0].crthread = 1        -> not execute
     //        after execution
-    //                  crthread[0] = 3
-    //                  crthread[1] = adj
-    //                  crthread[2] = disable
-    //                  crthread[3] = enable
-    //                  crthread[4] = 1
+    //                  crlist[0].crthread = 3
+    //                  crlist[0].crthread = adj
+    //                  crlist[0].crthread = disable
+    //                  crlist[0].crthread = enable
+    //                  crlist[0].crthread = 1
     //---------------------------------------------------------------------------
     unsigned char index;
 
     for(index=0; index<MAX_CRTHREAD; index++)
     {
-        if(crthread[index] > (((crthread_t) 0 ) + MAX_CRTHREAD) ){
-            if( (*crthread[index])(crthread_arg[index]) == 0 ){
+        if(crlist[index].crthread > (((crthread_t) 0 ) + MAX_CRTHREAD) ){
+            if( (*(crlist[index].crthread))(crlist[index].arg) == 0 ){
                 unsigned char j, index_new;
                 unsigned char found = 0;
                 //activate next thread (if any)
                 for(j=0; j<MAX_CRTHREAD; j++){
-                    if( crthread[j] == (((crthread_t) 0 ) + index) ){
+                    if( crlist[j].crthread == (((crthread_t) 0 ) + index) ){
                         if(found == 0){
                             found = 1;
-                            crthread[j] = crthread[index];
+                            crlist[j].crthread = crlist[index].crthread;
                             index_new = j;
                         }
                         else{
-                            crthread[j] = ((crthread_t) 0 ) + index_new;
+                            crlist[j].crthread = ((crthread_t) 0 ) + index_new;
                         }
                     }
                 }
                 //free the thread
-                crthread[index] = CRTHREAD_EMPTY;
-                crthread_arg[index] = NULL;
+                crlist[index].id = (pthread_t) 0;
+                crlist[index].crthread = CRTHREAD_EMPTY;
+                crlist[index].arg = NULL;
             }            
         }
     }

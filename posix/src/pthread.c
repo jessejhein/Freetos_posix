@@ -24,11 +24,11 @@ int pthread_create(pthread_t* thread, pthread_attr_t* attr, void* (*start_routin
     //    skip the thread when list is full
     //
     // e.g. adding enable to here:
-    //                  crthread[0] = adj
-    //                  crthread[1] = CRTHREAD_EMPTY          <-- (void*)3
-    //                  crthread[2] = CRTHREAD_EMPTY
-    //                  crthread[3] = enable
-    //                  crthread[4] = CRTHREAD_EMPTY
+    //                  crlist[0].crthread = adj
+    //                  crlist[1].crthread = CRTHREAD_EMPTY          <-- (void*)3
+    //                  crlist[2].crthread = CRTHREAD_EMPTY
+    //                  crlist[3].crthread = enable
+    //                  crlist[4].crthread = CRTHREAD_EMPTY
     //---------------------------------------------------------------------------
     if(attr != NULL && *attr == PTHREAD_SCOPE_SYSTEM){
         unsigned char i;
@@ -38,14 +38,14 @@ int pthread_create(pthread_t* thread, pthread_attr_t* attr, void* (*start_routin
         for(i=0; i<MAX_CRTHREAD; i++){
             //Find CRTHREAD_EMPTY
             if(foundEmpty == 0){
-                if(crthread[i] == CRTHREAD_EMPTY){
+                if(crlist[i].crthread == CRTHREAD_EMPTY){
                     foundEmpty = 1;
                     indexEmpty = i;
                 }
             }
             //Find start_rountine
             if(foundCr == 0){
-                if(crthread[i] == (crthread_t) start_routine){
+                if(crlist[i].crthread == (crthread_t) start_routine){
                     foundCr = 1;
                     indexCr = i;
                 }
@@ -55,14 +55,18 @@ int pthread_create(pthread_t* thread, pthread_attr_t* attr, void* (*start_routin
             }
         }
         if(foundEmpty == 1){
+            //save id
+            crlist[indexEmpty].id = next_crthread_id();
+            *thread = crlist[indexEmpty].id;
+            //save function
             if(foundCr == 0){
-                crthread[indexEmpty] = (crthread_t) start_routine;
+                crlist[indexEmpty].crthread = (crthread_t) start_routine;
             }
             else{
-                crthread[indexEmpty] = (((crthread_t) 0) + indexCr);
+                crlist[indexEmpty].crthread = (((crthread_t) 0) + indexCr);
             }
-            *thread = (pthread_t)(&crthread[indexEmpty]);
-            crthread_arg[indexEmpty] = arg;
+            //save arg
+            crlist[indexEmpty].arg = arg;
         }
         else{
             return -1;

@@ -102,7 +102,7 @@ int main( void )
     unsigned char index;
     for(index=0; index<MAX_CRTHREAD; index++)
     {
-        crthread[index] = (((crthread_t) 0 ) + MAX_CRTHREAD);
+        crlist[index].crthread = (((crthread_t) 0 ) + MAX_CRTHREAD);
     }
 #endif
 
