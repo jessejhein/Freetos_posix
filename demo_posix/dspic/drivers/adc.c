@@ -267,8 +267,6 @@ int adc_open(int flags)
         // Configure scan input channels    
         ADCSSL = 0x8000;    //0 => Skip, 1 => Scan
         ADCSSH = 0x0000;    //Skipping AN16-AN31
-        adc_ch_status[0] = 1;
-        adc_ch_status[1] = 1;
         //===========================================================================
         // ADCCON4:
         ADCON4bits.DMABL = 0;    // Each buffer contains 1 word
