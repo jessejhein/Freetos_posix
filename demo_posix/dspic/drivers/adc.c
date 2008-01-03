@@ -119,14 +119,12 @@ int adc_open(int flags)
         _ADIE = 1;                          //enable adc interrupt
         //===========================================================================
         // Configure analog i/o  
-        _TRISB0 = 1;
-        _TRISB1 = 1;    
-        ADPCFG = 0xFFFC;                    //Enable AN0 (Vref+) and AN1 (Vref-)
+        _TRISB11 = 1;    
+        ADPCFG = 0xF7FF;                    //Enable AN11
         //===========================================================================
         // Configure scan input channels    
-        ADCSSL = 0x0003;    //0 => Skip, 1 => Scan
-        adc_ch_status[0] = 1;
-        adc_ch_status[1] = 1;
+        ADCSSL = 0x0800;    //0 => Skip, 1 => Scan
+        adc_ch_status[11] = 1;
         //===========================================================================
         // Configure CH0 Sample and Hold for 200kbps
         //  +-- Use MUX A only
@@ -147,7 +145,7 @@ int adc_open(int flags)
         //  +--Voltage Reference Configuration Vref+ and Vref-
         //  +--Scan Input Selections
         //  +--5 samples between interrupt
-        ADCON2bits.VCFG = 3;                //External Vref+, Vref-
+        ADCON2bits.VCFG = 0;                //AVSS, AVDD
         ADCON2bits.CSCNA = 1;               //Scan input
         ADCON2bits.SMPI = 1;                //take 2 samples (one sample per channel) per interrupt
         //===========================================================================
