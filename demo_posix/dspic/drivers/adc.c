@@ -147,7 +147,7 @@ int adc_open(int flags)
         //  +--5 samples between interrupt
         ADCON2bits.VCFG = 0;                //AVSS, AVDD
         ADCON2bits.CSCNA = 1;               //Scan input
-        ADCON2bits.SMPI = 1;                //take 2 samples (one sample per channel) per interrupt
+        ADCON2bits.SMPI = 0;                //take 1 sample per interrupt
         //===========================================================================
         // ADCCON1:
         //  +--Default: continue in idle mode, integer format
