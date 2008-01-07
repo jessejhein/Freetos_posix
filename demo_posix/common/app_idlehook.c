@@ -12,7 +12,7 @@
 #ifdef KB_MOD
 #include <time.h>
 static unsigned char pkey_state[TOTAL_PUSH_KEY];
-static unsigned char pkey_scan_cnt[TOTAL_PUSH_KEY];
+static unsigned int pkey_scan_cnt[TOTAL_PUSH_KEY];
 
 extern unsigned char gpio_buf[MAX_GPIO_BUF];
 extern unsigned char gpio_wr;   //write pointer of cir buf
@@ -61,12 +61,12 @@ void vApplicationIdleHook(void)
         {
             case 0:
                 //Set detect period as 6 epochs (60ms)
-                pkey_scan_cnt[i] = (unsigned char) os_time((time_t*) NULL) + 6;
+                pkey_scan_cnt[i] = (unsigned int) os_time((time_t*) NULL) + 6;
                 pkey_state[i]++;
                 break;
             case 1:
                 //Time's up, check for key pressed
-                if(pkey_scan_cnt[i]==( (unsigned char) os_time((time_t*) NULL) )) 
+                if(pkey_scan_cnt[i]<=( (unsigned int) os_time((time_t*) NULL) )) 
                 {    
                     //Key has pressed
                     KEY_PRESS(key_id, pressed);
