@@ -347,8 +347,10 @@ void _ISR _U1TXInterrupt(void){
  *******************************************************************************/
 void _ISR _U2RXInterrupt(void)
 {
+#ifdef BOOTLOADER_RESET
     //No Framming error
     if( U2STAbits.FERR == 0)
+#endif
     {
         unsigned char next_data_pos;
         if ( U2STAbits.URXDA ){
@@ -365,6 +367,7 @@ void _ISR _U2RXInterrupt(void)
             }		
         }
     }
+#ifdef BOOTLOADER_RESET
     //Framming error
     else
     {
@@ -380,6 +383,7 @@ void _ISR _U2RXInterrupt(void)
             }
         }        
     }
+#endif
 
 #ifdef MPLAB_DSPIC33_PORT
     _U2RXIF = 0;
