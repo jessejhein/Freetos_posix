@@ -89,7 +89,6 @@
 #ifdef UART_MOD
 //  ============================Device Handler=================================== 
 #define BASE_UART                   0   // base uart no.
-#define NO_OF_UART                  2
 #define UARTA                       "0" //Using A, B to avoid conflicts in 
 #define UARTB                       "1" //definitions with p30f5011.h
 //  ============================Baudrate Equation================================ 
