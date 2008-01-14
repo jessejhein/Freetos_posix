@@ -33,12 +33,14 @@ void* tskComPort(void *ptr)
     //=======================================================================
     start_process();
     //=======================================================================
-
-	while(read(fd_uart, &uart_rx, 1) <= 0)
-        usleep(0);
-	uart_rx++;
-	int number = sprintf(uart_tx, "%c%s%c", uart_rx, "@Amonics", 0x0d);
-	while(write(fd_uart, uart_tx, number) != number) usleep(0);
+    
+    while(1){
+    	while(read(fd_uart, &uart_rx, 1) <= 0)
+            usleep(0);
+    	uart_rx++;
+    	int number = sprintf(uart_tx, "%c%s%c", uart_rx, "@Amonics", 0x0d);
+    	while(write(fd_uart, uart_tx, number) != number) usleep(0);
+    }
 
     //=======================================================================
     end_process();

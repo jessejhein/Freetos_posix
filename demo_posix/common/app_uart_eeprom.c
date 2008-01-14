@@ -46,49 +46,50 @@ void* tskComPort(void* ptr)
     //=======================================================================
     start_process();
     //=======================================================================
-
-    while(read(fd_uart, &uart_rx, 1) <= 0)
-        usleep(0);
-        
-    /*
-     * Print current time
-     */
-    while(pthread_mutex_lock(&myMutex) != 0) usleep(0);
-    data = sec_t;
-    pthread_mutex_unlock(&myMutex);
-
-    int day = (data/(time_t)86400);
-    int hour =(data-day*(time_t)86400)/3600;
-    int min = (data-day*(time_t)86400-(time_t)hour*3600)/60;
-    int sec = (data-day*(time_t)86400-(time_t)hour*3600-(time_t)min*60);        
-    int number = sprintf(eeprom_uart_tx, "[%d] %d:%d:%d%c%c", day, hour, min, sec, 0x0a, 0x0d);
-    write(fd_uart, eeprom_uart_tx, number);
-
-    /*
-     * Print data in eeprom
-     */    
-    int i;
-    rd_eeprom_ptr = 0;
-    for(i = 0; i<EEPROM_SIZE/sizeof(time_t); i++){
-        
-        //read eeprom
+    
+    while(1){
+        while(read(fd_uart, &uart_rx, 1) <= 0)
+            usleep(0);
+            
+        /*
+         * Print current time
+         */
         while(pthread_mutex_lock(&myMutex) != 0) usleep(0);
-        while(lseek(fd_eeprom, rd_eeprom_ptr, SEEK_SET) < 0) usleep(0);;
-        while(read(fd_eeprom, &data, sizeof(time_t)) != sizeof(time_t));
-        rd_eeprom_ptr += sizeof(time_t);
+        data = sec_t;
         pthread_mutex_unlock(&myMutex);
-
-        //print result
-        day = (data/(time_t)86400);
-        hour =(data-day*(time_t)86400)/3600;
-        min = (data-day*(time_t)86400-(time_t)hour*3600)/60;
-        sec = (data-day*(time_t)86400-(time_t)hour*3600-(time_t)min*60);        
-        number = sprintf(eeprom_uart_tx, "%d = [%d] %d:%d:%d%c%c", i, day, hour, min, sec, 0x0a, 0x0d);
+    
+        int day = (data/(time_t)86400);
+        int hour =(data-day*(time_t)86400)/3600;
+        int min = (data-day*(time_t)86400-(time_t)hour*3600)/60;
+        int sec = (data-day*(time_t)86400-(time_t)hour*3600-(time_t)min*60);        
+        int number = sprintf(eeprom_uart_tx, "[%d] %d:%d:%d%c%c", day, hour, min, sec, 0x0a, 0x0d);
         write(fd_uart, eeprom_uart_tx, number);
-        
-        usleep(20000UL);
+    
+        /*
+         * Print data in eeprom
+         */    
+        int i;
+        rd_eeprom_ptr = 0;
+        for(i = 0; i<EEPROM_SIZE/sizeof(time_t); i++){
+            
+            //read eeprom
+            while(pthread_mutex_lock(&myMutex) != 0) usleep(0);
+            while(lseek(fd_eeprom, rd_eeprom_ptr, SEEK_SET) < 0) usleep(0);;
+            while(read(fd_eeprom, &data, sizeof(time_t)) != sizeof(time_t));
+            rd_eeprom_ptr += sizeof(time_t);
+            pthread_mutex_unlock(&myMutex);
+    
+            //print result
+            day = (data/(time_t)86400);
+            hour =(data-day*(time_t)86400)/3600;
+            min = (data-day*(time_t)86400-(time_t)hour*3600)/60;
+            sec = (data-day*(time_t)86400-(time_t)hour*3600-(time_t)min*60);        
+            number = sprintf(eeprom_uart_tx, "%d = [%d] %d:%d:%d%c%c", i, day, hour, min, sec, 0x0a, 0x0d);
+            write(fd_uart, eeprom_uart_tx, number);
+            
+            usleep(20000UL);
+        }
     }
-
     //=======================================================================
     end_process();
     //=======================================================================

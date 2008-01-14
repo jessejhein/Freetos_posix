@@ -25,11 +25,13 @@ void* tskFlashLED(void *ptr)
     start_process();
     //-------------------------------------------------------------------
     
-    sleep((unsigned int)SLEEP_TIME[sleep_index]);	
-    if(led_status(index) == 0){
-        led_on(index);
-    } else{
-        led_off(index);
+    while(1){
+        sleep((unsigned int)SLEEP_TIME[sleep_index]);	
+        if(led_status(index) == 0){
+            led_on(index);
+        } else{
+            led_off(index);
+        }
     }
 	
     //-------------------------------------------------------------------

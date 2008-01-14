@@ -75,7 +75,7 @@ void* tskHTTPServer(void* ptr)
     //------------------
     start_process();
     
-    {
+    while(1){
         //-------------------------------
         // Read and test for link status
         //-------------------------------

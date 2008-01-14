@@ -34,7 +34,7 @@ void* tskMutex(void* ptr)
 	char done = 0;
     int i=0, j=0;
     
-	for(;;){
+	while(1){
 		//-------------------------------------------------------------------
 		//Do Something
 		if(done == 0){

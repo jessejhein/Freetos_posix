@@ -35,13 +35,15 @@ void* tskPWM(void *ptr)
 	start_process();
     //=======================================================================
 
-	sleep(2);          //sleep every 2s
-	duty = 2000000;
-	write(fd_pwm, &duty, sizeof(unsigned long));	//set duty cycle to 0.5
-	
-    sleep(2);           //sleep every 2s
-	duty = 1000000;
-	write(fd_pwm, &duty, sizeof(unsigned long));	//set duty cycle to 0.25	
+    while(1){
+    	sleep(2);          //sleep every 2s
+    	duty = 2000000;
+    	write(fd_pwm, &duty, sizeof(unsigned long));	//set duty cycle to 0.5
+    	
+        sleep(2);           //sleep every 2s
+    	duty = 1000000;
+    	write(fd_pwm, &duty, sizeof(unsigned long));	//set duty cycle to 0.25
+    }	
 
     //=======================================================================
 	end_process();

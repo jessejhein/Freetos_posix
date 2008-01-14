@@ -37,9 +37,11 @@ void* tskDAC(void *ptr)
 	start_process();
     //=======================================================================
     
-    for(i=0; i<50; i++){
-        while(write(fd_dac, (unsigned int*)(sine + i), sizeof(unsigned int)) != sizeof(unsigned int));
-        usleep(10000);      //Update every 10ms
+    while(1){
+        for(i=0; i<50; i++){
+            while(write(fd_dac, (unsigned int*)(sine + i), sizeof(unsigned int)) != sizeof(unsigned int));
+            usleep(10000);      //Update every 10ms
+        }
     }
 
     //=======================================================================

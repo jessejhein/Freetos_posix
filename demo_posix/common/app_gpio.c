@@ -27,12 +27,15 @@ void* tskKB(void* ptr)
     //=======================================================================
     start_process();
     //=======================================================================
-    while(read(fd_kb, &key, 1) == 1){
-        int number = sprintf(gpio_uart_tx, "%s%d%c", "K = ", (int)key, 0x0d);
-        write(fd_uart, gpio_uart_tx, number);
-        usleep(10000UL);
+    
+    while(1){
+        while(read(fd_kb, &key, 1) == 1){
+            int number = sprintf(gpio_uart_tx, "%s%d%c", "K = ", (int)key, 0x0d);
+            write(fd_uart, gpio_uart_tx, number);
+            usleep(10000UL);
+        }
+        sleep(3);
     }
-    sleep(3);
 
     //=======================================================================
     end_process();
