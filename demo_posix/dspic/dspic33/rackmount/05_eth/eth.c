@@ -12,7 +12,6 @@
 
 #define REG_TEST        0
 #define IO_TEST         1
-#define TEST_SELECT     REG_TEST
 
 /************************************************************************************************
  * Global Variables
@@ -22,7 +21,6 @@ int fd_eth;
 extern board_info_t macData;
 u8_t uip_buf[UIP_BUFSIZE+2];
 
-#if (TEST_SELECT == REG_TEST)
 /*
  * Global Variables
  */
@@ -36,10 +34,33 @@ static void readNormalReg(board_info_t* db);
 static void readRXBuf(board_info_t* db, unsigned char enter_key);
 static void displayRxPacket(board_info_t* db, int flag);
 static void test_dm9000a(board_info_t* db);
+
+static void reg_test(void);
+static void io_test(void);
+
+static unsigned char test_flag = IO_TEST;
+
+tskHTTPServer()
+{
+    start_process();
+    
+    if (test_flag == IO_TEST){
+        io_test();
+        test_flag = REG_TEST;
+    }
+    else{
+        reg_test();
+        test_flag = IO_TEST;
+    }
+    
+    end_process();
+}
+
+
 /*
  * Register Test
  */
-tskHTTPServer()
+static void reg_test(void)
 {
     /*
      * Initialize dspic and dm9000a
@@ -51,72 +72,87 @@ tskHTTPServer()
      */
     board_info_t* db = &macData;    //ethernet object
     unsigned char key;             //received ASCII char
+    
+    while(printStr("Welcome to IO READ/WRITE TEST")<0);
+    while(newline()<0);
+    while(printStr("Press h for Help Screen")<0);
+    while(newline()<0);
 
-    start_process();
-    
-    while(read(fd_uart, &key, 1) < 1)
-        usleep(0);
-    
-    /*
-     * Display register in PHY
-     */
-    switch(key){
-        case 't': case 'T':
-            test_dm9000a(db);
-            break;
-        case 'p': case 'P':
-            readPHYReg(db);
-            break;
-        case 'n': case 'N':
-            readNormalReg(db);           
-            break;
-        case 'r': case 'R':
-            readRXBuf(db, key);
-            break;
-        case '1':
-            while(printStr("RX WP = ")<0);
-            while(printHex((ior(db, DM9KA_RWPAH) << 8) + ior(db, DM9KA_RWPAL), 4)<0);
-            while(newline()<0);
-            break;
-        case '2':
-            while(printStr("RX RP = ")<0);
-            while(printHex((ior(db, DM9KA_MRRH) << 8) + ior(db, DM9KA_MRRL), 4)<0);
-            while(newline()<0);
-            break;
-        default:
-            while(newline()<0);
-            while(printStr("Help Screen")<0);
-            while(newline()<0);
-            while(printStr("===========")<0);
-            while(newline()<0);
-            while(printStr("Enter the Following Key:")<0);
-            while(newline()<0);
-            while(printStr(" t: Basic Test for DM9000A")<0);
-            while(newline()<0);
-            while(printStr(" p: Read a Physical register (auto-increment)")<0);
-            while(newline()<0);
-            while(printStr(" n: Read a Normal register (auto-increment)")<0);
-            while(newline()<0);
-            while(printStr(" 1: Read the rx buf read-pointer")<0);
-            while(newline()<0);
-            while(printStr(" 2: Read the rx buf write-pointer")<0);
-            while(newline()<0);
-            while(printStr(" r: Read a packet from rx buf (auto-increment)")<0);
-            while(newline()<0);
-            while(printStr(" R: Read a packet from rx buf (no increment)")<0);
-            while(newline()<0);
-            while(newline()<0);
+    while(1){
+        while(read(fd_uart, &key, 1) < 1)
+            usleep(0);
+        
+        if(key == 'x' || key == 'X') break;
+        
+        /*
+         * Display register in PHY
+         */
+        switch(key){
+            case 't': case 'T':
+                test_dm9000a(db);
+                break;
+            case 'p': case 'P':
+                readPHYReg(db);
+                break;
+            case 'n': case 'N':
+                readNormalReg(db);           
+                break;
+            case 'r': case 'R':
+                readRXBuf(db, key);
+                break;
+            case '1':
+                while(printStr("RX WP = ")<0);
+                while(printHex((ior(db, DM9KA_RWPAH) << 8) + ior(db, DM9KA_RWPAL), 4)<0);
+                while(newline()<0);
+                break;
+            case '2':
+                while(printStr("RX RP = ")<0);
+                while(printHex((ior(db, DM9KA_MRRH) << 8) + ior(db, DM9KA_MRRL), 4)<0);
+                while(newline()<0);
+                break;
+            case 'h': case 'H':
+                while(newline()<0);
+                while(printStr("Help Screen")<0);
+                while(newline()<0);
+                while(printStr("===========")<0);
+                while(newline()<0);
+                while(printStr("Enter the Following Key:")<0);
+                while(newline()<0);
+                while(printStr(" t: Basic Test for DM9000A")<0);
+                while(newline()<0);
+                while(printStr(" p: Read a Physical register (auto-increment)")<0);
+                while(newline()<0);
+                while(printStr(" n: Read a Normal register (auto-increment)")<0);
+                while(newline()<0);
+                while(printStr(" 1: Read the rx buf read-pointer")<0);
+                while(newline()<0);
+                while(printStr(" 2: Read the rx buf write-pointer")<0);
+                while(newline()<0);
+                while(printStr(" r: Read a packet from rx buf (auto-increment)")<0);
+                while(newline()<0);
+                while(printStr(" R: Read a packet from rx buf (no increment)")<0);
+                while(newline()<0);
+                while(printStr(" x: exit IO READ/WRITE TEST")<0);
+                while(newline()<0);
+                while(newline()<0);
+                break;
+        }
     }
-    
-    end_process();
+    close(fd_eth);
+    sleep(1);
 }
-#else
+
 /*
  * IO test
  */
-tskHTTPServer()
+#define CHIP_VERSION    (0x2C)      //Expect 0x19
+#define HEX_55          (0x55)      //Expect Don't care
+#define HEX_AA          (0xAA)      //Expect Don't care
+static void io_test(void)
 {
     board_info_t* db = &macData;
+    unsigned char key;             //received ASCII char
+    unsigned char command = CHIP_VERSION;
     
     //Set up dsPic so that it can communicate with dm9000a
     ETH_IOCONFIG();             //Enable RG6(IOW#), RG7(IOR#), RG8(CMD), RG9(CS#) as output
@@ -129,15 +165,51 @@ tskHTTPServer()
     db->io_addr = CMD_INDEX;    //CMD = 0 : INDEX port
     db->io_data = CMD_DATA;     //CMD = 1 : DATA port
 
-    start_process();
-    
-    ior(db, 0x2C);              //Read 0x2C, Expected 0x19
-    
-    mdelay(1);
-    
-    end_process();
+    while(printStr("Welcome to IO BUS TEST")<0);
+    while(newline()<0);
+    while(printStr("Press h for Help Screen")<0);
+    while(newline()<0);
+
+    while(1){
+        if(read(fd_uart, &key, 1) > 0){
+            if(key == 'x' || key == 'X') break;
+            
+            switch(key){
+                case '1':
+                    command = CHIP_VERSION;
+                    break;
+                case '2':
+                    command = HEX_55;
+                    break;
+                case '3':
+                    command = HEX_AA;
+                    break;
+                case 'h': case 'H':
+                    while(newline()<0);
+                    while(printStr("Help Screen")<0);
+                    while(newline()<0);
+                    while(printStr("===========")<0);
+                    while(newline()<0);
+                    while(printStr("Enter the Following Key:")<0);
+                    while(newline()<0);
+                    while(printStr(" 1: CHIP VERSION 0x2C")<0);
+                    while(newline()<0);
+                    while(printStr(" 2: 0x55")<0);
+                    while(newline()<0);
+                    while(printStr(" 3: 0xAA")<0);
+                    while(newline()<0);
+                    while(printStr(" x: exit IO BUS TEST")<0);
+                    while(newline()<0);
+                    while(newline()<0);
+                    break;
+                }
+        }
+        
+        ior(db, command);              //Read 0x2C, Expected 0x19
+        mdelay(1);
+    }
+    sleep(1);
 }
-#endif
 
 /*
  * Test DM9000A

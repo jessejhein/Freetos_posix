@@ -33,6 +33,12 @@ u8_t inb(int port)
     ETH_IOCMD( (port<<2)|0x01 );        
     Nop(); Nop();
     Nop(); Nop();
+    Nop(); Nop();
+    Nop(); Nop();
+    Nop(); Nop();
+    Nop(); Nop();
+    Nop(); Nop();
+    Nop(); Nop();
     data = PREAD();
     ETH_IOCMD( 0x0F );
     PCONFIG(0);
