@@ -10,11 +10,10 @@
 #========================================================================================
 
 # Note on Linker script =================================================================
-# The official linker script for dsPic33FGJ128GP306 is p33FJ128GP306.gld, found 
-# under /usr/pic30-elf/support/gld. A customized version, clinkscript_p33FJ128GP306.gld
-# is included in this project to ensure that the _resetPRI function is located
-# at address 0x200 so that the bootloader can always point this address.
-# Please also include reset.s in the compilation list to achieve the desired 
+# The official linker script, found under /usr/pic30-elf/support/gld, is not used. A 
+# customized version, is included in this project to ensure that the _resetPRI function 
+# is located at address the proper address so that the bootloader can always point this 
+# address. Please also include reset.s in the compilation list to achieve the desired 
 # function.
 #========================================================================================
 
@@ -34,7 +33,13 @@ BASE_ROOT := ../../../../../..
 OS := $(BASE_ROOT)/FreeRTOS/Source
 POSIX := $(BASE_ROOT)/freertos_posix/posix
 COMMON := $(BASE_ROOT)/freertos_posix/demo_posix/common
-DSPIC := $(BASE_ROOT)/freertos_posix/demo_posix/dspic/dspic33
+ifeq ($(DSPIC_SERIES), DSPIC33)
+	DSPIC := $(BASE_ROOT)/freertos_posix/demo_posix/dspic/dspic33
+endif
+ifeq ($(DSPIC_SERIES), DSPIC30)
+	DSPIC := $(BASE_ROOT)/freertos_posix/demo_posix/dspic/dspic30
+endif
+GUI_mw := $(BASE_ROOT)/mwlike8
 PIC_H := /usr/pic30-elf/support/h
 PIC_LIB := /usr/pic30-elf/lib
 ifeq ($(CONFIG_ETHERNET), y)
@@ -42,6 +47,14 @@ ifeq ($(CONFIG_ETHERNET), y)
 	WEBSERVER := $(BASE_ROOT)/webserver_8bit
 endif
 APP_PF := .
+APP := $(BASE_ROOT)/laser_ctrl
+DATA_ACCESS := $(BASE_ROOT)/data_accessor_arch
+ifeq ($(CONFIG_MEDIAN_FILTER), y)
+	FILTER := $(BASE_ROOT)/digital_filter
+endif
+ifeq ($(CONFIG_MODBUS), y)
+	MODBUS := $(BASE_ROOT)/modbus
+endif
 
 #----------------------------------------------------------------------------------------
 
@@ -63,7 +76,13 @@ B2H	:= pic30-elf-bin2hex
 #						frame pointers. Refer to FreeRTOS Forum at
 #						http://sourceforge.net/forum/message.php?msg_id=3899530
 #						and MPLAB C30 C compiler user guide on Frame Pointer
-CFLAGS := -mcpu=33FJ128GP306 -mlarge-code -mlarge-data -Os -fomit-frame-pointer -Werror
+ifeq ($(DSPIC_SERIES), DSPIC33)
+	CFLAGS := -mcpu=33FJ128GP306
+endif
+ifeq ($(DSPIC_SERIES), DSPIC30)
+	CFLAGS := -mcpu=30F5011
+endif
+CFLAGS += -mlarge-code -mlarge-data -Os -fomit-frame-pointer -Werror
 
 # HEADER INCLUDES
 # -I:			include the directory of header file (*.h)
@@ -75,7 +94,13 @@ CFLAGS += -idirafter$(OS)/include/ \
 
 # DEFINE DIRECTIVES
 # -Dmacro:				Define macro with the string 1 as its definition.
-CFLAGS += -DMPLAB_DSPIC33_PORT
+# -Dmacro=defn:			Define macro as defn
+ifeq ($(DSPIC_SERIES), DSPIC33)
+	CFLAGS += -DMPLAB_DSPIC33_PORT
+endif
+ifeq ($(DSPIC_SERIES), DSPIC30)
+	CFLAGS += -DMPLAB_DSPIC30_PORT
+endif
 # OS Scheduler
 ifeq ($(FREERTOS_SCHED), y)
 	CFLAGS += -DFREERTOS_SCHED
@@ -90,10 +115,30 @@ ifeq ($(CONFIG_UART), y)
 		CFLAGS += -DDEBUG_CONSOLE \
 					-I$(COMMON)/include/
 	endif
+	ifdef CONFIG_UART_BAUDRATE
+		CFLAGS += -DUART_BAUDRATE=$(CONFIG_UART_BAUDRATE)
+	endif
+	ifeq ($(CONFIG_UART_PRIMARY), RS485)
+		CFLAGS += -DUARTA_RS485=1
+	else
+		CFLAGS += -DUARTA_RS485=0
+	endif
+	ifeq ($(CONFIG_UART_SECONDARY), RS485)
+		CFLAGS += -DUARTB_RS485=1
+	else
+		CFLAGS += -DUARTB_RS485=0
+	endif
+	ifdef CONFIG_UART_BUFFER_SIZE
+		CFLAGS += -DMAX_UART_RX_BUF=$(CONFIG_UART_BUFFER_SIZE) \
+					-DMAX_UART_TX_BUF=$(CONFIG_UART_BUFFER_SIZE)
+	endif
 endif
 # I2C_MOD
 ifeq ($(CONFIG_I2C), y)
 	CFLAGS += -DI2C_MOD
+	ifdef CONFIG_I2C_BAUDRATE
+		CFLAGS += -DI2C_BAUDRATE=$(CONFIG_I2C_BAUDRATE)
+	endif
 endif
 # I2C_DAC_MOD
 ifeq ($(CONFIG_I2C_DAC), y)
@@ -116,6 +161,12 @@ endif
 # ADC_MOD
 ifeq ($(CONFIG_ADC), y)
 	CFLAGS += -DADC_MOD
+	ifdef CONFIG_ADC_SAMPLE_RATE
+		CFLAGS += -DADC_SAMP_RATE=$(CONFIG_ADC_SAMPLE_RATE)
+	endif
+	ifdef CONFIG_ADC_ACQ_TIME
+		CFLAGS += -DADC_ACQ_TIME=$(CONFIG_ADC_ACQ_TIME)
+	endif
 endif
 # PWM_MOD
 ifeq ($(CONFIG_PWM), y)
@@ -124,6 +175,9 @@ endif
 # KB_MOD
 ifeq ($(CONFIG_KEYBOARD), y)
 	CFLAGS += -DKB_MOD
+	ifdef CONFIG_KB_BUFFER_SIZE
+		CFLAGS += -DMAX_GPIO_BUF=$(CONFIG_KB_BUFFER_SIZE)
+	endif
 endif
 # ETHERNET_MOD
 ifeq ($(CONFIG_ETHERNET), y)
@@ -132,6 +186,24 @@ ifeq ($(CONFIG_ETHERNET), y)
 				-I$(UIP)/uip/ \
 				-I$(UIP)/apps/dhcpc/ \
 				-I$(DSPIC)/../drivers/include/ 
+	ifdef CONFIG_MAC_ADDRESS_BTYE1
+		CFLAGS += -DDEFAULT_NIC_BYTE1=$(CONFIG_MAC_ADDRESS_BTYE1)
+	endif
+	ifdef CONFIG_MAC_ADDRESS_BTYE2
+		CFLAGS += -DDEFAULT_NIC_BYTE2=$(CONFIG_MAC_ADDRESS_BTYE2)
+	endif
+	ifdef CONFIG_MAC_ADDRESS_BTYE3
+		CFLAGS += -DDEFAULT_NIC_BYTE3=$(CONFIG_MAC_ADDRESS_BTYE3)
+	endif
+	ifeq ($(CONFIG_WEBSERVER_LOGIN), y)
+		CFLAGS += -DETH_WEB_LOGIN_ENABLE
+		ifdef CONFIG_WEBSERVER_USERNAME
+			CFLAGS += -DETH_WEB_USERNAME=$(CONFIG_WEBSERVER_USERNAME)
+		endif
+		ifdef CONFIG_WEBSERVER_PASSWORD
+			CFLAGS += -DETH_WEB_PASSWORD=$(CONFIG_WEBSERVER_PASSWORD)
+		endif
+	endif
 endif
 #----------------------------------------------------------------------------------------
  
@@ -146,9 +218,13 @@ endif
 #						  [for more arguments, refer to: 
 #							MPLAB ASM30 MALAB LINK30 and utilities user's guide and 
 #							MPLAB C30 C compiler user's guide]
-LDFLAGS := -Xlinker -Map="$(APP_PF)/$(PRJ_NAME).map" -Xlinker --heap=4096 \
-			-L$(PIC_LIB)/ \
-			-T$(DSPIC)/linker/clinkscript_p33FJ128GP306.gld
+LDFLAGS := -Xlinker -Map="$(APP_PF)/$(PRJ_NAME).map" -L$(PIC_LIB)/ -Xlinker --heap=$(HEAP_SIZE)
+ifeq ($(DSPIC_SERIES), DSPIC33)
+	LDFLAGS += -T$(DSPIC)/linker/clinkscript_p33FJ128GP306.gld
+endif
+ifeq ($(DSPIC_SERIES), DSPIC30)
+	LDFLAGS += -T$(DSPIC)/linker/clinkscript5011.gld
+endif
 #----------------------------------------------------------------------------------------
 
 # TARGET FILE ---------------------------------------------------------------------------
@@ -169,17 +245,24 @@ TARGET_HEX := $(PRJ_NAME).hex
 #	Driver:		traps.c (detect critical hardware/software malfunction of dsPic)
 obj-y := \
 	$(DSPIC)/linker/reset.o \
-	$(OS)/list.o $(OS)/queue.o $(OS)/tasks.o \
-	$(OS)/portable/MemMang/heap_3.o \
-	$(POSIX)/../Source/portable/MPLAB/dspic33/port.o \
-	$(POSIX)/src/pthread.o $(POSIX)/src/time.o \
 	$(DSPIC)/boot/boot.o $(DSPIC)/../drivers/devices.o \
 	$(DSPIC)/../drivers/traps.o \
-	$(COMMON)/app_idlehook.o $(COMMON)/app_idle.o \
-	$(COMMON)/app_led.o \
-	$(COMMON)/04_http.o \
-	$(APP_PF)/eth.o \
+	$(OS)/list.o $(OS)/queue.o $(OS)/tasks.o \
+	$(OS)/portable/MemMang/heap_3.o \
+	$(COMMON)/app_idle.o \
+	$(COMMON)/app_idlehook.o \
+	$(POSIX)/src/pthread.o $(POSIX)/src/time.o \
+	$(APP_PF)/pf_main.o \
+	$(APP_PF)/eth_thread.o \
 	$(APP_PF)/led.o 
+
+# OS MEMORY
+ifeq ($(DSPIC_SERIES), DSPIC33)
+	obj-y += $(POSIX)/../Source/portable/MPLAB/dspic33/port.o
+endif
+ifeq ($(DSPIC_SERIES), DSPIC30)
+	obj-y += $(POSIX)/../Source/portable/MPLAB/dspic30/port.o
+endif
 
 # DRIVERS
 obj-$(CONFIG_UART) += $(DSPIC)/../drivers/uart.o $(DSPIC)/../drivers/cirbuf.o
@@ -261,7 +344,7 @@ config:
 # By typing "make clean", make will attempt to build this rule and
 # these commands will delete all of the compiler generated files.
 clean:
-	find $(BASE_ROOT)/ \( -name '*.bin' -o -name '*.hex' -o -name '*.map' -o -name '*.o' \) -print -exec rm -f '{}' ';'
+	find $(BASE_ROOT)/ \( \( -iwholename '*FreeRTOS/Demo*' -prune \) -type f \) -o \( -name '*.bin' -o -name '*.hex' -o -name '*.map' -o -name '*.o' \) -print -exec rm -f '{}' ';'
 
 # Clean platform depended files, after thet user must do make config again
 mrproper: clean

@@ -1,5 +1,6 @@
 /*
- * eth.c 
+ * eth.c
+ * Test Program for ethernet card 
  */
 
 #include <define.h>
@@ -10,47 +11,57 @@
 #include "uip.h"
 #include "uip_arp.h"
 
-#define REG_TEST        0
-#define IO_TEST         1
+/************************************************************************************************
+ * External Variables
+ ***********************************************************************************************/
+extern int fd_uart;
+extern board_info_t macData;
 
 /************************************************************************************************
  * Global Variables
  ***********************************************************************************************/
-extern int fd_uart;
 int fd_eth;
-extern board_info_t macData;
 u8_t uip_buf[UIP_BUFSIZE+2];
 
-/*
- * Global Variables
- */
+/************************************************************************************************
+ * Local Variables
+ ***********************************************************************************************/
 static u8_t reg_index = 0x00;
 static u8_t phy_index = 0x00; 
-/*
- * Local Variables
- */
+
+/************************************************************************************************
+ * Local Functions
+ ***********************************************************************************************/
 static void readPHYReg(board_info_t* db);
 static void readNormalReg(board_info_t* db);
 static void readRXBuf(board_info_t* db, unsigned char enter_key);
 static void displayRxPacket(board_info_t* db, int flag);
 static void test_dm9000a(board_info_t* db);
-
 static void reg_test(void);
 static void io_test(void);
 
-static unsigned char test_flag = IO_TEST;
-
-tskHTTPServer()
+/*
+ * Ethernet Task
+ * Switch between IO TEST and REG TEST upon entering 'x'
+ */
+#define REG_TEST        0
+#define IO_TEST         1
+void* eth_test_thread(void* ptr)
 {
+    unsigned char test_flag = IO_TEST;
+    
     start_process();
     
-    if (test_flag == IO_TEST){
-        io_test();
-        test_flag = REG_TEST;
-    }
-    else{
-        reg_test();
-        test_flag = IO_TEST;
+    while(1){
+    
+        if (test_flag == IO_TEST){
+            io_test();
+            test_flag = REG_TEST;
+        }
+        else{
+            reg_test();
+            test_flag = IO_TEST;
+        }
     }
     
     end_process();
@@ -62,22 +73,21 @@ tskHTTPServer()
  */
 static void reg_test(void)
 {
-    /*
-     * Initialize dspic and dm9000a
-     */
-    fd_eth = open(ETHERNET, O_RDWR);
-    
-    /*
-     * Common Variable 
-     */
     board_info_t* db = &macData;    //ethernet object
     unsigned char key;             //received ASCII char
-    
+
     while(printStr("Welcome to IO READ/WRITE TEST")<0);
+    while(newline()<0);
+    while(printStr("Initializing... ")<0);
+    
+    //open ethernet port
+    fd_eth = open(ETHERNET, O_RDWR);
+    
+    while(printStr("done")<0);
     while(newline()<0);
     while(printStr("Press h for Help Screen")<0);
     while(newline()<0);
-
+    
     while(1){
         while(read(fd_uart, &key, 1) < 1)
             usleep(0);
@@ -153,6 +163,11 @@ static void io_test(void)
     board_info_t* db = &macData;
     unsigned char key;             //received ASCII char
     unsigned char command = CHIP_VERSION;
+
+    while(printStr("Welcome to IO BUS TEST")<0);
+    while(newline()<0);
+    while(printStr("Press h for Help Screen")<0);
+    while(newline()<0);
     
     //Set up dsPic so that it can communicate with dm9000a
     ETH_IOCONFIG();             //Enable RG6(IOW#), RG7(IOR#), RG8(CMD), RG9(CS#) as output
@@ -164,11 +179,6 @@ static void io_test(void)
     //Initialise address port (CMD) constants for I/O
     db->io_addr = CMD_INDEX;    //CMD = 0 : INDEX port
     db->io_data = CMD_DATA;     //CMD = 1 : DATA port
-
-    while(printStr("Welcome to IO BUS TEST")<0);
-    while(newline()<0);
-    while(printStr("Press h for Help Screen")<0);
-    while(newline()<0);
 
     while(1){
         if(read(fd_uart, &key, 1) > 0){
@@ -434,14 +444,3 @@ static void displayRxPacket(board_info_t* db, int flag)
     }
 }
 
-/*
- * Dummy Laser Ctrl Task
- */
-tskLaserCtrl()
-{
-    start_process();
-    {
-        usleep(0);
-    }
-    end_process();
-}
