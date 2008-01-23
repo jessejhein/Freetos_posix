@@ -23,7 +23,7 @@ void* tskFlashLED(void *ptr)
     start_process();
 
     while(1){
-        usleep( 100000UL*ARG[1] );	
+        sleep( ARG[1] );	
         led_toggle(ARG[0]);
     }
 

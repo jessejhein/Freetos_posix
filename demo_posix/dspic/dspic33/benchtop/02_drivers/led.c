@@ -1,28 +1,40 @@
 /************************************************************************************************
  * File:            led.c
- * Description:     control LED for benchtop board v0.05.05 (non-POSIX compliant)
+ * Description:     control LED for benchtop board(non-POSIX compliant)
+ * Board Version:   0.06.01
  ***********************************************************************************************/
 
 #include <define.h>
-#include <asm/system.h>
 
 /************************************************************************************************
  * Turn LED On
+ * +-- case 0: LED, Power indication
+ * +-- case 1: Buzzer
  ************************************************************************************************/
 void led_on(unsigned int led){
-    switch(led){
-        case 0: LATC |= 0x8000; break;
-        case 1: LATG |= 0x0001; break; //Buzzer
+    switch (led) {
+        case 0 :            // led
+            LATC |= 0x8000; 
+            break;
+        case 1 :            // buzzer
+            LATC |= 0x0004;
+            break;
     }
 }
 
 /************************************************************************************************
  * Turn LED Off
+ * +-- case 0: LED, Power indication
+ * +-- case 1: Buzzer
  ************************************************************************************************/
 void led_off(unsigned int led){
-    switch(led){
-        case 0: LATC &= 0x7FFF; break;
-        case 1: LATG &= 0xFFFE; break; //Buzzer
+    switch (led) {
+        case 0 :                                    
+            LATC &= 0x7FFF;
+            break;
+        case 1 :                                    
+            LATC &= 0xFFFB;
+            break;
     }
 }
 
@@ -32,7 +44,7 @@ void led_off(unsigned int led){
 int led_status(unsigned int led){
     switch(led){
         case 0: return _RC15;
-        case 1: return _RG0;                
+        case 1: return _RC2;                
         default:return -1;
     }   
 }
@@ -41,21 +53,19 @@ int led_status(unsigned int led){
  * Toggle LED
  ************************************************************************************************/
 void led_toggle(unsigned int led){
-    if(led_status(led) == 0)
+    if(led_status(led) == 0){
         led_on(led);
-    else
+    }
+    else{
         led_off(led);
+    }
 }
 
 /************************************************************************************************
  * Initialize LED-pins for Digital Outputs
+ * +-- Set RC2  (Buzzer) as output
+ * +-- Set RC15 (LED) as output 
  ************************************************************************************************/
 void led_init( void ){
-    //Set RC15 (LED4) as output
-    TRISC &= 0x7FFF;
-    //Set RG0  (Buzzer) as output
-    TRISG &= 0xFFFE;
-    
-    LATC &= 0x7FFF;
-    LATG &= 0xFFFE;    
+    TRISC &= 0x7FFB;
 }
