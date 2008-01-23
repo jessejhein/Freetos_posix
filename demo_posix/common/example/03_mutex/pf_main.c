@@ -8,7 +8,7 @@
  * 2) Thread 2 increment $counter 5000 times, then prints "T2: counter = x" 
  ***********************************************************************************************
  * EXPECTED RESULTS:
- * If MUTEX_ENABLE is set to 1 in app_mutex.c, then one of the thread should equals 10000; 
+ * If MUTEX_ENABLE is set to 1 in mutex.c, then one of the thread should equals 10000; 
  * otherwise, both threads are likely to yield values less then 10000.
  ***********************************************************************************************/
 
@@ -43,8 +43,8 @@ void vUserMain(){
 	//Identify your threads here
 	pthread_t thread_mutex1, thread_mutex2;
 	
-	static unsigned int arg_mutex1 = 1;  //Index, must be declared static or global
-	static unsigned int arg_mutex2 = 2;  //Index, must be declared static or global
+	static unsigned int arg_mutex1 = 0;
+	static unsigned int arg_mutex2 = 1;
 
 	//Create your threads here
 	pthread_create(&thread_mutex1, NULL, tskMutex, &arg_mutex1);

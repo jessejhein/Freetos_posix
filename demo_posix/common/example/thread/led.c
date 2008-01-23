@@ -17,14 +17,16 @@
  * 
  * Output:              should never return
  ***********************************************************************************************/
-#define ARG     ((unsigned int*)ptr)    
 void* tskFlashLED(void *ptr)
 {
+    unsigned int led = *(((unsigned int*)ptr));
+    unsigned int sleep_time = *(((unsigned int*)ptr)+1);
+
     start_process();
 
     while(1){
-        sleep( ARG[1] );	
-        led_toggle(ARG[0]);
+        sleep(sleep_time);	
+        led_toggle(led);
     }
 
     end_process();

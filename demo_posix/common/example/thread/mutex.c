@@ -38,7 +38,7 @@ void* tskMutex(void* ptr)
 		//-------------------------------------------------------------------
 		//Do Something
 		if(done == 0){
-            led_on(index-1);
+            led_on(index);
 			for(i=0;i<5000;i++){
 
 #if(MUTEX_ENABLE == 1)
@@ -46,14 +46,14 @@ void* tskMutex(void* ptr)
 #endif
 
 				counter++;
-                for(j=0; j<index*5000; j++);
+                for(j=0; j<(index+1)*5000; j++);
 
 
 #if(MUTEX_ENABLE == 1)
 				pthread_mutex_unlock(&myMutex);
 #endif
 			}
-            led_off(index-1);
+            led_off(index);
 			int number = sprintf(buf, "T%d: counter = %d%c%c", index, counter, 0x0A, 0x0D);
 			screen_out(fd_uart, buf, number); 
 			done = 1;
