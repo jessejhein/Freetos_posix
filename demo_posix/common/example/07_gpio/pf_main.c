@@ -34,10 +34,10 @@ void vUserMain(){
     //Identify your threads here
     pthread_t th_led, th_dac, th_kb;
 
-    static unsigned int arg_led = 0;  //Index, must be declared static or global
+    static unsigned int arg_led[] = {0, 1};
     
     //Create your threads here
-    pthread_create(&th_led, NULL, tskFlashLED, &arg_led);
+    pthread_create(&th_led, NULL, tskFlashLED, arg_led);
     pthread_create(&th_dac, NULL, tskDAC, NULL);
     pthread_create(&th_kb, NULL, tskKB, NULL);
 }
