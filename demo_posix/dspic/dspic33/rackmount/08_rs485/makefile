@@ -259,11 +259,8 @@ obj-y := \
 	$(POSIX)/src/pthread.o $(POSIX)/src/time.o \
 	$(COMMON)/example/thread/led.o \
 	$(COMMON)/example/thread/uart.o \
-	$(COMMON)/example/thread/dac.o \
-	$(COMMON)/example/thread/adc.o \
-	$(COMMON)/example/thread/pwm.o \
 	$(COMMON)/example/thread/idle.o \
-	$(COMMON)/example/02_drivers/pf_main.o \
+	$(COMMON)/example/08_rs485/pf_main.o \
 	$(APP_PF)/led.o
 
 # OS MEMORY
