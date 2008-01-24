@@ -18,11 +18,7 @@
 // Define User Idle Task Here **************************************************
 #define UserIdleTask()              idle_process(NULL)
 
-//  =============================================================================
-#define DAC_PRIMARY                 DAC_CHB
-// keyboard
-#define     GR_KEY_ENTER            ((unsigned) 0)
-#define     GR_SPECIAL_KEY_ARROW_UP     ((unsigned) 1)
-#define     GR_SPECIAL_KEY_ARROW_DOWN   ((unsigned) 2)
+
+#define ADC_PRIMARY                 4   //Use AN4 
 
 #endif /*DEFINE_H_*/

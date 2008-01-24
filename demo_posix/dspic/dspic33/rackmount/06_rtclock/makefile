@@ -257,11 +257,9 @@ obj-y := \
 	$(OS)/portable/MemMang/heap_3.o \
 	$(COMMON)/app_idlehook.o \
 	$(POSIX)/src/pthread.o $(POSIX)/src/time.o \
-	$(COMMON)/example/thread/led.o \
-	$(COMMON)/example/thread/dac.o \
-	$(COMMON)/example/thread/gpio.o \
+	$(COMMON)/example/thread/rtclock.o \
 	$(COMMON)/example/thread/idle.o \
-	$(COMMON)/example/07_gpio/pf_main.o \
+	$(COMMON)/example/06_rtclock/pf_main.o \
 	$(APP_PF)/led.o
 
 # OS MEMORY
