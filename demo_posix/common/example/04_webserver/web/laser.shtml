@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+  <title>Laser Control</title>
+
+  <script language="JavaScript">
+		var xmlHttp;
+		var ObjArray = new Array;
+		
+		function GetXmlHttpObject(handler)
+		{
+			var objXmlHttp = null;
+			if(navigator.userAgent.indexOf("MSIE")>=0)
+			{
+				var ClassName = "Msxml2.XMLHTTP";
+				if(navigator.appVersion.indexOf("MSIE 5.5")>=0)
+				{
+					ClassName = "Microsoft.XMLHTTP";
+				}
+				try
+				{
+					objXmlHttp = new ActiveXObject(ClassName);
+					objXmlHttp.onreadystatechange = handler;
+					return objXmlHttp;
+				}
+				catch(e)
+				{
+					alert("Error: ActiveX scripting may be disabled.");
+					return;
+				}
+			}
+			else
+			{
+				try
+				{
+					objXmlHttp = new XMLHttpRequest();
+					objXmlHttp.onload = handler;
+					objXmlHttp.onerror = handler;
+					return objXmlHttp;
+				}
+				catch(e)
+				{
+					alert("Error: Browser may not be supported or browser security restrictions are too high. XMLHttpRequest() support is required.");
+				}
+			}
+		}
+
+		function GetServerFile(FileName, AssignTo)
+		{
+			var NiftyObj = new Object();
+			NiftyObj.XMLDevice = new GetXmlHttpObject(StateChanged);
+			NiftyObj.XMLDevice.open("GET", FileName, true);
+			NiftyObj.XMLDevice.send(null);
+			NiftyObj.Text = AssignTo;
+			ObjArray.push(NiftyObj);
+		}
+
+		function StateChanged()
+		{
+			for(i in ObjArray)
+			{
+				if(ObjArray[i].XMLDevice.readyState == 4 || ObjArray[i].XMLDevice.readyState == "complete")
+				{
+					if(ObjArray[i].Text != "")
+					{
+						document.getElementById(ObjArray[i].Text).innerHTML=ObjArray[i].XMLDevice.responseText;
+					}
+					delete ObjArray[i].XMLDevice;
+					delete ObjArray[i];
+				}
+			}
+		}
+
+		function GetReadings()
+		{
+			GetServerFile('/cgi/tec0.shtml','txtTec0');
+			GetServerFile('/cgi/tec1.shtml','txtTec1');
+			GetServerFile('/cgi/pwro.shtml','txtPwrO');
+			GetServerFile('/cgi/pwri.shtml','txtPwrI');
+		}
+
+		function OnTimer()
+		{
+			var t;
+			GetReadings();
+			t=setTimeout("OnTimer()",500);
+		}
+	
+		function OnCurrentSet(CgiPath, BoxID, AssignTo, LowBound, UpBound)
+		{
+			var a = document.getElementById(BoxID).value;
+			if(a >= LowBound && a<=UpBound)
+			{
+				GetServerFile(CgiPath+a, AssignTo);
+			}
+			else
+			{
+				alert("Please enter value between " + LowBound + " - " + UpBound + ".");
+				document.getElementById(BoxID).focus();
+			}
+		}
+	</script>
+</head>
+
+
+<body onload="GetServerFile('/cgi/stat0.shtml','txtStatus0');
+				GetServerFile('/cgi/stat1.shtml','txtStatus1');
+				GetServerFile('/cgi/curset0.shtml','txtCurSet0');
+				GetServerFile('/cgi/curset1.shtml','txtCurSet1');
+				GetReadings();
+				OnTimer();">
+
+%!: /header.html<br>
+
+<h2><span style="font-weight: bold;"></span><span style="color: rgb(153, 0, 0);">Laser Status:</span></h2>
+
+<table style="text-align: left; width: 90%; margin-left: 40px;" border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="text-align: center; font-weight: bold; width: 30%;"></td>
+      <td style="text-align: center; font-weight: bold; width: 35%;" colspan="2" rowspan="1">Laser1</td>
+      <td style="text-align: center; font-weight: bold; width: 35%;" colspan="2" rowspan="1">Laser2</td>
+    </tr>
+
+    <tr>
+      <td style="text-align: left; font-weight: bold;" rowspan="2" colspan="1">Status</td>
+      <td style="text-align: center;" rowspan="1" colspan="2"><span id="txtStatus0">Loading...</span></td>
+      <td style="text-align: center;" rowspan="1" colspan="2"><span id="txtStatus1">Loading...</span></td>
+    </tr>
+
+    <tr>
+      <td rowspan="1" colspan="1">
+	    <div style="text-align: center;">
+	      <input type="button" value="Enable" onclick="GetServerFile('/cgi/stat0.shtml?status0=Enable','txtStatus0')">
+	    </div>
+      </td>
+
+      <td>
+	    <div style="text-align: center;">
+	      <input type="button" value="Disable" onclick="GetServerFile('/cgi/stat0.shtml?status0=Disable','txtStatus0')">
+	    </div>
+      </td>
+
+      <td rowspan="1" colspan="1">
+	    <div style="text-align: center;">
+	      <input type="button" value="Enable" onclick="GetServerFile('/cgi/stat1.shtml?status1=Enable','txtStatus1')"> 
+	    </div>
+      </td>
+
+      <td>
+      	<div style="text-align: center;">
+      	  <input type="button" value="Disable" onclick="GetServerFile('/cgi/stat1.shtml?status1=Disable','txtStatus1')"> 
+      	</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td style="font-weight: bold;" rowspan="2" colspan="1">Current Setting (mA)</td>
+      <td style="text-align: center;" rowspan="1" colspan="2" ><span id="txtCurSet0">Loading...</span></td>
+      <td style="text-align: center;" rowspan="1" colspan="2" ><span id="txtCurSet1">Loading...</span></td>
+    </tr>
+
+    <tr>
+	  <td style="text-align: center;" rowspan="1" colspan="2">
+	    <input type="text" name="cur0" id="inTxtCurSet0" maxlength="8" size="10" style="text-align: right;" value="0.00">
+	    <input type="button" value="Set" onclick="OnCurrentSet('/cgi/curset0.shtml?cur0=', 'inTxtCurSet0', 'txtCurSet0', 0, 250)">
+	  </td>
+      <td rowspan="1" style="text-align: center;" colspan="2">
+        <input type="text" name="cur1" id="inTxtCurSet1" maxlength="8" size="10" style="text-align: right;" value="0.00">
+        <input type="button" value="Set" onclick="OnCurrentSet('/cgi/curset1.shtml?cur1=', 'inTxtCurSet1', 'txtCurSet1', 0, 300)"> 
+      </td>
+    </tr>
+
+    <tr>
+      <td style="font-weight: bold;">TEC Temperature (&deg;C)</td>
+      <td style="text-align: center;" rowspan="1" colspan="2"><span id="txtTec0">Loading...</span></td>
+      <td style="text-align: center;" rowspan="1" colspan="2"><span id="txtTec1">Loading...</span></td>
+    </tr>
+
+    <tr>
+      <td style="text-align: left; font-weight: bold;">Output Power (dBm)</td>
+      <td style="text-align: center;" rowspan="1" colspan="4"><span id="txtPwrO">Loading...</span></td>
+    </tr>
+
+    <tr>
+      <td style="text-align: left; font-weight: bold;">Input Power (dBm)</td>
+      <td style="text-align: center;" rowspan="1" colspan="4"><span id="txtPwrI">Loading...</span></td>
+    </tr>
+
+  </tbody>
+</table>
+
+<br>
+
+%!: /footer.html
+</body>
+</html>

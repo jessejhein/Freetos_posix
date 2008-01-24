@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>About</title>
+
+  <script language="JavaScript">
+	var xmlHttp;
+	var ObjArray = new Array;
+	
+	function GetXmlHttpObject(handler)
+	{
+		var objXmlHttp = null;
+		if(navigator.userAgent.indexOf("MSIE")>=0)
+		{
+			var ClassName = "Msxml2.XMLHTTP";
+			if(navigator.appVersion.indexOf("MSIE 5.5")>=0)
+			{
+				ClassName = "Microsoft.XMLHTTP";
+			}
+			try
+			{
+				objXmlHttp = new ActiveXObject(ClassName);
+				objXmlHttp.onreadystatechange = handler;
+				return objXmlHttp;
+			}
+			catch(e)
+			{
+				alert("Error: ActiveX scripting may be disabled.");
+				return;
+			}
+		}
+		else
+		{
+			try
+			{
+				objXmlHttp = new XMLHttpRequest();
+				objXmlHttp.onload = handler;
+				objXmlHttp.onerror = handler;
+				return objXmlHttp;
+			}
+			catch(e)
+			{
+				alert("Error: Browser may not be supported or browser security restrictions are too high. XMLHttpRequest() support is required.");
+			}
+		}
+	}
+	
+	function GetServerFile(FileName, AssignTo)
+	{
+		var NiftyObj = new Object();
+		NiftyObj.XMLDevice = new GetXmlHttpObject(StateChanged);
+		NiftyObj.XMLDevice.open("GET", FileName, true);
+		NiftyObj.XMLDevice.send(null);
+		NiftyObj.Text = AssignTo;
+		ObjArray.push(NiftyObj);
+	}
+
+	function StateChanged()
+	{
+		for(i in ObjArray)
+		{
+			if(ObjArray[i].XMLDevice.readyState == 4 || ObjArray[i].XMLDevice.readyState == "complete")
+			{
+				if(ObjArray[i].Text != "")
+				{
+					document.getElementById(ObjArray[i].Text).innerHTML=ObjArray[i].XMLDevice.responseText;
+				}
+				delete ObjArray[i].XMLDevice;
+				delete ObjArray[i];
+			}
+		}
+	}
+
+	function OnUpdate()
+	{
+		GetServerFile('/cgi/mac.shtml','txtMAC');
+		GetServerFile('/cgi/ip.shtml','txtIP');
+		GetServerFile('/cgi/mask.shtml','txtMASK');
+		GetServerFile('/cgi/gateway.shtml','txtGATEWAY');
+	}
+
+	function OnTimer()
+	{
+		var t;
+		t=setTimeout("OnTimer()",5000);
+	}
+	
+  </script>
+</head>
+
+
+<body onload="OnUpdate()">
+
+%!: /header.html<br>
+
+<h2 style="color: rgb(153, 0, 0);">DHCP Configuration:</h2>
+
+<table style="text-align: left; width: 90%; margin-left: 40px;" border="1" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="width: 50%; height: 25%;"><h3>MAC Address:</h3></td>
+      <td style="width: 50%;"><h3><span id="txtMAC">Loading...</span></h3></td>
+    </tr>
+
+    <tr>
+      <td style="height: 25%;"><h3>IP Address:</h3></td>
+      <td><h3><span id="txtIP">Loading...</span></h3></td>
+    </tr>
+
+    <tr>
+      <td style="height: 25%;"><h3>Subnet Mask:</h3></td>
+      <td><h3><span id="txtMASK">Loading...</span></h3></td>
+    </tr>
+
+    <tr>
+      <td style="height: 25%;"><h3>Default Gateway:</h3></td>
+      <td><h3><span id="txtGATEWAY">Loading...</span></h3></td>
+    </tr>
+
+  </tbody>
+</table>
+
+<br>
+
+%!: /footer.html
+</body>
+</html>
