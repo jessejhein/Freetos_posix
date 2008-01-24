@@ -6,7 +6,7 @@
 
 #include <define.h>
 
-static unsigned int buzzer_status;
+static unsigned int status[2];
 
 /************************************************************************************************
  * Turn LED On
@@ -19,10 +19,10 @@ void led_on(unsigned int led){
             LATC |= 0x8000; 
             break;
         case 1 :            // buzzer
-            buzzer_status = 1;
             LATC |= 0x0004;
             break;
     }
+    if(led<2) status[led] = 1;
 }
 
 /************************************************************************************************
@@ -36,21 +36,17 @@ void led_off(unsigned int led){
             LATC &= 0x7FFF;
             break;
         case 1 :                                    
-            buzzer_status = 0;
             LATC &= 0xFFFB;
             break;
     }
+    if(led<2) status[led] = 0;
 }
 
 /************************************************************************************************
  * Current status of LED
  ************************************************************************************************/
 int led_status(unsigned int led){
-    switch(led){
-        case 0: return _RC15;
-        case 1: return buzzer_status;                
-        default:return -1;
-    }   
+    return (led<2)? status[led] : -1;
 }
 
 /************************************************************************************************
