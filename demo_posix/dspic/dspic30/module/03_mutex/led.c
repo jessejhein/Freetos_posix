@@ -6,52 +6,55 @@
 #include <define.h>
 #include <asm/system.h>
 
+static unsigned int status[3];
+
 /************************************************************************************************
  * Turn LED On
+ * +-- case 0: red led
+ * +-- case 1: green led
+ * +-- case 2: laser led
  ************************************************************************************************/
 void led_on(unsigned int led){
 	switch(led){
-		case 0:
-            LATC |= 0x8000;         //_RC15 = 1; 
-			break;
-		case 1:
-            LATC &= 0xDFFF;         //_RC13 = 0;
-            LATC |= 0x4000;         //_RC14 = 1;
-			break;
-		case 2:
-            LATC &= 0xBFFF;         //_RC14 = 0;
-            LATC |= 0x2000;         //_RC13 = 1;
-			break;
+        case 0 :        
+            LATC |= 0x2000;                     // red led (RC13)
+            break;
+        case 1 :        
+            LATC |= 0x4000;                     // green led (RC14)
+            break;
+        case 2 :
+            LATC |= 0x8000;                     // Laser Led (RC15)
+            break;
 	}
+    if(led<3) status[led] = 1;
 }
 
 /************************************************************************************************
  * Turn LED Off
+ * +-- case 0: red led
+ * +-- case 1: green led
+ * +-- case 2: laser led
  ************************************************************************************************/
 void led_off(unsigned int led){
 	switch(led){
-		case 0:
-            LATC &= 0x7FFF;         //_RC15 = 0;
-			break;
-		case 1:
-            LATC &= 0xBFFF;         //_RC14 = 0;
-			break;
-		case 2:
-            LATC &= 0xDFFF;         //_RC13 = 0;		
-			break;
+        case 0 :                                    
+            LATC &= 0xDFFF;                     // red led (RC13)
+            break;
+        case 1 :                                    
+            LATC &= 0xBFFF;                     // green led (RC14)
+            break;
+        case 2 :
+            LATC &= 0x7FFF;                     // Laser Led (RC15)
+            break;
 	}
+    if(led<3) status[led] = 0;
 }
 
 /************************************************************************************************
  * Current status of LED
  ************************************************************************************************/
 int led_status(unsigned int led){
-	switch(led){
-		case 0:	return _RC15;
-		case 1:	return _RC14;
-		case 2: return _RC13;					
-		default:return -1;
-	}	
+	return (led<3)? status[led] : -1;	
 }
 
 /************************************************************************************************
@@ -66,12 +69,10 @@ void led_toggle(unsigned int led){
 
 /************************************************************************************************
  * Initialize LED-pins for Digital Outputs
+ * +-- Set RC13 (Red LED) as output
+ * +-- Set RC14 (Green LED) as output
+ * +-- Set RC15 (Laser LED) as output 
  ************************************************************************************************/
 void led_init( void ){
-    //Set RC13 (LED1A) as output
-    //Set RC14 (LED1B) as output
-    //Set RD11 (LED2) as output
-    TRISC &= 0x1FFF;
-    //Clear LEDs
-    LATC &= 0x1FFF;
+    TRISC &= 0x1FFF;   
 }
