@@ -1,6 +1,6 @@
 /************************************************************************************************
  * File:            define.h
- * Description:     this Apllication configurations 
+ * Description:     this Apllication configurations
  ************************************************************************************************/
 
 
@@ -11,10 +11,11 @@
 /********************************************************************************
  * Configurations for FreeRTOS and its POSIX
  ********************************************************************************/
-#include "platform.h" 
+#include "platform.h"
 #include "pin_define.h"
 
+
 // Define User Idle Task Here **************************************************
-#define idle_process        UserIdleTask
+#define UserIdleTask()              idle_process(NULL)
 
 #endif /*DEFINE_H_*/

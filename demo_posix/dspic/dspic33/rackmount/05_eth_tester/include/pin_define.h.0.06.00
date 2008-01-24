@@ -14,16 +14,16 @@
  * *LED1 On:                DMA Error (dspic33 only)
  * *Flashing LED0 & LED1:   Not enough memory to start FreeRTOS scheduler
  **************************************************************************/
-#define ERR_LED0_EN()                (TRISG &= 0x7FFF)   //_RG15
-#define ERR_LED1_EN()                (TRISC &= 0x7FFF)   //_RC15
-#define ERR_LED0(x)                  do{ \
-                                        if((x)==0) LATG &= 0x7FFF; \
-                                        else LATG |= 0x8000; \
-                                      }while(0) 
-#define ERR_LED1(x)                  do{ \
+#define ERR_LED0_EN()               (TRISC &= 0xFFFB)   //_RC2
+#define ERR_LED1_EN()               (TRISC &= 0x7FFF)   //_RC15
+#define ERR_LED0(x)                 do{ \
+                                        if((x)==0) LATC &= 0xFFFB; \
+                                        else LATG |= 0x0004; \
+                                     }while(0) 
+#define ERR_LED1(x)                 do{ \
                                         if((x)==0) LATC &= 0x7FFF; \
                                         else LATC |= 0x8000; \
-                                      }while(0)  
+                                     }while(0) 
 
 
 
@@ -38,7 +38,7 @@
  * 
  * Output:          null
  **************************************************************************/
-#define RS485_CTL_EN()              _TRISG1=0
+#define RS485_CTL_EN()              TRISD &= 0xFF7F     //_RD7
 
 /**************************************************************************
  * Function:        void RS485_TX_ON(void)
@@ -49,7 +49,7 @@
  * 
  * Output:          null
  **************************************************************************/
-#define RS485_TX_ON()               _RG1=1
+#define RS485_TX_ON()               LATD |= 0x0080
 
 /**************************************************************************
  * Function:        void RS485_TX_OFF(void)
@@ -60,7 +60,7 @@
  * 
  * Output:          null
  **************************************************************************/
-#define RS485_TX_OFF()              _RG1=0
+#define RS485_TX_OFF()              LATD &= 0xFF7F
 #endif //UART_MOD
 
 
@@ -76,8 +76,8 @@
  * *CN: change notification (interrupt enable pin to detect change of state)
  **************************************************************************/
 //Enter key
-#define EN_PKEY0                    _TRISG14
-#define IO_PKEY0                    _RG14
+#define EN_PKEY0                    _TRISD10
+#define IO_PKEY0                    _RD10
 //UP key
 #define EN_RKEY0_UP                 _TRISC14
 #define IO_RKEY0_UP                 _RC14
@@ -116,10 +116,11 @@
  * Output:          null
  **************************************************************************/
 #define ETH_IOCONFIG()               do{ \
-                                        TRISG &= 0xFC3F; \
-                                        LATG |= 0x03C0; \
+                                        TRISD &= 0xF7DF; \
+                                        TRISF &= 0xFFFC; \
+                                        LATD |= 0x0820; \
+                                        LATF |= 0x0003; \
                                       } while(0)
-
 
 /**************************************************************************
  * Function:        void ETH_IOCMD(int cmd)
@@ -133,8 +134,12 @@
  * 
  * Output:          null
  **************************************************************************/
-#define ETH_IOCMD(x)                 ( LATG = ((PORTG & 0xFC3F) | ((((int)x) << 6) & 0x03C0)) ) 
-#endif
+#define ETH_IOCMD(x)                 do{\
+                                        LATD = ( (PORTD & 0xF7DF) | ((((int)x) << 2) & 0x0020) | ((((int)x) << 9) & 0x0800) ); \
+                                        LATF = ( (PORTF & 0xFFFC) | (((int)x) & 0x0003) ); \
+                                      } while(0)
+#endif //ETHERNET_MOD
+
 
 
 //  ===========================DATA PORT===================================
@@ -147,10 +152,21 @@
  *                  1: input
  * 
  * Output:          null
+ **************************************************************************
+ * DATA7   =>  _RG15
+ * DATA6   =>  _RG14
+ * DATA5   =>  _RG13
+ * DATA4   =>  _RG12
+ * DATA3   =>  _RG9
+ * DATA2   =>  _RG8
+ * DATA1   =>  _RG7
+ * DATA0   =>  _RG6
+ * Config output    =>  0000 1100 0011 1111 => 0x0C3F
+ * Config input     =>  1111 0011 1100 0000 => 0xF3C0
  **************************************************************************/
 #define PCONFIG(x)                   do{ \
-                                        if((x)==0) TRISD &= 0xF00F; \
-                                        else TRISD |= 0x0FF0; \
+                                        if((x)==0) TRISG &= 0x0C3F; \
+                                        else TRISG |= 0xF3C0; \
                                       } while(0)
 
 /**************************************************************************
@@ -161,8 +177,16 @@
  * Input:           8-bit data
  * 
  * Output:          null
+ **************************************************************************
+ * ==Write==
+ * 1) ---- GG-- --GG GGGG & 0000 1100 0011 1111          => 0000 GG00 00GG GGGG
+ * 2) (0000 0000 XXXX XXXX << 8) & 1111 0000 0000 0000   => XXXX 0000 0000 0000
+ * 3) (0000 0000 XXXX XXXX << 6) & 0000 0011 1100 0000   => 0000 00XX XX00 0000
+ *                           ORing                       => XXXX GGXX XXGG GGGG
  **************************************************************************/
-#define PWRITE(x)                    ( LATD = ((PORTD & 0xF00F) | ((((int)x) << 4) & 0x0FF0)) )
+#define PWRITE(x)                    do{\
+                                        LATG = ( (PORTG & 0x0C3F) | ((((int)x) << 8) & 0xF000) | ((((int)x) << 6) & 0x03C0) ); \
+                                      } while(0)
 
 /**************************************************************************
  * Function:        unsigned char PREAD(void)
@@ -173,7 +197,7 @@
  * 
  * Output:          8-bit data
  **************************************************************************/
-#define PREAD()                      ( (unsigned char)( (PORTD & 0x0FF0) >> 4 ) )                    
+#define PREAD()                      ( (unsigned char)( ((PORTG & 0xF000) >> 8) + ((PORTG & 0x03C0) >> 6) ) )  
 
 
 
@@ -191,22 +215,22 @@
  * Output:          null
  **************************************************************************/
 #define mwlike8_hw_init()       do {\
-                                    TRISF &= 0xFFFC;\
+                                    TRISD &= 0xF7BF;\
                                     PCONFIG(0);\
-                                } while (0)
+                                 } while (0)
 
 /**************************************************************************
  * ==MAPS==
  **************************************************************************/
-#define en_enCsP_io()           (TRISF &= 0xFFFE)
-#define en_A0P_io()             (TRISF &= 0xFFFD)
+#define en_enCsP_io()           (TRISD &= 0xFFBF)
+#define en_A0P_io()             (TRISD &= 0xF7FF)
 #define enCsP                   do {\
                                     Nop();Nop();\
-                                    _LATF0 = 1;\
-                                } while (0)
-#define disCsP                  _LATF0 = 0
-#define lowA0P                  _LATF1 = 0
-#define highA0P                 _LATF1 = 1
+                                    LATD |= 0x0040;\
+                                 } while (0)
+#define disCsP                  LATD &= 0xFFBF
+#define lowA0P                  LATD &= 0xF7FF
+#define highA0P                 LATD |= 0x0800
 #define en_data_bus()           PCONFIG(0)
 
 /**************************************************************************
@@ -310,7 +334,7 @@ extern int fd_adc;
 #endif
 #if (TEC_T>=6)
 #define TEMP_PIN_6() {\
-    unsigned char ctrl_buf = 2;        /*CASE_TEMP*/\
+    unsigned char ctrl_buf = 4;        /*CASE_TEMP*/\
     ioctl(fd_adc, ADC_ADD_CH, &ctrl_buf);\
 }
 #endif
@@ -326,40 +350,41 @@ extern int fd_adc;
  **************************************************************************/
 #if (TOTAL_LD_PWR>=1)
 #define PWR_PIN_1() {\
-    unsigned char ctrl_buf = 13;        /*Port 0: Pin 9 (PWR 1)*/\
+    unsigned char ctrl_buf = 13;        /*Port 0: Pin 9 (PWR 0)*/\
     ioctl(fd_adc, ADC_ADD_CH, &ctrl_buf);\
 }
 #endif
 #if (TOTAL_LD_PWR>=2)
 #define PWR_PIN_2() {\
-    unsigned char ctrl_buf = 12;        /*Port 0: Pin 4 (PWR 0)*/\
+    unsigned char ctrl_buf = 12;        /*Port 0: Pin 4 (PWR 1)*/\
     ioctl(fd_adc, ADC_ADD_CH, &ctrl_buf);\
 }
 #endif
 #if (TOTAL_LD_PWR>=3)
 #define PWR_PIN_3() {\
-    unsigned char ctrl_buf = 9;         /*Port 1: Pin 9 (PWR 3)*/\
+    unsigned char ctrl_buf = 9;         /*Port 1: Pin 9 (PWR 2)*/\
     ioctl(fd_adc, ADC_ADD_CH, &ctrl_buf);\
 }
 #endif
 #if (TOTAL_LD_PWR>=4)
 #define PWR_PIN_4() {\
-    unsigned char ctrl_buf = 8;         /*Port 1: Pin 4 (PWR 2)*/\
+    unsigned char ctrl_buf = 8;         /*Port 1: Pin 4 (PWR 3)*/\
     ioctl(fd_adc, ADC_ADD_CH, &ctrl_buf);\
 }
 #endif
 #if (TOTAL_LD_PWR>=5)
 #define PWR_PIN_5() {\
-    unsigned char ctrl_buf = 1;         /*Port EXT: Pin 2 (PWR 5)*/\
+    unsigned char ctrl_buf = 1;         /*Port EXT: Pin 2 (PWR 4)*/\
     ioctl(fd_adc, ADC_ADD_CH, &ctrl_buf);\
 }
 #endif
 #if (TOTAL_LD_PWR>=6)
 #define PWR_PIN_6() {\
-    unsigned char ctrl_buf = 5;         /*Port EXT: Pin 1 (PWR 4)*/\
+    unsigned char ctrl_buf = 0;         /*Port EXT: Pin 1 (PWR 5)*/\
     ioctl(fd_adc, ADC_ADD_CH, &ctrl_buf);\
 }
 #endif
+
 
 /**************************************************************************
  * Function:        unsigned char CUR_PIN_X(void);
@@ -384,7 +409,7 @@ extern int fd_adc;
 #endif
 #if (TOTAL_LD_CUR>=3)
 #define CUR_PIN_3() {\
-   unsigned char ctrl_buf = 4;         /*Port EXT: Pin 3 (CUR 2)*/\
+   unsigned char ctrl_buf = 2;         /*Port EXT: Pin 3 (CUR 2)*/\
    ioctl(fd_adc, ADC_ADD_CH, &ctrl_buf);\
 }
 #endif
@@ -494,7 +519,7 @@ extern void sw2(unsigned char ctrl);
  * 
  * Output:          null
  **************************************************************************/   
-#define init_interlock_pin()    //_TRISG1=1
+#define init_interlock_pin()    TRISD |= 0x0004
 
 /**************************************************************************
  * Function:        int interlock_pin()
@@ -506,7 +531,7 @@ extern void sw2(unsigned char ctrl);
  * Output:          0: logic low
  *                  1: logic high
  **************************************************************************/   
-#define interlock_pin()         //_RG1
+#define interlock_pin()         _RD2
 #endif
 
 
@@ -523,8 +548,8 @@ extern void sw2(unsigned char ctrl);
  * Output:          null
  **************************************************************************/   
 #define init_sm_dctrl()         do{\
-                                    /*_ODCD1 = 1; open drain*/\
-                                    /*TRISD &= 0xFFFD; /*_RD1*/\
+                                    _ODCD1 = 1; /*open drain*/\
+                                    TRISD &= 0xFFFD; /*_RD1*/\
                                  }while(0)
 
 /**************************************************************************
@@ -538,8 +563,8 @@ extern void sw2(unsigned char ctrl);
  * Output:          null
  **************************************************************************/   
 #define set_sm_dctrl(mode)      do{\
-                                    /*if(mode == CC_MODE) _LATD1 = 1;*/\
-                                    /*else _LATD1 = 0;*/\
+                                    if(mode == CC_MODE) LATD |= 0x0002;\
+                                    else LATD &= 0xFFFD;\
                                  }while(0)
 #endif
 
@@ -557,8 +582,8 @@ extern void sw2(unsigned char ctrl);
  * Output:          null
  **************************************************************************/   
 #define init_abc_ctrl()             do{\
-                                        /*ODCD |= 0x000F;\
-                                        TRISD &= 0xFFF0;*/ /*_RD0, 1, 2, 3*/\
+                                        ODCD |= 0x000F;\
+                                        TRISD &= 0xFFF0; /*_RD0, 1, 2, 3*/\
                                      }while(0)
 
 /**************************************************************************
@@ -571,8 +596,8 @@ extern void sw2(unsigned char ctrl);
  * 
  * Output:          null
  **************************************************************************/   
-#define set_abc_status_auto()       //LATD &= 0xFFFE    //_RD0
-#define set_abc_status_manual()     //LATD |= 0x0001
+#define set_abc_status_auto()       LATD &= 0xFFFE    //_RD0
+#define set_abc_status_manual()     LATD |= 0x0001
 
 /**************************************************************************
  * Function:        void set_abc_bias0(void)
@@ -586,10 +611,10 @@ extern void sw2(unsigned char ctrl);
  * 
  * Output:          null
  **************************************************************************/   
-#define set_abc_bias0()             //LATD |= 0x0002    //_RD1
-#define clr_abc_bias0()             //LATD &= 0xFFFD
-#define set_abc_bias1()             //LATD |= 0x0008    //_RD3
-#define clr_abc_bias1()             //LATD &= 0xFFF7
+#define set_abc_bias0()             LATD |= 0x0002    //_RD1
+#define clr_abc_bias0()             LATD &= 0xFFFD
+#define set_abc_bias1()             LATD |= 0x0008    //_RD3
+#define clr_abc_bias1()             LATD &= 0xFFF7
 
 /**************************************************************************
  * Function:        void set_abc_reset(void)
@@ -601,8 +626,8 @@ extern void sw2(unsigned char ctrl);
  * 
  * Output:          null
  **************************************************************************/   
-#define set_abc_reset()             //LATD |= 0x0004    //_RD2
-#define set_abc_normal()            //LATD &= 0xFFFB
+#define set_abc_reset()             LATD |= 0x0004    //_RD2
+#define set_abc_normal()            LATD &= 0xFFFB
 
 /**************************************************************************
  * Constant:        ABC_VGAIN_DAC_INDEX
@@ -612,39 +637,11 @@ extern void sw2(unsigned char ctrl);
  **************************************************************************/   
 #define ABC_VGAIN_DAC_INDEX         2
     #define ABC_VGAIN_MAX           5
+    #define ABC_VGAIN2PERCENT(vgain)    (100.0f - ((float)vgain*100.0f)/ABC_VGAIN_MAX)
+    #define ABC_PERCENT2VGAIN(percent)  (ABC_VGAIN_MAX - ((float)percent*ABC_VGAIN_MAX)/100.0f)
 #define ABC_MBIAS_DAC_INDEX         3
-    #define ABC_MBIAS_MAX           5
-
-
-/**********************************************************************
- * Function:        void adc_abc_output_power_convert(int adc_raw, float *ans)
- * 
- * Description:     convert adc raw data to output power value (mW)
- * 
- * Input:           adc_raw: raw adc value
- *                  *ans: outpt power value to be stored (mW)
- * 
- * Output:          none
- **********************************************************************/
-#define adc_abc_output_power_convert(adc_raw, pans)     do{\
-                                                            *pans = adc_raw;\
-                                                         }while(0)
-
-
-/**********************************************************************
- * Function:        void adc_abc_bias_mon_convert(int adc_raw, float *ans)
- * 
- * Description:     convert adc raw data to bias voltage (V)
- * 
- * Input:           adc_raw: raw adc value
- *                  *ans: outpt power value to be stored (V)
- * 
- * Output:          none
- **********************************************************************/
-#define adc_abc_bias_mon_convert(adc_raw, pans)         do{\
-                                                            *pans = adc_raw;\
-                                                         }while(0)
-
+    #define ABC_MBIAS_MAX           (15)
+    #define ABC_MBIAS_MIN           (-15)
 #endif
 
 #endif /*PIN_DEFINE_H_*/

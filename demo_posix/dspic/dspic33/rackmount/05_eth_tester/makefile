@@ -19,7 +19,7 @@
 
 # PROJECT NAME --------------------------------------------------------------------------
 #	Target file (*.hex) will have the same name as the project name
-PRJ_NAME := 05_eth
+PRJ_NAME := rackm
 #----------------------------------------------------------------------------------------
 
 # CONFIG --------------------------------------------------------------------------------
@@ -39,7 +39,6 @@ endif
 ifeq ($(DSPIC_SERIES), DSPIC30)
 	DSPIC := $(BASE_ROOT)/freertos_posix/demo_posix/dspic/dspic30
 endif
-GUI_mw := $(BASE_ROOT)/mwlike8
 PIC_H := /usr/pic30-elf/support/h
 PIC_LIB := /usr/pic30-elf/lib
 ifeq ($(CONFIG_ETHERNET), y)
@@ -47,14 +46,7 @@ ifeq ($(CONFIG_ETHERNET), y)
 	WEBSERVER := $(BASE_ROOT)/webserver_8bit
 endif
 APP_PF := .
-APP := $(BASE_ROOT)/laser_ctrl
-DATA_ACCESS := $(BASE_ROOT)/data_accessor_arch
-ifeq ($(CONFIG_MEDIAN_FILTER), y)
-	FILTER := $(BASE_ROOT)/digital_filter
-endif
-ifeq ($(CONFIG_MODBUS), y)
-	MODBUS := $(BASE_ROOT)/modbus
-endif
+
 
 #----------------------------------------------------------------------------------------
 
@@ -69,8 +61,8 @@ B2H	:= pic30-elf-bin2hex
 #						some predifined constants are set (e.g. __dsPIC33FJ128GP306__)
 # -mlarge-code			Turn on large code model (code size >32KB)
 # -mlarge-data			Turn on large data model (const location >32KB)
-# -O0:			no optimisation of code
-# -Ox:			optimisation of code Level x, x = 1, 2, 3, s
+# -O0:					no optimisation of code
+# -Ox:					optimisation of code Level x, x = 1, 2, 3, s
 # -fomit-frame-pointer: Required by FreeRTOS at -O0 (at other -O, this is automatically
 #						enabled) to disable instructions to save, set up and restore
 #						frame pointers. Refer to FreeRTOS Forum at
@@ -85,11 +77,13 @@ endif
 CFLAGS += -mlarge-code -mlarge-data -Os -fomit-frame-pointer -Werror
 
 # HEADER INCLUDES
-# -I:			include the directory of header file (*.h)
-# -idirafter: 	include the directory of header file (*.h) in secondary path
+# -I:					include the directory of header file (*.h)
+# -idirafter: 			include the directory of header file (*.h) in secondary path
 CFLAGS += -idirafter$(OS)/include/ \
-			-idirafter$(PIC_H)/ -I$(POSIX)/../Source/include/ \
-			-I$(POSIX)/ -I$(DSPIC)/rackmount/$(PRJ_NAME)/include/ \
+			-idirafter$(PIC_H)/ -I$(POSIX)/../Source/include/  \
+			-I$(COMMON)/tools/ \
+			-I$(POSIX)/ \
+			-I$(APP_PF)/include/ \
 			-I$(APP_PF)/uip/ 
 
 # DEFINE DIRECTIVES
@@ -219,18 +213,18 @@ ifeq ($(CONFIG_ETHERNET), y)
 	endif
 endif
 #----------------------------------------------------------------------------------------
- 
+
 # LINKER OPTIONS ------------------------------------------------------------------------
-# -T:			include the linker script file (*.gld)
-# -L:			include the directory of library file (*.a)
-# -Xlinker:		pass argument from pic30-elf-gcc (compiler) to pic30-elf-ld (linker)
-#				e.g. 	-Map file (create a map file)
-#						--print-map (print a map file on screen)
-#						--report-mem (print the memory usage summary on screen)
-# 						--heap=512 (allocate a heap size of 512bytes)
-#						  [for more arguments, refer to: 
-#							MPLAB ASM30 MALAB LINK30 and utilities user's guide and 
-#							MPLAB C30 C compiler user's guide]
+# -T:					include the linker script file (*.gld)
+# -L:					include the directory of library file (*.a)
+# -Xlinker:				pass argument from pic30-elf-gcc (compiler) to pic30-elf-ld (linker)
+#						e.g. 	-Map file (create a map file)
+#								--print-map (print a map file on screen)
+#								--report-mem (print the memory usage summary on screen)
+# 								--heap=512 (allocate a heap size of 512bytes)
+#								  [for more arguments, refer to: 
+#									MPLAB ASM30 MALAB LINK30 and utilities user's guide and 
+#									MPLAB C30 C compiler user's guide]
 LDFLAGS := -Xlinker -Map="$(APP_PF)/$(PRJ_NAME).map" -L$(PIC_LIB)/ -Xlinker --heap=$(HEAP_SIZE)
 ifeq ($(DSPIC_SERIES), DSPIC33)
 	LDFLAGS += -T$(DSPIC)/linker/clinkscript_p33FJ128GP306.gld
@@ -262,12 +256,12 @@ obj-y := \
 	$(DSPIC)/../drivers/traps.o \
 	$(OS)/list.o $(OS)/queue.o $(OS)/tasks.o \
 	$(OS)/portable/MemMang/heap_3.o \
-	$(COMMON)/app_idle.o \
 	$(COMMON)/app_idlehook.o \
 	$(POSIX)/src/pthread.o $(POSIX)/src/time.o \
-	$(APP_PF)/pf_main.o \
-	$(APP_PF)/eth_thread.o \
-	$(APP_PF)/led.o 
+	$(COMMON)/example/thread/eth_tester.o \
+	$(COMMON)/example/thread/idle.o \
+	$(COMMON)/example/05_eth_tester/pf_main.o \
+	$(APP_PF)/led.o
 
 # OS MEMORY
 ifeq ($(DSPIC_SERIES), DSPIC33)
@@ -299,8 +293,10 @@ ifeq ($(CONFIG_NVM), y)
 endif
 # ETHERNET_MOD
 obj-$(CONFIG_ETHERNET) += \
-		$(APP_PF)/dmfe_open.o $(APP_PF)/dmfe_io.o \
-		$(APP_PF)/dmfe_read.o $(APP_PF)/dmfe_write.o \
+		$(COMMON)/example/05_eth_tester/dmfe_open.o \
+		$(COMMON)/example/05_eth_tester/dmfe_io.o \
+		$(COMMON)/example/05_eth_tester/dmfe_read.o \
+		$(COMMON)/example/05_eth_tester/dmfe_write.o
 #------------------------------------------------------------------------------
 
 # Compile and linking =========================================================
@@ -313,7 +309,7 @@ all: $(TARGET)
 	@echo 'Building target: $(TARGET_HEX)'
 	$(B2H) $^ $(TARGET_HEX)
 	@echo ' '
-	
+
 # STEP 2 ----------------------------------------------------------------------
 # An explicit rule tells make how to build "$(TARGET)". Prerequisites
 # are required (so if they are not up-to-date, make will use the implicit
@@ -326,7 +322,7 @@ $(TARGET): $(obj-y)
 	@echo 'Building target: $@'
 	$(CC) $(LDFLAGS) $^ -lc-elf -o $@
 	@echo ' '
-	
+
 # STEP 1 ----------------------------------------------------------------------
 # This "implicit" rule tells make that any file ending in .o is
 # build from two files with the same base name ending in .c and .h,
@@ -341,7 +337,7 @@ $(TARGET): $(obj-y)
 	@echo 'Building target: $@'
 	$(CC) $(CFLAGS) -c $< -o $@
 	@echo ' '
-	
+
 %.o : %.s
 	@echo 'Building target: $@'
 	$(CC) $(CFLAGS) -c $< -o $@
