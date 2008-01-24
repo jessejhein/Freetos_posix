@@ -11,6 +11,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+extern int fd_uart;
 extern int fd_eeprom;
 
 /************************************************************************************************

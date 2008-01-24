@@ -38,7 +38,7 @@ void vUserMain(){
     //Identify your threads here
     pthread_t thread_led1, thread_eeprom;
     
-    static unsigned int arg_led1[] = {0, 1); 
+    static unsigned int arg_led1[] = {0, 1}; 
 
     //Create your threads here
     pthread_create(&thread_led1, NULL, tskFlashLED, arg_led1);
