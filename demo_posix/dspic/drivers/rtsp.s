@@ -62,6 +62,18 @@
 .equ	INSTRUCTION_PER_PAGE,	(INSTRUCTION_PER_ROW*ROW_PER_PAGE)
 .endif
 /**********************************************************************/
+.ifdef __33FJ256GP506
+
+.include "/usr/pic30-elf/support/inc/p33FJ256GP506.inc"
+
+.equ    FLASH_PAGE_ERASE_CODE, 	0x4042
+.equ    FLASH_ROW_PROG_CODE, 	0x4001
+
+.equ	INSTRUCTION_PER_ROW,	64
+.equ	ROW_PER_PAGE,			8
+.equ	INSTRUCTION_PER_PAGE,	(INSTRUCTION_PER_ROW*ROW_PER_PAGE)
+.endif
+/**********************************************************************/
 .ifdef __30F5011
 
 .include "/usr/pic30-elf/support/inc/p30f5011.inc"
