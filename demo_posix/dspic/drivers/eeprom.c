@@ -28,8 +28,8 @@
 /****************************************************************************************
  * EEPROM Data and Pointer
  ****************************************************************************************/
-#include <eeprom.h>				//Contains initialize data char _EEDATA(2) eeData[1024]
-static unsigned int byte_pointer = 0;	//pointer (in bytes) from base address 0x7F, range = 0-1023
+#include <nvm_data.h>				      //Contains initialize data char _EEDATA(2) eeData[1024]
+static unsigned int byte_pointer = 0;	  //pointer (in bytes) from base address 0x7F, range = 0-1023
 static int eeprom_io_flag;
 
 /************************************************************************************************

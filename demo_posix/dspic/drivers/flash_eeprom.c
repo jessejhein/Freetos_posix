@@ -9,7 +9,7 @@
  ******************************************************************************/
 
 #include <define.h>
-#include <flash_eeprom.h>
+#include <nvm_data.h>
 #include <rtsp.h>
 #include <fcntl.h>
 #include <errno.h>
