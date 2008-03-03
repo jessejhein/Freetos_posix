@@ -26,7 +26,12 @@
 // DSPIC33
 #if MPLAB_DSPIC33_PORT
 // Platform header file**********************************************************
+#ifdef FJ128GP306
 #include <p33FJ128GP306.h>
+#endif
+#ifdef FJ256GP506
+#include <p33FJ256GP506.h>
+#endif
 
 // System Settings **************************************************************
 #define TUNE_FRC                    22       // Tune FRC oscillator, if FRC is used; 
@@ -73,7 +78,9 @@
 // DSPIC30
 #elif MPLAB_DSPIC30_PORT
 // Platform header file**********************************************************
+#ifdef F5011
 #include <p30f5011.h>
+#endif
 
 // System Settings **************************************************************
 #define XTAL_FREQ_HZ                7372800

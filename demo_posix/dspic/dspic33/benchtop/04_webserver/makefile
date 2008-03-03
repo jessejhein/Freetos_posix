@@ -69,10 +69,17 @@ B2H	:= pic30-elf-bin2hex
 #						http://sourceforge.net/forum/message.php?msg_id=3899530
 #						and MPLAB C30 C compiler user guide on Frame Pointer
 ifeq ($(DSPIC_SERIES), DSPIC33)
-	CFLAGS := -mcpu=33FJ128GP306
+	ifeq ($(DSPIC_MODEL), FJ256GP506)
+		CFLAGS += -mcpu=33FJ256GP506
+	endif
+	ifeq ($(DSPIC_MODEL), FJ128GP306)
+		CFLAGS += -mcpu=33FJ128GP306
+	endif
 endif
 ifeq ($(DSPIC_SERIES), DSPIC30)
-	CFLAGS := -mcpu=30F5011
+	ifeq ($(DSPIC_MODEL), F5011)
+		CFLAGS := -mcpu=30F5011
+	endif
 endif
 CFLAGS += -mlarge-code -mlarge-data -Os -fomit-frame-pointer -Werror
 
@@ -92,9 +99,18 @@ CFLAGS += -idirafter$(OS)/include/ \
 # -Dmacro=defn:			Define macro as defn
 ifeq ($(DSPIC_SERIES), DSPIC33)
 	CFLAGS += -DMPLAB_DSPIC33_PORT
+	ifeq ($(DSPIC_MODEL), FJ256GP506)
+		CFLAGS += -DFJ256GP506
+	endif
+	ifeq ($(DSPIC_MODEL), FJ128GP306)
+		CFLAGS += -DFJ128GP306
+	endif
 endif
 ifeq ($(DSPIC_SERIES), DSPIC30)
 	CFLAGS += -DMPLAB_DSPIC30_PORT
+	ifeq ($(DSPIC_MODEL), F5011)
+		CFLAGS += -DF5011
+	endif
 endif
 # OS Scheduler
 ifeq ($(FREERTOS_SCHED), y)
@@ -228,10 +244,17 @@ endif
 #									MPLAB C30 C compiler user's guide]
 LDFLAGS := -Xlinker -Map="$(APP_PF)/$(PRJ_NAME).map" -L$(PIC_LIB)/ -Xlinker --heap=$(HEAP_SIZE)
 ifeq ($(DSPIC_SERIES), DSPIC33)
-	LDFLAGS += -T$(DSPIC)/linker/clinkscript_p33FJ128GP306.gld
+	ifeq ($(DSPIC_MODEL), FJ256GP506)
+		LDFLAGS += -T$(DSPIC)/linker/clinkscript_p33FJ256GP506.gld
+	endif
+	ifeq ($(DSPIC_MODEL), FJ128GP306)
+		LDFLAGS += -T$(DSPIC)/linker/clinkscript_p33FJ128GP306.gld
+	endif
 endif
 ifeq ($(DSPIC_SERIES), DSPIC30)
-	LDFLAGS += -T$(DSPIC)/linker/clinkscript5011.gld
+	ifeq ($(DSPIC_MODEL), F5011)
+		LDFLAGS += -T$(DSPIC)/linker/clinkscript5011.gld
+	endif
 endif
 #----------------------------------------------------------------------------------------
 
