@@ -30,19 +30,6 @@ MEMORY
   FUID2        : ORIGIN = 0xF80014,      LENGTH = 0x2
   FUID3        : ORIGIN = 0xF80016,      LENGTH = 0x2
 }
-
-__FBS = 0xF80000;
-__FSS = 0xF80002;
-__FGS = 0xF80004;
-__FOSCSEL = 0xF80006;
-__FOSC = 0xF80008;
-__FWDT = 0xF8000A;
-__FPOR = 0xF8000C;
-__FUID0 = 0xF80010;
-__FUID1 = 0xF80012;
-__FUID2 = 0xF80014;
-__FUID3 = 0xF80016;
-
 __IVT_BASE  = 0x4;
 __AIVT_BASE = 0x104;
 __DATA_BASE = 0x800;
@@ -89,14 +76,10 @@ SECTIONS
 
   /*
   ** User Code and Library Code
-  **
-  ** This section must not be assigned to __CODE_BASE,
-  ** because CodeGuard(tm) sections may be located there.
   */
-  .text :
+  .text __CODE_BASE :
   {
         *(.reset);
-        *(.init);
         *(.handle);
         *(.libc) *(.libm) *(.libdsp);  /* keep together in this order */
         *(.lib*);
@@ -1379,8 +1362,6 @@ _LATG         = 0x2E8;
 _LATGbits     = 0x2E8;
  ADC1BUF0     = 0x300;
 _ADC1BUF0     = 0x300;
- ADCBUF0      = 0x300;
-_ADCBUF0      = 0x300;
  AD1CON1      = 0x320;
 _AD1CON1      = 0x320;
 _AD1CON1bits  = 0x320;
@@ -1402,8 +1383,6 @@ _AD1PCFGHbits = 0x32A;
  AD1PCFGL     = 0x32C;
 _AD1PCFGL     = 0x32C;
 _AD1PCFGLbits = 0x32C;
- ADPCFG       = 0x32C;
-_ADPCFG       = 0x32C;
  AD1CSSH      = 0x32E;
 _AD1CSSH      = 0x32E;
 _AD1CSSHbits  = 0x32E;
@@ -1745,10 +1724,6 @@ _RCONbits     = 0x740;
  OSCCON       = 0x742;
 _OSCCON       = 0x742;
 _OSCCONbits   = 0x742;
- OSCCONL      = 0x742;
-_OSCCONL      = 0x742;
- OSCCONH      = 0x743;
-_OSCCONH      = 0x743;
  CLKDIV       = 0x744;
 _CLKDIV       = 0x744;
 _CLKDIVbits   = 0x744;
