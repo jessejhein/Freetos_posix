@@ -6,13 +6,11 @@
  * 1)   The 12-bit ADC module consists of 12 channels located at pin 16 (AN0), 15 (AN1), 14 (AN2), 
  *      13 (AN3), 12 (AN4), 11 (AN5), 17 (AN6), 18 (AN7), 21 (AN8), 22 (AN9), 23 (AN10), 24 (AN11),
  *      27 (AN12), 28 (AN13), 29 (AN14), 30 (AN15). These pins are shared with port B, PGC and PGD.
- * 2)   The pins of AN6 and AN7 are used by PGC and PGD for ICSP. These channels should also not 
- *      be used. Hence, only 14 channels are available.
- * 3)   The driver has a POSIX-compliant interface with open(), read(), and ioctl().
- * 4)   Operation of ADC in dsPic30F and dsPic33F is different. For scanning of multiple channels,
+ * 2)   The driver has a POSIX-compliant interface with open(), read(), and ioctl().
+ * 3)   Operation of ADC in dsPic30F and dsPic33F is different. For scanning of multiple channels,
  *      dsPic30F uses ADC interrupt, while dsPic33F uses DMA interrupt.
- * 5)   Users should take note that:
- *      a) On open(), AN15 is opened.
+ * 4)   Users should take note that:
+ *      a) On open(), AN15 is opened (fos dspic33), AN11 is opened (fos dspic30)
  * 		b) The highest sampling frequency for dsPic30F and dsPic33F are 200kbps and 500kbps
  *         respectively 
  *      c) The result obtained using read() is in unsigned integer format.
@@ -261,6 +259,7 @@ int adc_open(int flags)
         _TRISB15 = 1;    
         ADPCFG = 0x7FFF;        //0 => Enabled, 1 => Disabled
         ADPCFGH = 0xFFFF;       //AN16-AN31: Disabled
+        adc_ch_status[15] = 1;
         //===========================================================================
         // Configure scan input channels    
         ADCSSL = 0x8000;    //0 => Skip, 1 => Scan
@@ -299,7 +298,7 @@ int adc_open(int flags)
         DMA0CONbits.AMODE = 2;      // Configure DMA for Peripheral indirect mode
         DMA0CONbits.MODE  = 2;      // Configure DMA for Continuous Ping-Pong mode
         DMA0PAD=(int)&ADC1BUF0;     
-        DMA0CNT = 1;                // generate dma interrupt every 2 samples 
+        DMA0CNT = 0;                // generate dma interrupt every 1 samples 
                                     // same as SMPI because only 1 dma buffer per channel         
         DMA0REQ = 13;               // Select ADC1 as DMA Request source
         DMA0STA = __builtin_dmaoffset(adc_bufA);     
@@ -328,13 +327,13 @@ void _ISR _DMA0Interrupt(void)
     unsigned int channel = 0;
     for (; channel<ADC_MAX_CH; channel++)
     {
-        if(adc_ch_status[channel])
+        if(adc_ch_status[channel] == 1)
         {
             adc_queue[adc_queue_ptr][channel] = adc_buf_ptr[channel];
         }
     }
     adc_data_ready = 1;
-    _DMA0IF = 0;                                           //Clear the DMA0 Interrupt Flag
+    _DMA0IF = 0;
 }
 #endif //end dsPic33  
 
