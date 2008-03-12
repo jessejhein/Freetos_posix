@@ -362,10 +362,13 @@ void _ISR _U2RXInterrupt(void)
                 uart_rx[0].wr = next_data_pos;
             } 
             else{
-                //When buffer is full, still remove data from register, butthe incoming data is lost
+                //When buffer is full, still remove data from register, but the incoming data is lost
                 next_data_pos = (unsigned char) U2RXREG; 			//Read the data from buffer
-            }		
+            }
         }
+        //Rx Buffer Overflow: 
+        //If this bit is not cleared, the UART module cannot receive more data
+        if( U2STAbits.OERR ) U2STAbits.OERR = 0;
     }
 #ifdef BOOTLOADER_RESET
     //Framming error
@@ -409,10 +412,13 @@ void _ISR _U1RXInterrupt(void){
             uart_rx[1].wr = next_data_pos;
         } 
         else{
-            //When buffer is full, still remove data from register, butthe incoming data is lost
+            //When buffer is full, still remove data from register, but the incoming data is lost
             next_data_pos = (unsigned char) U1RXREG; 			//Read the data from buffer
         }
     }
+    //Rx Buffer Overflow: 
+    //If this bit is not cleared, the UART module cannot receive more data
+    if( U1STAbits.OERR ) U1STAbits.OERR = 0;
     
 #ifdef MPLAB_DSPIC33_PORT
     _U1RXIF = 0;
