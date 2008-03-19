@@ -19,6 +19,14 @@ extern volatile time_t one_sec_cnt;
  * Output:      returns the time since the Epoch (time since last 
  *              reboot), measured in seconds.
  * 
+ * CAUTION:     when using time() for comparing, do NOT compare like this:
+ *                      while((int)time() <= wake_time) sleep(0); or
+ *                      while(wake_time > (int)time()) sleep(0);
+ *              this cause the program to go to infinite loop when
+ *                      wake_time = max(int)
+ *              to resolve
+ *                      while((int)time() < wake_time) sleep(0); or
+ *                      while(wake_time >= (int)time()) sleep(0);
  ***************************************************************************/
 time_t time(time_t *t)
 {
@@ -38,6 +46,15 @@ time_t time(time_t *t)
  * 
  * Note:        to compute the actual time (in ms) elapsed, multiply result by 
  *              portTICK_RATE_MS
+ * 
+ * CAUTION:     when using os_time() for comparing, do NOT compare like this:
+ *                      while((int)os_time() <= wake_time) sleep(0); or
+ *                      while(wake_time > (int)os_time()) sleep(0);
+ *              this cause the program to go to infinite loop when
+ *                      wake_time = max(int)
+ *              to resolve
+ *                      while((int)os_time() < wake_time) sleep(0); or
+ *                      while(wake_time >= (int)os_time()) sleep(0);
  *************************************************************************** 
  * Maximum time tick is limited by the resolution of counter set by 
  * configUSE_16_BIT_TICKS and the frequency of context switch set by 
