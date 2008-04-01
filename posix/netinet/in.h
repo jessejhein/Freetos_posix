@@ -14,6 +14,15 @@
 #include <uip.h>
 #endif
 
+
+/* 
+ * Standard well-defined IP protocols, for creating socket()
+ */
+#define IPPROTO_IP      0           //Dummy protocol for TCP
+#define IPPROTO_TCP     6           //Transmission Control Protocol
+#define IPPROTO_UDP     17          //User Datagram Protocol
+
+
 typedef unsigned char in_addr_t[4];
 /*
  * Structure:   in_addr
