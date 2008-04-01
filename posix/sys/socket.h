@@ -25,7 +25,7 @@
 /**************************************************************************************
  * API Usage Examples                                                                 */
 #if 0
-//Example 1: WEB SERVER
+//Example 1: SERVER
     #include <string.h>
     #include <sys/socket.h>
     #include <netinet/in.h>
@@ -43,20 +43,19 @@
             struct sockaddr_in localSocket;
             localSocket.sin_family = AF_INET;
             localSocket.sin_port = htons(80);
-            //localSocket.sin_addr =
-            //inet_aton("10.12.110.57", &(my_addr.sin_addr)); 
+            inet_aton("192.168.1.38", &(localSocket.sin_addr)); 
             memset(&(localSocket.sin_zero), 0, 8); 
     #ifdef FREERTOS_SCHED 
             localSocket.appcall = foo_appcall;
     #endif            
             //bind local socket
-            if(bind(fd_app, (struct sockaddr*) &localSocket, sizeof(sockaddr)) != -1){
+            if(bind(fd_app, (struct sockaddr*) &localSocket, sizeof(struct sockaddr)) != -1){
                  //listen for the port
                 if(listen(fd_app, MAX_CONNECTION) < 0){
-    #ifdef FREERTOS_SCHED
+    #ifndef FREERTOS_SCHED
                     int fd_app2 = -1; 
                     struct sockaddr_in remoteSocket;
-                    fd_app2 = accept(fd_app, (struct sockaddr*) &remoteSocket, sizeof(sockaddr))
+                    fd_app2 = accept(fd_app, (struct sockaddr*) &remoteSocket, sizeof(struct sockaddr))
                     if(fd_app2 != -1){
                         foo_appcall();
                     }
@@ -73,7 +72,7 @@
         //handle the call
     }
 
-//Example 2: WEB CLIENT
+//Example 2: CLIENT
     #include <string.h>
     #include <sys/socket.h>
     #include <netinet/in.h>
@@ -83,27 +82,27 @@
      * foo_init(): create socket and initialized connection
      */
     void foo_init(void){
-        fd_app = socket(AF_INET, SOCK_STREAM, PF_UNSPEC);
+        fd_app = socket(AF_INET, SOCK_STREAM, IPPROTO_UDP);
         //acquired socket descriptor
         if(fd_app != -1){
             struct sockaddr_in localSocket;
             localSocket.sin_family = AF_INET;
-            //localSocket.sin_addr =
-            //inet_aton("10.12.110.57", &(my_addr.sin_addr)); 
+            localSocket.sin_port = htons(CLIENT_PORT);
+            inet_aton("192.168.1.52", &(localSocket.sin_addr));
             memset(&(localSocket.sin_zero), 0, 8); 
     #ifdef FREERTOS_SCHED 
             localSocket.appcall = foo_appcall;
     #endif            
             //bind local socket
-            if(bind(fd_app, (struct sockaddr*) &localSocket, sizeof(sockaddr)) != -1){
+            if(bind(fd_app, (struct sockaddr*) &localSocket, sizeof(struct sockaddr)) != -1){
                 struct sockaddr_in remoteSocket;
                 remoteSocket.sin_family = AF_INET;
-                //remoteSocket.sin_addr =
-                //inet_aton("10.12.110.57", &(remoteSocket.sin_addr)); 
+                remoteSocket.sin_port = htons(SERVER_PORT);
+                inet_aton("192.168.1.5", &(remoteSocket.sin_addr)); 
                 memset(&(remoteSocket.sin_zero), 0, 8); 
                  //connect to remote port
-                if(connected(fd_app, MAX_CONNECTION) != -1){
-    #ifdef FREERTOS_SCHED
+                if(connect(fd_app, (struct sockaddr*) &remoteSocket, sizeof(struct sockaddr)) != -1){
+    #ifndef FREERTOS_SCHED
                     foo_appcall();
     #endif
                 }
@@ -115,9 +114,8 @@
      * foo_appcall(): handle the communications
      */
     void foo_appcall(void){
-        //handle the call
+        //perform read/write
     }
-    
 #endif
 /**************************************************************************************/
 
@@ -129,13 +127,30 @@
  * Description:     create an endpoint for communication
  * 
  * Input:           domain:     address family (supports only AF_INET)
- *                  type:       socket type (supports only SOCK_STREAM (TCP) or SOCK_DGRAM (UDP))
- *                  protocol:   protocol family (supports only PF_INET (IP) or PF_UNSPEC for auto-detection) 
+ *                  type:       socket type (supports only SOCK_STREAM or SOCK_DGRAM)
+ *                  protocol:   protocol family (supports only IPPROTO_IP/IPPROTO_TCP/IPPROTO_UDP) 
  * 
  * Output:          the socket descriptor
  *                  -1 on error.
  **************************************************************************************/
 extern int socket(int domain, int type, int protocol);
+
+
+/**************************************************************************************
+ * Function:        int shutdown(int sockfd, int how)
+ * 
+ * Description:     create an endpoint for communication
+ * 
+ * Input:           sockfd:     socket descriptor
+ *                  how:                                                               */    
+                    #define SHUT_RD     0       //Further receives are disallowed
+                    #define SHUT_WR     1       //Further sends are disallowed
+                    #define SHUT_RDWR   2       //Further sends and receives are disallowed
+/* 
+ * Output:          0 on success
+ *                  -1 on error.
+ **************************************************************************************/
+extern int shutdown(int sockfd, int how);
 
 
 /**************************************************************************************
