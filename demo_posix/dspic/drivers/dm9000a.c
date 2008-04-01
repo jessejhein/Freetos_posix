@@ -28,6 +28,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <sys/socket.h>
 
 /*****************************************************************************
  * DEBUG 
@@ -131,6 +132,7 @@ int dmfe_open(int flags)
     //Determine whether the link is successful  
     if((ior(db, DM9KA_NSR) & 0x40) > 0)
     {
+        socket_init();
         return 0;
     }
     else
