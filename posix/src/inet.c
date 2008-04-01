@@ -10,7 +10,7 @@
 static char inet_ipaddr[16];
 
 /******************************************************************************
- * Function:        int inet_aton(char *name, struct in_addr *addr)
+ * Function:        int inet_aton(const char *name, struct in_addr *addr)
  * 
  * Description:     converts the Internet host address name from the standard 
  *                  numbers-and-dots notation into binary data and stores it in 
@@ -22,19 +22,23 @@ static char inet_ipaddr[16];
  * Output:          0, not valid
  *                  1, valid
  ******************************************************************************/
-int inet_aton(char *name, struct in_addr *addr){
+int inet_aton(const char *name, struct in_addr *addr){
     char* ans;
     int i = 0;
-    
-    ans = strtok(name, ".");
-    while (ans != NULL && i<4)
-    {
-        int val = atoi(ans);
-        if(val<0x00 || val>0xFF) return 0;
-        addr->s_addr[i++] = (unsigned char) val;
-        ans = strtok(NULL, ".");
+    if(strlen(name)<16){
+        //strtok cannot work on const char*
+        strcpy(inet_ipaddr, name);
+        ans = strtok(inet_ipaddr, ".");
+        while (ans != NULL && i<4)
+        {
+            int val = atoi(ans);
+            if(val<0x00 || val>0xFF) return 0;
+            addr->s_addr[i++] = (unsigned char) val;
+            ans = strtok(NULL, ".");
+        }
+        return 1;
     }
-    return 1;
+    return 0;
 }
 
 

@@ -11,7 +11,7 @@
 #include <netinet/in.h>
 
 /******************************************************************************
- * Function:        int inet_aton(char *name, struct in_addr *addr)
+ * Function:        int inet_aton(const char *name, struct in_addr *addr)
  * 
  * Description:     converts the Internet host address name from the standard 
  *                  numbers-and-dots notation into binary data and stores it in 
@@ -23,7 +23,7 @@
  * Output:          0, not valid
  *                  1, valid
  ******************************************************************************/
-extern int inet_aton(char *name, struct in_addr *addr);
+extern int inet_aton(const char *name, struct in_addr *addr);
 
 
 /******************************************************************************
