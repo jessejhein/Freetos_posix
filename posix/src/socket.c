@@ -95,6 +95,9 @@ int socket(int domain, int type, int protocol)
 int shutdown(int sockfd, int how)
 {
     if(sockfd>=0 && sockfd<ETH_MAX_APP) {
+        if(ethApp[sockfd].protocol == IPPROTO_UDP){
+            uip_udp_remove(ethApp[sockfd].udp_conn);
+        }
         ethApp[sockfd].appcall = NULL;
         ethApp[sockfd].domain = 0;
         ethApp[sockfd].type = 0;
@@ -328,7 +331,7 @@ void udp_appcall(void){
     for (i=0; i<ETH_MAX_APP; i++){
         //application is UDP
         if(ethApp[i].type == SOCK_DGRAM){
-            //check of remote port number
+            //check for local port number
             if(uip_udp_conn->lport == ethApp[i].port){
                 ethApp[i].appcall();
                 break;
