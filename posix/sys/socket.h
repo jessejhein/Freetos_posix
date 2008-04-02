@@ -258,7 +258,7 @@ extern int recv(int sockfd, void *buf, int len, unsigned int flags);
  *                  len:        length of data to be sent (in bytes)
  *                  flags:      normally 0
  *                  to:         remote IP address and port
- *                  tolen:      sizeof(struct sockaddr
+ *                  tolen:      sizeof(struct sockaddr)
  * 
  * Output:          number of bytes acutally sent
  *                  -1 on error

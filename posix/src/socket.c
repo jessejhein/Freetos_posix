@@ -163,6 +163,7 @@ int connect(int sockfd, struct sockaddr *serv_addr, int addrlen)
             else return -1;
         }
         else if(ethApp[sockfd].protocol == IPPROTO_TCP){
+            //todo: tcp
             return 0;
         }
     }
@@ -184,7 +185,8 @@ int connect(int sockfd, struct sockaddr *serv_addr, int addrlen)
  * 
  * Note:            call bind() before calling listen()
  **************************************************************************************/
-int listen(int sockfd, int backlog){
+int listen(int sockfd, int backlog)
+{
     if(sockfd>=0 && sockfd<ETH_MAX_APP) {
         uip_listen( ethApp[sockfd].port );
         return 0;
@@ -193,6 +195,65 @@ int listen(int sockfd, int backlog){
     return -1;
 }
 
+
+/**************************************************************************************
+ * Function:        int send(int sockfd, void *msg, int len, int flags)
+ * 
+ * Description:     accept a connection on a socket
+ * 
+ * Input:           sockfd:     socket descriptor
+ *                  msg:        data to be sent
+ *                  len:        length of data to be sent (in bytes)
+ *                  flags:      normally 0
+ * 
+ * Output:          number of bytes acutally sent
+ *                  -1 on error
+ **************************************************************************************/
+int send(int sockfd, void *msg, int len, int flags){
+    if(sockfd>=0 && sockfd<ETH_MAX_APP) {
+        uip_send(msg, len);
+        return len;
+    }
+    //invalid socket descriptor
+    return -1;
+}
+
+/**************************************************************************************
+ * Function:        int recv(int sockfd, void *buf, int len, unsigned int flags)
+ * 
+ * Description:     accept a connection on a socket
+ * 
+ * Input:           sockfd:     socket descriptor
+ *                  buf:        buffer to read the information into
+ *                  len:        maximum length of the buffer (in bytes)
+ *                  flags:      normally 0
+ * 
+ * Output:          number of bytes acutally read
+ *                  -1 on error
+ **************************************************************************************/
+static int rd_ptr = 0;
+int recv(int sockfd, void *buf, int len, unsigned int flags)
+{
+    if(sockfd>=0 && sockfd<ETH_MAX_APP) {
+        if(uip_newdata() > 0){
+            //data available to read
+            int data_left = uip_datalen() - rd_ptr;
+            if( data_left > 0 ){
+                int data_len = (data_left > len) ? len : data_left;
+                rd_ptr+=data_len;
+                while(data_left--){
+                    *(char*)buf++ = *(char*)uip_appdata++; 
+                }
+                if(rd_ptr >= uip_datalen()) rd_ptr = 0;
+                return data_len;
+            }
+        }
+        rd_ptr = 0;
+        return 0; 
+    }
+    //invalid socket descriptor
+    return -1;
+}
 
 //--------------------------------------------------------------------------------------
 // Non-standard api
