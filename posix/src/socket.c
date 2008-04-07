@@ -82,7 +82,7 @@ int socket(int domain, int type, int protocol)
 /**************************************************************************************
  * Function:        int shutdown(int sockfd, int how)
  * 
- * Description:     create an endpoint for communication
+ * Description:     shutdown a communication
  * 
  * Input:           sockfd:     socket descriptor
  *                  how:        SHUT_RD     Further receives are disallowed
@@ -202,7 +202,7 @@ int listen(int sockfd, int backlog)
 /**************************************************************************************
  * Function:        int send(int sockfd, void *msg, int len, int flags)
  * 
- * Description:     accept a connection on a socket
+ * Description:     send application data
  * 
  * Input:           sockfd:     socket descriptor
  *                  msg:        data to be sent
@@ -224,7 +224,7 @@ int send(int sockfd, void *msg, int len, int flags){
 /**************************************************************************************
  * Function:        int recv(int sockfd, void *buf, int len, unsigned int flags)
  * 
- * Description:     accept a connection on a socket
+ * Description:     receive application data
  * 
  * Input:           sockfd:     socket descriptor
  *                  buf:        buffer to read the information into
@@ -262,17 +262,13 @@ int recv(int sockfd, void *buf, int len, unsigned int flags)
 // Non-standard api
 //--------------------------------------------------------------------------------------
 /**************************************************************************************
- * Function:        int shutdown(int sockfd, int how)
+ * Function:        void socket_init(void)
  * 
- * Description:     create an endpoint for communication
+ * Description:     initialize sockets
  * 
- * Input:           sockfd:     socket descriptor
- *                  how:        SHUT_RD     Further receives are disallowed
- *                              SHUT_WR     Further sends are disallowed
- *                              SHUT_RDWR   Further sends and receives are disallowed
+ * Input:           none
  * 
- * Output:          0 on success
- *                  -1 on error.
+ * Output:          none
  **************************************************************************************/
 void socket_init(void){
     int i;

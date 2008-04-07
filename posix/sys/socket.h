@@ -139,7 +139,7 @@ extern int socket(int domain, int type, int protocol);
 /**************************************************************************************
  * Function:        int shutdown(int sockfd, int how)
  * 
- * Description:     create an endpoint for communication
+ * Description:     shutdown a communication
  * 
  * Input:           sockfd:     socket descriptor
  *                  how:                                                               */    
@@ -219,7 +219,7 @@ extern int accept(int sockfd, struct sockaddr *addr, int *addrlen);
 /**************************************************************************************
  * Function:        int send(int sockfd, void *msg, int len, int flags)
  * 
- * Description:     accept a connection on a socket
+ * Description:     send application data
  * 
  * Input:           sockfd:     socket descriptor
  *                  msg:        data to be sent
@@ -235,7 +235,7 @@ extern int send(int sockfd, void *msg, int len, int flags);
 /**************************************************************************************
  * Function:        int recv(int sockfd, void *buf, int len, unsigned int flags)
  * 
- * Description:     accept a connection on a socket
+ * Description:     receive application data
  * 
  * Input:           sockfd:     socket descriptor
  *                  buf:        buffer to read the information into
