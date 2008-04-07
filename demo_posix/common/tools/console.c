@@ -5,7 +5,6 @@
  */
 
 #include <define.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -15,6 +14,44 @@
 //#define fd_uart fd_hc
 
 extern int fd_uart;
+
+/*
+#include <stdarg.h>
+void tprint(const char *fmt, ...)
+{
+    va_list ap;
+    va_start(ap, fmt);
+    while (*fmt)
+    {
+        switch (*fmt)
+        {
+            case '%':
+                fmt++;
+                if (*fmt == 'd')
+                {
+                    int d = va_arg(ap, int);
+                    sprintf("<%d> is an integer\n",d);
+                }
+                else if (*fmt == 's')
+                {
+                    char *s = va_arg(ap, char*);
+                    write(fd_uart, str, strlen(str));
+                }
+                else
+                {
+                    printf("%%%c is an unknown format\n", *fmt);
+                }
+                fmt++;
+                break;
+            default:
+                printf("%c is unknown\n", *fmt);
+                fmt++;
+                break;
+        }
+    }
+    va_end(ap);
+}
+*/
 
 /*
  * convert integer value to hex string
