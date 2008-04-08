@@ -21,6 +21,7 @@ typedef struct{
     int port;
     union{
         struct uip_udp_conn* udp_conn;
+        struct uip_conn *tcp_conn;
     };
 } eth_info_t;
 
@@ -59,12 +60,12 @@ int socket(int domain, int type, int protocol)
                 //TCP
                 if(protocol == IPPROTO_IP || protocol == IPPROTO_TCP){
                     ethApp[fd_sock].protocol = IPPROTO_TCP;
-                    return 0;
+                    return fd_sock;
                 }
                 //UPD
                 else if(protocol == IPPROTO_UDP){
                     ethApp[fd_sock].protocol = IPPROTO_UDP;
-                    return 0;
+                    return fd_sock;
                 }
                 //unsupported protocol
                 else return -1;
@@ -166,9 +167,17 @@ int connect(int sockfd, struct sockaddr *serv_addr, int addrlen)
             else return -1;
         }
         else if(ethApp[sockfd].protocol == IPPROTO_TCP){
-            //todo: tcp
-            return 0;
-        }
+            //set tcp remote address and remote port
+            ethApp[sockfd].tcp_conn = uip_connect( 
+                                        (uip_ipaddr_t*)(((struct sockaddr_in *)serv_addr)->sin_addr.s_addr), 
+                                        ((struct sockaddr_in *)serv_addr)->sin_port
+                                      );
+            if(ethApp[sockfd].tcp_conn != NULL) {
+            	return 0;
+        	}
+            //all tcp sockets are used
+            else return -1;
+    	}
     }
     //invalid socket descriptor
     return -1;
@@ -290,28 +299,19 @@ void socket_init(void){
  * 
  * Output:          None
  **************************************************************************************/
-/*
 void tcp_appcall(void){
-    switch(uip_conn->lport) {
-
-#ifdef WEBSERVER
-        case HTONS(80):
-        {
-            httpd_appcall();
-            break;
+    int i;
+    for (i=0; i<ETH_MAX_APP; i++){
+        //application is TCP
+        if(ethApp[i].type == SOCK_STREAM){
+            //check for local port number
+            if(uip_conn->rport == ethApp[i].port){
+                ethApp[i].appcall();
+                break;
+            }
         }
-#endif
-
-#ifdef SMTPCLIENT
-        case HTONS(25):
-        {
-            smtp_appcall();
-            break;
-        }
-#endif
     }
 }
-*/
 
 /**************************************************************************************
  * Function:        void udp_appcall(void)
