@@ -32,7 +32,7 @@ extern int inet_aton(const char *name, struct in_addr *addr);
  * Description:     converts the Internet host address addr to a string in the 
  *                  standard numbers-and-dots notation. 
  * 
- * Input:           *addr: ip address in binary format
+ * Input:           addr: ip address in binary format
  * 
  * Output:          a pointer into a statically-allocated buffer.
  ******************************************************************************/
