@@ -18,7 +18,9 @@ typedef struct{
     int domain;
     int type;
     int protocol;
-    int port;
+    int lport;
+    int rport;
+    int isclient;
     union{
         struct uip_udp_conn* udp_conn;
         struct uip_conn *tcp_conn;
@@ -103,7 +105,9 @@ int shutdown(int sockfd, int how)
         ethApp[sockfd].domain = 0;
         ethApp[sockfd].type = 0;
         ethApp[sockfd].protocol = 0;
-        ethApp[sockfd].port = 0;
+        ethApp[sockfd].lport = 0;
+        ethApp[sockfd].rport = 0;
+        ethApp[sockfd].isclient = 0;
         return 0;
     }
     //invalid socket descriptor
@@ -128,7 +132,7 @@ int bind(int sockfd, struct sockaddr *my_addr, int addrlen)
         if(my_addr == NULL) return -1;
         //save appcall and local port
         ethApp[sockfd].appcall = ((struct sockaddr_in *)my_addr)->appcall;
-        ethApp[sockfd].port = ((struct sockaddr_in *)my_addr)->sin_port;
+        ethApp[sockfd].lport = ((struct sockaddr_in *)my_addr)->sin_port;
         return 0;
     }
     //invalid socket descriptor
@@ -160,7 +164,7 @@ int connect(int sockfd, struct sockaddr *serv_addr, int addrlen)
                                       );
             if(ethApp[sockfd].udp_conn != NULL) {
                 //bind the local uip socket
-                uip_udp_bind(ethApp[sockfd].udp_conn, ethApp[sockfd].port);
+                uip_udp_bind(ethApp[sockfd].udp_conn, ethApp[sockfd].lport);
                 return 0;
             }
             //all udp sockets are used
@@ -173,6 +177,8 @@ int connect(int sockfd, struct sockaddr *serv_addr, int addrlen)
                                         ((struct sockaddr_in *)serv_addr)->sin_port
                                       );
             if(ethApp[sockfd].tcp_conn != NULL) {
+                ethApp[sockfd].rport = ((struct sockaddr_in *)serv_addr)->sin_port;
+                ethApp[sockfd].isclient = 1;
             	return 0;
         	}
             //all tcp sockets are used
@@ -200,7 +206,8 @@ int connect(int sockfd, struct sockaddr *serv_addr, int addrlen)
 int listen(int sockfd, int backlog)
 {
     if(sockfd>=0 && sockfd<ETH_MAX_APP) {
-        uip_listen( ethApp[sockfd].port );
+        uip_listen( ethApp[sockfd].lport );
+        ethApp[sockfd].isclient = 0;
         return 0;
     }
     //invalid socket descriptor
@@ -286,7 +293,9 @@ void socket_init(void){
         ethApp[i].domain = 0;
         ethApp[i].type = 0;
         ethApp[i].protocol = 0;
-        ethApp[i].port = 0;
+        ethApp[i].lport = 0;
+        ethApp[i].rport = 0;
+        ethApp[i].isclient = 0;
     }
 }
 
@@ -304,10 +313,19 @@ void tcp_appcall(void){
     for (i=0; i<ETH_MAX_APP; i++){
         //application is TCP
         if(ethApp[i].type == SOCK_STREAM){
-            //check for local port number
-            if(uip_conn->rport == ethApp[i].port){
-                ethApp[i].appcall();
-                break;
+            //check for local port number, for server applications (i.e. using listen()) 
+            if(ethApp[i].isclient == 0){
+                if(uip_conn->lport == ethApp[i].lport){
+                    ethApp[i].appcall();
+                    break;
+                }
+            }
+            //check for remote port number, for client applications (i.e. using connect())
+            else{
+                if(uip_conn->rport == ethApp[i].rport){
+                    ethApp[i].appcall();
+                    break;
+                }
             }
         }
     }
@@ -328,7 +346,7 @@ void udp_appcall(void){
         //application is UDP
         if(ethApp[i].type == SOCK_DGRAM){
             //check for local port number
-            if(uip_udp_conn->lport == ethApp[i].port){
+            if(uip_udp_conn->lport == ethApp[i].lport){
                 ethApp[i].appcall();
                 break;
             }
