@@ -24,11 +24,12 @@ static char inet_ipaddr[16];
  ******************************************************************************/
 int inet_aton(const char *name, struct in_addr *addr){
     char* ans;
+    char ipaddr[16];
     int i = 0;
     if(strlen(name)<16){
         //strtok cannot work on const char*
-        strcpy(inet_ipaddr, name);
-        ans = strtok(inet_ipaddr, ".");
+        strcpy(ipaddr, name);
+        ans = strtok(ipaddr, ".");
         while (ans != NULL && i<4)
         {
             int val = atoi(ans);
