@@ -112,7 +112,7 @@ static void uart2_init(void){
 	// Configure Baud rate
 	//  +-- Default Baud rate = 19.2 kbps
 	//	+-- U2BRG = 30e6 / (16 * 19200) - 1 = 97
-	unsigned int u2brg = UART_DEFAULT_BRG; 
+	unsigned int u2brg = UART_DEFAULT_BRG0; 
 	#if(AUTO_BAUD_DECT>0)
 	u2brg = uart2_autobaud();
 	#endif
@@ -153,7 +153,7 @@ static void uart1_init(void){
 	// Configure Baud rate
 	//  +-- Default Baud rate = 19.2 kbps
 	//	+-- U1BRG = 30e6 / (16 * 19200) - 1 = 97
-	unsigned int u1brg = UART_DEFAULT_BRG; 
+	unsigned int u1brg = UART_DEFAULT_BRG1; 
 	#if(AUTO_BAUD_DECT>0)
 	u1brg = uart1_autobaud();
 	#endif
