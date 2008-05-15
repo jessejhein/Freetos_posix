@@ -11,25 +11,39 @@
  * Set the following before compiling:
  * \par <./include/FreeRTOSConfig.h>
  * \li Set uP speed for desired MIPs
- * \n \#define configCPU_CLOCK_HZ             ( ( unsigned portLONG ) 30000000 )
+ * \verbatim
+      #define configCPU_CLOCK_HZ             ( ( unsigned portLONG ) 30000000 )
+   \endverbatim
  * \li Set desired kernel clock rate (time for context switch)
- * \n \#define configTICK_RATE_HZ             ( ( portTickType ) 100 )    //10ms
+ * \verbatim
+      #define configTICK_RATE_HZ             ( ( portTickType ) 100 )    //10ms
+   \endverbatim
  * \li Set desired HEAP_SIZE managed by kernel
- * \n \#define configTOTAL_HEAP_SIZE          ( ( size_t ) 1024 )
+ * \verbatim
+      #define configTOTAL_HEAP_SIZE          ( ( size_t ) 1024 )
+   \endverbatim
  * \li Set desired stack size for task (e.g. sprintf() requires extra stack space)
- * \n \#define configMINIMAL_STACK_SIZE       ( 205 )                     //x2 for number of bytes
+ * \verbatim
+      #define configMINIMAL_STACK_SIZE       ( 205 )                     //x2 for number of bytes
+   \endverbatim
  * \li Reduce RAM requirement by lowering the priority
- * \n \#define configMAX_PRIORITIES           ( ( unsigned portBASE_TYPE ) 1 ) //Idle Task priority
+ * \verbatim
+      #define configMAX_PRIORITIES           ( ( unsigned portBASE_TYPE ) 1 ) //Idle Task priority
+   \endverbatim
  * \li Reduce RAM requirement by using cooperative scheduling
- * \n \#define configUSE_PREEMPTION           1
+ * \verbatim
+      #define configUSE_PREEMPTION           1
+   \endverbatim
  * \li Reduce code size by excluding unnecessary task functions
- * \n \#define INCLUDE_vTaskPrioritySet       0
- * \n \#define INCLUDE_uxTaskPriorityGet      0
- * \n \#define INCLUDE_vTaskDelete            0
- * \n \#define INCLUDE_vTaskCleanUpResources  0
- * \n \#define INCLUDE_vTaskSuspend           0
- * \n \#define INCLUDE_vTaskDelayUntil        0
- * \n \#define INCLUDE_vTaskDelay             1
+ * \verbatim
+      #define INCLUDE_vTaskPrioritySet       0
+      #define INCLUDE_uxTaskPriorityGet      0
+      #define INCLUDE_vTaskDelete            0
+      #define INCLUDE_vTaskCleanUpResources  0
+      #define INCLUDE_vTaskSuspend           0
+      #define INCLUDE_vTaskDelayUntil        0
+      #define INCLUDE_vTaskDelay             1
+   \endverbatim
  */
 
 /**
