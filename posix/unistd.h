@@ -206,7 +206,6 @@ extern int lseek(int fd, int offset, int whence);
 /** 
  * \example unistd_ex.c
  * This is an example of how to use the system call module.
- * More details about this example.
  */
 
 #endif /* UNISTD_H_  */
