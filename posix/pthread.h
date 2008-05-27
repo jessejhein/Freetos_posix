@@ -306,6 +306,12 @@ extern pthread_t crthread_id_counter;
                                  if(crthread_id_counter == (pthread_t)0) crthread_id_counter++
 #endif /* CRTHREAD_SCHED */
 
+/**
+ * \brief System Thread (currently corountine scheduler)
+ * \param ptr (not used)
+ * \remarks main program should create this thread if coroutine scheduler is needed 
+ */
+extern void* sys_thread(void* ptr);
 
 /** 
  * \example pthread_ex.c
