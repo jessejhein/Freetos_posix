@@ -4,6 +4,7 @@
  ***********************************************************************************************/
 
 #include <define.h>
+#include <stddef.h>
 
 #ifdef KB_MOD
 extern void gpio_enter_key(void);
