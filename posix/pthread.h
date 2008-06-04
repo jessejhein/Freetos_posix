@@ -110,7 +110,7 @@
    \endverbatim
  *
  * \section sec2 COMPILE TIME CONFIGURATION
- * \par Set the following in <.config_freertos> before compiling
+ * \par Set the following in <.config_freertos_posix> before compiling
  * \verbatim
     FREERTOS_SCHED                    =   y
     CRTHREAD_SCHED                    =   y

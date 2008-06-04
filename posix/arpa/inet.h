@@ -1,42 +1,48 @@
-/*
- * arpa/inet.h
+/**
+ * \addtogroup ethernet ETHERNET
+ * @{
  * 
+ * Implementation of Ethernet API
+ */
+
+/**
+ * \defgroup arpa_inet Internet Address Manipulation
+ * @{
+ */
+
+/**
+ * \file
  * Defines prototypes for those network library routines that convert Internet address and 
  * dotted-decimal notation, for example, inet_makeaddr().
+ * \author Dennis Tsang <dennis@amonics.com>
  */
+
 
 #ifndef _ARPA_INET_H
 #define _ARPA_INET_H    1
 
 #include <netinet/in.h>
 
-/******************************************************************************
- * Function:        int inet_aton(const char *name, struct in_addr *addr)
- * 
- * Description:     converts the Internet host address name from the standard 
- *                  numbers-and-dots notation into binary data and stores it in 
- *                  the struct in_addr that addr points to.
- * 
- * Input:           *name: ip address in string format
- *                  *addr: ip address in binary format
- * 
- * Output:          0, not valid
- *                  1, valid
- ******************************************************************************/
+/**
+ * \brief converts the Internet host address name from the standard numbers-and-dots 
+ *        notation into binary data and stores it in the struct in_addr that addr points to.
+ * \param name ip address in string format (e.g. 192.168.1.1)
+ * \param addr ip address in binary format (e.g. C0 A8 01 01)
+ * \retval 0 not valid name
+ * \retval 1 valid name
+ */
 extern int inet_aton(const char *name, struct in_addr *addr);
 
 
-/******************************************************************************
- * Function:        char* inet_ntoa(struct in_addr addr)
- * 
- * Description:     converts the Internet host address addr to a string in the 
- *                  standard numbers-and-dots notation. 
- * 
- * Input:           addr: ip address in binary format
- * 
- * Output:          a pointer into a statically-allocated buffer.
- ******************************************************************************/
+/**
+ * \brief converts the Internet host address addr to a string in the standard 
+ *        numbers-and-dots notation. 
+ * \param addr ip address in binary format (e.g. C0 A8 01 01)
+ * \return a pointer into a statically-allocated buffer (e.g. 192.168.1.1)
+ */
 extern char* inet_ntoa(struct in_addr addr);
 
 #endif /* arpa/inet.h */
 
+/** @} */
+/** @} */
