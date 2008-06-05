@@ -414,6 +414,7 @@ _U2RXInterrupt(void)
               //A break char has been received: 
               //  U2RX has been pulled to zero for more than 13 bits
               //  This is used to reboot the pic
+              vUserShutdown();
               mdelay(BL_RESET_TIME);    //wait for break character to clear
               asm("reset");   //software reset
             }
