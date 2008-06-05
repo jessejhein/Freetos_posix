@@ -1,12 +1,7 @@
-/*********************************************************************
- *
- *                  Davicom DM9000A registers/bits
- *
- *********************************************************************
- * FileName:        dm9000a.h
- * Dependencies:    StackTsk.h
- * Description:     Include file for DM9000A control registers
- *******************************************************************/
+/**
+ * \file Davicom DM9000A registers/bits
+ * \author Dennis Tsang <dennis@amonics.com>
+ */
 
 #ifndef DM9000A_H_
 #define DM9000A_H_
