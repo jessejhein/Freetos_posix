@@ -1,8 +1,6 @@
 ;; This file is modified from /usr/pic30-elf/src/pic30/crt0.s
 ;; The following changes were made:
-;;   .equ __30F2010, 1			->	.equ __30F5011, 1  
-;;   .include "p30f2010.inc"	->	.include "/usr/pic30-elf/support/inc/p30f5011.inc"
-;;   .section .libc,code		->	.section .bootloader,code
+;;   .section .libc,code		->	.section .init,code
 ;; Include this file in the compilation list to ensure the _reset function is located
 ;; at address 0x100.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -33,10 +31,10 @@
 ;;      .equiv __ARGV,1
 ;; 
         
-        .equ __30F5011, 1   
-        .include "/usr/pic30-elf/support/inc/p30f5011.inc"
+        .equ __30F2010, 1   
+        .include "p30f2010.inc"
 
-        .section .bootloader,code
+        .section .init,code
 
         .global __resetPRI
         .ifdef __C30ELF
