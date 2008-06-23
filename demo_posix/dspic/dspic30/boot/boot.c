@@ -171,7 +171,7 @@ const unsigned portLONG ulCompareMatch = ( configCPU_CLOCK_HZ / portTIMER_PRESCA
 }
 /*-----------------------------------------------------------*/
 
-void __attribute__((__interrupt__)) _T1Interrupt( void )
+void _IRQ _T1Interrupt( void )
 {
 #ifdef FREERTOS_SCHED 
     vTaskIncrementTick();

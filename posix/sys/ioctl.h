@@ -61,11 +61,6 @@
 #endif /* PWM_MOD */
 
 
-/** 
- * \example unistd_ex.c
- * This is an example of how to use the system call module.
- */
-
 #endif /*_IOCTL_H_*/
 
 /** @} */

@@ -37,6 +37,7 @@
  * Local Variables 
  */
 static unsigned char uart_rx_buf[NO_OF_UART][MAX_UART_RX_BUF];
+/** UART rx pointers */
 struct UART_Rx
 {
   unsigned char wr;
@@ -44,6 +45,7 @@ struct UART_Rx
 };
 static struct UART_Rx uart_rx[NO_OF_UART];
 static unsigned char uart_tx_buf[NO_OF_UART][MAX_UART_TX_BUF];
+/** UART tx pointers */
 struct UART_Tx
 {
   unsigned char wr;                             
@@ -298,7 +300,7 @@ uart1_autobaud(void)
  * \remarks TX Interrupt when all tx is completed
  * \remarks First interrupt is set manually in uart_write
  */
-void _ISR 
+void _IRQ 
 _U2TXInterrupt(void)
 {
 #ifdef MPLAB_DSPIC33_PORT
@@ -335,7 +337,7 @@ _U2TXInterrupt(void)
  * \remarks TX Interrupt when all tx is completed
  * \remarks First interrupt is set manually in uart_write
  */
-void _ISR 
+void _IRQ 
 _U1TXInterrupt(void)
 {
 #ifdef MPLAB_DSPIC33_PORT
@@ -372,7 +374,7 @@ _U1TXInterrupt(void)
  * \remarks RX Interrupt when a character is received
  * \remarks Read until the rx buffer is emptied
  */
-void _ISR 
+void _IRQ 
 _U2RXInterrupt(void)
 {
 #ifdef BOOTLOADER_RESET
@@ -436,7 +438,7 @@ _U2RXInterrupt(void)
  * \remarks Read until the rx buffer is emptied
  */
 #if (NO_OF_UART > 1)
-void _ISR 
+void _IRQ 
 _U1RXInterrupt(void)
 {
   unsigned char next_data_pos;

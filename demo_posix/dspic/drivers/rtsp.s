@@ -52,7 +52,7 @@
  * dspic33fj128gp306 and dspic30f5011								 */
 .ifdef __33FJ128GP306
 
-.include "/usr/pic30-elf/support/inc/p33FJ128GP306.inc"
+.include "p33FJ128GP306.inc"
 
 .equ    FLASH_PAGE_ERASE_CODE, 	0x4042
 .equ    FLASH_ROW_PROG_CODE, 	0x4001
@@ -64,7 +64,7 @@
 /**********************************************************************/
 .ifdef __33FJ256GP506
 
-.include "/usr/pic30-elf/support/inc/p33FJ256GP506.inc"
+.include "p33FJ256GP506.inc"
 
 .equ    FLASH_PAGE_ERASE_CODE, 	0x4042
 .equ    FLASH_ROW_PROG_CODE, 	0x4001
@@ -76,7 +76,7 @@
 /**********************************************************************/
 .ifdef __30F5011
 
-.include "/usr/pic30-elf/support/inc/p30f5011.inc"
+.include "p30f5011.inc"
 .equ    FLASH_ROW_ERASE_CODE, 	0x4041
 .equ    FLASH_ROW_PROG_CODE, 	0x4001
 

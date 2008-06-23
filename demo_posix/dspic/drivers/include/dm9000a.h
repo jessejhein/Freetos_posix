@@ -1,5 +1,6 @@
 /**
- * \file Davicom DM9000A registers/bits
+ * \file 
+ * Davicom DM9000A registers/bits
  * \author Dennis Tsang <dennis@amonics.com>
  */
 
@@ -202,21 +203,24 @@
 /*******************************************************************
  * Structure/enum declaration
  *******************************************************************/
-typedef struct board_info {
-    int io_addr;                //Register I/O base address: CMD = 0 for registers
-    int io_data;                //Data I/O address: CMD = 1 for data
-    int tx_pkt_cnt;             //Number of buffer available for tx 
+/** Information for LAN Card */
+typedef struct board_info 
+{
+  int io_addr;                //Register I/O base address: CMD = 0 for registers
+  int io_data;                //Data I/O address: CMD = 1 for data
+  int tx_pkt_cnt;             //Number of buffer available for tx 
 
-    u8_t op_mode;               //PHY operation mode
-    u8_t io_mode;               //0:word, 2:byte
+  u8_t op_mode;               //PHY operation mode
+  u8_t io_mode;               //0:word, 2:byte
 } board_info_t;
 
-enum DM9KA_PHY_mode {
-    DM9KA_10MHD   = 0, 
-    DM9KA_100MHD  = 1, 
-    DM9KA_10MFD   = 4,
-    DM9KA_100MFD  = 5, 
-    DM9KA_AUTO    = 8, 
+enum DM9KA_PHY_mode 
+{
+  DM9KA_10MHD   = 0, 
+  DM9KA_100MHD  = 1, 
+  DM9KA_10MFD   = 4,
+  DM9KA_100MFD  = 5, 
+  DM9KA_AUTO    = 8, 
 };
 
 /*
@@ -243,11 +247,12 @@ enum DM9KA_PHY_mode {
  *  |   0    | FIFO OVERFLOW ERROR                    | 
  *  +--------+----------------------------------------+
  */
+/** Header for ethernet packet */
 typedef struct _DM_PREAMBLE
 {
-    u8_t  Validity;         //0x01 = vaild packet, 
-    u8_t  StatusVector;
-    u16_t PacketLength;     //MAC header + Data
+  u8_t  Validity;         //0x01 = vaild packet, 
+  u8_t  StatusVector;
+  u16_t PacketLength;     //MAC header + Data
 } DM_PREAMBLE;
 
 #endif //DM9000A_H_

@@ -18,18 +18,13 @@
 /* Address families.  */
 #define AF_INET             PF_INET
 
-/*
- * Structure:   sockaddr
- * 
- * Member:      sa_len:     
- *              sa_family:  address family (e.g. AF_INET)
- *              sa_data:    14 bytes that are reserved to hold the address itself
- * 
- */
+/** socket address */
 struct sockaddr
 {
-    //unsigned char sa_len;         
-    unsigned short sa_family;
-    char sa_data[14];
+  //unsigned char sa_len;
+  /** address family (e.g. AF_INET) */         
+  unsigned short sa_family;
+  /** 14 bytes that are reserved to hold the address itself */
+  char sa_data[14];
 };
 
