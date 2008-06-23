@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <asm/delay.h>
 #include <asm/types.h>
+#include <stdio.h>
 
 //#define fd_uart fd_hc
 

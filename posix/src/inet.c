@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <netinet/in.h>
 #include <uip.h>
+#include <stdio.h>
 
 //---------------------------------------------------------------------------
 int 
