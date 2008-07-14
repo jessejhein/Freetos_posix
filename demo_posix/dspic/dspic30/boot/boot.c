@@ -1,13 +1,16 @@
-/************************************************************************************************
- * File: 			boot.c
- * Description:		boot up file for module using FreeRTOS
- ***********************************************************************************************
- * DESCRIPTION:
- * 	1) 	This file is created based on the Demo Application in /freeRTOS/Demo/dsPIC_MPLAB/main.c
- * 	2)	User should implement their own vSetupHardware() and vUserMain().
- * 	3) 	vSetupHardware is used to set up the hardware (e.g. DI/DO pins, fd_uart, fd_eeprom, etc.)
- * 	4) 	vUserMain() should contains the creation of application threads/coroutine
- ***********************************************************************************************/
+/**
+ * \file
+ * boot up file for module using FreeRTOS
+ * \author Dennis Tsang <dennis@amonics.com>
+ */
+
+/**
+ * \page boot SYSTEM BOOT UP
+ * \li This file is created based on the Demo Application in /freeRTOS/Demo/dsPIC_MPLAB/main.c
+ * \li User should implement their own vSetupHardware() and vUserMain().
+ * \li vSetupHardware is used to set up the hardware (e.g. DI/DO pins, fd_uart, fd_eeprom, etc.)
+ * \li vUserMain() should contains the creation of application threads/coroutine
+ */
 
 /*
 	FreeRTOS.org V4.1.3 - Copyright (C) 2003-2006 Richard Barry.
@@ -55,17 +58,17 @@
 /************************************************************************************************
  * Configuration Bits Setting
  ************************************************************************************************/
-_FOSC(CSW_FSCM_OFF & FRC_PLL16);  					//Turn off clock switching (CSW) and 
-													//fail-safe clock monitoring (FSCM)
-													//Use Internal Fast RC (FRC) as system clock 
-                                					//routed via the PLL in 16x multiplier mode
-                                					//7.37 MHz throughput of 7.37e+6*16/4=29.4 MIPS(Fcy)
-                                					//,~33.9 nanoseconds instruction cycle time(Tcy).
-_FWDT(WDT_OFF);                 					//Turn off Watchdog Timer
-_FBORPOR(PBOR_ON & BORV_27 & MCLR_DIS & PWRT_16); 	//Set Brown-out Reset voltage to 2.7V
-													//Disable MCLR reset pin and set  
-                                					//Power-up Timer to 16ms
-_FGS(CODE_PROT_OFF);            					//Disable Code Protection
+_FOSC(CSW_FSCM_OFF & FRC_PLL16);                  //Turn off clock switching (CSW) and 
+                                                  //fail-safe clock monitoring (FSCM)
+                                                  //Use Internal Fast RC (FRC) as system clock 
+                                                  //routed via the PLL in 16x multiplier mode
+                                                  //7.37 MHz throughput of 7.37e+6*16/4=29.4 MIPS(Fcy)
+                                                  //,~33.9 nanoseconds instruction cycle time(Tcy).
+_FWDT(WDT_OFF);                                   //Turn off Watchdog Timer
+_FBORPOR(PBOR_ON & BORV_27 & MCLR_DIS & PWRT_16); //Set Brown-out Reset voltage to 2.7V
+                                                  //Disable MCLR reset pin and set  
+                                                  //Power-up Timer to 16ms
+_FGS(CODE_PROT_OFF);                              //Disable Code Protection
 /************************************************************************************************/
 
 /************************************************************************************************
@@ -83,115 +86,118 @@ void prvSetupTimerInterrupt( void );
  * Global Variables 
  *************************************************************************************************/
 time_t one_sec_cnt;
-int timer_count;                //counts from 0 upto configTICK_RATE_HZ
+int timer_count;                      //counts from 0 upto configTICK_RATE_HZ
 #ifndef FREERTOS_SCHED 
-    time_t jiffies;
-#endif
-volatile int errno = 0;     //Indicate error state of open(), read() write();
+  time_t jiffies;
+#endif /* FREERTOS_SCHED */
+volatile int errno = 0;               //Indicate error state of open(), read() write();
 
 /************************************************************************************************
  * main()
  * 	+--Entry point after hardware reset
  ************************************************************************************************/
-int main( void )
+int 
+main(void)
 {
-	/* Configure any hardware. */
-	vSetupHardware();
+  /* Configure any hardware. */
+  vSetupHardware();
 
 #ifdef CRTHREAD_SCHED
-    unsigned char index;
-    for(index=0; index<MAX_CRTHREAD; index++)
+  unsigned char index;
+  for(index=0; index<MAX_CRTHREAD; index++)
     {
-        crlist[index].crthread = (((crthread_t) 0 ) + MAX_CRTHREAD);
+      crlist[index].crthread = (((crthread_t) 0 ) + MAX_CRTHREAD);
     }
-#endif
+#endif /* CRTHREAD_SCHED */
 
 #ifndef FREERTOS_SCHED 
-    prvSetupTimerInterrupt();       //start timer if FreeRTOS scheduler is disabled 
-#endif
+  prvSetupTimerInterrupt();       //start timer if FreeRTOS scheduler is disabled 
+#endif /* FREERTOS_SCHED */
 
-	/* Create the main task. */
-	vUserMain();
+  /* Create the main task. */
+  vUserMain();
 
 #ifdef FREERTOS_SCHED 
-	/* Finally start the scheduler. */
-	vTaskStartScheduler();
+  /* Finally start the scheduler. */
+  vTaskStartScheduler();
 
-	/* Will only reach here if there is insufficient heap available to start
-	the scheduler. */
-    ERR_LED0_EN();
-    ERR_LED1_EN();
-    while(1){
-        ERR_LED0(1);
-        ERR_LED1(1);
-        mdelay(100); 
-        ERR_LED0(0);
-        ERR_LED1(0);
-        mdelay(100); 
+  /* Will only reach here if there is insufficient heap available to start the scheduler. */
+  ERR_LED0_EN();
+  ERR_LED1_EN();
+  while(1)
+    {
+      ERR_LED0(1);
+      ERR_LED1(1);
+      mdelay(100); 
+      ERR_LED0(0);
+      ERR_LED1(0);
+      mdelay(100);
     }  
-#endif
-	return 0;
+#endif /* FREERTOS_SCHED */
+  return 0;
 }
 /*-----------------------------------------------------------*/
 
 /*
  * Setup a timer for a regular tick.
  */
-void prvSetupTimerInterrupt( void )
+void 
+prvSetupTimerInterrupt( void )
 {
-const unsigned portLONG ulCompareMatch = ( configCPU_CLOCK_HZ / portTIMER_PRESCALE ) / configTICK_RATE_HZ;
+  const unsigned portLONG ulCompareMatch = ( configCPU_CLOCK_HZ / portTIMER_PRESCALE ) / configTICK_RATE_HZ;
 
-    /* Initialize counters */
-    one_sec_cnt = 0;
-    timer_count = 0;
+  /* Initialize counters */
+  one_sec_cnt = 0;
+  timer_count = 0;
 #ifndef FREERTOS_SCHED 
-    jiffies = 0;
-#endif
+  jiffies = 0;
+#endif /* FREERTOS_SCHED */
 
-    /* Prescale of 8. */
-    T1CON = 0;
-    TMR1 = 0;
+  /* Prescale of 8. */
+  T1CON = 0;
+  TMR1 = 0;
 
-    PR1 = ( unsigned portSHORT ) ulCompareMatch;    //3750 for 30MIP
+  PR1 = ( unsigned portSHORT ) ulCompareMatch;
 
-    /* Setup timer 1 interrupt priority. */
-    IPC0bits.T1IP = portKERNEL_INTERRUPT_PRIORITY;
+  /* Setup timer 1 interrupt priority. */
+  IPC0bits.T1IP = portKERNEL_INTERRUPT_PRIORITY;
 
-    /* Clear the interrupt as a starting condition. */
-    IFS0bits.T1IF = 0;
+  /* Clear the interrupt as a starting condition. */
+  IFS0bits.T1IF = 0;
 
-    /* Enable the interrupt. */
-    IEC0bits.T1IE = 1;
+  /* Enable the interrupt. */
+  IEC0bits.T1IE = 1;
 
-    /* Setup the prescale value. */
-    T1CONbits.TCKPS = 1;        //Modified by Dennis
+  /* Setup the prescale value. */
+  T1CONbits.TCKPS = 1;
 
-    /* Start the timer. */
-    T1CONbits.TON = 1;
+  /* Start the timer. */
+  T1CONbits.TON = 1;
 }
 /*-----------------------------------------------------------*/
 
-void _IRQ _T1Interrupt( void )
+void 
+_IRQ _T1Interrupt( void )
 {
 #ifdef FREERTOS_SCHED 
-    vTaskIncrementTick();
-#else
-    jiffies++;
-#endif
+  vTaskIncrementTick();
+#else /* not FREERTOS_SCHED */
+  jiffies++;
+#endif /* not FREERTOS_SCHED */
 
-    /* record time */
-    if(++timer_count == configTICK_RATE_HZ)
+  /* record time */
+  if(++timer_count == configTICK_RATE_HZ)
     {
-       one_sec_cnt++;
-       timer_count = 0; 
+      one_sec_cnt++;
+      timer_count = 0;
     }
-    
-    /* Clear the timer interrupt. */
-    DISI_PROTECT(IFS0bits.T1IF = 0);
+
+  /* Clear the timer interrupt. */
+  DISI_PROTECT(IFS0bits.T1IF = 0);
 
 #ifdef FREERTOS_SCHED 
-    #if configUSE_PREEMPTION == 1
-        portYIELD();
-    #endif
-#endif
+#if configUSE_PREEMPTION == 1
+  portYIELD();
+#endif /* configUSE_PREEMPTION */
+#endif /* FREERTOS_SCHED */
 }
