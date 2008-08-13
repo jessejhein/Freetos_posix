@@ -79,7 +79,7 @@
 
 /**
  * \note MARCO for void usleep(unsigned long usec)
- * \li FreeRTOS version: vTaskDelay((portTickType)((__u64)usec/(1000*portTICK_RATE_MS)))
+ * \li FreeRTOS version: vTaskDelay((portTickType)((u64)usec/(1000*portTICK_RATE_MS)))
  * \li Coroutine version: scrReturn((void*)-1)
  * \brief suspends process for (at least) usec microseconds
  * \param usec time (in us) to sleep
@@ -90,7 +90,7 @@
  * \li For 32-bit counter with context switch period of 10ms, maximum number of sec is 4,294,967,295*0.01 = 42,949,672 sec = 3.3 yrs
  */
 #ifdef FREERTOS_SCHED
-  #define usleep(usec)    vTaskDelay((portTickType)((__u64)usec/(1000*portTICK_RATE_MS)))
+  #define usleep(usec)    vTaskDelay((portTickType)((u64)usec/(1000*portTICK_RATE_MS)))
 #else /* not FREERTOS_SCHED */
   #define usleep(usec)    scrReturn((void*)-1)
 #endif /* not FREERTOS_SCHED */
@@ -98,7 +98,7 @@
 
 /**
  * \note MARCO for unsigned int sleep(unsigned int seconds);
- * \li FreeRTOS version: usleep((__u64)sec*1000000)
+ * \li FreeRTOS version: usleep((u64)sec*1000000)
  * \li Coroutine version: scrReturn((void*)-1)
  * \brief makes the current process sleep until seconds seconds have elapsed
  * \param seconds time (in s) to sleep
@@ -110,7 +110,7 @@
  * \li For 32-bit counter with context switch period of 10ms, maximum number of sec is 4,294,967,295*0.01 = 42,949,672 sec = 3.3 yrs
  */
 #ifdef FREERTOS_SCHED
-  #define sleep(seconds)    usleep((__u64)seconds*1000000)
+  #define sleep(seconds)    usleep((u64)seconds*1000000)
 #else /* not FREERTOS_SCHED */
   #define sleep(seconds)    scrReturn((void*)-1)
 #endif /* not FREERTOS_SCHED */

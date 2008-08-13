@@ -229,7 +229,7 @@ set_PHY_mode(board_info_t *db)
 static void 
 dm9000_hash_table(board_info_t *db)
 {
-  __u32 hash_val;
+  u32 hash_val;
   u16_t i, oft, hash_table[4];
   struct uip_eth_addr mac;
 
@@ -386,7 +386,7 @@ dmfe_gets(u8_t *val, u16_t len)
   int k, r;
   for(k=0; k<len; k++, r++)
     {
-      while(printHex( ((__u8*)val)[k], 2) < 0) usleep(0);
+      while(printHex( ((u8*)val)[k], 2) < 0) usleep(0);
       switch(r%16)
         {
           case 3: case 7: case 11: 

@@ -45,6 +45,6 @@
 clock_time_t
 clock_time(void)
 {
-    return (clock_time_t) os_time(NULL);
+    return (clock_time_t) clock();
 }
 /*---------------------------------------------------------------------------*/

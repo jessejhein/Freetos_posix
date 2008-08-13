@@ -59,12 +59,12 @@ void tprint(const char *fmt, ...)
  * value: a value
  * precision: number of digits 
  */
-static void int2hexString(char* buf, __u16 value, int precision)
+static void int2hexString(char* buf, u16 value, int precision)
 {
     char ascii[] = "0123456789ABCDEF";
     int i=0;
     for(i=0; i<precision; i++){
-        __u16 remainder = value%16;
+        u16 remainder = value%16;
         buf[precision-1-i] = ascii[remainder];
         value /=16;
     }
@@ -109,7 +109,7 @@ int printFloat(float value)
 }
 
 //-------------------------------------------------------------
-void printMACAdress(__u8 *addr)
+void printMACAdress(u8 *addr)
 {
     int k;
     for(k=0; k<5; k++)
@@ -122,7 +122,7 @@ void printMACAdress(__u8 *addr)
 }
 
 //-------------------------------------------------------------
-void printMACHeader(__u8 *pheader)  
+void printMACHeader(u8 *pheader)  
 {
     while(printStr("DA: ") < 0) usleep(0);
     printMACAdress(pheader);
@@ -131,7 +131,7 @@ void printMACHeader(__u8 *pheader)
     printMACAdress(pheader+6);
 
     while(printStr("TL: ") < 0) usleep(0);
-    __u8* addr = pheader+12;
+    u8* addr = pheader+12;
     while(printHex( addr[0], 2) < 0) usleep(0);
     while(printHex( addr[1], 2) < 0) usleep(0);
     while(newline() < 0) usleep(0);
@@ -142,7 +142,7 @@ void printPayload(void *addr, int len, int* pos)
 {
     int k;
     for(k=0; k<len; k++, (*pos)++){
-        while(printHex( ((__u8*)addr)[k], 2) < 0) usleep(0);
+        while(printHex( ((u8*)addr)[k], 2) < 0) usleep(0);
         switch((*pos)%16){
             case 3: case 7: case 11: 
                 while(printStr(" ") < 0) usleep(0);

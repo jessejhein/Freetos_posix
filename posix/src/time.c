@@ -24,15 +24,13 @@ time(time_t *t)
 }
 
 //---------------------------------------------------------------------------
-time_t 
-os_time(time_t *t)
+clock_t 
+clock(void)
 {
 #ifdef FREERTOS_SCHED 
   portTickType time = xTaskGetTickCount();
 #else /* NOT FREERTOS_SCHED */
-  time_t time = jiffies;
+  clock_t time = jiffies;
 #endif /* NOT FREERTOS_SCHED */
-  if(t != NULL)
-    *t = (time_t) time;
-  return (time_t) time;
+  return (clock_t) time;
 }

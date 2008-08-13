@@ -114,14 +114,12 @@ gpio_read(unsigned char *buf)
  *           A -- each 60mSec to scan
  *           B -- after get a key, waiting until release of key
  * 
- * When pkey_scan_cnt[i] < 6 (due to os_time() returning values ~0xFFFF)
- * scan frequency will be decreased <60ms
  */
 void 
 gpio_enter_key(void)
 {
   static unsigned char pkey_state[TOTAL_PUSH_KEY];
-  static unsigned int pkey_scan_cnt[TOTAL_PUSH_KEY];
+  static clock_t pkey_start_time[TOTAL_PUSH_KEY];
 
   int i, key_id, pressed;
   for(i=0, key_id=BASE_PUSH_KEY; i<TOTAL_PUSH_KEY; i++, key_id++)
@@ -129,13 +127,12 @@ gpio_enter_key(void)
       switch (pkey_state[i])
         {
           case 0:
-            //Set detect period as 6 epochs (60ms)
-            pkey_scan_cnt[i] = (unsigned int) os_time((time_t*) NULL) + 6;
+            pkey_start_time[i] = clock();
             pkey_state[i]++;
             break;
           case 1:
             //Time's up, check for key pressed
-            if(pkey_scan_cnt[i]<=( (unsigned int) os_time((time_t*) NULL) )) 
+            if( ((clock_t) (clock() - pkey_start_time[i])) >= 6  )
               {
                 //Key has pressed
                 KEY_PRESS(key_id, pressed);
