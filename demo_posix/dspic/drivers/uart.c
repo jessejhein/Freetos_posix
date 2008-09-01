@@ -30,7 +30,6 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <asm/system.h>
-#include <asm/delay.h>
 
 
 /*
@@ -377,52 +376,26 @@ _U1TXInterrupt(void)
 void _IRQ 
 _U2RXInterrupt(void)
 {
-#ifdef BOOTLOADER_RESET
-  //No Framming error
-  if( U2STAbits.FERR == 0)
-#endif  /* BOOTLOADER_RESET */
+  unsigned char next_data_pos;
+  while ( U2STAbits.URXDA )
     {
-      unsigned char next_data_pos;
-      while ( U2STAbits.URXDA )
+      //Data is received======================================================
+      next_data_pos = pre_wr_cir254buf( uart_rx[0].wr, uart_rx[0].rd, MAX_UART_RX_BUF);
+      if (next_data_pos!=255) 
         {
-          //Data is received======================================================
-          next_data_pos = pre_wr_cir254buf( uart_rx[0].wr, uart_rx[0].rd, MAX_UART_RX_BUF);
-          if (next_data_pos!=255) 
-            {
-              //If buffer is not full
-              uart_rx_buf[0][uart_rx[0].wr] = (unsigned char) U2RXREG;
-              uart_rx[0].wr = next_data_pos;
-            } 
-          else
-            {
-                //When buffer is full, still remove data from register, but the incoming data is lost
-                next_data_pos = (unsigned char) U2RXREG;      //Read the data from buffer
-            }
-        }
-      //Rx Buffer Overflow: 
-      //If this bit is not cleared, the UART module cannot receive more data
-      if( U2STAbits.OERR ) U2STAbits.OERR = 0;
-    }
-#ifdef BOOTLOADER_RESET
-  //Framming error
-  else
-    {
-      if ( U2STAbits.URXDA )
+          //If buffer is not full
+          uart_rx_buf[0][uart_rx[0].wr] = (unsigned char) U2RXREG;
+          uart_rx[0].wr = next_data_pos;
+        } 
+      else
         {
-          unsigned char data;
-          data = (unsigned char) U2RXREG;
-          if(data == 0x00)
-            {
-              //A break char has been received: 
-              //  U2RX has been pulled to zero for more than 13 bits
-              //  This is used to reboot the pic
-              vUserShutdown();
-              mdelay(BL_RESET_TIME);    //wait for break character to clear
-              asm("reset");   //software reset
-            }
+          //When buffer is full, still remove data from register, but the incoming data is lost
+          next_data_pos = (unsigned char) U2RXREG;      //Read the data from buffer
         }
     }
-#endif /* BOOTLOADER_RESET */
+  //Rx Buffer Overflow: 
+  //If this bit is not cleared, the UART module cannot receive more data
+  if( U2STAbits.OERR ) U2STAbits.OERR = 0;
 
 #ifdef MPLAB_DSPIC33_PORT
   _U2RXIF = 0;
