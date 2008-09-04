@@ -74,8 +74,10 @@ static void int2hexString(char* buf, u16 value, int precision)
 //-------------------------------------------------------------
 int newline(void)
 {
-    char buf = 0x0d;
-    return write(fd_uart, &buf, 1);    
+    //0x0a for Linux
+    //0x0d 0x0a for Windows
+    char buf[2] = { 0x0d, 0x0a };
+    return write(fd_uart, &buf[0], 2);    
 }
 
 //-------------------------------------------------------------
