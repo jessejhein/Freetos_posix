@@ -1,0 +1,170 @@
+/**
+ * \addtogroup definitions Definitions
+ * @{
+ */
+
+/**
+ * \defgroup pin Hardware Pins
+ * @{
+ *
+ * Get access to hardware digital and analog io
+ */
+
+/**
+ * \file
+ * \author Cheng Chung Yan <yan@amonics.com>
+ * \author Dennis Tsang <dennis@amonics.com>
+ */
+
+#ifndef PIN_DEFINE_H_
+#define PIN_DEFINE_H_
+
+//  ===========================ERROR PIN===================================
+/*
+ * \brief ERROR PIN
+ * \remarks Flashing LED0:          Address Error
+ * \remarks Flashing LED1:          Maths Error
+ * \remarks LED0 On:                Stack Error
+ * \remarks LED1 On:                DMA Error (dspic33 only)
+ * \remarks Flashing LED0 & LED1:   Not enough memory to start FreeRTOS scheduler
+ */
+#define ERR_LED0_EN()               (TRISC &= 0x7FFF)   //_RC15
+#define ERR_LED1_EN()               (TRISC &= 0xFFFB)   //_RC2
+#define ERR_LED0(x)                 do{ \
+                                        if((x)==0) LATC &= 0x7FFF; \
+                                        else LATC |= 0x8000; \
+                                     }while(0)
+#define ERR_LED1(x)                 do{ \
+                                        if((x)==0) LATC &= 0xFFFB; \
+                                        else LATC |= 0x0004; \
+                                     }while(0)
+
+
+
+//  ==============================UART=====================================
+#ifdef UART_MOD
+/**
+ * \brief set the RS485 digital control pin as output
+ */
+#define RS485_CTL_EN()              TRISC &= 0xFFFD
+
+/**
+ * \brief set the RS485 digital control pin to tx state
+ */
+#define RS485_TX_ON()               LATC |= 0x0002
+
+/**
+ * \brief set the RS485 digital control pin to rx state
+ */
+#define RS485_TX_OFF()              LATC &= 0xFFFD
+#endif //UART_MOD
+
+
+
+//  ==============================KB======================================
+#ifdef KB_MOD
+/*
+ * \brief KEY MAPS
+ * \remarks PKEY: Push Key (i.e. enter key)
+ * \remarks RKEY: Rotary Key
+ * \remarks EN: input/output selection
+ * \remarks IO: logic state of key
+ * \remarks CN: change notification (interrupt enable pin to detect change of state)
+ */
+//Enter key
+#define EN_PKEY0                    _TRISD10
+#define IO_PKEY0                    _RD10
+//UP key
+#define EN_RKEY0_UP                 _TRISC14
+#define IO_RKEY0_UP                 _RC14
+#define CN_RKEY0_UP                 _CN0IE    // change input register, interrupt setting 
+//Down Key
+#define EN_RKEY0_DN                 _TRISC13
+#define IO_RKEY0_DN                 _RC13
+#define CN_RKEY0_DN                 _CN1IE    // change input register, interrupt setting 
+#endif //KB_MOD
+
+
+
+//  ===========================ETHERNET PORT===============================
+#ifdef ETHERNET_MOD
+/*
+ * \brief KEY MAPS
+ * \remarks Interrupt Key Map
+ */ 
+#define ETH_ISR_EP                  _INT0EP
+#define ETH_ISR_IF                  _INT0IF
+#define ETH_ISR_IP                  _INT0IP
+#define ETH_ISR_IE                  _INT0IE
+#define dmfe_interrupt              _IRQ _INT0Interrupt
+
+/**
+ * \brief initialize IOs for ethernet port
+ * \remarks ETH_CS#: output, [do not select chip]
+ * \remarks ADDR0: output, [addressing mode]
+ * \remarks IOR#: output, [not read]
+ * \remarks IOW#: output, [not write]
+ */
+#define ETH_IOCONFIG()               do{ \
+                                        TRISD &= 0xF7DF; \
+                                        TRISF &= 0xFFFC; \
+                                        LATD |= 0x0820; \
+                                        LATF |= 0x0003; \
+                                      } while(0)
+
+/**
+ * \brief set the io pins to read/write an address/data register
+ * \param x command\n
+ *          bit 0: read mode\n
+ *          bit 1: write mode\n
+ *          bit 2: address/data
+ */
+#define ETH_IOCMD(x)                 do{\
+                                        LATD = ( (PORTD & 0xF7DF) | ((((int)x) << 2) & 0x0020) | ((((int)x) << 9) & 0x0800) ); \
+                                        LATF = ( (PORTF & 0xFFFC) | (((int)x) & 0x0003) ); \
+                                      } while(0)
+#endif //ETHERNET_MOD
+
+
+
+//  ===========================DATA PORT===================================
+/**
+ * \brief config data port pins to output or input
+ * \param x 0: output\n
+ *          1: input
+ * \remarks DATA7   =>  _RG15
+ * \remarks DATA6   =>  _RG14
+ * \remarks DATA5   =>  _RG13
+ * \remarks DATA4   =>  _RG12
+ * \remarks DATA3   =>  _RG9
+ * \remarks DATA2   =>  _RG8
+ * \remarks DATA1   =>  _RG7
+ * \remarks DATA0   =>  _RG6
+ * \remarks Config output    =>  0000 1100 0011 1111 => 0x0C3F
+ * \remarks Config input     =>  1111 0011 1100 0000 => 0xF3C0
+ */
+#define PCONFIG(x)                   do{ \
+                                        if((x)==0) TRISG &= 0x0C3F; \
+                                        else TRISG |= 0xF3C0; \
+                                      } while(0)
+
+/**
+ * \brief write a byte to data port
+ * \param x 8-bit data
+ * \remarks
+ * \li ---- GG-- --GG GGGG & 0000 1100 0011 1111          => 0000 GG00 00GG GGGG
+ * \li (0000 0000 XXXX XXXX << 8) & 1111 0000 0000 0000   => XXXX 0000 0000 0000
+ * \li (0000 0000 XXXX XXXX << 6) & 0000 0011 1100 0000   => 0000 00XX XX00 0000
+ * \li                        ORing                       => XXXX GGXX XXGG GGGG
+ */
+#define PWRITE(x)                    do{\
+                                        LATG = ( (PORTG & 0x0C3F) | ((((int)x) << 8) & 0xF000) | ((((int)x) << 6) & 0x03C0) ); \
+                                      } while(0)
+
+/**
+ * \brief read a byte from data port
+ * \return 8-bit data
+ */
+#define PREAD()                      ( (unsigned char)( ((PORTG & 0xF000) >> 8) + ((PORTG & 0x03C0) >> 6) ) )
+
+#endif /*PIN_DEFINE_H_*/

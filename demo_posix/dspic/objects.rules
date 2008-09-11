@@ -1,0 +1,250 @@
+##############################################################################
+# dspic Makefile
+#
+# This makefile adds the object files to the obj-y variable.
+# It does not define any targets.
+#
+# This makefile is only intended to be included from /freertos_posix/demo_posix/objects.rules
+##############################################################################
+# ==ASSUMPTIONS==
+# *The following variables are set correctly:
+#	ARCH   		: store the path name of mcu architecture
+##############################################################################
+
+ifndef FREERTOS_POSIX
+	FREERTOS_POSIX := $(CURDIR)/../..
+endif
+
+########################### compiler section ################################
+
+#	Use pic30-elf-gcc compiler by Microchip
+CC := pic30-elf-gcc
+B2H	:= pic30-elf-bin2hex
+
+# -mcpu=target			This option selects the particular target. This option affects how 
+#						some predifined constants are set (e.g. __dsPIC33FJ128GP306__)
+# -mlarge-code			Turn on large code model (code size >32KB)
+# -mlarge-data			Turn on large data model (const location >32KB)
+# -O0:					no optimisation of code
+# -Ox:					optimisation of code Level x, x = 1, 2, 3, s
+# -fomit-frame-pointer: Required by FreeRTOS at -O0 (at other -O, this is automatically
+#						enabled) to disable instructions to save, set up and restore
+#						frame pointers. Refer to FreeRTOS Forum at
+#						http://sourceforge.net/forum/message.php?msg_id=3899530
+#						and MPLAB C30 C compiler user guide on Frame Pointer
+ifeq ($(PLATFORM), DSPIC33)
+	ifeq ($(MODEL), FJ256GP506)
+		CFLAGS += -mcpu=33FJ256GP506
+	endif
+	ifeq ($(MODEL), FJ128GP306)
+		CFLAGS += -mcpu=33FJ128GP306
+	endif
+endif
+ifeq ($(PLATFORM), DSPIC30)
+	ifeq ($(MODEL), F5011)
+		CFLAGS += -mcpu=30F5011
+	endif
+endif
+CFLAGS += -mlarge-code -mlarge-data -Os -fomit-frame-pointer -Werror
+
+
+############################# linker section ################################
+# The official linker script, is not used. A customized version, is included 
+# in this project to ensure that the _resetPRI function is located at address 
+# the proper address so that the bootloader can always point this address. 
+# Please also include reset.s in the compilation list to achieve the desired 
+# function.
+#############################################################################
+# -T:			include the linker script file (*.gld)
+# -L:			include the directory of library file (*.a)
+# -Xlinker:		pass argument from pic30-elf-gcc (compiler) to pic30-elf-ld (linker)
+#				e.g. 	-Map file (create a map file)
+#						--print-map (print a map file on screen)
+#						--report-mem (print the memory usage summary on screen)
+# 						--heap=512 (allocate a heap size of 512bytes)
+#					  	[for more arguments, refer to: 
+#						MPLAB ASM30 MALAB LINK30 and utilities user's guide and 
+#						MPLAB C30 C compiler user's guide]
+ifeq ($(PLATFORM), DSPIC33)
+	ifeq ($(MODEL), FJ256GP506)
+		LDFLAGS += -T$(ARCH)/linker/p33FJ256GP506.gld
+	endif
+	ifeq ($(MODEL), FJ128GP306)
+		LDFLAGS += -T$(ARCH)/linker/p33FJ128GP306.gld
+	endif
+endif
+ifeq ($(PLATFORM), DSPIC30)
+	ifeq ($(MODEL), F5011)
+		LDFLAGS += -T$(ARCH)/linker/p30f5011.gld
+	endif
+endif
+
+
+############################# define section ################################
+
+# Architecture
+ifeq ($(PLATFORM), DSPIC33)
+	DEFINES += -DMPLAB_DSPIC33_PORT
+	ifeq ($(MODEL), FJ256GP506)
+		DEFINES += -DFJ256GP506
+	endif
+	ifeq ($(MODEL), FJ128GP306)
+		DEFINES += -DFJ128GP306
+	endif
+endif
+ifeq ($(PLATFORM), DSPIC30)
+	DEFINES += -DMPLAB_DSPIC30_PORT
+	ifeq ($(MODEL), F5011)
+		DEFINES += -DF5011
+	endif
+endif
+
+# UART_MOD
+ifeq ($(CONFIG_UART), y)
+	DEFINES += -DUART_MOD
+	ifeq ($(CONFIG_DEBUG), y)
+		DEFINES += -DDEBUG_CONSOLE
+	endif
+	ifeq ($(CONFIG_UART_PRIMARY), RS485)
+		DEFINES += -DUARTA_RS485=1
+	else
+		DEFINES += -DUARTA_RS485=0
+	endif
+	ifdef CONFIG_UART_BAUDRATE_PRIMARY
+		DEFINES += -DUART_BAUDRATE0=$(CONFIG_UART_BAUDRATE_PRIMARY)
+	endif
+	ifeq ($(CONFIG_UART_USE_SECONDARY), y)
+		DEFINES += -DNO_OF_UART=2
+		ifeq ($(CONFIG_UART_SECONDARY), RS485)
+			DEFINES += -DUARTB_RS485=1
+		else
+			DEFINES += -DUARTB_RS485=0
+		endif
+		ifdef CONFIG_UART_BAUDRATE_SECONDARY
+			DEFINES += -DUART_BAUDRATE1=$(CONFIG_UART_BAUDRATE_SECONDARY)
+		endif
+	else
+		DEFINES += -DNO_OF_UART=1
+	endif
+	ifdef CONFIG_UART_BUFFER_SIZE
+		DEFINES += -DMAX_UART_RX_BUF=$(CONFIG_UART_BUFFER_SIZE) \
+					-DMAX_UART_TX_BUF=$(CONFIG_UART_BUFFER_SIZE)
+	endif
+endif
+
+# I2C_MOD
+ifeq ($(CONFIG_I2C), y)
+	DEFINES += -DI2C_MOD
+	ifdef CONFIG_I2C_BAUDRATE
+		DEFINES += -DI2C_BAUDRATE=$(CONFIG_I2C_BAUDRATE)
+	endif
+endif
+
+# I2C_DAC_MOD
+ifeq ($(CONFIG_I2C_DAC), y)
+	DEFINES += -DI2C_DAC_MOD
+endif
+
+# NVM_MOD
+ifeq ($(CONFIG_NVM), y)
+	DEFINES += -DNVM_MOD
+	ifeq ($(CONFIG_NVM_SRC), FLASH)
+		DEFINES += -DNVM_FLASH
+	endif
+	ifeq ($(CONFIG_NVM_SRC), I2C)
+		DEFINES += -DNVM_I2C
+	endif
+	ifeq ($(CONFIG_NVM_SRC), ON_CHIP)
+		DEFINES += -DNVM_ON_CHIP
+	endif
+endif
+
+# ADC_MOD
+ifeq ($(CONFIG_ADC), y)
+	DEFINES += -DADC_MOD
+	ifdef CONFIG_ADC_SAMPLE_RATE
+		DEFINES += -DADC_SAMP_RATE=$(CONFIG_ADC_SAMPLE_RATE)
+	endif
+	ifdef CONFIG_ADC_ACQ_TIME
+		DEFINES += -DADC_ACQ_TIME=$(CONFIG_ADC_ACQ_TIME)
+	endif
+endif
+
+# PWM_MOD
+ifeq ($(CONFIG_PWM), y)
+	DEFINES += -DPWM_MOD
+endif
+
+# KB_MOD
+ifeq ($(CONFIG_KEYBOARD), y)
+	DEFINES += -DKB_MOD
+	ifdef CONFIG_KB_BUFFER_SIZE
+		DEFINES += -DMAX_GPIO_BUF=$(CONFIG_KB_BUFFER_SIZE)
+	endif
+endif
+
+# ETHERNET_MOD
+ifeq ($(CONFIG_ETHERNET), y)
+	DEFINES += -DETHERNET_MOD
+	ifdef CONFIG_MAC_ADDRESS_BTYE1
+		DEFINES += -DDEFAULT_NIC_BYTE1=$(CONFIG_MAC_ADDRESS_BTYE1)
+	endif
+	ifdef CONFIG_MAC_ADDRESS_BTYE2
+		DEFINES += -DDEFAULT_NIC_BYTE2=$(CONFIG_MAC_ADDRESS_BTYE2)
+	endif
+	ifdef CONFIG_MAC_ADDRESS_BTYE3
+		DEFINES += -DDEFAULT_NIC_BYTE3=$(CONFIG_MAC_ADDRESS_BTYE3)
+	endif
+endif
+
+
+############################# header section ################################
+
+# NVM_MOD
+ifeq ($(CONFIG_NVM), y)
+	ifeq ($(CONFIG_NVM_SRC), FLASH)
+		INCLUDEDIRS += -I$(ARCH)/../drivers/include/
+	endif
+endif
+
+# ETHERNET_MOD
+ifeq ($(CONFIG_ETHERNET), y)
+	INCLUDEDIRS += -I$(ARCH)/../drivers/include/
+endif
+
+
+############################# targets section ################################
+obj-y += \
+	$(ARCH)/linker/reset.o \
+	$(ARCH)/boot/boot.o \
+	$(ARCH)/../drivers/devices.o \
+	$(ARCH)/../drivers/traps.o \
+
+# Drivers
+obj-$(CONFIG_UART) += \
+	$(ARCH)/../drivers/uart.o \
+	$(ARCH)/../drivers/cirbuf.o
+obj-$(CONFIG_I2C) += \
+	$(ARCH)/../drivers/i2c.o 
+obj-$(CONFIG_I2C_DAC) += \
+	$(ARCH)/../drivers/i2c_dac.o
+obj-$(CONFIG_ADC) += \
+	$(ARCH)/../drivers/adc.o
+obj-$(CONFIG_PWM) += \
+	$(ARCH)/../drivers/pwm.o
+obj-$(CONFIG_KEYBOARD) += \
+	$(ARCH)/../drivers/gpio.o
+ifeq ($(CONFIG_NVM), y)
+	ifeq ($(CONFIG_NVM_SRC), FLASH)
+		obj-y += $(ARCH)/../drivers/flash_eeprom.o $(ARCH)/../drivers/rtsp.o
+	endif
+	ifeq ($(CONFIG_NVM_SRC), I2C)
+		obj-y += $(ARCH)/../drivers/i2c_eeprom.o
+	endif
+	ifeq ($(CONFIG_NVM_SRC), ON_CHIP)
+		obj-y += $(ARCH)/../drivers/eeprom.o $(ARCH)/../drivers/eeprom_asm.o
+	endif
+endif	
+obj-$(CONFIG_ETHERNET) += \
+	$(ARCH)/../drivers/dm9000a.o \
+	$(ARCH)/../drivers/clock-arch.o
