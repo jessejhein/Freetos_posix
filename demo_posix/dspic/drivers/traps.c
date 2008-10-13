@@ -6,6 +6,7 @@
 
 #include <define.h>
 #include <asm/delay.h>
+#include <asm/types.h>
 
 /**********************************************************************
  * Osciallator Fail Interrupt

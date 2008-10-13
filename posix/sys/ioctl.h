@@ -61,6 +61,18 @@
 #endif /* PWM_MOD */
 
 
+/*
+ * LED Module
+ */
+#ifdef LED_MOD
+/** select channel to use */
+#define LED_SELECT_CH       0
+#ifdef BUZZER
+#define BUZZER_CH           LED_NUM                   
+#endif /* BUZZER */
+#endif /* LED_MOD */
+
+
 #endif /*_IOCTL_H_*/
 
 /** @} */

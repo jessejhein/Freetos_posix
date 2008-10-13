@@ -16,7 +16,7 @@
 #define EAGAIN      11
 #define EFAULT      14
 #define EINVAL      22
-#define EFBIG       27
+#define EFBIG       27      //write a file that exceeds the implementation-defined maximum file size or the process' file size limit 
 #define ENOSPC      28
 #define EPIPE       32
 

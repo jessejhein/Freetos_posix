@@ -61,7 +61,7 @@ open(const char *pathname, int flags)
 #ifdef KB_MOD
   if (tmp==BASE_KB)
     {
-      return (gpio_open(flags) == 0)? tmp : -1;
+      return (kb_open(flags) == 0)? tmp : -1;
     }
 #endif /* KB_MOD */
 
@@ -71,6 +71,13 @@ open(const char *pathname, int flags)
       return (dmfe_open(flags) == 0)? tmp : -1;
     }
 #endif /* ETHERNET_MOD */
+
+#ifdef LED_MOD
+  if (tmp==BASE_LED)
+    {
+      return (led_open(flags) == 0)? tmp : -1;
+    }
+#endif /* KB_MOD */
 
   errno = ENXIO;
   return -1;
@@ -160,6 +167,13 @@ write(int fd, void* buf, int count)
     }
 #endif /* ETHERNET_MOD */
 
+#ifdef LED_MOD
+  if (fd==BASE_LED)
+    {
+      return led_write(buf);
+    }
+#endif /* PWM_MOD */
+
   return -1;
 }
 
@@ -219,7 +233,7 @@ read(int fd, void* buf, int count)
 #ifdef KB_MOD
   if (fd==BASE_KB)
     {
-      return gpio_read(buf);
+      return kb_read(buf);
     }
 #endif /* KB_MOD */
 
@@ -229,6 +243,13 @@ read(int fd, void* buf, int count)
       return dmfe_read();
     }
 #endif /* ETHERNET_MOD */
+
+#ifdef LED_MOD
+  if (fd==BASE_LED)
+    {
+      return 0;
+    }
+#endif /* PWM_MOD */
 
 	return -1;
 }
@@ -291,6 +312,13 @@ ioctl(int fd, int request, void* argp)
       return 0;
     }
 #endif /* ETHERNET_MOD */
+
+#ifdef LED_MOD
+  if (fd==BASE_LED)
+    {
+      return led_ioctl(request, argp);
+    }
+#endif /* ADC_MOD */
 
 	return -1;
 }
@@ -361,6 +389,13 @@ lseek(int fd, int offset, int whence)
       return 0;
     }
 #endif /* ETHERNET_MOD */
+
+#ifdef LED_MOD
+  if (fd==BASE_LED)
+    {
+      return 0;
+    }
+#endif /* PWM_MOD */
 
   return -1;
 }

@@ -41,6 +41,7 @@
 #include <define.h>
 #include <sys/ioctl.h>
 #include <asm/system.h>
+#include <asm/types.h>
 #include <errno.h>
 #include <fcntl.h>
 /************************************************************************************************

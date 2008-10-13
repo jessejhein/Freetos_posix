@@ -30,6 +30,7 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <asm/system.h>
+#include <asm/types.h>
 
 
 /*

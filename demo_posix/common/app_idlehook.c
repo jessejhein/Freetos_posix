@@ -7,7 +7,7 @@
 #include <stddef.h>
 
 #ifdef KB_MOD
-extern void gpio_enter_key(void);
+extern void kb_enter_key(void);
 #endif
 
 /************************************************************************************************
@@ -22,7 +22,11 @@ void
 vApplicationIdleHook(void)
 {
 #ifdef KB_MOD
-  gpio_enter_key();
+  kb_enter_key();
+#endif //end KB_MOD
+
+#ifdef LED_MOD
+  led_ctrl();
 #endif //end KB_MOD
 
   /*
