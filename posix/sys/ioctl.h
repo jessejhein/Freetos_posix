@@ -75,6 +75,16 @@
 #endif /* LED_MOD */
 
 
+/*
+ * LCD Module
+ */
+#ifdef LCD_MOD
+/** change contrast level */
+#define LCD_SET_CONTRAST    0
+/** change brightness level */
+#define LCD_SET_BRIGHTNESS  1
+#endif /* LCD_MOD */
+
 #endif /*_IOCTL_H_*/
 
 /** @} */

@@ -77,7 +77,14 @@ open(const char *pathname, int flags)
     {
       return (led_open(flags) == 0)? tmp : -1;
     }
-#endif /* KB_MOD */
+#endif /* LED_MOD */
+
+#ifdef LCD_MOD
+  if (tmp==BASE_LCD)
+    {
+      return tmp;
+    }
+#endif /* LCD_MOD */
 
   errno = ENXIO;
   return -1;
@@ -172,7 +179,7 @@ write(int fd, void* buf, int count)
     {
       return led_write(buf);
     }
-#endif /* PWM_MOD */
+#endif /* LED_MOD */
 
   return -1;
 }
@@ -249,7 +256,7 @@ read(int fd, void* buf, int count)
     {
       return 0;
     }
-#endif /* PWM_MOD */
+#endif /* LED_MOD */
 
 	return -1;
 }
@@ -318,7 +325,14 @@ ioctl(int fd, int request, void* argp)
     {
       return led_ioctl(request, argp);
     }
-#endif /* ADC_MOD */
+#endif /* LED_MOD */
+
+#ifdef LCD_MOD
+  if (fd==BASE_LCD)
+    {
+      return lcd_ioctl(request, argp);
+    }
+#endif /* LCD_MOD */
 
 	return -1;
 }
@@ -395,7 +409,7 @@ lseek(int fd, int offset, int whence)
     {
       return 0;
     }
-#endif /* PWM_MOD */
+#endif /* LED_MOD */
 
   return -1;
 }
