@@ -70,6 +70,8 @@
 #ifdef BUZZER
 #define BUZZER_CH           LED_NUM                   
 #endif /* BUZZER */
+/** select channel to use */
+#define LED_BLOCK_CH        1
 #endif /* LED_MOD */
 
 

@@ -36,6 +36,8 @@
 static int led_io_flag;
 /** current channel selected for writing */
 static unsigned int led_ch_select;
+/** block status for channel, upto 16 ch */
+static unsigned int led_block_status;
 /** led status */
 static unsigned char led_status[IO_MAX];
 /** start time for ctrl */
@@ -70,6 +72,10 @@ led_write(unsigned char *buf)
     {
       if(led_ch_select < IO_MAX)
         {
+          //check for blocking
+          unsigned int mask = (0x0001 << led_ch_select);
+          if(led_block_status & mask) return 0;
+          //no blocking
           led_status[led_ch_select] = *buf;
           //restart ctrl immediately
           start_time = 0;
@@ -107,6 +113,19 @@ led_ioctl(int request, unsigned char* argp)
         {
           led_ch_select = argp[0];
           break;
+        }
+      case LED_BLOCK_CH:
+        {
+          unsigned int mask = (0x0001 << argp[0]);
+          if(argp[1] == 0) led_block_status &= ~mask;
+          else 
+            {
+              led_block_status |= mask;
+              //turn off led if block
+              led_status[argp[0]] = LED_OFF;
+              //restart ctrl immediately
+              start_time = 0;
+            } 
         }
       //request code not recognised
       default:
