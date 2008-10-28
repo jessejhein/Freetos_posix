@@ -25,21 +25,21 @@
 
 // ---------------------------------------------------------------------------------------
 /** unsigned 8-bit data */
-typedef unsigned char           u8;
+typedef unsigned char           __u8;
 /** 8-bit data */
-typedef char                    s8;
+typedef char                    __s8;
 /** unsigned 16-bit data */
-typedef unsigned int            u16;
+typedef unsigned int            __u16;
 /** 16-bit data */
-typedef int                     s16;
+typedef int                     __s16;
 /** unsigned 32-bit data */
-typedef unsigned long           u32;
+typedef unsigned long           __u32;
 /** 32-bit data */
-typedef long                    s32;
+typedef long                    __s32;
 /** unsigned 64-bit data */
-typedef unsigned long long      u64;
+typedef unsigned long long      __u64;
 /** 64-bit data */
-typedef long long               s64;
+typedef long long               __s64;
 
 
 // ---------------------------------------------------------------------------------------

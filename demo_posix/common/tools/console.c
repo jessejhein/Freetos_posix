@@ -59,12 +59,12 @@ void tprint(const char *fmt, ...)
  * value: a value
  * precision: number of digits 
  */
-static void int2hexString(char* buf, u16 value, int precision)
+static void int2hexString(char* buf, __u16 value, int precision)
 {
     char ascii[] = "0123456789ABCDEF";
     int i=0;
     for(i=0; i<precision; i++){
-        u16 remainder = value%16;
+        __u16 remainder = value%16;
         buf[precision-1-i] = ascii[remainder];
         value /=16;
     }

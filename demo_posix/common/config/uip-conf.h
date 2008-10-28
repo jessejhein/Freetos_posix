@@ -64,7 +64,7 @@
  *
  * \hideinitializer
  */
-typedef u8 u8_t;
+typedef __u8 u8_t;
 
 /**
  * 16 bit datatype
@@ -73,7 +73,7 @@ typedef u8 u8_t;
  *
  * \hideinitializer
  */
-typedef u16 u16_t;
+typedef __u16 u16_t;
 
 /**
  * Statistics datatype

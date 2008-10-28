@@ -90,7 +90,7 @@
  * \li For 32-bit counter with context switch period of 10ms, maximum number of sec is 4,294,967,295*0.01 = 42,949,672 sec = 3.3 yrs
  */
 #ifdef FREERTOS_SCHED
-  #define usleep(usec)    vTaskDelay((portTickType)((u64)usec/(1000*portTICK_RATE_MS)))
+  #define usleep(usec)    vTaskDelay((portTickType)((__u64)usec/(1000*portTICK_RATE_MS)))
 #else /* not FREERTOS_SCHED */
   #define usleep(usec)    scrReturn((void*)-1)
 #endif /* not FREERTOS_SCHED */
@@ -110,7 +110,7 @@
  * \li For 32-bit counter with context switch period of 10ms, maximum number of sec is 4,294,967,295*0.01 = 42,949,672 sec = 3.3 yrs
  */
 #ifdef FREERTOS_SCHED
-  #define sleep(seconds)    usleep((u64)seconds*1000000)
+  #define sleep(seconds)    usleep((__u64)seconds*1000000)
 #else /* not FREERTOS_SCHED */
   #define sleep(seconds)    scrReturn((void*)-1)
 #endif /* not FREERTOS_SCHED */

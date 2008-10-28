@@ -176,7 +176,7 @@ static void set_PHY_mode(board_info_t *db)
  */
 static void dm9000_hash_table(board_info_t *db)
 {
-    u32 hash_val;
+    __u32 hash_val;
     u16_t i, oft, hash_table[4];
     struct uip_eth_addr mac;
 
