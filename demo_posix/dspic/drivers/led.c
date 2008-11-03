@@ -161,16 +161,18 @@ led_ctrl(void* arg)
   start_time = clock();
   while( ((clock_t) (clock() - start_time)) < LED_CTRL_INTERVAL ) usleep(0);
   
-  int k;
+  static int k;
   for (k=0; k<IO_MAX; k++) 
     {
       if(led_status[k] == LED_OFF)
         {
           io_off(k);
+          led_status[k] = LED_IDLE;
         }
       else if(led_status[k] == LED_ON)
         {
           io_on(k);
+          led_status[k] = LED_IDLE;
         }
       else if(led_status[k] == LED_POS_PULSE)
         {
@@ -190,7 +192,7 @@ led_ctrl(void* arg)
 }
 
 
-#endif //end LED_MOD
+#endif /* LED_MOD */
 
 /** @} */
 /** @} */

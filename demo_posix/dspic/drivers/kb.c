@@ -52,7 +52,12 @@ kb_open(int flags)
   else
     {
       kb_io_flag = flags;
+#ifdef KB_PUSH_KEY
       KEYCONFIG();
+#endif /* KB_PUSHKEY */
+#ifdef KB_ROTATE_KEY
+      RKEYCONFIG();
+#endif /* KB_ROTARY */
       return 0;
     }    
 }
@@ -96,86 +101,27 @@ kb_read(unsigned char *buf)
 
 
 /**
- * \brief detect enter key
- * \remarks used in idle task
- * 
- * \internal
- * Principle of ENTER key
- * 
- *     ------------------------|||                 |||-----------
- *                             |||-----------------|||
- *      
- *                             |<------- B --------->| 
- *     
- *          |<--A-->|       |        |                   |
- *       case0    case1    case1    case1              case2
- *        ->case1  ->case0  ->case0  ->case2            ->case0
- *                    ->case1  ->case1
- *     
- *           A -- each 60mSec to scan
- *           B -- after get a key, waiting until release of key
- * 
+ * \brief insert key id into circular buffer
+ * \param key_id key id for writing
+ * \retval 0 indicating no data is written (buffer is full
+ * \retval 1 indicating 1 byte has been written
  */
-void 
-kb_enter_key(void)
+static int 
+kb_write(unsigned char key_id)
 {
-  static unsigned char pkey_state[TOTAL_PUSH_KEY];
-  static clock_t pkey_start_time[TOTAL_PUSH_KEY];
-
-  int i, key_id, pressed;
-  for(i=0, key_id=BASE_PUSH_KEY; i<TOTAL_PUSH_KEY; i++, key_id++)
+  unsigned char next_data_pos;
+  next_data_pos = pre_wr_cir254buf( kb_wr, kb_rd, MAX_KB_BUF);
+  if (next_data_pos!=255) 
     {
-      switch (pkey_state[i])
-        {
-          case 0:
-            pkey_start_time[i] = clock();
-            pkey_state[i]++;
-            break;
-          case 1:
-            //Time's up, check for key pressed
-            if( ((clock_t) (clock() - pkey_start_time[i])) >= 6  )
-              {
-                //Key has pressed
-                KEY_PRESS(key_id, pressed);
-                if(pressed) 
-                  {
-                    pkey_is_pressing = 1;
-                    unsigned char next_data_pos;
-                    next_data_pos = pre_wr_cir254buf( kb_wr, kb_rd, MAX_KB_BUF);
-                    if (next_data_pos!=255) 
-                      {
-                        kb_buf[kb_wr] = (unsigned char) key_id;
-                        kb_wr = next_data_pos;
-                      }
-                    pkey_state[i]++;    //check for key release
-                  }
-                //No Key pushed 
-                else
-                  {
-                    pkey_state[i] = 0;
-                  }
-              }
-            break;
-          case 2:
-            //Key has released
-            KEY_PRESS(key_id, pressed);
-            if( !pressed ) 
-              {
-                pkey_is_pressing = 0;
-                unsigned char next_data_pos;
-                next_data_pos = pre_wr_cir254buf( kb_wr, kb_rd, MAX_KB_BUF);
-                if (next_data_pos!=255) 
-                  {
-                    kb_buf[kb_wr] = (unsigned char) (key_id | 0x80);
-                    kb_wr = next_data_pos;
-                  }
-                pkey_state[i] = 0;      //Key has returned to state 1
-              }
-            break;
-        }
+      kb_buf[kb_wr] = key_id;
+      kb_wr = next_data_pos;
+      return 1;
     }
+  return 0;
 }
 
+
+#ifdef KB_ROTATE_KEY
 /**
  * \brief detect rotary keys by change interrupt
  * \remarks priority is given to push key
@@ -252,12 +198,7 @@ _CNInterrupt(void)
                 //Change from 0x~aa
                 if(current_key[i] == 0x00)
                   {
-                    next_data_pos = pre_wr_cir254buf( kb_wr, kb_rd, MAX_KB_BUF);
-                    if (next_data_pos!=255) 
-                      {
-                        kb_buf[kb_wr] = save_key;
-                        kb_wr = next_data_pos;
-                      }
+                    kb_write(save_key);
                   }
                 rkey_state[i] = 0;
                 break;
@@ -270,6 +211,104 @@ _CNInterrupt(void)
   DISI_PROTECT(_CNIF = 0);
 #endif /* MPLAB_DSPIC30_PORT */
 }
+#endif /* KB_ROTATE_KEY */
+
+
+// this process wants to use coroutine_st instead of multi-thread when using FreeRTOS
+#ifdef FREERTOS_SCHED 
+#   undef FREERTOS_SCHED
+#   undef start_process
+#   undef end_process
+#   include <coroutine_st.h>
+#   define start_process()          scrBegin
+#   define end_process()            scrFinish((void*)0)
+#endif
+#include <unistd.h>
+//-----------------------------------------------------------------------------------------------
+#ifdef KB_PUSH_KEY
+/* save time */
+static clock_t pkey_save_time[TOTAL_PUSH_KEY];
+
+/**
+ * \internal
+ * Principle of PUSH key
+ * 
+ *    -----------|||                        |||----------------------------------
+ *               |||------------------------|||
+ *      
+ *    <Scan for key>|<----- T ----->|<----- T ----->|<----- T ----->|<Scan for key>
+ * 
+ *                 /|\             /|\             /|\             /|\
+ *                  |               |               |               |
+ *                press           hold           release         new scan
+ * 
+ * T: scan period
+ */
+static void*
+check_push_key(unsigned char i, unsigned char key_id)
+{
+  start_process();
+  
+  int pressed;
+  KEY_PRESS(key_id, pressed);
+  if(pressed)
+    {
+      pkey_is_pressing = 1;
+      //key has pressed for at least KB_SCAN_PERIOD
+      kb_write(key_id);
+          
+      //check for release key
+      while(1)
+        {
+          pkey_save_time[i] = clock();
+          while( ((clock_t) (clock() - pkey_save_time[i])) < KB_SCAN_PERIOD ) usleep(0);
+          KEY_PRESS(key_id, pressed);
+          if(pressed)
+            {
+              //key continue to press
+              kb_write(key_id);
+            }
+          else
+            {
+              //key released
+              pkey_is_pressing = 0;
+              kb_write(key_id | 0x80);
+              break;
+            }
+        }
+      
+      //time lag to multiple firing of key
+      pkey_save_time[i] = clock();
+      while( ((clock_t) (clock() - pkey_save_time[i])) < KB_SCAN_PERIOD ) usleep(0);
+    }
+  else
+    {
+      //no key pressed
+      pkey_is_pressing = 0;
+    }
+
+  end_process();
+}
+
+
+/**
+ * \brief detect push key
+ * \remarks used in idle task
+ */
+void* 
+kb_push_key(void)
+{
+  start_process();
+  
+  unsigned char i;
+  for(i=0; i<TOTAL_PUSH_KEY; i++)
+    {
+      check_push_key(i, BASE_PUSH_KEY+i);
+    }
+  
+  end_process(); 
+}
+#endif /* KB_PUSH_KEY */
 
 #endif //end KB_MOD
 

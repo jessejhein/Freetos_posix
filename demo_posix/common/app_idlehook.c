@@ -6,9 +6,9 @@
 #include <define.h>
 #include <stddef.h>
 
-#ifdef KB_MOD
-extern void kb_enter_key(void);
-#endif
+#ifdef KB_PUSH_KEY
+extern void* kb_push_key(void);
+#endif /* KB_PUSH_KEY */
 
 /************************************************************************************************
  * void vApplicationIdleHook(void)
@@ -21,13 +21,13 @@ extern void kb_enter_key(void);
 void 
 vApplicationIdleHook(void)
 {
-#ifdef KB_MOD
-  kb_enter_key();
-#endif //end KB_MOD
+#ifdef KB_PUSH_KEY
+  kb_push_key();
+#endif /* KB_PUSH_KEY */
 
 #ifdef LED_MOD
   led_ctrl();
-#endif //end KB_MOD
+#endif /* LED_MOD */
 
   /*
    * Application Idle Task

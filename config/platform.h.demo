@@ -233,49 +233,90 @@
 // Keyboard Module ***************************************************************
 #ifdef KB_MOD
 //  ============================Device Handler=================================== 
-#define BASE_KB                     6           // base keyboard no.
-#define KB                          "6"         // keyboard device id
+#define BASE_KB                     6
+#define KB                          "6"
 //  ============================Key Map for PUSH KEY============================= 
-#define BASE_PUSH_KEY               GR_KEY_ENTER    // starting key id for push keys
-#define TOTAL_PUSH_KEY              1               // Total number of push keys
-#define PUSH_KEY0                   BASE_PUSH_KEY
-#define PUSH_KEY1                   PUSH_KEY0 + 1
+#define BASE_PUSH_KEY               GR_KEY_ENTER
+#define PUSH_KEY0                   BASE_PUSH_KEY               //MWKEY_ENTER
+#define PUSH_KEY1                   PUSH_KEY0 + 1               //MWKEY_UP
+#define PUSH_KEY2                   PUSH_KEY1 + 1               //MWKEY_DOWN
+#define PUSH_KEY3                   PUSH_KEY2 + 1               //MWKEY_LEFT
+#define PUSH_KEY4                   PUSH_KEY3 + 1               //MWKEY_RIGHT
 //  ============================Key Map for ROTARY KEY===========================
-#define BASE_ROTARY_KEY             GR_SPECIAL_KEY_ARROW_UP // starting key id for rotary keys
-#define TOTAL_ROTARY_KEY            1                       // Total number of rotary key, each key has 2 id (up and down)
-#define ROTARY_KEY0_UP              BASE_ROTARY_KEY
-#define ROTARY_KEY0_DN              GR_SPECIAL_KEY_ARROW_DOWN
+#define BASE_ROTARY_KEY             GR_SPECIAL_KEY_ARROW_UP
+#define ROTARY_KEY0_UP              BASE_ROTARY_KEY             //MWKEY_UP
+#define ROTARY_KEY0_DN              GR_SPECIAL_KEY_ARROW_DOWN   //MWKEY_DOWN
 #define ROTARY_KEY1_UP              ROTARY_KEY0_DN + 1
 #define ROTARY_KEY1_DN              ROTARY_KEY1_UP + 1
 //  ============================MARCOS===========================================
-//  KEYCONFIG()
-//  Initialise the key here, EN = 1 (pin is input), CN = 1 (enable change notification)
-#define KEYCONFIG()                 do{\
-                                        EN_PKEY0 = 1; Nop(); \
-                                        \
-                                        EN_RKEY0_UP = 1; CN_RKEY0_UP = 1; \
-                                        EN_RKEY0_DN = 1; CN_RKEY0_DN = 1; \
-                                        _CNIF = 0; \
-                                        _CNIE = 1; \
-                                     }while(0)
-//  KEY_PRESS(id, ans)                                     
-//  id is the id in the key map, 
-//  ans = 1 if the key has pressed
-#define KEY_PRESS(id, ans)          do{\
-                                         switch(id){\
-                                             case PUSH_KEY0: ans = (IO_PKEY0 == 0)? 1 : 0;  break;\
-                                         }\
-                                     }while(0)
-//  RKEY_STATE(id, ans)                                    
-//  id is the id in the key map, 
-//  ans = 1 if the key at high state
-#define RKEY_STATE(id, ans)         do{\
-                                         switch(id){\
-                                            case ROTARY_KEY0_UP: ans = (IO_RKEY0_UP == 1)? 1 : 0; break; \
-                                            case ROTARY_KEY0_DN: ans = (IO_RKEY0_DN == 1)? 1 : 0; break; \
-                                         }\
-                                     }while(0)                                         
-#endif //KB_MOD
+#ifdef KB_PUSH_KEY
+/**
+ * \brief Initialize pins for push key
+ * \remarks KEY=1 meaning input
+ */
+#if (TOTAL_PUSH_KEY == 1)
+#define KEYCONFIG()                 do { \
+                                      EN_PKEY0 = 1; Nop(); \
+                                    } while(0)
+#elif (TOTAL_PUSH_KEY == 5)
+#define KEYCONFIG()                 do { \
+                                      EN_PKEY0 = 1; Nop(); \
+                                      EN_PKEY1 = 1; Nop(); \
+                                      EN_PKEY2 = 1; Nop(); \
+                                      EN_PKEY3 = 1; Nop(); \
+                                      EN_PKEY4 = 1; Nop(); \
+                                    } while(0)
+#endif /* TOTAL_PUSH_KEY */
+/**
+ * \brief Check if a key is being pressed
+ * \param id key id
+ * \param ans result of query
+ * \remarks ans=1 if being pressed, ans=0 if released  
+ */
+#if (TOTAL_PUSH_KEY == 1)
+#define KEY_PRESS(id, ans)          do { \
+                                      switch(id) { \
+                                        case PUSH_KEY0: ans = (IO_PKEY0 == 0)? 1 : 0;  break; \
+                                      } \
+                                    } while(0)
+#elif (TOTAL_PUSH_KEY == 5)
+#define KEY_PRESS(id, ans)          do { \
+                                      switch(id) { \
+                                        case PUSH_KEY0: ans = (IO_PKEY0 == 0)? 1 : 0;  break; \
+                                        case PUSH_KEY1: ans = (IO_PKEY1 == 0)? 1 : 0;  break; \
+                                        case PUSH_KEY2: ans = (IO_PKEY2 == 0)? 1 : 0;  break; \
+                                        case PUSH_KEY3: ans = (IO_PKEY3 == 0)? 1 : 0;  break; \
+                                        case PUSH_KEY4: ans = (IO_PKEY4 == 0)? 1 : 0;  break; \
+                                      } \
+                                    } while(0)
+#endif /* TOTAL_PUSH_KEY */
+#endif /* KB_PUSH_KEY */
+//  -------------------------------------------------------------------------------
+#ifdef KB_ROTATE_KEY
+/**
+ * \brief Initialize pins for rotate key here
+ * \remarks EN = 1 (pin is input), CN = 1 (enable change notification)
+ */
+#define RKEYCONFIG()                do { \
+                                      EN_RKEY0_UP = 1; CN_RKEY0_UP = 1; \
+                                      EN_RKEY0_DN = 1; CN_RKEY0_DN = 1; \
+                                      _CNIF = 0; \
+                                      _CNIE = 1; \
+                                    } while(0)
+/**
+ * \brief Check the state of rotary pin
+ * \param id key id
+ * \param ans result of query
+ * \remarks ans=1 if key is at high state, otherwis ans=0   
+ */
+#define RKEY_STATE(id, ans)         do { \
+                                      switch(id) { \
+                                        case ROTARY_KEY0_UP: ans = (IO_RKEY0_UP == 1)? 1 : 0; break; \
+                                        case ROTARY_KEY0_DN: ans = (IO_RKEY0_DN == 1)? 1 : 0; break; \
+                                      }\
+                                    } while(0)                                         
+#endif /* KB_ROTATE_KEY */
+#endif /* KB_MOD */
 
 
 
@@ -285,5 +326,29 @@
 #define BASE_ETHERNET               7           // base ethernet no.
 #define ETHERNET                    "7"         // ethernet device id
 #endif //ETHERNET_MOD
+
+
+
+// LED Module ********************************************************************
+#ifdef LED_MOD
+//  ============================Device Handler=================================== 
+#define BASE_LED                    8           // base led no.
+#define LED                         "8"         // led device id
+//  ============================MODE OF OPERATION================================ 
+#define LED_OFF                     0
+#define LED_ON                      1
+#define LED_POS_PULSE               2
+#define LED_NEG_PULSE               3
+#define LED_IDLE                    0xFF
+#endif //LED_MOD
+
+
+
+// LCD Module ********************************************************************
+#ifdef LCD_MOD
+//  ============================Device Handler=================================== 
+#define BASE_LCD                    9           // base lcd no.
+#define LCD                         "9"         // lcd device id
+#endif //LCD_MOD
 
 #endif /*PLATFORM_H_*/

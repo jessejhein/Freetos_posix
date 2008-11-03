@@ -3,8 +3,8 @@
 
 #----------------------------------------------------------------
 # uP: Select the type of dsPic to be used
-#   DSPIC30; DSPIC33
-#	FJ256GP506; FJ128GP306; F5011
+#		DSPIC30; DSPIC33
+#		FJ256GP506; FJ128GP306; F5011
 #----------------------------------------------------------------
 PLATFORM													=		DSPIC33
 MODEL															=		FJ256GP506
@@ -28,6 +28,7 @@ CONFIG_ADC												=		y
 CONFIG_PWM												=		n
 CONFIG_KEYBOARD										=		y
 CONFIG_ETHERNET										=		y
+CONFIG_LED												=		y
 
 #----------------------------------------------------------------
 # UART
@@ -49,15 +50,15 @@ CONFIG_UART_BUFFER_SIZE						=		50
 CONFIG_I2C_BAUDRATE								=		400000
 
 #----------------------------------------------------------------
-# NVM: Select the type of EEPROM to be used
-#	NVM_SRC:				ON_CHIP; I2C; FLASH
+# NVM: 							Select the type of EEPROM to be used
+#	NVM_SRC:					ON_CHIP; I2C; FLASH
 #----------------------------------------------------------------
 CONFIG_NVM_SRC										=		FLASH
 
 #----------------------------------------------------------------
 # ADC
 #	ADC_SAMPLE_RATE:		Sampling rate in Hz (<200kHz)
-#	ADC_ACQ_TIME:			Acquisation time in [#of TAD] 1-31
+#	ADC_ACQ_TIME:				Acquisation time in [#of TAD] 1-31
 #----------------------------------------------------------------
 CONFIG_ADC_SAMPLE_RATE						=		200000
 CONFIG_ADC_ACQ_TIME								=		1
@@ -65,8 +66,21 @@ CONFIG_ADC_ACQ_TIME								=		1
 #----------------------------------------------------------------
 # KEYBOARD
 #	KB_BUFFER_SIZE:			Max number of key pressed stored
+#	KB_MODEL:						ROTARY_ENTER_KEY; 5_KEY_PUSH_BUTTON
+# KB_SCAN_PERIOD:			Epochs between keyscan
 #----------------------------------------------------------------
 CONFIG_KB_BUFFER_SIZE							=		20
+CONFIG_KB_MODEL										=		ROTARY_ENTER_KEY
+CONFIG_KB_SCAN_PERIOD							=		6
+
+#----------------------------------------------------------------
+# LED
+# LED_NUM:						Max number of led (excluding buzzer)
+# LED_CTRL_INTERVAL:	Period to perform hardware led control (in epochs of system clock)
+#----------------------------------------------------------------
+CONFIG_BUZZER											=		y
+CONFIG_LED_NUM										=		7
+CONFIG_LED_CTRL_INTERVAL					=		50
 
 #----------------------------------------------------------------
 # ETHERNET

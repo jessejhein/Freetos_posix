@@ -25,7 +25,7 @@ _AddressError(void)
 {
   _ADDRERR = 0;        //Clear the trap flag
 
-  ERR_LED0_EN();
+  ERR_LED_CONFIG();
     
   while (1)
     {
@@ -44,7 +44,7 @@ _StackError(void)
 {
   _STKERR = 0;         //Clear the trap flag
 
-  ERR_LED0_EN();
+  ERR_LED_CONFIG();
 
   ERR_LED0(1);
   while (1);
@@ -57,6 +57,9 @@ void _IRQ
 _MathError(void)
 {
   _MATHERR = 0;        //Clear the trap flag
+  
+  ERR_LED_CONFIG();
+  
   while (1)
     {
       ERR_LED1(1);
@@ -75,7 +78,7 @@ _DMACError(void)
 {
   INTCON1bits.DMACERR = 0;        //Clear the trap flag
 
-  ERR_LED1_EN();
+  ERR_LED_CONFIG();
 
   ERR_LED1(1);
   while (1);

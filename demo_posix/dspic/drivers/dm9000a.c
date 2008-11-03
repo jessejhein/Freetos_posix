@@ -118,7 +118,6 @@ dmfe_open(int flags)
   board_info_t* db = &macData;
 
   ETH_IOCONFIG();             
-  PCONFIG(1);             
   ETH_ISR_EP = 0;
   ETH_ISR_IF = 0;
   ETH_ISR_IE = 1;

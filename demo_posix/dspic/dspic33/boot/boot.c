@@ -142,8 +142,7 @@ main(void)
   vTaskStartScheduler();
 
   /* Will only reach here if there is insufficient heap available to start the scheduler. */
-  ERR_LED0_EN();
-  ERR_LED1_EN();
+  ERR_LED_CONFIG();
   while(1)
     {
       ERR_LED0(1);
