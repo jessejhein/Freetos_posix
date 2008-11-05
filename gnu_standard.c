@@ -106,9 +106,9 @@ foo (char *s1, char *s2)
 
 /*
  * ==#else-#endif==
- * *Every ¡¥#endif¡¦ should have a comment
+ * *Every ï¿½ï¿½#endifï¿½ï¿½ should have a comment
  * *The comment should state the condition of the conditional that is ending, including its sense.
- * *¡¥#else¡¦ should have a comment describing the condition and sense of the code that follows. 
+ * *ï¿½ï¿½#elseï¿½ï¿½ should have a comment describing the condition and sense of the code that follows. 
  */
 #ifdef foo
   //...
@@ -133,7 +133,7 @@ foo (char *s1, char *s2)
 
 /*
  * ==#define-enum==
- * *When you want to define names with constant integer values, use enum rather than ¡¥#define¡¦
+ * *When you want to define names with constant integer values, use enum rather than ï¿½ï¿½#defineï¿½ï¿½
  */
 /**
  * \enum SMTP_ERR
