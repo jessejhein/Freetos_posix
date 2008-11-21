@@ -44,6 +44,8 @@ static unsigned int led_block_status;
 static unsigned char led_status[IO_MAX];
 /** start time for ctrl */
 static clock_t start_time = 0;
+/** reset timer */
+static unsigned char reset = 0;
 
 
 /**
@@ -80,7 +82,7 @@ led_write(unsigned char *buf)
           //no blocking
           led_status[led_ch_select] = *buf;
           //restart ctrl immediately
-          start_time = 0;
+          reset = 1;
           return 1;
         }
       else
@@ -126,7 +128,7 @@ led_ioctl(int request, unsigned char* argp)
               //turn off led if block
               led_status[argp[0]] = LED_OFF;
               //restart ctrl immediately
-              start_time = 0;
+              reset = 1;
             } 
         }
       //request code not recognised
@@ -161,7 +163,8 @@ led_ctrl(void* arg)
   start_process();
 
   start_time = clock();
-  while( ((clock_t) (clock() - start_time)) < LED_CTRL_INTERVAL ) usleep(0);
+  while( (reset == 0) || ((clock_t) (clock() - start_time)) < LED_CTRL_INTERVAL ) usleep(0);
+  reset = 0;
   
   static int k;
   for (k=0; k<IO_MAX; k++) 
