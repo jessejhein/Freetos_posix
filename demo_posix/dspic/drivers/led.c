@@ -129,7 +129,8 @@ led_ioctl(int request, unsigned char* argp)
               led_status[argp[0]] = LED_OFF;
               //restart ctrl immediately
               reset = 1;
-            } 
+            }
+          break;
         }
       //request code not recognised
       default:
@@ -163,7 +164,7 @@ led_ctrl(void* arg)
   start_process();
 
   start_time = clock();
-  while( (reset == 0) || ((clock_t) (clock() - start_time)) < LED_CTRL_INTERVAL ) usleep(0);
+  while( (reset == 0) || (((clock_t) (clock() - start_time)) < LED_CTRL_INTERVAL) ) usleep(0);
   reset = 0;
   
   static int k;
