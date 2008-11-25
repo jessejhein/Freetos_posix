@@ -26,18 +26,18 @@
  */
 #ifdef I2C_MOD
 /** set status bits */
-#define I2C_SET_STATUS      0
+#define I2C_SET_STATUS              0
 /** send start bit */
-#define I2C_START           0x01
+#define I2C_START                   0x01
 /** send restart bit */
-#define I2C_RESTART         0x02
+#define I2C_RESTART                 0x02
 /** send stop bit */
-#define I2C_STOP            0x04
+#define I2C_STOP                    0x04
 /** send not acknowledgment */
-#define I2C_NACK            0x08
+#define I2C_NACK                    0x08
 
 /** Select channel (A, B, C, or D) */
-#define DAC_SET_CTL         0
+#define DAC_SET_CTL                 0
 #endif /* I2C_MOD */
 
 
@@ -46,7 +46,7 @@
  */
 #ifdef ADC_MOD
 /** add a channel to current selection */
-#define ADC_ADD_CH          0
+#define ADC_ADD_CH                  0
 #endif /* ADC_MOD */
 
 
@@ -55,9 +55,9 @@
  */
 #ifdef PWM_MOD
 /** select channel to use */
-#define PWM_SELECT_CH       0
+#define PWM_SELECT_CH               0
 /** set pwm period */
-#define PWM_SET_PERIOD      1	
+#define PWM_SET_PERIOD              1	
 #endif /* PWM_MOD */
 
 
@@ -66,12 +66,14 @@
  */
 #ifdef LED_MOD
 /** select channel to use */
-#define LED_SELECT_CH       0
+#define LED_SELECT_CH               0
 #ifdef BUZZER
-#define BUZZER_CH           LED_NUM                   
+#define BUZZER_CH                   LED_NUM                   
 #endif /* BUZZER */
-/** select channel to use */
-#define LED_BLOCK_CH        1
+/** select channel to block */
+#define LED_BLOCK_CH                1
+/** set pulse period */
+#define LED_SET_PULSE_PERIOD        2
 #endif /* LED_MOD */
 
 
@@ -80,9 +82,9 @@
  */
 #ifdef LCD_MOD
 /** change contrast level */
-#define LCD_SET_CONTRAST    0
+#define LCD_SET_CONTRAST            0
 /** change brightness level */
-#define LCD_SET_BRIGHTNESS  1
+#define LCD_SET_BRIGHTNESS          1
 #endif /* LCD_MOD */
 
 #endif /*_IOCTL_H_*/

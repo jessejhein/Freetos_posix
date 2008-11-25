@@ -33,7 +33,6 @@
 #define IO_MAX            LED_NUM
 #endif /* no BUZZER */
 
-
 /** read/write io flag */
 static int led_io_flag;
 /** current channel selected for writing */
@@ -44,8 +43,8 @@ static unsigned int led_block_status;
 static unsigned char led_status[IO_MAX];
 /** start time for ctrl */
 static clock_t start_time = 0;
-/** reset timer */
-static unsigned char reset = 0;
+/** period of pulse delay (in number of led ctrl period) */
+static unsigned char pulse_period;
 
 
 /**
@@ -81,8 +80,6 @@ led_write(unsigned char *buf)
           if(led_block_status & mask) return 0;
           //no blocking
           led_status[led_ch_select] = *buf;
-          //restart ctrl immediately
-          reset = 1;
           return 1;
         }
       else
@@ -127,9 +124,12 @@ led_ioctl(int request, unsigned char* argp)
               led_block_status |= mask;
               //turn off led if block
               led_status[argp[0]] = LED_OFF;
-              //restart ctrl immediately
-              reset = 1;
             }
+          break;
+        }
+      case LED_SET_PULSE_PERIOD:
+        {
+          pulse_period = argp[0];
           break;
         }
       //request code not recognised
@@ -163,31 +163,47 @@ led_ctrl(void* arg)
 {
   start_process();
 
+  static unsigned char pulse_period_counter[IO_MAX];
   start_time = clock();
-  while( (reset == 0) || (((clock_t) (clock() - start_time)) < LED_CTRL_INTERVAL) ) usleep(0);
-  reset = 0;
+  while(((clock_t) (clock() - start_time)) < LED_CTRL_INTERVAL) usleep(0);
   
   static int k;
   for (k=0; k<IO_MAX; k++) 
     {
       if(led_status[k] == LED_OFF)
         {
-          io_off(k);
-          led_status[k] = LED_IDLE;
+          if(pulse_period_counter[k] == 0)
+            {
+              io_off(k);
+              led_status[k] = LED_IDLE;
+            }
+          else
+            {
+              pulse_period_counter[k]--;
+            }
         }
       else if(led_status[k] == LED_ON)
         {
-          io_on(k);
-          led_status[k] = LED_IDLE;
+          if(pulse_period_counter[k] == 0)
+            {
+              io_on(k);
+              led_status[k] = LED_IDLE;
+            }
+          else
+            {
+              pulse_period_counter[k]--;
+            }
         }
       else if(led_status[k] == LED_POS_PULSE)
         {
+          pulse_period_counter[k] = pulse_period;
           io_on(k);
           //turn off led next time
           led_status[k] = LED_OFF;
         }
       else if(led_status[k] == LED_NEG_PULSE)
         {
+          pulse_period_counter[k] = pulse_period;
           io_off(k);
           //turn on led next time
           led_status[k] = LED_ON;
