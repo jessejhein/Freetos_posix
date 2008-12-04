@@ -106,9 +106,9 @@ i2c_open(void)
         
       i2c_status.val = 0;     //clear status flags
 
-#if (I2C_DAC_MOD & NVM_I2C) 
+#if (I2C_NUM > 1)
       pthread_mutex_init(&i2c_mutex, NULL);
-#endif
+#endif /* I2C_NUM>1 */
     }   
 }
 
