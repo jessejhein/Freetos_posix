@@ -13,12 +13,12 @@ int _LIBC
 open(const char *pathname, int flags)
 {
   int tmp;
-  tmp = *pathname - 0x30;		// only support 10 devices, from 0x30 to 0x39
+  tmp = *pathname - 'A';		// only support 26 devices, from 0x41 to 0x5a
 
 #ifdef UART_MOD
-  if (tmp<(BASE_UART + NO_OF_UART))
+  if (tmp<(BASE_COM + NO_OF_UART))
     {
-      return (uart_open(tmp - BASE_UART, flags) == 0)? tmp : -1;
+      return (uart_open(tmp - BASE_COM, flags) == 0)? tmp : -1;
     }
 #endif /* UART_MOD */
 
@@ -43,6 +43,20 @@ open(const char *pathname, int flags)
 #endif /* NVM_ON_CHIP */
     }
 #endif /* NVM_MOD */
+
+#ifdef I2C_MOD_MASTER_DSPIC
+  if (tmp==BASE_I2C_MOD_DSPIC)
+    {
+      return (i2c_mod_master_open(flags) == 0)? tmp : -1;
+    }
+#endif /* I2C_MOD_MASTER_DSPIC */
+
+#ifdef I2C_MOD_SLAVE_DSPIC
+  if (tmp==BASE_I2C_MOD_DSPIC)
+    {
+      return (i2c_mod_slave_open(flags) == 0)? tmp : -1;
+    }
+#endif /* I2C_MOD_SLAVE_DSPIC */
 
 #ifdef ADC_MOD
   if (tmp==BASE_ADC)
@@ -118,9 +132,9 @@ write(int fd, void* buf, int count)
         return -1;
     }
 #ifdef UART_MOD
-  if (fd < (BASE_UART + NO_OF_UART) )
+  if (fd < (BASE_COM + NO_OF_UART) )
     {
-      return uart_write(fd-BASE_UART, buf, count);
+      return uart_write(fd-BASE_COM, buf, count);
     }
 #endif /* UART_MOD */
 
@@ -145,6 +159,20 @@ write(int fd, void* buf, int count)
 #endif /* NVM_ON_CHIP */
     }
 #endif /* NVM_MOD */
+
+#ifdef I2C_MOD_MASTER_DSPIC
+  if (fd==BASE_I2C_MOD_DSPIC)
+    {
+      return i2c_mod_master_write(buf);
+    }
+#endif /* I2C_MOD_MASTER_DSPIC */
+
+#ifdef I2C_MOD_SLAVE_DSPIC
+  if (fd==BASE_I2C_MOD_DSPIC)
+    {
+      return i2c_mod_slave_write(buf);
+    }
+#endif /* I2C_MOD_SLAVE_DSPIC */
 
 #ifdef ADC_MOD
   if (fd==BASE_ADC)
@@ -195,9 +223,9 @@ read(int fd, void* buf, int count)
       return -1;
     }
 #ifdef UART_MOD
-  if (fd<(BASE_UART + NO_OF_UART))
+  if (fd<(BASE_COM + NO_OF_UART))
     {
-      return uart_read(fd-BASE_UART, buf);
+      return uart_read(fd-BASE_COM, buf);
     }
 #endif /* UART_MOD */
 
@@ -222,6 +250,20 @@ read(int fd, void* buf, int count)
 #endif /* NVM_ON_CHIP */
     }
 #endif /* NVM_MOD */
+
+#ifdef I2C_MOD_MASTER_DSPIC
+  if (fd==BASE_I2C_MOD_DSPIC)
+    {
+      return i2c_mod_master_read(buf);
+    }
+#endif /* I2C_MOD_MASTER_DSPIC */
+
+#ifdef I2C_MOD_SLAVE_DSPIC
+  if (fd==BASE_I2C_MOD_DSPIC)
+    {
+      return i2c_mod_slave_read(buf);
+    }
+#endif /* I2C_MOD_SLAVE_DSPIC */
 
 #ifdef ADC_MOD
   if (fd==BASE_ADC)
@@ -272,7 +314,7 @@ ioctl(int fd, int request, void* argp)
       return -1;
     }
 #ifdef UART_MOD
-  if (fd<(BASE_UART + NO_OF_UART))
+  if (fd<(BASE_COM + NO_OF_UART))
     {
       return 0;
     }
@@ -291,6 +333,20 @@ ioctl(int fd, int request, void* argp)
       return 0;
     }
 #endif /* NVM_MOD */
+
+#ifdef I2C_MOD_MASTER_DSPIC
+  if (fd==BASE_I2C_MOD_DSPIC)
+    {
+      return i2c_mod_master_ioctl(request, argp);
+    }
+#endif /* I2C_MOD_MASTER_DSPIC */
+
+#ifdef I2C_MOD_SLAVE_DSPIC
+  if (fd==BASE_I2C_MOD_DSPIC)
+    {
+      return i2c_mod_slave_ioctl(request, argp);
+    }
+#endif /* I2C_MOD_SLAVE_DSPIC */
 
 #ifdef ADC_MOD
   if (fd==BASE_ADC)
@@ -348,7 +404,7 @@ lseek(int fd, int offset, int whence)
       return -1;
     }
 #ifdef UART_MOD
-  if (fd<(BASE_UART + NO_OF_UART))
+  if (fd<(BASE_COM + NO_OF_UART))
     {
       return 0;
     }
@@ -375,6 +431,20 @@ lseek(int fd, int offset, int whence)
 #endif /* NVM_ON_CHIP */
     }
 #endif /* NVM_MOD */
+
+#ifdef I2C_MOD_MASTER_DSPIC
+  if (fd==BASE_I2C_MOD_DSPIC)
+    {
+      return 0;
+    }
+#endif /* I2C_MOD_MASTER_DSPIC */
+
+#ifdef I2C_MOD_SLAVE_DSPIC
+  if (fd==BASE_I2C_MOD_DSPIC)
+    {
+      return 0;
+    }
+#endif /* I2C_MOD_SLAVE_DSPIC */
 
 #ifdef ADC_MOD
   if (fd==BASE_ADC)

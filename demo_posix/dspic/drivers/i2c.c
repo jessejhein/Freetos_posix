@@ -61,10 +61,10 @@ static I2C_STATUS i2c_status;
  * Semaphore for multiple i2c devices
  * +-- program must acquire i2c_busy before read/write operation (from start bit to stop bit)
  ************************************************************************************************/
-#if (I2C_DAC_MOD & NVM_I2C) 
+#if (I2C_NUM > 1)
 #include <pthread.h>
 pthread_mutex_t i2c_mutex; 
-#endif
+#endif /* I2C_NUM>1 */
 
 
 //---------------------------------------------------------------------------------------
@@ -259,7 +259,7 @@ i2c_ioctl(int request, unsigned char* argp)
   return 0;
 }
 
-#endif //I2C_MOD
+#endif /* I2C_MOD */
 
 /** @} */
 /** @} */

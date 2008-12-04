@@ -11,7 +11,7 @@
  * 
  * Control U1ART (RS485) and U2ART (RS232)
  * \li The uart module consists of 2 channels located at U1RX (34), U1TX, (33), U2RX (31) and U1TX (32).
- * \li U2ART is referenced by UARTA, U1ART is referenced by UARTB. By default, U2ART is used for RS232 
+ * \li U2ART is referenced by COM0, U1ART is referenced by COM1. By default, U2ART is used for RS232 
  *     communication, and U1ART is used for RS485 communication.
  * \li Default communcation speed is 19200bps. Autobaud detection is disabled.
  * \li The driver has a POSIX-compliant interface with open(), read(), and write().

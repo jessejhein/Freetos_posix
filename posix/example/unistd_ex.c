@@ -34,7 +34,7 @@ tskComPort(void *ptr)
   start_process();
     {
       //open com port for read and write
-      fd_uart = open(UARTA, O_RDWR);
+      fd_uart = open(COM0, O_RDWR);
       //open adc port for read only and non-blocking mode
       fd_adc = open(ADC, O_RDONLY | O_NONBLOCK);
       

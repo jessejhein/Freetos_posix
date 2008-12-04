@@ -38,6 +38,9 @@
 
 /** Select channel (A, B, C, or D) */
 #define DAC_SET_CTL                 0
+
+/** Select channel (A, B, C, or D) */
+#define MOD_DSPIC_SET_CTL           0
 #endif /* I2C_MOD */
 
 

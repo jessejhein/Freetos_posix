@@ -143,6 +143,20 @@ endif
 # I2C_DAC_MOD
 ifeq ($(CONFIG_I2C_DAC), y)
 	DEFINES += -DI2C_DAC_MOD
+	ifdef CONFIG_DAC_RESOLUTION
+		DEFINES += -DDAC_RESOLUTION=$(CONFIG_DAC_RESOLUTION)
+	endif
+endif
+
+# I2C_MOD_DSPIC_MOD
+ifeq ($(CONFIG_I2C_MOD_DSPIC), y)
+	DEFINES += -DI2C_MOD_DSPIC_MOD
+	ifeq ($(CONFIG_I2C_MOD_DSPIC_MODE), MASTER)
+		DEFINES += -DI2C_MOD_MASTER_DSPIC
+	endif
+	ifeq ($(DI2C_MOD_SLAVE_DSPIC), SLAVE)
+		DEFINES += -DI2C_MOD_SLAVE_DSPIC
+	endif
 endif
 
 # NVM_MOD
@@ -251,6 +265,14 @@ obj-$(CONFIG_I2C) += \
 	$(ARCH)/../drivers/i2c.o 
 obj-$(CONFIG_I2C_DAC) += \
 	$(ARCH)/../drivers/i2c_dac.o
+ifeq ($(CONFIG_I2C_MOD_DSPIC), y)
+	ifeq ($(CONFIG_I2C_MOD_DSPIC_MODE), MASTER)
+		obj-y += $(ARCH)/../drivers/i2c_mod_master_dspic.o
+	endif
+	ifeq ($(DI2C_MOD_SLAVE_DSPIC), SLAVE)
+		obj-y += $(ARCH)/../drivers/i2c_mod_slave_dspic.o
+	endif
+endif
 obj-$(CONFIG_ADC) += \
 	$(ARCH)/../drivers/adc.o
 obj-$(CONFIG_PWM) += \

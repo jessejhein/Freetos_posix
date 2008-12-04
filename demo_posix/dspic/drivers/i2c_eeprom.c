@@ -26,10 +26,10 @@ static int i2c_eeprom_io_flag;
 /************************************************************************************************
  * External Variables
  ************************************************************************************************/
-#if (I2C_DAC_MOD & NVM_I2C) 
+#if (I2C_NUM > 1)
  #include <pthread.h>
  extern pthread_mutex_t i2c_mutex;
-#endif
+#endif /* I2C_NUM>1 */
 
 /************************************************************************************************
  * Name:                int i2c_dac_open(int flags)
@@ -96,9 +96,9 @@ int i2c_eeprom_write(unsigned char* buf, int count)
              */
             if(i==0 || i2c_eeprom_pointer%I2C_EEPROM_PAGE_SIZE == 0)
             {
-             #if (I2C_DAC_MOD & NVM_I2C) 
+#if (I2C_NUM > 1)
                 if(pthread_mutex_lock(&i2c_mutex) != 0) return 0; //i2c is busy
-             #endif    
+#endif /* I2C_NUM>1 */
 
                 //NON-BLOCK mode, return -1, set errno = EAGAIN
                 if(i2c_eeprom_io_flag & O_NONBLOCK)
@@ -163,15 +163,15 @@ int i2c_eeprom_write(unsigned char* buf, int count)
                 error = 1;
                 break;  //byte write failure exit loop
             }
-          #if (I2C_DAC_MOD & NVM_I2C) 
+#if (I2C_NUM > 1)
             if(i == count-1 || i2c_eeprom_pointer%I2C_EEPROM_PAGE_SIZE == I2C_EEPROM_PAGE_SIZE-1)
             {
                 pthread_mutex_unlock(&i2c_mutex);
             }
-          #endif    
+#endif /* I2C_NUM>1 */
         }
     
-       #if (I2C_DAC_MOD & NVM_I2C) 
+#if (I2C_NUM > 1)
         if(error == 1){
             pthread_mutex_unlock(&i2c_mutex);       
         }
@@ -181,7 +181,7 @@ int i2c_eeprom_write(unsigned char* buf, int count)
             errno = EAGAIN;
             return -1;
         }
-       #endif
+#endif /* I2C_NUM>1 */
         
         i2c_eeprom_busy = 0;        
         return i;
@@ -239,9 +239,9 @@ int i2c_eeprom_read(unsigned char* buf, int count)
              */
             if(i==0)
             {
-              #if (I2C_DAC_MOD & NVM_I2C) 
+#if (I2C_NUM > 1)
                 if(pthread_mutex_lock(&i2c_mutex) != 0) return 0; //i2c is busy
-              #endif
+#endif /* I2C_NUM>1 */
                 
                 //NON-BLOCK mode, return -1, set errno = EAGAIN
                 if(i2c_eeprom_io_flag & O_NONBLOCK)
@@ -313,14 +313,14 @@ int i2c_eeprom_read(unsigned char* buf, int count)
                 error = 1;
                 break;      //read failure, exit loop
             }
-          #if (I2C_DAC_MOD & NVM_I2C) 
+#if (I2C_NUM > 1)
             if(i == count-1 || i2c_eeprom_pointer == I2C_EEPROM_SIZE-1){
                 pthread_mutex_unlock(&i2c_mutex);       
             }
-          #endif
+#endif /* I2C_NUM>1 */
         }
     
-       #if (I2C_DAC_MOD & NVM_I2C) 
+#if (I2C_NUM > 1)
         if(error == 1){
             pthread_mutex_unlock(&i2c_mutex);
         }
@@ -330,7 +330,7 @@ int i2c_eeprom_read(unsigned char* buf, int count)
             errno = EAGAIN;
             return -1;            
         }
-       #endif
+#endif /* I2C_NUM>1 */
 
         i2c_eeprom_busy = 0;
                 
