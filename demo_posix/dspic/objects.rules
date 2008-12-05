@@ -154,7 +154,7 @@ ifeq ($(CONFIG_I2C_MOD_DSPIC), y)
 	ifeq ($(CONFIG_I2C_MOD_DSPIC_MODE), MASTER)
 		DEFINES += -DI2C_MOD_MASTER_DSPIC
 	endif
-	ifeq ($(DI2C_MOD_SLAVE_DSPIC), SLAVE)
+	ifeq ($(CONFIG_I2C_MOD_DSPIC_MODE), SLAVE)
 		DEFINES += -DI2C_MOD_SLAVE_DSPIC
 	endif
 endif
@@ -269,7 +269,7 @@ ifeq ($(CONFIG_I2C_MOD_DSPIC), y)
 	ifeq ($(CONFIG_I2C_MOD_DSPIC_MODE), MASTER)
 		obj-y += $(ARCH)/../drivers/i2c_mod_master_dspic.o
 	endif
-	ifeq ($(DI2C_MOD_SLAVE_DSPIC), SLAVE)
+	ifeq ($(CONFIG_I2C_MOD_DSPIC_MODE), SLAVE)
 		obj-y += $(ARCH)/../drivers/i2c_mod_slave_dspic.o
 	endif
 endif

@@ -77,34 +77,27 @@ i2c_open(void)
   //Open i2c if not already opened
   if(I2CCONbits.I2CEN == 0)
     {
-      /*
-       * Disable I2C interrupt (not used)
-       * +-- Status of I2C is detected by polling
-       * 
-       */
-      _SI2CIF = 0;        //Clear Slave interrupt
-      _MI2CIF = 0;        //Clear Master interrupt
-      _SI2CIE = 0;        //Disable Slave interrupt
-      _MI2CIE = 0;        //Disable Master interrupt
+      //Disable I2C master interrupt (Status of I2C is detected by polling)
+      _MI2CIF = 0;
+      _MI2CIE = 0;
+      //Enable I2C slave interrupt
+      _SI2CIF = 0;
+      _SI2CIE = 1;
         
-      /*
-       * Configure Baud rate (400kHz, change in define.h>
-       */
+      //Configure Baud rate (400kHz, change in define.h>
       I2CBRG = I2C_BRG;
         
-      /*
-       * I2C Configuration:
-       * +-- Default:     Continue in Idle mode, Release SCL clock
-       *                  Disable IPMI, SMBus, General Call, clock stretch
-       *                  7-bit address,
-       *                  Acknowledge sequence, Receive sequence,
-       *                  Stop & Start & Repeated Start conditions not in progress
-       * +-- Enable I2C, disable slew rate control,      
-       */
-      I2CCONbits.I2CEN = 1;   //Enable I2C module 
-      i2cIdle();              //I2C bus at idle state, awaiting transimission
-        
-      i2c_status.val = 0;     //clear status flags
+      //I2C Configuration:
+      // Enable clock stretch
+      // 7-bit address
+      I2CCONbits.STREN = 1;
+      I2CCONbits.I2CEN = 1;
+
+      //I2C bus at idle state, awaiting transimission
+      i2cIdle();
+
+      //clear status flags        
+      i2c_status.val = 0;
 
 #if (I2C_NUM > 1)
       pthread_mutex_init(&i2c_mutex, NULL);
