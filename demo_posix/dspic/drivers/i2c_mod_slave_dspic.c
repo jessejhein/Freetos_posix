@@ -119,7 +119,7 @@ i2c_slave_interrupt(void)
               //master read from slave
               if(I2CSTATbits.R_W == 1)
                 {
-                  if(mod_channel == MOD_DSPIC_CHA) i2c_data.val = 2*mod_frequency[0];
+                  if(mod_channel == MOD_DSPIC_CHA) i2c_data.val = mod_frequency[0];
                   else if(mod_channel == MOD_DSPIC_CHB) i2c_data.val = mod_frequency[1];
                   else if(mod_channel == MOD_DSPIC_CHC) i2c_data.val = mod_frequency[2];
                   else if(mod_channel == MOD_DSPIC_CHD) i2c_data.val = mod_frequency[3];
