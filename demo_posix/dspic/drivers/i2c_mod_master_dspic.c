@@ -127,10 +127,11 @@ i2c_mod_master_write(float *buf)
         }
       else
         {
-            error = 1;  //i2c is busy
+          error = 1;  //i2c is busy
         }
 #endif /* I2C_NUM>1 */
         
+      i2c_data.val = 0;
       return (error == 1)? 0 : 4;
     }
   //Error, raise error flag
@@ -155,10 +156,10 @@ i2c_mod_master_write(float *buf)
  * Mst/Slv    _______ M ___M___ M S ____M___ S M ___M___ M S ___S____ M ___S____ M ___S____ M ___S____ M M _____ 
  * SDA (Data)        |S|       | |A|        |A|R|       | |A|        |A|        |A|        |A|        |N|S|
  *                   |T|address|W|C|channelA|C|E|address|R|C| Data 0 |C| Data 1 |C| Data 2 |C| Data 3 |A|T|
- *                   |A|1011000|0|K|00010010|K|S|1001111|1|K|10101010|K|10101010|K|10101010|K|10101010|K|P|
+ *                   |A|1011000|0|K|00010010|K|S|1011000|1|K|10101010|K|10101010|K|10101010|K|10101010|K|P|
  */
 int 
-i2c_mod_master_read(unsigned int *buf)
+i2c_mod_master_read(float *buf)
 {
   //Perform Write if write operation is enabled
   if(mod_dspic_flag & O_RDWR || mod_dspic_flag & O_RDONLY)
@@ -210,15 +211,17 @@ i2c_mod_master_read(unsigned int *buf)
         }
       else
         {
-            error = 1;  //i2c is busy
+          error = 1;  //i2c is busy
         }      
 #endif /* I2C_NUM>1 */
     
       if(error == 1)
-        return 0;
+        {
+          return 0;
+        }
 
       *buf = i2c_data.val;
-    
+      i2c_data.val = 0;
       return 4;   
     }
   //Error, raise error flag
