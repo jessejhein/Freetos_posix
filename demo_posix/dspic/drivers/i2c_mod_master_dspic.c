@@ -256,3 +256,6 @@ i2c_mod_master_ioctl(int request, unsigned char* argp)
 
 #endif /* I2C_MOD_MASTER_DSPIC */
 
+/** @} */
+/** @} */
+

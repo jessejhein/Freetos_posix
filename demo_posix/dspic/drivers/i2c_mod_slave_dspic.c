@@ -310,3 +310,6 @@ i2c_mod_slave_ioctl(int request, unsigned char* argp)
 
 #endif /* I2C_MOD_SLAVE_DSPIC */
 
+/** @} */
+/** @} */
+

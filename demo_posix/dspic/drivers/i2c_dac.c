@@ -291,3 +291,6 @@ dac2int(void)
 
 #endif /* I2C_DAC_MOD */
 
+/** @} */
+/** @} */
+
