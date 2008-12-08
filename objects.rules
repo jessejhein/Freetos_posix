@@ -56,6 +56,11 @@ ifeq ($(FREERTOS_SCHED), y)
 	endif
 endif
 
+# CLOCK SOURCE
+ifeq ($(USE_EXTERNAL_CLOCK_SOURCE), y)
+	DEFINES += -DEXTERNAL_CLOCK_SOURCE
+endif
+
 # UIP
 ifeq ($(CONFIG_ETHERNET), y)
 	ifdef CONFIG_ETH_MAX_APP

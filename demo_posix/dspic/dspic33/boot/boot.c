@@ -60,10 +60,11 @@
  * 		+-- Section 23.1 for definitions of configuration bits
  * 		+-- Section 8.1 for system clock settings
  ************************************************************************************************/
-_FOSCSEL(FNOSC_FRCPLL);                               // FRC Oscillator with PLL (default FRC divide by 8)
-_FOSC(FCKSM_CSDCMD & OSCIOFNC_ON  & POSCMD_NONE);     // Clock Switching and Fail Safe Clock Monitor is disabled
+_FOSCSEL(FNOSC_FRCPLL & IESO_OFF);                    // Start up with FRC Oscillator with PLL (default FRC divide by 8)
+                                                      // Disable auto clock switch
+_FOSC(FCKSM_CSECME & OSCIOFNC_ON  & POSCMD_HS);       // Clock Switching and Fail Safe Clock Monitor are enabled
                                                       // OSC2 Pin Function: OSC2 is Digital I/O
-                                                      // Primary Oscillator Mode: Disabled
+                                                      // Primary Oscillator Mode: High Speed
 _FWDT(FWDTEN_OFF);                                    // Watchdog Timer Enabled/disabled by user software
                                                       // (LPRC can be disabled by clearing SWDTEN bit in RCON register
 /************************************************************************************************/
@@ -106,15 +107,33 @@ main(void)
 	 *								  ---- PLLDIV (x40)
 	 *--------------------------------------------------------------------------------
    */	
-  _PLLDIV = 38;                   // M=40: PLL Feedback Divisor bits
-  CLKDIV = 0;                     // N1=2: PLL VCO Output Divider Select bits
-                                  // N2=2: PLL Phase Detector Input Divider bits
-  OSCTUN = TUNE_FRC;              // Tune FRC oscillator, if FRC is used; 
-                                  // 0: Center frequency (7.37 MHz nominal)
-                                  // 22: +8.25% (7.98 MHz)
-  RCONbits.SWDTEN = 0;            // Disable Watch Dog Timer
-  while(OSCCONbits.LOCK != 1);    // Wait for PLL to lock
+  _PLLDIV = 38;                     // M=40: PLL Feedback Divisor bits
+  CLKDIV = 0;                       // N1=2: PLL VCO Output Divider Select bits
+                                    // N2=2: PLL Phase Detector Input Divider bits
+  OSCTUN = TUNE_FRC;                // Tune FRC oscillator, if FRC is used; 
+                                    // 0: Center frequency (7.37 MHz nominal)
+                                    // 22: +8.25% (7.98 MHz)
+  RCONbits.SWDTEN = 0;              // Disable Watch Dog Timer
+  while(OSCCONbits.LOCK != 1);      // Wait for PLL to lock
   //--------------------------------------------------------------------------------
+
+#ifdef EXTERNAL_CLOCK_SOURCE
+extern void __builtin_write_OSCCONH(unsigned int);
+extern void __builtin_write_OSCCONL(unsigned int);
+  //Perform clk switch to LPRC (use this a a transition because cannot adjust PLL setting when it is in used)
+  __builtin_write_OSCCONH(5);       // New OSC = LPRC 
+  __builtin_write_OSCCONL(1);       // Start clk switch
+  while(OSCCONbits.OSWEN == 1);     // Wait for completion
+  
+  //Perform clk switch to external crytal
+  //PLL config for 10MHz crystal 
+  _PLLDIV = 30;                     // M=32: PLL Feedback Divisor bits
+  CLKDIV = 0;                       // N1=2: PLL VCO Output Divider Select bits
+                                    // N2=2: PLL Phase Detector Input Divider bits
+  __builtin_write_OSCCONH(3);       // New OSC = PRI PLL 
+  __builtin_write_OSCCONL(1);       // Start clk switch
+  while(OSCCONbits.OSWEN == 1);     // Wait for completion
+#endif /* EXTERNAL_CLOCK_SOURCE */
 
   /* allow 1 sec delay for on-board external hardware to stable*/
   mdelay(1000);

@@ -255,7 +255,11 @@ obj-y += \
 	$(ARCH)/linker/reset.o \
 	$(ARCH)/boot/boot.o \
 	$(ARCH)/../drivers/devices.o \
-	$(ARCH)/../drivers/traps.o \
+	$(ARCH)/../drivers/traps.o
+ifeq ($(PLATFORM), DSPIC33)
+obj-y += \
+	$(ARCH)/boot/clk_switch.o
+endif
 
 # Drivers
 obj-$(CONFIG_UART) += \
