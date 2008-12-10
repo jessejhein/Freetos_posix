@@ -200,3 +200,15 @@ _IRQ _T1Interrupt( void )
 #endif /* configUSE_PREEMPTION */
 #endif /* FREERTOS_SCHED */
 }
+
+/*
+ * Reset System
+ */
+void
+reset(void)
+{
+  //user shutdown rountine
+  vUserShutdown();
+
+  asm("reset");
+}

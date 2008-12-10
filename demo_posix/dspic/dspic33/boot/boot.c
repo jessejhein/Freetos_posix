@@ -74,6 +74,8 @@ _FWDT(FWDTEN_OFF);                                    // Watchdog Timer Enabled/
  ************************************************************************************************/
 extern void vSetupHardware(void);     //Defined in user main application
 extern void vUserMain(void);          //Defined in user main application
+extern void __builtin_write_OSCCONH(unsigned int);
+extern void __builtin_write_OSCCONL(unsigned int);
 
 /************************************************************************************************
  * Global functions
@@ -118,8 +120,6 @@ main(void)
   //--------------------------------------------------------------------------------
 
 #ifdef EXTERNAL_CLOCK_SOURCE
-extern void __builtin_write_OSCCONH(unsigned int);
-extern void __builtin_write_OSCCONL(unsigned int);
   //Perform clk switch to LPRC (use this a a transition because cannot adjust PLL setting when it is in used)
   __builtin_write_OSCCONH(5);       // New OSC = LPRC 
   __builtin_write_OSCCONL(1);       // Start clk switch
@@ -239,4 +239,34 @@ _IRQ _T1Interrupt( void )
   portYIELD();
 #endif /* configUSE_PREEMPTION */
 #endif /* FREERTOS_SCHED */
+}
+
+/*
+ * Reset System
+ */
+void
+reset(void)
+{
+  //user shutdown rountine
+  vUserShutdown();
+
+#ifdef EXTERNAL_CLOCK_SOURCE
+  //Perform clk switch to LPRC (use this a a transition because cannot adjust PLL setting when it is in used)
+  __builtin_write_OSCCONH(5);       // New OSC = LPRC 
+  __builtin_write_OSCCONL(1);       // Start clk switch
+  while(OSCCONbits.OSWEN == 1);     // Wait for completion
+  
+  //Perform clk switch to internal FRC
+  _PLLDIV = 38;                     // M=40: PLL Feedback Divisor bits
+  CLKDIV = 0;                       // N1=2: PLL VCO Output Divider Select bits
+                                    // N2=2: PLL Phase Detector Input Divider bits
+  OSCTUN = TUNE_FRC;                // Tune FRC oscillator, if FRC is used; 
+                                    // 0: Center frequency (7.37 MHz nominal)
+                                    // 22: +8.25% (7.98 MHz)
+  __builtin_write_OSCCONH(1);       // New OSC = PRI PLL 
+  __builtin_write_OSCCONL(1);       // Start clk switch
+  while(OSCCONbits.OSWEN == 1);     // Wait for completion
+#endif /* EXTERNAL_CLOCK_SOURCE */
+
+  asm("reset");
 }
