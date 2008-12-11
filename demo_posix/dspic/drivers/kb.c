@@ -25,6 +25,7 @@
 #include <time.h>
 #include <nano-X.h>
 
+
 /************************************************************************************************
  * Buffers for KB data
  ************************************************************************************************/
@@ -33,6 +34,20 @@ static unsigned char kb_wr = 0;   //write pointer of cir buf
 static unsigned char kb_rd = 0;   //read pointer of cir buf
 static int kb_io_flag;
 static unsigned char pkey_is_pressing;
+
+/** structure for key used in reenterant coroutine */
+struct kb_key_t
+{
+  unsigned char id;
+  clock_t save_time;
+  unsigned int cr_st;
+};
+#ifdef KB_PUSH_KEY
+static struct kb_key_t push_key[TOTAL_PUSH_KEY];
+#endif /* KB_PUSH_KEY */
+#ifdef KB_FN_KEY
+static struct kb_key_t fn_key[TOTAL_FN_KEY];
+#endif /* KB_FN_KEY */
 
 /**
  * \brief get kb port ready
@@ -52,14 +67,20 @@ kb_open(int flags)
   else
     {
       kb_io_flag = flags;
+      key_config();
 #ifdef KB_PUSH_KEY
-      KEYCONFIG();
+      int i;
+      for(i=0; i<TOTAL_PUSH_KEY; i++)
+        {
+          push_key[i].id = BASE_PUSH_KEY + i;
+        }
 #endif /* KB_PUSHKEY */
-#ifdef KB_ROTATE_KEY
-      RKEYCONFIG();
-#endif /* KB_ROTARY */
 #ifdef KB_FN_KEY
-      FN_KEYCONFIG();
+      int j;
+      for(j=0; j<TOTAL_FN_KEY; j++)
+        {
+          fn_key[j].id = BASE_FN_KEY + j;
+        }
 #endif /* KB_FN_KEY */
       return 0;
     }    
@@ -152,7 +173,7 @@ _CNInterrupt(void)
   unsigned char next_data_pos;
   static unsigned char save_key;
   static unsigned char current_key[TOTAL_ROTARY_KEY];
-  static unsigned char rkey_state[TOTAL_ROTARY_KEY];
+  static unsigned char state[TOTAL_ROTARY_KEY];
 
   if(pkey_is_pressing == 0)
     {
@@ -160,41 +181,41 @@ _CNInterrupt(void)
       for(i=0, key_id=BASE_ROTARY_KEY; i<TOTAL_ROTARY_KEY; i++, key_id+=2)
         {
           //Check A status
-          RKEY_STATE(key_id, high);
+          high = rkey_state(key_id);
           current_key[i] = (high)? (current_key[i] | 0x10) : (current_key[i] & 0x01);
           //Check B status
-          RKEY_STATE(key_id+1, high);
+          high = rkey_state(key_id+1);
           current_key[i] = (high)? (current_key[i] | 0x01) : (current_key[i] & 0x10);
             
-          switch(rkey_state[i])
+          switch(state[i])
             {
               case 0:
                 //Change from 0x00
                 if(current_key[i] == 0x01)
                   {
                     save_key = (unsigned char) key_id+1;   //key turned down
-                    rkey_state[i] = 1;
+                    state[i] = 1;
                   }
                 else if(current_key[i] == 0x10)
                   {
                     save_key = (unsigned char) key_id;     //key turned up
-                    rkey_state[i] = 1;
+                    state[i] = 1;
                   }
                 break;
               case 1:
                 //Change from 0xa~a
-                rkey_state[i] = (current_key[i] == 0x11) ? 2 : 0;
+                state[i] = (current_key[i] == 0x11) ? 2 : 0;
                 break;
               case 2:
                 //Change from 0x11
                 if(  (current_key[i] == 0x01 && save_key == (unsigned char) key_id) 
                       || (current_key[i] == 0x10 && save_key == (unsigned char) key_id+1)   )
                   {
-                    rkey_state[i] = 3;
+                    state[i] = 3;
                   }
                 else
                   {
-                    rkey_state[i] = 0;
+                    state[i] = 0;
                   }
                 break;
               case 3:
@@ -203,7 +224,7 @@ _CNInterrupt(void)
                   {
                     kb_write(save_key);
                   }
-                rkey_state[i] = 0;
+                state[i] = 0;
                 break;
             }
         }
@@ -222,16 +243,17 @@ _CNInterrupt(void)
 #   undef FREERTOS_SCHED
 #   undef start_process
 #   undef end_process
-#   include <coroutine_st.h>
-#   define start_process()          scrBegin
-#   define end_process()            scrFinish((void*)0)
+#   undef usleep
+#   undef sleep
+#   define start_process()         switch(((struct kb_key_t*) arg)->cr_st) { case 0:;
+#   define end_process()           ((struct kb_key_t*) arg)->cr_st = 0;} return ((void*)0)
+#   define usleep(usec)            do {\
+                                        (((struct kb_key_t*) arg)->cr_st)=__LINE__;\
+                                        return ((void*)-1); case __LINE__:;\
+                                     } while (0)
+#   define sleep(sec)              usleep(sec)
 #endif
-#include <unistd.h>
 //-----------------------------------------------------------------------------------------------
-#ifdef KB_PUSH_KEY
-/* save time */
-static clock_t pkey_save_time[TOTAL_PUSH_KEY];
-
 /**
  * \internal
  * Principle of PUSH key
@@ -248,41 +270,38 @@ static clock_t pkey_save_time[TOTAL_PUSH_KEY];
  * T: scan period
  */
 static void*
-check_push_key(unsigned char i, unsigned char key_id)
+check_key(struct kb_key_t *arg)
 {
   start_process();
   
-  int pressed;
-  KEY_PRESS(key_id, pressed);
-  if(pressed)
+  if(key_press(arg->id))
     {
       pkey_is_pressing = 1;
       //key has pressed for at least KB_SCAN_PERIOD
-      kb_write(key_id);
-          
+      kb_write(arg->id);
+
       //check for release key
       while(1)
         {
-          pkey_save_time[i] = clock();
-          while( ((clock_t) (clock() - pkey_save_time[i])) < KB_SCAN_PERIOD ) usleep(0);
-          KEY_PRESS(key_id, pressed);
-          if(pressed)
+          arg->save_time = clock();
+          while( ((clock_t) (clock() - arg->save_time)) < KB_SCAN_PERIOD ) usleep(0);
+          if(key_press(arg->id))
             {
               //key continue to press
-              kb_write(key_id);
+              kb_write(arg->id);
             }
           else
             {
               //key released
               pkey_is_pressing = 0;
-              kb_write(key_id | 0x80);
+              kb_write(arg->id | 0x80);
               break;
             }
         }
       
       //time lag to multiple firing of key
-      pkey_save_time[i] = clock();
-      while( ((clock_t) (clock() - pkey_save_time[i])) < KB_SCAN_PERIOD ) usleep(0);
+      arg->save_time = clock();
+      while( ((clock_t) (clock() - arg->save_time)) < KB_SCAN_PERIOD ) usleep(0);
     }
   else
     {
@@ -294,82 +313,26 @@ check_push_key(unsigned char i, unsigned char key_id)
 }
 
 
+//------------------------------------------------------------------------------
+#ifdef KB_PUSH_KEY
 /**
  * \brief detect push key
  * \remarks used in idle task
  */
-void* 
+void 
 kb_push_key(void)
 {
-  start_process();
-  
   unsigned char i;
   for(i=0; i<TOTAL_PUSH_KEY; i++)
     {
-      check_push_key(i, BASE_PUSH_KEY+i);
+      check_key(&push_key[i]);
     }
-  
-  end_process(); 
 }
 #endif /* KB_PUSH_KEY */
 
 
 //------------------------------------------------------------------------------
 #ifdef KB_FN_KEY
-/* save time */
-static clock_t fn_key_save_time[TOTAL_FN_KEY];
-
-/**
- * \internal
- * Principle of FUNCTION KEY same as PUSH KEY
- */
-static void*
-check_fn_key(unsigned char i, unsigned char key_id)
-{
-  start_process();
-  
-  int pressed;
-  FN_KEY_PRESS(key_id, pressed);
-  if(pressed)
-    {
-      pkey_is_pressing = 1;
-      //key has pressed for at least KB_SCAN_PERIOD
-      kb_write(key_id);
-          
-      //check for release key
-      while(1)
-        {
-          fn_key_save_time[i] = clock();
-          while( ((clock_t) (clock() - fn_key_save_time[i])) < KB_SCAN_PERIOD ) usleep(0);
-          FN_KEY_PRESS(key_id, pressed);
-          if(pressed)
-            {
-              //key continue to press
-              kb_write(key_id);
-            }
-          else
-            {
-              //key released
-              pkey_is_pressing = 0;
-              kb_write(key_id | 0x80);
-              break;
-            }
-        }
-      
-      //time lag to multiple firing of key
-      fn_key_save_time[i] = clock();
-      while( ((clock_t) (clock() - fn_key_save_time[i])) < KB_SCAN_PERIOD ) usleep(0);
-    }
-  else
-    {
-      //no key pressed
-      pkey_is_pressing = 0;
-    }
-
-  end_process();
-}
-
-
 /**
  * \brief detect push key
  * \remarks used in idle task
@@ -377,15 +340,11 @@ check_fn_key(unsigned char i, unsigned char key_id)
 void* 
 kb_fn_key(void)
 {
-  start_process();
-  
   unsigned char i;
   for(i=0; i<TOTAL_FN_KEY; i++)
     {
-      check_fn_key(i, BASE_PUSH_KEY+i);
+     check_key(&fn_key[i]);
     }
-  
-  end_process(); 
 }
 #endif /* KB_FN_KEY */
 
