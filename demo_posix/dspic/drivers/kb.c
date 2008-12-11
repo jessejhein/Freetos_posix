@@ -58,6 +58,9 @@ kb_open(int flags)
 #ifdef KB_ROTATE_KEY
       RKEYCONFIG();
 #endif /* KB_ROTARY */
+#ifdef KB_FN_KEY
+      FN_KEYCONFIG();
+#endif /* KB_FN_KEY */
       return 0;
     }    
 }
@@ -310,7 +313,83 @@ kb_push_key(void)
 }
 #endif /* KB_PUSH_KEY */
 
-#endif //end KB_MOD
+
+//------------------------------------------------------------------------------
+#ifdef KB_FN_KEY
+/* save time */
+static clock_t fn_key_save_time[TOTAL_FN_KEY];
+
+/**
+ * \internal
+ * Principle of FUNCTION KEY same as PUSH KEY
+ */
+static void*
+check_fn_key(unsigned char i, unsigned char key_id)
+{
+  start_process();
+  
+  int pressed;
+  FN_KEY_PRESS(key_id, pressed);
+  if(pressed)
+    {
+      pkey_is_pressing = 1;
+      //key has pressed for at least KB_SCAN_PERIOD
+      kb_write(key_id);
+          
+      //check for release key
+      while(1)
+        {
+          fn_key_save_time[i] = clock();
+          while( ((clock_t) (clock() - fn_key_save_time[i])) < KB_SCAN_PERIOD ) usleep(0);
+          FN_KEY_PRESS(key_id, pressed);
+          if(pressed)
+            {
+              //key continue to press
+              kb_write(key_id);
+            }
+          else
+            {
+              //key released
+              pkey_is_pressing = 0;
+              kb_write(key_id | 0x80);
+              break;
+            }
+        }
+      
+      //time lag to multiple firing of key
+      fn_key_save_time[i] = clock();
+      while( ((clock_t) (clock() - fn_key_save_time[i])) < KB_SCAN_PERIOD ) usleep(0);
+    }
+  else
+    {
+      //no key pressed
+      pkey_is_pressing = 0;
+    }
+
+  end_process();
+}
+
+
+/**
+ * \brief detect push key
+ * \remarks used in idle task
+ */
+void* 
+kb_fn_key(void)
+{
+  start_process();
+  
+  unsigned char i;
+  for(i=0; i<TOTAL_FN_KEY; i++)
+    {
+      check_fn_key(i, BASE_PUSH_KEY+i);
+    }
+  
+  end_process(); 
+}
+#endif /* KB_FN_KEY */
+
+#endif /* KB_MOD */
 
 /** @} */
 /** @} */

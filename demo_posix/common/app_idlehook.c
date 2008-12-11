@@ -10,6 +10,10 @@
 extern void* kb_push_key(void);
 #endif /* KB_PUSH_KEY */
 
+#ifdef KB_FN_KEY
+extern void* kb_fn_key(void);
+#endif /* KB_FN_KEY */
+
 /************************************************************************************************
  * void vApplicationIdleHook(void)
  * +-- a subroutine that runs by Idle Task
@@ -24,6 +28,10 @@ vApplicationIdleHook(void)
 #ifdef KB_PUSH_KEY
   kb_push_key();
 #endif /* KB_PUSH_KEY */
+
+#ifdef KB_FN_KEY
+  kb_fn_key();
+#endif /* KB_FN_KEY */
 
 #ifdef LED_MOD
   led_ctrl();
