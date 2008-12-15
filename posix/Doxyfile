@@ -1054,8 +1054,12 @@ INCLUDE_FILE_PATTERNS  =
 # undefined via #undef or recursively expanded use the := operator 
 # instead of the = operator.
 
-PREDEFINED             = CRTHREAD_SCHED UART_MOD NO_OF_UART=2 ETHERNET_MOD \
-													I2C_MOD ADC_MOD PWM_MOD KB_MOD MPLAB_DSPIC33_PORT
+PREDEFINED             = CRTHREAD_SCHED MPLAB_DSPIC33_PORT \
+													UART_MOD NO_OF_UART=2 \
+													ETHERNET_MOD \
+													I2C_MOD I2C_DAC_MOD NVM_I2C I2C_MOD_MASTER_DSPIC I2C_MOD_SLAVE_DSPIC \
+													KB_MOD KB_ROTATE_KEY KB_PUSH_KEY KB_FN_KEY \
+													ADC_MOD PWM_MOD LED_MOD
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then 
 # this tag can be used to specify a list of macro names that should be expanded. 

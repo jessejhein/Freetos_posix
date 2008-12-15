@@ -76,15 +76,19 @@ i2c_dac_open(int flags)
  * 
  * \remarks
  * \li example DAC6574
- * Mst/Slv    _______ M ___M___ M S ____M___ S ____M___ S ___M____ S M ________ 
- * SDA (Data)        |S|       | |A|        |A|        |A|        |A|S|
- *                   |T|address|W|C|channelA|C| Data H |C| Data L |C|T|
- *                   |A|1001111|0|K|00010000|K|10101010|K|10XXXXXX|K|P|
+ * \verbatim
+    Mst/Slv    _______ M ___M___ M S ____M___ S ____M___ S ___M____ S M ________ 
+    SDA (Data)        |S|       | |A|        |A|        |A|        |A|S|
+                       |T|address|W|C|channelA|C| Data H |C| Data L |C|T|
+                       |A|1001111|0|K|00010000|K|10101010|K|10XXXXXX|K|P|
+   \endverbatim
  * \li example DAC7574
- * Mst/Slv    _______ M ___M___ M S ____M___ S ____M___ S ___M____ S M ________ 
- * SDA (Data)        |S|       | |A|        |A|        |A|        |A|S|
- *                   |T|address|W|C|channelA|C| Data H |C| Data L |C|T|
- *                   |A|1001111|0|K|00010000|K|10101010|K|1010XXXX|K|P|
+ * \verbatim
+    Mst/Slv    _______ M ___M___ M S ____M___ S ____M___ S ___M____ S M ________ 
+    SDA (Data)        |S|       | |A|        |A|        |A|        |A|S|
+                      |T|address|W|C|channelA|C| Data H |C| Data L |C|T|
+                      |A|1001111|0|K|00010000|K|10101010|K|1010XXXX|K|P|
+   \endverbatim
  */
 int 
 i2c_dac_write(unsigned int *buf)
@@ -145,7 +149,7 @@ i2c_dac_write(unsigned int *buf)
 
 /**
  * \brief read 2 bytes from dac
- * \param pointer of data to read from dac
+ * \param buf pointer of data to read from dac
  * \return number of bytes read
  * \retval 0 no data has been read
  * \retval 2 two bytes has been read
@@ -153,15 +157,19 @@ i2c_dac_write(unsigned int *buf)
  * 
  * \remarks
  * \li example DAC6574
- * Mst/Slv    _______ M ___M___ M S ____M___ S M ___M___ M S ___S____ M ___S____ M M _____ 
- * SDA (Data)        |S|       | |A|        |A|R|       | |A|        |A|        |N|S|
- *                   |T|address|W|C|channelA|C|E|address|R|C| Data H |C| Data L |A|T|
- *                   |A|1001111|0|K|00010010|K|S|1001111|1|K|10101010|K|10XXXXXX|K|P|
+ * \verbatim
+    Mst/Slv    _______ M ___M___ M S ____M___ S M ___M___ M S ___S____ M ___S____ M M _____ 
+    SDA (Data)        |S|       | |A|        |A|R|       | |A|        |A|        |N|S|
+                      |T|address|W|C|channelA|C|E|address|R|C| Data H |C| Data L |A|T|
+                      |A|1001111|0|K|00010010|K|S|1001111|1|K|10101010|K|10XXXXXX|K|P|
+   \endverbatim
  * \li example DAC7574
- * Mst/Slv    _______ M ___M___ M S ____M___ S M ___M___ M S ___S____ M ___S____ M M _____ 
- * SDA (Data)        |S|       | |A|        |A|R|       | |A|        |A|        |N|S|
- *                   |T|address|W|C|channelA|C|E|address|R|C| Data H |C| Data L |A|T|
- *                   |A|1001111|0|K|00010010|K|S|1001111|1|K|10101010|K|1010XXXX|K|P|
+ * \verbatim
+    Mst/Slv    _______ M ___M___ M S ____M___ S M ___M___ M S ___S____ M ___S____ M M _____ 
+    SDA (Data)        |S|       | |A|        |A|R|       | |A|        |A|        |N|S|
+                      |T|address|W|C|channelA|C|E|address|R|C| Data H |C| Data L |A|T|
+                      |A|1001111|0|K|00010010|K|S|1001111|1|K|10101010|K|1010XXXX|K|P|
+   \endverbatim
  */
 int 
 i2c_dac_read(unsigned int *buf)

@@ -73,10 +73,12 @@ i2c_mod_master_open(int flags)
  * 
  * \remarks
  * \li example
- * Mst/Slv    _______ M ___M___ M S ____M___ S ____M___ S ___M____ S ___M____ S ___M ___ S M ____
- * SDA (Data)        |S|       | |A|        |A|        |A|        |A|        |A|        |A|S|
- *                   |T|address|W|C|channelA|C| Data 0 |C| Data 1 |C| Data 2 |C| Data 3 |C|T|
- *                   |A|1011000|0|K|00010000|K|10101010|K|10101010|K|10101010|K|10101010|K|P|
+ * \verbatim
+    Mst/Slv    _______ M ___M___ M S ____M___ S ____M___ S ___M____ S ___M____ S ___M ___ S M ____
+    SDA (Data)        |S|       | |A|        |A|        |A|        |A|        |A|        |A|S|
+                      |T|address|W|C|channelA|C| Data 0 |C| Data 1 |C| Data 2 |C| Data 3 |C|T|
+                      |A|1011000|0|K|00010000|K|10101010|K|10101010|K|10101010|K|10101010|K|P|
+   \endverbatim
  */
 int 
 i2c_mod_master_write(float *buf)
@@ -145,7 +147,7 @@ i2c_mod_master_write(float *buf)
 
 /**
  * \brief read 4 bytes from mod dspic
- * \param pointer of data to read
+ * \param buf pointer of data to read
  * \return number of bytes read
  * \retval 0 no data has been read
  * \retval 4 two bytes has been read
@@ -153,10 +155,12 @@ i2c_mod_master_write(float *buf)
  * 
  * \remarks
  * \li example
- * Mst/Slv    _______ M ___M___ M S ____M___ S M ___M___ M S ___S____ M ___S____ M ___S____ M ___S____ M M _____ 
- * SDA (Data)        |S|       | |A|        |A|R|       | |A|        |A|        |A|        |A|        |N|S|
- *                   |T|address|W|C|channelA|C|E|address|R|C| Data 0 |C| Data 1 |C| Data 2 |C| Data 3 |A|T|
- *                   |A|1011000|0|K|00010010|K|S|1011000|1|K|10101010|K|10101010|K|10101010|K|10101010|K|P|
+ * \verbatim
+    Mst/Slv    _______ M ___M___ M S ____M___ S M ___M___ M S ___S____ M ___S____ M ___S____ M ___S____ M M _____ 
+    SDA (Data)        |S|       | |A|        |A|R|       | |A|        |A|        |A|        |A|        |N|S|
+                      |T|address|W|C|channelA|C|E|address|R|C| Data 0 |C| Data 1 |C| Data 2 |C| Data 3 |A|T|
+                      |A|1011000|0|K|00010010|K|S|1011000|1|K|10101010|K|10101010|K|10101010|K|10101010|K|P|
+   \endverbatim
  */
 int 
 i2c_mod_master_read(float *buf)

@@ -149,22 +149,20 @@ kb_write(unsigned char key_id)
 /**
  * \brief detect rotary keys by change interrupt
  * \remarks priority is given to push key
- * 
- * \internal
+ *
  * Principle of ROTARY KEY
- * 
- * A               +--------------+
- *                 |              |
- *     ------------+              +------------------------------------
- *         
- * B                       +-------------+
- *                         |             |
- *     --------------------+             +----------------------------
- * 
+ * \verbatim
+  A               +--------------+
+                  |              |
+      ------------+              +------------------------------------
+         
+  B                       +-------------+
+                          |             |
+      --------------------+             +----------------------------
+   \endverbatim 
  * or vice versa
  * 
  * Valid sequence:   00 -> 01|10 -> 11 -> 10|01 -> 00
- * 
  */
 void _IRQ 
 _CNInterrupt(void)
@@ -255,17 +253,18 @@ _CNInterrupt(void)
 #endif
 //-----------------------------------------------------------------------------------------------
 /**
- * \internal
  * Principle of PUSH key
- * 
- *    -----------|||                        |||----------------------------------
- *               |||------------------------|||
- *      
- *    <Scan for key>|<----- T ----->|<----- T ----->|<----- T ----->|<Scan for key>
- * 
- *                 /|\             /|\             /|\             /|\
- *                  |               |               |               |
- *                press           hold           release         new scan
+ * \verbatim
+ 
+    -----------|||                        |||----------------------------------
+               |||------------------------|||
+      
+    <Scan for key>|<----- T ----->|<----- T ----->|<----- T ----->|<Scan for key>
+ 
+                 /|\             /|\             /|\             /|\
+                  |               |               |               |
+                press           hold           release         new scan
+   \endverbatim
  * 
  * T: scan period
  */
