@@ -30,11 +30,8 @@ open(const char *pathname, int flags)
 #endif /* I2C_DAC_MOD */
 
 #ifdef NVM_MOD
-  if (tmp==BASE_EEPROM)
+  if (tmp==BASE_NVM)
     {
-#ifdef NVM_I2C
-      return (i2c_eeprom_open(flags) == 0)? tmp : -1;
-#endif /* NVM_I2C */
 #ifdef NVM_FLASH
       return (flash_eeprom_open(flags) == 0)? tmp : -1;
 #endif /* NVM_FLASH */
@@ -42,6 +39,12 @@ open(const char *pathname, int flags)
       return (eeprom_open(flags) == 0)? tmp : -1;
 #endif /* NVM_ON_CHIP */
     }
+#ifdef NVM_I2C
+  if( tmp == (BASE_NVM+1) )
+    {
+      return (i2c_eeprom_open(flags) == 0)? tmp : -1;
+    }
+#endif /* NVM_I2C */
 #endif /* NVM_MOD */
 
 #ifdef I2C_MOD_MASTER_DSPIC
@@ -146,11 +149,8 @@ write(int fd, void* buf, int count)
 #endif /* I2C_DAC_MOD */
 
 #ifdef NVM_MOD
-  if (fd==BASE_EEPROM)
+  if (fd==BASE_NVM)
     {
-#ifdef NVM_I2C
-      return i2c_eeprom_write(buf, count);
-#endif /* NVM_I2C */
 #ifdef NVM_FLASH
       return flash_eeprom_write(buf, count);
 #endif /* NVM_FLASH */
@@ -158,6 +158,12 @@ write(int fd, void* buf, int count)
       return eeprom_write(buf, count);
 #endif /* NVM_ON_CHIP */
     }
+#ifdef NVM_I2C
+  if( fd == (BASE_NVM+1) )
+    {
+      return i2c_eeprom_write(buf, count);
+    }
+#endif /* NVM_I2C */
 #endif /* NVM_MOD */
 
 #ifdef I2C_MOD_MASTER_DSPIC
@@ -237,11 +243,8 @@ read(int fd, void* buf, int count)
 #endif /* I2C_DAC_MOD */
 
 #ifdef NVM_MOD
-  if (fd==BASE_EEPROM)
+  if (fd==BASE_NVM)
     {
-#ifdef NVM_I2C
-      return i2c_eeprom_read(buf, count);
-#endif /* NVM_I2C */  
 #ifdef NVM_FLASH
       return flash_eeprom_read(buf, count);
 #endif /* NVM_FLASH */
@@ -249,6 +252,12 @@ read(int fd, void* buf, int count)
       return eeprom_read(buf, count);
 #endif /* NVM_ON_CHIP */
     }
+#ifdef NVM_I2C
+  if( fd == (BASE_NVM+1) )
+    {
+      return i2c_eeprom_read(buf, count);
+    }
+#endif /* NVM_I2C */
 #endif /* NVM_MOD */
 
 #ifdef I2C_MOD_MASTER_DSPIC
@@ -328,7 +337,7 @@ ioctl(int fd, int request, void* argp)
 #endif /* I2C_DAC_MOD */
 
 #ifdef NVM_MOD
-  if (fd==BASE_EEPROM)
+  if( (fd >= BASE_NVM) && (fd<(BASE_NVM+1)) )
     {
       return 0;
     }
@@ -418,11 +427,8 @@ lseek(int fd, int offset, int whence)
 #endif /* I2C_DAC_MOD */
 
 #ifdef NVM_MOD
-  if (fd==BASE_EEPROM)
+  if (fd==BASE_NVM)
     {
-#ifdef NVM_I2C
-      return i2c_eeprom_lseek(offset, whence);
-#endif /* NVM_I2C */   
 #ifdef NVM_FLASH
       return flash_eeprom_lseek(offset, whence);
 #endif /* NVM_FLASH */
@@ -430,6 +436,12 @@ lseek(int fd, int offset, int whence)
       return eeprom_lseek(offset, whence);
 #endif /* NVM_ON_CHIP */
     }
+#ifdef NVM_I2C
+  if( fd == (BASE_NVM+1) )
+    {
+      return i2c_eeprom_lseek(offset, whence);
+    }
+#endif /* NVM_I2C */
 #endif /* NVM_MOD */
 
 #ifdef I2C_MOD_MASTER_DSPIC

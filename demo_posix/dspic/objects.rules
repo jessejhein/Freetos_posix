@@ -162,14 +162,16 @@ endif
 # NVM_MOD
 ifeq ($(CONFIG_NVM), y)
 	DEFINES += -DNVM_MOD
-	ifeq ($(CONFIG_NVM_SRC), FLASH)
+	ifeq ($(CONFIG_NVM_INTERNAL), FLASH)
 		DEFINES += -DNVM_FLASH
 	endif
-	ifeq ($(CONFIG_NVM_SRC), I2C)
-		DEFINES += -DNVM_I2C
-	endif
-	ifeq ($(CONFIG_NVM_SRC), ON_CHIP)
+	ifeq ($(CONFIG_NVM_INTERNAL), ON_CHIP)
 		DEFINES += -DNVM_ON_CHIP
+	endif
+	ifeq ($(CONFIG_NVM_USE_EXTERNAL), y)
+		ifeq ($(CONFIG_NVM_EXTERNAL), I2C)
+			DEFINES += -DNVM_I2C
+		endif
 	endif
 endif
 
@@ -291,14 +293,16 @@ obj-$(CONFIG_KEYBOARD) += \
 obj-$(CONFIG_LED) += \
 	$(ARCH)/../drivers/led.o
 ifeq ($(CONFIG_NVM), y)
-	ifeq ($(CONFIG_NVM_SRC), FLASH)
+	ifeq ($(CONFIG_NVM_INTERNAL), FLASH)
 		obj-y += $(ARCH)/../drivers/flash_eeprom.o $(ARCH)/../drivers/rtsp.o
 	endif
-	ifeq ($(CONFIG_NVM_SRC), I2C)
-		obj-y += $(ARCH)/../drivers/i2c_eeprom.o
-	endif
-	ifeq ($(CONFIG_NVM_SRC), ON_CHIP)
+	ifeq ($(CONFIG_NVM_INTERNAL), ON_CHIP)
 		obj-y += $(ARCH)/../drivers/eeprom.o $(ARCH)/../drivers/eeprom_asm.o
+	endif
+	ifeq ($(CONFIG_NVM_USE_EXTERNAL), y)
+		ifeq ($(CONFIG_NVM_EXTERNAL), I2C)
+			obj-y += $(ARCH)/../drivers/i2c_eeprom.o
+		endif
 	endif
 endif	
 obj-$(CONFIG_ETHERNET) += \
