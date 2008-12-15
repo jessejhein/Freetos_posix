@@ -6,7 +6,7 @@
  */
 
 /**
- * \defgroup i2c_mod_master_slave I2C MODULATION DSPIC (MASTER) 
+ * \defgroup i2c_mod_master I2C MODULATION DSPIC (MASTER) 
  * @{
  * 
  * Control I2C MODULATION DSPIC (MASTER)

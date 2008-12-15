@@ -79,7 +79,24 @@ led_write(unsigned char *buf)
           unsigned int mask = (0x0001 << led_ch_select);
           if(led_block_status & mask) return 0;
           //no blocking
-          led_status[led_ch_select] = *buf;
+#ifdef BUZZER
+          //for direct control of buzzer to provide immediate reponse
+          if( (led_ch_select == LED_NUM) && ((*buf == LED_OFF) || (*buf == LED_ON)) )
+            {
+              if(*buf == LED_OFF)
+                {
+                  io_off(led_ch_select);
+                }
+              else
+                {
+                  io_on(led_ch_select);
+                }
+            }
+          else
+#endif /* BUZZER */
+            {
+              led_status[led_ch_select] = *buf;
+            }
           return 1;
         }
       else

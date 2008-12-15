@@ -97,7 +97,7 @@ obj-y += \
 	$(FREERTOS_POSIX)/posix/src/pthread.o \
 	$(FREERTOS_POSIX)/posix/src/system.o \
 	$(FREERTOS_POSIX)/posix/src/time.o \
-	$(COMMON)/app_idlehook.o \
+	$(FREERTOS_POSIX)/posix/src/app_idlehook.o \
 	$(COMMON)/tools/autoscale.o
 
 # Console Debug
