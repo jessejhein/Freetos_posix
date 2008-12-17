@@ -244,17 +244,8 @@ endif
 
 ############################# header section ################################
 
-# NVM_MOD
-ifeq ($(CONFIG_NVM), y)
-	ifeq ($(CONFIG_NVM_SRC), FLASH)
-		INCLUDEDIRS += -I$(ARCH)/../drivers/include/
-	endif
-endif
-
-# ETHERNET_MOD
-ifeq ($(CONFIG_ETHERNET), y)
-	INCLUDEDIRS += -I$(ARCH)/../drivers/include/
-endif
+# DRIVER INCLUDE
+INCLUDEDIRS += -I$(ARCH)/../drivers/include/
 
 
 ############################# targets section ################################
