@@ -1,0 +1,115 @@
+==ETHERNET CARD==
+
+===PROCEDURE===
+*Solder DM9000A only
+*Clean board with alcohol and blow-dry with compressed oxygen
+*Check pin-to-pad alignment and dirts under magnifier
+
+*Solder other components (except RJ45 connector)
+*Clean board with alcohol and blow-dry with compressed oxygen
+*Check dirts under magnifier
+
+*Resistance Test on pin 9 and pin 10 (>100kohm)
+*Test power reset pin (PIN 40)
+      /|\
+ 3.3V  |         +----------
+       |        /
+       |       /
+       |      /
+       |     /
+       +----+----------------------->
+            <--->
+            40ms
+
+*Measure Voltage on Pin 9 (Expected 2.5V)
+*Perform IO BUS TEST using Demo Program
+**Control Pin Activities (in the order of 200ns)
+   CS#      ________       ___________         ________
+                    |     |           |       |
+                    |_____|           |_______|
+    
+   CMD      ________       ____________________________
+                    |     |           
+                    |_____|           
+
+   IOW#     ________       ____________________________
+                    |     |           
+                    |_____|           
+   
+   IOR#     __________________________         ________
+                                      |       |
+                                      |_______|
+
+   INT     
+
+            ___________________________________________
+
+   DATA     -<================>----------<========>----
+**Data Pins Activity
+*Send 0x2C [0b00101100], Expect 0x19 [0b00011001]
+   D0                                     _______
+                                         |       |
+            _____________________________|       |_____
+
+   D1
+
+            ___________________________________________
+
+   D2          ______________
+              |              |
+            __|              |_________________________
+
+   D3          ______________             _______
+              |              |           |       |
+            __|              |___________|       |_____
+
+   D4                                     _______
+                                         |       |
+            _____________________________|       |_____
+
+   D5          ______________
+              |              |
+            __|              |_________________________
+
+   D6
+
+            ___________________________________________
+
+   D7
+
+            ___________________________________________
+
+*Perform IO READ/WRITE TEST using Demo Program
+**Press 't', expecting response
+   Vendor ID OK.
+   8-bit mode.
+   ERR: DM9000A is not able to link to the Internet.
+**Press 'n' and 'p' several times to see if there are any abnormal behaviour (e.g. all read 0x00, all read 0x80, or response follows input)
+
+*Solder RJ45 connector
+*Clean board with alcohol and blow-dry with compressed oxygen
+*Check dirts under magnifier
+
+*Perform IO READ/WRITE TEST using Demo Program
+**Press 't', expecting response
+   Vendor ID OK.
+   8-bit mode.
+   Link OK.
+   10Base-T Half duplex obtained.
+**Press 'n' and 'p' several times to see if there are any abnormal behaviour (e.g. all read 0x00, all read 0x80, or response follows input)
+**Press 'r' to receive packets
+
+*Perform WEBSERVER TEST
+*Checklist
+**Obtain IP?
+**Irregular display?
+**Capability to response to web-brower?
+**Long Run?
+
+
+===TROUBLESHOOTING===
+*Japanese characters on lcd display + lost ip address
+*Symptoms
+**open ok -> get ip by DHCP -> read: no link 0x00 -> open: no link 0x00 -> get ip by DHCP -> read: no link 0x00 -> open: no land card 0x00
+*Possible Cause
+**Data Pin 7 (D7, Pin 10) is shorted/partially shorted with CT (Pin 9, 2.5V)

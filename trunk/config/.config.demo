@@ -1,0 +1,108 @@
+# FreeRTOS Configurations
+#================================================================
+
+#----------------------------------------------------------------
+# uP: Select the type of dsPic to be used
+#		DSPIC30; DSPIC33
+#		FJ256GP506; FJ128GP306; F5011
+#----------------------------------------------------------------
+PLATFORM													=		DSPIC33
+MODEL															=		FJ256GP506
+HEAP_SIZE													=		5120
+
+#----------------------------------------------------------------
+# OS Scheduler: Select the scheduler to be used.
+#	When FREERTOS_SCHED = n, the project will compile with coroutine_st
+#----------------------------------------------------------------
+FREERTOS_SCHED										=		y
+CRTHREAD_SCHED										=		y
+
+#----------------------------------------------------------------
+# Modules
+#----------------------------------------------------------------
+CONFIG_UART												=		y
+CONFIG_I2C												=		y
+CONFIG_I2C_DAC										=		y
+CONFIG_NVM												=		y
+CONFIG_ADC												=		y
+CONFIG_PWM												=		n
+CONFIG_KEYBOARD										=		y
+CONFIG_ETHERNET										=		y
+CONFIG_LED												=		y
+
+#----------------------------------------------------------------
+# UART
+#	CONFIG_UART_BAUDRATE_PRIMARY/SECONDARY:			Baudrate in bps
+#	UART_PRIMARY/SECONDARY:											RS232; RS485
+#	UART_BUFFER_SIZE:														Number of bytes for rx and tx buffers
+#----------------------------------------------------------------
+CONFIG_UART_PRIMARY								=		RS232
+CONFIG_UART_BAUDRATE_PRIMARY			=		19200
+CONFIG_UART_USE_SECONDARY					=		n
+	CONFIG_UART_SECONDARY						=		RS485
+	CONFIG_UART_BAUDRATE_SECONDARY	=		19200
+CONFIG_UART_BUFFER_SIZE						=		50
+		
+#----------------------------------------------------------------
+# I2C
+#	I2C_BAUDRATE:			Baudrate in Hz
+#----------------------------------------------------------------
+CONFIG_I2C_BAUDRATE								=		400000
+
+#----------------------------------------------------------------
+# NVM: 							Select the type of EEPROM to be used
+#	NVM_SRC:					ON_CHIP; I2C; FLASH
+#----------------------------------------------------------------
+CONFIG_NVM_SRC										=		FLASH
+
+#----------------------------------------------------------------
+# ADC
+#	ADC_SAMPLE_RATE:		Sampling rate in Hz (<200kHz)
+#	ADC_ACQ_TIME:				Acquisation time in [#of TAD] 1-31
+#----------------------------------------------------------------
+CONFIG_ADC_SAMPLE_RATE						=		200000
+CONFIG_ADC_ACQ_TIME								=		1
+
+#----------------------------------------------------------------
+# KEYBOARD
+#	KB_BUFFER_SIZE:			Max number of key pressed stored
+#	KB_MODEL:						ROTARY_ENTER_KEY; 5_KEY_PUSH_BUTTON
+# KB_SCAN_PERIOD:			Epochs between keyscan
+#----------------------------------------------------------------
+CONFIG_KB_BUFFER_SIZE							=		20
+CONFIG_KB_MODEL										=		ROTARY_ENTER_KEY
+CONFIG_KB_SCAN_PERIOD							=		6
+
+#----------------------------------------------------------------
+# LED
+# LED_NUM:						Max number of led (excluding buzzer)
+# LED_CTRL_INTERVAL:	Period to perform hardware led control (in epochs of system clock)
+#----------------------------------------------------------------
+CONFIG_BUZZER											=		y
+CONFIG_LED_NUM										=		7
+CONFIG_LED_CTRL_INTERVAL					=		50
+
+#----------------------------------------------------------------
+# ETHERNET
+#	MAC_ADDRESS_BYTE1-3:
+#		Last three bytes of MAC address (First three bytes read from chip)
+#		Coding: YM-DD-CC (hex) where: BYTE1-BYTE2-BYTE3
+#		Legend: Y = Year, M = Month, DD = Date, CC = Count
+#		To change value for difference device using.
+#		Values follow serial number.
+#----------------------------------------------------------------
+CONFIG_MAC_ADDRESS_BTYE1					=		0x71
+CONFIG_MAC_ADDRESS_BTYE2					=		0x01
+CONFIG_MAC_ADDRESS_BTYE3    			=		0x01
+
+#----------------------------------------------------------------
+# ETHERNET APPLICATIONS
+#----------------------------------------------------------------
+CONFIG_ETH_MAX_APP								=		10
+
+#----------------------------------------------------------------
+# Debug Console
+# 	If enabled, program can use functions in <console.h> like 
+#	printStr(), printDec(), printHex(), newline() etc. 
+#----------------------------------------------------------------
+CONFIG_DEBUG											=		n
