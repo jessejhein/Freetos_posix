@@ -14,6 +14,7 @@ __u16 StkAddrLo;
 __u16 StkAddrHi;
 
 
+#ifdef DEBUG_TRAP_IN_NVM
 /**
  * \brief handle trap error rountine
  */
@@ -35,6 +36,7 @@ handle_trap_error(__u8 err)
       while( write(fd_nvm, &StkAddrHi, TRAP_ADDR_HI_LEN) != TRAP_ADDR_HI_LEN );
     }
 }
+#endif /* DEBUG_TRAP_IN_NVM */
 
 
 /**
@@ -44,7 +46,9 @@ void _TRAP_IRQ
 _OscillatorFail(void)
 {
   _OSCFAIL = 0;
+#ifdef DEBUG_TRAP_IN_NVM
   handle_trap_error('O');
+#endif /* DEBUG_TRAP_IN_NVM */
 }
 
 
@@ -55,7 +59,9 @@ void _TRAP_IRQ
 _AddressError(void)
 {
   _ADDRERR = 0;
+#ifdef DEBUG_TRAP_IN_NVM
   handle_trap_error('A');
+#endif /* DEBUG_TRAP_IN_NVM */
   
   ERR_LED_CONFIG();
     
@@ -109,7 +115,9 @@ void _TRAP_IRQ
 _StackError(void)
 {
   _STKERR = 0;
+#ifdef DEBUG_TRAP_IN_NVM
   handle_trap_error('S');
+#endif /* DEBUG_TRAP_IN_NVM */
   
   ERR_LED_CONFIG();
 
@@ -125,7 +133,9 @@ void _TRAP_IRQ
 _MathError(void)
 {
   _MATHERR = 0;
+#ifdef DEBUG_TRAP_IN_NVM
   handle_trap_error('M');
+#endif /* DEBUG_TRAP_IN_NVM */
 
   ERR_LED_CONFIG();
 
@@ -146,7 +156,9 @@ void _TRAP_IRQ
 _DMACError(void)
 {
   INTCON1bits.DMACERR = 0;
+#ifdef DEBUG_TRAP_IN_NVM
   handle_trap_error('D');
+#endif /* DEBUG_TRAP_IN_NVM */
 
   ERR_LED_CONFIG();
 

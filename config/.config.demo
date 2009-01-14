@@ -11,6 +11,11 @@ MODEL															=		FJ256GP506
 HEAP_SIZE													=		5120
 
 #----------------------------------------------------------------
+# Clock Source
+#----------------------------------------------------------------
+USE_EXTERNAL_CLOCK_SOURCE					=		n
+
+#----------------------------------------------------------------
 # OS Scheduler: Select the scheduler to be used.
 #	When FREERTOS_SCHED = n, the project will compile with coroutine_st
 #----------------------------------------------------------------
@@ -23,9 +28,10 @@ CRTHREAD_SCHED										=		y
 CONFIG_UART												=		y
 CONFIG_I2C												=		y
 CONFIG_I2C_DAC										=		y
+CONFIG_I2C_MOD_DSPIC							=		n
 CONFIG_NVM												=		y
 CONFIG_ADC												=		y
-CONFIG_PWM												=		n
+CONFIG_PWM												=		y
 CONFIG_KEYBOARD										=		y
 CONFIG_ETHERNET										=		y
 CONFIG_LED												=		y
@@ -45,15 +51,30 @@ CONFIG_UART_BUFFER_SIZE						=		50
 		
 #----------------------------------------------------------------
 # I2C
-#	I2C_BAUDRATE:			Baudrate in Hz
+#	I2C_BAUDRATE:				Baudrate in Hz
 #----------------------------------------------------------------
 CONFIG_I2C_BAUDRATE								=		400000
 
 #----------------------------------------------------------------
-# NVM: 							Select the type of EEPROM to be used
-#	NVM_SRC:					ON_CHIP; I2C; FLASH
+# I2C_DAC
+#	RESOLUTION:					Resolution of DAC
 #----------------------------------------------------------------
-CONFIG_NVM_SRC										=		FLASH
+CONFIG_DAC_RESOLUTION							=		12
+
+#----------------------------------------------------------------
+# I2C_MOD_DSPIC
+#	CONFIG_I2C_MOD_DSPIC_MODE:										MASTER; SLAVE
+#----------------------------------------------------------------
+CONFIG_I2C_MOD_DSPIC_MODE					=		MASTER
+
+#----------------------------------------------------------------
+# NVM: 									Select the type of EEPROM to be used
+#	CONFIG_NVM_INTERNAL:	ON_CHIP; FLASH
+# CONFIG_NVM_EXTERNAL:	I2C
+#----------------------------------------------------------------
+CONFIG_NVM_INTERNAL								=		FLASH
+CONFIG_NVM_USE_EXTERNAL						=		n
+CONFIG_NVM_EXTERNAL								=		I2C
 
 #----------------------------------------------------------------
 # ADC
@@ -67,11 +88,13 @@ CONFIG_ADC_ACQ_TIME								=		1
 # KEYBOARD
 #	KB_BUFFER_SIZE:			Max number of key pressed stored
 #	KB_MODEL:						ROTARY_ENTER_KEY; 5_KEY_PUSH_BUTTON
-# KB_SCAN_PERIOD:			Epochs between keyscan
+# KB_FUNCTION_KEY:		Number of function keys
+# KB_SCAN_PERIOD:			Epochs between succesive key pressed
 #----------------------------------------------------------------
 CONFIG_KB_BUFFER_SIZE							=		20
 CONFIG_KB_MODEL										=		ROTARY_ENTER_KEY
-CONFIG_KB_SCAN_PERIOD							=		6
+CONFIG_KB_FUNCTION_KEY						=		0
+CONFIG_KB_SCAN_PERIOD							=		5
 
 #----------------------------------------------------------------
 # LED
@@ -79,8 +102,8 @@ CONFIG_KB_SCAN_PERIOD							=		6
 # LED_CTRL_INTERVAL:	Period to perform hardware led control (in epochs of system clock)
 #----------------------------------------------------------------
 CONFIG_BUZZER											=		y
-CONFIG_LED_NUM										=		7
-CONFIG_LED_CTRL_INTERVAL					=		50
+CONFIG_LED_NUM										=		8
+CONFIG_LED_CTRL_INTERVAL					=		10
 
 #----------------------------------------------------------------
 # ETHERNET
@@ -106,3 +129,4 @@ CONFIG_ETH_MAX_APP								=		10
 #	printStr(), printDec(), printHex(), newline() etc. 
 #----------------------------------------------------------------
 CONFIG_DEBUG											=		n
+CONFIG_DEBUG_TRAP_IN_NVM					=		y

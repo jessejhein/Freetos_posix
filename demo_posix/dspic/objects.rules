@@ -239,8 +239,13 @@ ifeq ($(CONFIG_LED), y)
 	ifdef CONFIG_LED_CTRL_INTERVAL
 		DEFINES += -DLED_CTRL_INTERVAL=$(CONFIG_LED_CTRL_INTERVAL)
 	endif
-	
 endif
+
+# DEBUG TRAP
+ifeq ($(CONFIG_DEBUG_TRAP_IN_NVM), y)
+	DEFINES += -DDEBUG_TRAP_IN_NVM
+endif
+
 
 ############################# header section ################################
 
