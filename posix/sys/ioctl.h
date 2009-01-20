@@ -88,6 +88,8 @@
 #define LCD_SET_CONTRAST            0
 /** change brightness level */
 #define LCD_SET_BRIGHTNESS          1
+/** refresh lcd screen */
+#define LCD_REFRESH                 2
 #endif /* LCD_MOD */
 
 #endif /*_IOCTL_H_*/
