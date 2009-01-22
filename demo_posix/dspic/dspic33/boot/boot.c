@@ -138,6 +138,10 @@ main(void)
   /* allow 1 sec delay for on-board external hardware to stable*/
   mdelay(1000);
 
+  /* set adc compatiable pins to digital io by default */
+  ADPCFG = 0xFFFF;
+  ADPCFGH = 0xFFFF;
+
   /* Configure any hardware. */
   vSetupHardware();
 
