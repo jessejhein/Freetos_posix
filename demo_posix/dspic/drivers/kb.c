@@ -273,38 +273,36 @@ check_key(struct kb_key_t *arg)
 {
   start_process();
   
-  if(key_press(arg->id))
+  if(pkey_is_pressing == 0)
     {
-      pkey_is_pressing = 1;
-      kb_write(arg->id);
-
-      //time lag to test for hold/release
-      arg->save_time = clock();
-      while( ((clock_t) (clock() - arg->save_time)) < 10*KB_SCAN_PERIOD ) usleep(0);
-
-      //check for hold/release
-      while(1)
+      if(key_press(arg->id))
         {
-          if(key_press(arg->id))
-            {
-              //hold
-              kb_write(arg->id);
-            }
-          else
-            {
-              //release
-              pkey_is_pressing = 0;
-              kb_write(arg->id | 0x80);
-              break;
-            }
+          pkey_is_pressing = 1;
+          kb_write(arg->id);
+    
+          //time lag to test for hold/release
           arg->save_time = clock();
-          while( ((clock_t) (clock() - arg->save_time)) < KB_SCAN_PERIOD ) usleep(0);
+          while( ((clock_t) (clock() - arg->save_time)) < 10*KB_SCAN_PERIOD ) usleep(0);
+    
+          //check for hold/release
+          while(1)
+            {
+              if(key_press(arg->id))
+                {
+                  //hold
+                  kb_write(arg->id);
+                }
+              else
+                {
+                  //release
+                  pkey_is_pressing = 0;
+                  kb_write(arg->id | 0x80);
+                  break;
+                }
+              arg->save_time = clock();
+              while( ((clock_t) (clock() - arg->save_time)) < KB_SCAN_PERIOD ) usleep(0);
+            }
         }
-    }
-  else
-    {
-      //no key pressed
-      pkey_is_pressing = 0;
     }
 
   end_process();
