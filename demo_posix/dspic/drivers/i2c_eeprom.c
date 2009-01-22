@@ -33,7 +33,7 @@
 static unsigned int i2c_eeprom_pointer = 0;
 /** indicate eeprom module is busy */
 static unsigned char i2c_eeprom_busy = 0;
-/** Store io setting */
+/** store io setting */
 static int i2c_eeprom_io_flag;
 
 #if (I2C_NUM > 1)
