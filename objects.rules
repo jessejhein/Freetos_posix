@@ -100,10 +100,6 @@ obj-y += \
 	$(FREERTOS_POSIX)/posix/src/app_idlehook.o \
 	$(COMMON)/tools/autoscale.o
 
-# Console Debug
-obj-$(CONFIG_DEBUG) += \
-	$(COMMON)/tools/console.o
-
 # Ethernet
 obj-$(CONFIG_ETHERNET) += \
 	$(FREERTOS_POSIX)/posix/src/inet.o \

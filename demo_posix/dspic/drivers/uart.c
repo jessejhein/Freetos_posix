@@ -453,7 +453,6 @@ _U1RXInterrupt(void)
  * \retval >=0 the number of bytes written
  * \retval -1 error
  * \n errno = EBADF: uart is not opened for writing
- * \n errno = EAGAIN: uart is busy in transmiting
  */
 int 
 uart_write(unsigned char device, unsigned char *buf, int count)
@@ -461,16 +460,11 @@ uart_write(unsigned char device, unsigned char *buf, int count)
   //Perform write if write operation is enabled
   if(uart_io_flag[device] & O_RDWR || uart_io_flag[device] & O_WRONLY)
     {
-      //If transimt has not completed, return busy
-      if(uart_tx[device].tx_complete_flag == 0)
-        {
-          errno = EAGAIN;  
-          return -1;            
-        }
-      else
-        {
-          uart_tx[device].tx_complete_flag = 0;
-        }
+      //If transimt has not completed, wait for it to finish
+      while(uart_tx[device].tx_complete_flag == 0);
+      
+      //start new transmission
+      uart_tx[device].tx_complete_flag = 0;
         
       int next_data_pos;
       int byte = 0;
@@ -551,7 +545,7 @@ uart_read(unsigned char device, unsigned char *buf)
     }    
 }
 
-#endif //UART_MOD
+#endif /* UART_MOD */
 
 /** @} */
 /** @} */
