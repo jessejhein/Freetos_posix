@@ -1,7 +1,8 @@
-/************************************************************************************************
- * File:            errno.h
- * Description:     error constants
- ***********************************************************************************************/
+/**
+ * \file
+ * Error Numbers
+ * \author Dennis Tsang <dennis@amonics.com>
+ */
 
 #ifndef ERRNO_H_
 # error "Never use <asm/errno.h> directly; include <errno.h> instead."

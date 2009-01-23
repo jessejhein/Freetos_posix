@@ -19,7 +19,7 @@
  * Define user task (void* foo(void*)) in define.h, and implement it in project 
  * \verbatim
     #define UserIdleTask()                  foo(NULL)
- * \endverbatim
+   \endverbatim
  * 
  * \par Limitations
  * \li do not call usleep() to suspend task (coroutine sleep is ok)

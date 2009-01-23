@@ -1,41 +1,45 @@
-/************************************************************************************************
- * File: 			system.h
- * Description:		System calls Definition
- ***********************************************************************************************/
+/**
+ * \addtogroup posix POSIX
+ * @{
+ * 
+ * Implementation of POSIX API using FreeRTOS API
+ */
+
+/**
+ * \defgroup system System
+ * @{
+ * 
+ * System routines
+ */
+
+/**
+ * \file
+ * System routines
+ * \author Dennis Tsang <dennis@amonics.com>
+ */
 
 #ifndef SYSTEM_H_
 #define SYSTEM_H_
 
-/***************************************************************************************
- * sti():	SeT Interrupt/Enable Interrupt
- * cli():	CLear Interrupt/Disable Interrupt
- ***************************************************************************************/
-#ifdef FREERTOS_SCHED 
-#include <FreeRTOS.h>
-#include <task.h>
-/***************************************************************************************
- * taskENTER_CRITICAL
- * Macro to mark the start of a critical code region. 
- * Preemptive context switches cannot occur when in a critical region.
- * NOTE: This may alter the stack (depending on the portable implementation) so must be used with care!
- ***************************************************************************************
- * taskEXIT_CRITICAL
- * Macro to mark the end of a critical code region. 
- * Preemptive context switches cannot occur when in a critical region.
- * NOTE: This may alter the stack (depending on the portable implementation) so must be used with care!
- **************************************************************************************/
-#   define cli()	taskENTER_CRITICAL()
-#   define sti()	taskEXIT_CRITICAL()
-#else
-#include <define.h>
-/**************************************************************************************
+/* interrupt priority bits */
+#define IPL           ( 0x00e0 )
+
+/**
+ * \brief CLear Interrupt/Disable Interrupt
+ * \remarks
  * Current priority level is stored in bit<7:5> of Status Register (SR). 
  * Setting Interrupt Priority Level (IPL) to 7 disables all interrupts (except traps).
- **************************************************************************************/
-#   define IPL      ( 0x00e0 )
-#   define cli()    SR |= IPL       //Set IPL to 7
-#   define sti()    SR &= ~IPL      //Set IPL to 0
-#endif
+ */
+#define cli()         SR |= IPL       //Set IPL to 7
+
+/**
+ * \brief SeT Interrupt/Enable Interrupt
+ * \remarks
+ * Current priority level is stored in bit<7:5> of Status Register (SR). 
+ * Setting Interrupt Priority Level (IPL) to 7 disables all interrupts (except traps).
+ */
+#define sti()         SR &= ~IPL      //Set IPL to 0
+
 
 /***************************************************************************************
  * DISI_PROTECT(X)
@@ -55,3 +59,6 @@ X; \
 DISICNT = 0; }
 
 #endif /* SYSTEM_H_ */
+
+/** @} */
+/** @} */
