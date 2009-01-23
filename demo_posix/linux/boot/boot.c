@@ -1,22 +1,24 @@
-/************************************************************************************************
- * File: 			boot.c
- * Description:		boot up file Linux
- ***********************************************************************************************
- * DESCRIPTION:
- * 	1) 	vUserMain() should contains the creation of application threads/coroutine
- ***********************************************************************************************/
+/**
+ * \file
+ * boot up file Linux
+ * vUserMain() should contains the creation of application threads/coroutine
+ * \author Dennis Tsang <dennis@amonics.com>
+ */
 
-int main( void )
+/**
+ * \brief main program
+ */
+int 
+main(void)
 {
-	/* Configure any hardware. */
-	vSetupHardware();
+  /* Configure any hardware. */
+  vSetupHardware();
 
-	/* Create the main task. */
-	vUserMain();
+  /* Create the main task. */
+  vUserMain();
 
-	/* Will only reach here if there is insufficient heap available to start
-	the scheduler. */
-	return 0;
+  /* main thread never ends */
+  while(1);
+  
+  return 0;
 }
-
-
