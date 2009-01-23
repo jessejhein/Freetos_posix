@@ -41,6 +41,7 @@
 #include <define.h>
 #include <dm9000a.h>
 #include <asm/delay.h>
+#include <asm/system.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -79,8 +80,9 @@ static void displayPreamble(DM_PREAMBLE* pRxPreamble);
 /*****************************************************************************
  * Local Variables
  *****************************************************************************/
+/** store io setting */
 static int eth_io_flag;
-// --------------------------DM9000A Setup----------------------------------
+/** dm9000a board information data */
 static board_info_t macData;
 
 /**
@@ -156,8 +158,9 @@ dmfe_open(int flags)
     }
 }
 
-/*
- * Initilize dm9000a board
+/**
+ * \brief Initilize dm9000a board
+ * \param db pointer to board information
  */
 static void 
 dmfe_init_dm9000(board_info_t *db)
@@ -203,8 +206,9 @@ dmfe_init_dm9000(board_info_t *db)
   db->tx_pkt_cnt = 0;
 }
 
-/* 
- * Set PHY operating mode
+/**
+ * \brief Set PHY operating mode
+ * \param db pointer to board information
  */
 static void 
 set_PHY_mode(board_info_t *db)
@@ -222,8 +226,9 @@ set_PHY_mode(board_info_t *db)
   phy_write(db, DM9KA_ANAR, phy_reg4);
 }
 
-/*
- * Set DM9000A multicast address
+/**
+ * \brief Set DM9000A multicast address
+ * \param db pointer to board information
  */
 static void 
 dm9000_hash_table(board_info_t *db)
@@ -275,7 +280,7 @@ dm9000_hash_table(board_info_t *db)
 /**
  * \brief close ethernet connection
  * \retval 0 ok
-
+ * 
  * \internal
  * Reset PHY and power down PHY
  * Disable interrupts and receive packet
@@ -366,9 +371,10 @@ dmfe_read(void)
     } 
 }
 
-/*
- * Extract data from rx packet
- * u16_t dmfe_gets(u8_t *val, u16_t len)
+/**
+ * \brief Extract data from rx packet
+ * \param val destination buffer
+ * \param len number of bytes to read
  */
 static u16_t 
 dmfe_gets(u8_t *val, u16_t len)
@@ -400,10 +406,11 @@ dmfe_gets(u8_t *val, u16_t len)
     return i;
 }
 
-/*
- * display the content of the rx preamble
- */
 #if defined (DEBUG_RX) 
+/**
+ * \brief display the content of the rx preamble
+ * \param pRxPreamble destination data structure
+ */
 static void 
 displayPreamble(DM_PREAMBLE* pRxPreamble)
 {
@@ -427,7 +434,7 @@ displayPreamble(DM_PREAMBLE* pRxPreamble)
  * \brief copy count bytes of the data from buf and transmit
  * \retval >=0 the number of bytes written
  * \retval -1 error
- * \n         uart is not opened for writing (errno = EBADF)
+ * \n         eth is not opened for writing (errno = EBADF)
  */
 int 
 dmfe_write(void)
@@ -511,9 +518,10 @@ dmfe_write(void)
     }
 }
 
-/*
- * Put data to tx buffer
- * u16_t dmfe_puts(u8_t *val, u16_t len)
+/**
+ * \brief Put data to tx buffer
+ * \param val source buffer
+ * \param len number of bytes to write
  */
 static u16_t 
 dmfe_puts(u8_t *val, u16_t len)
@@ -534,24 +542,24 @@ dmfe_puts(u8_t *val, u16_t len)
 
 /**
  * \brief Interrupt Service Rountine after the packet has been transmitted
- * 
- * \internal
- * Process Tx Interrupt
- * 
- *      1st          1st
- *    write()     Interrupt
- *       |            |
- *      \|/          \|/
- * ------------------------------------------------------------>Time
- *                              /|\         /|\
- *                               |           |
- *                              2nd         2nd
- *                            write()     Interrupt
- * 
- *       |<--cnt=1-->|<--cnt=0-->|<--cnt=1-->|<--cnt=0-->|
- *        no more     2nd
- *        write()     write()
- *        allowed     allowed
+ * \remarks Process Tx Interrupt
+ * \verbatim
+  
+       1st          1st
+     write()     Interrupt
+        |            |
+       \|/          \|/
+   ----------------------------------------------------------->Time
+                               /|\         /|\
+                                |           |
+                               2nd         2nd
+                             write()     Interrupt
+  
+        |<--cnt=1-->|<--cnt=0-->|<--cnt=1-->|<--cnt=0-->|
+         no more     2nd
+         write()     write()
+         allowed     allowed
+   \endverbatim
  */ 
 void 
 dmfe_interrupt(void)
@@ -573,7 +581,8 @@ dmfe_interrupt(void)
   iow(db, DM9KA_IMR, DM9KA_EN_ISR);
   outb(reg_save, db->io_addr);
 
-  ETH_ISR_IF = 0;       //Clear Interrupt Flag
+  //Clear Interrupt Flag
+  ETH_ISR_IF = 0;
 }
 
 
@@ -594,10 +603,11 @@ dmfe_interrupt(void)
  * 
  *********************************************************************/
 
-/*
- * inb()
- * +-- read a byte from data port
- * +-- refer to section 10.3.3 of dm9000a datasheet
+/**
+ * \brief read a byte from data port
+ * \param port read address/data
+ * \return value of address/data
+ * \remarks refer to section 10.3.3 of dm9000a datasheet
  */ 
 static u8_t 
 inb(int port)
@@ -626,10 +636,11 @@ inb(int port)
   return data;
 }
 
-/*
- * outb()
- * +-- sends a byte ($value) to data port
- * +-- refer to section 10.3.4 of dm9000a datasheet
+/**
+ * \brief sends a byte ($value) to data port
+ * \param value value of address/data
+ * \param port write to address/data
+ * \remarks refer to section 10.3.4 of dm9000a datasheet
  */ 
 static void 
 outb(u8_t value, int port)
@@ -644,29 +655,34 @@ outb(u8_t value, int port)
   ETH_IOCMD( 0x0F );                  
   PWRITE(0x00);
     
-  SR &= 0x00e0;                    
+  SR &= 0x00e0;
 }
 
-/*
- * Read a byte at register ($reg)
+/**
+ * \brief Read a byte at register ($reg)
+ * \param db board information
+ * \param reg register address
+ * \return data in address
  * 
- * CS#      ________       ___________         ________
- *                  |     |           |       |
- *                  |_____|           |_______|
- *                  <-130-><---550---><--200-->
- *  
- * IOW#/CMD ________       ____________________________
- *                  |     |           
- *                  |_____|           
- * 
- * IOR#     __________________________         ________
- *                                    |       |
- *                                    |_______|
- *           <-230->       <70>       <5>      <60>
- * DATA     -<================>----------<========>----
- *           <------430------->          <--260--->
- * 
- * All values in ns, base on 2 Nop() in inb() and 1 Nop() in outb()
+ * \verbatim
+   CS#      ________       ___________         ________
+                    |     |           |       |
+                    |_____|           |_______|
+                    <-130-><---550---><--200-->
+  
+   IOW#/CMD ________       ____________________________
+                    |     |           
+                    |_____|           
+  
+   IOR#     __________________________         ________
+                                      |       |
+                                      |_______|
+             <-230->       <70>       <5>      <60>
+   DATA     -<================>----------<========>----
+             <------430------->          <--260--->
+   
+   All values in ns, base on 2 Nop() in inb() and 1 Nop() in outb()
+   \endverbatim
  */
 static u8_t 
 ior(board_info_t *db, u8_t reg)
@@ -676,8 +692,11 @@ ior(board_info_t *db, u8_t reg)
   return inb(db->io_data);
 }
 
-/*
- * Write a byte ($value) to register ($reg)
+/**
+ * \brief Write a byte ($value) to register ($reg)
+ * \param db board information
+ * \param reg register address
+ * \param value data to set in register address 
  */
 static void 
 iow(board_info_t *db, u8_t reg, u8_t value)
@@ -686,9 +705,12 @@ iow(board_info_t *db, u8_t reg, u8_t value)
   outb(value, db->io_data);
 }
 
-/*
- * Read a word from PHY Registers
- * See dm9000a.h for description
+/**
+ * \brief Read a word from PHY Registers
+ * \param db board information
+ * \param reg register address
+ * \return data in address
+ * \remarks See dm9000a.h for description
  */
 static u16_t 
 phy_read(board_info_t *db, u8_t reg)
@@ -700,9 +722,12 @@ phy_read(board_info_t *db, u8_t reg)
   return ((u16_t)ior(db, DM9KA_EPDRH) << 8) | ((u16_t)ior(db, DM9KA_EPDRL) & 0xff);
 }
 
-/*
- * Write a word to phyxcer
- * See dm9000a.h for description
+/**
+ * \brief Write a word to phyxcer
+ * \param db board information
+ * \param reg register address
+ * \param value data to set in register address 
+ * \remarks See dm9000a.h for description
  */
 static void 
 phy_write(board_info_t *db, u8_t reg, u16_t value)
@@ -715,10 +740,13 @@ phy_write(board_info_t *db, u8_t reg, u16_t value)
   iow(db, DM9KA_EPCR, 0x0);
 }
 
-/*
- * Read a word data from EEPROM (untested)
- */
 #if defined(MAC_USE_EEPROM) 
+/**
+ * \brief Read a word data from EEPROM (untested)
+ * \param db board information
+ * \param offset location of data
+ * \return value in EEPROM
+ */
 static u16_t 
 eeprom_read(board_info_t *db, u8_t offset)
 {
@@ -730,7 +758,7 @@ eeprom_read(board_info_t *db, u8_t offset)
 }
 #endif
 
-#endif //ETHERNET_MOD
+#endif /* ETHERNET_MOD */
 
 /** @} */
 /** @} */
