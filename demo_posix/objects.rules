@@ -33,7 +33,9 @@ endif
 # FreeRTOS locals
 ifeq ($(PLATFORM), DSPIC33)
 	obj-y += $(FREERTOS_POSIX)/Source/portable/MPLAB/dspic33/port.o
+	obj-y += $(FREERTOS_POSIX)/Source/portable/MPLAB/dspic33/portasm_dsPIC.o
 endif
 ifeq ($(PLATFORM), DSPIC30)
 	obj-y += $(FREERTOS_POSIX)/Source/portable/MPLAB/dspic30/port.o
+	obj-y += $(FREERTOS_POSIX)/Source/portable/MPLAB/dspic30/portasm_dsPIC.o
 endif

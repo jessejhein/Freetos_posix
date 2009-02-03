@@ -32,7 +32,6 @@
                 +-------------+------------+
     FCS         | 11 22 33 44 |
                 +-------------+
-   
    \endverbatim
  */
 
@@ -46,12 +45,13 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <sys/socket.h>
+#include <stdio.h>
 
 /*****************************************************************************
  * DEBUG 
  *****************************************************************************/
-//#define DEBUG_RX
-//#define DEBUG_TX  //Enabling this will slow down communication significantly
+//#define DEBUG_DMFE_RX
+//#define DEBUG_DMFE_TX  //Enabling this will slow down communication significantly
 
 /*****************************************************************************
  * Local Function Declaration
@@ -73,17 +73,25 @@ static void dm9000_hash_table(board_info_t *db);
 //  -----------------Packet Manipulation Functions--------------------------
 static u16_t dmfe_gets(u8_t *val, u16_t len);
 static u16_t dmfe_puts(u8_t *val, u16_t len);
-#if defined (DEBUG_RX) 
-static void displayPreamble(DM_PREAMBLE* pRxPreamble);
-#endif
+//  ----------------------Debug Functions-----------------------------------
+#ifdef DEBUG_DMFE_RX
+static void dmfe_debug_preamble(DM_PREAMBLE* pRxPreamble);
+#endif /* DEBUG_DMFE_RX */
+#ifdef DEBUG_DMFE_TX
+static void dmfe_debug_mac_header(__u8 *pheader); 
+static void dmfe_debug_payload(void *addr, int len, int* pos);
+#endif /* DEBUG_DMFE_TX */
 
 /*****************************************************************************
  * Local Variables
  *****************************************************************************/
 /** store io setting */
 static int eth_io_flag;
+/** indicate whether I/O functions are called from ISR */
+static int eth_io_in_interrupt;
 /** dm9000a board information data */
 static board_info_t macData;
+
 
 /**
  * \brief Initialize dm9000a
@@ -121,6 +129,7 @@ dmfe_open(int flags)
 
   ETH_IOCONFIG();             
   ETH_ISR_EP = 0;
+  ETH_ISR_IP = 7;
   ETH_ISR_IF = 0;
   ETH_ISR_IE = 1;
   db->io_addr = CMD_INDEX;
@@ -338,10 +347,14 @@ dmfe_read(void)
 #endif
    
       //Extract information from preamble 
+#ifdef DEBUG_DMFE_RX
+      printf("\n   Rx Packet: ");
+#endif /* DEBUG_DMFE_RX */
       dmfe_gets((u8_t*)&RxPreamble, sizeof(RxPreamble));   
-#if defined (DEBUG_RX) 
-      displayPreamble(&RxPreamble);
-#endif
+#ifdef DEBUG_DMFE_RX
+      printf("\n   ======================\n");
+      dmfe_debug_preamble(&RxPreamble);
+#endif /* DEBUG_DMFE_RX */
     
       //Check packet status for errors and discard packet when there are errors
       if( (RxPreamble.StatusVector & 0xBF) || (RxPreamble.PacketLength > UIP_CONF_BUFFER_SIZE) )
@@ -353,10 +366,9 @@ dmfe_read(void)
             {
               inb(db->io_data);
             }
-#if defined (DEBUG_RX) 
-          while(printStr("**RX BAD PACKET**")<0) usleep(0);
-          while(newline()<0) usleep(0);
-#endif
+#ifdef DEBUG_DMFE_RX 
+          printf("**RX BAD PACKET**\n");
+#endif /* DEBUG_DMFE_RX */
           return 0;
         }
     
@@ -366,7 +378,7 @@ dmfe_read(void)
   //Error, raise error flag
   else
     {
-      errno = EBADF;  //io not opened for reading
+      errno = EBADF;
       return -1;
     } 
 }
@@ -387,44 +399,40 @@ dmfe_gets(u8_t *val, u16_t len)
     {
       val[i] = inb(db->io_data);
     }
-#if defined (DEBUG_RX) 
+#ifdef DEBUG_DMFE_RX 
   int k, r;
   for(k=0; k<len; k++, r++)
     {
-      while(printHex( ((u8*)val)[k], 2) < 0) usleep(0);
+      printf("%02X", ((__u8*)val)[k]);
       switch(r%16)
         {
-          case 3: case 7: case 11: 
-            while(printStr(" ") < 0) usleep(0);
+          case 3: case 7: case 11:
+            printf(" ");
             break;
           case 15:
-            while(newline() < 0) usleep(0);
+            printf("\n");
             break;
         }
     }
-#endif
+#endif /* DEBUG_DMFE_RX */
     return i;
 }
 
-#if defined (DEBUG_RX) 
+#ifdef DEBUG_DMFE_RX 
 /**
  * \brief display the content of the rx preamble
  * \param pRxPreamble destination data structure
  */
 static void 
-displayPreamble(DM_PREAMBLE* pRxPreamble)
+dmfe_debug_preamble(DM_PREAMBLE* pRxPreamble)
 {
   unsigned int status = (unsigned int)(pRxPreamble->StatusVector);
-  while(printStr("status = ")<0) usleep(0);
-  while(printHex(status, 2)<0) usleep(0);
-  while(newline()<0) usleep(0);
+  printf("status = %02X\n", status);
             
   unsigned int len = (unsigned int)(pRxPreamble->PacketLength);
-  while(printStr("len = ")<0) usleep(0);
-  while(printHex(len, 4)<0) usleep(0);
-  while(newline()<0) usleep(0);
+  printf("len = %04X\n", len);
 }
-#endif
+#endif /* DEBUG_DMFE_RX */
 
 
 
@@ -454,15 +462,12 @@ dmfe_write(void)
           // MAC header
           //
           dmfe_puts(&uip_buf[0], UIP_LLH_LEN);
-#if defined (DEBUG_TX)
+#ifdef DEBUG_DMFE_TX
           int k=0, row=0;
-          while(printStr("   Tx Packet: ")<0) usleep(0);
-          while(printDec((unsigned int) uip_len)<0) usleep(0);
-          while(newline()<0) usleep(0);
-          while(printStr("   ======================")<0) usleep(0);
-          while(newline()<0) usleep(0);
-          printMACHeader(uip_buf);
-#endif
+          printf("   Tx Packet: %d\n", (unsigned int) uip_len);
+          printf("   ======================\n");
+          dmfe_debug_mac_header(uip_buf);
+#endif /* DEBUG_DMFE_TX */
 
           //
           // Short packet < MAC+TCPIP header len
@@ -470,11 +475,10 @@ dmfe_write(void)
           if(uip_len <= UIP_LLH_LEN + UIP_TCPIP_HLEN) 
             {
               dmfe_puts(&uip_buf[UIP_LLH_LEN], uip_len - UIP_LLH_LEN);
-#if defined (DEBUG_TX)
-              printPayload(&uip_buf[UIP_LLH_LEN], uip_len - UIP_LLH_LEN, &row);
-              while(newline()<0) usleep(0);
-              while(newline()<0) usleep(0);
-#endif
+#ifdef DEBUG_DMFE_TX
+              dmfe_debug_payload(&uip_buf[UIP_LLH_LEN], uip_len - UIP_LLH_LEN, &row);
+              printf("\n\n");
+#endif /* DEBUG_DMFE_TX */
             }
 
           //
@@ -484,12 +488,11 @@ dmfe_write(void)
             {
               dmfe_puts(&uip_buf[UIP_LLH_LEN], UIP_TCPIP_HLEN);
               dmfe_puts(uip_appdata, uip_len - UIP_TCPIP_HLEN - UIP_LLH_LEN);
-#if defined (DEBUG_TX)
-              printPayload(&uip_buf[UIP_LLH_LEN], UIP_TCPIP_HLEN, &row);
-              printPayload(uip_appdata, uip_len - UIP_TCPIP_HLEN - UIP_LLH_LEN, &row);
-              while(newline()<0) usleep(0);
-              while(newline()<0) usleep(0);
-#endif
+#ifdef DEBUG_DMFE_TX
+              dmfe_debug_payload(&uip_buf[UIP_LLH_LEN], UIP_TCPIP_HLEN, &row);
+              dmfe_debug_payload(uip_appdata, uip_len - UIP_TCPIP_HLEN - UIP_LLH_LEN, &row);
+              printf("\n\n");
+#endif /* DEBUG_DMFE_TX */
             }
             
           //
@@ -506,14 +509,14 @@ dmfe_write(void)
       //dm9000a is busy in transmitting, comes back later
       else
         {
-          errno = EAGAIN;  //io is busy
+          errno = EAGAIN;
           return -1;
         }
     }
   //Error, raise error flag
   else
     {
-      errno = EBADF;  //io not opened for writing
+      errno = EBADF;
       return -1;
     }
 }
@@ -536,6 +539,68 @@ dmfe_puts(u8_t *val, u16_t len)
     }
   return i;
 }
+
+#ifdef DEBUG_DMFE_TX
+/**
+ * \brief display mac header
+ * \param pheader pointer to mac header
+ * \remarks Example
+ * \verbatim
+   DA: FF-FF-FF-FF-FF-FF
+   SA: 00-06-0E-00-00-01
+   TL: 0800
+   \endverbatim
+ */
+static void 
+dmfe_debug_mac_header(__u8 *pheader)  
+{
+  __u8 *addr;
+
+  addr = pheader;
+  printf("DA: ");
+  printf("%02X-%02X-%02X-%02X-%02X-%02X\n", addr[0], addr[1], addr[2], addr[3], addr[4], addr[5]);
+
+  addr = pheader+6;
+  printf("SA: ");
+  printf("%02X-%02X-%02X-%02X-%02X-%02X\n", addr[0], addr[1], addr[2], addr[3], addr[4], addr[5]);
+
+  printf("TL: ");
+  addr = pheader+12;
+  printf("%02X%02X\n", addr[0], addr[1]);
+}
+
+/**
+ * \brief display payload of mac packet
+ * \param addr pointer to start of payload position
+ * \param len length of payload
+ * \param pos counter to record how many bytes has been printed
+ * \remarks Example
+ * \verbatim
+   00112233 44556677 8899AABB CCDDEEFF
+   00112233 44556677 8899AABB CCDDEEFF
+   00112233 4455
+   \endverbatim
+ */
+static void 
+dmfe_debug_payload(void *addr, int len, int* pos)
+{
+  int k;
+  for(k=0; k<len; k++, (*pos)++)
+    {
+      printf("%02X", ((__u8*)addr)[k]);
+      switch((*pos)%16)
+        {
+          case 3: case 7: case 11:
+            printf(" "); 
+            break;
+          case 15:
+            printf("\n"); 
+            break;
+        }
+    }
+}
+#endif /* DEBUG_DMFE_TX */
+
 
 
 
@@ -567,7 +632,10 @@ dmfe_interrupt(void)
   board_info_t *db = &macData;
   int isr_status, i;
   u8_t reg_save;
-    
+
+  //set io rd rw
+  eth_io_in_interrupt = 1;
+  
   //Pre-handling of interrupt
   reg_save = inb(db->io_addr);
   iow(db, DM9KA_IMR, DM9KA_DIS_ISR);
@@ -580,6 +648,9 @@ dmfe_interrupt(void)
   //Post-handling of interrupt
   iow(db, DM9KA_IMR, DM9KA_EN_ISR);
   outb(reg_save, db->io_addr);
+
+  //resume normal io rd wr
+  eth_io_in_interrupt = 0;
 
   //Clear Interrupt Flag
   ETH_ISR_IF = 0;
@@ -613,8 +684,8 @@ static u8_t
 inb(int port)
 {
   u8_t data;
-    
-  SR |= 0x00e0;
+
+  if(eth_io_in_interrupt == 0) SR |= 0x00e0;
 
   PCONFIG(1);
   ETH_IOCMD( (port<<2)|0x01 );        
@@ -630,8 +701,8 @@ inb(int port)
   ETH_IOCMD( 0x0F );
   PCONFIG(0);
   PWRITE(0x00);
-    
-  SR &= 0x00e0;
+  
+  if(eth_io_in_interrupt == 0) SR &= 0x00e0;
 
   return data;
 }
@@ -645,17 +716,17 @@ inb(int port)
 static void 
 outb(u8_t value, int port)
 {
-  SR |= 0x00e0;
-    
+  if(eth_io_in_interrupt == 0) SR |= 0x00e0;
+
   PCONFIG(0);
   PWRITE(value);
   ETH_IOCMD( (port<<2)|0x02 );
   Nop(); Nop();
-  Nop(); Nop();                           
+  Nop(); Nop();
   ETH_IOCMD( 0x0F );                  
   PWRITE(0x00);
-    
-  SR &= 0x00e0;
+
+  if(eth_io_in_interrupt == 0) SR &= 0x00e0;
 }
 
 /**

@@ -1,28 +1,20 @@
 /************************************************************************************************
- * File: 			port.c
- * Description:		manipulation of dspic33 registers during context switch using FreeRTOS
- * 					setting Timer 1 as the kernel clock
+ * File:          port.c
+ * Description:   manipulation of dspic33 registers during context switch using FreeRTOS
+ *                setting Timer 1 as the kernel clock
  ***********************************************************************************************
  * DESCRIPTION:
- * 	1) 	This file is created based on /freeRTOS/Source/portable/MPLAB/PIC24_dsPIC/port.c
- * 	2)	User should define MPLAB_DSPIC33_PORT in makefile.
- * 	3)	Changes made included:
- * 		a) Delete
- * 				#ifdef MPLAB_PIC24_PORT
- * 					...
- * 				#endif /* MPLAB_PIC24_PORT */			/*
- * 		b) Rename (IMPORTANT NOTE: TWO renaming are needed)
- * 				MPLAB_DSPIC_PORT to MPLAB_DSPIC33_PORT
- *      c) Move timer1 related functions and constants to boot.c
- * 
- ***********************************************************************************************
- * Date			Author		Remarks
- * 02-03-2007	Dennis		First Creation
+ *  1)  This file is created based on /freeRTOS/Source/portable/MPLAB/PIC24_dsPIC/port.c
+ *  2)  User should define MPLAB_DSPIC33_PORT in makefile.
+ *  3)  Changes made included:
+ *      a) Rename (IMPORTANT NOTE: TWO renaming are needed)
+ *          MPLAB_DSPIC_PORT to MPLAB_DSPIC33_PORT
+ *      b) Move timer1 related functions and constants to boot.c
  ***********************************************************************************************/
 
 
 /*
-	FreeRTOS.org V4.1.3 - Copyright (C) 2003-2006 Richard Barry.
+	FreeRTOS.org V5.0.3 - Copyright (C) 2003-2008 Richard Barry.
 
 	This file is part of the FreeRTOS.org distribution.
 
@@ -46,11 +38,34 @@
 	of http://www.FreeRTOS.org for full details of how and when the exception
 	can be applied.
 
-	***************************************************************************
-	See http://www.FreeRTOS.org for documentation, latest information, license 
-	and contact details.  Please ensure to read the configuration and relevant 
-	port sections of the online documentation.
-	***************************************************************************
+    ***************************************************************************
+    ***************************************************************************
+    *                                                                         *
+    * SAVE TIME AND MONEY!  We can port FreeRTOS.org to your own hardware,    *
+    * and even write all or part of your application on your behalf.          *
+    * See http://www.OpenRTOS.com for details of the services we provide to   *
+    * expedite your project.                                                  *
+    *                                                                         *
+    ***************************************************************************
+    ***************************************************************************
+
+	Please ensure to read the configuration and relevant port sections of the
+	online documentation.
+
+	http://www.FreeRTOS.org - Documentation, latest information, license and 
+	contact details.
+
+	http://www.SafeRTOS.com - A version that is certified for use in safety 
+	critical systems.
+
+	http://www.OpenRTOS.com - Commercial support, development, porting, 
+	licensing and training services.
+*/
+
+/*
+	Changes from V4.2.1
+
+	+ Introduced the configKERNEL_INTERRUPT_PRIORITY definition.
 */
 
 /*-----------------------------------------------------------
@@ -63,13 +78,47 @@
 
 /* Hardware specifics. */
 #define portBIT_SET 1
+#define portTIMER_PRESCALE 8
 #define portINITIAL_SR	0
+
+/* Defined for backward compatability with project created prior to 
+FreeRTOS.org V4.3.0. */
+#ifndef configKERNEL_INTERRUPT_PRIORITY
+	#define configKERNEL_INTERRUPT_PRIORITY 1
+#endif
 
 /* The program counter is only 23 bits. */
 #define portUNUSED_PR_BITS	0x7f
 
 /* Records the nesting depth of calls to portENTER_CRITICAL(). */
 unsigned portBASE_TYPE uxCriticalNesting = 0xef;
+
+#if configKERNEL_INTERRUPT_PRIORITY != 1
+	#error If configKERNEL_INTERRUPT_PRIORITY is not 1 then the #32 in the following macros needs changing to equal the portINTERRUPT_BITS value, which is ( configKERNEL_INTERRUPT_PRIORITY << 5 )
+#endif
+
+#ifdef MPLAB_PIC24_PORT
+
+	#define portRESTORE_CONTEXT()																						\
+		asm volatile(	"MOV	_pxCurrentTCB, W0		\n"	/* Restore the stack pointer for the task. */				\
+						"MOV	[W0], W15				\n"																\
+						"POP	W0						\n"	/* Restore the critical nesting counter for the task. */	\
+						"MOV	W0, _uxCriticalNesting	\n"																\
+						"POP	PSVPAG					\n"																\
+						"POP	CORCON					\n"																\
+						"POP	TBLPAG					\n"																\
+						"POP	RCOUNT					\n"	/* Restore the registers from the stack. */					\
+						"POP	W14						\n"																\
+						"POP.D	W12						\n"																\
+						"POP.D	W10						\n"																\
+						"POP.D	W8						\n"																\
+						"POP.D	W6						\n"																\
+						"POP.D	W4						\n"																\
+						"POP.D	W2						\n"																\
+						"POP.D	W0						\n"																\
+						"POP	SR						  " );
+
+#endif /* MPLAB_PIC24_PORT */
 
 #ifdef MPLAB_DSPIC33_PORT
 
@@ -102,40 +151,6 @@ unsigned portBASE_TYPE uxCriticalNesting = 0xef;
 						"POP.D	W2						\n"																\
 						"POP.D	W0						\n"																\
 						"POP	SR						  " );
-
-
-	#define portSAVE_CONTEXT()																							\
-		asm volatile(	"PUSH	SR						\n"	/* Save the SR used by the task.... */						\
-						"PUSH	W0						\n"	/* ....then disable interrupts. */							\
-						"MOV	#224, W0				\n"																\
-						"MOV	W0, SR					\n"																\
-						"PUSH	W1						\n"	/* Save registers to the stack. */							\
-						"PUSH.D	W2						\n"																\
-						"PUSH.D	W4						\n"																\
-						"PUSH.D	W6						\n"																\
-						"PUSH.D W8						\n"																\
-						"PUSH.D W10						\n"																\
-						"PUSH.D	W12						\n"																\
-						"PUSH	W14						\n"																\
-						"PUSH	RCOUNT					\n"																\
-						"PUSH	TBLPAG					\n"																\
-						"PUSH	ACCAL					\n"																\
-						"PUSH	ACCAH					\n"																\
-						"PUSH	ACCAU					\n"																\
-						"PUSH	ACCBL					\n"																\
-						"PUSH	ACCBH					\n"																\
-						"PUSH	ACCBU					\n"																\
-						"PUSH	DCOUNT					\n"																\
-						"PUSH	DOSTARTL				\n"																\
-						"PUSH	DOSTARTH				\n"																\
-						"PUSH	DOENDL					\n"																\
-						"PUSH	DOENDH					\n"																\
-						"PUSH	CORCON					\n"																\
-						"PUSH	PSVPAG					\n"																\
-						"MOV	_uxCriticalNesting, W0	\n"	/* Save the critical nesting counter for the task. */		\
-						"PUSH	W0						\n"																\
-						"MOV	_pxCurrentTCB, W0		\n"	/* Save the new top of stack into the TCB. */				\
-						"MOV	W15, [W0]				  " );
 
 #endif /* MPLAB_DSPIC33_PORT */
 
@@ -251,17 +266,6 @@ void vPortEndScheduler( void )
 }
 /*-----------------------------------------------------------*/
 
-/*
- * Manual context switch.  This is similar to the tick context switch,
- * but does not increment the tick count.  It must be identical to the
- * tick context switch in how it stores the stack of a task.
- */
-void vPortYield( void )
-{
-	portSAVE_CONTEXT();
-	vTaskSwitchContext();
-	portRESTORE_CONTEXT();
-}
 /*-----------------------------------------------------------*/
 
 void vPortEnterCritical( void )

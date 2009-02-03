@@ -41,6 +41,7 @@ CONFIG_LED												=		y
 #	CONFIG_UART_BAUDRATE_PRIMARY/SECONDARY:			Baudrate in bps
 #	UART_PRIMARY/SECONDARY:											RS232; RS485
 #	UART_BUFFER_SIZE:														Number of bytes for rx and tx buffers
+# DEBUG_UART:																	UART_PRIMARY/UART_SECONDARY
 #----------------------------------------------------------------
 CONFIG_UART_PRIMARY								=		RS232
 CONFIG_UART_BAUDRATE_PRIMARY			=		19200
@@ -48,6 +49,8 @@ CONFIG_UART_USE_SECONDARY					=		n
 	CONFIG_UART_SECONDARY						=		RS485
 	CONFIG_UART_BAUDRATE_SECONDARY	=		19200
 CONFIG_UART_BUFFER_SIZE						=		50
+CONFIG_DEBUG_UART									=		UART_PRIMARY
+CONFIG_DEBUG_TRAP_IN_NVM					=		y
 		
 #----------------------------------------------------------------
 # I2C
@@ -122,11 +125,3 @@ CONFIG_MAC_ADDRESS_BTYE3    			=		0x01
 # ETHERNET APPLICATIONS
 #----------------------------------------------------------------
 CONFIG_ETH_MAX_APP								=		10
-
-#----------------------------------------------------------------
-# Debug Console
-# 	If enabled, program can use functions in <console.h> like 
-#	printStr(), printDec(), printHex(), newline() etc. 
-#----------------------------------------------------------------
-CONFIG_DEBUG											=		n
-CONFIG_DEBUG_TRAP_IN_NVM					=		y

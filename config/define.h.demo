@@ -15,7 +15,7 @@
 #define UserIdleTask()                  da_thread(NULL)
 
 
-#include "pin_define.h"                 //temporary here, must be after laser ctrl config
+#include "pin_define.h"
 
 #endif /*DEFINE_H_*/
 

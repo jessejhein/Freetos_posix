@@ -75,9 +75,7 @@ endif
 INCLUDEDIRS += \
 	-idirafter$(FREERTOS)/include/ \
 	-I$(FREERTOS_POSIX)/posix/ \
-	-I$(FREERTOS_POSIX)/Source/include/ \
-	-I$(COMMON)/tools/ \
-	-I$(COMMON)/include/
+	-I$(FREERTOS_POSIX)/Source/include/
 
 # Ethernet option
 ifeq ($(CONFIG_ETHERNET), y)
@@ -97,8 +95,7 @@ obj-y += \
 	$(FREERTOS_POSIX)/posix/src/pthread.o \
 	$(FREERTOS_POSIX)/posix/src/system.o \
 	$(FREERTOS_POSIX)/posix/src/time.o \
-	$(FREERTOS_POSIX)/posix/src/app_idlehook.o \
-	$(COMMON)/tools/autoscale.o
+	$(FREERTOS_POSIX)/posix/src/app_idlehook.o
 
 # Ethernet
 obj-$(CONFIG_ETHERNET) += \

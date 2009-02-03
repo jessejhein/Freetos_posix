@@ -1,15 +1,12 @@
 /************************************************************************************************
- * File: 			portmacro.h
+ * File:      portmacro.h
  ***********************************************************************************************
  * DESCRIPTION:
- * 	1) 	This file is an identical to /freeRTOS/Source/portable/MPLAB/PIC24_dsPIC/portmacro.h
- ***********************************************************************************************
- * Date			Author		Remarks
- * 30-01-2006	Dennis		First Creation
+ *  1)  This file is an identical to /freeRTOS/Source/portable/MPLAB/PIC24_dsPIC/portmacro.h
  ***********************************************************************************************/
  
 /*
-	FreeRTOS.org V4.1.3 - Copyright (C) 2003-2006 Richard Barry.
+	FreeRTOS.org V5.0.3 - Copyright (C) 2003-2008 Richard Barry.
 
 	This file is part of the FreeRTOS.org distribution.
 
@@ -33,15 +30,36 @@
 	of http://www.FreeRTOS.org for full details of how and when the exception
 	can be applied.
 
-	***************************************************************************
-	See http://www.FreeRTOS.org for documentation, latest information, license 
-	and contact details.  Please ensure to read the configuration and relevant 
-	port sections of the online documentation.
-	***************************************************************************
+    ***************************************************************************
+    ***************************************************************************
+    *                                                                         *
+    * SAVE TIME AND MONEY!  We can port FreeRTOS.org to your own hardware,    *
+    * and even write all or part of your application on your behalf.          *
+    * See http://www.OpenRTOS.com for details of the services we provide to   *
+    * expedite your project.                                                  *
+    *                                                                         *
+    ***************************************************************************
+    ***************************************************************************
+
+	Please ensure to read the configuration and relevant port sections of the
+	online documentation.
+
+	http://www.FreeRTOS.org - Documentation, latest information, license and 
+	contact details.
+
+	http://www.SafeRTOS.com - A version that is certified for use in safety 
+	critical systems.
+
+	http://www.OpenRTOS.com - Commercial support, development, porting, 
+	licensing and training services.
 */
 
 #ifndef PORTMACRO_H
 #define PORTMACRO_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*-----------------------------------------------------------
  * Port specific definitions.  
@@ -75,19 +93,13 @@
 #define portBYTE_ALIGNMENT			2
 #define portSTACK_GROWTH			1
 #define portTICK_RATE_MS			( ( portTickType ) 1000 / configTICK_RATE_HZ )		
-#define portKERNEL_INTERRUPT_PRIORITY	0x01
 /*-----------------------------------------------------------*/
 
 /* Critical section management. */
-#define portINTERRUPT_BITS			( 0x00e0 )
-#define portDISABLE_INTERRUPTS()	{ \
-    __asm__ volatile ("DISI #0x1FFF"); \
-    SR |= portINTERRUPT_BITS; \
-    DISICNT = 0; }
-#define portENABLE_INTERRUPTS()		{ \
-    __asm__ volatile ("DISI #0x1FFF"); \
-    SR &= ~portINTERRUPT_BITS; \
-    DISICNT = 0; }
+#define portINTERRUPT_BITS			( ( unsigned portSHORT ) configKERNEL_INTERRUPT_PRIORITY << ( unsigned portSHORT ) 5 )
+
+#define portDISABLE_INTERRUPTS()	SR |= portINTERRUPT_BITS                    
+#define portENABLE_INTERRUPTS()		SR &= ~portINTERRUPT_BITS
 
 /* Note that exiting a critical sectino will set the IPL bits to 0, nomatter
 what their value was prior to entering the critical section. */
@@ -108,10 +120,16 @@ extern void vPortYield( void );
 #define portTASK_FUNCTION( vFunction, pvParameters ) void vFunction( void *pvParameters )
 /*-----------------------------------------------------------*/
 
-/* Compiler specifics. */
-#define inline
+/* Required by the kernel aware debugger. */
+#ifdef __DEBUG
+	#define portREMOVE_STATIC_QUALIFIER
+#endif
 
 #define portNOP()				asm volatile ( "NOP" )
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* PORTMACRO_H */
 

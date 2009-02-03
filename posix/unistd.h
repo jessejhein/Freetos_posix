@@ -3,47 +3,12 @@
  *
  * \section sec1 INTRODUCTION
  * All source codes found under freertos_posix is designed to work in companion with
- * FreeRTOS version 4.1.3. FreeRTOS is downloadable from http://www.freertos.org/
+ * FreeRTOS version 5.0.3. FreeRTOS is downloadable from http://www.freertos.org/
  * or https://freertos.svn.sourceforge.net/svnroot/freertos
  * \n
  * \n 
  * \section sec2 COMPILE TIME CONFIGURATION
- * Set the following before compiling:
- * \par <./include/FreeRTOSConfig.h>
- * \li Set uP speed for desired MIPs
- * \verbatim
-      #define configCPU_CLOCK_HZ             ( ( unsigned portLONG ) 30000000 )
-   \endverbatim
- * \li Set desired kernel clock rate (time for context switch)
- * \verbatim
-      #define configTICK_RATE_HZ             ( ( portTickType ) 100 )    //10ms
-   \endverbatim
- * \li Set desired HEAP_SIZE managed by kernel
- * \verbatim
-      #define configTOTAL_HEAP_SIZE          ( ( size_t ) 1024 )
-   \endverbatim
- * \li Set desired stack size for task (e.g. sprintf() requires extra stack space)
- * \verbatim
-      #define configMINIMAL_STACK_SIZE       ( 205 )                     //x2 for number of bytes
-   \endverbatim
- * \li Reduce RAM requirement by lowering the priority
- * \verbatim
-      #define configMAX_PRIORITIES           ( ( unsigned portBASE_TYPE ) 1 ) //Idle Task priority
-   \endverbatim
- * \li Reduce RAM requirement by using cooperative scheduling
- * \verbatim
-      #define configUSE_PREEMPTION           1
-   \endverbatim
- * \li Reduce code size by excluding unnecessary task functions
- * \verbatim
-      #define INCLUDE_vTaskPrioritySet       0
-      #define INCLUDE_uxTaskPriorityGet      0
-      #define INCLUDE_vTaskDelete            0
-      #define INCLUDE_vTaskCleanUpResources  0
-      #define INCLUDE_vTaskSuspend           0
-      #define INCLUDE_vTaskDelayUntil        0
-      #define INCLUDE_vTaskDelay             1
-   \endverbatim
+ * Include FreeRTOSConfig.h in project, see /config/FreeRTOSConfig.h.demo for example
  */
 
 /**
@@ -121,11 +86,7 @@
  * \param pathname device BASE (e.g. "0") + sub-item
  * \param flags accessing mode
  * \retval 0 - 9: valid file descriptors
- * \retval -1: error, errno is set appropriately 
- * \remarks all devices can be open with O_RDWR/O_RDONLY/O_WRONLY except 
- * \li ADC can only be opened for O_RDONLY mode
- * \li PWM can be opened with all mode, but only write operation is supported
- * \li when I2C EEPROM is in NON-BLOCKING mode, application can only write upto 64 bytes at a time to eeprom
+ * \retval -1: error, errno is set appropriately
  */
 extern int open(const char *pathname, int flags);
 
@@ -148,7 +109,6 @@ extern int close(int fd);
  * \retval 0 no byte is written (busy/count = 0/communication fail)
  * \retval -1 error occur
  * \remarks For i2c devices, if there are multiple devices, write cannot be used in ISR 
- * \remarks When I2C EEPROM is in NON-BLOCKING mode, application can only write upto 64 bytes at a time to eeprom
  */
 extern int write(int fd, void* buf, int count);
 

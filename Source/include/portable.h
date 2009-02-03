@@ -1,25 +1,20 @@
 /************************************************************************************************
- * File: 			portable.c
- * Description:		added a new port for dsPic30 series uP
+ * File:          portable.c
  ***********************************************************************************************
  * DESCRIPTION:
- * 	1)	Added 	
- * 			#ifdef MPLAB_DSPIC33_PORT
- * 				#include "../../Source/portable/MPLAB/dspic33/portmacro.h"
- * 			#endif
+ * 	1)  Added
+ *      #ifdef MPLAB_DSPIC33_PORT
+ *        #include "../../Source/portable/MPLAB/dspic33/portmacro.h"
+ *      #endif
  * 
- * 			#ifdef MPLAB_DSPIC30_PORT
- *				#include "../../Source/portable/MPLAB/dspic30/portmacro.h"
- *			#endif
- * 	2)	User should define MPLAB_DSPIC30_PORT or MPLAB_DSPIC30_PORT in makefile.
- ***********************************************************************************************
- * Date			Author		Remarks
- * 02-03-2007	Dennis		Added MPLAB_DSPIC33_PORT
- * 30-01-2006	Dennis		First Creation
+ *      #ifdef MPLAB_DSPIC30_PORT
+ *        #include "../../Source/portable/MPLAB/dspic30/portmacro.h"
+ *      #endif
+ *  2)  User should define MPLAB_DSPIC30_PORT or MPLAB_DSPIC30_PORT in makefile.
  ***********************************************************************************************/
 
 /*
-	FreeRTOS.org V4.1.3 - Copyright (C) 2003-2006 Richard Barry.
+	FreeRTOS.org V5.0.3 - Copyright (C) 2003-2008 Richard Barry.
 
 	This file is part of the FreeRTOS.org distribution.
 
@@ -43,11 +38,28 @@
 	of http:www.FreeRTOS.org for full details of how and when the exception
 	can be applied.
 
-	***************************************************************************
-	See http:www.FreeRTOS.org for documentation, latest information, license
-	and contact details.  Please ensure to read the configuration and relevant
-	port sections of the online documentation.
-	***************************************************************************
+    ***************************************************************************
+    ***************************************************************************
+    *                                                                         *
+    * SAVE TIME AND MONEY!  We can port FreeRTOS.org to your own hardware,    *
+    * and even write all or part of your application on your behalf.          *
+    * See http://www.OpenRTOS.com for details of the services we provide to   *
+    * expedite your project.                                                  *
+    *                                                                         *
+    ***************************************************************************
+    ***************************************************************************
+
+	Please ensure to read the configuration and relevant port sections of the
+	online documentation.
+
+	http://www.FreeRTOS.org - Documentation, latest information, license and 
+	contact details.
+
+	http://www.SafeRTOS.com - A version that is certified for use in safety 
+	critical systems.
+
+	http://www.OpenRTOS.com - Commercial support, development, porting, 
+	licensing and training services.
 */
 
 /*-----------------------------------------------------------
@@ -97,6 +109,10 @@
 	#include "..\..\source\portable\MPLAB\PIC18F\portmacro.h"
 #endif
 
+#ifdef MPLAB_PIC32MX_PORT
+	#include "..\..\Source\portable\MPLAB\PIC32MX\portmacro.h"
+#endif
+
 #ifdef _FEDPICC
 	#include "libFreeRTOS/Include/portmacro.h"
 #endif
@@ -107,6 +123,14 @@
 
 #ifdef GCC_ARM7
 	#include "../../Source/portable/GCC/ARM7_LPC2000/portmacro.h"
+#endif
+
+#ifdef GCC_ARM7_ECLIPSE
+	#include "portmacro.h"
+#endif
+
+#ifdef ROWLEY_LPC23xx
+	#include "../../Source/portable/GCC/ARM7_LPC23xx/portmacro.h"
 #endif
 
 #ifdef GCC_MSP430
@@ -165,6 +189,14 @@
 	#include "../../Source/portable/GCC/ARM_CM3/portmacro.h"
 #endif
 
+#ifdef GCC_ARMCM3
+	#include "../../Source/portable/GCC/ARM_CM3/portmacro.h"
+#endif
+
+#ifdef IAR_ARM_CM3
+	#include "../../Source/portable/IAR/ARM_CM3/portmacro.h"
+#endif
+
 #ifdef IAR_ARMCM3_LM
 	#include "../../Source/portable/IAR/ARM_CM3/portmacro.h"
 #endif
@@ -189,6 +221,11 @@
     #include "../../Source/portable/GCC/MCF5235/portmacro.h"
 #endif
 
+#ifdef GCC_PPC405
+	#include "../../Source/portable/GCC/PPC405_Xilinx/portmacro.h"
+#endif
+
+
 #ifdef BCC_INDUSTRIAL_PC_PORT
 	/* A short file name has to be used in place of the normal
 	FreeRTOSConfig.h when using the Borland compiler. */
@@ -203,6 +240,32 @@
 	#include "frconfig.h"
 	#include "..\portable\BCC\16BitDOS\flsh186\prtmacro.h"
     typedef void ( __interrupt __far *pxISR )();
+#endif
+
+#ifdef __GNUC__
+   #ifdef __AVR32_AVR32A__
+	   #include "portmacro.h"
+   #endif
+#endif
+
+#ifdef __ICCAVR32__
+   #ifdef __CORE__
+      #if __CORE__ == __AVR32A__
+	      #include "portmacro.h"
+      #endif
+   #endif
+#endif
+
+#ifdef __91467D
+	#include "portmacro.h"
+#endif
+
+#ifdef __96340
+	#include "portmacro.h"
+#endif
+
+#ifdef __cplusplus
+extern "C" {
 #endif
 /*
  * Setup the stack of a new task so it is ready to be placed under the
@@ -231,6 +294,9 @@ portBASE_TYPE xPortStartScheduler( void );
  */
 void vPortEndScheduler( void );
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* PORTABLE_H */
 

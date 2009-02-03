@@ -125,7 +125,7 @@
 // UART Module *******************************************************************
 #ifdef UART_MOD
 //  ============================Device Handler=================================== 
-#define BASE_COM                    0
+#define BASE_COM                    3
 #define COM0                        "A"
 #define COM1                        "B"
 //  ============================Baudrate Equation================================ 
@@ -133,7 +133,7 @@
                                           ( (float) SYSTEM_CLK_HZ \
                                         /   ( (float) 16*UART_BAUDRATE0) +0.5f) \
                                         - 1 \
-                                     )
+                                    )
 #define UART_DEFAULT_BRG1           ( (unsigned int) \
                                           ( (float) SYSTEM_CLK_HZ \
                                         /   ( (float) 16*UART_BAUDRATE1) +0.5f) \
@@ -184,7 +184,7 @@
   #error "I2C_MOD is off."
 #endif
 //  ============================Devices Handler================================== 
-#define BASE_I2C_DAC                2
+#define BASE_I2C_DAC                5
 #define I2C_DAC                     "C"
 //  ======================I2C control for DAC==================================== 
 // I2C address (Write Mode: For Read Mode, bit 0 = 1)
@@ -220,7 +220,7 @@
 // Non-volatile Memory *********************************************************
 #ifdef NVM_MOD
 //  ============================Device Handler=================================== 
-#define BASE_NVM                    3
+#define BASE_NVM                    6
 #define NVM0                        "D"
 #define NVM1                        "E"
 //  ==========================I2C EEPROM Config==================================
@@ -261,7 +261,7 @@
   #error "I2C_MOD is off."
 #endif
 //  ============================Devices Handler================================== 
-#define BASE_I2C_MOD_DSPIC          5
+#define BASE_I2C_MOD_DSPIC          8
 #define I2C_MOD_DSPIC               "F"
 //  ======================I2C control for DSPIC MODULATION======================= 
 // I2C address (Write Mode: For Read Mode, bit 0 = 1)
@@ -280,7 +280,7 @@
 
 #ifdef ADC_MOD
 //  ============================Devices Handler================================== 
-#define BASE_ADC                    6
+#define BASE_ADC                    9
 #define ADC                         "G"
 //  ============================Properties======================================= 
 #define ADC_MAX_CH                  16          // maximum adc channels
@@ -314,7 +314,7 @@
 // PWM Module *******************************************************************
 #ifdef PWM_MOD
 //  ============================Device Handler=================================== 
-#define BASE_PWM                    7
+#define BASE_PWM                    10
 #define PWM                         "H"
 #endif /* PWM_MOD */
 
@@ -323,7 +323,7 @@
 // Keyboard Module ***************************************************************
 #ifdef KB_MOD
 //  ============================Device Handler=================================== 
-#define BASE_KB                     8
+#define BASE_KB                     11
 #define KB                          "I"
 //  ============================Key Map for PUSH KEY============================= 
 #define BASE_PUSH_KEY               GR_KEY_ENTER
@@ -335,6 +335,7 @@
 //  ============================Key Map for FUNCTION KEY========================= 
 #define BASE_FN_KEY                 GR_KEY_F1           
 #define FN_KEY0                     BASE_FN_KEY                 //MWKEY_F1
+#define FN_KEY1                     BASE_FN_KEY + 1             //MWKEY_F2
 //  ============================Key Map for ROTARY KEY===========================
 #define BASE_ROTARY_KEY             GR_SPECIAL_KEY_ARROW_UP
 #define ROTARY_KEY0_UP              BASE_ROTARY_KEY             //MWKEY_UP
@@ -348,7 +349,7 @@
 // ETHERNET Module ***************************************************************
 #ifdef ETHERNET_MOD
 //  ============================Device Handler=================================== 
-#define BASE_ETHERNET               9
+#define BASE_ETHERNET               12
 #define ETHERNET                    "J"
 #endif //ETHERNET_MOD
 
@@ -357,7 +358,7 @@
 // LED Module ********************************************************************
 #ifdef LED_MOD
 //  ============================Device Handler=================================== 
-#define BASE_LED                    10
+#define BASE_LED                    13
 #define LED                         "K"
 //  ============================MODE OF OPERATION================================ 
 #define LED_OFF                     0
@@ -372,7 +373,7 @@
 // LCD Module ********************************************************************
 #ifdef LCD_MOD
 //  ============================Device Handler=================================== 
-#define BASE_LCD                    11
+#define BASE_LCD                    14
 #define LCD                         "L"
 #endif /* LCD_MOD */
 

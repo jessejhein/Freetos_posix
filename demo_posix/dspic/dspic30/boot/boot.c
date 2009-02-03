@@ -13,35 +13,52 @@
  */
 
 /*
-	FreeRTOS.org V4.1.3 - Copyright (C) 2003-2006 Richard Barry.
+  FreeRTOS.org V5.0.3 - Copyright (C) 2003-2008 Richard Barry.
 
-	This file is part of the FreeRTOS.org distribution.
+  This file is part of the FreeRTOS.org distribution.
 
-	FreeRTOS.org is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation; either version 2 of the License, or
-	(at your option) any later version.
+  FreeRTOS.org is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
 
-	FreeRTOS.org is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
+  FreeRTOS.org is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
 
-	You should have received a copy of the GNU General Public License
-	along with FreeRTOS.org; if not, write to the Free Software
-	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+  You should have received a copy of the GNU General Public License
+  along with FreeRTOS.org; if not, write to the Free Software
+  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-	A special exception to the GPL can be applied should you wish to distribute
-	a combined work that includes FreeRTOS.org, without being obliged to provide
-	the source code for any proprietary components.  See the licensing section 
-	of http://www.FreeRTOS.org for full details of how and when the exception
-	can be applied.
+  A special exception to the GPL can be applied should you wish to distribute
+  a combined work that includes FreeRTOS.org, without being obliged to provide
+  the source code for any proprietary components.  See the licensing section 
+  of http://www.FreeRTOS.org for full details of how and when the exception
+  can be applied.
 
-	***************************************************************************
-	See http://www.FreeRTOS.org for documentation, latest information, license 
-	and contact details.  Please ensure to read the configuration and relevant 
-	port sections of the online documentation.
-	***************************************************************************
+    ***************************************************************************
+    ***************************************************************************
+    *                                                                         *
+    * SAVE TIME AND MONEY!  We can port FreeRTOS.org to your own hardware,    *
+    * and even write all or part of your application on your behalf.          *
+    * See http://www.OpenRTOS.com for details of the services we provide to   *
+    * expedite your project.                                                  *
+    *                                                                         *
+    ***************************************************************************
+    ***************************************************************************
+
+  Please ensure to read the configuration and relevant port sections of the
+  online documentation.
+
+  http://www.FreeRTOS.org - Documentation, latest information, license and 
+  contact details.
+
+  http://www.SafeRTOS.com - A version that is certified for use in safety 
+  critical systems.
+
+  http://www.OpenRTOS.com - Commercial support, development, porting, 
+  licensing and training services.
 */
 
 /* Scheduler includes. */
@@ -54,6 +71,16 @@
 #endif
 
 #define portTIMER_PRESCALE 8
+
+/* Defined for backward compatability with project created prior to 
+FreeRTOS.org V4.3.0. */
+#ifndef configKERNEL_INTERRUPT_PRIORITY
+  #define configKERNEL_INTERRUPT_PRIORITY 1
+#endif
+
+#if configKERNEL_INTERRUPT_PRIORITY != 1
+  #error If configKERNEL_INTERRUPT_PRIORITY is not 1 then the #32 in the following macros needs changing to equal the portINTERRUPT_BITS value, which is ( configKERNEL_INTERRUPT_PRIORITY << 5 )
+#endif
 
 /************************************************************************************************
  * Configuration Bits Setting
@@ -165,7 +192,7 @@ prvSetupTimerInterrupt( void )
   PR1 = ( unsigned portSHORT ) ulCompareMatch;
 
   /* Setup timer 1 interrupt priority. */
-  IPC0bits.T1IP = portKERNEL_INTERRUPT_PRIORITY;
+  IPC0bits.T1IP = configKERNEL_INTERRUPT_PRIORITY;
 
   /* Clear the interrupt as a starting condition. */
   IFS0bits.T1IF = 0;
@@ -184,6 +211,9 @@ prvSetupTimerInterrupt( void )
 void 
 _IRQ _T1Interrupt( void )
 {
+  /* Clear the timer interrupt. */
+  DISI_PROTECT(IFS0bits.T1IF = 0);
+
 #ifdef FREERTOS_SCHED 
   vTaskIncrementTick();
 #else /* not FREERTOS_SCHED */
@@ -196,9 +226,6 @@ _IRQ _T1Interrupt( void )
       one_sec_cnt++;
       timer_count = 0;
     }
-
-  /* Clear the timer interrupt. */
-  DISI_PROTECT(IFS0bits.T1IF = 0);
 
 #ifdef FREERTOS_SCHED 
 #if configUSE_PREEMPTION == 1
