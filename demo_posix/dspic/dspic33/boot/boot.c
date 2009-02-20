@@ -87,13 +87,22 @@ FreeRTOS.org V4.3.0. */
  * 		+-- Section 23.1 for definitions of configuration bits
  * 		+-- Section 8.1 for system clock settings
  ************************************************************************************************/
-_FOSCSEL(FNOSC_FRCPLL & IESO_OFF);                    // Start up with FRC Oscillator with PLL (default FRC divide by 8)
-                                                      // Disable auto clock switch
-_FOSC(FCKSM_CSECME & OSCIOFNC_ON  & POSCMD_HS);       // Clock Switching and Fail Safe Clock Monitor are enabled
-                                                      // OSC2 Pin Function: OSC2 is Digital I/O
+
+_FOSCSEL(FNOSC_FRCPLL & IESO_OFF);                    // Internal Fast RC (FRC) w/ PLL
+                                                      // Start up with user-selected oscillator
+
+#ifdef EXTERNAL_CLOCK_SOURCE
+_FOSC(FCKSM_CSECME & POSCMD_HS);                      // Clock Switching and Fail Safe Clock Monitor are enabled
                                                       // Primary Oscillator Mode: High Speed
-_FWDT(FWDTEN_OFF);                                    // Watchdog Timer Enabled/disabled by user software
-                                                      // (LPRC can be disabled by clearing SWDTEN bit in RCON register
+                                                      // OSC pin has clock out function
+#else  /* INTERNAL_CLOCK_SOURCE */
+_FOSC(FCKSM_CSECME & POSCMD_NONE & OSCIOFNC_ON);      // Clock Switching and Fail Safe Clock Monitor are enabled
+                                                      // Primary Oscillator Mode: Disabled
+                                                      // OSC pin funcition as Digital I/O
+#endif /* INTERNAL_CLOCK_SOURCE */
+
+_FWDT(FWDTEN_OFF);                                    // Watchdog Timer Disabled
+
 /************************************************************************************************/
 
 /************************************************************************************************
