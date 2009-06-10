@@ -61,9 +61,10 @@ foo (char *s1, char *s2)
   int node;
 
   //Search for all NODE
-  for(node=0; node<MAX; node++){
-    //...
-  } 
+  for (node=0; node<MAX; node++) 
+    {
+      //...
+    }
 
 
 /*
@@ -75,14 +76,14 @@ foo (char *s1, char *s2)
   if (x < foo (y, z))
     haha = bar[4] + 5;
   else
-  {
-    while (z)
     {
-      haha += foo (z, z);
-      z--;
+      while (z)
+        {
+          haha += foo (z, z);
+          z--;
+        }
+      return ++x + bar ();
     }
-    return ++x + bar ();
-  }
 
 
 /*
@@ -106,9 +107,9 @@ foo (char *s1, char *s2)
 
 /*
  * ==#else-#endif==
- * *Every ��#endif�� should have a comment
+ * *Every #endif should have a comment
  * *The comment should state the condition of the conditional that is ending, including its sense.
- * *��#else�� should have a comment describing the condition and sense of the code that follows. 
+ * *#else should have a comment describing the condition and sense of the code that follows. 
  */
 #ifdef foo
   //...
@@ -133,7 +134,7 @@ foo (char *s1, char *s2)
 
 /*
  * ==#define-enum==
- * *When you want to define names with constant integer values, use enum rather than ��#define��
+ * *When you want to define names with constant integer values, use enum rather than #define
  */
 /**
  * \enum SMTP_ERR
