@@ -61,7 +61,7 @@ foo (char *s1, char *s2)
   int node;
 
   //Search for all NODE
-  for (node=0; node<MAX; node++) 
+  for (node = 0; node < MAX; node++) 
     {
       //...
     }
