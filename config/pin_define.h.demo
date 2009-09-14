@@ -148,7 +148,7 @@ extern int rkey_state(unsigned char id);
 #define IO_PKEY3()                  PORTB & 0x0080
 //Right key
 #define EN_PKEY4()                  TRISB |= 0x0040
-#define IO_PKEY4()                  PORT & 0x0040
+#define IO_PKEY4()                  PORTB & 0x0040
 #endif /* TOTAL_PUSH_KEY */
 #endif /* KB_PUSH_KEY */
 //  -------------------------------------------------------------------------------

@@ -283,8 +283,6 @@
 #define BASE_ADC                    9
 #define ADC                         "G"
 //  ============================Properties======================================= 
-#define ADC_MAX_CH                  16          // maximum adc channels
-#define ADC_QSIZE                   1           // size of adc queue per channel
 #define ADC_STEPS                   4095
 //  ============================Sampling Equation================================ 
 #define ADC_TAD_REQ                 ( (int) \
@@ -292,6 +290,7 @@
                                        /   ( (14.0 + ADC_ACQ_TIME)*(double)ADC_SAMP_RATE ) ) \
                                        + 1)         
 #if MPLAB_DSPIC33_PORT
+  #define ADC_MAX_HW_CH             18          // maximum adc hardware channels
   #define ADC_TAD_MIN               133         // in ns, see Electrical Specification on Datasheet
   #define ADC_ADCS                  ( (int) \
                                          ( (double)(ADC_TAD_REQ*1e-9*SYSTEM_CLK_HZ)+0.5) \
@@ -300,6 +299,7 @@
   #define ADC_TAD_ACT               ( ( (double)1e9*(ADC_ADCS+1))/SYSTEM_CLK_HZ)    //Actual TAD 
 
 #elif MPLAB_DSPIC30_PORT
+  #define ADC_MAX_HW_CH             16          // maximum adc hardware channels
   #define ADC_TAD_MIN               334         // in ns, see Electrical Specification on Datasheet
   #define ADC_ADCS                  ( (int) \
                                          ( (double)(2*ADC_TAD_REQ*1e-9*SYSTEM_CLK_HZ)+0.5) \

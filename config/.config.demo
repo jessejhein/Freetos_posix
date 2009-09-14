@@ -37,6 +37,11 @@ CONFIG_ETHERNET										=		y
 CONFIG_LED												=		y
 
 #----------------------------------------------------------------
+# DSP Modules
+#----------------------------------------------------------------
+CONFIG_FFT												=		n
+
+#----------------------------------------------------------------
 # UART
 #	CONFIG_UART_BAUDRATE_PRIMARY/SECONDARY:			Baudrate in bps
 #	UART_PRIMARY/SECONDARY:											RS232; RS485
@@ -83,9 +88,16 @@ CONFIG_NVM_EXTERNAL								=		I2C
 # ADC
 #	ADC_SAMPLE_RATE:		Sampling rate in Hz (<200kHz)
 #	ADC_ACQ_TIME:				Acquisation time in [#of TAD] 1-31
+#	ADC_MAX_CH:					Maximum number of channels to sample 
+#											(SAMPLING RATE = ADC_SAMPLE_RATE/ADC_MAX_CH)
+#	ADC_QSIZE:					Queue size per channel for continuous sampling
+#	ADC_OUTPUT_FORMAT:	Output format of ADC [INTEGER; SIGNED_INTEGER; FRACTIONAL; SIGNED_FRACTIONAL]
 #----------------------------------------------------------------
-CONFIG_ADC_SAMPLE_RATE						=		200000
-CONFIG_ADC_ACQ_TIME								=		1
+CONFIG_ADC_SAMPLE_RATE						=		20480
+CONFIG_ADC_ACQ_TIME								=		31
+CONFIG_ADC_MAX_CH									=		16
+CONFIG_ADC_QSIZE									=		1
+CONFIG_ADC_OUTPUT_FORMAT					=		INTEGER
 
 #----------------------------------------------------------------
 # KEYBOARD
@@ -107,6 +119,14 @@ CONFIG_KB_SCAN_PERIOD							=		5
 CONFIG_BUZZER											=		y
 CONFIG_LED_NUM										=		8
 CONFIG_LED_CTRL_INTERVAL					=		10
+
+#----------------------------------------------------------------
+# FFT
+# FFT_BLOCK_LENGTH:		Number of FFT points
+# FFT_LOG2_BLK_LEN:		Number of "Butterfly" Stages in FFT processing
+#----------------------------------------------------------------
+CONFIG_FFT_BLOCK_LENGTH						=		512
+CONFIG_FFT_LOG2_BLK_LEN						=		9
 
 #----------------------------------------------------------------
 # ETHERNET
