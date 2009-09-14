@@ -10,21 +10,17 @@
  * @{
  * 
  * Control ADC Port
- * \li The 12-bit ADC module consists of 16 channels located at pin 16 (AN0), 15 (AN1), 14 (AN2), 
- *     13 (AN3), 12 (AN4), 11 (AN5), 17 (AN6), 18 (AN7), 21 (AN8), 22 (AN9), 23 (AN10), 24 (AN11),
- *     27 (AN12), 28 (AN13), 29 (AN14), 30 (AN15). These pins are shared with port B, PGC and PGD.
  * \li The driver has a POSIX-compliant interface with open(), read(), and ioctl().
  * \li Operation of ADC in dsPic30F and dsPic33F is different. For scanning of multiple channels,
  *     dsPic30F uses ADC interrupt, while dsPic33F uses DMA interrupt.
  * \li Users should take note that:
- * \n  a) On open(), AN15 is opened (fos dspic33), AN11 is opened (fos dspic30)
+ * \n  a) On open(), no sampling is performed. Sampling only begins after the first successful ioctl()
  * \n  b) The highest sampling frequency for dsPic30F and dsPic33F are 200kbps and 500kbps respectively 
- * \n  c) The result obtained using read() is in unsigned integer format.
- * \n  d) Users should first add the channel using ioctl() before reading from the channel.
- * \n  e) There could be a delay between execution of ioctl() and read() to obtain the data,
+ * \n  c) Users should first add the channel using ioctl() before reading from the channel.
+ * \n  d) There could be a delay between execution of ioctl() and read() to obtain the data,
  *        the delay is indicated by returning -1 from read(). User may poll the return value
  *        to ensure a valid reading. 
- * \n  f) The interrupt routine for dsPic30F and dsPic33F requires about 7us and 500ns for execution.
+ * \n  e) The interrupt routine for dsPic30F and dsPic33F requires about ?us and 30us for execution.
  *        User should make sure that the adc sampling time is at least greater than this value, 
  *        and it has adequate processing time for other processes.
  */
@@ -62,15 +58,32 @@
  * Local Variables
  ************************************************************************************************/
 static int adc_io_flag;
-static unsigned char adc_ch_status[ADC_MAX_CH];       //1=on, 0=off
-static unsigned int adc_ch_select = 0;                //Pointer to channel to be read from
-static unsigned int adc_data_ready = 0;               //Indicate if RAM data is ready for output
-static volatile unsigned int* adc_buf_ptr;           //Pointer to ADC register buffer, 
-                                                        //volatile because data is changed by hardware
-static unsigned int adc_queue[ADC_QSIZE][ADC_MAX_CH]; //Store most updated data, 
-                                                        //index of array referenced by channel ID 
-static unsigned char adc_queue_ptr = ADC_QSIZE-1;     //pointer to most updated samples
+/** bitwise adc status: 1=on, 0=off */
+static unsigned long adc_ch_status = 0;
+/** indicate the current selected channel for read() */
+static unsigned int adc_ch_select = 0;
+/** Indicate if RAM data is ready for output */
+static unsigned int adc_data_ready = 0;
+/** Pointer to ADC register buffer, volatile because data is changed by hardware */
+static volatile unsigned int* adc_buf_ptr;
+/** Store most updated data, index of array referenced by channel ID */
+static unsigned int adc_queue[ADC_QSIZE][ADC_MAX_CH];
+/** pointer to the most updated sample */
+static unsigned int adc_queue_ptr = ADC_QSIZE - 1;
 
+/**
+ * \brief get the adc channel status
+ * \param ch channel id
+ * \ret 0 not turned on
+ * \ret >1 turned on
+ */
+#define GET_CH_STATUS(ch)                           (((unsigned long)0x0001 << ch) & adc_ch_status)
+
+/**
+ * \brief set the adc channel to on state
+ * \param ch channel id
+ */
+#define SET_CH_STATUS_ON(ch)                        (adc_ch_status |= ((unsigned long)0x0001 << ch))
 
 
 #ifdef MPLAB_DSPIC30_PORT
@@ -114,9 +127,9 @@ static unsigned char adc_queue_ptr = ADC_QSIZE-1;     //pointer to most updated 
  * \retval 0 ok
  */
 int 
-adc_open(int flags)
+adc_open (int flags)
 {
-  if(flags & O_RDWR || flags & O_WRONLY)
+  if (flags & O_RDWR || flags & O_WRONLY)
     {
       errno = EROFS;
       return -1;
@@ -129,14 +142,6 @@ adc_open(int flags)
       _ADIF = 0;                          //clear ADC interrupt flag
       _ADIE = 1;                          //enable adc interrupt
       //===========================================================================
-      // Configure analog i/o  
-      _TRISB11 = 1;    
-      ADPCFG = 0xF7FF;                    //Enable AN11
-      //===========================================================================
-      // Configure scan input channels    
-      ADCSSL = 0x0800;    //0 => Skip, 1 => Scan
-      adc_ch_status[11] = 1;
-      //===========================================================================
       // Configure CH0 Sample and Hold for 200kbps
       //  +-- Use MUX A only
       //  +-- Set CH0 S/H -ve to VRef-
@@ -147,8 +152,8 @@ adc_open(int flags)
       //  +--A/D Conversion Clock Source = Use system clk
       //  +--A/D Conversion Clock Select ADCS<5:0>= 2(TAD/TCY)-1
       //      200kbps(Sampling frequency)
-      ADCON3bits.SAMC = ADC_ACQ_TIME;     //1TAD for sampling time
       ADCON3bits.ADRC = 0;                //Use system clk
+      ADCON3bits.SAMC = ADC_ACQ_TIME;     //1TAD for sampling time
       ADCON3bits.ADCS = ADC_ADCS;         //each conversion requires 14TAD
       //===========================================================================
       // ADCCON2:
@@ -158,17 +163,16 @@ adc_open(int flags)
       //  +--5 samples between interrupt
       ADCON2bits.VCFG = 0;                //AVSS, AVDD
       ADCON2bits.CSCNA = 1;               //Scan input
-      ADCON2bits.SMPI = 0;                //take 1 sample per interrupt
       //===========================================================================
       // ADCCON1:
       //  +--Default: continue in idle mode, integer format
       //  +--Enable ADC, Conversion Trigger Source Auto, Auto sampling on
-      ADCON1bits.FORM = 0;                //[0:integer]; [2 fractional]; [3 siged fractional]
+      ADCON1bits.FORM = ADC_OUTPUT_FORMAT;
       ADCON1bits.SSRC = 7;                //auto covert, using internal clock source
       ADCON1bits.ASAM = 1;                //auto setting of SAMP bit
-      ADCON1bits.ADON = 1;                //Turn on module
+      ADCON1bits.ADON = 0;
       //===========================================================================
-      adc_buf_ptr = &ADCBUF0;             //initialize pointer to adc data
+      adc_buf_ptr = (int) &ADCBUF0;       //initialize pointer to adc data
       return 0;
     }
 }
@@ -177,30 +181,35 @@ adc_open(int flags)
 //--------------------------------------------------------------------------------------
 /**
  * \brief ADC Interrupt Service Rountine: copy the adc data to adc_queue[adc_queue_ptr]
- * \remarks This routine requires about 7us for execution (outdated)
+ * \remarks This routine requires about ?us for execution
+ * \remarks this routine is outdate and not tested
  */
 void _IRQ 
-_ADCInterrupt(void)
+_ADCInterrupt (void)
 {
   //update queue ptr
   adc_queue_ptr++;
-  if(adc_queue_ptr==ADC_QSIZE) adc_queue_ptr = 0;
+  if (adc_queue_ptr == ADC_QSIZE) adc_queue_ptr = 0;
   //copy selected channel data to queue
-  unsigned int channel = 0;
+  unsigned int channel;
   unsigned int buffer = 0;
-  for (; channel<ADC_MAX_CH; channel++)
+  for (channel = 0; channel < ADC_MAX_HW_CH; channel++)
     {
-      if(adc_ch_status[channel])
+      if (GET_CH_STATUS (channel))
         {
-          adc_queue[adc_queue_ptr][channel] = adc_buf_ptr[buffer];
-          buffer++;
+          int local_buf_id = parse_adc_ch(channel);
+          if ( (local_buf_id != -1) && (local_buf_id < ADC_MAX_CH) )
+            {
+              adc_queue[adc_queue_ptr][local_buf_id] = adc_buf_ptr[buffer];
+              buffer++;
+            }
         }
     }
   adc_data_ready = 1;
   //==========================================================
   DISI_PROTECT(_ADIF = 0);  //Clear adc interrupt
 }
-#endif //end dsPic30
+#endif /* MPLAB_DSPIC30_PORT */
 
 
 
@@ -235,9 +244,12 @@ _ADCInterrupt(void)
  *              |   ...    |     |   ...    |     |   ...    |     |   ...    |
  *              +----------+     +----------+     +----------+     +----------+
  ************************************************************************************************/
-static _DMA unsigned int adc_bufA[ADC_MAX_CH];     //Buffer A in Ping Pong mode, reside in RAM
-static _DMA unsigned int adc_bufB[ADC_MAX_CH];     //Buffer B in Ping Pong mode, reside in RAM
-static unsigned int which_dma = 0;         //indicate which adc_buf to be used
+/** Buffer A in Ping Pong mode, reside in RAM */
+static _DMA unsigned int adc_bufA[ADC_MAX_HW_CH];
+/** Buffer B in Ping Pong mode, reside in RAM */
+static _DMA unsigned int adc_bufB[ADC_MAX_HW_CH];
+/** indicate which adc_buf to be used */
+static unsigned int which_dma = 0;
 
 
 //--------------------------------------------------------------------------------------
@@ -248,9 +260,9 @@ static unsigned int which_dma = 0;         //indicate which adc_buf to be used
  * \retval 0 ok
  */
 int 
-adc_open(int flags)
+adc_open (int flags)
 {
-  if(flags & O_RDWR || flags & O_WRONLY)
+  if (flags & O_RDWR || flags & O_WRONLY)
     {
       errno = EROFS;
       return -1;
@@ -260,65 +272,53 @@ adc_open(int flags)
       adc_io_flag = flags;
       //===========================================================================
       // Configure interrupt
-      _ADIF = 0;              //clear ADC interrupt flag
-      _ADIE = 0;              //disable adc interrupt
+      _AD1IF = 0;
+      _AD1IE = 0;
       //===========================================================================
-      // Configure CH0 Sample and Hold 
-      //  +-- Use MUX A only
+      // Configure Sample and Hold
+      //  +-- Use MUX A only (no interleaving)
       //  +-- Set CH0 S/H -ve to VRef-
-      ADCHSbits.CH0NA = 0;
-      //===========================================================================
-      // Configure analog i/o  
-      _TRISB15 = 1;    
-      ADPCFG = 0x7FFF;        //0 => Enabled, 1 => Disabled
-      ADPCFGH = 0xFFFF;       //AN16-AN31: Disabled
-      adc_ch_status[15] = 1;
-      //===========================================================================
-      // Configure scan input channels    
-      ADCSSL = 0x8000;    //0 => Skip, 1 => Scan
-      ADCSSH = 0x0000;    //Skipping AN16-AN31
+      AD1CHS0bits.CH0NA = 0;
       //===========================================================================
       // ADCCON4:
-      ADCON4bits.DMABL = 0;    // Each buffer contains 1 word
+      //  +-- Each buffer contains 1 word
+      AD1CON4bits.DMABL = 0;
       //===========================================================================
       // ADCCON3:
-      //  +--Auto Sample Time = 1TAD
       //  +--A/D Conversion Clock Source = Use system clk
+      //  +--Set Auto Sample Time = # of TAD
       //  +--A/D Conversion Clock Select ADCS<5:0>= (TAD/TCY)-1
-      ADCON3bits.SAMC = ADC_ACQ_TIME; //1TAD for sampling time
-      ADCON3bits.ADRC = 0;            //Use system clk
-      ADCON3bits.ADCS = ADC_ADCS;     //each conversion requires 14TAD
+      AD1CON3bits.ADRC = 0;
+      AD1CON3bits.SAMC = ADC_ACQ_TIME;
+      AD1CON3bits.ADCS = ADC_ADCS;
       //===========================================================================
       // ADCCON2:
       //  +--Default: Use MUX A, No splitting of Buffer
       //  +--Voltage Reference Configuration AVDD and AVSS
       //  +--Scan Input Selections
-      ADCON2bits.VCFG = 0;    //AVDD and AVSS
-      ADCON2bits.CSCNA = 1;   //Scan input
-      ADCON2bits.SMPI = 0;    //1 channel is scanned initially
+      AD1CON2bits.CSCNA = 1;
+      AD1CON2bits.VCFG = 0;
       //===========================================================================
       // ADCCON1:
       //  +--Default: continue in idle mode, integer format
       //  +--Enable ADC, Conversion Trigger Source Auto, Auto sampling on
-      ADCON1bits.FORM = 0;        //[0:integer]; [2 fractional]; [3 siged fractional]
-      ADCON1bits.SSRC = 7;        //auto covert, using internal clock source
-      ADCON1bits.ASAM = 1;        //auto setting of SAMP bit
-      ADCON1bits.AD12B = 1;       //12-bit, 1-channel ADC operation
-      ADCON1bits.ADDMABM = 0;     // DMA buffers are built in scatter/gather mode
-      ADCON1bits.ADON = 1;        // Turn on the A/D converter    
+      AD1CON1bits.FORM = ADC_OUTPUT_FORMAT;
+      AD1CON1bits.SSRC = 7;        //auto covert, using internal clock source
+      AD1CON1bits.ASAM = 1;        //auto setting of SAMP bit
+      AD1CON1bits.AD12B = 1;       //12-bit, 1-channel ADC operation
+      AD1CON1bits.ADDMABM = 0;     //DMA buffers are built in scatter/gather mode
+      AD1CON1bits.ADON = 0;
       //===========================================================================
       // DMA0 Configuration:
       DMA0CONbits.AMODE = 2;      // Configure DMA for Peripheral indirect mode
       DMA0CONbits.MODE  = 2;      // Configure DMA for Continuous Ping-Pong mode
-      DMA0PAD=(int)&ADC1BUF0;     
-      DMA0CNT = 0;                // generate dma interrupt every 1 samples 
-                                  // same as SMPI because only 1 dma buffer per channel         
+      DMA0PAD = (int)&ADC1BUF0;
       DMA0REQ = 13;               // Select ADC1 as DMA Request source
       DMA0STA = __builtin_dmaoffset(adc_bufA);     
       DMA0STB = __builtin_dmaoffset(adc_bufB);
       _DMA0IF = 0;                // Clear the DMA interrupt flag bit
       _DMA0IE = 1;                // Set the DMA interrupt enable bit
-      DMA0CONbits.CHEN=1;         // Enable DMA        
+      DMA0CONbits.CHEN = 1;
       return 0;
     }
 }
@@ -327,44 +327,46 @@ adc_open(int flags)
 //--------------------------------------------------------------------------------------
 /**
  * \brief ADC Interrupt Service Rountine: keep ADC16Ptr up-to-date
- * \remarks This routine requires about 6us for execution
+ * \remarks This routine requires about 30us for execution
  */
 void _IRQ 
-_DMA0Interrupt(void)
+_DMA0Interrupt (void)
 {
   //update dma pointer
   adc_buf_ptr = (which_dma == 0)? adc_bufA : adc_bufB;
   which_dma ^= 1;
   //update queue ptr
   adc_queue_ptr++;
-  if(adc_queue_ptr==ADC_QSIZE) adc_queue_ptr = 0;
+  if (adc_queue_ptr == ADC_QSIZE) adc_queue_ptr = 0;
   //copy selected channel data to queue
-  unsigned int channel = 0;
-  for (; channel<ADC_MAX_CH; channel++)
+  unsigned int channel;
+  for (channel = 0; channel < ADC_MAX_HW_CH; channel++)
     {
-      if(adc_ch_status[channel] == 1)
+      if (GET_CH_STATUS (channel))
         {
-          adc_queue[adc_queue_ptr][channel] = adc_buf_ptr[channel];
+          int local_buf_id = parse_adc_ch(channel);
+          if ( (local_buf_id != -1) && (local_buf_id < ADC_MAX_CH) )
+            adc_queue[adc_queue_ptr][local_buf_id] = adc_buf_ptr[channel];
         }
     }
   adc_data_ready = 1;
   _DMA0IF = 0;
 }
-#endif //end dsPic33  
+#endif /* MPLAB_DSPIC33_PORT */
 
 
 
 //--------------------------------------------------------------------------------------
 static int 
-adc_read_channel(unsigned int* buf, int count)
+adc_read_channel (unsigned int* buf, int count)
 {
   int num_of_samples = count/2;
   int queue_index = adc_queue_ptr;
   int i;
-  for(i=0; (i<num_of_samples) && (i<ADC_QSIZE); i++)
+  for (i = 0; (i < num_of_samples) && (i < ADC_QSIZE); i++)
     {
       buf[i] = adc_queue[queue_index][adc_ch_select];
-      if(--queue_index < 0) queue_index = ADC_QSIZE-1;
+      if (--queue_index < 0) queue_index = ADC_QSIZE - 1;
     }
   return 2*i;    
 }
@@ -389,22 +391,22 @@ adc_read_channel(unsigned int* buf, int count)
  *            +----------+
  */
 int 
-adc_read(unsigned int* buf, int count)
+adc_read (unsigned int* buf, int count)
 {
   //Non-Blocking io
-  if(adc_io_flag & O_NONBLOCK)
+  if (adc_io_flag & O_NONBLOCK)
     {
-        if(adc_data_ready == 1)
+      if (adc_data_ready == 1)
         {
-            return adc_read_channel(buf, count);
+          return adc_read_channel (buf, count);
         }
-        errno = EAGAIN;
-        return -1;  //data is not ready
+      errno = EAGAIN;
+      return -1;  //data is not ready
     }
   //Blocking io
   else
     {
-      while(adc_data_ready == 0);
+      while (adc_data_ready == 0);
       return adc_read_channel(buf, count);
     }
 }
@@ -412,64 +414,63 @@ adc_read(unsigned int* buf, int count)
 
 
 //--------------------------------------------------------------------------------------
+/** keeps the total number of channel being scan */
+static char adc_on_ch_num = 0;
+
 #ifdef MPLAB_DSPIC33_PORT
-#define ADD_ON_CODE()       DMA0CNT++   //Increment counter
+#define ADD_ON_CODE()       (DMA0CNT = adc_on_ch_num - 1)   //Increment counter
 #else
 #define ADD_ON_CODE()       //Do nothing
 #endif
-#define adcAdd(ch)  {\
-  adc_ch_status[ch] = 1;\
-  unsigned int mask;\
-  mask = 0x0001 << ch;\
-  /*Enable i/o pin as input==============================================*/\
-  TRISB = TRISB | mask;\
-  /*=====================================================================*/\
-  /*Scan select:*/\
-  /*  +-- 0 => Skip, 1 => Scan*/\
-  /*  +-- Example: ch = 4, ADCSSL = 0000 1111 0000 0100 (0x0F04)*/\
-  /*      +--  0000 1111 0000 0100 | 0000 0000 0001 0000 = 0000 1111 0001 0100 (0x0F14)*/\
-  ADCSSL = ADCSSL | mask;\
-  /*=====================================================================*/\
-  /*Port config:*/\
-  /*  +-- 0 => Analog, 1 => Digital*/\
-  /*  +-- Example: ch = 4, ADPCFG = 1111 0000 1111 1011 (0xF0FB)*/\
-  /*      +--  ~0000 1111 0001 0100 = 1111 0000 1110 1011 (0xF0EB)*/\
-  ADPCFG = ~ADCSSL;\
-  /*=====================================================================*/\
-  ADCON2bits.SMPI++;  /*take one more sample per interrupt*/\
-  ADD_ON_CODE();\
-}
 
 /**
  * \brief change the config of adc module
  * \param request Request code - defined in ioctl.h (ADC_ADD_CH) 
- * \param argp channel id to be added, take values of 0-15
+ * \param argp channel id to be added
  * \retval 0 success
  * \retval -1 error
  */
 int 
-adc_ioctl(int request, unsigned char* argp)
-{
-  switch(request)
+adc_ioctl (int request, unsigned char* argp)
+{ 
+  switch (request)
     {
+      //ADD channels to current set
       case ADC_ADD_CH:
-        //ADD channels to current set==========================
-        cli();                      //Disable global interrupt
-        //If channel not in scan list
-        if(adc_ch_status[argp[0]] == 0)
-          {
-            adcAdd((unsigned int)argp[0]);  //Add individual channel to scan list
-            adc_data_ready = 0;              //First data not ready yet, until interrupt occurs
-          }
-        adc_ch_select = (unsigned int)argp[0];    //Select current channel for reading
-        sti();                      //Enable global interrupt
-        break;
+        {
+          int ch_id = (unsigned int)argp[0];
+          //Select current channel for reading
+          int local_buf_id = parse_adc_ch(ch_id);
+          if (local_buf_id == -1) return -1;
+          adc_ch_select = local_buf_id;
+
+          //add channel if not in scan list
+          cli();
+          if (GET_CH_STATUS(ch_id) == 0)
+            {
+              SET_CH_STATUS_ON(ch_id);
+              add_adc(ch_id);
+              
+              //increment interrupt counter
+              adc_on_ch_num++;
+              ADCON2bits.SMPI = adc_on_ch_num -1;
+              ADD_ON_CODE ();
+              
+              //First data not ready yet, until interrupt occurs
+              adc_data_ready = 0;
+              //Turn on the A/D converter if not already done so
+              if (ADCON1bits.ADON == 0) ADCON1bits.ADON = 1;
+            }
+          sti();
+          break;
+        }
+      //request code not recognised
       default:
-        return -1;      //request code not recognised   
+        return -1;   
     }
   return 0;
 }
-#endif //ADC_MOD
+#endif /* ADC_MOD */
 
 /** @} */
 /** @} */

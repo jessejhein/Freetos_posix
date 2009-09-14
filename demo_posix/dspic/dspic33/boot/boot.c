@@ -175,8 +175,8 @@ main(void)
   mdelay(1000);
 
   /* set adc compatiable pins to digital io by default */
-  ADPCFG = 0xFFFF;
-  ADPCFGH = 0xFFFF;
+  AD1PCFGL = 0xFFFF;
+  AD1PCFGH = 0xFFFF;
 
   /* Configure any hardware. */
   vSetupHardware();
