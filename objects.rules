@@ -68,6 +68,15 @@ ifeq ($(CONFIG_ETHERNET), y)
 	endif
 endif
 
+# FFT
+ifeq ($(CONFIG_FFT), y)
+	ifdef CONFIG_FFT_BLOCK_LENGTH
+		DEFINES += -DFFT_BLOCK_LENGTH=$(CONFIG_FFT_BLOCK_LENGTH)
+	endif
+	ifdef CONFIG_FFT_LOG2_BLK_LEN
+		DEFINES += -DFFT_LOG2_BLOCK_LENGTH=$(CONFIG_FFT_LOG2_BLK_LEN)
+	endif
+endif
 
 ############################# header section ################################
 
@@ -83,6 +92,11 @@ ifeq ($(CONFIG_ETHERNET), y)
 		-I$(UIP)/uip/
 endif
 
+# Fast Fourier Transform
+ifeq ($(CONFIG_FFT), y)
+	INCLUDEDIRS += \
+		-I$(FREERTOS_POSIX)/dsp/
+endif
 
 ############################# targets section ################################
 
@@ -105,3 +119,7 @@ obj-$(CONFIG_ETHERNET) += \
 	$(UIP)/uip/uip.o \
 	$(UIP)/uip/uip_arp.o \
 	$(UIP)/uip/psock.o
+
+# Fast Fourier Transform
+obj-$(CONFIG_FFT) += \
+	$(FREERTOS_POSIX)/dsp/src/fft.o
