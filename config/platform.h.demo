@@ -377,5 +377,15 @@
 #define LCD                         "L"
 #endif /* LCD_MOD */
 
+
+
+// GPDI Module ********************************************************************
+#ifdef GPDI_MOD
+//  ============================Device Handler=================================== 
+#define BASE_GPDI                   15
+#define GPDI                        "M"
+#endif /* GPDI_MOD */
+
+
 #endif /*PLATFORM_H_*/
 

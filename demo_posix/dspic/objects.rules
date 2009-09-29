@@ -259,6 +259,17 @@ ifeq ($(CONFIG_LED), y)
 	endif
 endif
 
+# GPDI_MOD
+ifeq ($(CONFIG_GPDI), y)
+	DEFINES += -DGPDI_MOD
+	ifdef CONFIG_GPDI_NUM
+		DEFINES += -DGPDI_NUM=$(CONFIG_GPDI_NUM)
+	endif
+	ifdef CONFIG_GPDI_CTRL_INTERVAL
+		DEFINES += -DGPDI_CTRL_INTERVAL=$(CONFIG_GPDI_CTRL_INTERVAL)
+	endif
+endif
+
 # DEBUG TRAP
 ifeq ($(CONFIG_DEBUG_UART), UART_PRIMARY)
 	DEFINES += -DDEBUG_UART=0
@@ -312,6 +323,8 @@ obj-$(CONFIG_KEYBOARD) += \
 	$(ARCH)/../drivers/kb.o
 obj-$(CONFIG_LED) += \
 	$(ARCH)/../drivers/led.o
+obj-$(CONFIG_GPDI) += \
+	$(ARCH)/../drivers/gpdi.o
 ifeq ($(CONFIG_NVM), y)
 	ifeq ($(CONFIG_NVM_INTERNAL), FLASH)
 		obj-y += $(ARCH)/../drivers/flash_eeprom.o $(ARCH)/../drivers/rtsp.o

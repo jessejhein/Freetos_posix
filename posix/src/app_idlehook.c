@@ -55,6 +55,10 @@ vApplicationIdleHook(void)
   led_ctrl();
 #endif /* LED_MOD */
 
+#ifdef GPDI_MOD
+  gpdi_ctrl ();
+#endif /* GPDI_MOD */
+
   //Application Idle Task
   UserIdleTask();
 }

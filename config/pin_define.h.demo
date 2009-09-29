@@ -228,6 +228,51 @@ extern void led(unsigned char channel, unsigned char state);
 
 
 
+//  ==============================GPDI=====================================
+#ifdef GPDI_MOD
+/** handler for GPDI module */
+extern int fd_gpdi;
+/**
+ * \brief initialize IOs for GPDI port
+ * \remarks \li Set RD4 (CLK) as output
+ * \remarks \li Set RD8 (#LD) as output
+ * \remarks \li Set RD9 (QH) as input
+ */ 
+#define GPDI_CONFIG()               do { \
+                                      TRISD &= 0xFEEF; /* D4 D8 as output */ \
+                                      TRISD |= 0x0200; /* D9 as input */ \
+                                    } while(0)
+
+/**
+ * \brief set load pin
+ * \param 0 shift mode
+ * \param 1 load data mode
+ */
+#define GPDI_LOAD(x)                do { \
+                                      LATD = (x == 1)? (LATD & 0xFEFF) : (LATD | 0x0100); \
+                                      Nop(); \
+                                    } while(0)
+
+/**
+ * \brief set clk pin
+ * \param 0 clk low
+ * \param 1 clk high
+ */
+#define GPDI_CLK(x)                do { \
+                                      LATD = (x == 0)? (LATD & 0xFFEF) : (LATD | 0x0010); \
+                                      Nop(); \
+                                    } while(0)
+
+/**
+ * \brief get pin state
+ * \retval 0 low state
+ * \retval >0 high state
+ */
+#define GPDI_GET_STATE()            (PORTD & 0x0200)
+#endif /* GPDI_MOD */
+
+
+
 //  ===========================ETHERNET PORT===============================
 #ifdef ETHERNET_MOD
 /*

@@ -35,6 +35,7 @@ CONFIG_PWM												=		y
 CONFIG_KEYBOARD										=		y
 CONFIG_ETHERNET										=		y
 CONFIG_LED												=		y
+CONFIG_GPDI												=		n
 
 #----------------------------------------------------------------
 # DSP Modules
@@ -119,6 +120,14 @@ CONFIG_KB_SCAN_PERIOD							=		5
 CONFIG_BUZZER											=		y
 CONFIG_LED_NUM										=		8
 CONFIG_LED_CTRL_INTERVAL					=		10
+
+#----------------------------------------------------------------
+# GPDI
+# GPDI_NUM:						Max number of led (excluding buzzer)
+# GPDI_CTRL_INTERVAL:	Period to perform hardware DI control (in epochs of system clock)
+#----------------------------------------------------------------
+CONFIG_GPDI_NUM										=		8
+CONFIG_GPDI_CTRL_INTERVAL					=		2
 
 #----------------------------------------------------------------
 # FFT
