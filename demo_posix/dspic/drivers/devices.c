@@ -12,7 +12,7 @@
 /**
  * \remarks 
  * \li valid pathname spans from 'A' - 'Z' (i.e. support 26 devices at max)
- * \li return file handler 3 -28 repectively
+ * \li return file handler 3 -28 respectively
  * \li file handler 0, 1, 2 are reserved for stdout, stdin, and stderr respectively     
  */
 int _LIBC 
@@ -40,6 +40,13 @@ open (const char *pathname, int flags)
       return (i2c_dac_open (flags) == 0)? tmp : -1;
     }
 #endif /* I2C_DAC_MOD */
+
+#ifdef I2C_ADC_MOD
+  if (tmp == BASE_I2C_ADC)
+    {
+      return (i2c_adc_open (flags) == 0)? tmp : -1;
+    }
+#endif /* I2C_ADC_MOD */
 
 #ifdef NVM_MOD
   if (tmp == BASE_NVM)
@@ -172,6 +179,13 @@ write (int fd, void* buf, int count)
     }
 #endif /* I2C_DAC_MOD */
 
+#ifdef I2C_ADC_MOD
+  if (fd == BASE_I2C_ADC)
+    {
+      return 0;
+    }
+#endif /* I2C_ADC_MOD */
+
 #ifdef NVM_MOD
   if (fd == BASE_NVM)
     {
@@ -279,6 +293,13 @@ read (int fd, void* buf, int count)
       return i2c_dac_read (buf);
     }
 #endif /* I2C_DAC_MOD */
+
+#ifdef I2C_ADC_MOD
+  if (fd == BASE_I2C_ADC)
+    {
+      return i2c_adc_read (buf, count);
+    }
+#endif /* I2C_ADC_MOD */
 
 #ifdef NVM_MOD
   if (fd == BASE_NVM)
@@ -388,6 +409,13 @@ ioctl (int fd, int request, void* argp)
     }
 #endif /* I2C_DAC_MOD */
 
+#ifdef I2C_ADC_MOD
+  if (fd == BASE_I2C_ADC)
+    {
+      return i2c_adc_ioctl (request, argp);
+    }
+#endif /* I2C_ADC_MOD */
+
 #ifdef NVM_MOD
   if((fd >= BASE_NVM) && (fd<(BASE_NVM+1)))
     {
@@ -484,6 +512,13 @@ lseek (int fd, int offset, int whence)
       return 0;
     }
 #endif /* I2C_DAC_MOD */
+
+#ifdef I2C_ADC_MOD
+  if (fd == BASE_I2C_ADC)
+    {
+      return 0;
+    }
+#endif /* I2C_ADC_MOD */
 
 #ifdef NVM_MOD
   if (fd == BASE_NVM)

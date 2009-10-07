@@ -148,6 +148,11 @@ ifeq ($(CONFIG_I2C_DAC), y)
 	endif
 endif
 
+# I2C_ADC_MOD
+ifeq ($(CONFIG_I2C_ADC), y)
+  DEFINES += -DI2C_ADC_MOD
+endif
+
 # I2C_MOD_DSPIC_MOD
 ifeq ($(CONFIG_I2C_MOD_DSPIC), y)
 	DEFINES += -DI2C_MOD_DSPIC_MOD
@@ -307,6 +312,8 @@ obj-$(CONFIG_I2C) += \
 	$(ARCH)/../drivers/i2c.o 
 obj-$(CONFIG_I2C_DAC) += \
 	$(ARCH)/../drivers/i2c_dac.o
+obj-$(CONFIG_I2C_ADC) += \
+  $(ARCH)/../drivers/i2c_adc.o
 ifeq ($(CONFIG_I2C_MOD_DSPIC), y)
 	ifeq ($(CONFIG_I2C_MOD_DSPIC_MODE), MASTER)
 		obj-y += $(ARCH)/../drivers/i2c_mod_master_dspic.o

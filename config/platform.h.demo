@@ -41,7 +41,7 @@
 
 /*
  * Tune FRC oscillator, if FRC is used; 
- * 0: Center frequency (7.37 MHz nominal)
+ * 0: Centre frequency (7.37 MHz nominal)
  * 22: +8.25% (7.98 MHz)
  */
 #define TUNE_FRC                    22 
@@ -161,6 +161,12 @@
 #define I2C_DAC_MOD_T               0
 #endif /* I2C_DAC_MOD */
 
+#ifdef I2C_ADC_MOD
+#define I2C_ADC_MOD_T               1
+#else
+#define I2C_ADC_MOD_T               0
+#endif /* I2C_ADC_MOD */
+
 #ifdef NVM_I2C
 #define I2C_NVM_MOD_T               1
 #else
@@ -173,7 +179,7 @@
 #define I2C_MOD_DSPIC_T             0
 #endif /* I2C_MOD_DSPIC_MOD */
 
-#define I2C_NUM                     (I2C_DAC_MOD_T + I2C_NVM_MOD_T + I2C_MOD_DSPIC_T)
+#define I2C_NUM                     (I2C_DAC_MOD_T + I2C_ADC_MOD_T + I2C_NVM_MOD_T + I2C_MOD_DSPIC_T)
 #endif /* I2C_MOD */
 
 
@@ -278,10 +284,29 @@
 
 
 
+// I2C ADC Module ***************************************************************
+#ifdef I2C_ADC_MOD
+#ifndef I2C_MOD
+  #error "I2C_MOD is off."
+#endif
+//  ============================Devices Handler==================================
+#define BASE_I2C_ADC                9
+#define I2C_ADC                     "G"
+//  ======================I2C control for ADC====================================
+// I2C address (Write Mode: For Read Mode, bit 0 = 1)
+// [Factory Preset] [A1] [A0] [R/^W]
+//    1 0 0 1 0       0    0     0        => 0x90
+#define I2C_ADC_ADDR                0x90
+//  ============================Properties=======================================
+#define I2C_ADC_STEPS               4095
+#endif /* I2C_ADC_MOD */
+
+
+
 #ifdef ADC_MOD
 //  ============================Devices Handler================================== 
-#define BASE_ADC                    9
-#define ADC                         "G"
+#define BASE_ADC                    10
+#define ADC                         "H"
 //  ============================Properties======================================= 
 #define ADC_STEPS                   4095
 //  ============================Sampling Equation================================ 
@@ -314,8 +339,8 @@
 // PWM Module *******************************************************************
 #ifdef PWM_MOD
 //  ============================Device Handler=================================== 
-#define BASE_PWM                    10
-#define PWM                         "H"
+#define BASE_PWM                    11
+#define PWM                         "I"
 #endif /* PWM_MOD */
 
 
@@ -323,8 +348,8 @@
 // Keyboard Module ***************************************************************
 #ifdef KB_MOD
 //  ============================Device Handler=================================== 
-#define BASE_KB                     11
-#define KB                          "I"
+#define BASE_KB                     12
+#define KB                          "J"
 //  ============================Key Map for PUSH KEY============================= 
 #define BASE_PUSH_KEY               GR_KEY_ENTER
 #define PUSH_KEY0                   BASE_PUSH_KEY               //MWKEY_ENTER
@@ -349,8 +374,8 @@
 // ETHERNET Module ***************************************************************
 #ifdef ETHERNET_MOD
 //  ============================Device Handler=================================== 
-#define BASE_ETHERNET               12
-#define ETHERNET                    "J"
+#define BASE_ETHERNET               13
+#define ETHERNET                    "K"
 #endif //ETHERNET_MOD
 
 
@@ -358,8 +383,8 @@
 // LED Module ********************************************************************
 #ifdef LED_MOD
 //  ============================Device Handler=================================== 
-#define BASE_LED                    13
-#define LED                         "K"
+#define BASE_LED                    14
+#define LED                         "L"
 //  ============================MODE OF OPERATION================================ 
 #define LED_OFF                     0
 #define LED_ON                      1
@@ -373,8 +398,8 @@
 // LCD Module ********************************************************************
 #ifdef LCD_MOD
 //  ============================Device Handler=================================== 
-#define BASE_LCD                    14
-#define LCD                         "L"
+#define BASE_LCD                    15
+#define LCD                         "M"
 #endif /* LCD_MOD */
 
 
@@ -382,8 +407,8 @@
 // GPDI Module ********************************************************************
 #ifdef GPDI_MOD
 //  ============================Device Handler=================================== 
-#define BASE_GPDI                   15
-#define GPDI                        "M"
+#define BASE_GPDI                   16
+#define GPDI                        "N"
 #endif /* GPDI_MOD */
 
 

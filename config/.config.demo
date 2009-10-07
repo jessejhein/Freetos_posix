@@ -28,6 +28,7 @@ CRTHREAD_SCHED										=		y
 CONFIG_UART												=		y
 CONFIG_I2C												=		y
 CONFIG_I2C_DAC										=		y
+CONFIG_I2C_ADC										=		n
 CONFIG_I2C_MOD_DSPIC							=		n
 CONFIG_NVM												=		y
 CONFIG_ADC												=		y
@@ -88,7 +89,7 @@ CONFIG_NVM_EXTERNAL								=		I2C
 #----------------------------------------------------------------
 # ADC
 #	ADC_SAMPLE_RATE:		Sampling rate in Hz (<200kHz)
-#	ADC_ACQ_TIME:				Acquisation time in [#of TAD] 1-31
+#	ADC_ACQ_TIME:				Acquisition time in [#of TAD] 1-31
 #	ADC_MAX_CH:					Maximum number of channels to sample 
 #											(SAMPLING RATE = ADC_SAMPLE_RATE/ADC_MAX_CH)
 #	ADC_QSIZE:					Queue size per channel for continuous sampling
@@ -105,7 +106,7 @@ CONFIG_ADC_OUTPUT_FORMAT					=		INTEGER
 #	KB_BUFFER_SIZE:			Max number of key pressed stored
 #	KB_MODEL:						ROTARY_ENTER_KEY; 5_KEY_PUSH_BUTTON
 # KB_FUNCTION_KEY:		Number of function keys
-# KB_SCAN_PERIOD:			Epochs between succesive key pressed
+# KB_SCAN_PERIOD:			Epochs between successive key pressed
 #----------------------------------------------------------------
 CONFIG_KB_BUFFER_SIZE							=		20
 CONFIG_KB_MODEL										=		ROTARY_ENTER_KEY
@@ -119,7 +120,7 @@ CONFIG_KB_SCAN_PERIOD							=		5
 #----------------------------------------------------------------
 CONFIG_BUZZER											=		y
 CONFIG_LED_NUM										=		8
-CONFIG_LED_CTRL_INTERVAL					=		10
+CONFIG_LED_CTRL_INTERVAL					=		2
 
 #----------------------------------------------------------------
 # GPDI
