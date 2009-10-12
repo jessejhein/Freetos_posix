@@ -16,27 +16,26 @@
  * \author Dennis Tsang <dennis@amonics.com>
  */
 
-#ifdef KB_MOD
-
 #include <define.h>
 #include <fcntl.h>
 #include <errno.h>
 #include <asm/system.h>
 #include <time.h>
 #include <nano-X.h>
+#include <cirbuf.h>
 
 
 /** buffer to store key events */
 static unsigned char kb_buf[MAX_KB_BUF];
-/** write pointer of cir buf */
+/** write pointer of circular buffer */
 static unsigned char kb_wr = 0;
-/** read pointer of cir buf */
+/** read pointer of circular buffer */
 static unsigned char kb_rd = 0;
 /** io flag for */
 static int kb_io_flag;
 /** mutual exclusion for keys: only 1 key can be pressed/hold at a time */
 static unsigned char pkey_is_pressing;
-/** structure for key used in reenterant coroutine */
+/** structure for key used in reentrant coroutine */
 struct kb_key_t
 {
   unsigned char id;
@@ -54,11 +53,7 @@ static struct kb_key_t fn_key[TOTAL_FN_KEY];
 
 
 /**
- * \brief get kb port ready
- * \param flags accessing mode
- * \retval -1 error write mode is selected (errno = EROFS)
- * \retval 0 ok
- * \remarks  _TRIS should be set correctly for kb
+ * \remarks  _TRIS should be set correctly for keyboard
  */
 int 
 kb_open (int flags)
@@ -74,14 +69,14 @@ kb_open (int flags)
       key_config ();
 #ifdef KB_PUSH_KEY
       int i;
-      for (i=0; i<TOTAL_PUSH_KEY; i++)
+      for (i = 0; i < TOTAL_PUSH_KEY; i++)
         {
           push_key[i].id = BASE_PUSH_KEY + i;
         }
 #endif /* KB_PUSHKEY */
 #ifdef KB_FN_KEY
       int j;
-      for (j=0; j<TOTAL_FN_KEY; j++)
+      for (j = 0; j < TOTAL_FN_KEY; j++)
         {
           fn_key[j].id = BASE_FN_KEY + j;
         }
@@ -91,26 +86,19 @@ kb_open (int flags)
 }
 
 
-/**
- * \brief copy the received data to buf
- * \param buf pointer to buffer for reading
- * \retval -1 error not opened for read operation (errno = EBADF)
- * \retval 0 indicating no data is available
- * \retval 1 indicating 1 byte has been read
- */
 int 
 kb_read (unsigned char *buf)
 {
   //Perform read if read operation is enabled
-  if ( (kb_io_flag & O_RDONLY) == O_RDONLY)
+  if ((kb_io_flag & O_RDONLY) == O_RDONLY)
     {
       int next_data_pos;
       next_data_pos = pre_rd_cir254buf (kb_wr, kb_rd, MAX_KB_BUF);
       //Copy 1 byte when data is available
       if (next_data_pos != 255) 
         {
-          *buf = kb_buf[kb_rd];           //copy the stored data to buf
-          kb_rd = next_data_pos;          //update the ptr
+          *buf = kb_buf[kb_rd];           //copy the stored data to buffer
+          kb_rd = next_data_pos;          //update the pointer
           return 1;
         }
       //No data can be copied
@@ -177,7 +165,7 @@ _CNInterrupt (void)
   static unsigned char state[TOTAL_ROTARY_KEY];
 
   //Scan all rotary keys
-  for (i=0, key_id=BASE_ROTARY_KEY; i<TOTAL_ROTARY_KEY; i++, key_id+=2)
+  for (i = 0, key_id = BASE_ROTARY_KEY; i < TOTAL_ROTARY_KEY; i++, key_id+=2)
     {
       //Check A status
       high = rkey_state (key_id);
@@ -332,7 +320,7 @@ void
 kb_push_key (void)
 {
   unsigned char i;
-  for (i=0; i<TOTAL_PUSH_KEY; i++)
+  for (i = 0; i < TOTAL_PUSH_KEY; i++)
     {
       check_key (&push_key[i]);
     }
@@ -346,18 +334,16 @@ kb_push_key (void)
  * \brief detect push key
  * \remarks used in idle task
  */
-void* 
+void
 kb_fn_key (void)
 {
   unsigned char i;
-  for (i=0; i<TOTAL_FN_KEY; i++)
+  for (i = 0; i < TOTAL_FN_KEY; i++)
     {
-     check_key (&fn_key[i]);
+      check_key (&fn_key[i]);
     }
 }
 #endif /* KB_FN_KEY */
-
-#endif /* KB_MOD */
 
 /** @} */
 /** @} */

@@ -1,5 +1,7 @@
-/*
- * RTSP.h
+/**
+ * \file
+ * RTSP (Code implemented by assembly)
+ * \author Dennis Tsang <dennis@amonics.com>
  */
 
 /***************************************************************************************
@@ -20,38 +22,6 @@
 #define __RTSP_H__ 
 
 /************************************************************************
- * ==Interfaces==
- ************************************************************************/
-
-/************************************************************************
- * ===define.h===
- * 
- * Description:     a configuration file which contains the compile time configuration
- * 
- * Location:        which place in system directory
- * 
- * Content:         see below "Compile Time Configurations"
- *  
- ************************************************************************/
-
-/************************************************************************
- * ==Compile Time Configurations==
- ***********************************************************************/
-/************************************************************************
- * ===inside define.h===                                                
- */ 
-#if 0
-#include <p33FJ128GP306.h>
-//or
-#include <p30f5011.h>
-#endif
- /***********************************************************************/
-
-/************************************************************************
- * ==APIs==
- ************************************************************************/
-
-/************************************************************************
  * ===API Usage Examples===
  */ 
 #if 0
@@ -62,7 +32,7 @@ void foo(int* buf, int count){
     unsigned int nvmAdr  = __builtin_tbloffset(&nvm_data[0]);
 #ifdef MPLAB_DSPIC33_PORT
     nvmAdr = nvmAdr & 0xFC00; // Get the Flash Page Aligned address
-#endif    
+#endif
     
     flashPageRead(nvmAdru, nvmAdr, (int*)image_buf);
         
@@ -79,55 +49,48 @@ void foo(int* buf, int count){
  /************************************************************************/
 
 
-/***************************************************************************************
- * Function:    int flashPageErase(unsigned int nvmAdru, unsigned int nvmAdr);
- * 
- * Description: erase a page of flash specified by nvmAdru and nvmAdr
- * 
- * Input:       nvmAdru:    Selects the upper 8bits of the location to erase flash
- *                          nvmAdru = __builtin_tblpage(&array[0])
- *              nvmAdr:     Selects the location to erase in flash
- *                          It must be aligned to a page boundary
- *                          nvmAdr = __builtin_tbloffset(&array[0])
- * 
- * Output:      -1 if it is not successful
- *               0, if successful
- **************************************************************************************/
-extern int flashPageErase(unsigned int nvmAdru, unsigned int nvmAdr);
+/**
+ * \brief erase a page of flash specified by nvmAdru and nvmAdr
+ * \param nvmAdru Selects the upper 8bits of the location to erase flash
+ * \param nvmAdr Selects the location to erase in flash
+ * \retval -1 error
+ * \retval 0 OK
+ * \remarks
+ * \n nvmAdru = __builtin_tblpage(&array[0])
+ * \n nvmAdr = __builtin_tbloffset(&array[0])
+ * \n nvmAdr must be aligned to a page boundary
+ */
+extern int flashPageErase (unsigned int nvmAdru, unsigned int nvmAdr);
 
-/***************************************************************************************
- * Function:    int flashPageRead(unsigned int nvmAdru, unsigned int nvmAdr, int *buf);
- * 
- * Description: erase a page of flash specified by nvmAdru and nvmAdr
- * 
- * Input:       nvmAdru:    Selects the upper 8bits of the location to read flash
- *                          nvmAdru = __builtin_tblpage(&array[0])
- *              nvmAdr:     Selects the location to read in flash
- *                          It must be aligned to a page boundary
- *                          nvmAdr = __builtin_tbloffset(&array[0])
- *              buf:        destination buffer
- * 
- * Output:      -1 if it is not successful
- *               0, if successful
- **************************************************************************************/
-extern int flashPageRead(unsigned int nvmAdru, unsigned int nvmAdr, int *buf);
 
-/***************************************************************************************
- * Function:    int flashPageWrite(unsigned int nvmAdru, unsigned int nvmAdr, int *buf);
- * 
- * Description: erase a page of flash specified by nvmAdru and nvmAdr
- * 
- * Input:       nvmAdru:    Selects the upper 8bits of the location to write flash
- *                          nvmAdru = __builtin_tblpage(&array[0])
- *              nvmAdr:     Selects the location to write in flash
- *                          It must be aligned to a page boundary
- *                          nvmAdr = __builtin_tbloffset(&array[0])
- *              buf:        source buffer
- * 
- * Output:      -1 if it is not successful
- *               0, if successful
- **************************************************************************************/
-extern int flashPageWrite(unsigned int nvmAdru, unsigned int nvmAdr, int *buf);
+/**
+ * \brief read a page of flash specified by nvmAdru and nvmAdr
+ * \param nvmAdru Selects the upper 8bits of the location to read flash
+ * \param nvmAdr Selects the location to read in flash
+ * \param buf destination buffer
+ * \retval -1 error
+ * \retval 0 OK
+ * \remarks
+ * \n nvmAdru = __builtin_tblpage(&array[0])
+ * \n nvmAdr = __builtin_tbloffset(&array[0])
+ * \n nvmAdr must be aligned to a page boundary
+ */
+extern int flashPageRead (unsigned int nvmAdru, unsigned int nvmAdr, int *buf);
 
-#endif
+
+/**
+ * \brief write a page of flash specified by nvmAdru and nvmAdr
+ * \param nvmAdru Selects the upper 8bits of the location to write flash
+ * \param nvmAdr Selects the location to write in flash
+ * \param buf source buffer
+ * \retval -1 error
+ * \retval 0 OK
+ * \remarks
+ * \n nvmAdru = __builtin_tblpage(&array[0])
+ * \n nvmAdr = __builtin_tbloffset(&array[0])
+ * \n nvmAdr must be aligned to a page boundary
+ */
+extern int flashPageWrite (unsigned int nvmAdru, unsigned int nvmAdr, int *buf);
+
+#endif /* __RTSP_H__ */
 

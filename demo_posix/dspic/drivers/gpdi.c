@@ -6,17 +6,17 @@
  */
 
 /**
- * \defgroup gpdi General Purpose Digital Input using 74LV165APW
+ * \defgroup gpdi General Purpose Digital Input
  * @{
+ * \li The driver has a POSIX-compliance interface with open(), read(), and ioctl().
+ * \li The driver is for 74LV165APW - Parallel-load 8-bit shift register
  */
 
 /**
  * \file
- * General Purpose Digital Input
+ * General Purpose Digital Input Driver
  * \author Dennis Tsang <dennis@amonics.com>
  */
-
-#ifdef GPDI_MOD
 
 #include <define.h>
 #include <fcntl.h>
@@ -37,11 +37,6 @@ static __u16 gpdi_status;
 static clock_t start_time = 0;
 
 
-/**
- * \brief get gpdi port ready
- * \param flags accessing mode
- * \retval 0 ok
- */
 int 
 gpdi_open (int flags)
 {
@@ -51,12 +46,6 @@ gpdi_open (int flags)
 }
 
 
-/**
- * \brief read the status to selected gpdi channel
- * \param buf pointer to buffer for reading
- * \retval -1 error not opened for read operation (errno = EBADF)
- * \retval 1 indicating 1 byte has been read
- */
 int 
 gpdi_read (unsigned char *buf)
 {
@@ -83,13 +72,6 @@ gpdi_read (unsigned char *buf)
 }
 
 
-/**
- * \brief change the config of gpdi module
- * \param request Request code - defined in ioctl.h (gpdi_SELECT_CH) 
- * \param argp channel id
- * \retval 0 success
- * \retval -1 error
- */
 int 
 gpdi_ioctl (int request, unsigned char* argp)
 {
@@ -129,9 +111,7 @@ gpdi_ioctl (int request, unsigned char* argp)
 #endif /* 16 channels */
 
 /**
- * \brief gpdi ctrl job
- * \param arg no use
- * \remarks
+ * \remarks implemented by coroutine
  * \verbatim
    Shift sequence: H (D7) -> G (D6) -> F (D5) -> E (D4)
                           -> D (D3) -> C (D2) -> B (D1) -> A (D0)
@@ -171,8 +151,6 @@ gpdi_ctrl (void* arg)
   
   end_process ();
 }
-
-#endif /* GPDI_MOD */
 
 /** @} */
 /** @} */

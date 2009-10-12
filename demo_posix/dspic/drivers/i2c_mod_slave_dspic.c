@@ -8,12 +8,6 @@
 /**
  * \defgroup i2c_mod_slave I2C MODULATION DSPIC (SLAVE) 
  * @{
- * 
- * Control I2C MODULATION DSPIC (SLAVE)
- * \li The I2C module uses SCL and SDA, located at pin 36 and 37 respectively.
- * \li All I2C devices shares a common communication speed (default: 400kHz) 
- * \li The driver has a POSIX-like interface with open(), read(), write(), ioctl()
- * \li When i2c has multiple devices, read(), write() cannot be used in ISR (Interrupt routine)
  */
 
 /**
@@ -22,13 +16,12 @@
  * \author Dennis Tsang <dennis@amonics.com>
  */
 
-#ifdef I2C_MOD_SLAVE_DSPIC
-
 #include <define.h>
 #include <sys/ioctl.h>
 #include <fcntl.h>
 #include <errno.h>
 #include <asm/types.h>
+#include <i2c.h>
 
 /** Store control byte for transmit/receive */
 static unsigned char mod_dspic_ctrl_byte = 0;
@@ -44,22 +37,12 @@ static i2c_mod_dspic_data_t i2c_data;
 /** Store io setting */
 static int mod_dspic_flag;
 
-#if (I2C_NUM > 1)
-#include <pthread.h>
-/** for mutual exclusion of other device using I2C bus */
-extern pthread_mutex_t i2c_mutex;
-#endif /* I2C_NUM>1 */
-
 /** modulation frequency */
 static float mod_frequency[4];
 
-/**
- * \brief Initialize I2C MODULATION DSPIC
- * \param flags accessing mode
- * \retval 0 dac opened
- */
+
 int 
-i2c_mod_slave_open(int flags)
+i2c_mod_slave_open (int flags)
 {
   mod_dspic_flag = flags;
 
@@ -67,7 +50,7 @@ i2c_mod_slave_open(int flags)
   I2CADD = (I2C_MOD_DSPIC_ADDR >> 1);
   I2CMSK = 0x00;
 
-  i2c_open();
+  i2c_open ();
   return 0;
 }
 
@@ -113,19 +96,19 @@ i2c_slave_interrupt(void)
       case SLAVE_WRITE:
         {
           //rx byte is address
-          if(I2CSTATbits.D_A == 0)
+          if (I2CSTATbits.D_A == 0)
             {
-              //clear rx buf to avoid overrun
+              //clear rx buffer to avoid overrun
               unsigned char dummy;
               dummy = I2CRCV;
         
               //master read from slave
-              if(I2CSTATbits.R_W == 1)
+              if (I2CSTATbits.R_W == 1)
                 {
-                  if(mod_channel == MOD_DSPIC_CHA) i2c_data.val = mod_frequency[0];
-                  else if(mod_channel == MOD_DSPIC_CHB) i2c_data.val = mod_frequency[1];
-                  else if(mod_channel == MOD_DSPIC_CHC) i2c_data.val = mod_frequency[2];
-                  else if(mod_channel == MOD_DSPIC_CHD) i2c_data.val = mod_frequency[3];
+                  if (mod_channel == MOD_DSPIC_CHA) i2c_data.val = mod_frequency[0];
+                  else if (mod_channel == MOD_DSPIC_CHB) i2c_data.val = mod_frequency[1];
+                  else if (mod_channel == MOD_DSPIC_CHC) i2c_data.val = mod_frequency[2];
+                  else if (mod_channel == MOD_DSPIC_CHD) i2c_data.val = mod_frequency[3];
                   else i2c_data.val = 0;
                   
                   //tx data 0
@@ -140,17 +123,17 @@ i2c_slave_interrupt(void)
           else 
             {
               //1st byte denotes which channel
-              if(i2c_rx_cnt == 0) mod_channel = (unsigned char) I2CRCV;
+              if (i2c_rx_cnt == 0) mod_channel = (unsigned char) I2CRCV;
               //2nd byte onwards denotes data 0, 1, 2, 3
               else i2c_data.byte[i2c_rx_cnt -1] = (unsigned char) I2CRCV;
               i2c_rx_cnt++;
               //i2c_data is ready
-              if(i2c_rx_cnt >= 5) 
+              if (i2c_rx_cnt >= 5)
                 {
-                  if(mod_channel == MOD_DSPIC_CHA) mod_frequency[0] = i2c_data.val;
-                  else if(mod_channel == MOD_DSPIC_CHB) mod_frequency[1] = i2c_data.val;
-                  else if(mod_channel == MOD_DSPIC_CHC) mod_frequency[2] = i2c_data.val;
-                  else if(mod_channel == MOD_DSPIC_CHD) mod_frequency[3] = i2c_data.val;
+                  if (mod_channel == MOD_DSPIC_CHA) mod_frequency[0] = i2c_data.val;
+                  else if (mod_channel == MOD_DSPIC_CHB) mod_frequency[1] = i2c_data.val;
+                  else if (mod_channel == MOD_DSPIC_CHC) mod_frequency[2] = i2c_data.val;
+                  else if (mod_channel == MOD_DSPIC_CHD) mod_frequency[3] = i2c_data.val;
                   //reset variables
                   i2c_data.val = 0.0f;
                   i2c_rx_cnt = 0;
@@ -181,26 +164,18 @@ i2c_slave_interrupt(void)
           i2c_state = SLAVE_WRITE;
         }
     }
-  I2CCONbits.SCLREL = 1;       //set to release master clk
+  I2CCONbits.SCLREL = 1;       //set to release master clock
   _SI2CIF = 0;
 }
 
 
-/**
- * \brief write 4 bytes to mod_dspic_slave
- * \param buf pointer of data to write
- * \return number of bytes written
- * \retval 0 no data has been written
- * \retval 4 two bytes has been written
- * \retval -1 not opened for writing error (errno = EBADF)
- */
 int 
-i2c_mod_slave_write(float *buf)
+i2c_mod_slave_write (float *buf)
 {
   //Perform Write if write operation is enabled
-  if(mod_dspic_flag & O_RDWR || mod_dspic_flag & O_WRONLY)
+  if (mod_dspic_flag & O_RDWR || mod_dspic_flag & O_WRONLY)
     {
-      switch(mod_dspic_ctrl_byte)
+      switch (mod_dspic_ctrl_byte)
         {
           case MOD_DSPIC_CHA:
             {
@@ -238,21 +213,13 @@ i2c_mod_slave_write(float *buf)
 }
 
 
-/**
- * \brief read 4 bytes from mod dspic
- * \param buf pointer of data to read
- * \return number of bytes read
- * \retval 0 no data has been read
- * \retval 4 two bytes has been read
- * \retval -1 not opened for reading error (errno = EBADF)
- */
 int 
-i2c_mod_slave_read(float *buf)
+i2c_mod_slave_read (float *buf)
 {
   //Perform Write if write operation is enabled
-  if(mod_dspic_flag & O_RDWR || mod_dspic_flag & O_RDONLY)
+  if (mod_dspic_flag & O_RDWR || mod_dspic_flag & O_RDONLY)
     {
-      switch(mod_dspic_ctrl_byte)
+      switch (mod_dspic_ctrl_byte)
         {
           case MOD_DSPIC_CHA:
             {
@@ -290,17 +257,10 @@ i2c_mod_slave_read(float *buf)
 }
 
 
-/**
- * \brief change setting for dac
- * \param request Request code defined in ioctl.h
- * \param argp pointer for control config, request code dependent.
- * \retval 0 success
- * \retval -1 error
- */
 int 
-i2c_mod_slave_ioctl(int request, unsigned char* argp)
+i2c_mod_slave_ioctl (int request, unsigned char* argp)
 {
-  switch(request)
+  switch (request)
     {
       case MOD_DSPIC_SET_CTL:
         mod_dspic_ctrl_byte = *argp;
@@ -310,8 +270,6 @@ i2c_mod_slave_ioctl(int request, unsigned char* argp)
     }
   return 0;
 }
-
-#endif /* I2C_MOD_SLAVE_DSPIC */
 
 /** @} */
 /** @} */

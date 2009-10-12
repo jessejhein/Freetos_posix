@@ -164,6 +164,11 @@ ifeq ($(CONFIG_I2C_MOD_DSPIC), y)
 	endif
 endif
 
+# CONFIG_I2C_LED_DRIVER
+ifeq ($(CONFIG_I2C_LED_DRIVER), y)
+  DEFINES += -DI2C_LED_DRIVER_MOD
+endif
+
 # NVM_MOD
 ifeq ($(CONFIG_NVM), y)
 	DEFINES += -DNVM_MOD
@@ -322,6 +327,8 @@ ifeq ($(CONFIG_I2C_MOD_DSPIC), y)
 		obj-y += $(ARCH)/../drivers/i2c_mod_slave_dspic.o
 	endif
 endif
+obj-$(CONFIG_I2C_LED_DRIVER) += \
+  $(ARCH)/../drivers/i2c_led_driver.o
 obj-$(CONFIG_ADC) += \
 	$(ARCH)/../drivers/adc.o
 obj-$(CONFIG_PWM) += \

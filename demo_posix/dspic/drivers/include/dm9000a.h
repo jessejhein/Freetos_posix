@@ -1,7 +1,38 @@
 /**
- * \file 
- * Davicom DM9000A registers/bits
+ * \addtogroup drivers Drivers
+ * @{
+ *
+ * Implementation of Drivers for DsPic
+ */
+
+/**
+ * \defgroup dm9000a Davicom DM9000A
+ * @{
+ */
+
+/**
+ * \file
+ * MAC Module (DAVICOM DM9000A) for uip TCP/IP Stack
  * \author Dennis Tsang <dennis@amonics.com>
+ */
+
+/**
+ * \page dm9000a LAN CARD Driver Module
+ * \verbatim
+    MAC HEADER
+    ==========
+                +-------------------+
+    Dest. MAC   | FF FF FF FF FF FF |
+                +-------------------+
+    Source MAC  | 00 60 6E 00 00 00 |
+                +-------+-----------+
+    Type        | 08 00 |                           //00=IP, 06=ARP
+                +-------+------------------+
+    Payload     | XX XX  ... ... ... XX XX |        //0 - 1500 bytes
+                +-------------+------------+
+    FCS         | 11 22 33 44 |
+                +-------------+
+   \endverbatim
  */
 
 #ifndef DM9000A_H_
@@ -21,7 +52,7 @@
  *******************************************************************/
 #define DM9KA_RX_FILTER     0x30    //Discard CRC error and LONG packets 
 
-#define DM9KA_EN_ISR        0x82    //IMR: enable cirular RX buffer and TX interrupt
+#define DM9KA_EN_ISR        0x82    //IMR: enable circular RX buffer and TX interrupt
 #define DM9KA_DIS_ISR       0x80    //Disable interrupt
 #define DM9KA_RX_ISR        0x01
 #define DM9KA_TX_ISR        0x02
@@ -31,7 +62,7 @@
 #define DM9KA_BYTE_MODE     2
 #define DM9KA_WORD_MODE     0
 
-#define CMD_INDEX           0       //Logic at CMD pin for addr and data access
+#define CMD_INDEX           0       //Logic at CMD pin for address and data access
 #define CMD_DATA            1
 
 /*******************************************************************
@@ -105,14 +136,14 @@
 #define DM9KA_RSCCR    0x51    //Resume System Clock Control Register
 
 #define DM9KA_MRCMDX   0xF0    //Memory Data Pre-Fetch Read Command Without Address Increment Register
-#define DM9KA_MCRMDX1  0xF1    //Memory Data Read Command Wtihout Address Increment Register
-#define DM9KA_MRCMD    0xF2    //Memory Data Read Command With Address Increemnt Register
+#define DM9KA_MCRMDX1  0xF1    //Memory Data Read Command Without Address Increment Register
+#define DM9KA_MRCMD    0xF2    //Memory Data Read Command With Address Increment Register
 //#define               0xF3
 #define DM9KA_MRRL     0xF4    //Memory Data Read Address Register Low Byte
 #define DM9KA_MRRH     0xF5    //Memory Data Read Address Register High Byte
 #define DM9KA_MWCMDX   0xF6    //Memory Data Write Command Without Address Increment Register
 //#define               0xF7
-#define DM9KA_MWCMD    0xF8    //Memoery Data Write Command With Address Increment Register
+#define DM9KA_MWCMD    0xF8    //Memory Data Write Command With Address Increment Register
 //#define               0xF9
 #define DM9KA_MWRL     0xFA    //Memory Data Write Address Register Low Byte
 #define DM9KA_MWRH     0xFB    //Memory Data Write Address Register High Byte
@@ -224,35 +255,84 @@ enum DM9KA_PHY_mode
 };
 
 /*
- * A header appended at the start of all RX frames by the hardware
  * 
+ *
  * StatusVector
- *  +--------+----------------------------------------+
- *  |  BIT   | RX PACKET STATUS                       |          
- *  +--------+----------------------------------------+
- *  |   7    | RUNT: size < 64bytes                   | 
- *  +--------+----------------------------------------+
- *  |   6    | MUITICAST                              |
- *  +--------+----------------------------------------+
- *  |   5    | LATE COLLISION                         | 
- *  +--------+----------------------------------------+
- *  |   4    | RX WATCHDOG TIME OUT: size > 2048bytes | 
- *  +--------+----------------------------------------+
- *  |   3    | PHYSICAL LAYER ERROR                   | 
- *  +--------+----------------------------------------+
- *  |   2    | ALIGNMENT ERROR                        | 
- *  +--------+----------------------------------------+
- *  |   1    | CRC ERROR                              | 
- *  +--------+----------------------------------------+
- *  |   0    | FIFO OVERFLOW ERROR                    | 
- *  +--------+----------------------------------------+
+
  */
-/** Header for ethernet packet */
+/**
+ * \brief Header for Ethernet packet
+ * \remarks A header appended at the start of all RX frames by the hardware
+ * \verbatim
+   +--------+----------------------------------------+
+   |  BIT   | RX PACKET STATUS                       |
+   +--------+----------------------------------------+
+   |   7    | RUNT: size < 64bytes                   |
+   +--------+----------------------------------------+
+   |   6    | MUITICAST                              |
+   +--------+----------------------------------------+
+   |   5    | LATE COLLISION                         |
+   +--------+----------------------------------------+
+   |   4    | RX WATCHDOG TIME OUT: size > 2048bytes |
+   +--------+----------------------------------------+
+   |   3    | PHYSICAL LAYER ERROR                   |
+   +--------+----------------------------------------+
+   |   2    | ALIGNMENT ERROR                        |
+   +--------+----------------------------------------+
+   |   1    | CRC ERROR                              |
+   +--------+----------------------------------------+
+   |   0    | FIFO OVERFLOW ERROR                    |
+   +--------+----------------------------------------+
+   \endverbatim
+ */
 typedef struct _DM_PREAMBLE
 {
-  u8_t  Validity;         //0x01 = vaild packet, 
+  u8_t  Validity;         //0x01 = valid packet,
   u8_t  StatusVector;
   u16_t PacketLength;     //MAC header + Data
 } DM_PREAMBLE;
 
-#endif //DM9000A_H_
+
+//------------------------------------------------------------------------------------------
+
+/**
+ * \brief Initialise dm9000a
+ * \param flags accessing mode
+ * \retval -1 error
+ * \n         Ethernet is not linked (EACCES)
+ * \n         no LAN card (ENXIO)
+ * \retval 0  Ethernet is linked
+ */
+extern int dmfe_open (int flags);
+
+
+/**
+ * \brief close Ethernet connection
+ * \retval 0 OK
+ */
+extern int dmfe_close (void);
+
+
+/**
+ * \brief copy the received packet to default buffer
+ * \retval >0 indicating a packet is received
+ * \retval 0 indicating no data is available
+ * \retval -1 error
+ * \n         Ethernet is not opened for read operation (errno = EBADF)
+ * \n         Ethernet link is broken (errno =EIO)
+ */
+extern int dmfe_read (void);
+
+
+/**
+ * \brief copy count bytes of the data from buffer and transmit
+ * \retval >=0 the number of bytes written
+ * \retval -1 error
+ * \n         Ethernet is not opened for writing (errno = EBADF)
+ */
+extern int dmfe_write (void);
+
+#endif /* DM9000A_H_ */
+
+/** @} */
+/** @} */

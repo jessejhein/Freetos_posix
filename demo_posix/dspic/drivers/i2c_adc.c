@@ -8,13 +8,6 @@
 /**
  * \defgroup i2c_adc I2C ADC
  * @{
- * 
- * Control I2C ADC ADS7823 (12-bit I2C ADC)
- * \li The I2C module uses SCL and SDA, located at pin 36 and 37 respectively.
- * \li All I2C devices shares a common communication speed (default: 400kHz) 
- * \li The driver has a POSIX-like interface with open(), read(), write(), ioctl()
- * \li When i2c has multiple devices, read(), write() cannot be used in ISR (Interrupt routine)
- * \li At most 4 ADC data (8 bytes) can be read per operation.
  */
 
 /**
@@ -23,12 +16,11 @@
  * \author Dennis Tsang <dennis@amonics.com>
  */
 
-#ifdef I2C_ADC_MOD
-
 #include <define.h>
 #include <sys/ioctl.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <i2c.h>
 
 #define I2C_ADC_COMMAND                 0x00
 #define I2C_ADC_MAX_DATA                4
@@ -50,18 +42,7 @@ static struct
 /** Store io setting */
 static int adc_io_flag;
 
-#if (I2C_NUM > 1)
-#include <pthread.h>
-/** for mutual exclusion of other device using I2C bus */
-extern pthread_mutex_t i2c_mutex;
-#endif /* I2C_NUM>1 */
 
-
-/**
- * \brief Initialise I2C ADC
- * \param flags accessing mode
- * \retval 0 ADC opened
- */
 int
 i2c_adc_open (int flags)
 {
@@ -71,24 +52,6 @@ i2c_adc_open (int flags)
 }
 
 
-/**
- * \brief read 2 bytes from ADC
- * \param buf pointer of data to read from ADC
- * \param count number of bytes to read
- * \return number of bytes read
- * \retval 0 no data has been read
- * \retval -1 not opened for reading error (errno = EBADF)
- *
- * \remarks
- * \li example
- * \verbatim
-                                        |<--ADC Conversion-->|
-    Mst/Slv    _______ M ___M___ M S ____M___ S M ___M___ M S ___S____ M ___S____ M ___S____ M ___S____ M ___S____ M ___S____ M ___S____ M ___S____ M M _____
-    SDA (Data)        |S|       | |A|        |A|R|       | |A|        |A|        |N|        |A|        |N|        |A|        |N|        |A|        |N|S|
-                      |T|address|W|C|command |C|E|address|R|C|Data0 H |C|Data0 L |A|Data1 H |C|Data1 L |A|Data2 H |C|Data2 L |A|Data3 H |C|Data3 L |A|T|
-                      |A|1001000|0|K|000xxxxx|K|S|1001000|1|K|0000xxxx|K|xxxxxxxx|K|0000xxxx|K|xxxxxxxx|K|0000xxxx|K|xxxxxxxx|K|0000xxxx|K|xxxxxxxx|K|P|
-   \endverbatim
- */
 int
 i2c_adc_read (unsigned int *buf, int count)
 {
@@ -166,13 +129,6 @@ i2c_adc_read (unsigned int *buf, int count)
 }
 
 
-/**
- * \brief change setting for DAC
- * \param request Request code defined in ioctl.h
- * \param argp pointer for control configuration, request code dependent.
- * \retval 0 success
- * \retval -1 error
- */
 int
 i2c_adc_ioctl (int request, unsigned char* argp)
 {
@@ -183,7 +139,6 @@ i2c_adc_ioctl (int request, unsigned char* argp)
     }
   return 0;
 }
-#endif /* I2C_ADC_MOD */
 
 /** @} */
 /** @} */

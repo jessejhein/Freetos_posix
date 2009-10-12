@@ -9,7 +9,7 @@
  * 
  * \section sec1 INTRODUCTION
  * \par Idle task in FreeRTOS
- * Funtions include:
+ * Functions include:
  * \li detect push key
  * \li detect function key
  * \li update led status
@@ -28,14 +28,9 @@
 
 #include <define.h>
 #include <stddef.h>
-
-#ifdef KB_PUSH_KEY
-extern void* kb_push_key(void);
-#endif /* KB_PUSH_KEY */
-
-#ifdef KB_FN_KEY
-extern void* kb_fn_key(void);
-#endif /* KB_FN_KEY */
+#include <kb.h>
+#include <gpdi.h>
+#include <led.h>
 
 /**
  * \brief Idle Task
@@ -44,21 +39,21 @@ void
 vApplicationIdleHook(void)
 {
 #ifdef KB_PUSH_KEY
-  kb_push_key();
+  kb_push_key ();
 #endif /* KB_PUSH_KEY */
 
 #ifdef KB_FN_KEY
-  kb_fn_key();
+  kb_fn_key ();
 #endif /* KB_FN_KEY */
 
 #ifdef LED_MOD
-  led_ctrl();
+  led_ctrl (NULL);
 #endif /* LED_MOD */
 
 #ifdef GPDI_MOD
-  gpdi_ctrl ();
+  gpdi_ctrl (NULL);
 #endif /* GPDI_MOD */
 
   //Application Idle Task
-  UserIdleTask();
+  UserIdleTask ();
 }

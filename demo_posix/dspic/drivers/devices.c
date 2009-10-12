@@ -7,6 +7,20 @@
 #include <define.h>
 #include <errno.h>
 #include <asm/types.h>
+#include <adc.h>
+#include <dm9000a.h>
+#include <flash_eeprom.h>
+#include <gpdi.h>
+#include <i2c_adc.h>
+#include <i2c_dac.h>
+#include <i2c_eeprom.h>
+#include <i2c_mod_master_dspic.h>
+#include <i2c_mod_slave_dspic.h>
+#include <i2c_led_driver.h>
+#include <kb.h>
+#include <led.h>
+#include <pwm.h>
+#include <uart.h>
 
 //-----------------------------------------------------------------------------------------
 /**
@@ -79,6 +93,13 @@ open (const char *pathname, int flags)
       return (i2c_mod_slave_open (flags) == 0)? tmp : -1;
     }
 #endif /* I2C_MOD_SLAVE_DSPIC */
+
+#ifdef I2C_LED_DRIVER_MOD
+  if (tmp == BASE_I2C_LED_DRIVER)
+    {
+      return (i2c_led_driver_open (flags) == 0)? tmp : -1;
+    }
+#endif /* I2C_LED_DRIVER_MOD */
 
 #ifdef ADC_MOD
   if (tmp == BASE_ADC)
@@ -218,6 +239,13 @@ write (int fd, void* buf, int count)
     }
 #endif /* I2C_MOD_SLAVE_DSPIC */
 
+#ifdef I2C_LED_DRIVER_MOD
+  if (fd == BASE_I2C_LED_DRIVER)
+    {
+      return i2c_led_driver_write (buf);
+    }
+#endif /* I2C_LED_DRIVER_MOD */
+
 #ifdef ADC_MOD
   if (fd == BASE_ADC)
     {
@@ -320,7 +348,7 @@ read (int fd, void* buf, int count)
 #endif /* NVM_MOD */
 
 #ifdef I2C_MOD_MASTER_DSPIC
-  if (fd = =BASE_I2C_MOD_DSPIC)
+  if (fd == BASE_I2C_MOD_DSPIC)
     {
       return i2c_mod_master_read (buf);
     }
@@ -332,6 +360,13 @@ read (int fd, void* buf, int count)
       return i2c_mod_slave_read (buf);
     }
 #endif /* I2C_MOD_SLAVE_DSPIC */
+
+#ifdef I2C_LED_DRIVER_MOD
+  if (fd == BASE_I2C_LED_DRIVER)
+    {
+      return 0;
+    }
+#endif /* I2C_LED_DRIVER_MOD */
 
 #ifdef ADC_MOD
   if (fd == BASE_ADC)
@@ -437,6 +472,13 @@ ioctl (int fd, int request, void* argp)
     }
 #endif /* I2C_MOD_SLAVE_DSPIC */
 
+#ifdef I2C_LED_DRIVER_MOD
+  if (fd == BASE_I2C_LED_DRIVER)
+    {
+    return i2c_led_driver_ioctl (request, argp);
+    }
+#endif /* I2C_LED_DRIVER_MOD */
+
 #ifdef ADC_MOD
   if(fd==BASE_ADC)
     {
@@ -486,7 +528,7 @@ ioctl (int fd, int request, void* argp)
     }
 #endif /* GPDI_MOD */
 
-	return -1;
+  return -1;
 }
 
 
@@ -551,6 +593,13 @@ lseek (int fd, int offset, int whence)
       return 0;
     }
 #endif /* I2C_MOD_SLAVE_DSPIC */
+
+#ifdef I2C_LED_DRIVER_MOD
+  if (fd == BASE_I2C_LED_DRIVER)
+    {
+    return 0;
+    }
+#endif /* I2C_LED_DRIVER_MOD */
 
 #ifdef ADC_MOD
   if (fd == BASE_ADC)
