@@ -15,7 +15,7 @@
  */
 /*
  * foo.c
- * driver for ethernet chips (DM9000A)
+ * driver for Ethernet chips (DM9000A)
  */
 
 
@@ -56,7 +56,7 @@ foo (char *s1, char *s2)
 
 /*
  * ==COMMENTS WITHIN FUNCTIONS==
- * *use capitial letters to indicate the value in a variable
+ * *use capital letters to indicate the value in a variable
  */
   int node;
 
@@ -152,7 +152,7 @@ enum SMTP_ERR
   SMTP_ERR_HELO,
   /** Sender address unavailable */
   SMTP_ERR_MAIL_FROM,
-  /** Recepient address unavailable */
+  /** Recipient address unavailable */
   SMTP_ERR_RCPT_TO,
   /** Cannot start sending data */
   SMTP_ERR_DATA_START,

@@ -183,7 +183,7 @@
 #define I2C_LED_DRIVER_MOD_T            1
 #else
 #define I2C_LED_DRIVER_MOD_T            0
-#endif /* I2C_ADC_MOD */
+#endif /* I2C_LED_DRIVER_MOD */
 
 #define I2C_NUM                         (I2C_DAC_MOD_T + I2C_ADC_MOD_T + \
                                           I2C_NVM_MOD_T + I2C_MOD_DSPIC_T + \
@@ -212,7 +212,7 @@
 #define I2C_DAC_ADDR                    0x9E
 #endif /* NO I2C_MOD_DSPIC_MOD */
 // Channel select
-// Asynchrous update of DAC (L1,L0) at Selected channel, no power-down
+// Asynchronous update of DAC (L1,L0) at Selected channel, no power-down
 // [A3] [A2] [L1] [L0] [x] [Sel1] [Sel2] [PD0]
 //  0     0    0    1   x     Channel      0    
 #define DAC_CHA                         0x10
