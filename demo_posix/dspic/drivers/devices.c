@@ -8,7 +8,9 @@
 #include <errno.h>
 #include <asm/types.h>
 #include <adc.h>
+#ifdef ETHERNET_MOD
 #include <dm9000a.h>
+#endif /* ETHERNET_MOD */
 #include <flash_eeprom.h>
 #include <gpdi.h>
 #include <i2c_adc.h>
