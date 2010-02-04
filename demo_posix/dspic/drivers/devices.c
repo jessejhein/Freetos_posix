@@ -162,6 +162,12 @@ open (const char *pathname, int flags)
 int _LIBC 
 close (int fd)
 {
+#ifdef UART_MOD
+  if (fd < (BASE_COM + NO_OF_UART))
+    {
+      return uart_close (fd-BASE_COM);
+    }
+#endif /* UART_MOD */
 #ifdef ETHERNET_MOD
   if (fd == BASE_ETHERNET)
     {
@@ -432,10 +438,11 @@ ioctl (int fd, int request, void* argp)
     {
       return -1;
     }
+
 #ifdef UART_MOD
   if (fd < (BASE_COM + NO_OF_UART))
     {
-      return 0;
+      return uart_ioctl (fd - BASE_COM, request, argp);
     }
 #endif /* UART_MOD */
 

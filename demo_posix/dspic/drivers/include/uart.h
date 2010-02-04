@@ -62,6 +62,24 @@ extern int uart_write (unsigned char device, unsigned char *buf, int count);
  */
 extern int uart_read (unsigned char device, unsigned char *buf);
 
+/**
+ * \brief close UART
+ * \param device UART port id
+ * \retval 0 success
+ * \retval -1 error
+ */
+extern int uart_close (unsigned char device);
+
+/**
+ * \brief change setting for UART
+ * \param device UART id
+ * \param request Request code defined in ioctl.h
+ * \param argp pointer for control configuration, request code dependent.
+ * \retval 0 success
+ * \retval -1 error
+ */
+extern int uart_ioctl (int device, int request, void* argp);
+
 #endif /* UART_MOD */
 
 #endif /* UART_H_ */

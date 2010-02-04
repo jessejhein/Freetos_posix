@@ -129,14 +129,9 @@
 #define COM0                            "A"
 #define COM1                            "B"
 //  ============================Baudrate Equation================================ 
-#define UART_DEFAULT_BRG0               ( (unsigned int) \
+#define GEN_UART_BAUDRATE(baudrate)     ( (unsigned int) \
                                           ( (float) SYSTEM_CLK_HZ \
-                                              /   ( (float) 16*UART_BAUDRATE0) +0.5f) \
-                                              - 1 \
-                                        )
-#define UART_DEFAULT_BRG1               ( (unsigned int) \
-                                          ( (float) SYSTEM_CLK_HZ \
-                                              /   ( (float) 16*UART_BAUDRATE1) +0.5f) \
+                                              /   ( (float) 16*(baudrate)) +0.5f) \
                                               - 1 \
                                         )
 #endif /* UART_MOD */

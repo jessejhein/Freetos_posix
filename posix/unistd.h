@@ -88,7 +88,7 @@
  * \retval 0 - 9: valid file descriptors
  * \retval -1: error, errno is set appropriately
  */
-extern int open(const char *pathname, int flags);
+extern int open (const char *pathname, int flags);
 
 
 /**
@@ -97,7 +97,7 @@ extern int open(const char *pathname, int flags);
  * \retval 0 success
  * \retval -1: error, errno is set appropriately 
  */
-extern int close(int fd);
+extern int close (int fd);
 
 
 /**
@@ -110,7 +110,7 @@ extern int close(int fd);
  * \retval -1 error occur
  * \remarks For i2c devices, if there are multiple devices, write cannot be used in ISR 
  */
-extern int write(int fd, void* buf, int count);
+extern int write (int fd, void* buf, int count);
 
 
 /**
@@ -123,7 +123,7 @@ extern int write(int fd, void* buf, int count);
  * \retval -1 error occur
  * \remarks For i2c devices, if there are multiple devices, read cannot be used in ISR
  */
-extern int read(int fd, void* buf, int count);
+extern int read (int fd, void* buf, int count);
 
 
 /**
@@ -134,7 +134,7 @@ extern int read(int fd, void* buf, int count);
  * \retval 0 success
  * \retval -1 error occur
  */
-extern int ioctl(int fd, int request, void* argp);
+extern int ioctl (int fd, int request, void* argp);
 
 
 /**
@@ -160,7 +160,7 @@ enum LSEEK_OFFSET
  * \retval >=0 current offset from base address
  * \retval -1 error occur
  */
-extern int lseek(int fd, int offset, int whence);
+extern int lseek (int fd, int offset, int whence);
 
 
 /** 
@@ -168,7 +168,7 @@ extern int lseek(int fd, int offset, int whence);
  * This is an example of how to use the system call module.
  */
 
-#endif /* UNISTD_H_  */
+#endif /* UNISTD_H_ */
 
 /** @} */
 /** @} */

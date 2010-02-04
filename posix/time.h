@@ -36,7 +36,7 @@
  * \param t If t is non-NULL, the return value is also stored in the memory pointed to by t.
  * \return the time since the Epoch
  */
-extern time_t time(time_t *t);
+extern time_t time (time_t *t);
 
 
 /**
@@ -54,7 +54,7 @@ extern time_t time(time_t *t);
  * \remarks For 32-bit counter with context switch period of 10ms, maximum number of 
  *          sec is 4,294,967,295*0.01 = 42,949,672 sec = 3.3 yrs
  */
-extern clock_t clock(void);
+extern clock_t clock (void);
 
 
 /** 

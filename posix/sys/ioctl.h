@@ -22,6 +22,15 @@
 #define _IOCTL_H_
 
 /*
+ * UART Module
+ */
+#ifdef UART_MOD
+#define UART_SET_BAUDRATE                      0x00
+#define UART_GET_BAUDRATE                      0x01
+#endif /* UART_MOD */
+
+
+/*
  * I2C Module
  */
 #ifdef I2C_MOD
