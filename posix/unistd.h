@@ -137,6 +137,7 @@ extern int read (int fd, void* buf, int count);
 extern int ioctl (int fd, int request, void* argp);
 
 
+#ifndef SEEK_SET
 /**
  * \enum LSEEK_OFFSET
  * Offset code for lseek()
@@ -150,6 +151,7 @@ enum LSEEK_OFFSET
   /** Seek from the end of file, currently unimplemented */
   SEEK_END
 };
+#endif /* SEEK_SET */
 
 
 /**
