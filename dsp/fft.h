@@ -28,7 +28,7 @@
  * \verbatim
     CONFIG_ADC_SAMPLE_RATE            =   20480
     CONFIG_ADC_ACQ_TIME               =   31
-    CONFIG_ADC_MAX_CH                 =   2
+    CONFIG_ADC_MAX_CH                 =   1
     CONFIG_ADC_QSIZE                  =   512
     CONFIG_ADC_OUTPUT_FORMAT          =   SIGNED_FRACTIONAL
 
@@ -58,7 +58,7 @@ extern complex_t* fft (void);
 /**
  * \brief Get the square magnitude distribution from an FFT result
  * \param data pointer to source (fft-ed) data
- * \param index store the index correponding the maximum value
+ * \param index store the index corresponding the maximum value
  * \return pointer to result
  */
 extern real_t* fft_sq_magnitude (complex_t* data, int* index);

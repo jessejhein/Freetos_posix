@@ -12,9 +12,9 @@
  * \page fft_page
  * \section fft_sec3 DSPIC IMPLEMENTATION
  * \par Implemented with Microchip DSP library
- * \li Inputs and outputs data are manupilated in 1.15 format
- * \li During computations, data are manupilated in 9.31 format
- * \li Twiddle factors WN(k) are pregenerated and stored in program memory
+ * \li Inputs and outputs data are manipulated in 1.15 format
+ * \li During computations, data are manipulated in 9.31 format
+ * \li Twiddle factors WN(k) are pre-generated and stored in program memory
  * \verbatim 
    WN(k) = exp(-j2PIk/N)                     for 0 <= k <= N/2
          = cos(-2PIk/N) + jsin(-2PIk/N) 
