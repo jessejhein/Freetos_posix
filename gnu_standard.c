@@ -106,6 +106,24 @@ foo (char *s1, char *s2)
 
 
 /*
+ * ==SWITCH-CASE==
+ * *Use the following format
+ */
+  switch (a)
+  {
+  case 0:
+    {
+      break;
+    }
+  case 1:
+    {
+      break;
+    }
+  default:
+  }
+
+
+/*
  * ==#else-#endif==
  * *Every #endif should have a comment
  * *The comment should state the condition of the conditional that is ending, including its sense.
