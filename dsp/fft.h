@@ -24,7 +24,7 @@
  * \li This FFT library assume computation to be in-place to reduce RAM usage (i.e. original data are overwritten) 
  * \section fft_sec2 COMPILE TIME CONFIGURATION
  * \par Set the following before compiling
- * \subsection fft_sec1_1 <.config_app>:
+ * \subsection fft_sec2_1 <.config_app>:
  * \verbatim
     CONFIG_ADC_SAMPLE_RATE            =   20480
     CONFIG_ADC_ACQ_TIME               =   31
@@ -36,6 +36,23 @@
     CONFIG_FFT_BLOCK_LENGTH           =   512
     CONFIG_FFT_LOG2_BLK_LEN           =   9                     //= log2(FFT_BLOCK_LENGTH)
    \endverbatim 
+ * \par Modify the mapping of ADC channel index to ADC RAM buffer index
+ * \subsection fft_sec2_2 <pin_define.c>:
+ * \verbatim
+    int
+    parse_adc_ch (int channel)
+    {
+      //$(channel) is the ADC channel index (ANx)
+      switch (channel)
+        {
+          //AN15 maps to adc_buffer[0]
+          case 15:
+            return 0;
+          default:
+            return -1;
+        }
+    }
+   \endverbatim
  */
 
 #include <asm/types.h>
