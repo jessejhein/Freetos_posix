@@ -68,6 +68,7 @@ extern void fft_set_data (int index, real_t value);
 /**
  * \brief Perform a Fast Fourier Transform
  * \return pointer to result
+ * \remarks data must be initialised properly by fft_set_data()
  */
 extern complex_t* fft (void);
 
