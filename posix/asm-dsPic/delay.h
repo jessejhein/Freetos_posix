@@ -26,11 +26,11 @@
 
 #ifndef SYSTEM_CLK_HZ
 #error SYSTEM_CLK_HZ must be defined in define.h
-#endif /* SYSTEM_CLK_HZ */
+#endif /* NOT SYSTEM_CLK_HZ */
 
 /**
- * \brief implementing micro second delay using looping
- * \param x number of micro seconds
+ * \brief implementing microsecond delay using looping
+ * \param x number of microseconds
  * \remarks timing is not accurate
  * 
  * \verbatim
@@ -54,25 +54,25 @@
 #define udelay(x) \
 { \
   unsigned long _dcnt; \
-  _dcnt=(x)*((unsigned long)SYSTEM_CLK_HZ/(6UL*1000000UL)); \
-  while(_dcnt--); \
+  _dcnt = (x) * ((unsigned long)SYSTEM_CLK_HZ/(6UL*1000000UL)); \
+  while (_dcnt--); \
 }
 
 
 /**
- * \brief implementing milli second delay using looping
- * \param ms number of milli seconds
+ * \brief implementing millisecond delay using looping
+ * \param ms number of milliseconds
  * \remarks timing is not accurate
  */
 #define mdelay(ms) \
 { \
   unsigned int _mscnt = (ms); \
-  while(_mscnt--) \
+  while (_mscnt--) \
     { \
       unsigned int i = 100; \
-      while(i--) \
+      while (i--) \
         { \
-          udelay(10); \
+          udelay (10); \
         } \
     } \
 }

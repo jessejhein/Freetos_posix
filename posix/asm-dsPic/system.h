@@ -32,6 +32,7 @@
  */
 #define cli()         SR |= IPL       //Set IPL to 7
 
+
 /**
  * \brief SeT Interrupt/Enable Interrupt
  * \remarks
@@ -48,15 +49,17 @@
  * When a low priority interrupt is negated by a high priority interrupt,
  * an AddressError will occur which will reset the target. 
  * To work around the problem, it is suggested by Microchip to protect  
- * 1) the clearing of Interrput Flag
+ * 1) the clearing of Interrupt Flag
  * 2) the disabling of Interrupt Enable
  * 3) the lowering of Interrupt Priority 
  * 4) the modification of IPL in Status Register to 1-6
  ***************************************************************************************/
-#define DISI_PROTECT(X){ \
-__asm__ volatile ("DISI #0x1FFF");\
-X; \
-DISICNT = 0; }
+#define DISI_PROTECT(X) \
+{ \
+  __asm__ volatile ("DISI #0x1FFF"); \
+  X; \
+  DISICNT = 0; \
+}
 
 #endif /* SYSTEM_H_ */
 

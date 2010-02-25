@@ -173,7 +173,7 @@ extern int recvfrom(int sockfd, void *buf, int len, unsigned int flags, struct s
  * This is an example of how to use the socket module
  */
 
-#endif /* sys/socket.h */
+#endif /* _SYS_SOCKET_H */
 
 /** @} */
 /** @} */

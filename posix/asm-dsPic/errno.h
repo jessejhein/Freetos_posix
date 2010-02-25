@@ -9,7 +9,7 @@
 #endif
 
 /*
- * Error constanst for read() write()
+ * Error constants for read() write()
  */
 #define EINTR       4
 #define EIO         5
