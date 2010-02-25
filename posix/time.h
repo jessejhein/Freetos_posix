@@ -31,6 +31,24 @@
 #define CLOCKS_PER_SEC             configTICK_RATE_HZ
 
 
+/** A time value that is accurate to the nearest microsecond but also has a range of years. */
+struct timeval
+{
+  /** This represents the number of whole seconds of elapsed time. */
+  time_t tv_sec;        /* seconds */
+  /** This is the rest of the elapsed time (a fraction of a second), represented as the number of microseconds. It is always less than one million. */
+  suseconds_t tv_usec;  /* microseconds */
+};
+
+
+/** Structure crudely representing a timezone. */
+struct timezone
+{
+  int tz_minuteswest;   /* Minutes west of GMT.  */
+  int tz_dsttime;	/* Nonzero if DST is ever in effect.  */
+};
+
+
 /**
  * \brief get the time (in seconds) since the Epoch (last reboot)
  * \param t If t is non-NULL, the return value is also stored in the memory pointed to by t.
@@ -55,6 +73,16 @@ extern time_t time (time_t *t);
  *          sec is 4,294,967,295*0.01 = 42,949,672 sec = 3.3 yrs
  */
 extern clock_t clock (void);
+
+
+/**
+ * \brief get the current time, expressed as seconds and microseconds since the Epoch (last reboot)
+ * \param tv store time of day
+ * \param tz store timezone information, if tz is NULL, tz is not filled.
+ * \retval 0 success.
+ * \retval -1 errors.
+ */
+extern int gettimeofday (struct timeval *tv, struct timezone *tz);
 
 
 /** 

@@ -46,6 +46,7 @@ typedef long long               __s64;
 // ---------------------------------------------------------------------------------------
 /** Data type for time for <time.h> */
 typedef unsigned long           time_t;
+typedef unsigned long           suseconds_t;
 /** Data type for clock ticks for <time.h> */
 #if configUSE_16_BIT_TICKS
 typedef unsigned int            clock_t;
