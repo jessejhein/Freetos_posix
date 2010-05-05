@@ -44,6 +44,7 @@ extern int i2c_temp_open (int flags);
  * \retval -1 not opened for reading error (errno = EBADF)
  *
  * \remarks
+ * \li *buf should be interpreted as signed integer and multiplied by I2C_TEMP_CONVERT_FACTOR (2^-8) to get the floating point number
  * \li example
  * \verbatim
     Mst/Slv    _______ M ___M___ M S ____M___ S ___M____ M __   __ M ___M___ M S ____M___ S
