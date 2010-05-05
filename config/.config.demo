@@ -29,6 +29,7 @@ CONFIG_UART												=		y
 CONFIG_I2C												=		y
 CONFIG_I2C_DAC										=		y
 CONFIG_I2C_ADC										=		n
+CONFIG_I2C_TEMP										=		n
 CONFIG_I2C_MOD_DSPIC							=		n
 CONFIG_I2C_LED_DRIVER							=		n
 CONFIG_NVM												=		y

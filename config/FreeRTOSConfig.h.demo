@@ -95,7 +95,7 @@
  * \brief The stack size used by tasks, units dependable to platform
  * \remarks For dsPic, units in WORD, so multiply by 2 to get BYTE
  */
-#define configMINIMAL_STACK_SIZE        ( 250 )
+#define configMINIMAL_STACK_SIZE        ( 300 )
 /**
  * \brief The total amount of RAM (in bytes) available to the kernel when using portable/MemMang/heap_1.c
  * \remarks This value should be greater than (configMINIMAL_STACK_SIZE*2)*(No of task)

@@ -58,7 +58,7 @@ extern int i2c_adc_read (unsigned int *buf, int count);
 
 
 /**
- * \brief change setting for DAC
+ * \brief change setting for ADC
  * \param request Request code defined in ioctl.h
  * \param argp pointer for control configuration, request code dependent.
  * \retval 0 success

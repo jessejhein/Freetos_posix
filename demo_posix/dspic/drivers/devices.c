@@ -15,6 +15,7 @@
 #include <gpdi.h>
 #include <i2c_adc.h>
 #include <i2c_dac.h>
+#include <i2c_temp.h>
 #include <i2c_eeprom.h>
 #include <i2c_mod_master_dspic.h>
 #include <i2c_mod_slave_dspic.h>
@@ -63,6 +64,13 @@ open (const char *pathname, int flags)
       return (i2c_adc_open (flags) == 0)? tmp : -1;
     }
 #endif /* I2C_ADC_MOD */
+
+#ifdef I2C_TEMP_MOD
+  if (tmp == BASE_I2C_TEMP)
+    {
+      return (i2c_temp_open (flags) == 0)? tmp : -1;
+    }
+#endif /* I2C_TEMP_MOD */
 
 #ifdef NVM_MOD
   if (tmp == BASE_NVM)
@@ -215,6 +223,13 @@ write (int fd, void* buf, int count)
     }
 #endif /* I2C_ADC_MOD */
 
+#ifdef I2C_TEMP_MOD
+  if (fd == BASE_I2C_TEMP)
+    {
+      return 0;
+    }
+#endif /* I2C_TEMP_MOD */
+
 #ifdef NVM_MOD
   if (fd == BASE_NVM)
     {
@@ -336,6 +351,13 @@ read (int fd, void* buf, int count)
       return i2c_adc_read (buf, count);
     }
 #endif /* I2C_ADC_MOD */
+
+#ifdef I2C_TEMP_MOD
+  if (fd == BASE_I2C_TEMP)
+    {
+      return i2c_temp_read (buf, count);
+    }
+#endif /* I2C_TEMP_MOD */
 
 #ifdef NVM_MOD
   if (fd == BASE_NVM)
@@ -460,6 +482,13 @@ ioctl (int fd, int request, void* argp)
     }
 #endif /* I2C_ADC_MOD */
 
+#ifdef I2C_TEMP_MOD
+  if (fd == BASE_I2C_TEMP)
+    {
+      return i2c_temp_ioctl (request, argp);
+    }
+#endif /* I2C_TEMP_MOD */
+
 #ifdef NVM_MOD
   if((fd >= BASE_NVM) && (fd<(BASE_NVM+1)))
     {
@@ -570,6 +599,13 @@ lseek (int fd, int offset, int whence)
       return 0;
     }
 #endif /* I2C_ADC_MOD */
+
+#ifdef I2C_TEMP_MOD
+  if (fd == BASE_I2C_TEMP)
+    {
+      return 0;
+    }
+#endif /* I2C_TEMP_MOD */
 
 #ifdef NVM_MOD
   if (fd == BASE_NVM)
