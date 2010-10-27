@@ -30,7 +30,7 @@ static unsigned char kb_buf[MAX_KB_BUF];
 static unsigned char kb_wr = 0;
 /** read pointer of circular buffer */
 static unsigned char kb_rd = 0;
-/** io flag for */
+/** IO flag for keyboard */
 static int kb_io_flag;
 /** mutual exclusion for keys: only 1 key can be pressed/hold at a time */
 static unsigned char pkey_is_pressing;
