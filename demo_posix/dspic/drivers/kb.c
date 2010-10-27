@@ -21,7 +21,6 @@
 #include <errno.h>
 #include <asm/system.h>
 #include <time.h>
-#include <nano-X.h>
 #include <cirbuf.h>
 
 
