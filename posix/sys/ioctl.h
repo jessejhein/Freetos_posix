@@ -77,6 +77,17 @@
 
 
 /*
+ * I2C GPIO Module
+ */
+#ifdef I2C_GPIO_MOD
+/** select the channel */
+#define I2C_GPIO_SET_CH                         0
+/** select the mode */
+#define I2C_GPIO_SET_MODE                       1
+#endif /* I2C_GPIO_MOD */
+
+
+/*
  * ADC Module
  */
 #ifdef ADC_MOD

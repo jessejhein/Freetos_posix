@@ -20,6 +20,7 @@
 #include <i2c_mod_master_dspic.h>
 #include <i2c_mod_slave_dspic.h>
 #include <i2c_led_driver.h>
+#include <i2c_gpio.h>
 #include <kb.h>
 #include <led.h>
 #include <pwm.h>
@@ -110,6 +111,13 @@ open (const char *pathname, int flags)
       return (i2c_led_driver_open (flags) == 0)? tmp : -1;
     }
 #endif /* I2C_LED_DRIVER_MOD */
+
+#ifdef I2C_GPIO_MOD
+  if (tmp == BASE_I2C_GPIO)
+    {
+      return (i2c_gpio_open (flags) == 0)? tmp : -1;
+    }
+#endif /* I2C_GPIO_MOD */
 
 #ifdef ADC_MOD
   if (tmp == BASE_ADC)
@@ -269,6 +277,13 @@ write (int fd, void* buf, int count)
     }
 #endif /* I2C_LED_DRIVER_MOD */
 
+#ifdef I2C_GPIO_MOD
+  if (fd == BASE_I2C_GPIO)
+    {
+      return i2c_gpio_write (buf);
+    }
+#endif /* I2C_GPIO_MOD */
+
 #ifdef ADC_MOD
   if (fd == BASE_ADC)
     {
@@ -398,6 +413,13 @@ read (int fd, void* buf, int count)
     }
 #endif /* I2C_LED_DRIVER_MOD */
 
+#ifdef I2C_GPIO_MOD
+  if (fd == BASE_I2C_GPIO)
+    {
+      return i2c_gpio_read (buf);
+    }
+#endif /* I2C_GPIO_MOD */
+
 #ifdef ADC_MOD
   if (fd == BASE_ADC)
     {
@@ -513,9 +535,16 @@ ioctl (int fd, int request, void* argp)
 #ifdef I2C_LED_DRIVER_MOD
   if (fd == BASE_I2C_LED_DRIVER)
     {
-    return i2c_led_driver_ioctl (request, argp);
+      return i2c_led_driver_ioctl (request, argp);
     }
 #endif /* I2C_LED_DRIVER_MOD */
+
+#ifdef I2C_GPIO_MOD
+  if (fd == BASE_I2C_GPIO)
+    {
+      return i2c_gpio_ioctl (request, argp);
+    }
+#endif /* I2C_GPIO_MOD */
 
 #ifdef ADC_MOD
   if(fd==BASE_ADC)
@@ -642,9 +671,16 @@ lseek (int fd, int offset, int whence)
 #ifdef I2C_LED_DRIVER_MOD
   if (fd == BASE_I2C_LED_DRIVER)
     {
-    return 0;
+      return 0;
     }
 #endif /* I2C_LED_DRIVER_MOD */
+
+#ifdef I2C_GPIO_MOD
+  if (fd == BASE_I2C_GPIO)
+    {
+      return 0;
+    }
+#endif /* I2C_GPIO_MOD */
 
 #ifdef ADC_MOD
   if (fd == BASE_ADC)
