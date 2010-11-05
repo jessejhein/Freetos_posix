@@ -48,12 +48,12 @@
 
 
 
-/** Store io setting */
+/** Store IO setting */
 static int led_io_flag;
 /** Store led status */
 static unsigned char led_status;
-/** Store command selected */
-static unsigned char led_command;
+/** Store address selected */
+static unsigned char led_address;
 /** Store channel selected */
 static unsigned char led_ch;
 
@@ -64,8 +64,9 @@ i2c_led_driver_open (int flags)
   led_io_flag = flags;
   i2c_open ();
   //adjust gain to 500uA
-  led_command = I2C_LED_DRIVER_LED_GAIN_CTRL;
-  while (i2c_led_driver_write (0x0f) != 1);
+  led_address = I2C_LED_DRIVER_LED_GAIN_CTRL;
+  unsigned char value = 0x0f;
+  while (i2c_led_driver_write (&value) != 1);
   return 0;
 }
 
@@ -92,13 +93,13 @@ i2c_led_driver_write (unsigned char *buf)
           if (i2c_write (&data) == 0) error = 1;
 
           //Send control byte: Command byte
-          data = (unsigned char) led_command;
+          data = (unsigned char) led_address;
           if (i2c_write (&data) == 0) error = 1;
 
           //Send data byte with Stop bit
           status = I2C_STOP;
           i2c_ioctl (I2C_SET_STATUS, &status);
-          if (led_command == I2C_LED_DRIVER_LED_ON_CTRL)
+          if (led_address == I2C_LED_DRIVER_LED_ON_CTRL)
             {
               if (*buf == 0)
                 {
@@ -119,7 +120,7 @@ i2c_led_driver_write (unsigned char *buf)
             }
           else
             {
-              if (led_command == I2C_LED_DRIVER_LED_ON_CTRL) led_status = data;
+              if (led_address == I2C_LED_DRIVER_LED_ON_CTRL) led_status = data;
             }
 
 #if (I2C_NUM > 1)
@@ -136,7 +137,7 @@ i2c_led_driver_write (unsigned char *buf)
   //Error, raise error flag
   else
     {
-      errno = EBADF;  //io not opened for writing
+      errno = EBADF;  //IO not opened for writing
       return -1;
     }
 }
@@ -145,18 +146,18 @@ i2c_led_driver_write (unsigned char *buf)
 int
 i2c_led_driver_ioctl (int request, unsigned char* argp)
 {
-  if (*argp < 8) return -1;
+  if (*argp > 7) return -1;
 
   switch (request)
     {
       case I2C_LED_DRIVER_CH_DIM:
         {
-          led_command = I2C_LED_DRIVER_LED1_DIM_CTRL + *argp;
+          led_address = I2C_LED_DRIVER_LED1_DIM_CTRL + *argp;
           break;
         }
       case I2C_LED_DRIVER_CH_ON:
         {
-          led_command = I2C_LED_DRIVER_LED_ON_CTRL;
+          led_address = I2C_LED_DRIVER_LED_ON_CTRL;
           led_ch = *argp;
           break;
         }

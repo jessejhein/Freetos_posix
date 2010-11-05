@@ -49,7 +49,7 @@ int
 led_open (int flags)
 {
   led_io_flag = flags;
-  LEDCONFIG ();
+  io_config ();
   return 0;
 }
 
@@ -159,53 +159,65 @@ led_ctrl (void* arg)
 {
   start_process ();
 
+  //perform this in regular interval defined by LED_CTRL_INTERVAL
   static unsigned char pulse_period_counter[IO_MAX];
   start_time = clock ();
   while (((clock_t) (clock () - start_time)) < LED_CTRL_INTERVAL) usleep(0);
   
+  //check all IOs
   static int k;
   for (k = 0; k < IO_MAX; k++)
     {
+      // LED OFF
       if (led_status[k] == LED_OFF)
         {
           if (pulse_period_counter[k] == 0)
             {
               io_off (k);
+              //go to IDLE state
               led_status[k] = LED_IDLE;
             }
           else
             {
+              //wait for next interval
               pulse_period_counter[k]--;
             }
         }
+      // LED ON
       else if (led_status[k] == LED_ON)
         {
           if (pulse_period_counter[k] == 0)
             {
               io_on (k);
+              //go to IDLE state
               led_status[k] = LED_IDLE;
             }
           else
             {
+              //wait for next interval
               pulse_period_counter[k]--;
             }
         }
+      // POSITIVE PULSE
       else if (led_status[k] == LED_POS_PULSE)
         {
+          //set up pulse period
           pulse_period_counter[k] = pulse_period;
           io_on (k);
           //turn off led next time
           led_status[k] = LED_OFF;
         }
+      // NEGATIVE PULSE
       else if (led_status[k] == LED_NEG_PULSE)
         {
+          //set up pulse period
           pulse_period_counter[k] = pulse_period;
           io_off (k);
           //turn on led next time
           led_status[k] = LED_ON;
         }
     }
-  
+
   end_process();
 }
 
