@@ -36,38 +36,38 @@ extern int i2c_gpio_open (int flags);
 
 
 /**
- * \brief write 2 bytes to GPIO
+ * \brief write 1 byte to GPIO
  * \param buf pointer of data to write to GPIO
  * \return number of bytes written
  * \retval 0 no data has been written
- * \retval 2 two bytes has been written
+ * \retval 1 one byte has been written
  * \retval -1 not opened for writing error (errno = EBADF)
  *
  * \remarks
  * \li example
  * \verbatim
-    Mst/Slv    _______ M ___M___ M S ____M___ S ____M___ S ____M___ S M ________
-    SDA (Data)        |S|       | |A|Register|A|        |A|        |A|S|
-                      |T|address|W|C|Address |C| Data A |C| Data B |C|T|
-                      |A|1110000|0|K|000000xx|K|xxxxxxxx|K|xxxxxxxx|K|P|
+    Mst/Slv    _______ M ___M___ M S ____M___ S ____M___ S M ________
+    SDA (Data)        |S|       | |A|        |A|        |A|S|
+                      |T|address|W|C|register|C|  data  |C|T|
+                      |A|1000000|0|K|xxxxxxxx|K|xxxxxxxx|K|P|
    \endverbatim
  */
 extern int i2c_gpio_write (unsigned char *buf);
 
 
 /**
- * \brief read count bytes from GPIO
+ * \brief read 1 byte from GPIO
  * \param buf pointer of data to read from GPIO
- * \param count number of bytes to be written
  * \return number of bytes read
- * \retval 0 i2c is busy (used by other device)
- * \retval -1 EEPROM is busy (communication problem) (errno = EAGAIN)
- * \n         EEPROM is not opened for reading (errno = EBADF)
+ * \retval 0 no data has been read
+ * \retval 1 one byte has been written
+ * \retval -1 device is busy (communication problem) (errno = EAGAIN)
+ * \n         device is not opened for reading (errno = EBADF)
  * \verbatim
-    Mst/Slv    ___ M ___M___ M S ____M___ S ____M___ S M ___M___ M S ____S___ M ____S___ M M ____
-    SDA (Data)    |S|       | |A|        |A|        |A|R|       | |A|        |A|        |N|S|
-                  |T|address|W|C|High Add|C|Low Add |C|E|address|R|C| Data 0 |C| Data 1 |A|T|
-                  |A|1010000|0|K|XFFFFFFF|K|FFFFFFFF|K|S|1010000|1|K|10101010|K|10101010|K|P|
+    Mst/Slv    ___ M ___M___ M S ____M___ S M ___M___ M S ____S___ M M ____
+    SDA (Data)    |S|       | |A|        |A|R|       | |A|        |N|S|
+                  |T|address|W|C|register|C|E|address|R|C|  data  |A|T|
+                  |A|1000000|0|K|xxxxxxxx|K|S|1000000|1|K|xxxxxxxx|K|P|
    \endverbatim
  */
 extern int i2c_gpio_read (unsigned char *buf);

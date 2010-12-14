@@ -80,10 +80,22 @@
  * I2C GPIO Module
  */
 #ifdef I2C_GPIO_MOD
-/** select the channel */
-#define I2C_GPIO_SET_CH                         0
-/** select the mode */
-#define I2C_GPIO_SET_MODE                       1
+#define GPIO_SET_TRISA                          0
+#define GPIO_SET_TRISB                          1
+#define GPIO_SET_ODA                            2
+#define GPIO_SET_ODB                            3
+#define GPIO_SET_LATA                           4
+#define GPIO_SET_LATB                           5
+#define GPIO_SET_PORTA                          6
+#define GPIO_SET_PORTB                          7
+#define GPIO_GET_TRISA                          8
+#define GPIO_GET_TRISB                          9
+#define GPIO_GET_ODA                            10
+#define GPIO_GET_ODB                            11
+#define GPIO_GET_LATA                           12
+#define GPIO_GET_LATB                           13
+#define GPIO_GET_PORTA                          14
+#define GPIO_GET_PORTB                          15
 #endif /* I2C_GPIO_MOD */
 
 

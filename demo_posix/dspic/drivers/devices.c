@@ -469,7 +469,7 @@ read (int fd, void* buf, int count)
     }
 #endif /* GPDI_MOD */
 
-	return -1;
+  return -1;
 }
 
 
@@ -547,7 +547,7 @@ ioctl (int fd, int request, void* argp)
 #endif /* I2C_GPIO_MOD */
 
 #ifdef ADC_MOD
-  if(fd==BASE_ADC)
+  if(fd == BASE_ADC)
     {
       return adc_ioctl(request, argp);
     }
