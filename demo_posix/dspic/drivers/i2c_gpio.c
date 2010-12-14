@@ -27,7 +27,7 @@
  */
 //-----------------------------------------
 //Default bank = 0
-#define I2C_GPIO_DEFAULT_IOCON          0x0A
+#define I2C_GPIO_DEFAULT_IOCON          0x0B
   #define I2C_GPIO_IOCON_BANK           0x80
   #define I2C_GPIO_IOCON_SEQOP          0x20
 //Default bank = 1
@@ -52,10 +52,21 @@
 static int gpio_io_flag;
 /** Store address selected */
 static unsigned char gpio_address;
+static unsigned char gpio_port;
 
 static int od_flag;
+/** keeps the user set OD */
+static unsigned char od[2];
+/** keeps the user set TRIS */
+static unsigned char tris[2];
+/** keeps the user set LAT */
+static unsigned char lat[2];
 
 
+/**
+ * \brief perform a write to device
+ * \remarks gpio_address and gpio_port must be set appropriately beforehand
+ */
 static int
 i2c_gpio_lv_write (unsigned char* buf)
 {
@@ -75,7 +86,7 @@ i2c_gpio_lv_write (unsigned char* buf)
       if (i2c_write (&data) == 0) error = 1;
 
       //Send control byte: Command byte
-      data = (unsigned char) gpio_address;
+      data = (unsigned char) gpio_address | gpio_port;
       if (i2c_write (&data) == 0) error = 1;
 
       //Send data with Stop bit
@@ -97,6 +108,10 @@ i2c_gpio_lv_write (unsigned char* buf)
 }
 
 
+/**
+ * \brief perform a read from device
+ * \remarks gpio_address and gpio_port must be set appropriately beforehand
+ */
 static int
 i2c_gpio_lv_read (unsigned char* buf)
 {
@@ -116,7 +131,7 @@ i2c_gpio_lv_read (unsigned char* buf)
       if (i2c_write (&data) == 0) error = 1;
 
       //Send control byte: Command byte
-      data = (unsigned char) gpio_address;
+      data = (unsigned char) gpio_address | gpio_port;
       if (i2c_write (&data) == 0) error = 1;
 
       //Send restart bit, slave address (Read Mode)
@@ -155,8 +170,92 @@ i2c_gpio_open (int flags)
   unsigned char data = (I2C_GPIO_IOCON_BANK | I2C_GPIO_IOCON_SEQOP);
   while (i2c_gpio_lv_write (&data) != 1);
 
+  //initialise all pins to input
+  tris[0] = 0xff; od[0] = 0x00;
+  tris[1] = 0xff; od[1] = 0x00;
+  gpio_address = I2C_GPIO_PORTA | I2C_GPIO_IODIR;
+  while (i2c_gpio_lv_write (&tris[0]) != 1);
+  gpio_address = I2C_GPIO_PORTB | I2C_GPIO_IODIR;
+  while (i2c_gpio_lv_write (&tris[1]) != 1);
+
+  //reset LAT
+  lat[0] = 0x00;
+  lat[1] = 0x00;
+  gpio_address = I2C_GPIO_PORTA | I2C_GPIO_OLAT;
+  while (i2c_gpio_lv_write (&lat[0]) != 1);
+  gpio_address = I2C_GPIO_PORTB | I2C_GPIO_OLAT;
+  while (i2c_gpio_lv_write (&lat[1]) != 1);
+
   return 0;
 }
+
+
+/**
+ * \brief update the pin status according to the open_drain/normal setting
+ * \remarks this function will not update software lat[] status
+ */
+static void
+update_lat_pin (unsigned char port, unsigned char pin, unsigned char value)
+{
+  unsigned char *tris_ptr;
+  unsigned char *od_ptr;
+  unsigned char *lat_ptr;
+  if (port == I2C_GPIO_PORTB)
+    {
+      tris_ptr = &tris[1];
+      od_ptr = &od[1];
+      lat_ptr = &lat[1];
+    }
+  else
+    {
+      tris_ptr = &tris[0];
+      od_ptr = &od[0];
+      lat_ptr = &lat[0];
+    }
+
+  //pin is input
+  if ((*tris_ptr >> pin) & 0x01)
+    {
+      //ignore setting
+    }
+  //pin is OD
+  else if ((*od_ptr >> pin) & 0x01)
+    {
+      unsigned char buf;
+      //logic HIGH
+      if (value)
+        {
+          //set pin to input for high impedance
+          gpio_address = I2C_GPIO_IODIR;
+          buf = *tris_ptr | (0x01 << pin);
+          while (i2c_gpio_lv_write (&buf) != 1);
+        }
+      //logic LOW
+      else
+        {
+          //Set pin to zero
+          gpio_address = I2C_GPIO_OLAT;
+          buf = *lat_ptr & ~(0x01 << pin);
+          while (i2c_gpio_lv_write (&buf) != 1);
+
+          //Set pin to output
+          gpio_address = I2C_GPIO_IODIR;
+          buf = *tris_ptr & ~(0x01 << pin);
+          while (i2c_gpio_lv_write (&buf) != 1);
+        }
+    }
+  //pin is output
+  else
+    {
+      //write status to LAT register directly
+      gpio_address = I2C_GPIO_OLAT;
+      unsigned char buf;
+      if (value) buf = *lat_ptr | (0x01 << pin);
+      else buf = *lat_ptr & ~(0x01 << pin);
+      while (i2c_gpio_lv_write (&buf) != 1);
+    }
+}
+
 
 
 int
@@ -165,23 +264,74 @@ i2c_gpio_write (unsigned char *buf)
   //Perform Write if write operation is enabled
   if (gpio_io_flag & O_RDWR || gpio_io_flag & O_WRONLY)
     {
-      //changing direction pin
-      if ((gpio_address & (~I2C_GPIO_PORTB)) == I2C_GPIO_IODIR)
+      //set OD
+      if (od_flag)
         {
-          //set to input or output
-          if (od_flag == 0)
+          od_flag = 0;
+          //get OD port
+          unsigned char* od_ptr;
+          unsigned char* lat_ptr;
+          if (gpio_port == I2C_GPIO_PORTB)
             {
-              while (i2c_gpio_lv_write (buf) != 1);
+              od_ptr = &od[1];
+              lat_ptr = &lat[1];
             }
           else
             {
-              printf ("write od\n");
+              od_ptr = &od[0];
+              lat_ptr = &lat[0];
+            }
+
+          //For each status changed, update status and pin
+          int i;
+          for (i = 0; i < 8; i++)
+            {
+              unsigned char old_status = (*od_ptr >> i) & 0x01;
+              unsigned char new_status = (*buf >> i) & 0x01;
+              if (old_status != new_status)
+                {
+                  //ODx = 1
+                  if (new_status)
+                    {
+                      *od_ptr |= (0x01 << i);
+                      update_lat_pin (gpio_port, i, (*lat_ptr >> i) & 0x01);
+                    }
+                  //ODx = 0
+                  else
+                    {
+                      *od_ptr &= ~(0x01 << i);
+                      //TODO: handle this case
+                    }
+                }
             }
         }
-      //write to PORT or LAT
-      else
+      //set TRIS
+      else if (gpio_address == I2C_GPIO_IODIR)
         {
           while (i2c_gpio_lv_write (buf) != 1);
+          if (gpio_port == I2C_GPIO_PORTB) tris[1] = *buf;
+          else tris[0] = *buf;
+        }
+      //set LAT/PORT
+      else
+        {
+          int i;
+          for (i = 0; i < 8; i++)
+            {
+              unsigned char status = (*buf >> i) & 0x01;
+              update_lat_pin (gpio_port, i, status);
+              //update software LAT status
+              if (gpio_port == I2C_GPIO_PORTB)
+                {
+                  if (status) lat[1] |= (0x01 << i);
+                  else lat[1] &= ~(0x01 << i);
+                }
+              else
+                {
+                  if (status) lat[0] |= (0x01 << i);
+                  else lat[0] &= ~(0x01 << i);
+                }
+            }
         }
     }
   //Error, raise error flag
@@ -197,24 +347,29 @@ i2c_gpio_write (unsigned char *buf)
 int
 i2c_gpio_read (unsigned char *buf)
 {
-
   //Perform Write if write operation is enabled
   if (gpio_io_flag & O_RDWR || gpio_io_flag & O_RDONLY)
     {
-      //changing direction pin
-      if ((gpio_address & (~I2C_GPIO_PORTB)) == I2C_GPIO_IODIR)
+      //read OD
+      if (od_flag)
         {
-          //set to input or output
-          if (od_flag == 0)
-            {
-              while (i2c_gpio_lv_write (buf) != 1);
-            }
-          else
-            {
-              printf ("read od\n");
-            }
+          if (gpio_port == I2C_GPIO_PORTB) *buf = od[1];
+          else *buf = od[0];
+          od_flag = 0;
         }
-      //read from PORT or LAT
+      //read TRIS
+      else if (gpio_address == I2C_GPIO_IODIR)
+        {
+          if (gpio_port == I2C_GPIO_PORTB) *buf = tris[1];
+          else *buf = tris[0];
+        }
+      //read from LAT
+      else if (gpio_address == I2C_GPIO_OLAT)
+        {
+          if (gpio_port == I2C_GPIO_PORTB) *buf = lat[1];
+          else *buf = lat[0];
+        }
+      //read from PORT
       else
         {
           while (i2c_gpio_lv_read (buf) != 1);
@@ -237,86 +392,102 @@ i2c_gpio_ioctl (int request, unsigned char* argp)
     {
       case GPIO_SET_TRISA:
         {
-          gpio_address = I2C_GPIO_PORTA | I2C_GPIO_IODIR;
+          gpio_port = I2C_GPIO_PORTA;
+          gpio_address =  I2C_GPIO_IODIR;
           break;
         }
       case GPIO_SET_TRISB:
         {
-          gpio_address = I2C_GPIO_PORTB | I2C_GPIO_IODIR;
+          gpio_port = I2C_GPIO_PORTB;
+          gpio_address =  I2C_GPIO_IODIR;
           break;
         }
       case GPIO_SET_ODA:
         {
           od_flag = 1;
-          gpio_address = I2C_GPIO_PORTA | I2C_GPIO_IODIR;
+          gpio_port = I2C_GPIO_PORTA;
+          gpio_address =  I2C_GPIO_IODIR;
           break;
         }
       case GPIO_SET_ODB:
         {
           od_flag = 1;
-          gpio_address = I2C_GPIO_PORTB | I2C_GPIO_IODIR;
+          gpio_port = I2C_GPIO_PORTB;
+          gpio_address =  I2C_GPIO_IODIR;
           break;
         }
       case GPIO_SET_LATA:
         {
-          gpio_address = I2C_GPIO_PORTA | I2C_GPIO_OLAT;
+          gpio_port = I2C_GPIO_PORTA;
+          gpio_address =  I2C_GPIO_OLAT;
           break;
         }
       case GPIO_SET_LATB:
         {
-          gpio_address = I2C_GPIO_PORTB | I2C_GPIO_OLAT;
+          gpio_port = I2C_GPIO_PORTB;
+          gpio_address =  I2C_GPIO_OLAT;
           break;
         }
       case GPIO_SET_PORTA:
         {
-          gpio_address = I2C_GPIO_PORTA | I2C_GPIO_GPIO;
+          gpio_port = I2C_GPIO_PORTA;
+          gpio_address =  I2C_GPIO_OLAT;
           break;
         }
       case GPIO_SET_PORTB:
         {
-          gpio_address = I2C_GPIO_PORTB | I2C_GPIO_GPIO;
+          gpio_port = I2C_GPIO_PORTB;
+          gpio_address =  I2C_GPIO_OLAT;
           break;
         }
       case GPIO_GET_TRISA:
         {
-          gpio_address = I2C_GPIO_PORTA | I2C_GPIO_IODIR;
+          gpio_port = I2C_GPIO_PORTA;
+          gpio_address =  I2C_GPIO_IODIR;
           break;
         }
       case GPIO_GET_TRISB:
         {
-          gpio_address = I2C_GPIO_PORTB | I2C_GPIO_IODIR;
+          gpio_port = I2C_GPIO_PORTB;
+          gpio_address =  I2C_GPIO_IODIR;
           break;
         }
       case GPIO_GET_ODA:
         {
           od_flag = 1;
-          gpio_address = I2C_GPIO_PORTA | I2C_GPIO_IODIR;
+          gpio_port = I2C_GPIO_PORTA;
+          gpio_address =  I2C_GPIO_IODIR;
           break;
         }
       case GPIO_GET_ODB:
         {
           od_flag = 1;
-          gpio_address = I2C_GPIO_PORTB | I2C_GPIO_IODIR;
+          gpio_port = I2C_GPIO_PORTB;
+          gpio_address =  I2C_GPIO_IODIR;
           break;
         }
       case GPIO_GET_LATA:
         {
-          gpio_address = I2C_GPIO_PORTA | I2C_GPIO_OLAT;
+          gpio_port = I2C_GPIO_PORTA;
+          gpio_address =  I2C_GPIO_OLAT;
           break;
         }
       case GPIO_GET_LATB:
         {
-          gpio_address = I2C_GPIO_PORTB | I2C_GPIO_OLAT;
+          gpio_port = I2C_GPIO_PORTB;
+          gpio_address =  I2C_GPIO_OLAT;
           break;
         }
       case GPIO_GET_PORTA:
         {
-          gpio_address = I2C_GPIO_PORTA | I2C_GPIO_GPIO;
+          gpio_port = I2C_GPIO_PORTA;
+          gpio_address =  I2C_GPIO_GPIO;
           break;
         }
       case GPIO_GET_PORTB:
         {
-          gpio_address = I2C_GPIO_PORTB | I2C_GPIO_GPIO;
+          gpio_port = I2C_GPIO_PORTB;
+          gpio_address =  I2C_GPIO_GPIO;
           break;
         }
       default:
