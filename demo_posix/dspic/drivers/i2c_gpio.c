@@ -170,6 +170,13 @@ i2c_gpio_open (int flags)
   unsigned char data = (I2C_GPIO_IOCON_BANK | I2C_GPIO_IOCON_SEQOP);
   while (i2c_gpio_lv_write (&data) != 1);
 
+  //reset pull-up resistor status
+  data = 0x00;
+  gpio_address = I2C_GPIO_PORTA | I2C_GPIO_GPPU;
+  while (i2c_gpio_lv_write (&data) != 1);
+  gpio_address = I2C_GPIO_PORTB | I2C_GPIO_GPPU;
+  while (i2c_gpio_lv_write (&data) != 1);
+
   //initialise all pins to input
   tris[0] = 0xff; od[0] = 0x00;
   tris[1] = 0xff; od[1] = 0x00;
@@ -281,6 +288,11 @@ i2c_gpio_write (unsigned char *buf)
           if (gpio_port == I2C_GPIO_PORTB) tris[1] = *buf;
           else tris[0] = *buf;
         }
+      //set pull up resistor status
+      else if (gpio_address == I2C_GPIO_GPPU)
+        {
+          while (i2c_gpio_lv_write (buf) != 1);
+        }
       //set LAT/PORT
       else
         {
@@ -330,6 +342,11 @@ i2c_gpio_read (unsigned char *buf)
         {
           if (gpio_port == I2C_GPIO_PORTB) *buf = lat[1];
           else *buf = lat[0];
+        }
+      //read pull up resistor status
+      else if (gpio_address == I2C_GPIO_GPPU)
+        {
+          while (i2c_gpio_lv_read (buf) != 1);
         }
       //read from PORT
       else
@@ -402,6 +419,18 @@ i2c_gpio_ioctl (int request, unsigned char* argp)
           gpio_address =  I2C_GPIO_OLAT;
           break;
         }
+      case GPIO_SET_GPPUA:
+        {
+          gpio_port = I2C_GPIO_PORTA;
+          gpio_address =  I2C_GPIO_GPPU;
+          break;
+        }
+      case GPIO_SET_GPPUB:
+        {
+          gpio_port = I2C_GPIO_PORTB;
+          gpio_address =  I2C_GPIO_GPPU;
+          break;
+        }
       case GPIO_GET_TRISA:
         {
           gpio_port = I2C_GPIO_PORTA;
@@ -450,6 +479,18 @@ i2c_gpio_ioctl (int request, unsigned char* argp)
         {
           gpio_port = I2C_GPIO_PORTB;
           gpio_address =  I2C_GPIO_GPIO;
+          break;
+        }
+      case GPIO_GET_GPPUA:
+        {
+          gpio_port = I2C_GPIO_PORTA;
+          gpio_address =  I2C_GPIO_GPPU;
+          break;
+        }
+      case GPIO_GET_GPPUB:
+        {
+          gpio_port = I2C_GPIO_PORTB;
+          gpio_address =  I2C_GPIO_GPPU;
           break;
         }
       default:

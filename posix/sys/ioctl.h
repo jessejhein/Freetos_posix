@@ -80,22 +80,27 @@
  * I2C GPIO Module
  */
 #ifdef I2C_GPIO_MOD
-#define GPIO_SET_TRISA                          0
-#define GPIO_SET_TRISB                          1
-#define GPIO_SET_ODA                            2
-#define GPIO_SET_ODB                            3
-#define GPIO_SET_LATA                           4
-#define GPIO_SET_LATB                           5
-#define GPIO_SET_PORTA                          6
-#define GPIO_SET_PORTB                          7
-#define GPIO_GET_TRISA                          8
-#define GPIO_GET_TRISB                          9
-#define GPIO_GET_ODA                            10
-#define GPIO_GET_ODB                            11
-#define GPIO_GET_LATA                           12
-#define GPIO_GET_LATB                           13
-#define GPIO_GET_PORTA                          14
-#define GPIO_GET_PORTB                          15
+#define GPIO_SET_TRISA                          0x00
+#define GPIO_SET_TRISB                          0x01
+#define GPIO_SET_ODA                            0x02
+#define GPIO_SET_ODB                            0x03
+#define GPIO_SET_LATA                           0x04
+#define GPIO_SET_LATB                           0x05
+#define GPIO_SET_PORTA                          0x06
+#define GPIO_SET_PORTB                          0x07
+#define GPIO_SET_GPPUA                          0x08
+#define GPIO_SET_GPPUB                          0x09
+//
+#define GPIO_GET_TRISA                          0x80
+#define GPIO_GET_TRISB                          0x81
+#define GPIO_GET_ODA                            0x82
+#define GPIO_GET_ODB                            0x83
+#define GPIO_GET_LATA                           0x84
+#define GPIO_GET_LATB                           0x85
+#define GPIO_GET_PORTA                          0x86
+#define GPIO_GET_PORTB                          0x87
+#define GPIO_GET_GPPUA                          0x88
+#define GPIO_GET_GPPUB                          0x89
 #endif /* I2C_GPIO_MOD */
 
 
