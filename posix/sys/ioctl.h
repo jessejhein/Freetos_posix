@@ -136,14 +136,6 @@
 
 
 /*
- * GPDI Module
- */
-#ifdef GPDI_MOD
-#define GPDI_SELECT_CH                          0
-#endif /* GPDI_MOD */
-
-
-/*
  * LCD Module
  */
 #ifdef LCD_MOD

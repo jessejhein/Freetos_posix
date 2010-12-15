@@ -12,7 +12,6 @@
 #include <dm9000a.h>
 #endif /* ETHERNET_MOD */
 #include <flash_eeprom.h>
-#include <gpdi.h>
 #include <i2c_adc.h>
 #include <i2c_dac.h>
 #include <i2c_temp.h>
@@ -161,13 +160,6 @@ open (const char *pathname, int flags)
     }
 #endif /* LCD_MOD */
 
-#ifdef GPDI_MOD
-  if (tmp == BASE_GPDI)
-    {
-      return (gpdi_open (flags) == 0)? tmp : -1;
-    }
-#endif /* GPDI_MOD */
-  
   errno = ENXIO;
   return -1;
 }
@@ -326,13 +318,6 @@ write (int fd, void* buf, int count)
     }
 #endif /* LCD_MOD */
 
-#ifdef GPDI_MOD
-  if (fd == BASE_GPDI)
-    {
-      return 0;
-    }
-#endif /* GPDI_MOD */
-  
   return -1;
 }
 
@@ -462,13 +447,6 @@ read (int fd, void* buf, int count)
     }
 #endif /* LCD_MOD */
 
-#ifdef GPDI_MOD
-  if (fd == BASE_GPDI)
-    {
-      return gpdi_read (buf);
-    }
-#endif /* GPDI_MOD */
-
   return -1;
 }
 
@@ -587,13 +565,6 @@ ioctl (int fd, int request, void* argp)
       return lcd_ioctl (request, argp);
     }
 #endif /* LCD_MOD */
-
-#ifdef GPDI_MOD
-  if (fd == BASE_GPDI)
-    {
-      return gpdi_ioctl (request, argp);
-    }
-#endif /* GPDI_MOD */
 
   return -1;
 }
@@ -723,13 +694,6 @@ lseek (int fd, int offset, int whence)
       return 0;
     }
 #endif /* LCD_MOD */
-
-#ifdef GPDI_MOD
-  if (fd == BASE_GPDI)
-    {
-      return 0;
-    }
-#endif /* GPDI_MOD */
 
   return -1;
 }

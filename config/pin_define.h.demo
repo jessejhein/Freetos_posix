@@ -10,73 +10,41 @@
  * \brief configure data port pins to output or input
  * \param x 0: output\n
  *          1: input
- * \remarks DATA7   =>  _RG15
- * \remarks DATA6   =>  _RG14
- * \remarks DATA5   =>  _RG13
- * \remarks DATA4   =>  _RG12
- * \remarks DATA3   =>  _RG9
- * \remarks DATA2   =>  _RG8
- * \remarks DATA1   =>  _RG7
- * \remarks DATA0   =>  _RG6
- * \remarks Configure output    =>  0000 1100 0011 1111 => 0x0C3F
- * \remarks Configure input     =>  1111 0011 1100 0000 => 0xF3C0
+ * \remarks DATA7   =>  _RD9
+ * \remarks DATA6   =>  _RD8
+ * \remarks DATA5   =>  _RD7
+ * \remarks DATA4   =>  _RD6
+ * \remarks DATA3   =>  _RD5
+ * \remarks DATA2   =>  _RD4
+ * \remarks DATA1   =>  _RD3
+ * \remarks DATA0   =>  _RD2
+ * \remarks Configure output    =>  1111 1100 0000 0011 => 0xFC03
+ * \remarks Configure input     =>  0000 0011 1111 1100 => 0x03FC
  */
 #define PCONFIG(x) \
 { \
-  if ((x) == 0) TRISG &= 0x0C3F; \
-  else TRISG |= 0xF3C0; \
+  if ((x) == 0) TRISD &= 0xFC03; \
+  else TRISD |= 0x03FC; \
 }
 
 /**
  * \brief write a byte to data port
  * \param x 8-bit data
  * \remarks
- * \li ---- GG-- --GG GGGG & 0000 1100 0011 1111          => 0000 GG00 00GG GGGG
- * \li (0000 0000 XXXX XXXX << 8) & 1111 0000 0000 0000   => XXXX 0000 0000 0000
- * \li (0000 0000 XXXX XXXX << 6) & 0000 0011 1100 0000   => 0000 00XX XX00 0000
- * \li                        ORing                       => XXXX GGXX XXGG GGGG
+ * \li DDDD DD-- ---- --DD & 1111 1100 0000 0011          => DDDD DD00 0000 00DD
+ * \li (0000 0000 XXXX XXXX << 2) & 0000 0011 1111 1100   => 0000 00XX XXXX XX00
+ * \li                        ORing                       => DDDD DDXX XXXX XXDD
  */
 #define PWRITE(x) \
 { \
-  LATG = ( (PORTG & 0x0C3F) | ((((int)x) << 8) & 0xF000) | ((((int)x) << 6) & 0x03C0) ); \
+  LATD = ( (PORTD & 0xFC03) | ((((int)x) << 2) & 0x03FC) ); \
 }
 
 /**
  * \brief read a byte from data port
  * \return 8-bit data
  */
-#define PREAD()                     ( (unsigned char)( ((PORTG & 0xF000) >> 8) + ((PORTG & 0x03C0) >> 6) ) )
-
-
-
-//  ===========================ERROR PIN===================================
-/*
- * \brief ERROR PIN
- * \remarks Flashing LED0:          Address Error
- * \remarks Flashing LED1:          Maths Error
- * \remarks LED0 On:                Stack Error
- * \remarks LED1 On:                DMA Error (dspic33 only)
- * \remarks Flashing LED0 & LED1:   Not enough memory to start FreeRTOS scheduler
- */
-#define ERR_LED_CONFIG() \
-{ \
-  TRISC &= 0x7FFF; \
-  TRISD &= 0xFCFF; \
-  LATD &= 0xFCFF; \
-  PCONFIG(0); \
-}
-#define ERR_LED0(x)                 do { \
-                                      LATD = ((x)==1)? (LATD | 0x0200) : (LATD & 0xFDFF); \
-                                    } while(0)
-#define ERR_LED1(x)                 do { \
-                                      LATC &= 0x7FFF; /* CLK to LOW */ \
-                                      unsigned char state = PREAD(); \
-                                      if(x) state |= 0x40; \
-                                      else state &= 0xBF; \
-                                      PWRITE(state); \
-                                      udelay(1); /* DATA HOLD TIME */ \
-                                      LATC |= 0x1000; /* CLK to HIGH */ \
-                                    } while(0)
+#define PREAD()                         ( (unsigned char)( (PORTD & 0x03FC) >> 2) )
 
 
 
@@ -85,17 +53,17 @@
 /**
  * \brief set the RS485 digital control pin as output
  */
-#define RS485_CTL_EN()              TRISC &= 0xFFFD
+#define RS485_CTL_EN()                  TRISG &= 0x7FFF
 
 /**
  * \brief set the RS485 digital control pin to TX state
  */
-#define RS485_TX_ON()               LATC |= 0x0002
+#define RS485_TX_ON()                   LATG |= 0x8000
 
 /**
  * \brief set the RS485 digital control pin to RX state
  */
-#define RS485_TX_OFF()              LATC &= 0xFFFD
+#define RS485_TX_OFF()                  LATG &= 0x7FFF
 #endif /* UART_MOD */
 
 
@@ -134,33 +102,33 @@ extern int rkey_state (unsigned char id);
 #ifdef KB_PUSH_KEY
 #if (TOTAL_PUSH_KEY == 1)
 //Enter key
-#define EN_PKEY0()                  TRISD |= 0x0400
-#define IO_PKEY0()                  PORTD & 0x0400
+#define EN_PKEY0()                      TRISG |= 0x0002
+#define IO_PKEY0()                      PORTG & 0x0002
 #elif (TOTAL_PUSH_KEY == 5)
 //Enter key
-#define EN_PKEY0()                  TRISD |= 0x0400
-#define IO_PKEY0()                  PORTD & 0x0400
+#define EN_PKEY0()                      TRISD |= 0x0400
+#define IO_PKEY0()                      PORTD & 0x0400
 //Up key
-#define EN_PKEY1()                  TRISC |= 0x4000
-#define IO_PKEY1()                  PORTC & 0x4000
+#define EN_PKEY1()                      TRISC |= 0x4000
+#define IO_PKEY1()                      PORTC & 0x4000
 //Down key
-#define EN_PKEY2()                  TRISC |= 0x2000
-#define IO_PKEY2()                  PORTC & 0x2000
+#define EN_PKEY2()                      TRISC |= 0x2000
+#define IO_PKEY2()                      PORTC & 0x2000
 //Left key
-#define EN_PKEY3()                  TRISB |= 0x0080
-#define IO_PKEY3()                  PORTB & 0x0080
+#define EN_PKEY3()                      TRISB |= 0x0080
+#define IO_PKEY3()                      PORTB & 0x0080
 //Right key
-#define EN_PKEY4()                  TRISB |= 0x0040
-#define IO_PKEY4()                  PORTB & 0x0040
+#define EN_PKEY4()                      TRISB |= 0x0040
+#define IO_PKEY4()                      PORTB & 0x0040
 #endif /* TOTAL_PUSH_KEY */
 #endif /* KB_PUSH_KEY */
 //  -------------------------------------------------------------------------------
 #ifdef KB_FN_KEY
 //Function key
-#define EN_FN_KEY0()                TRISC |= 0x0004
-#define IO_FN_KEY0()                PORTC & 0x0004
-#define EN_FN_KEY1()                TRISB |= 0x0080
-#define IO_FN_KEY1()                PORTB & 0x0080
+#define EN_FN_KEY0()                    TRISC |= 0x0004
+#define IO_FN_KEY0()                    PORTC & 0x0004
+#define EN_FN_KEY1()                    TRISB |= 0x0080
+#define IO_FN_KEY1()                    PORTB & 0x0080
 #endif /* KB_FN_KEY */
 //  -------------------------------------------------------------------------------
 #ifdef KB_ROTATE_KEY
@@ -171,14 +139,14 @@ extern int rkey_state (unsigned char id);
   TRISC |= 0x2000; \
   _CN1IE = 1; /* change input register, interrupt setting */ \
 }
-#define IO_RKEY0_UP()               PORTC & 0x2000
+#define IO_RKEY0_UP()                   PORTC & 0x2000
 //Down Key
 #define EN_RKEY0_DN() \
 { \
   TRISC |= 0x4000; \
   _CN0IE = 1; /* change input register, interrupt setting */ \
 }
-#define IO_RKEY0_DN()               PORTC & 0x4000
+#define IO_RKEY0_DN()                   PORTC & 0x4000
 #endif /* TOTAL_ROTARY_KEY */
 #endif /* KB_ROTATE_KEY */
 #endif /* KB_MOD */
@@ -191,26 +159,8 @@ extern int rkey_state (unsigned char id);
 extern int fd_led;
 /**
  * \brief initialise IOs for LED port
- * \remarks \li Set RC15 (DO CTRL) as output
- * \remarks \li Set RD8 (DO_EN#) as output
- * \remarks \li Set RD9 (BUZZER) as output
  */ 
-#define LEDCONFIG() \
-{ \
-  TRISC &= 0x7FFF; \
-  TRISD &= 0xFCFF; \
-  LATD &= 0xFCFF; \
-  cli(); \
-  LED_CLK(0); \
-  PCONFIG(0); \
-  PWRITE(0x00); \
-  udelay(1); \
-  LED_CLK(1); \
-  udelay(1); \
-  sti(); \
-}
-#define LED_CLK(x)                  LATC = ((x)==1)? (LATC | 0x8000) : (LATC & 0x7FFF) 
-#define BUZZER_PIN(x)               LATD = ((x)==1)? (LATD | 0x0200) : (LATD & 0xFDFF) 
+extern void io_config (void);
 
 /**
  * \brief turn on led at hardware level
@@ -232,50 +182,36 @@ extern void io_off (int which);
 extern void led (unsigned char channel, unsigned char state);
 #endif /* LED_MOD */
 
-
-
-//  ==============================GPDI=====================================
-#ifdef GPDI_MOD
-/** handler for GPDI module */
-extern int fd_gpdi;
-/**
- * \brief initialize IOs for GPDI port
- * \remarks \li Set RD4 (CLK) as output
- * \remarks \li Set RD8 (#LD) as output
- * \remarks \li Set RD9 (QH) as input
- */ 
-#define GPDI_CONFIG()               do { \
-                                      TRISD &= 0xFEEF; /* D4 D8 as output */ \
-                                      TRISD |= 0x0200; /* D9 as input */ \
-                                    } while(0)
+#ifdef I2C_LED_DRIVER_MOD
+extern int fd_i2c_led;
+#define LCD_BACKLIGHT_CHANNEL0          0
+#define LCD_BACKLIGHT_CHANNEL1          1
+#define LED_CHANNEL0                    2
+#define LED_CHANNEL1                    3
+#define LED_CHANNEL2                    4
+#define MASTER_LED_CHANNEL              5
+#define BUZZER_VOLUME_CHANNEL0          6
+#define BUZZER_VOLUME_CHANNEL1          7
 
 /**
- * \brief set load pin
- * \param 0 shift mode
- * \param 1 load data mode
+ * \brief Control on off of buzzer
+ * \param status 0 = off, 1 = on
+ * \remarks volume depends on ui setting
  */
-#define GPDI_LOAD(x)                do { \
-                                      LATD = (x == 1)? (LATD & 0xFEFF) : (LATD | 0x0100); \
-                                      Nop(); \
-                                    } while(0)
+extern void ui_buzzer_ctrl (char status);
+#endif /* I2C_LED_DRIVER_MOD */
 
-/**
- * \brief set clk pin
- * \param 0 clk low
- * \param 1 clk high
- */
-#define GPDI_CLK(x)                do { \
-                                      LATD = (x == 0)? (LATD & 0xFFEF) : (LATD | 0x0010); \
-                                      Nop(); \
-                                    } while(0)
+//  ======================OBSOLETE ERROR PIN===============================
+#define ERR_LED_CONFIG()
+#define ERR_LED0(x)
+#define ERR_LED1(x)
 
-/**
- * \brief get pin state
- * \retval 0 low state
- * \retval >0 high state
- */
-#define GPDI_GET_STATE()            (PORTD & 0x0200)
-#endif /* GPDI_MOD */
+
+
+//  ===========================GPIO========================================
+#ifdef I2C_GPIO_MOD
+extern int fd_i2c_gpio;
+#endif /* I2C_GPIO_MOD */
 
 
 
@@ -285,37 +221,38 @@ extern int fd_gpdi;
  * \brief KEY MAPS
  * \remarks Interrupt Key Map
  */ 
-#define ETH_ISR_EP                  _INT0EP
-#define ETH_ISR_IF                  _INT0IF
-#define ETH_ISR_IP                  _INT0IP
-#define ETH_ISR_IE                  _INT0IE
-#define dmfe_interrupt              _IRQ _INT0Interrupt
+#define ETH_ISR_EP                      _INT0EP
+#define ETH_ISR_IF                      _INT0IF
+#define ETH_ISR_IP                      _INT0IP
+#define ETH_ISR_IE                      _INT0IE
+#define dmfe_interrupt                  _IRQ _INT0Interrupt
 
 /**
  * \brief initialise IOs for Ethernet port
- * \remarks ETH_CS#: output, [do not select chip]
- * \remarks ADDR0: output, [addressing mode]
- * \remarks IOR#: output, [not read]
- * \remarks IOW#: output, [not write]
+ * \remarks ETH_CS# (RG14): output, [do not select chip]
+ * \remarks ADDR0 (RG0): output, [addressing mode]
+ * \remarks IOR# (RF0): output, [not read]
+ * \remarks IOW# (RF1): output, [not write]
  */
 #define ETH_IOCONFIG() \
 { \
-  TRISD &= 0xF7DF; \
+  TRISG &= 0xBFFE; \
   TRISF &= 0xFFFC; \
-  LATD |= 0x0820; \
+  LATG |= 0x4001; \
   LATF |= 0x0003; \
 }
 
 /**
  * \brief set the IO pins to read/write an address/data register
  * \param x command\n
- *          bit 0: read mode\n
- *          bit 1: write mode\n
- *          bit 2: address/data
+ *          bit 0: IOR#\n
+ *          bit 1: IOW#\n
+ *          bit 2: ADDR/DATA\n
+ *          bit 3: CS#\n
  */
 #define ETH_IOCMD(x) \
 { \
-  LATD = ( (PORTD & 0xF7DF) | ((((int)x) << 2) & 0x0020) | ((((int)x) << 9) & 0x0800) ); \
+  LATG = ( (PORTG & 0xBFFE) | ((((int)x) << 11) & 0x4000) /* CS# */ | ((((int)x) >> 2) & 0x0001) /* ADDR/DATA */ ); \
   LATF = ( (PORTF & 0xFFFC) | (((int)x) & 0x0003) ); \
 }
 #endif /* ETHERNET_MOD */
@@ -327,90 +264,30 @@ extern int fd_gpdi;
 /** handler for LCD module */
 extern int fd_lcd;
 #endif /* LCD_MOD */
-#ifdef LCD_TWLM6023
+#ifdef LCD_TWLMB162NDC
 /**
  * \brief initialise IOs for LCD display
- * \remarks LCD_RES# (D7): output, [do not reset]
- * \remarks LCD_CS1# (D6): output, [do not select chip]
- * \remarks ADDR0 (D11): output, [addressing mode]
- * \remarks IOR/IOW# (F0): output, [read mode]
- * \remarks ENABLE CLK (F1): output, [disable clock]
+ * \remarks LCD_CS# (G12): output, [do not select chip]
+ * \remarks ADDR0 (G0): output, [addressing mode]
  */
 #define lcd_io_init() \
 { \
-  TRISD &= 0xF73F; \
-  TRISF &= 0xFFFC; \
-  LATF |= 0x0003; \
-  LATD |= 0x00C0; \
-  LATD &= 0xF7FF; \
+  TRISG &= 0xEFFE; \
+  LATG |= 0x1001; \
 }
-#define TW_LM6023_RS(x)             LATD = ((x)==1)? (LATD | 0x0800) : (LATD & 0xF7FF) 
-#define TW_LM6023_WR(x)             LATF = ((x)==1)? (LATF | 0x0001) : (LATF & 0xFFFE)
-#define TW_LM6023_EN(x)             LATF = ((x)==1)? (LATF | 0x0002) : (LATF & 0xFFFD)
-#define TW_LM6023_CS(x)             LATD = ((x)==1)? (LATD | 0x0040) : (LATD & 0xFFBF) 
-#define TW_LM6023_RES(x)            LATD = ((x)==1)? (LATD | 0x0080) : (LATD & 0xFF7F)
+#define TW_LMB162_RS(x)                 LATG = ((x)==1)? (LATG | 0x0001) : (LATG & 0xFFFE)
+#define TW_LMB162_WR(x)                 //directly short to ground for write mode only
+#define TW_LMB162_EN(x)                 LATG = ((x)==1)? (LATG | 0x1000) : (LATG & 0xEFFF)
 
-/** Constant for Amonics Logo */
-extern const unsigned char logo[];
 
 #ifdef PWM_MOD
-/** handler for PWM module for back-light control */
+/** handler for PWM module for contrast control */
 extern int fd_pwm;
 
-/** PWM channel id for LCD back-light */
-#define PWM_BACKLIGHT_CH            3
+/** PWM channel id for LCD contrast */
+#define PWM_CONTRAST_CH                 0
 #endif /* PWM_MOD */
-#endif /* LCD_TWLM6023 */
-//  ----------------------------------------------------------------------
-#ifdef VFD_FCM204SD02GJ
-#ifdef LCD_I80
-/**
- * \brief initialise IOs for LCD display
- */
-#define lcd_io_init()               do { \
-                                    } while(0)
-#define FC_M204_RS(x)
-#define FC_M204_WR(x)
-#endif /* LCD_I80 */
-#ifdef LCD_M68
-/**
- * \brief initialise IOs for LCD display
- */
-#define lcd_io_init()               do { \
-                                    } while(0)
-#define FC_M204_RS(x)
-#define FC_M204_WR(x)
-#define FC_M204_EN(x)
-#endif /* LCD_I80 */
-#endif /* VFD_FCM204SD02GJ */
-//  ----------------------------------------------------------------------
-#ifdef VFD_FCM162SD13AA
-#ifdef LCD_SERIAL
-/**
- * \brief initialise IOs for LCD display
- * \remarks LCD_RES# (D7): output, [do not reset]
- * \remarks LCD_CS1# (D6): output, [do not select chip]
- * \remarks LCD_CLK (G7)
- * \remarks LCD_DA (G6) 
- */
-#define lcd_io_init() \
-{ \
-  TRISD &= 0xFF3F; \
-}
-#define FC_M162_RES(x)              LATD = ((x)==1)? (LATD | 0x0080) : (LATD & 0xFF7F)
-#define FC_M162_CS(x)               LATD = ((x)==1)? (LATD | 0x0040) : (LATD & 0xFFBF) 
-#define FC_M162_CLK(x) \
-{ \
-  PCONFIG(0); \
-  LATG = ((x)==1)? (LATG | 0x0080) : (LATG & 0xFF7F); \
-}
-#define FC_M162_DA(x) \
-{ \
-  PCONFIG(0); \
-  LATG = ((x)==1)? (LATG | 0x0040) : (LATG & 0xFFBF); \
-}
-#endif /* LCD_SERIAL */
-#endif /* VFD_FCM162SD13AA */
+#endif /* LCD_TWLMB162NDC */
 
 
 #endif /* PIN_DEFINE_H_ */

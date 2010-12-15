@@ -29,7 +29,6 @@
 #include <define.h>
 #include <stddef.h>
 #include <kb.h>
-#include <gpdi.h>
 #include <led.h>
 
 /**
@@ -49,10 +48,6 @@ vApplicationIdleHook(void)
 #ifdef LED_MOD
   led_ctrl (NULL);
 #endif /* LED_MOD */
-
-#ifdef GPDI_MOD
-  gpdi_ctrl (NULL);
-#endif /* GPDI_MOD */
 
   //Application Idle Task
   UserIdleTask ();
