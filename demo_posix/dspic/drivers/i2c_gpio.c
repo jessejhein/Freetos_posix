@@ -195,12 +195,12 @@ i2c_gpio_open (int flags)
  * \remarks this function will not update software lat[] status
  */
 static void
-update_lat_pin (unsigned char port, unsigned char pin, unsigned char value)
+update_lat_pin (void)
 {
   unsigned char *tris_ptr;
   unsigned char *od_ptr;
   unsigned char *lat_ptr;
-  if (port == I2C_GPIO_PORTB)
+  if (gpio_port == I2C_GPIO_PORTB)
     {
       tris_ptr = &tris[1];
       od_ptr = &od[1];
@@ -213,47 +213,50 @@ update_lat_pin (unsigned char port, unsigned char pin, unsigned char value)
       lat_ptr = &lat[0];
     }
 
-  //pin is input
-  if ((*tris_ptr >> pin) & 0x01)
+  int i;
+  unsigned char tris_tmp = *tris_ptr;
+  unsigned char lat_tmp = *lat_ptr;
+  for (i = 0; i < 8; i++)
     {
-      //ignore setting
-    }
-  //pin is OD
-  else if ((*od_ptr >> pin) & 0x01)
-    {
-      unsigned char buf;
-      //logic HIGH
-      if (value)
-        {
-          //set pin to input for high impedance
-          gpio_address = I2C_GPIO_IODIR;
-          buf = *tris_ptr | (0x01 << pin);
-          while (i2c_gpio_lv_write (&buf) != 1);
-        }
-      //logic LOW
-      else
+      //pin is input
+      if ((*tris_ptr >> i) & 0x01)
         {
           //Set pin to zero
-          gpio_address = I2C_GPIO_OLAT;
-          buf = *lat_ptr & ~(0x01 << pin);
-          while (i2c_gpio_lv_write (&buf) != 1);
+          lat_tmp &= ~(0x01 << i);
+        }
+      //pin is OD
+      else if ((*od_ptr >> i) & 0x01)
+        {
+          //Set pin to zero
+          lat_tmp &= ~(0x01 << i);
 
-          //Set pin to output
-          gpio_address = I2C_GPIO_IODIR;
-          buf = *tris_ptr & ~(0x01 << pin);
-          while (i2c_gpio_lv_write (&buf) != 1);
+          //logic HIGH
+          if ((*lat_ptr >> i) & 0x01)
+            {
+              //set pin to input for high impedance
+              tris_tmp |= (0x01 << i);
+            }
+          //logic LOW
+          else
+            {
+              //Set pin to output
+              tris_tmp &= ~(0x01 << i);
+            }
+        }
+      //pin is output
+      else
+        {
+          //write status to LAT register directly
+          if ((*lat_ptr >> i) & 0x01) lat_tmp |= (0x01 << i);
+          else lat_tmp &= ~(0x01 << i);
         }
     }
-  //pin is output
-  else
-    {
-      //write status to LAT register directly
-      gpio_address = I2C_GPIO_OLAT;
-      unsigned char buf;
-      if (value) buf = *lat_ptr | (0x01 << pin);
-      else buf = *lat_ptr & ~(0x01 << pin);
-      while (i2c_gpio_lv_write (&buf) != 1);
-    }
+
+  gpio_address = I2C_GPIO_OLAT;
+  while (i2c_gpio_lv_write (&lat_tmp) != 1);
+
+  gpio_address = I2C_GPIO_IODIR;
+  while (i2c_gpio_lv_write (&tris_tmp) != 1);
 }
 
 
@@ -268,42 +271,8 @@ i2c_gpio_write (unsigned char *buf)
       if (od_flag)
         {
           od_flag = 0;
-          //get OD port
-          unsigned char* od_ptr;
-          unsigned char* lat_ptr;
-          if (gpio_port == I2C_GPIO_PORTB)
-            {
-              od_ptr = &od[1];
-              lat_ptr = &lat[1];
-            }
-          else
-            {
-              od_ptr = &od[0];
-              lat_ptr = &lat[0];
-            }
-
-          //For each status changed, update status and pin
-          int i;
-          for (i = 0; i < 8; i++)
-            {
-              unsigned char old_status = (*od_ptr >> i) & 0x01;
-              unsigned char new_status = (*buf >> i) & 0x01;
-              if (old_status != new_status)
-                {
-                  //ODx = 1
-                  if (new_status)
-                    {
-                      *od_ptr |= (0x01 << i);
-                      update_lat_pin (gpio_port, i, (*lat_ptr >> i) & 0x01);
-                    }
-                  //ODx = 0
-                  else
-                    {
-                      *od_ptr &= ~(0x01 << i);
-                      //TODO: handle this case
-                    }
-                }
-            }
+          if (gpio_port == I2C_GPIO_PORTB) od[1] = *buf;
+          else od[0] = *buf;
         }
       //set TRIS
       else if (gpio_address == I2C_GPIO_IODIR)
@@ -315,23 +284,16 @@ i2c_gpio_write (unsigned char *buf)
       //set LAT/PORT
       else
         {
-          int i;
-          for (i = 0; i < 8; i++)
+          //update software LAT status
+          if (gpio_port == I2C_GPIO_PORTB)
             {
-              unsigned char status = (*buf >> i) & 0x01;
-              update_lat_pin (gpio_port, i, status);
-              //update software LAT status
-              if (gpio_port == I2C_GPIO_PORTB)
-                {
-                  if (status) lat[1] |= (0x01 << i);
-                  else lat[1] &= ~(0x01 << i);
-                }
-              else
-                {
-                  if (status) lat[0] |= (0x01 << i);
-                  else lat[0] &= ~(0x01 << i);
-                }
+              lat[1] = *buf;
             }
+          else
+            {
+              lat[0] = *buf;
+            }
+          update_lat_pin ();
         }
     }
   //Error, raise error flag
