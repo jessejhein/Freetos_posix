@@ -25,8 +25,8 @@
 #include <define.h>
 
 #ifndef SYSTEM_CLK_HZ
-#error SYSTEM_CLK_HZ must be defined in define.h
-#endif /* NOT SYSTEM_CLK_HZ */
+#error "SYSTEM_CLK_HZ must be defined in define.h"
+#endif /* SYSTEM_CLK_HZ */
 
 /**
  * \brief implementing microsecond delay using looping

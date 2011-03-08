@@ -17,5 +17,11 @@
 // Pin setting =================================================
 #include "pin_define.h"                 //temporary here, must be after laser ctrl config
 
-#endif /*DEFINE_H_*/
+
+/********************************************************************************
+ * File System
+ ********************************************************************************/
+#define FS_ROOT                         "0:amonics/"
+
+#endif /* DEFINE_H_*/
 

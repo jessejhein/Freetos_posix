@@ -7,6 +7,7 @@
 #include <define.h>
 #include <errno.h>
 #include <asm/types.h>
+#include <string.h>
 #include <adc.h>
 #ifdef ETHERNET_MOD
 #include <dm9000a.h>
@@ -25,141 +26,197 @@
 #include <pwm.h>
 #include <uart.h>
 
+
 //-----------------------------------------------------------------------------------------
 /**
- * \remarks 
- * \li valid pathname spans from 'A' - 'Z' (i.e. support 26 devices at max)
+ * \brief string identifier for root path for open()
+ * \remarks
+ * For convenient, we use a single character to denote the path,
+ * '>' for stdin
+ * '?' for stdout
+ * '@' for stderr
+ * 'A' for 1st device
+ * 'B' for 2nd device, etc.
+ */
+#define DEVICE_USR_PATH                 0x3E            //'A'-3
+
+
+/**
+ * Definition of File Descriptor
+ * 
+ * Only use 1 byte because fopen() in stdio.h can only handle file descriptor of 1 byte
+ * 
+ *  +-----+---+-----------+
+ *  | 0 0 | T | i i i i i |
+ *  +-----+---+-----------+
+ *        |   |
+ *        |   +--------------------- Index (0 - 31)
+ *        |
+ *        +------------------------- Type  (0 - 1)
+ * 
+ */
+#define DEV_INDEX_MASK                  0x001F
+#define DEV_TYPE_MASK                   0x0060
+  #define DEV_TYPE_USR_DEFINED          0x0000
+  #define DEV_TYPE_VOLUME0              0x0020
+
+
+/**
+ * \brief Default Root Folder
+ */
+#ifndef FS_ROOT
+#define FS_ROOT                         "0:"
+#endif /* FS_ROOT */
+
+//-----------------------------------------------------------------------------------------
+/**
+ * \remarks
+ * \li if pathname starts with FS_ROOT, goto file system
+ * \li else check valid pathname spans from 'A' - 'Z' (i.e. support 26 devices at max)
  * \li return file handler 3 -28 respectively
  * \li file handler 0, 1, 2 are reserved for stdout, stdin, and stderr respectively     
  */
 int _LIBC 
 open (const char *pathname, int flags)
 {
-  int tmp;
-  tmp = *pathname - 0x3E; //0x3E = '>'
-  
-  //STDOUT, STDIN, STDERR
-  if (tmp < 3)
+#ifdef FILE_SYSTEM
+  //file system (for compatibility of fopen)
+  if (strncmp (pathname, FS_ROOT, strlen (FS_ROOT)) == 0)
     {
-      return tmp;
+      int index = fatfs_open (0, pathname, flags);
+      if (index != -1)
+        {
+          return (DEV_TYPE_VOLUME0 | index);
+        }
     }
+  //user defined devices
+  else
+#endif /* FILE_SYSTEM */
+    {
+      int id = *pathname - DEVICE_USR_PATH;
+
+     //STDOUT, STDIN, STDERR
+      if (id < 3)
+        {
+          return id;
+        }
 
 #ifdef UART_MOD
-  if (tmp < (BASE_COM + NO_OF_UART))
-    {
-      return (uart_open (tmp - BASE_COM, flags) == 0)? tmp : -1;
-    }
+      if (id < (BASE_COM + NO_OF_UART))
+        {
+          return (uart_open (id - BASE_COM, flags) == 0)? id : -1;
+        }
 #endif /* UART_MOD */
 
 #ifdef I2C_DAC_MOD
-  if (tmp == BASE_I2C_DAC)
-    {
-      return (i2c_dac_open (flags) == 0)? tmp : -1;
-    }
+      if (id == BASE_I2C_DAC)
+        {
+          return (i2c_dac_open (flags) == 0)? id : -1;
+        }
 #endif /* I2C_DAC_MOD */
 
 #ifdef I2C_ADC_MOD
-  if (tmp == BASE_I2C_ADC)
-    {
-      return (i2c_adc_open (flags) == 0)? tmp : -1;
-    }
+      if (id == BASE_I2C_ADC)
+        {
+          return (i2c_adc_open (flags) == 0)? id : -1;
+        }
 #endif /* I2C_ADC_MOD */
 
 #ifdef I2C_TEMP_MOD
-  if (tmp == BASE_I2C_TEMP)
-    {
-      return (i2c_temp_open (flags) == 0)? tmp : -1;
-    }
+      if (tmp == BASE_I2C_TEMP)
+        {
+          return (i2c_temp_open (flags) == 0)? tmp : -1;
+        }
 #endif /* I2C_TEMP_MOD */
 
 #ifdef NVM_MOD
-  if (tmp == BASE_NVM)
-    {
+      if (id == BASE_NVM)
+        {
 #ifdef NVM_FLASH
-      return (flash_eeprom_open (flags) == 0)? tmp : -1;
+          return (flash_eeprom_open (flags) == 0)? id : -1;
 #endif /* NVM_FLASH */
 #ifdef NVM_ON_CHIP
-      return (eeprom_open (flags) == 0)? tmp : -1;
+          return (eeprom_open (flags) == 0)? id : -1;
 #endif /* NVM_ON_CHIP */
-    }
+        }
 #ifdef NVM_I2C
-  if (tmp == (BASE_NVM + 1))
-    {
-      return (i2c_eeprom_open (flags) == 0)? tmp : -1;
-    }
+      if (id == (BASE_NVM + 1))
+        {
+          return (i2c_eeprom_open (flags) == 0)? id : -1;
+        }
 #endif /* NVM_I2C */
 #endif /* NVM_MOD */
 
 #ifdef I2C_MOD_MASTER_DSPIC
-  if (tmp == BASE_I2C_MOD_DSPIC)
-    {
-      return (i2c_mod_master_open (flags) == 0)? tmp : -1;
-    }
+      if (id == BASE_I2C_MOD_DSPIC)
+        {
+          return (i2c_mod_master_open (flags) == 0)? id : -1;
+        }
 #endif /* I2C_MOD_MASTER_DSPIC */
 
 #ifdef I2C_MOD_SLAVE_DSPIC
-  if (tmp == BASE_I2C_MOD_DSPIC)
-    {
-      return (i2c_mod_slave_open (flags) == 0)? tmp : -1;
-    }
+      if (id == BASE_I2C_MOD_DSPIC)
+        {
+          return (i2c_mod_slave_open (flags) == 0)? id : -1;
+        }
 #endif /* I2C_MOD_SLAVE_DSPIC */
 
 #ifdef I2C_LED_DRIVER_MOD
-  if (tmp == BASE_I2C_LED_DRIVER)
-    {
-      return (i2c_led_driver_open (flags) == 0)? tmp : -1;
-    }
+      if (id == BASE_I2C_LED_DRIVER)
+        {
+          return (i2c_led_driver_open (flags) == 0)? id : -1;
+        }
 #endif /* I2C_LED_DRIVER_MOD */
 
 #ifdef I2C_GPIO_MOD
-  if (tmp == BASE_I2C_GPIO)
-    {
-      return (i2c_gpio_open (flags) == 0)? tmp : -1;
-    }
+      if (id == BASE_I2C_GPIO)
+        {
+          return (i2c_gpio_open (flags) == 0)? id : -1;
+        }
 #endif /* I2C_GPIO_MOD */
 
 #ifdef ADC_MOD
-  if (tmp == BASE_ADC)
-    {
-      return (adc_open (flags) == 0)? tmp : -1;
-    }
+      if (id == BASE_ADC)
+        {
+          return (adc_open (flags) == 0)? id : -1;
+        }
 #endif /* ADC_MOD */
 
 #ifdef PWM_MOD
-  if (tmp == BASE_PWM)
-    {
-      return (pwm_open (flags) == 0)? tmp : -1;
-    }
+      if (id == BASE_PWM)
+        {
+          return (pwm_open (flags) == 0)? id : -1;
+        }
 #endif /* PWM_MOD */
 
 #ifdef KB_MOD
-  if (tmp == BASE_KB)
-    {
-      return (kb_open (flags) == 0)? tmp : -1;
-    }
+      if (id == BASE_KB)
+        {
+          return (kb_open (flags) == 0)? id : -1;
+        }
 #endif /* KB_MOD */
 
 #ifdef ETHERNET_MOD
-  if (tmp == BASE_ETHERNET)
-    {
-      return (dmfe_open (flags) == 0)? tmp : -1;
-    }
+      if (id == BASE_ETHERNET)
+        {
+          return (dmfe_open (flags) == 0)? id : -1;
+        }
 #endif /* ETHERNET_MOD */
 
 #ifdef LED_MOD
-  if (tmp == BASE_LED)
-    {
-      return (led_open (flags) == 0)? tmp : -1;
-    }
+      if (id == BASE_LED)
+        {
+          return (led_open (flags) == 0)? id : -1;
+        }
 #endif /* LED_MOD */
 
 #ifdef LCD_MOD
-  if (tmp == BASE_LCD)
-    {
-      return tmp;
-    }
+      if (id == BASE_LCD)
+        {
+          return id;
+        }
 #endif /* LCD_MOD */
-
+    }
   errno = ENXIO;
   return -1;
 }
@@ -170,19 +227,40 @@ open (const char *pathname, int flags)
 int _LIBC 
 close (int fd)
 {
+  switch (fd & DEV_TYPE_MASK)
+    {
+      /*
+       * User defined devices
+       */
+      case DEV_TYPE_USR_DEFINED:
+        {
+          fd &= DEV_INDEX_MASK;
 #ifdef UART_MOD
-  if (fd < (BASE_COM + NO_OF_UART))
-    {
-      return uart_close (fd-BASE_COM);
-    }
+          if (fd < (BASE_COM + NO_OF_UART))
+            {
+              return uart_close (fd - BASE_COM);
+            }
 #endif /* UART_MOD */
-#ifdef ETHERNET_MOD
-  if (fd == BASE_ETHERNET)
-    {
-      return dmfe_close ();
-    }
-#endif /* ETHERNET_MOD */
 
+#ifdef ETHERNET_MOD
+          if (fd == BASE_ETHERNET)
+            {
+              return dmfe_close ();
+            }
+#endif /* ETHERNET_MOD */
+          break;
+        }
+#ifdef FILE_SYSTEM
+      /*
+       * DISK 0
+       */
+      case DEV_TYPE_VOLUME0:
+        {
+          fd &= DEV_INDEX_MASK;
+          return fatfs_close (0, fd);
+        }
+#endif /* FILE_SYSTEM */
+    }
   return -1;
 }
 
@@ -192,132 +270,153 @@ close (int fd)
 int _LIBC 
 write (int fd, void* buf, int count) 
 {
-  if (fd < 0)
+  switch (fd & DEV_TYPE_MASK)
     {
-      return -1;
-    }
-  //DEBUG PORT
-  if (fd < 3)
-    {
-      return uart_write (DEBUG_UART, buf, count);
-    }
+      /*
+       * User defined devices
+       */
+      case DEV_TYPE_USR_DEFINED:
+        {
+          fd &= DEV_INDEX_MASK;
+          if (fd < 0)
+            {
+              return -1;
+            }
+
+          //DEBUG PORT
+          if (fd < 3)
+            {
+              return uart_write (DEBUG_UART, buf, count);
+            }
 
 #ifdef UART_MOD
-  if (fd < (BASE_COM + NO_OF_UART))
-    {
-      return uart_write (fd-BASE_COM, buf, count);
-    }
+          if (fd < (BASE_COM + NO_OF_UART))
+            {
+              return uart_write (fd - BASE_COM, buf, count);
+            }
 #endif /* UART_MOD */
 
 #ifdef I2C_DAC_MOD
-  if (fd == BASE_I2C_DAC)
-    {
-      return i2c_dac_write (buf);
-    }
+          if (fd == BASE_I2C_DAC)
+            {
+              return i2c_dac_write (buf);
+            }
 #endif /* I2C_DAC_MOD */
 
 #ifdef I2C_ADC_MOD
-  if (fd == BASE_I2C_ADC)
-    {
-      return 0;
-    }
+          if (fd == BASE_I2C_ADC)
+            {
+              return 0;
+            }
 #endif /* I2C_ADC_MOD */
 
 #ifdef I2C_TEMP_MOD
-  if (fd == BASE_I2C_TEMP)
-    {
-      return 0;
-    }
+          if (fd == BASE_I2C_TEMP)
+            {
+              return 0;
+            }
 #endif /* I2C_TEMP_MOD */
 
 #ifdef NVM_MOD
-  if (fd == BASE_NVM)
-    {
+          if (fd == BASE_NVM)
+            {
 #ifdef NVM_FLASH
-      return flash_eeprom_write (buf, count);
+              return flash_eeprom_write (buf, count);
 #endif /* NVM_FLASH */
 #ifdef NVM_ON_CHIP
-      return eeprom_write (buf, count);
+              return eeprom_write (buf, count);
 #endif /* NVM_ON_CHIP */
-    }
+            }
 #ifdef NVM_I2C
-  if (fd == (BASE_NVM + 1))
-    {
-      return i2c_eeprom_write (buf, count);
-    }
+          if (fd == (BASE_NVM + 1))
+            {
+              return i2c_eeprom_write (buf, count);
+            }
 #endif /* NVM_I2C */
 #endif /* NVM_MOD */
 
 #ifdef I2C_MOD_MASTER_DSPIC
-  if (fd == BASE_I2C_MOD_DSPIC)
-    {
-      return i2c_mod_master_write (buf);
-    }
+          if (fd == BASE_I2C_MOD_DSPIC)
+            {
+              return i2c_mod_master_write (buf);
+            }
 #endif /* I2C_MOD_MASTER_DSPIC */
 
 #ifdef I2C_MOD_SLAVE_DSPIC
-  if (fd == BASE_I2C_MOD_DSPIC)
-    {
-      return i2c_mod_slave_write (buf);
-    }
+          if (fd == BASE_I2C_MOD_DSPIC)
+            {
+              return i2c_mod_slave_write (buf);
+            }
 #endif /* I2C_MOD_SLAVE_DSPIC */
 
 #ifdef I2C_LED_DRIVER_MOD
-  if (fd == BASE_I2C_LED_DRIVER)
-    {
-      return i2c_led_driver_write (buf);
-    }
+          if (fd == BASE_I2C_LED_DRIVER)
+            {
+              return i2c_led_driver_write (buf);
+            }
 #endif /* I2C_LED_DRIVER_MOD */
 
 #ifdef I2C_GPIO_MOD
-  if (fd == BASE_I2C_GPIO)
-    {
-      return i2c_gpio_write (buf);
-    }
+          if (fd == BASE_I2C_GPIO)
+            {
+              return i2c_gpio_write (buf);
+            }
 #endif /* I2C_GPIO_MOD */
 
 #ifdef ADC_MOD
-  if (fd == BASE_ADC)
-    {
-      return 0;
-    }
+          if (fd == BASE_ADC)
+            {
+              return 0;
+            }
 #endif /* ADC_MOD */
 
 #ifdef PWM_MOD
-  if (fd == BASE_PWM)
-    {
-      return pwm_write (buf);
-    }
+          if (fd == BASE_PWM)
+            {
+              return pwm_write (buf);
+            }
 #endif /* PWM_MOD */
 
 #ifdef KB_MOD
-  if (fd == BASE_KB)
-    {
-      return 0;
-    }
+          if (fd == BASE_KB)
+            {
+              return 0;
+            }
 #endif /* KB_MOD */
 
 #ifdef ETHERNET_MOD
-  if (fd == BASE_ETHERNET)
-    {
-      return dmfe_write ();
-    }
+          if (fd == BASE_ETHERNET)
+            {
+              return dmfe_write ();
+            }
 #endif /* ETHERNET_MOD */
 
 #ifdef LED_MOD
-  if (fd == BASE_LED)
-    {
-      return led_write (buf);
-    }
+          if (fd == BASE_LED)
+            {
+              return led_write (buf);
+            }
 #endif /* LED_MOD */
 
 #ifdef LCD_MOD
-  if (fd == BASE_LCD)
-    {
-      return 0;
-    }
+          if (fd == BASE_LCD)
+            {
+              return 0;
+            }
 #endif /* LCD_MOD */
-
+          break;
+        }
+#ifdef FILE_SYSTEM
+      /*
+       * DISK 0
+       */
+      case DEV_TYPE_VOLUME0:
+        {
+          fd &= DEV_INDEX_MASK;
+          return fatfs_write (0, fd, buf, count);
+        }
+#endif /* FILE_SYSTEM */
+    }
   return -1;
 }
 
@@ -327,126 +426,148 @@ write (int fd, void* buf, int count)
 int _LIBC 
 read (int fd, void* buf, int count)
 {
-  if (fd < 3)
+  switch (fd & DEV_TYPE_MASK)
     {
-      return -1;
-    }
+      /*
+       * User defined devices
+       */
+      case DEV_TYPE_USR_DEFINED:
+        {
+          fd &= DEV_INDEX_MASK;
+
+          if (fd < 3)
+            {
+              return -1;
+            }
+
 #ifdef UART_MOD
-  if (fd < (BASE_COM + NO_OF_UART))
-    {
-      return uart_read (fd-BASE_COM, buf);
-    }
+          if (fd < (BASE_COM + NO_OF_UART))
+            {
+              return uart_read (fd - BASE_COM, buf);
+            }
 #endif /* UART_MOD */
 
 #ifdef I2C_DAC_MOD
-  if (fd == BASE_I2C_DAC)
-    {
-      return i2c_dac_read (buf);
-    }
+          if (fd == BASE_I2C_DAC)
+            {
+              return i2c_dac_read (buf);
+            }
 #endif /* I2C_DAC_MOD */
 
 #ifdef I2C_ADC_MOD
-  if (fd == BASE_I2C_ADC)
-    {
-      return i2c_adc_read (buf, count);
-    }
+          if (fd == BASE_I2C_ADC)
+            {
+              return i2c_adc_read (buf, count);
+            }
 #endif /* I2C_ADC_MOD */
 
 #ifdef I2C_TEMP_MOD
-  if (fd == BASE_I2C_TEMP)
-    {
-      return i2c_temp_read (buf, count);
-    }
+          if (fd == BASE_I2C_TEMP)
+            {
+              return i2c_temp_read (buf, count);
+            }
 #endif /* I2C_TEMP_MOD */
 
 #ifdef NVM_MOD
-  if (fd == BASE_NVM)
-    {
+          if (fd == BASE_NVM)
+            {
 #ifdef NVM_FLASH
-      return flash_eeprom_read (buf, count);
+              return flash_eeprom_read (buf, count);
 #endif /* NVM_FLASH */
 #ifdef NVM_ON_CHIP
-      return eeprom_read (buf, count);
+              return eeprom_read (buf, count);
 #endif /* NVM_ON_CHIP */
-    }
+            }
 #ifdef NVM_I2C
-  if (fd == (BASE_NVM + 1))
-    {
-      return i2c_eeprom_read (buf, count);
-    }
+          if (fd == (BASE_NVM + 1))
+            {
+              return i2c_eeprom_read (buf, count);
+            }
 #endif /* NVM_I2C */
 #endif /* NVM_MOD */
 
 #ifdef I2C_MOD_MASTER_DSPIC
-  if (fd == BASE_I2C_MOD_DSPIC)
-    {
-      return i2c_mod_master_read (buf);
-    }
+          if (fd == BASE_I2C_MOD_DSPIC)
+            {
+              return i2c_mod_master_read (buf);
+            }
 #endif /* I2C_MOD_MASTER_DSPIC */
 
 #ifdef I2C_MOD_SLAVE_DSPIC
-  if (fd == BASE_I2C_MOD_DSPIC)
-    {
-      return i2c_mod_slave_read (buf);
-    }
+          if (fd == BASE_I2C_MOD_DSPIC)
+            {
+              return i2c_mod_slave_read (buf);
+            }
 #endif /* I2C_MOD_SLAVE_DSPIC */
 
 #ifdef I2C_LED_DRIVER_MOD
-  if (fd == BASE_I2C_LED_DRIVER)
-    {
-      return 0;
-    }
+          if (fd == BASE_I2C_LED_DRIVER)
+            {
+              return 0;
+            }
 #endif /* I2C_LED_DRIVER_MOD */
 
 #ifdef I2C_GPIO_MOD
-  if (fd == BASE_I2C_GPIO)
-    {
-      return i2c_gpio_read (buf);
-    }
+          if (fd == BASE_I2C_GPIO)
+            {
+              return i2c_gpio_read (buf);
+            }
 #endif /* I2C_GPIO_MOD */
 
 #ifdef ADC_MOD
-  if (fd == BASE_ADC)
-    {
-      return adc_read (buf, count);
-    }
+          if (fd == BASE_ADC)
+            {
+              return adc_read (buf, count);
+            }
 #endif /* ADC_MOD */
 
 #ifdef PWM_MOD
-  if (fd == BASE_PWM)
-    {
-      return 0;
-    }
+          if (fd == BASE_PWM)
+            {
+              return 0;
+            }
 #endif /* PWM_MOD */
 
 #ifdef KB_MOD
-  if (fd == BASE_KB)
-    {
-      return kb_read (buf);
-    }
+          if (fd == BASE_KB)
+            {
+              return kb_read (buf);
+            }
 #endif /* KB_MOD */
 
 #ifdef ETHERNET_MOD
-  if (fd == BASE_ETHERNET)
-    {
-      return dmfe_read ();
-    }
+          if (fd == BASE_ETHERNET)
+            {
+              return dmfe_read ();
+            }
 #endif /* ETHERNET_MOD */
 
 #ifdef LED_MOD
-  if (fd == BASE_LED)
-    {
-      return 0;
-    }
+          if (fd == BASE_LED)
+            {
+              return 0;
+            }
 #endif /* LED_MOD */
 
 #ifdef LCD_MOD
-  if (fd == BASE_LCD)
-    {
-      return 0;
-    }
+          if (fd == BASE_LCD)
+            {
+              return 0;
+            }
 #endif /* LCD_MOD */
-
+          break;
+        }
+#ifdef FILE_SYSTEM
+      /*
+       * DISK 0
+       */
+      case DEV_TYPE_VOLUME0:
+        {
+          fd &= DEV_INDEX_MASK;
+          return fatfs_read (0, fd, buf, count);
+        }
+#endif /* FILE_SYSTEM */
+    }
   return -1;
 }
 
@@ -456,116 +577,127 @@ read (int fd, void* buf, int count)
 int _LIBC 
 ioctl (int fd, int request, void* argp) 
 {
-  if (fd < 3)
+  switch (fd & DEV_TYPE_MASK)
     {
-      return -1;
-    }
+      /*
+       * User defined devices
+       */
+      case DEV_TYPE_USR_DEFINED:
+        {
+          fd &= DEV_INDEX_MASK;
+
+          if (fd < 3)
+            {
+              return -1;
+            }
 
 #ifdef UART_MOD
-  if (fd < (BASE_COM + NO_OF_UART))
-    {
-      return uart_ioctl (fd - BASE_COM, request, argp);
-    }
+          if (fd < (BASE_COM + NO_OF_UART))
+            {
+              return uart_ioctl (fd - BASE_COM, request, argp);
+            }
 #endif /* UART_MOD */
 
 #ifdef I2C_DAC_MOD
-  if (fd == BASE_I2C_DAC)
-    {
-      return i2c_dac_ioctl (request, argp);
-    }
+          if (fd == BASE_I2C_DAC)
+            {
+              return i2c_dac_ioctl (request, argp);
+            }
 #endif /* I2C_DAC_MOD */
 
 #ifdef I2C_ADC_MOD
-  if (fd == BASE_I2C_ADC)
-    {
-      return i2c_adc_ioctl (request, argp);
-    }
+          if (fd == BASE_I2C_ADC)
+            {
+              return i2c_adc_ioctl (request, argp);
+            }
 #endif /* I2C_ADC_MOD */
 
 #ifdef I2C_TEMP_MOD
-  if (fd == BASE_I2C_TEMP)
-    {
-      return i2c_temp_ioctl (request, argp);
-    }
+          if (fd == BASE_I2C_TEMP)
+            {
+              return i2c_temp_ioctl (request, argp);
+            }
 #endif /* I2C_TEMP_MOD */
 
 #ifdef NVM_MOD
-  if((fd >= BASE_NVM) && (fd<(BASE_NVM+1)))
-    {
-      return 0;
-    }
+          if ((fd >= BASE_NVM) && (fd < (BASE_NVM + 1)))
+            {
+              return 0;
+            }
 #endif /* NVM_MOD */
 
 #ifdef I2C_MOD_MASTER_DSPIC
-  if (fd == BASE_I2C_MOD_DSPIC)
-    {
-      return i2c_mod_master_ioctl (request, argp);
-    }
+          if (fd == BASE_I2C_MOD_DSPIC)
+            {
+              return i2c_mod_master_ioctl (request, argp);
+            }
 #endif /* I2C_MOD_MASTER_DSPIC */
 
 #ifdef I2C_MOD_SLAVE_DSPIC
-  if (fd == BASE_I2C_MOD_DSPIC)
-    {
-      return i2c_mod_slave_ioctl (request, argp);
-    }
+          if (fd == BASE_I2C_MOD_DSPIC)
+            {
+              return i2c_mod_slave_ioctl (request, argp);
+            }
 #endif /* I2C_MOD_SLAVE_DSPIC */
 
 #ifdef I2C_LED_DRIVER_MOD
-  if (fd == BASE_I2C_LED_DRIVER)
-    {
-      return i2c_led_driver_ioctl (request, argp);
-    }
+          if (fd == BASE_I2C_LED_DRIVER)
+            {
+              return i2c_led_driver_ioctl (request, argp);
+            }
 #endif /* I2C_LED_DRIVER_MOD */
 
 #ifdef I2C_GPIO_MOD
-  if (fd == BASE_I2C_GPIO)
-    {
-      return i2c_gpio_ioctl (request, argp);
-    }
+          if (fd == BASE_I2C_GPIO)
+            {
+              return i2c_gpio_ioctl (request, argp);
+            }
 #endif /* I2C_GPIO_MOD */
 
 #ifdef ADC_MOD
-  if(fd == BASE_ADC)
-    {
-      return adc_ioctl(request, argp);
-    }
+          if (fd == BASE_ADC)
+            {
+              return adc_ioctl(request, argp);
+            }
 #endif /* ADC_MOD */
 
 #ifdef PWM_MOD
-  if (fd == BASE_PWM)
-    {
-      return pwm_ioctl (request, argp);
-    }
+          if (fd == BASE_PWM)
+            {
+              return pwm_ioctl (request, argp);
+            }
 #endif /* PWM_MOD */
 
 #ifdef KB_MOD
-  if (fd == BASE_KB)
-    {
-      return 0;
-    }
+          if (fd == BASE_KB)
+            {
+              return 0;
+            }
 #endif /* KB_MOD */
 
 #ifdef ETHERNET_MOD
-  if (fd == BASE_ETHERNET)
-    {
-      return 0;
-    }
+          if (fd == BASE_ETHERNET)
+            {
+              return 0;
+            }
 #endif /* ETHERNET_MOD */
 
 #ifdef LED_MOD
-  if (fd == BASE_LED)
-    {
-      return led_ioctl (request, argp);
-    }
+          if (fd == BASE_LED)
+            {
+              return led_ioctl (request, argp);
+            }
 #endif /* LED_MOD */
 
 #ifdef LCD_MOD
-  if (fd == BASE_LCD)
-    {
-      return lcd_ioctl (request, argp);
-    }
+          if (fd == BASE_LCD)
+            {
+              return lcd_ioctl (request, argp);
+            }
 #endif /* LCD_MOD */
-
+          break;
+        }
+    }
   return -1;
 }
 
@@ -575,125 +707,147 @@ ioctl (int fd, int request, void* argp)
 int _LIBC 
 lseek (int fd, int offset, int whence) 
 {
-  if (fd < 3)
+  switch (fd & DEV_TYPE_MASK)
     {
-      return -1;
-    }
+      /*
+       * User defined devices
+       */
+      case DEV_TYPE_USR_DEFINED:
+        {
+          fd &= DEV_INDEX_MASK;
+
+          if (fd < 3)
+            {
+              return -1;
+            }
+
 #ifdef UART_MOD
-  if (fd < (BASE_COM + NO_OF_UART))
-    {
-      return 0;
-    }
+          if (fd < (BASE_COM + NO_OF_UART))
+            {
+              return 0;
+            }
 #endif /* UART_MOD */
 
 #ifdef I2C_DAC_MOD
-  if (fd == BASE_I2C_DAC)
-    {
-      return 0;
-    }
+          if (fd == BASE_I2C_DAC)
+            {
+              return 0;
+            }
 #endif /* I2C_DAC_MOD */
 
 #ifdef I2C_ADC_MOD
-  if (fd == BASE_I2C_ADC)
-    {
-      return 0;
-    }
+          if (fd == BASE_I2C_ADC)
+            {
+              return 0;
+            }
 #endif /* I2C_ADC_MOD */
 
 #ifdef I2C_TEMP_MOD
-  if (fd == BASE_I2C_TEMP)
-    {
-      return 0;
-    }
+          if (fd == BASE_I2C_TEMP)
+            {
+              return 0;
+            }
 #endif /* I2C_TEMP_MOD */
 
 #ifdef NVM_MOD
-  if (fd == BASE_NVM)
-    {
+          if (fd == BASE_NVM)
+            {
 #ifdef NVM_FLASH
-      return flash_eeprom_lseek (offset, whence);
+              return flash_eeprom_lseek (offset, whence);
 #endif /* NVM_FLASH */
 #ifdef NVM_ON_CHIP
-      return eeprom_lseek (offset, whence);
+              return eeprom_lseek (offset, whence);
 #endif /* NVM_ON_CHIP */
-    }
+            }
 #ifdef NVM_I2C
-  if (fd == (BASE_NVM + 1))
-    {
-      return i2c_eeprom_lseek (offset, whence);
-    }
+          if (fd == (BASE_NVM + 1))
+            {
+              return i2c_eeprom_lseek (offset, whence);
+            }
 #endif /* NVM_I2C */
 #endif /* NVM_MOD */
 
 #ifdef I2C_MOD_MASTER_DSPIC
-  if (fd == BASE_I2C_MOD_DSPIC)
-    {
-      return 0;
-    }
+          if (fd == BASE_I2C_MOD_DSPIC)
+            {
+              return 0;
+            }
 #endif /* I2C_MOD_MASTER_DSPIC */
 
 #ifdef I2C_MOD_SLAVE_DSPIC
-  if (fd == BASE_I2C_MOD_DSPIC)
-    {
-      return 0;
-    }
+          if (fd == BASE_I2C_MOD_DSPIC)
+            {
+              return 0;
+            }
 #endif /* I2C_MOD_SLAVE_DSPIC */
 
 #ifdef I2C_LED_DRIVER_MOD
-  if (fd == BASE_I2C_LED_DRIVER)
-    {
-      return 0;
-    }
+          if (fd == BASE_I2C_LED_DRIVER)
+            {
+              return 0;
+            }
 #endif /* I2C_LED_DRIVER_MOD */
 
 #ifdef I2C_GPIO_MOD
-  if (fd == BASE_I2C_GPIO)
-    {
-      return 0;
-    }
+          if (fd == BASE_I2C_GPIO)
+            {
+              return 0;
+            }
 #endif /* I2C_GPIO_MOD */
 
 #ifdef ADC_MOD
-  if (fd == BASE_ADC)
-    {
-      return 0;
-    }
+          if (fd == BASE_ADC)
+            {
+              return 0;
+            }
 #endif /* ADC_MOD */
 
 #ifdef PWM_MOD
-  if (fd == BASE_PWM)
-    {
-      return 0;
-    }
+          if (fd == BASE_PWM)
+            {
+              return 0;
+            }
 #endif /* PWM_MOD */
 
 #ifdef KB_MOD
-  if (fd == BASE_KB)
-    {
-      return 0;
-    }
+          if (fd == BASE_KB)
+            {
+              return 0;
+            }
 #endif /* KB_MOD */
 
 #ifdef ETHERNET_MOD
-  if (fd == BASE_ETHERNET)
-    {
-      return 0;
-    }
+          if (fd == BASE_ETHERNET)
+            {
+              return 0;
+            }
 #endif /* ETHERNET_MOD */
 
 #ifdef LED_MOD
-  if (fd == BASE_LED)
-    {
-      return 0;
-    }
+          if (fd == BASE_LED)
+            {
+              return 0;
+            }
 #endif /* LED_MOD */
 
 #ifdef LCD_MOD
-  if (fd == BASE_LCD)
-    {
-      return 0;
-    }
+          if (fd == BASE_LCD)
+            {
+              return 0;
+            }
 #endif /* LCD_MOD */
-
+          break;
+        }
+#ifdef FILE_SYSTEM
+      /*
+       * DISK 0
+       */
+      case DEV_TYPE_VOLUME0:
+        {
+          fd &= DEV_INDEX_MASK;
+          return fatfs_seek (0, fd, offset, whence);
+        }
+#endif /* FILE_SYSTEM */
+    }
   return -1;
 }

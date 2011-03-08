@@ -39,6 +39,7 @@ CONFIG_PWM												=		y
 CONFIG_KEYBOARD										=		y
 CONFIG_ETHERNET										=		y
 CONFIG_LED												=		y
+CONFIG_FILE_SYSTEM								=		n
 
 #----------------------------------------------------------------
 # DSP Modules
