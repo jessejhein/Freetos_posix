@@ -8,11 +8,11 @@
 #include <netinet/in.h>
 
 /**
- * Holds information on ethernet application
+ * Holds information on Ethernet application
  */
 typedef struct
 {
-  /** ethernet application rountine */
+  /** Ethernet application routine */
   eth_appcall_t appcall;
   /** address family */
   int domain;
@@ -37,12 +37,12 @@ static eth_info_t ethApp[ETH_MAX_APP];
 
 //------------------------------------------------------------------------------
 int 
-socket(int domain, int type, int protocol)
+socket (int domain, int type, int protocol)
 {
   //check for socket availability
   int i;
   int fd_sock = -1;
-  for (i=0; i<ETH_MAX_APP; i++)
+  for (i = 0; i < ETH_MAX_APP; i++)
     {
       if (ethApp[i].appcall == NULL)
         {
@@ -52,22 +52,22 @@ socket(int domain, int type, int protocol)
     }
     
   //socket available
-  if(fd_sock != -1)
+  if (fd_sock != -1)
     {
-      if(domain == AF_INET)
+      if (domain == AF_INET)
         {
-          if(type == SOCK_STREAM || type == SOCK_DGRAM)
+          if ((type == SOCK_STREAM) || (type == SOCK_DGRAM))
             {
               ethApp[fd_sock].domain = domain;
               ethApp[fd_sock].type = type;
               //TCP
-              if(protocol == IPPROTO_IP || protocol == IPPROTO_TCP)
+              if ((protocol == IPPROTO_IP) || (protocol == IPPROTO_TCP))
                 {
                   ethApp[fd_sock].protocol = IPPROTO_TCP;
                   return fd_sock;
                 }
               //UPD
-              else if(protocol == IPPROTO_UDP)
+              else if (protocol == IPPROTO_UDP)
                 {
                   ethApp[fd_sock].protocol = IPPROTO_UDP;
                   return fd_sock;
@@ -88,13 +88,13 @@ socket(int domain, int type, int protocol)
 
 //------------------------------------------------------------------------------
 int 
-shutdown(int sockfd, int how)
+shutdown (int sockfd, int how)
 {
-  if(sockfd>=0 && sockfd<ETH_MAX_APP) 
+  if ((sockfd >= 0) && (sockfd < ETH_MAX_APP))
     {
-      if(ethApp[sockfd].protocol == IPPROTO_UDP)
+      if (ethApp[sockfd].protocol == IPPROTO_UDP)
         {
-          uip_udp_remove(ethApp[sockfd].udp_conn);
+          uip_udp_remove (ethApp[sockfd].udp_conn);
         }
       ethApp[sockfd].appcall = NULL;
       ethApp[sockfd].domain = 0;
@@ -112,11 +112,11 @@ shutdown(int sockfd, int how)
 
 //------------------------------------------------------------------------------
 int 
-bind(int sockfd, struct sockaddr *my_addr, int addrlen)
+bind (int sockfd, struct sockaddr *my_addr, int addrlen)
 {
-  if(sockfd>=0 && sockfd<ETH_MAX_APP) 
+  if ((sockfd >= 0) && (sockfd < ETH_MAX_APP))
     {
-      if(my_addr == NULL) return -1;
+      if (my_addr == NULL) return -1;
       //save appcall and local port
       ethApp[sockfd].appcall = ((struct sockaddr_in *)my_addr)->appcall;
       ethApp[sockfd].lport = ((struct sockaddr_in *)my_addr)->sin_port;
@@ -129,35 +129,35 @@ bind(int sockfd, struct sockaddr *my_addr, int addrlen)
 
 //------------------------------------------------------------------------------
 int 
-connect(int sockfd, struct sockaddr *serv_addr, int addrlen)
+connect (int sockfd, struct sockaddr *serv_addr, int addrlen)
 {
-  if(sockfd>=0 && sockfd<ETH_MAX_APP) 
+  if ((sockfd >= 0) && (sockfd < ETH_MAX_APP))
     {
       //UPD: create udp connection
-      if(ethApp[sockfd].protocol == IPPROTO_UDP)
+      if (ethApp[sockfd].protocol == IPPROTO_UDP)
         {
           //set udp remote address and remote port
-          ethApp[sockfd].udp_conn = uip_udp_new(
+          ethApp[sockfd].udp_conn = uip_udp_new (
                                         (uip_ipaddr_t*)(((struct sockaddr_in *)serv_addr)->sin_addr.s_addr), 
                                         ((struct sockaddr_in *)serv_addr)->sin_port
                                       );
-          if(ethApp[sockfd].udp_conn != NULL) 
+          if (ethApp[sockfd].udp_conn != NULL)
             {
               //bind the local uip socket
-              uip_udp_bind(ethApp[sockfd].udp_conn, ethApp[sockfd].lport);
+              uip_udp_bind (ethApp[sockfd].udp_conn, ethApp[sockfd].lport);
               return 0;
             }
           //all udp sockets are used
           else return -1;
         }
-      else if(ethApp[sockfd].protocol == IPPROTO_TCP)
+      else if (ethApp[sockfd].protocol == IPPROTO_TCP)
         {
           //set tcp remote address and remote port
-          ethApp[sockfd].tcp_conn = uip_connect( 
+          ethApp[sockfd].tcp_conn = uip_connect (
                                         (uip_ipaddr_t*)(((struct sockaddr_in *)serv_addr)->sin_addr.s_addr), 
                                         ((struct sockaddr_in *)serv_addr)->sin_port
                                       );
-          if(ethApp[sockfd].tcp_conn != NULL) 
+          if (ethApp[sockfd].tcp_conn != NULL)
             {
               ethApp[sockfd].rport = ((struct sockaddr_in *)serv_addr)->sin_port;
               ethApp[sockfd].isclient = 1;
@@ -174,11 +174,11 @@ connect(int sockfd, struct sockaddr *serv_addr, int addrlen)
 
 //------------------------------------------------------------------------------
 int 
-listen(int sockfd, int backlog)
+listen (int sockfd, int backlog)
 {
-  if(sockfd>=0 && sockfd<ETH_MAX_APP) 
+  if ((sockfd >= 0) && (sockfd < ETH_MAX_APP))
     {
-      uip_listen( ethApp[sockfd].lport );
+      uip_listen (ethApp[sockfd].lport);
       ethApp[sockfd].isclient = 0;
       return 0;
     }
@@ -189,11 +189,11 @@ listen(int sockfd, int backlog)
 
 //------------------------------------------------------------------------------
 int 
-send(int sockfd, void *msg, int len, int flags)
+send (int sockfd, void *msg, int len, int flags)
 {
-  if(sockfd>=0 && sockfd<ETH_MAX_APP) 
+  if ((sockfd >= 0) && (sockfd < ETH_MAX_APP))
     {
-      uip_send(msg, len);
+      uip_send (msg, len);
       return len;
     }
   //invalid socket descriptor
@@ -231,16 +231,16 @@ int recv(int sockfd, void *buf, int len, unsigned int flags)
 */
 
 //--------------------------------------------------------------------------------------
-// Non-standard api
+// Non-standard API
 //--------------------------------------------------------------------------------------
 /**
- * \brief initialize sockets
+ * \brief initialise sockets
  */
 void 
-socket_init(void)
+socket_init (void)
 {
   int i;
-  for(i=0; i<ETH_MAX_APP; i++)
+  for (i = 0; i < ETH_MAX_APP; i++)
     {
       ethApp[i].appcall = NULL;
       ethApp[i].domain = 0;
@@ -254,21 +254,21 @@ socket_init(void)
 
 
 /**
- * \brief rountine to handle tcp packets
+ * \brief routine to handle TCP packets
  */
 void 
-tcp_appcall(void)
+tcp_appcall (void)
 {
   int i;
-  for (i=0; i<ETH_MAX_APP; i++)
+  for (i = 0; i < ETH_MAX_APP; i++)
     {
       //application is TCP
-      if(ethApp[i].type == SOCK_STREAM)
+      if (ethApp[i].type == SOCK_STREAM)
         {
           //check for local port number, for server applications (i.e. using listen()) 
-          if(ethApp[i].isclient == 0)
+          if (ethApp[i].isclient == 0)
             {
-              if(uip_conn->lport == ethApp[i].lport)
+              if (uip_conn->lport == ethApp[i].lport)
                 {
                   ethApp[i].appcall();
                   break;
@@ -277,7 +277,7 @@ tcp_appcall(void)
           //check for remote port number, for client applications (i.e. using connect())
           else
             {
-              if(uip_conn->rport == ethApp[i].rport)
+              if (uip_conn->rport == ethApp[i].rport)
                 {
                   ethApp[i].appcall();
                   break;
@@ -289,19 +289,19 @@ tcp_appcall(void)
 
 
 /**
- * \brief rountine to handle udp packets
+ * \brief routine to handle UDP packets
  */
 void 
-udp_appcall(void)
+udp_appcall (void)
 {
   int i;
-  for (i=0; i<ETH_MAX_APP; i++)
+  for (i = 0; i < ETH_MAX_APP; i++)
     {
       //application is UDP
-      if(ethApp[i].type == SOCK_DGRAM)
+      if (ethApp[i].type == SOCK_DGRAM)
         {
           //check for local port number
-          if(uip_udp_conn->lport == ethApp[i].lport)
+          if (uip_udp_conn->lport == ethApp[i].lport)
             {
               ethApp[i].appcall();
               break;

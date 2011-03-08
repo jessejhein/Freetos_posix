@@ -24,7 +24,7 @@
 
 #ifdef ETHERNET_MOD
 #include <uip.h>
-#endif
+#endif /* ETHERNET_MOD */
 
 
 /* 

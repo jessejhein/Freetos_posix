@@ -31,7 +31,7 @@
  * \retval 0 not valid name
  * \retval 1 valid name
  */
-extern int inet_aton(const char *name, struct in_addr *addr);
+extern int inet_aton (const char *name, struct in_addr *addr);
 
 
 /**
@@ -40,7 +40,7 @@ extern int inet_aton(const char *name, struct in_addr *addr);
  * \param addr ip address in binary format (e.g. C0 A8 01 01)
  * \return a pointer into a statically-allocated buffer (e.g. 192.168.1.1)
  */
-extern char* inet_ntoa(struct in_addr addr);
+extern char* inet_ntoa (struct in_addr addr);
 
 #endif /* arpa/inet.h */
 
