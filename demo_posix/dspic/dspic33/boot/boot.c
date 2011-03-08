@@ -88,35 +88,35 @@ FreeRTOS.org V4.3.0. */
  * 		+-- Section 8.1 for system clock settings
  ************************************************************************************************/
 
-_FOSCSEL(FNOSC_FRCPLL & IESO_OFF);                    // Internal Fast RC (FRC) w/ PLL
-                                                      // Start up with user-selected oscillator
+_FOSCSEL(FNOSC_FRCPLL & IESO_OFF);                      // Internal Fast RC (FRC) w/ PLL
+                                                        // Start up with user-selected oscillator
 
 #ifdef EXTERNAL_CLOCK_SOURCE
-_FOSC(FCKSM_CSECME & POSCMD_HS);                      // Clock Switching and Fail Safe Clock Monitor are enabled
-                                                      // Primary Oscillator Mode: High Speed
-                                                      // OSC pin has clock out function
+_FOSC(FCKSM_CSECME & POSCMD_HS);                        // Clock Switching and Fail Safe Clock Monitor are enabled
+                                                        // Primary Oscillator Mode: High Speed
+                                                        // OSC pin has clock out function
 #else  /* INTERNAL_CLOCK_SOURCE */
-_FOSC(FCKSM_CSECME & POSCMD_NONE & OSCIOFNC_ON);      // Clock Switching and Fail Safe Clock Monitor are enabled
-                                                      // Primary Oscillator Mode: Disabled
-                                                      // OSC pin funcition as Digital I/O
+_FOSC(FCKSM_CSECME & POSCMD_NONE & OSCIOFNC_ON);        // Clock Switching and Fail Safe Clock Monitor are enabled
+                                                        // Primary Oscillator Mode: Disabled
+                                                        // OSC pin function as Digital I/O
 #endif /* INTERNAL_CLOCK_SOURCE */
 
-_FWDT(FWDTEN_OFF);                                    // Watchdog Timer Disabled
+_FWDT(FWDTEN_OFF);                                      // Watchdog Timer Disabled
 
 /************************************************************************************************/
 
 /************************************************************************************************
- * External functions for Hardware Setup and User Main Program before kernal starts
+ * External functions for Hardware Setup and User Main Program before kernel starts
  ************************************************************************************************/
-extern void vSetupHardware(void);     //Defined in user main application
-extern void vUserMain(void);          //Defined in user main application
-extern void __builtin_write_OSCCONH(unsigned int);
-extern void __builtin_write_OSCCONL(unsigned int);
+extern void vSetupHardware (void);                      //Defined in user main application
+extern void vUserMain (void);                           //Defined in user main application
+extern void __builtin_write_OSCCONH (unsigned int);
+extern void __builtin_write_OSCCONL (unsigned int);
 
 /************************************************************************************************
  * Global functions
  ************************************************************************************************/
-void prvSetupTimerInterrupt( void );
+void prvSetupTimerInterrupt (void);
 
 /************************************************************************************************
  * Global Variables 
@@ -133,83 +133,83 @@ volatile int errno = 0;               //Indicate error state of open(), read() w
  * 	+--Entry point after hardware reset
  ************************************************************************************************/
 int 
-main(void)
+main (void)
 {
   /*--------------------------------------------------------------------------------
-	 * Configure Oscillator to operate the device at 40Mhz
-	 * Fosc= Fin*M/(N1*N2), Fcy=Fosc/2
-	 * Fosc= 8M*40/(2*2)=80Mhz for 8M input clock
-	 *--------------------------------------------------------------------------------
-	 *	FRC(7.37MHz) -> PLLPRE(/2) -> X --> VCO -> PLLPOST(/2) -> FOSC  -> (/2) -> FCY
-	 *								 /|\     |
-	 *								  ---- PLLDIV (x40)
-	 *--------------------------------------------------------------------------------
+   * Configure Oscillator to operate the device at 40Mhz
+   * Fosc= Fin*M/(N1*N2), Fcy=Fosc/2
+   * Fosc= 8M*40/(2*2)=80Mhz for 8M input clock
+   *--------------------------------------------------------------------------------
+   *	FRC(7.37MHz) -> PLLPRE(/2) -> X --> VCO -> PLLPOST(/2) -> FOSC  -> (/2) -> FCY
+   *								 /|\     |
+   *								  ---- PLLDIV (x40)
+   *--------------------------------------------------------------------------------
    */	
-  _PLLDIV = 38;                     // M=40: PLL Feedback Divisor bits
-  CLKDIV = 0;                       // N1=2: PLL VCO Output Divider Select bits
-                                    // N2=2: PLL Phase Detector Input Divider bits
-  OSCTUN = TUNE_FRC;                // Tune FRC oscillator, if FRC is used; 
-                                    // 0: Center frequency (7.37 MHz nominal)
-                                    // 22: +8.25% (7.98 MHz)
-  RCONbits.SWDTEN = 0;              // Disable Watch Dog Timer
-  while(OSCCONbits.LOCK != 1);      // Wait for PLL to lock
+  _PLLDIV = 38;                         // M=40: PLL Feedback Divisor bits
+  CLKDIV = 0;                           // N1=2: PLL VCO Output Divider Select bits
+                                        // N2=2: PLL Phase Detector Input Divider bits
+  OSCTUN = TUNE_FRC;                    // Tune FRC oscillator, if FRC is used;
+                                        // 0: Centre frequency (7.37 MHz nominal)
+                                        // 22: +8.25% (7.98 MHz)
+  RCONbits.SWDTEN = 0;                  // Disable Watch Dog Timer
+  while (OSCCONbits.LOCK != 1);         // Wait for PLL to lock
   //--------------------------------------------------------------------------------
 
 #ifdef EXTERNAL_CLOCK_SOURCE
-  //Perform clk switch to LPRC (use this a a transition because cannot adjust PLL setting when it is in used)
-  __builtin_write_OSCCONH(5);       // New OSC = LPRC 
-  __builtin_write_OSCCONL(1);       // Start clk switch
-  while(OSCCONbits.OSWEN == 1);     // Wait for completion
+  //Perform clock switch to LPRC (use this a a transition because cannot adjust PLL setting when it is in used)
+  __builtin_write_OSCCONH (5);          // New OSC = LPRC
+  __builtin_write_OSCCONL (1);          // Start clock switch
+  while (OSCCONbits.OSWEN == 1);        // Wait for completion
   
-  //Perform clk switch to external crytal
-  //PLL config for 10MHz crystal 
-  _PLLDIV = 30;                     // M=32: PLL Feedback Divisor bits
-  CLKDIV = 0;                       // N1=2: PLL VCO Output Divider Select bits
-                                    // N2=2: PLL Phase Detector Input Divider bits
-  __builtin_write_OSCCONH(3);       // New OSC = PRI PLL 
-  __builtin_write_OSCCONL(1);       // Start clk switch
-  while(OSCCONbits.OSWEN == 1);     // Wait for completion
+  //Perform clock switch to external crystal
+  //PLL configuration for 10MHz crystal
+  _PLLDIV = 30;                         // M=32: PLL Feedback Divisor bits
+  CLKDIV = 0;                           // N1=2: PLL VCO Output Divider Select bits
+                                        // N2=2: PLL Phase Detector Input Divider bits
+  __builtin_write_OSCCONH (3);          // New OSC = PRI PLL
+  __builtin_write_OSCCONL (1);          // Start clock switch
+  while(OSCCONbits.OSWEN == 1);         // Wait for completion
 #endif /* EXTERNAL_CLOCK_SOURCE */
 
-  /* allow 1 sec delay for on-board external hardware to stable*/
-  mdelay(1000);
+  /* allow 1 second delay for on-board external hardware to stable*/
+  mdelay (1000);
 
-  /* set adc compatiable pins to digital io by default */
+  /* set ADC compatiable pins to digital IO by default */
   AD1PCFGL = 0xFFFF;
   AD1PCFGH = 0xFFFF;
 
   /* Configure any hardware. */
-  vSetupHardware();
+  vSetupHardware ();
 
 #ifdef CRTHREAD_SCHED
   unsigned char index;
-  for(index=0; index<MAX_CRTHREAD; index++)
+  for (index = 0; index < MAX_CRTHREAD; index++)
     {
       crlist[index].crthread = (((crthread_t) 0 ) + MAX_CRTHREAD);
     }
 #endif /* CRTHREAD_SCHED */
 
 #ifndef FREERTOS_SCHED 
-  prvSetupTimerInterrupt();       //start timer if FreeRTOS scheduler is disabled 
+  prvSetupTimerInterrupt ();            //start timer if FreeRTOS scheduler is disabled
 #endif /* FREERTOS_SCHED */
 
   /* Create the main task. */
-  vUserMain();
+  vUserMain ();
 
 #ifdef FREERTOS_SCHED 
   /* Finally start the scheduler. */
-  vTaskStartScheduler();
+  vTaskStartScheduler ();
 
   /* Will only reach here if there is insufficient heap available to start the scheduler. */
-  ERR_LED_CONFIG();
-  while(1)
+  ERR_LED_CONFIG ();
+  while (1)
     {
-      ERR_LED0(1);
-      ERR_LED1(1);
-      mdelay(100); 
-      ERR_LED0(0);
-      ERR_LED1(0);
-      mdelay(100);
+      ERR_LED0 (1);
+      ERR_LED1 (1);
+      mdelay (100);
+      ERR_LED0 (0);
+      ERR_LED1 (0);
+      mdelay (100);
     }  
 #endif /* FREERTOS_SCHED */
   return 0;
@@ -220,11 +220,11 @@ main(void)
  * Setup a timer for a regular tick.
  */
 void 
-prvSetupTimerInterrupt( void )
+prvSetupTimerInterrupt (void)
 {
-  const unsigned portLONG ulCompareMatch = ( configCPU_CLOCK_HZ / portTIMER_PRESCALE ) / configTICK_RATE_HZ;
+  const unsigned portLONG ulCompareMatch = (configCPU_CLOCK_HZ / portTIMER_PRESCALE) / configTICK_RATE_HZ;
 
-  /* Initialize counters */
+  /* Initialise counters */
   one_sec_cnt = 0;
   timer_count = 0;
 #ifndef FREERTOS_SCHED 
@@ -235,7 +235,7 @@ prvSetupTimerInterrupt( void )
   T1CON = 0;
   TMR1 = 0;
 
-  PR1 = ( unsigned portSHORT ) ulCompareMatch;
+  PR1 = (unsigned portSHORT) ulCompareMatch;
 
   /* Setup timer 1 interrupt priority. */
   IPC0bits.T1IP = configKERNEL_INTERRUPT_PRIORITY;
@@ -268,7 +268,7 @@ _IRQ _T1Interrupt( void )
 #endif /* not FREERTOS_SCHED */
 
   /* record time */
-  if(++timer_count == configTICK_RATE_HZ)
+  if (++timer_count == configTICK_RATE_HZ)
     {
       one_sec_cnt++;
       timer_count = 0;
@@ -276,7 +276,7 @@ _IRQ _T1Interrupt( void )
 
 #ifdef FREERTOS_SCHED 
 #if configUSE_PREEMPTION == 1
-  portYIELD();
+  portYIELD ();
 #endif /* configUSE_PREEMPTION */
 #endif /* FREERTOS_SCHED */
 }
@@ -285,28 +285,28 @@ _IRQ _T1Interrupt( void )
  * Reset System
  */
 void
-reset(void)
+reset (void)
 {
-  //user shutdown rountine
-  vUserShutdown();
+  //user shutdown routine
+  vUserShutdown ();
 
 #ifdef EXTERNAL_CLOCK_SOURCE
-  //Perform clk switch to LPRC (use this a a transition because cannot adjust PLL setting when it is in used)
-  __builtin_write_OSCCONH(5);       // New OSC = LPRC 
-  __builtin_write_OSCCONL(1);       // Start clk switch
-  while(OSCCONbits.OSWEN == 1);     // Wait for completion
+  //Perform clock switch to LPRC (use this a a transition because cannot adjust PLL setting when it is in used)
+  __builtin_write_OSCCONH (5);          // New OSC = LPRC
+  __builtin_write_OSCCONL (1);          // Start clock switch
+  while (OSCCONbits.OSWEN == 1);        // Wait for completion
   
-  //Perform clk switch to internal FRC
-  _PLLDIV = 38;                     // M=40: PLL Feedback Divisor bits
-  CLKDIV = 0;                       // N1=2: PLL VCO Output Divider Select bits
-                                    // N2=2: PLL Phase Detector Input Divider bits
-  OSCTUN = TUNE_FRC;                // Tune FRC oscillator, if FRC is used; 
-                                    // 0: Center frequency (7.37 MHz nominal)
-                                    // 22: +8.25% (7.98 MHz)
-  __builtin_write_OSCCONH(1);       // New OSC = PRI PLL 
-  __builtin_write_OSCCONL(1);       // Start clk switch
-  while(OSCCONbits.OSWEN == 1);     // Wait for completion
+  //Perform clock switch to internal FRC
+  _PLLDIV = 38;                         // M=40: PLL Feedback Divisor bits
+  CLKDIV = 0;                           // N1=2: PLL VCO Output Divider Select bits
+                                        // N2=2: PLL Phase Detector Input Divider bits
+  OSCTUN = TUNE_FRC;                    // Tune FRC oscillator, if FRC is used;
+                                        // 0: Centre frequency (7.37 MHz nominal)
+                                        // 22: +8.25% (7.98 MHz)
+  __builtin_write_OSCCONH (1);          // New OSC = PRI PLL
+  __builtin_write_OSCCONL (1);          // Start clock switch
+  while (OSCCONbits.OSWEN == 1);        // Wait for completion
 #endif /* EXTERNAL_CLOCK_SOURCE */
 
-  asm("reset");
+  asm ("reset");
 }
