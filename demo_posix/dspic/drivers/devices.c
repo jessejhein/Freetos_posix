@@ -123,9 +123,9 @@ open (const char *pathname, int flags)
 #endif /* I2C_ADC_MOD */
 
 #ifdef I2C_TEMP_MOD
-      if (tmp == BASE_I2C_TEMP)
+      if (id == BASE_I2C_TEMP)
         {
-          return (i2c_temp_open (flags) == 0)? tmp : -1;
+          return (i2c_temp_open (flags) == 0)? id : -1;
         }
 #endif /* I2C_TEMP_MOD */
 
