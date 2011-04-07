@@ -358,4 +358,3 @@ obj-$(CONFIG_ETHERNET) += \
 	$(ARCH)/../drivers/clock-arch.o
 obj-$(CONFIG_FILE_SYSTEM) += \
 	$(ARCH)/../drivers/fatfs.o
-	

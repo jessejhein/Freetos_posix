@@ -47,7 +47,6 @@
 #define I2C_LED_DRIVER_LED_GAIN_CTRL            0x09
 
 
-
 /** Store IO setting */
 static int led_io_flag;
 /** Store led status */
@@ -61,12 +60,19 @@ static unsigned char led_ch;
 int
 i2c_led_driver_open (int flags)
 {
+  static char timeout = 0;
+
   led_io_flag = flags;
   i2c_open ();
   //adjust gain to 500uA
   led_address = I2C_LED_DRIVER_LED_GAIN_CTRL;
   unsigned char value = 0x0f;
-  while (i2c_led_driver_write (&value) != 1);
+  while (i2c_led_driver_write (&value) != 1)
+    {
+      //cannot communicate to driver, consider fail
+      if (timeout > 50) return -1;
+      timeout++;
+    }
   return 0;
 }
 
