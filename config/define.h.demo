@@ -18,7 +18,13 @@
 /********************************************************************************
  * File System
  ********************************************************************************/
-#define FS_ROOT                         "0:amonics/"
+/** 
+ * \brief set your default root folder for Mass Storage
+ * \remarks 
+ * 0: means the Mass Storage Drive (do not change)
+ * foo/ means default root folder (change as required)
+ */
+#define FS_ROOT                         "0:foo/"
 
 
 // Pin setting =================================================
