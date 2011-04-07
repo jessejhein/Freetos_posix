@@ -135,9 +135,6 @@ open (const char *pathname, int flags)
 #ifdef NVM_FLASH
           return (flash_eeprom_open (flags) == 0)? id : -1;
 #endif /* NVM_FLASH */
-#ifdef NVM_ON_CHIP
-          return (eeprom_open (flags) == 0)? id : -1;
-#endif /* NVM_ON_CHIP */
         }
 #ifdef NVM_I2C
       if (id == (BASE_NVM + 1))
@@ -323,9 +320,6 @@ write (int fd, void* buf, int count)
 #ifdef NVM_FLASH
               return flash_eeprom_write (buf, count);
 #endif /* NVM_FLASH */
-#ifdef NVM_ON_CHIP
-              return eeprom_write (buf, count);
-#endif /* NVM_ON_CHIP */
             }
 #ifdef NVM_I2C
           if (fd == (BASE_NVM + 1))
@@ -474,9 +468,6 @@ read (int fd, void* buf, int count)
 #ifdef NVM_FLASH
               return flash_eeprom_read (buf, count);
 #endif /* NVM_FLASH */
-#ifdef NVM_ON_CHIP
-              return eeprom_read (buf, count);
-#endif /* NVM_ON_CHIP */
             }
 #ifdef NVM_I2C
           if (fd == (BASE_NVM + 1))
@@ -755,9 +746,6 @@ lseek (int fd, int offset, int whence)
 #ifdef NVM_FLASH
               return flash_eeprom_lseek (offset, whence);
 #endif /* NVM_FLASH */
-#ifdef NVM_ON_CHIP
-              return eeprom_lseek (offset, whence);
-#endif /* NVM_ON_CHIP */
             }
 #ifdef NVM_I2C
           if (fd == (BASE_NVM + 1))

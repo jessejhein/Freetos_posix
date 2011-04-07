@@ -3,8 +3,8 @@
 
 #----------------------------------------------------------------
 # uP: Select the type of dsPic to be used
-#		DSPIC30; DSPIC33
-#		FJ256GP506; FJ128GP306; F5011
+#		DSPIC33
+#		FJ256GP506; FJ128GP306;
 #----------------------------------------------------------------
 PLATFORM													=		DSPIC33
 MODEL															=		FJ256GP506
@@ -82,7 +82,7 @@ CONFIG_I2C_MOD_DSPIC_MODE					=		MASTER
 
 #----------------------------------------------------------------
 # NVM: 									Select the type of EEPROM to be used
-#	CONFIG_NVM_INTERNAL:	ON_CHIP; FLASH
+#	CONFIG_NVM_INTERNAL:	FLASH
 # CONFIG_NVM_EXTERNAL:	I2C
 #----------------------------------------------------------------
 CONFIG_NVM_INTERNAL								=		FLASH

@@ -99,21 +99,7 @@
 #define ADCON3bits                      AD1CON3bits
 #define ADCON2bits                      AD1CON2bits
 #define ADCON1bits                      AD1CON1bits
-
-#elif MPLAB_DSPIC30_PORT
-/*
- *  DSPIC30
- */
-#ifdef F5011
-#include <p30f5011.h>
-#endif /* F5011 */
-
-#define XTAL_FREQ_HZ                    7372800
-#define PLL                             16
-#define SYSTEM_CLK_HZ                   ((unsigned long)(XTAL_FREQ_HZ*PLL/4))   //29,491,200
-#define SYSTEM_VOLT                     ((float)5.0)    //Can be used for ADC reading calculation
-
-#endif /* MPLAB_DSPIC30_PORT */
+#endif /* MPLAB_DSPIC33_PORT */
 
 
 
@@ -265,13 +251,6 @@
                                           FLASH_EEPROM_WORD_PER_ROW* \
                                           FLASH_EEPROM_ROW_PER_PAGE)
 #endif /* NVM_FLASH */
-//  =======================On-chip EEPROM Config================================= 
-#ifdef NVM_ON_CHIP
-#ifndef MPLAB_DSPIC30_PORT
-  #error "Target chip has no on-chip EEPROM"
-#endif /* NOT MPLAB_DSPIC30_PORT */
-#define EEPROM_SIZE                     1024        // EEPROM Size (in byte)
-#endif /* NVM_ON_CHIP */
 #endif /* NVM_MOD */
 
 
@@ -394,15 +373,7 @@
   //NOTE: make sure ADC_TAD_ACT >= ADC_TAD_MIN
   #define ADC_TAD_ACT                   ( ( (double)1e9*(ADC_ADCS+1))/SYSTEM_CLK_HZ)    //Actual TAD
 
-#elif MPLAB_DSPIC30_PORT
-  #define ADC_MAX_HW_CH                 16          // maximum adc hardware channels
-  #define ADC_TAD_MIN                   334         // in ns, see Electrical Specification on Datasheet
-  #define ADC_ADCS                      ( (int) \
-                                          ( (double)(2*ADC_TAD_REQ*1e-9*SYSTEM_CLK_HZ)+0.5) \
-                                          - 1)  //ADCS<5:0> Setting for sampling rate [0-63]
-  //NOTE: make sure ADC_TAD_ACT >= ADC_TAD_MIN
-  #define ADC_TAD_ACT                   ( ( (double)1e9*0.5(ADC_ADCS+1))/SYSTEM_CLK_HZ)    //Actual TAD
-#endif /* MPLAB_DSPIC30_PORT */
+#endif /* MPLAB_DSPIC33_PORT */
 #endif /* ADC_MOD */
 
 

@@ -2,15 +2,11 @@
  * File:          portable.c
  ***********************************************************************************************
  * DESCRIPTION:
- * 	1)  Added
+ *  1)  Added
  *      #ifdef MPLAB_DSPIC33_PORT
  *        #include "../../Source/portable/MPLAB/dspic33/portmacro.h"
  *      #endif
- * 
- *      #ifdef MPLAB_DSPIC30_PORT
- *        #include "../../Source/portable/MPLAB/dspic30/portmacro.h"
- *      #endif
- *  2)  User should define MPLAB_DSPIC30_PORT or MPLAB_DSPIC30_PORT in makefile.
+ *  2)  User should define MPLAB_DSPIC33_PORT in makefile.
  ***********************************************************************************************/
 
 /*
@@ -73,10 +69,6 @@
 
 #ifdef MPLAB_DSPIC33_PORT
 	#include "../../Source/portable/MPLAB/dspic33/portmacro.h"
-#endif
-
-#ifdef MPLAB_DSPIC30_PORT
-	#include "../../Source/portable/MPLAB/dspic30/portmacro.h"
 #endif
 
 #ifdef OPEN_WATCOM_INDUSTRIAL_PC_PORT

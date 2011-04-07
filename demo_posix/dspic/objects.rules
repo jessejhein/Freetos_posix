@@ -40,11 +40,6 @@ ifeq ($(PLATFORM), DSPIC33)
 		CFLAGS += -mcpu=33FJ128GP306
 	endif
 endif
-ifeq ($(PLATFORM), DSPIC30)
-	ifeq ($(MODEL), F5011)
-		CFLAGS += -mcpu=30F5011
-	endif
-endif
 CFLAGS += -mlarge-code -mlarge-data -Os -fomit-frame-pointer -Werror
 
 
@@ -73,11 +68,6 @@ ifeq ($(PLATFORM), DSPIC33)
 		LDFLAGS += -T$(ARCH)/linker/p33FJ128GP306.gld
 	endif
 endif
-ifeq ($(PLATFORM), DSPIC30)
-	ifeq ($(MODEL), F5011)
-		LDFLAGS += -T$(ARCH)/linker/p30f5011.gld
-	endif
-endif
 
 
 ############################# define section ################################
@@ -90,12 +80,6 @@ ifeq ($(PLATFORM), DSPIC33)
 	endif
 	ifeq ($(MODEL), FJ128GP306)
 		DEFINES += -DFJ128GP306
-	endif
-endif
-ifeq ($(PLATFORM), DSPIC30)
-	DEFINES += -DMPLAB_DSPIC30_PORT
-	ifeq ($(MODEL), F5011)
-		DEFINES += -DF5011
 	endif
 endif
 
@@ -184,9 +168,6 @@ ifeq ($(CONFIG_NVM), y)
 	DEFINES += -DNVM_MOD
 	ifeq ($(CONFIG_NVM_INTERNAL), FLASH)
 		DEFINES += -DNVM_FLASH
-	endif
-	ifeq ($(CONFIG_NVM_INTERNAL), ON_CHIP)
-		DEFINES += -DNVM_ON_CHIP
 	endif
 	ifeq ($(CONFIG_NVM_USE_EXTERNAL), y)
 		ifeq ($(CONFIG_NVM_EXTERNAL), I2C)
@@ -343,9 +324,6 @@ obj-$(CONFIG_LED) += \
 ifeq ($(CONFIG_NVM), y)
 	ifeq ($(CONFIG_NVM_INTERNAL), FLASH)
 		obj-y += $(ARCH)/../drivers/flash_eeprom.o $(ARCH)/../drivers/rtsp.o
-	endif
-	ifeq ($(CONFIG_NVM_INTERNAL), ON_CHIP)
-		obj-y += $(ARCH)/../drivers/eeprom.o $(ARCH)/../drivers/eeprom_asm.o
 	endif
 	ifeq ($(CONFIG_NVM_USE_EXTERNAL), y)
 		ifeq ($(CONFIG_NVM_EXTERNAL), I2C)

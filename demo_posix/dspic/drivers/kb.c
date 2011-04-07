@@ -226,9 +226,7 @@ _CNInterrupt (void)
     }
 #ifdef MPLAB_DSPIC33_PORT
   _CNIF = 0;
-#else /* MPLAB_DSPIC30_PORT */
-  DISI_PROTECT(_CNIF = 0);
-#endif /* MPLAB_DSPIC30_PORT */
+#endif /* MPLAB_DSPIC33_PORT */
 }
 #endif /* KB_ROTATE_KEY */
 
