@@ -61,38 +61,6 @@
 
 //NOTE: SYSTEM_CLK_HZ must be defined first
 #include <dspic33.h>
-
-
-/*
- * Register Mapping
- */
-//  ============================I2C============================================== 
-#define _SI2CIF                         _SI2C1IF
-#define _MI2CIF                         _MI2C1IF
-#define _SI2CIE                         _SI2C1IE
-#define _MI2CIE                         _MI2C1IE
-#define _MI2CInterrupt                  _MI2C1Interrupt
-#define _SI2CInterrupt                  _SI2C1Interrupt
-#define I2CBRG                          I2C1BRG
-#define I2CCONbits                      I2C1CONbits
-#define I2CSTATbits                     I2C1STATbits
-#define I2CTRN                          I2C1TRN
-#define I2CRCV                          I2C1RCV
-#define I2CMSK                          I2C1MSK
-#define I2CADD                          I2C1ADD
-//  ============================ADC============================================== 
-#define _ADIF                           _AD1IF
-#define _ADIE                           _AD1IE
-#define _ADCInterrupt                   _ADC1Interrupt
-#define ADPCFG                          AD1PCFGL
-#define ADPCFGH                         AD1PCFGH
-#define ADCSSL                          AD1CSSL
-#define ADCSSH                          AD1CSSH
-#define ADCHSbits                       AD1CHS0bits
-#define ADCON4bits                      AD1CON4bits
-#define ADCON3bits                      AD1CON3bits
-#define ADCON2bits                      AD1CON2bits
-#define ADCON1bits                      AD1CON1bits
 #endif /* MPLAB_DSPIC33_PORT */
 
 
