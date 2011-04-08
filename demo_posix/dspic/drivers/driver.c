@@ -299,27 +299,13 @@ write (int fd, void* buf, int count)
             }
 #endif /* I2C_DAC_MOD */
 
-#ifdef I2C_ADC_MOD
-          if (fd == BASE_I2C_ADC)
-            {
-              return 0;
-            }
-#endif /* I2C_ADC_MOD */
-
-#ifdef I2C_TEMP_MOD
-          if (fd == BASE_I2C_TEMP)
-            {
-              return 0;
-            }
-#endif /* I2C_TEMP_MOD */
-
 #ifdef NVM_MOD
+#ifdef NVM_FLASH
           if (fd == BASE_NVM)
             {
-#ifdef NVM_FLASH
               return flash_eeprom_write (buf, count);
-#endif /* NVM_FLASH */
             }
+#endif /* NVM_FLASH */
 #ifdef NVM_I2C
           if (fd == (BASE_NVM + 1))
             {
@@ -356,26 +342,12 @@ write (int fd, void* buf, int count)
             }
 #endif /* I2C_GPIO_MOD */
 
-#ifdef ADC_MOD
-          if (fd == BASE_ADC)
-            {
-              return 0;
-            }
-#endif /* ADC_MOD */
-
 #ifdef PWM_MOD
           if (fd == BASE_PWM)
             {
               return pwm_write (buf);
             }
 #endif /* PWM_MOD */
-
-#ifdef KB_MOD
-          if (fd == BASE_KB)
-            {
-              return 0;
-            }
-#endif /* KB_MOD */
 
 #ifdef ETHERNET_MOD
           if (fd == BASE_ETHERNET)
@@ -391,13 +363,8 @@ write (int fd, void* buf, int count)
             }
 #endif /* LED_MOD */
 
-#ifdef LCD_MOD
-          if (fd == BASE_LCD)
-            {
-              return 0;
-            }
-#endif /* LCD_MOD */
-          break;
+          //for all other fd > 3
+          return 0;
         }
 #ifdef FILE_SYSTEM
       /*
@@ -462,12 +429,12 @@ read (int fd, void* buf, int count)
 #endif /* I2C_TEMP_MOD */
 
 #ifdef NVM_MOD
+#ifdef NVM_FLASH
           if (fd == BASE_NVM)
             {
-#ifdef NVM_FLASH
               return flash_eeprom_read (buf, count);
-#endif /* NVM_FLASH */
             }
+#endif /* NVM_FLASH */
 #ifdef NVM_I2C
           if (fd == (BASE_NVM + 1))
             {
@@ -490,13 +457,6 @@ read (int fd, void* buf, int count)
             }
 #endif /* I2C_MOD_SLAVE_DSPIC */
 
-#ifdef I2C_LED_DRIVER_MOD
-          if (fd == BASE_I2C_LED_DRIVER)
-            {
-              return 0;
-            }
-#endif /* I2C_LED_DRIVER_MOD */
-
 #ifdef I2C_GPIO_MOD
           if (fd == BASE_I2C_GPIO)
             {
@@ -510,13 +470,6 @@ read (int fd, void* buf, int count)
               return adc_read (buf, count);
             }
 #endif /* ADC_MOD */
-
-#ifdef PWM_MOD
-          if (fd == BASE_PWM)
-            {
-              return 0;
-            }
-#endif /* PWM_MOD */
 
 #ifdef KB_MOD
           if (fd == BASE_KB)
@@ -532,20 +485,8 @@ read (int fd, void* buf, int count)
             }
 #endif /* ETHERNET_MOD */
 
-#ifdef LED_MOD
-          if (fd == BASE_LED)
-            {
-              return 0;
-            }
-#endif /* LED_MOD */
-
-#ifdef LCD_MOD
-          if (fd == BASE_LCD)
-            {
-              return 0;
-            }
-#endif /* LCD_MOD */
-          break;
+          //for all other fd > 3
+          return 0;
         }
 #ifdef FILE_SYSTEM
       /*
@@ -609,13 +550,6 @@ ioctl (int fd, int request, void* argp)
             }
 #endif /* I2C_TEMP_MOD */
 
-#ifdef NVM_MOD
-          if ((fd >= BASE_NVM) && (fd < (BASE_NVM + 1)))
-            {
-              return 0;
-            }
-#endif /* NVM_MOD */
-
 #ifdef I2C_MOD_MASTER_DSPIC
           if (fd == BASE_I2C_MOD_DSPIC)
             {
@@ -658,20 +592,6 @@ ioctl (int fd, int request, void* argp)
             }
 #endif /* PWM_MOD */
 
-#ifdef KB_MOD
-          if (fd == BASE_KB)
-            {
-              return 0;
-            }
-#endif /* KB_MOD */
-
-#ifdef ETHERNET_MOD
-          if (fd == BASE_ETHERNET)
-            {
-              return 0;
-            }
-#endif /* ETHERNET_MOD */
-
 #ifdef LED_MOD
           if (fd == BASE_LED)
             {
@@ -685,7 +605,9 @@ ioctl (int fd, int request, void* argp)
               return lcd_ioctl (request, argp);
             }
 #endif /* LCD_MOD */
-          break;
+
+          //for all other fd > 3
+          return 0;
         }
     }
   return -1;
@@ -711,41 +633,13 @@ lseek (int fd, int offset, int whence)
               return -1;
             }
 
-#ifdef UART_MOD
-          if (fd < (BASE_COM + NO_OF_UART))
-            {
-              return 0;
-            }
-#endif /* UART_MOD */
-
-#ifdef I2C_DAC_MOD
-          if (fd == BASE_I2C_DAC)
-            {
-              return 0;
-            }
-#endif /* I2C_DAC_MOD */
-
-#ifdef I2C_ADC_MOD
-          if (fd == BASE_I2C_ADC)
-            {
-              return 0;
-            }
-#endif /* I2C_ADC_MOD */
-
-#ifdef I2C_TEMP_MOD
-          if (fd == BASE_I2C_TEMP)
-            {
-              return 0;
-            }
-#endif /* I2C_TEMP_MOD */
-
 #ifdef NVM_MOD
+#ifdef NVM_FLASH
           if (fd == BASE_NVM)
             {
-#ifdef NVM_FLASH
               return flash_eeprom_lseek (offset, whence);
-#endif /* NVM_FLASH */
             }
+#endif /* NVM_FLASH */
 #ifdef NVM_I2C
           if (fd == (BASE_NVM + 1))
             {
@@ -754,76 +648,8 @@ lseek (int fd, int offset, int whence)
 #endif /* NVM_I2C */
 #endif /* NVM_MOD */
 
-#ifdef I2C_MOD_MASTER_DSPIC
-          if (fd == BASE_I2C_MOD_DSPIC)
-            {
-              return 0;
-            }
-#endif /* I2C_MOD_MASTER_DSPIC */
-
-#ifdef I2C_MOD_SLAVE_DSPIC
-          if (fd == BASE_I2C_MOD_DSPIC)
-            {
-              return 0;
-            }
-#endif /* I2C_MOD_SLAVE_DSPIC */
-
-#ifdef I2C_LED_DRIVER_MOD
-          if (fd == BASE_I2C_LED_DRIVER)
-            {
-              return 0;
-            }
-#endif /* I2C_LED_DRIVER_MOD */
-
-#ifdef I2C_GPIO_MOD
-          if (fd == BASE_I2C_GPIO)
-            {
-              return 0;
-            }
-#endif /* I2C_GPIO_MOD */
-
-#ifdef ADC_MOD
-          if (fd == BASE_ADC)
-            {
-              return 0;
-            }
-#endif /* ADC_MOD */
-
-#ifdef PWM_MOD
-          if (fd == BASE_PWM)
-            {
-              return 0;
-            }
-#endif /* PWM_MOD */
-
-#ifdef KB_MOD
-          if (fd == BASE_KB)
-            {
-              return 0;
-            }
-#endif /* KB_MOD */
-
-#ifdef ETHERNET_MOD
-          if (fd == BASE_ETHERNET)
-            {
-              return 0;
-            }
-#endif /* ETHERNET_MOD */
-
-#ifdef LED_MOD
-          if (fd == BASE_LED)
-            {
-              return 0;
-            }
-#endif /* LED_MOD */
-
-#ifdef LCD_MOD
-          if (fd == BASE_LCD)
-            {
-              return 0;
-            }
-#endif /* LCD_MOD */
-          break;
+          //for all other fd > 3
+          return 0;
         }
 #ifdef FILE_SYSTEM
       /*
