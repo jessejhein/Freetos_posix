@@ -275,7 +275,7 @@ endif
 ############################# header section ################################
 
 # DRIVER INCLUDE
-INCLUDEDIRS += -I$(ARCH)/../drivers/include/
+INCLUDEDIRS += -I$(ARCH)/../drivers/include/ -I$(ARCH)/../include/
 
 
 ############################# targets section ################################

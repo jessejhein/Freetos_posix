@@ -18,8 +18,6 @@
 
 #include <define.h>
 #include <dm9000a.h>
-#include <asm/delay.h>
-#include <asm/system.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>

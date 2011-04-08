@@ -5,8 +5,6 @@
  */
 
 #include <define.h>
-#include <asm/delay.h>
-#include <asm/types.h>
 #include <unistd.h>
 
 /** variables to store program counter: order matters */

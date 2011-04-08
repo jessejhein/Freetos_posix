@@ -30,30 +30,20 @@
  */
 #if MPLAB_DSPIC33_PORT
 /*
- * DSPIC33
- */
-#ifdef FJ128GP306
-#include <p33FJ128GP306.h>
-#endif /* FJ128GP306 */
-#ifdef FJ256GP506
-#include <p33FJ256GP506.h>
-#endif /* FJ256GP506 */
-
-/*
  * Tune FRC oscillator, if FRC is used; 
  * 0: Centre frequency (7.37 MHz nominal)
  * 22: +8.25% (7.98 MHz)
  */
 #define TUNE_FRC                        22
-#if(TUNE_FRC == 22)                             
+#if (TUNE_FRC == 22)
   #define XTAL_FREQ_HZ                  7981056  // 39,905,280Hz ~ 40MHz
 #else /* NO FINE TUNE */
   #define XTAL_FREQ_HZ                  7372800  // 36,864,000Hz ~ 36.8MHz
 #endif /* NO FINE TUNE */
-#define PLLPOST                         2
-#define PLLPRE                          2
-#define PLLFBD                          40
-#define SYSTEM_CLK_HZ                   ((unsigned long)(XTAL_FREQ_HZ*PLLFBD/(2*PLLPRE*PLLPOST)))
+#define PLL_POST                        2
+#define PLL_PRE                         2
+#define PLL_FBD                         40
+#define SYSTEM_CLK_HZ                   ((unsigned long)(XTAL_FREQ_HZ*PLL_FBD/(2*PLL_PRE*PLL_POST)))
 #define SYSTEM_VOLT                     ((float)3.3)   // Can be used for ADC reading calculation
 
 #ifdef EXTERNAL_CLOCK_SOURCE
@@ -67,6 +57,10 @@
 #endif
 #define SYSTEM_CLK_HZ                   ((unsigned long)(XTERN_CLK_XTAL_FREQ_HZ*XTERN_CLK_SRC_PLLFBD/(2*XTERN_CLK_SRC_PLLPRE*XTERN_CLK_SRC_PLLPOST)))
 #endif /* EXTERNAL_CLOCK_SOURCE */
+
+
+//NOTE: SYSTEM_CLK_HZ must be defined first
+#include <dspic33.h>
 
 
 /*

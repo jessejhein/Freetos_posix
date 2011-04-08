@@ -21,8 +21,6 @@
 #include <errno.h>
 #include <sys/ioctl.h>
 #include <time.h>
-#include <asm/delay.h>
-#include <asm/system.h>
 
 
 #ifdef BUZZER

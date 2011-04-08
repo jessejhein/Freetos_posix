@@ -63,15 +63,14 @@
 
 /* Scheduler includes. */
 #include <FreeRTOS.h>
-#include <asm/delay.h>
-#include <asm/types.h>
+#include <dspic33.h>
 #ifdef CRTHREAD_SCHED
 #include <pthread.h>
-#endif
+#endif /* CRTHREAD_SCHED */
 
 #define portTIMER_PRESCALE 8
 
-/* Defined for backward compatability with project created prior to 
+/* Defined for backward compatibility with project created prior to
 FreeRTOS.org V4.3.0. */
 #ifndef configKERNEL_INTERRUPT_PRIORITY
   #define configKERNEL_INTERRUPT_PRIORITY 1
