@@ -39,11 +39,8 @@ endif
 
 ######################### architecture section ##############################
 
-# Common utility
-COMMON := $(FREERTOS_POSIX)/demo_posix/common
-
 # Platform dependent config
-include $(FREERTOS_POSIX)/demo_posix/objects.rules
+include $(FREERTOS_POSIX)/platform/objects.rules
 
 
 ############################# define section ################################
