@@ -94,7 +94,7 @@ open (const char *pathname, int flags)
     {
       int id = *pathname - DEVICE_USR_PATH;
 
-     //STDOUT, STDIN, STDERR
+      //STDOUT, STDIN, STDERR
       if (id < 3)
         {
           return id;

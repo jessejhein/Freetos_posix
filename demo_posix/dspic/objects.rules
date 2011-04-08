@@ -282,7 +282,7 @@ INCLUDEDIRS += -I$(ARCH)/../drivers/ -I$(ARCH)/../include/
 obj-y += \
 	$(ARCH)/linker/reset.o \
 	$(ARCH)/boot/boot.o \
-	$(ARCH)/../drivers/devices.o \
+	$(ARCH)/../drivers/driver.o \
 	$(ARCH)/../drivers/cirbuf.o \
 	$(ARCH)/../drivers/clock-arch.o \
 	$(ARCH)/../drivers/trap/traps.o

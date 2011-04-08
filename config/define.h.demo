@@ -18,9 +18,9 @@
 /********************************************************************************
  * File System
  ********************************************************************************/
-/** 
+/**
  * \brief set your default root folder for Mass Storage
- * \remarks 
+ * \remarks
  * 0: means the Mass Storage Drive (do not change)
  * foo/ means default root folder (change as required)
  */

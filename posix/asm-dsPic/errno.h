@@ -6,7 +6,7 @@
 
 #ifndef ERRNO_H_
 # error "Never use <asm/errno.h> directly; include <errno.h> instead."
-#endif
+#endif /* ERRNO_H_ */
 
 /*
  * Error constants for read() write()
