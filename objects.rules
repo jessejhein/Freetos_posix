@@ -91,6 +91,12 @@ INCLUDEDIRS += \
 	-I$(FREERTOS_POSIX)/posix/ \
 	-I$(FREERTOS_POSIX)/Source/include/
 
+# File System
+ifeq ($(CONFIG_FILE_SYSTEM), y)
+	INCLUDEDIRS += \
+		-I$(FREERTOS_POSIX)/posix/src/fatfs/
+endif
+
 # Ethernet
 ifeq ($(CONFIG_ETHERNET), y)
 	INCLUDEDIRS += \
@@ -116,6 +122,10 @@ obj-y += \
 	$(FREERTOS_POSIX)/posix/src/system.o \
 	$(FREERTOS_POSIX)/posix/src/time.o \
 	$(FREERTOS_POSIX)/posix/src/app_idlehook.o
+
+# File System
+obj-$(CONFIG_FILE_SYSTEM) += \
+	$(FREERTOS_POSIX)/posix/src/fatfs/ff.o
 
 # Ethernet
 obj-$(CONFIG_ETHERNET) += \

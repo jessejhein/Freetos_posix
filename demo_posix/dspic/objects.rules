@@ -279,17 +279,17 @@ INCLUDEDIRS += -I$(ARCH)/../drivers/ -I$(ARCH)/../include/
 
 
 ############################# targets section ################################
-obj-y += \
-	$(ARCH)/linker/reset.o \
-	$(ARCH)/boot/boot.o \
-	$(ARCH)/../drivers/driver.o \
-	$(ARCH)/../drivers/cirbuf.o \
-	$(ARCH)/../drivers/clock-arch.o \
-	$(ARCH)/../drivers/trap/traps.o
 ifeq ($(PLATFORM), DSPIC33)
 obj-y += \
 	$(ARCH)/boot/clk_switch.o
 endif
+obj-y += \
+	$(ARCH)/boot/boot.o \
+	$(ARCH)/linker/reset.o \
+	$(ARCH)/../drivers/driver.o \
+	$(ARCH)/../drivers/cirbuf.o \
+	$(ARCH)/../drivers/clock-arch.o \
+	$(ARCH)/../drivers/trap/traps.o
 
 # Drivers
 obj-$(CONFIG_UART) += \
@@ -335,4 +335,6 @@ endif
 obj-$(CONFIG_ETHERNET) += \
 	$(ARCH)/../drivers/net/dm9000a.o
 obj-$(CONFIG_FILE_SYSTEM) += \
-	$(ARCH)/../drivers/nvm/fatfs.o
+	$(ARCH)/../drivers/nvm/fatfs.o \
+	$(ARCH)/../drivers/nvm/mmc.o
+	
