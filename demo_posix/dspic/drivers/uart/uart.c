@@ -19,8 +19,6 @@
 #include <define.h>
 #include <fcntl.h>
 #include <errno.h>
-#include <asm/system.h>
-#include <asm/types.h>
 #include <cirbuf.h>
 #include <termios.h>
 #include <sys/ioctl.h>

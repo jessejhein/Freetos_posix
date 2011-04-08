@@ -20,7 +20,7 @@
 #include <sys/ioctl.h>
 #include <fcntl.h>
 #include <errno.h>
-#include <i2c.h>
+#include <i2c/i2c.h>
 
 /** Store control byte for transmit/receive */
 static unsigned char dac_ctrl_byte = 0;
@@ -30,7 +30,7 @@ static struct
   unsigned char high;
   unsigned char low;
 } dac_data;
-/** Store io setting */
+/** Store IO setting */
 static int dac_io_flag;
 
 /** Split $value to high byte and low byte */

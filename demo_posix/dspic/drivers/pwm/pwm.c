@@ -18,7 +18,6 @@
 
 #include <define.h>
 #include <sys/ioctl.h>
-#include <asm/system.h>
 #include <fcntl.h>
 #include <errno.h>
 

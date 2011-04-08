@@ -19,7 +19,6 @@
 #include <define.h>
 #include <fcntl.h>
 #include <errno.h>
-#include <asm/system.h>
 #include <time.h>
 #include <cirbuf.h>
 

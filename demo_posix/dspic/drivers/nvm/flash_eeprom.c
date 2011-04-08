@@ -18,7 +18,7 @@
 
 #include <define.h>
 #include <nvm_data.h>
-#include <rtsp.h>
+#include "rtsp.h"
 #include <fcntl.h>
 #include <errno.h>
 

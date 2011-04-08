@@ -18,11 +18,12 @@
 
 #include <define.h>
 #include <sys/ioctl.h>
-#include <asm/system.h>
+
 
 /** Number of counts to wait for an acknowledgement */
 #define ACK_TIMEOUT       0x0F
 #define i2cIdle()         while(I2CCONbits.SEN||I2CCONbits.PEN||I2CCONbits.RCEN||I2CCONbits.ACKEN||I2CSTATbits.TRSTAT)
+
 
 /************************************************************************************************
  * Local Variables

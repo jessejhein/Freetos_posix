@@ -28,8 +28,8 @@
 
 #include <define.h>
 #include <stddef.h>
-#include <kb.h>
-#include <led.h>
+#include <key/kb.h>
+#include <gpio/led.h>
 
 /**
  * \brief Idle Task

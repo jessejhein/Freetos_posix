@@ -20,7 +20,7 @@
 #include <sys/ioctl.h>
 #include <fcntl.h>
 #include <errno.h>
-#include <i2c.h>
+#include <i2c/i2c.h>
 
 /** Store control byte for transmit/receive */
 static unsigned char mod_dspic_ctrl_byte = 0;
@@ -32,7 +32,7 @@ typedef union
 } i2c_mod_dspic_data_t;
 /** indicate the start and stop condition with the data in progress */
 static i2c_mod_dspic_data_t i2c_data;
-/** Store io setting */
+/** Store IO setting */
 static int mod_dspic_flag;
 
 

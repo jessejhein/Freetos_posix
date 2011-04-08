@@ -17,7 +17,7 @@
  */
 
 #include <define.h>
-#include <dm9000a.h>
+#include "dm9000a.h"
 #include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>

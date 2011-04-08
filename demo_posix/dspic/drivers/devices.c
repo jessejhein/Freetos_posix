@@ -6,25 +6,24 @@
 
 #include <define.h>
 #include <errno.h>
-#include <asm/types.h>
 #include <string.h>
-#include <adc.h>
 #ifdef ETHERNET_MOD
-#include <dm9000a.h>
+#include <net/dm9000a.h>
 #endif /* ETHERNET_MOD */
-#include <flash_eeprom.h>
-#include <i2c_adc.h>
-#include <i2c_dac.h>
-#include <i2c_temp.h>
-#include <i2c_eeprom.h>
-#include <i2c_mod_master_dspic.h>
-#include <i2c_mod_slave_dspic.h>
-#include <i2c_led_driver.h>
-#include <i2c_gpio.h>
-#include <kb.h>
-#include <led.h>
-#include <pwm.h>
-#include <uart.h>
+#include <analog/adc.h>
+#include <analog/i2c_adc.h>
+#include <analog/i2c_dac.h>
+#include <analog/i2c_temp.h>
+#include <gpio/i2c_led_driver.h>
+#include <gpio/i2c_gpio.h>
+#include <gpio/led.h>
+#include <key/kb.h>
+#include <nvm/flash_eeprom.h>
+#include <nvm/i2c_eeprom.h>
+#include <pwm/i2c_mod_master_dspic.h>
+#include <pwm/i2c_mod_slave_dspic.h>
+#include <pwm/pwm.h>
+#include <uart/uart.h>
 
 
 //-----------------------------------------------------------------------------------------

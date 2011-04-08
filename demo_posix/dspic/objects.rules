@@ -275,7 +275,7 @@ endif
 ############################# header section ################################
 
 # DRIVER INCLUDE
-INCLUDEDIRS += -I$(ARCH)/../drivers/include/ -I$(ARCH)/../include/
+INCLUDEDIRS += -I$(ARCH)/../drivers/ -I$(ARCH)/../include/
 
 
 ############################# targets section ################################
@@ -283,7 +283,9 @@ obj-y += \
 	$(ARCH)/linker/reset.o \
 	$(ARCH)/boot/boot.o \
 	$(ARCH)/../drivers/devices.o \
-	$(ARCH)/../drivers/traps.o
+	$(ARCH)/../drivers/cirbuf.o \
+	$(ARCH)/../drivers/clock-arch.o \
+	$(ARCH)/../drivers/trap/traps.o
 ifeq ($(PLATFORM), DSPIC33)
 obj-y += \
 	$(ARCH)/boot/clk_switch.o
@@ -291,48 +293,46 @@ endif
 
 # Drivers
 obj-$(CONFIG_UART) += \
-	$(ARCH)/../drivers/uart.o \
-	$(ARCH)/../drivers/cirbuf.o
+	$(ARCH)/../drivers/uart/uart.o
 obj-$(CONFIG_I2C) += \
-	$(ARCH)/../drivers/i2c.o 
+	$(ARCH)/../drivers/i2c/i2c.o 
 obj-$(CONFIG_I2C_DAC) += \
-	$(ARCH)/../drivers/i2c_dac.o
+	$(ARCH)/../drivers/analog/i2c_dac.o
 obj-$(CONFIG_I2C_ADC) += \
-  $(ARCH)/../drivers/i2c_adc.o
+  $(ARCH)/../drivers/analog/i2c_adc.o
 obj-$(CONFIG_I2C_TEMP) += \
-  $(ARCH)/../drivers/i2c_temp.o
+  $(ARCH)/../drivers/analog/i2c_temp.o
 ifeq ($(CONFIG_I2C_MOD_DSPIC), y)
 	ifeq ($(CONFIG_I2C_MOD_DSPIC_MODE), MASTER)
-		obj-y += $(ARCH)/../drivers/i2c_mod_master_dspic.o
+		obj-y += $(ARCH)/../drivers/pwm/i2c_mod_master_dspic.o
 	endif
 	ifeq ($(CONFIG_I2C_MOD_DSPIC_MODE), SLAVE)
-		obj-y += $(ARCH)/../drivers/i2c_mod_slave_dspic.o
+		obj-y += $(ARCH)/../drivers/pwm/i2c_mod_slave_dspic.o
 	endif
 endif
 obj-$(CONFIG_I2C_LED_DRIVER) += \
-  $(ARCH)/../drivers/i2c_led_driver.o
+  $(ARCH)/../drivers/gpio/i2c_led_driver.o
 obj-$(CONFIG_I2C_GPIO) += \
-  $(ARCH)/../drivers/i2c_gpio.o
+  $(ARCH)/../drivers/gpio/i2c_gpio.o
 obj-$(CONFIG_ADC) += \
-	$(ARCH)/../drivers/adc.o
+	$(ARCH)/../drivers/analog/adc.o
 obj-$(CONFIG_PWM) += \
-	$(ARCH)/../drivers/pwm.o
+	$(ARCH)/../drivers/pwm/pwm.o
 obj-$(CONFIG_KEYBOARD) += \
-	$(ARCH)/../drivers/kb.o
+	$(ARCH)/../drivers/key/kb.o
 obj-$(CONFIG_LED) += \
-	$(ARCH)/../drivers/led.o
+	$(ARCH)/../drivers/gpio/led.o
 ifeq ($(CONFIG_NVM), y)
 	ifeq ($(CONFIG_NVM_INTERNAL), FLASH)
-		obj-y += $(ARCH)/../drivers/flash_eeprom.o $(ARCH)/../drivers/rtsp.o
+		obj-y += $(ARCH)/../drivers/nvm/flash_eeprom.o $(ARCH)/../drivers/nvm/rtsp.o
 	endif
 	ifeq ($(CONFIG_NVM_USE_EXTERNAL), y)
 		ifeq ($(CONFIG_NVM_EXTERNAL), I2C)
-			obj-y += $(ARCH)/../drivers/i2c_eeprom.o
+			obj-y += $(ARCH)/../drivers/nvm/i2c_eeprom.o
 		endif
 	endif
 endif	
 obj-$(CONFIG_ETHERNET) += \
-	$(ARCH)/../drivers/dm9000a.o \
-	$(ARCH)/../drivers/clock-arch.o
+	$(ARCH)/../drivers/net/dm9000a.o
 obj-$(CONFIG_FILE_SYSTEM) += \
-	$(ARCH)/../drivers/fatfs.o
+	$(ARCH)/../drivers/nvm/fatfs.o

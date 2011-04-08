@@ -20,7 +20,7 @@
 #include <sys/ioctl.h>
 #include <fcntl.h>
 #include <errno.h>
-#include <i2c.h>
+#include <i2c/i2c.h>
 
 /*
  * Register address

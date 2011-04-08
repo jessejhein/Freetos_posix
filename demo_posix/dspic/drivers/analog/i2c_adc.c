@@ -20,7 +20,7 @@
 #include <sys/ioctl.h>
 #include <fcntl.h>
 #include <errno.h>
-#include <i2c.h>
+#include <i2c/i2c.h>
 
 #define I2C_ADC_COMMAND                 0x00
 #define I2C_ADC_MAX_DATA                4
@@ -39,7 +39,7 @@ static struct
         } byte;
     };
 } adc_data[I2C_ADC_MAX_DATA];
-/** Store io setting */
+/** Store IO setting */
 static int adc_io_flag;
 
 
