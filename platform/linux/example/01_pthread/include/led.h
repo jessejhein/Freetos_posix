@@ -13,7 +13,7 @@
  * \n         [1]: 50% duty cycle (in sec)
  * \return never return
  */
-extern void* tskFlashLED(void *ptr);
+extern void* tskFlashLED (void *ptr);
 
 
 #endif /* LED_H_ */

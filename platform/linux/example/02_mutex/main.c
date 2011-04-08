@@ -24,9 +24,9 @@ unsigned int counter = 0;
  * \brief set up hardware
  */
 void 
-vSetupHardware(void)
+vSetupHardware (void)
 {
-  pthread_mutex_init(&myMutex, NULL);
+  pthread_mutex_init (&myMutex, NULL);
 }
 
 
@@ -34,7 +34,7 @@ vSetupHardware(void)
  * \brief user main
  */
 void 
-vUserMain()
+vUserMain (void)
 {
   //Identify your threads here
   pthread_t thread_mutex1, thread_mutex2;
@@ -43,6 +43,6 @@ vUserMain()
   static unsigned int arg_mutex2 = 1;
 
   //Create your threads here
-  pthread_create(&thread_mutex1, NULL, tskMutex, &arg_mutex1);
-  pthread_create(&thread_mutex2, NULL, tskMutex, &arg_mutex2);  
+  pthread_create (&thread_mutex1, NULL, tskMutex, &arg_mutex1);
+  pthread_create (&thread_mutex2, NULL, tskMutex, &arg_mutex2);
 }

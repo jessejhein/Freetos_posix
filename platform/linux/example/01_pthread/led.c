@@ -14,25 +14,25 @@
  * \return never return
  */
 void* 
-tskFlashLED(void *ptr)
+tskFlashLED (void *ptr)
 {
   unsigned int led = *(((unsigned int*)ptr));
-  unsigned int sleep_time = *(((unsigned int*)ptr)+1);
+  unsigned int sleep_time = *(((unsigned int*)ptr) + 1);
 
-  start_process();
+  start_process ();
 
-  while(1)
+  while (1)
     {
-      sleep(sleep_time);
-      if(led_status(led) == 0)
+      sleep (sleep_time);
+      if (led_status (led) == 0)
         {
-          led_on(led);
+          led_on (led);
         }
       else
         {
-          led_off(led);
+          led_off (led);
         }	
     }
 
-  end_process();
+  end_process ();
 }

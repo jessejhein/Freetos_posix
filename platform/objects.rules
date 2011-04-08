@@ -1,0 +1,33 @@
+##############################################################################
+# platform Makefile
+#
+# This makefile adds the object files to the obj-y variable.
+# It does not define any targets.
+#
+# This makefile is only intended to be included from /freertos_posix/objects.rules
+##############################################################################
+
+ifndef FREERTOS_POSIX
+	FREERTOS_POSIX := $(CURDIR)/..
+endif
+
+
+############################# path section #################################
+
+# Architecture
+ifeq ($(PLATFORM), DSPIC33)
+	ARCH := $(FREERTOS_POSIX)/demo_posix/dspic/dspic33
+	include $(FREERTOS_POSIX)/demo_posix/dspic/objects.rules
+endif
+ifeq ($(PLATFORM), LINUX)
+	ARCH := $(FREERTOS_POSIX)/demo_posix/linux
+endif
+
+
+############################# targets section ################################
+
+# FreeRTOS locals
+ifeq ($(PLATFORM), DSPIC33)
+	obj-y += $(FREERTOS_POSIX)/Source/portable/MPLAB/dspic33/port.o
+	obj-y += $(FREERTOS_POSIX)/Source/portable/MPLAB/dspic33/portasm_dsPIC.o
+endif

@@ -12,6 +12,6 @@
  * \param ptr [0]: thread index
  * \return never return
  */
-extern void* tskMutex(void* ptr);
+extern void* tskMutex (void* ptr);
 
 #endif /* LED_H_ */

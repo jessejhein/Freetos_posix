@@ -15,10 +15,10 @@ static unsigned int led_state[3];
  * \param led number
  */
 void 
-led_on(unsigned short led)
+led_on (unsigned short led)
 {
   led_state[led] = 1; 
-  printf("LED %d is ON.\n", (int)led);
+  printf ("LED %d is ON.\n", (int)led);
 }
 
 
@@ -27,10 +27,10 @@ led_on(unsigned short led)
  * \param led number
  */
 void 
-led_off( unsigned short led)
+led_off (unsigned short led)
 {
   led_state[led] = 0; 
-  printf("LED %d is OFF.\n", (int)led);
+  printf ("LED %d is OFF.\n", (int)led);
 }
 
 
@@ -40,9 +40,9 @@ led_off( unsigned short led)
  * \retval -1 error
  */
 int 
-led_status(unsigned short led)
+led_status (unsigned short led)
 {
-  switch(led)
+  switch (led)
     {
       case 0:	
       case 1:	
@@ -55,13 +55,13 @@ led_status(unsigned short led)
 
 
 /**
- * \brief initialize led
+ * \brief initialise led
  */
 void 
-led_init(void)
+led_init (void)
 {
   led_state[0] = 0;
   led_state[1] = 0;
   led_state[2] = 0;
-  printf("ALL LEDs initialised successfully.\n");
+  printf ("ALL LEDs initialised successfully.\n");
 }

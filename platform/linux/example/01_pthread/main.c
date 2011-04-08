@@ -16,9 +16,9 @@
  * \brief set up hardware
  */
 void 
-vSetupHardware(void)
+vSetupHardware (void)
 {
-  led_init();
+  led_init ();
 }
 
 
@@ -26,7 +26,7 @@ vSetupHardware(void)
  * \brief user main
  */
 void 
-vUserMain()
+vUserMain (void)
 {
   //Identify your threads here
   pthread_t thread_led1, thread_led2;
@@ -35,6 +35,6 @@ vUserMain()
   static unsigned int arg_led2[] = {1, 2};
 
   //Create your threads here
-  pthread_create(&thread_led1, NULL, tskFlashLED, arg_led1);
-  pthread_create(&thread_led2, NULL, tskFlashLED, arg_led2);
+  pthread_create (&thread_led1, NULL, tskFlashLED, arg_led1);
+  pthread_create (&thread_led2, NULL, tskFlashLED, arg_led2);
 }

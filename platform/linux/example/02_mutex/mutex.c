@@ -18,34 +18,34 @@
  * \return never return
  */
 void* 
-tskMutex(void* ptr)
+tskMutex (void* ptr)
 {
   unsigned int index = *((unsigned int*)ptr);
   char done = 0;
   
-  start_process();
+  start_process ();
 
-  while(1)
+  while (1)
     {
-      if(done == 0)
+      if (done == 0)
         {
           int i=0;
-          for(i=0; i<5000; i++)
+          for (i = 0; i < 5000; i++)
             {
 #if MUTEX
-              while(pthread_mutex_lock(&myMutex) != 0);
+              while (pthread_mutex_lock (&myMutex) != 0);
 #endif /* MUTEX */
               counter++;
               int j;
-              for(j=0; j<5000; j++);
+              for (j = 0; j < 5000; j++);
 #if MUTEX
-              pthread_mutex_unlock(&myMutex);
+              pthread_mutex_unlock (&myMutex);
 #endif /* MUTEX */
             }
-          printf("T%d: counter = %d\n", index, counter);
+          printf ("T%d: counter = %d\n", index, counter);
         }
       done = 1;
     }     
 
-  end_process();
+  end_process ();
 }

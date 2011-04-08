@@ -11,14 +11,14 @@
  * \brief turn on led
  * \param led number
  */
-extern void led_on(unsigned short led);
+extern void led_on (unsigned short led);
 
 
 /**
  * \brief turn off led
  * \param led number
  */
-extern void led_off( unsigned short led);
+extern void led_off (unsigned short led);
 
 
 /**
@@ -26,13 +26,13 @@ extern void led_off( unsigned short led);
  * \param led number
  * \retval -1 error
  */
-extern int led_status(unsigned short led);
+extern int led_status (unsigned short led);
 
 
 /**
- * \brief initialize led
+ * \brief initialise led
  */
-extern void led_init(void);
+extern void led_init (void);
 
 
 #endif /* PIN_DEFINE_H_ */
