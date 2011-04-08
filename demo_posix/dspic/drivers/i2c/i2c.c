@@ -22,7 +22,7 @@
 
 /** Number of counts to wait for an acknowledgement */
 #define ACK_TIMEOUT       0x0F
-#define i2cIdle()         while(I2CCONbits.SEN||I2CCONbits.PEN||I2CCONbits.RCEN||I2CCONbits.ACKEN||I2CSTATbits.TRSTAT)
+#define i2cIdle()         while(I2C1CONbits.SEN||I2C1CONbits.PEN||I2C1CONbits.RCEN||I2C1CONbits.ACKEN||I2C1STATbits.TRSTAT)
 
 
 /************************************************************************************************
@@ -62,23 +62,23 @@ void
 i2c_open (void)
 {
   //Open i2c if not already opened
-  if (I2CCONbits.I2CEN == 0)
+  if (I2C1CONbits.I2CEN == 0)
     {
       //Disable I2C master interrupt (Status of I2C is detected by polling)
-      _MI2CIF = 0;
-      _MI2CIE = 0;
+      _MI2C1IF = 0;
+      _MI2C1IE = 0;
       //Enable I2C slave interrupt
-      _SI2CIF = 0;
-      _SI2CIE = 1;
+      _SI2C1IF = 0;
+      _SI2C1IE = 1;
         
       //Configure Baud rate (400kHz, change in define.h)
-      I2CBRG = I2C_BRG;
+      I2C1BRG = I2C_BRG;
         
       //I2C Configuration:
       // Enable clock stretch
       // 7-bit address
-      I2CCONbits.STREN = 1;
-      I2CCONbits.I2CEN = 1;
+      I2C1CONbits.STREN = 1;
+      I2C1CONbits.I2CEN = 1;
 
       //I2C bus at idle state, awaiting transmission
       i2cIdle ();
@@ -103,35 +103,35 @@ i2c_write (unsigned char *buf)
    */
   if (i2c_status.bits.START)
     {
-      I2CCONbits.SEN = 1;                 
+      I2C1CONbits.SEN = 1;
       Nop();                            //A small delay for hardware to respond
-      while (I2CCONbits.SEN);           //Wait till Start sequence is completed
+      while (I2C1CONbits.SEN);          //Wait till Start sequence is completed
     }
   else if (i2c_status.bits.RESTART)
     {
-      I2CCONbits.RSEN = 1;                
+      I2C1CONbits.RSEN = 1;
       Nop();                            //A small delay for hardware to respond
-      while (I2CCONbits.RSEN);          //Wait till Start sequence is completed
+      while (I2C1CONbits.RSEN);         //Wait till Start sequence is completed
     }
     
   /*
    * Send the byte
    */
-  I2CTRN = *buf;                        //Transmit register
-  while (I2CSTATbits.TBF);              //Wait for transmit buffer to empty
+  I2C1TRN = *buf;                       //Transmit register
+  while (I2C1STATbits.TBF);             //Wait for transmit buffer to empty
     
   /*
    * Check if slave acknowledged
    */
-  while (I2CSTATbits.ACKSTAT)
+  while (I2C1STATbits.ACKSTAT)
     {
       if (++count > ACK_TIMEOUT)
         {
           //Slave did not acknowledge, byte did not transmit successfully,
           //send stop bit to reset i2c
-          I2CCONbits.PEN = 1;
+          I2C1CONbits.PEN = 1;
           Nop();                        //A small delay for hardware to respond
-          while (I2CCONbits.PEN);       //Wait till stop sequence is completed
+          while (I2C1CONbits.PEN);      //Wait till stop sequence is completed
           i2cIdle ();
           return 0;
         }
@@ -143,9 +143,9 @@ i2c_write (unsigned char *buf)
    */
   if (i2c_status.bits.STOP)
     {
-      I2CCONbits.PEN = 1;
+      I2C1CONbits.PEN = 1;
       Nop();                            //A small delay for hardware to respond
-      while (I2CCONbits.PEN);           //Wait till stop sequence is completed
+      while (I2C1CONbits.PEN);          //Wait till stop sequence is completed
       i2cIdle ();
     }
   i2c_status.val = 0;                   //Clear status
@@ -160,16 +160,16 @@ i2c_read (unsigned char *buf)
   /*
    * Get the byte
    */
-  I2CCONbits.RCEN = 1;                    //Enable Receive
-  while (I2CCONbits.RCEN);
-  I2CSTATbits.I2COV = 0;                  //Clear receive overflow
-  *buf = (unsigned char) I2CRCV;          //Access the receive buffer
+  I2C1CONbits.RCEN = 1;                   //Enable Receive
+  while (I2C1CONbits.RCEN);
+  I2C1STATbits.I2COV = 0;                 //Clear receive overflow
+  *buf = (unsigned char) I2C1RCV;         //Access the receive buffer
     
   /*
    * Send Acknowledgement
    */
-  I2CCONbits.ACKDT = (i2c_status.bits.NACK)? 1 : 0;
-  I2CCONbits.ACKEN = 1;                 //Send Acknowledgement/Not Acknowledgement
+  I2C1CONbits.ACKDT = (i2c_status.bits.NACK)? 1 : 0;
+  I2C1CONbits.ACKEN = 1;                //Send Acknowledgement/Not Acknowledgement
   i2cIdle();                            //I2C bus at idle state, awaiting transmission
     
   /*
@@ -177,9 +177,9 @@ i2c_read (unsigned char *buf)
    */
   if (i2c_status.bits.STOP)
     {
-      I2CCONbits.PEN = 1;
+      I2C1CONbits.PEN = 1;
       Nop();                            //A small delay for hardware to respond
-      while (I2CCONbits.PEN);           //Wait till stop sequence is completed
+      while (I2C1CONbits.PEN);          //Wait till stop sequence is completed
       i2cIdle ();
     }
 

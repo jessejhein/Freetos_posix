@@ -11,16 +11,14 @@
  *
  * Control ADC Port
  * \li The driver has a POSIX-compliance interface with open(), read(), and ioctl().
- * \li Operation of ADC in dsPic30F and dsPic33F is different. For scanning of multiple channels,
- *     dsPic30F uses ADC interrupt, while dsPic33F uses DMA interrupt.
  * \li Users should take note that:
  * \n  a) On open(), no sampling is performed. Sampling only begins after the first successful ioctl()
- * \n  b) The highest sampling frequency for dsPic30F and dsPic33F are 200kbps and 500kbps respectively
+ * \n  b) The highest sampling frequency for dsPic33F is 500kbps respectively
  * \n  c) Users should first add the channel using ioctl() before reading from the channel.
  * \n  d) There could be a delay between execution of ioctl() and read() to obtain the data,
  *        the delay is indicated by returning -1 from read(). User may poll the return value
  *        to ensure a valid reading.
- * \n  e) The interrupt routine for dsPic30F and dsPic33F requires about ?us and 30us for execution.
+ * \n  e) The interrupt routine for dsPic33F requires about 30us for execution.
  *        User should make sure that the ADC sampling time is at least greater than this value,
  *        and it has adequate processing time for other processes.
  */
@@ -42,34 +40,6 @@
  * \retval -1 error, write mode is selected (errno = EROFS)
  * \retval 0 ok
  * \verbatim
-   OPERATION OF ADC IN DSPIC30
-   ===========================
-
-      CH          0   2   3        0   2   3        0   2   3        0   2   3
-                  |   |   |        |   |   |        |   |   |        |   |   |
-                  |   |   |   ...  |   |   |   ...  |   |   |   ...  |   |   |
-                 \|/ \|/ \|/      \|/ \|/ \|/      \|/ \|/ \|/      \|/ \|/ \|/
-            --------------------------------------------------------------------------> Time
-
-                   ADCBUF           ADCBUF           ADCBUF           ADCBUF
-                +----------+     +----------+     +----------+     +----------+
-                | ch0(n-3) |     | ch0(n-2) |     | ch0(n-1) |     |  ch0(n)  |
-                | ch2(n-3) |     | ch2(n-2) |     | ch2(n-1) |     |  ch2(n)  |
-                | ch3(n-3) |     | ch3(n-2) |     | ch3(n-1) |     |  ch3(n)  |
-                |   ...    |     |   ...    |     |   ...    |     |   ...    |
-                +----------+     +----------+     +----------+     +----------+
-                      |                |                |                |
-   INTERRUPT          |                |                |                |
-                     \|/              \|/              \|/              \|/
-                adc_queue[0]     adc_queue[1]     adc_queue[2]     adc_queue[0]
-                +----------+     +----------+     +----------+     +----------+
-                | ch0(n-3) |     | ch0(n-2) |     | ch0(n-1) |     |  ch0(n)  |
-                |   ---    |     |   ---    |     |   ---    |     |   ---    |
-                | ch2(n-3) |     | ch2(n-2) |     | ch2(n-1) |     |  ch2(n)  |
-                | ch3(n-3) |     | ch3(n-2) |     | ch3(n-1) |     |  ch3(n)  |
-                |   ...    |     |   ...    |     |   ...    |     |   ...    |
-                +----------+     +----------+     +----------+     +----------+
-
    OPERATION OF ADC IN DSPIC33
    ===========================
 

@@ -40,7 +40,7 @@ static unsigned int adc_queue[ADC_QSIZE][ADC_MAX_CH];
 static unsigned int adc_queue_ptr = ADC_QSIZE - 1;
 
 /**
- * \brief get the adc channel status
+ * \brief get the ADC channel status
  * \param ch channel id
  * \retval 0 not turned on
  * \retval >1 turned on
@@ -48,7 +48,7 @@ static unsigned int adc_queue_ptr = ADC_QSIZE - 1;
 #define GET_CH_STATUS(ch)                           (((unsigned long)0x0001 << ch) & adc_ch_status)
 
 /**
- * \brief set the adc channel to on state
+ * \brief set the ADC channel to on state
  * \param ch channel id
  */
 #define SET_CH_STATUS_ON(ch)                        (adc_ch_status |= ((unsigned long)0x0001 << ch))
@@ -90,7 +90,7 @@ adc_open (int flags)
       AD1CON4bits.DMABL = 0;
       //===========================================================================
       // ADCCON3:
-      //  +--A/D Conversion Clock Source = Use system clk
+      //  +--A/D Conversion Clock Source = Use system clock
       //  +--Set Auto Sample Time = # of TAD
       //  +--A/D Conversion Clock Select ADCS<5:0>= (TAD/TCY)-1
       AD1CON3bits.ADRC = 0;
@@ -136,10 +136,10 @@ adc_open (int flags)
 void _IRQ 
 _DMA0Interrupt (void)
 {
-  //update dma pointer
+  //update DMA pointer
   adc_buf_ptr = (which_dma == 0)? adc_bufA : adc_bufB;
   which_dma ^= 1;
-  //update queue ptr
+  //update queue pointer
   adc_queue_ptr++;
   if (adc_queue_ptr == ADC_QSIZE) adc_queue_ptr = 0;
   //copy selected channel data to queue
@@ -178,7 +178,7 @@ adc_read_channel (unsigned int* buf, int count)
 int 
 adc_read (unsigned int* buf, int count)
 {
-  //Non-Blocking io
+  //Non-Blocking IO
   if (adc_io_flag & O_NONBLOCK)
     {
       if (adc_data_ready == 1)
@@ -188,7 +188,7 @@ adc_read (unsigned int* buf, int count)
       errno = EAGAIN;
       return -1;  //data is not ready
     }
-  //Blocking io
+  //Blocking IO
   else
     {
       while (adc_data_ready == 0);
@@ -231,13 +231,13 @@ adc_ioctl (int request, unsigned char* argp)
               
               //increment interrupt counter
               adc_on_ch_num++;
-              ADCON2bits.SMPI = adc_on_ch_num -1;
+              AD1CON2bits.SMPI = adc_on_ch_num -1;
               ADD_ON_CODE ();
               
               //First data not ready yet, until interrupt occurs
               adc_data_ready = 0;
               //Turn on the A/D converter if not already done so
-              if (ADCON1bits.ADON == 0) ADCON1bits.ADON = 1;
+              if (AD1CON1bits.ADON == 0) AD1CON1bits.ADON = 1;
             }
           sti();
           break;
