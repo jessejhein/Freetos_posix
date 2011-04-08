@@ -13,9 +13,6 @@
  * For dsPic33: 
  *   Each PAGE has 8 ROWS of flash 
  *   Each ROW corresponds to 64 instructions or 192 bytes (high byte of upper word is phathom)
- * For dsPic30: 
- *   Each PAGE has 1 ROW of flash 
- *   Each ROW corresponds to 32 instructions or 96 bytes (high byte of upper word is phathom)
  **************************************************************************************/
  
 #ifndef __RTSP_H__
@@ -26,23 +23,26 @@
  */ 
 #if 0
 
-void foo(int* buf, int count){
-    int image_buf[NVM_PAGE_SIZE];
-    unsigned int nvmAdru = __builtin_tblpage(&nvm_data[0]);
-    unsigned int nvmAdr  = __builtin_tbloffset(&nvm_data[0]);
+void
+foo (int* buf, int count)
+{
+  int image_buf[NVM_PAGE_SIZE];
+  unsigned int nvmAdru = __builtin_tblpage (&nvm_data[0]);
+  unsigned int nvmAdr  = __builtin_tbloffset (&nvm_data[0]);
 #ifdef MPLAB_DSPIC33_PORT
-    nvmAdr = nvmAdr & 0xFC00; // Get the Flash Page Aligned address
+  nvmAdr = nvmAdr & 0xFC00; // Get the Flash Page Aligned address
 #endif
-    
-    flashPageRead(nvmAdru, nvmAdr, (int*)image_buf);
+
+  flashPageRead (nvmAdru, nvmAdr, (int*)image_buf);
         
-    for(i=0; i<count && nvm_pointer<NVM_SIZE ; i++, nvm_pointer++){
-        image_buf[nvm_pointer] = buf[i];
+  for (i = 0; (i < count) && (nvm_pointer < NVM_SIZE); i++, nvm_pointer++)
+    {
+      image_buf[nvm_pointer] = buf[i];
     }
-        
-    flashPageErase(nvmAdru, nvmAdr);
-        
-    flashPageWrite(nvmAdru, nvmAdr, (int*)image_buf);
+
+  flashPageErase (nvmAdru, nvmAdr);
+
+  flashPageWrite (nvmAdru, nvmAdr, (int*)image_buf);
 }
 
 #endif
