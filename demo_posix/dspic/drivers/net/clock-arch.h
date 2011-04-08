@@ -28,23 +28,15 @@
  *
  * This file is part of the uIP TCP/IP stack
  *
- * $Id: clock-arch.c,v 1.2 2006/06/12 08:00:31 adam Exp $
+ * $Id: clock-arch.h,v 1.2 2006/06/12 08:00:31 adam Exp $
  */
 
-/**
- * \file
- *         Implementation of architecture-specific clock functionality
- * \author
- *         Adam Dunkels <adam@sics.se>
- */
+#ifndef __CLOCK_ARCH_H__
+#define __CLOCK_ARCH_H__
 
-#include "clock-arch.h"
-#include <time.h>
+#include <FreeRTOS.h>
 
-/*---------------------------------------------------------------------------*/
-clock_time_t
-clock_time(void)
-{
-    return (clock_time_t) clock();
-}
-/*---------------------------------------------------------------------------*/
+typedef int clock_time_t;
+#define CLOCK_CONF_SECOND   configTICK_RATE_HZ  //number of ticks in one sec
+
+#endif /* __CLOCK_ARCH_H__ */
