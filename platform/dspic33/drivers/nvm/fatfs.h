@@ -57,6 +57,7 @@ extern void fatfs_init (void);
  * \retval -1 error
  * \remarks
  * Limitations: For "a" and "a+", we do not consider writing operations append data at the end of the file.
+ * Limitations: open upto 5 files only (FOPEN_MAX defined as 8 for stdio.h, 3 file reserved)
  * \verbatim
     fopen    fatfs_open (open)                                       f_open
     r        => 0x4000 (O_NONBLOCK | O_RDONLY)                       => FA_READ | FA_OPEN_EXISTING (0x01)
