@@ -1,21 +1,4 @@
 /**
- * \addtogroup drivers Drivers
- * @{
- * 
- * Implementation of POSIX Wrapper for FatFs
- */
-
-/**
- * \defgroup file_system File System
- * @{
- * Contains 
- * \li middle layer [fatfs_xxx()] interfacing posix open(), read(), write(), lseek()
- * \remarks
- * \li support only 1 volume
- * \li open upto 5 files at one time
- */
-
-/**
  * \file
  * POSIX wrapper for FatFs
  * \author Dennis Tsang <dennis@amonics.com>
@@ -65,9 +48,6 @@ static FIL file[FATFS_MAX_VOLUME][FATFS_MAX_FILE];
 static FIL* file_ptr[FATFS_MAX_VOLUME][FATFS_MAX_FILE];
 
 
-/**
- * \brief initialise file system, mount volume
- */
 void
 fatfs_init (void)
 {
@@ -86,25 +66,6 @@ fatfs_init (void)
 }
 
 
-/**
- * \brief open a file in the specified drive
- * \param drive drive id
- * \param pathname pathname under the drive, begin with '\'
- * \param flag flag used to open the file
- * \return a usable file descriptor [0 - (FATFS_MAX_FILE - 1)]
- * \retval -1 error
- * \remarks
- * Limitations: For "a" and "a+", we do not consider writing operations append data at the end of the file.
- * \verbatim
-    fopen    fatfs_open (open)                                       f_open
-    r        => 0x4000 (O_NONBLOCK | O_RDONLY)                       => FA_READ | FA_OPEN_EXISTING (0x01)
-    r+       => 0x4002 (O_NONBLOCK | O_RDWR)                         => FA_READ | FA_WRITE | FA_OPEN_EXISTING (0x03)
-    w        => 0x4301 (O_NONBLOCK | O_CREAT | O_EXCL | O_WRONLY)    => FA_WRITE | FA_CREATE_ALWAYS (0x0a)
-    w+       => 0x4302 (O_NONBLOCK | O_CREAT | O_EXCL | O_RDWR)      => FA_READ | FA_WRITE | FA_CREATE_ALWAYS (0x0b)
-    a        => 0x4109 (O_NONBLOCK | O_CREAT | O_APPEND | O_WRONLY)  => FA_WRITE | FA_OPEN_ALWAYS (0x12)
-    a+       => 0x410a (O_NONBLOCK | O_CREAT | O_APPEND | O_RDWR)    => FA_READ | FA_WRITE | FA_OPEN_ALWAYS (0x13)
-   \endverbatim
- */
 char
 fatfs_open (int drive, const char *pathname, int flag)
 {
@@ -138,6 +99,7 @@ fatfs_open (int drive, const char *pathname, int flag)
 
               //create file
               FRESULT result = f_open (&file[drive][i], pathname, mode);
+
               switch (result)
                 {
                   case FR_OK:
@@ -226,13 +188,6 @@ fatfs_open (int drive, const char *pathname, int flag)
 }
 
 
-/**
- * \brief close a file in the specified drive
- * \param drive drive id
- * \param fd file descriptor
- * \retval 0 success
- * \retval -1 error
- */
 char
 fatfs_close (int drive, int fd)
 {
@@ -277,15 +232,7 @@ fatfs_close (int drive, int fd)
 }
 
 
-/**
- * \brief write count bytes from buffer
- * \param drive drive id
- * \param fd file descriptor
- * \param buf source buffer
- * \param count number of bytes to write
- * \return number of bytes written
- */
-char
+int
 fatfs_write (int drive, int fd, char* buf, int count)
 {
   if ( (drive < FATFS_MAX_VOLUME) && (fd < FATFS_MAX_FILE) )
@@ -342,15 +289,7 @@ fatfs_write (int drive, int fd, char* buf, int count)
 }
 
 
-/**
- * \brief read count bytes to buffer
- * \param drive drive id
- * \param fd file descriptor
- * \param buf destination buffer
- * \param count number of bytes to read
- * \return number of bytes read
- */
-char
+int
 fatfs_read (int drive, int fd, char* buf, int count)
 {
   if ( (drive < FATFS_MAX_VOLUME) && (fd < FATFS_MAX_FILE) )
@@ -407,20 +346,47 @@ fatfs_read (int drive, int fd, char* buf, int count)
 }
 
 
-/**
- * \brief reposition read/write file offset
- * \param drive drive id
- * \param fd file descriptor
- * \param offset offset bytes
- * \param whence reference point
- * \return new position
- */
+
 char
 fatfs_seek (int drive, int fd, int offset, int whence)
 {
-  //TODO: map to f_seek
-  return 0;
-}
+  if ( (drive < FATFS_MAX_VOLUME) && (fd < FATFS_MAX_FILE) )
+    {
+      //perform seek operation
+      FRESULT result = f_lseek (file_ptr[drive][fd], offset);
 
-/** @} */
-/** @} */
+      //check result
+      switch (result)
+        {
+          case FR_OK:
+            {
+              break;
+            }
+          case FR_DISK_ERR:
+            {
+              break;
+            }
+          case FR_INT_ERR:
+            {
+              break;
+            }
+          case FR_NOT_READY:
+            {
+              break;
+            }
+          case FR_INVALID_OBJECT:
+            {
+              break;
+            }
+          case FR_NOT_ENOUGH_CORE:
+            {
+              break;
+            }
+          default:
+            {
+            }
+        }
+      //TODO: map to f_seek
+      return 0;
+    }
+}

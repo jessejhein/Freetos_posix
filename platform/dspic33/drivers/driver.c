@@ -38,12 +38,12 @@
 #include <gpio/led.h>
 #include <key/kb.h>
 #include <nvm/flash_eeprom.h>
+#include <nvm/fatfs.h>
 #include <nvm/i2c_eeprom.h>
 #include <pwm/i2c_mod_master_dspic.h>
 #include <pwm/i2c_mod_slave_dspic.h>
 #include <pwm/pwm.h>
 #include <uart/uart.h>
-
 
 //-----------------------------------------------------------------------------------------
 /**
