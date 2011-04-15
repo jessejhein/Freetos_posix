@@ -34,12 +34,12 @@ CONFIG_I2C_MOD_DSPIC							=		n
 CONFIG_I2C_LED_DRIVER							=		n
 CONFIG_I2C_GPIO										=		n
 CONFIG_NVM												=		y
+CONFIG_FILE_SYSTEM								=		n
 CONFIG_ADC												=		y
 CONFIG_PWM												=		y
 CONFIG_KEYBOARD										=		y
-CONFIG_ETHERNET										=		y
 CONFIG_LED												=		y
-CONFIG_FILE_SYSTEM								=		n
+CONFIG_ETHERNET										=		y
 
 #----------------------------------------------------------------
 # DSP Modules
