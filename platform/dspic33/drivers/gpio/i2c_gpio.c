@@ -181,13 +181,20 @@ i2c_gpio_lv_read (unsigned char* buf)
 int
 i2c_gpio_open (int flags)
 {
+  static char timeout = 0;
+
   gpio_io_flag = flags;
   i2c_open ();
 
   //Bank = 1, no pointer increment
   gpio_address = I2C_GPIO_DEFAULT_IOCON;
   unsigned char data = (I2C_GPIO_IOCON_BANK | I2C_GPIO_IOCON_SEQOP);
-  while (i2c_gpio_lv_write (&data) != 1);
+  while (i2c_gpio_lv_write (&data) != 1)
+    {
+      //cannot communicate to driver, consider fail
+      if (timeout > 50) return -1;
+      timeout++;
+    }
 
   //reset pull-up resistor status
   data = 0x00;
