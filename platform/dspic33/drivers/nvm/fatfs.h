@@ -2,20 +2,22 @@
  * \addtogroup drivers Drivers
  * @{
  *
- * Implementation of Drivers for DsPic
+ * Implementation of POSIX Wrapper for FatFs
  */
 
 /**
- * \defgroup fatfs FAT File System
+ * \defgroup file_system File System
  * @{
- *
- * Control FAT File System
- * \li The driver has a POSIX-like interface with open(), read(), write(), ioctl()
+ * Contains
+ * \li middle layer [fatfs_xxx()] interfacing posix open(), read(), write(), lseek()
+ * \remarks
+ * \li support only 1 volume
+ * \li open upto 5 files at one time
  */
 
 /**
  * \file
- * FAT File System Driver
+ * POSIX wrapper for FatFs
  * \author Dennis Tsang <dennis@amonics.com>
  */
 
@@ -112,8 +114,10 @@ extern int fatfs_read (int drive, int fd, char* buf, int count);
  * \param offset offset bytes
  * \param whence reference point
  * \return new position
+ * \remarks stdio.h will always swap the value of offset and whence
+ * \remarks lseek() in stdio.h will always return 0 irrespective of error
  */
-extern char fatfs_seek (int drive, int fd, int offset, int whence);
+extern int fatfs_seek (int drive, int fd, int offset, int whence);
 
 
 #endif /* FATFS_H_ */

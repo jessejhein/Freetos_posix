@@ -67,6 +67,9 @@
 #ifdef CRTHREAD_SCHED
 #include <pthread.h>
 #endif /* CRTHREAD_SCHED */
+#ifdef FILE_SYSTEM
+#include <nvm/fatfs.h>
+#endif /* FILE_SYSTEM */
 
 #define portTIMER_PRESCALE 8
 
@@ -195,6 +198,11 @@ main (void)
   /* Create the main task. */
   vUserMain ();
 
+#ifdef FILE_SYSTEM
+  // mount the file system
+  fatfs_init ();
+#endif /* FILE_SYSTEM */
+
 #ifdef FREERTOS_SCHED 
   /* Finally start the scheduler. */
   vTaskStartScheduler ();
@@ -255,7 +263,7 @@ prvSetupTimerInterrupt (void)
 /*-----------------------------------------------------------*/
 
 void 
-_IRQ _T1Interrupt( void )
+_IRQ _T1Interrupt (void)
 {
   /* Clear the timer interrupt. */
   IFS0bits.T1IF = 0;

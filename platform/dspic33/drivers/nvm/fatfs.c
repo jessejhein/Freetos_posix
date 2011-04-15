@@ -347,11 +347,17 @@ fatfs_read (int drive, int fd, char* buf, int count)
 
 
 
-char
+int
 fatfs_seek (int drive, int fd, int offset, int whence)
 {
   if ( (drive < FATFS_MAX_VOLUME) && (fd < FATFS_MAX_FILE) )
     {
+      //swap offset with whence
+      int real_whence = offset;
+      int real_offset = whence;
+      offset = real_offset;
+      whence = real_whence;
+
       //perform seek operation
       FRESULT result = f_lseek (file_ptr[drive][fd], offset);
 
@@ -360,7 +366,7 @@ fatfs_seek (int drive, int fd, int offset, int whence)
         {
           case FR_OK:
             {
-              break;
+              return offset;
             }
           case FR_DISK_ERR:
             {
@@ -378,7 +384,7 @@ fatfs_seek (int drive, int fd, int offset, int whence)
             {
               break;
             }
-          case FR_NOT_ENOUGH_CORE:
+          case FR_TIMEOUT:
             {
               break;
             }
@@ -386,7 +392,6 @@ fatfs_seek (int drive, int fd, int offset, int whence)
             {
             }
         }
-      //TODO: map to f_seek
-      return 0;
+      return -1;
     }
 }
