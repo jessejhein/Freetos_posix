@@ -143,6 +143,20 @@ uart2_init (__u32 speed)
   // Configure Mode
   // +-- 8N1, no loopback, no wake in sleep mode, continue in idle mode, no autobaud
   U2MODE = 0x0000;
+#if ((UART_DATABIT0 == 8) && (UART_PARITYBIT0 == 2))
+  //8E
+  U2MODEbits.PDSEL = 1;
+#elif ((UART_DATABIT0 == 8) && (UART_PARITYBIT0 == 1))
+  //8O
+  U2MODEbits.PDSEL = 2;
+#elif ((UART_DATABIT0 == 9) && (UART_PARITYBIT0 == 0))
+  //9N
+  U2MODEbits.PDSEL = 2;
+#endif /* BIT and PARITY */
+
+#if (UART_STOPBIT0 == 2)
+  U2MODEbits.STSEL = 1;
+#endif /* UART_STOPBIT0 */
   //==============================================================================
   // Configure Interrupt
   _U2RXIF = 0;                //Clear RX interrupt flags
@@ -181,6 +195,21 @@ uart1_init (__u32 speed)
   // Configure Mode
   // +-- 8N1, no loopback, no wake in sleep mode, continue in idle mode, no autobaud
   U1MODE = 0x0000;
+#if ((UART_DATABIT1 == 8) && (UART_PARITYBIT1 == 2))
+  //8E
+  U1MODEbits.PDSEL = 1;
+#elif ((UART_DATABIT1 == 8) && (UART_PARITYBIT1 == 1))
+  //8O
+  U1MODEbits.PDSEL = 2;
+#elif ((UART_DATABIT1 == 9) && (UART_PARITYBIT1 == 0))
+  //9N
+  U1MODEbits.PDSEL = 2;
+#endif /* BIT and PARITY */
+
+#if (UART_STOPBIT1 == 2)
+  U1MODEbits.STSEL = 1;
+#endif /* UART_STOPBIT1 */
+
   //==============================================================================
   // Configure Interrupt
   _U1RXIF = 0;                //Clear RX interrupt flags

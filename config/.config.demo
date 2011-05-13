@@ -48,20 +48,29 @@ CONFIG_FFT												=		n
 
 #----------------------------------------------------------------
 # UART
-#	CONFIG_UART_BAUDRATE_PRIMARY/SECONDARY:			Baudrate in bps
-#	UART_PRIMARY/SECONDARY:											RS232; RS485
-#	UART_BUFFER_SIZE:														Number of bytes for rx and tx buffers
-# DEBUG_UART:																	UART_PRIMARY/UART_SECONDARY
+#	UART_BAUDRATE_PRIMARY/SECONDARY:			Baudrate in bps
+# UART_DATABIT_PRIMARY/SECONDARY:				8; 9
+# UART_STOPBIT_PRIMARY/SECONDARY:				1; 2
+# UART_PARITYBIT_PRIMARY/SECONDARY:			N; E; O
+#	UART_PRIMARY/SECONDARY:								RS232; RS485
+#	UART_BUFFER_SIZE:											Number of bytes for rx and tx buffers
+# DEBUG_UART:														UART_PRIMARY/UART_SECONDARY
 #----------------------------------------------------------------
 CONFIG_UART_PRIMARY								=		RS232
 CONFIG_UART_BAUDRATE_PRIMARY			=		19200
-CONFIG_UART_USE_SECONDARY					=		n
+CONFIG_UART_DATABIT_PRIMARY				=		8
+CONFIG_UART_STOPBIT_PRIMARY				=		1
+CONFIG_UART_PARITYBIT_PRIMARY	 		=		N
+CONFIG_UART_USE_SECONDARY					=		y
 	CONFIG_UART_SECONDARY						=		RS485
-	CONFIG_UART_BAUDRATE_SECONDARY	=		19200
-CONFIG_UART_BUFFER_SIZE						=		50
+	CONFIG_UART_BAUDRATE_SECONDARY	=		115200
+	CONFIG_UART_DATABIT_SECONDARY		=		8
+	CONFIG_UART_STOPBIT_SECONDARY		=		1
+	CONFIG_UART_PARITYBIT_SECONDARY	=		N
+CONFIG_UART_BUFFER_SIZE						=		200
 CONFIG_DEBUG_UART									=		UART_PRIMARY
 CONFIG_DEBUG_TRAP_IN_NVM					=		y
-		
+
 #----------------------------------------------------------------
 # I2C
 #	I2C_BAUDRATE:				Baudrate in Hz
@@ -76,14 +85,14 @@ CONFIG_DAC_RESOLUTION							=		12
 
 #----------------------------------------------------------------
 # I2C_MOD_DSPIC
-#	CONFIG_I2C_MOD_DSPIC_MODE:										MASTER; SLAVE
+#	I2C_MOD_DSPIC_MODE:									MASTER; SLAVE
 #----------------------------------------------------------------
 CONFIG_I2C_MOD_DSPIC_MODE					=		MASTER
 
 #----------------------------------------------------------------
-# NVM: 									Select the type of EEPROM to be used
-#	CONFIG_NVM_INTERNAL:	FLASH
-# CONFIG_NVM_EXTERNAL:	I2C
+# NVM: 								Select the type of EEPROM to be used
+#	NVM_INTERNAL:				FLASH
+# NVM_EXTERNAL:				I2C
 #----------------------------------------------------------------
 CONFIG_NVM_INTERNAL								=		FLASH
 CONFIG_NVM_USE_EXTERNAL						=		n
