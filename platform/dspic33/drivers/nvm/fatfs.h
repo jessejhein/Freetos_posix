@@ -23,7 +23,7 @@
 
 
 /*
- * Copyright (C) 2007-2011  Dennis Tsang <dennis@amonics.com>
+ * Copyright (C) 2011  Dennis Tsang <dennis@amonics.com>
  *
  * This file is part of freertos_posix.
  *

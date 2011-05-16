@@ -365,6 +365,7 @@ endif
 obj-$(CONFIG_ETHERNET) += \
 	$(ARCH)/drivers/net/dm9000a.o
 obj-$(CONFIG_FILE_SYSTEM) += \
+	$(ARCH)/drivers/spi/spi.o \
 	$(ARCH)/drivers/nvm/fatfs.o \
-	$(ARCH)/drivers/nvm/mmc.o
+	$(ARCH)/drivers/nvm/sd.o
 	
