@@ -56,7 +56,7 @@
  * \param flags accessing mode
  * \retval 0 UART opened
  */
-extern int uart_open (unsigned char device, int flags);
+extern int uart_open (int device, int flags);
 
 
 /**
@@ -68,7 +68,7 @@ extern int uart_open (unsigned char device, int flags);
  * \retval -1 error
  * \n errno = EBADF: UART is not opened for writing
  */
-extern int uart_write (unsigned char device, unsigned char *buf, int count);
+extern int uart_write (int device, __u8 *buf, __u16 count);
 
 
 /**
@@ -79,7 +79,7 @@ extern int uart_write (unsigned char device, unsigned char *buf, int count);
  * \retval 0 indicating no data is available
  * \retval -1 error, UART is not opened for read operation (errno = EBADF)
  */
-extern int uart_read (unsigned char device, unsigned char *buf);
+extern int uart_read (int device, __u8 *buf);
 
 /**
  * \brief close UART
@@ -87,7 +87,7 @@ extern int uart_read (unsigned char device, unsigned char *buf);
  * \retval 0 success
  * \retval -1 error
  */
-extern int uart_close (unsigned char device);
+extern int uart_close (int device);
 
 /**
  * \brief change setting for UART
