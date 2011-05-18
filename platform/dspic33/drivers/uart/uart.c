@@ -43,84 +43,77 @@
 #include <sys/ioctl.h>
 
 
-/*
- * Local Variables 
- */
-static unsigned char uart_rx_buf[NO_OF_UART][MAX_UART_RX_BUF];
-/** UART RX pointers */
-struct UART_Rx
+struct UART_DATA
 {
-  unsigned char wr;
-  unsigned char rd;
-};
-static struct UART_Rx uart_rx[NO_OF_UART];
-static unsigned char uart_tx_buf[NO_OF_UART][MAX_UART_TX_BUF];
-/** UART TX pointers */
-struct UART_Tx
-{
-  unsigned char wr;                             
-  unsigned char rd;
-  unsigned char tx_complete_flag;
-};
-static struct UART_Tx uart_tx[NO_OF_UART];
-static int uart_io_flag[NO_OF_UART];
+  //setting
+  int io_flag;
+  speed_t speed;
 
-//keep the baud rate
-static speed_t uart_speed[NO_OF_UART];
+  //RX
+  __u8 rx_buf[MAX_UART_RX_BUF];
+  __u8 rx_wr;
+  __u8 rx_rd;
+
+  //TX
+  __u8 tx_buf[MAX_UART_RX_BUF];
+  __u8 tx_wr;
+  __u8 tx_rd;
+  __u8 tx_done;
+};
+static struct UART_DATA uart[NO_OF_UART];
+
 
 /*
  * Local Functions
  */
-static unsigned int uart2_autobaud (void);
 static void uart2_init (__u32 speed);
 #if (NO_OF_UART > 1)
-static unsigned int uart1_autobaud (void);
 static void uart1_init (__u32 speed);
 #endif /* NO_OF_UART > 1 */
 
 
-int 
-uart_open (unsigned char device, int flags)
+int
+uart_open (int device, int flags)
 {
-  uart_io_flag[device] = flags;
-    
-#if (NO_OF_UART > 1)
-  switch (device) 
+  switch (device)
     {
-      case 0 : 
+      case 0:
         {
-#endif /* NO_OF_UART > 1 */
           //==========Primary UART = U2ART: RS232================
-          uart_rx[0].wr = 0;
-          uart_rx[0].rd = 0;
+          uart[0].rx_wr = 0;
+          uart[0].rx_rd = 0;
           //=====================================================
-          uart_tx[0].wr = 0;
-          uart_tx[0].rd = 0;
-          uart_tx[0].tx_complete_flag = 1;
+          uart[0].tx_wr = 0;
+          uart[0].tx_rd = 0;
+          uart[0].tx_done = 1;
           //=====================================================
-          uart_speed[0] = UART_BAUDRATE0;
-          uart2_init (GEN_UART_BAUDRATE(uart_speed[0]));
+          uart[0].io_flag = flags;
+          uart[0].speed = UART_BAUDRATE0;
+          uart2_init (GEN_UART_BAUDRATE (uart[0].speed));
           //=====================================================
-#if (NO_OF_UART > 1)
           break;
         }
-      case 1 :
+#if (NO_OF_UART > 1)
+      case 1:
         {
           //========Secondary UART = U1ART: RS485================
-          uart_rx[1].wr = 0;
-          uart_rx[1].rd = 0;
+          uart[1].rx_wr = 0;
+          uart[1].rx_rd = 0;
           //=====================================================
-          uart_tx[1].wr = 0;
-          uart_tx[1].rd = 0;
-          uart_tx[1].tx_complete_flag = 1;
+          uart[1].tx_wr = 0;
+          uart[1].tx_rd = 0;
+          uart[1].tx_done = 1;
           //=====================================================
-          uart_speed[1] = UART_BAUDRATE1;
-          uart1_init (GEN_UART_BAUDRATE(uart_speed[1]));
+          uart[1].io_flag = flags;
+          uart[1].speed = UART_BAUDRATE1;
+          uart1_init (GEN_UART_BAUDRATE (uart[1].speed));
           //=====================================================
           break;
         }
-    }
 #endif /* NO_OF_UART > 1 */
+      default:
+        return -1;
+    }
   return 0;
 }
 
@@ -134,11 +127,7 @@ uart2_init (__u32 speed)
 #endif /* UARTA_RS485 */
   //=============================================================================
   // Configure Baud rate
-  __u32 u2brg = speed;
-#if (AUTO_BAUD_DECT > 0)
-  u2brg = uart2_autobaud ();
-#endif /* AUTO_BAUD_DECT */
-  U2BRG = u2brg;
+  U2BRG = speed;
   //==============================================================================
   // Configure Mode
   // +-- 8N1, no loopback, no wake in sleep mode, continue in idle mode, no autobaud
@@ -186,11 +175,7 @@ uart1_init (__u32 speed)
 #endif /* UARTB_RS485 */
   //=============================================================================
   // Configure Baud rate
-  __u32 u1brg = speed;
-#if (AUTO_BAUD_DECT > 0)
-  u1brg = uart1_autobaud ();
-#endif /* AUTO_BAUD_DECT */
-  U1BRG = u1brg;					
+  U1BRG = speed;
   //==============================================================================
   // Configure Mode
   // +-- 8N1, no loopback, no wake in sleep mode, continue in idle mode, no autobaud
@@ -230,137 +215,33 @@ uart1_init (__u32 speed)
 #endif /* NO_OF_UART > 1 */
 
 
-#if (AUTO_BAUD_DECT > 0)
-//-------------------------------------------------------------------------------------
-static 
-unsigned int uart2_autobaud (void)
-{
-  U2MODEbits.ABAUD = 1;   //Enable Autobaud detect from U2RX (from IC2 if 0)
-  U2MODEbits.UARTEN = 1;  //U2ART enable
-  //Timer 3 Config==========================================================
-  PR3 = 0xFFFF;           // Set counter to maximum
-  _T3IF = 0;              // Clear interrupt flag
-  _T3IE = 0;              // Disable interrupt
-  T3CONbits.TON = 1;      // Start the timer, TMR3 count up
-  //Input Capture Config====================================================
-  IC2CONbits.ICM = 3;     //Detect rising	
-  _IC2IF = 0;             //Clear interrupt flag
-  _IC2IE = 0;             //Disable interrupt
-  //Start Auto baud detection===============================================
-  //Expected character = 'U' (0x55)
-  //			  _   _   _   _   _
-  //			_|S|_|1|_|1|_|1|_|1|_
-  //           <--------------->
-  //========================================================================
-  cli();                  //Disable Global Interrupt
-  while(!_IC2IF);         //1st rising edge detected
-  TMR3 = 0;               //Clear TMR3 to start count up
-  _IC2IF = 0;             //Clear interrupt flag
-  while(!_IC2IF);         //2nd rising edge detected
-  _IC2IF = 0;             //Clear interrupt flag
-  while(!_IC2IF);         //3rd rising edge detected
-  _IC2IF = 0;             //Clear interrupt flag
-  while(!_IC2IF);         //4th rising edge detected
-  _IC2IF = 0;             //Clear interrupt flag
-  while(!_IC2IF);         //5th rising edge detected
-  _IC2IF = 0;             //Clear interrupt flag
-  T3CONbits.TON = 0;      //Stop the timer
-  sti();                  //Enable Global Interrupt
-  //Compute value for BRG register==========================================
-  // BRG 	= (FCY/(16*baudrate))-1
-  //		= (FCY/(16*FCY/(TMR3/8)))-1
-  //		= (TMR3/128) - 1
-  // add 0x04 for rounding
-  unsigned int time;
-  time = ((TMR3+0x40)>>7)-1;			
-  //========================================================================
-  return time;   
-}
-
-
-//-------------------------------------------------------------------------------------
-#if (NO_OF_UART > 1)
-static unsigned int 
-uart1_autobaud (void)
-{
-  U1MODEbits.ABAUD = 1;   //Enable Autobaud detect from U2RX (from IC1 if 0)
-  U1MODEbits.UARTEN = 1;  //U1ART enable
-  //Timer 3 Config==========================================================
-  PR3 = 0xFFFF;           // Set counter to maximum
-  _T3IF = 0;              // Clear interrupt flag
-  _T3IE = 0;              // Disable interrupt
-  T3CONbits.TON = 1;      // Start the timer, TMR3 count up
-  //Input Capture Config====================================================
-  IC1CONbits.ICM = 3;     //Detect rising 
-  _IC1IF = 0;             //Clear interrupt flag
-  _IC1IE = 0;             //Disable interrupt
-  //Start Auto baud detection===============================================
-  //Expected character = 'U' (0x55)
-  //        _   _   _   _   _
-  //      _|S|_|1|_|1|_|1|_|1|_
-  //           <--------------->
-  //========================================================================
-  cli();                  //Disable Global Interrupt
-  while(!_IC1IF);         //1st rising edge detected
-  TMR3 = 0;               //Clear TMR3 to start count up
-  _IC1IF = 0;             //Clear interrupt flag
-  while(!_IC1IF);         //2nd rising edge detected
-  _IC1IF = 0;             //Clear interrupt flag
-  while(!_IC1IF);         //3rd rising edge detected
-  _IC1IF = 0;             //Clear interrupt flag
-  while(!_IC1IF);         //4th rising edge detected
-  _IC1IF = 0;             //Clear interrupt flag
-  while(!_IC1IF);         //5th rising edge detected
-  _IC1IF = 0;             //Clear interrupt flag
-  T3CONbits.TON = 0;      //Stop the timer
-  sti();                  //Enable Global Interrupt
-  //Compute value for BRG register==========================================
-  // BRG  = (FCY/(16*baudrate))-1
-  //    = (FCY/(16*FCY/(TMR3/8)))-1
-  //    = (TMR3/128) - 1
-  // add 0x04 for rounding
-  unsigned int time;
-  time = ((TMR3+0x40)>>7)-1;      
-  //========================================================================
-  return time;   
-}
-#endif /* NO_OF_UART > 1 */
-#endif /* AUTO_BAUD_DECT > 0 */
-
-
 /**
  * \brief Transmit Interrupt Handler for U2ART (RS232)
  * \remarks TX Interrupt when all TX is completed
  * \remarks First interrupt is set manually in uart_write
  */
-void _IRQ 
+void _IRQ
 _U2TXInterrupt (void)
 {
-#ifdef MPLAB_DSPIC33_PORT
   _U2TXIF = 0;
-#else
-  DISI_PROTECT(_U2TXIF = 0);
-#endif
 
-  unsigned char next_data_pos;
-  next_data_pos = pre_rd_cir254buf (    (unsigned char)uart_tx[0].wr,
-                                        (unsigned char)uart_tx[0].rd,
-                                        MAX_UART_TX_BUF);
+  __u8 next_data_pos;
+  next_data_pos = pre_rd_cir254buf (uart[0].tx_wr, uart[0].tx_rd, MAX_UART_TX_BUF);
   if (next_data_pos != 255)
     {
       //Data ready in circular TX buffer
-      U2TXREG = (uart_tx_buf[0][(unsigned char)uart_tx[0].rd] & 0xFF);  //send next byte...
-      uart_tx[0].rd = (unsigned char) next_data_pos;                    //update rd pointer
-    } 
-  else 
+      U2TXREG = (uart[0].tx_buf[uart[0].tx_rd] & 0xFF); //send next byte...
+      uart[0].tx_rd = next_data_pos;                    //update RD pointer
+    }
+  else
     {
       //Transmission has completed
-      uart_tx[0].tx_complete_flag = 1;          // change to empty of tx
+      uart[0].tx_done = 1;
 #if (UARTA_RS485 > 0)
       while (!U2STAbits.TRMT);                  //wait for transmit register to empty, i.e. the byte has been sent
       RS485_TX_OFF ();                          //Set transmit pin to Low, i.e. back to receive mode
-#endif		
-    }   
+#endif /* UARTA_RS485 */
+    }
 }
 
 
@@ -370,34 +251,28 @@ _U2TXInterrupt (void)
  * \remarks TX Interrupt when all TX is completed
  * \remarks First interrupt is set manually in uart_write
  */
-void _IRQ 
+void _IRQ
 _U1TXInterrupt (void)
 {
-#ifdef MPLAB_DSPIC33_PORT
   _U1TXIF = 0;
-#else
-  DISI_PROTECT(_U1TXIF = 0);
-#endif
 
-  unsigned char next_data_pos;
-  next_data_pos = pre_rd_cir254buf (    (unsigned char)uart_tx[1].wr,
-                                        (unsigned char)uart_tx[1].rd,
-                                        MAX_UART_TX_BUF);
+  __u8 next_data_pos;
+  next_data_pos = pre_rd_cir254buf (uart[1].tx_wr, uart[1].tx_rd, MAX_UART_TX_BUF);
   if (next_data_pos != 255)
     {
       //Data ready in circular TX buffer
-      U1TXREG = (uart_tx_buf[1][(unsigned char)uart_tx[1].rd] & 0xFF);  //send next byte...
-      uart_tx[1].rd = (unsigned char) next_data_pos;                    //update rd pointer
-    } 
-  else 
+      U1TXREG = (uart[1].tx_buf[uart[1].tx_rd] & 0xFF); //send next byte...
+      uart[1].tx_rd = next_data_pos;                    //update RD pointer
+    }
+  else
     {
       //Transmission has completed
-      uart_tx[1].tx_complete_flag = 1;          // change to empty of tx
+      uart[1].tx_done = 1;
 #if (UARTB_RS485 > 0)
       while (!U1STAbits.TRMT);                  //wait for transmit register to empty, i.e. the byte has been sent
       RS485_TX_OFF ();                          //Set transmit pin to Low, i.e. back to receive mode
-#endif		
-    } 
+#endif /* UARTB_RS485 */
+    }
 }
 #endif /* NO_OF_UART > 1 */
 
@@ -407,35 +282,31 @@ _U1TXInterrupt (void)
  * \remarks RX Interrupt when a character is received
  * \remarks Read until the RX buffer is emptied
  */
-void _IRQ 
+void _IRQ
 _U2RXInterrupt (void)
 {
-  unsigned char next_data_pos;
+  __u8 next_data_pos;
   while (U2STAbits.URXDA)
     {
       //Data is received======================================================
-      next_data_pos = pre_wr_cir254buf (uart_rx[0].wr, uart_rx[0].rd, MAX_UART_RX_BUF);
+      next_data_pos = pre_wr_cir254buf (uart[0].rx_wr, uart[0].rx_rd, MAX_UART_RX_BUF);
       if (next_data_pos != 255)
         {
           //If buffer is not full
-          uart_rx_buf[0][uart_rx[0].wr] = (unsigned char) U2RXREG;
-          uart_rx[0].wr = next_data_pos;
-        } 
+          uart[0].rx_buf[uart[0].rx_wr] = (__u8) U2RXREG;
+          uart[0].rx_wr = next_data_pos;
+        }
       else
         {
           //When buffer is full, still remove data from register, but the incoming data is lost
-          next_data_pos = (unsigned char) U2RXREG;      //Read the data from buffer
+          next_data_pos = (__u8) U2RXREG;
         }
     }
-  //Rx Buffer Overflow: 
+  //Rx Buffer Overflow:
   //If this bit is not cleared, the UART module cannot receive more data
   if (U2STAbits.OERR) U2STAbits.OERR = 0;
 
-#ifdef MPLAB_DSPIC33_PORT
   _U2RXIF = 0;
-#else
-  DISI_PROTECT(_U2RXIF = 0);          //Clear Interrupt Flag
-#endif
 }
 
 
@@ -445,64 +316,58 @@ _U2RXInterrupt (void)
  * \remarks Read until the RX buffer is emptied
  */
 #if (NO_OF_UART > 1)
-void _IRQ 
+void _IRQ
 _U1RXInterrupt (void)
 {
-  unsigned char next_data_pos;
+  __u8 next_data_pos;
   //Data is received======================================================
   while (U1STAbits.URXDA)
     {
-      next_data_pos = pre_wr_cir254buf (uart_rx[1].wr, uart_rx[1].rd, MAX_UART_RX_BUF);
+      next_data_pos = pre_wr_cir254buf (uart[1].rx_wr, uart[1].rx_rd, MAX_UART_RX_BUF);
       if (next_data_pos != 255)
         {
           //If buffer is not full
-          uart_rx_buf[1][uart_rx[1].wr] = (unsigned char) U1RXREG;
-          uart_rx[1].wr = next_data_pos;
+          uart[1].rx_buf[uart[1].rx_wr] = (__u8) U1RXREG;
+          uart[1].rx_wr = next_data_pos;
         }
       else
         {
           //When buffer is full, still remove data from register, but the incoming data is lost
-          next_data_pos = (unsigned char) U1RXREG; 			//Read the data from buffer
+          next_data_pos = (__u8) U1RXREG;
         }
     }
-  //Rx Buffer Overflow: 
+  //Rx Buffer Overflow:
   //If this bit is not cleared, the UART module cannot receive more data
   if (U1STAbits.OERR) U1STAbits.OERR = 0;
-    
-#ifdef MPLAB_DSPIC33_PORT
+
   _U1RXIF = 0;
-#else
-  DISI_PROTECT(_U1RXIF = 0);          //Clear Interrupt Flag
-#endif
 }
 #endif /* NO_OF_UART > 1 */
 
 
-int 
-uart_write (unsigned char device, unsigned char *buf, int count)
+int
+uart_write (int device, __u8* buf, __u16 count)
 {
   //Perform write if write operation is enabled
-  if (uart_io_flag[device] & O_RDWR || uart_io_flag[device] & O_WRONLY)
+  if (uart[device].io_flag & O_RDWR || uart[device].io_flag & O_WRONLY)
     {
       //If transmit has not completed, wait for it to finish
-      while (uart_tx[device].tx_complete_flag == 0);
-      
+      while (uart[device].tx_done == 0);
+
       //start new transmission
-      uart_tx[device].tx_complete_flag = 0;
-        
-      int next_data_pos;
-      int byte = 0;
-      for (; byte < count; byte++)
+      uart[device].tx_done = 0;
+
+      __u8 next_data_pos;
+      __u16 byte;
+      for (byte = 0; byte < count; byte++)
         {
-          next_data_pos = pre_wr_cir254buf (    (unsigned char)uart_tx[device].wr,
-                                                (unsigned char)uart_tx[device].rd,
-                                                MAX_UART_TX_BUF);
+          next_data_pos = pre_wr_cir254buf (uart[device].tx_wr, uart[device].tx_rd, MAX_UART_TX_BUF);
           if (next_data_pos != 255)
             {
               //Valid data is available
-              uart_tx_buf[device][uart_tx[device].wr] = (unsigned char) buf[byte];    //copy the char to tx_buf
-              uart_tx[device].wr = next_data_pos;                                     //increment the ptr
-            } 
+              uart[device].tx_buf[uart[device].tx_wr] = buf[byte];      //copy the char to tx_buf
+              uart[device].tx_wr = next_data_pos;                       //increment the ptr
+            }
           else break;
         }
 
@@ -511,112 +376,99 @@ uart_write (unsigned char device, unsigned char *buf, int count)
         {
 #if (UARTA_RS485 > 0)
           RS485_TX_ON ();       //Set transmit pin to High
-#endif
+#endif /* UARTA_RS485 */
           _U2TXIF = 1;          //Start interrupt
-        } 
+        }
       else
         {
 #if (UARTB_RS485 > 0)
           RS485_TX_ON ();       //Set transmit pin to High
-#endif
+#endif /* UARTB_RS485 */
           _U1TXIF = 1;          //Start interrupt
         }
-      return byte;        
+      return byte;
     }
   //Error, raise error flag
   else
     {
-      errno = EBADF;  //io not opened for writing
+      //IO not opened for writing
+      errno = EBADF;
       return -1;
-    }  
+    }
 }
 
 
-int 
-uart_read (unsigned char device, unsigned char *buf)
+int
+uart_read (int device, __u8* buf)
 {
   //Perform read if read operation is enabled
-  if (uart_io_flag[device] & O_RDWR || uart_io_flag[device] & O_RDONLY)
+  if (uart[device].io_flag & O_RDWR || uart[device].io_flag & O_RDONLY)
     {
-      int next_data_pos;
-      next_data_pos = pre_rd_cir254buf (uart_rx[device].wr, uart_rx[device].rd, MAX_UART_RX_BUF);
+      __u8 next_data_pos;
+      next_data_pos = pre_rd_cir254buf (uart[device].rx_wr, uart[device].rx_rd, MAX_UART_RX_BUF);
       //Copy 1 byte when data is available
       if (next_data_pos != 255)
         {
-          *buf = uart_rx_buf[device][uart_rx[device].rd];     //copy the stored data to buf
-          uart_rx[device].rd = next_data_pos;                 //update the ptr
+          *buf = uart[device].rx_buf[uart[device].rx_rd];     //copy the stored data to buf
+          uart[device].rx_rd = next_data_pos;                 //update the ptr
           return 1;
         }
       //No data can be copied
       else
         {
           return 0;
-        }      
+        }
     }
   //Error, raise error flag
   else
     {
-      errno = EBADF;  //io not opened for reading
+      //IO not opened for reading
+      errno = EBADF;
       return -1;
-    }    
+    }
 }
 
 
 int
-uart_close (unsigned char device)
+uart_close (int device)
 {
-  switch (device) 
+  switch (device)
     {
       case 0:
         {
-          while (!U2STAbits.TRMT);              //Wait for TX to complete
+          //Wait for TX to complete
+          while (!U2STAbits.TRMT);
 #if (UARTA_RS485 > 0)
           RS485_TX_OFF ();                      //Set TX pin to Low, i.e. back to receive mode
 #endif /* UARTA_RS485 */
-    
-#ifdef MPLAB_DSPIC33_PORT
           _U2TXIF = 0;                          //Clear TX interrupt flag
-#else
-          DISI_PROTECT(_U2TXIF = 0);
-#endif
           _U2TXIE = 0;                          //Disable TX interrupt
           U2STAbits.UTXEN = 0;                  //Disable TX
-          uart_tx[0].tx_complete_flag = 1;      //Set TX as completed
-                    
-          while (!U2STAbits.RIDLE);             //Wait for RX to complete
-#ifdef MPLAB_DSPIC33_PORT
+          uart[0].tx_done = 1;                  //Set TX as completed
+
+          //Wait for RX to complete
+          while (!U2STAbits.RIDLE);
           _U2RXIF = 0;                          //Clear RX interrupt flag
-#else
-          DISI_PROTECT(_U2RXIF = 0);
-#endif
           _U2RXIE = 0;                          //Disable RX interrupt
           U2MODEbits.UARTEN = 0;                //Disable RX
           break;
         }
-#if (NO_OF_UART > 1)        
+#if (NO_OF_UART > 1)
       case 1:
         {
-          while (!U1STAbits.TRMT);              //Wait for TX to complete
+          //Wait for TX to complete
+          while (!U1STAbits.TRMT);
 #if (UARTB_RS485 > 0)
           RS485_TX_OFF ();                      //Set TX pin to Low, i.e. back to receive mode
 #endif /* UARTB_RS485 */
-
-#ifdef MPLAB_DSPIC33_PORT
           _U1TXIF = 0;                          //Clear TX interrupt flag
-#else
-          DISI_PROTECT(_U1TXIF = 0);
-#endif
           _U1TXIE = 0;                          //Disable TX interrupt
           U1STAbits.UTXEN = 0;                  //Disable TX
-          uart_tx[1].tx_complete_flag = 1;      //Set TX as completed
+          uart[1].tx_done = 1;                  //Set TX as completed
 
-          while (!U1STAbits.RIDLE);             //Wait for RX to complete
-          
-#ifdef MPLAB_DSPIC33_PORT
+          //Wait for RX to complete
+          while (!U1STAbits.RIDLE);
           _U1RXIF = 0;                          //Clear RX interrupt flag
-#else
-          DISI_PROTECT(_U1RXIF = 0);
-#endif
           _U1RXIE = 0;                          //Disable RX interrupt
           U1MODEbits.UARTEN = 0;                //Disable RX
           break;
@@ -640,26 +492,27 @@ uart_ioctl (int device, int request, void* argp)
       case UART_SET_BAUDRATE:
         {
           //Set UART in idle mode (hang up)
-          if (*((unsigned long*)argp) == 0) return 0;
+          if (*((__u32*)argp) == 0) return 0;
 
           switch (device)
             {
               case 0:
-                {     
-                  uart_speed[0] = *((unsigned long*)argp);
-                  uart2_init (GEN_UART_BAUDRATE(uart_speed[0]));
+                {
+                  uart[0].speed = *((__u32*)argp);
+                  uart2_init (GEN_UART_BAUDRATE (uart[0].speed));
                   break;
                 }
-#if (NO_OF_UART > 1)        
+#if (NO_OF_UART > 1)
               case 1:
                 {
-                  uart_speed[1] = *((unsigned long*)argp);
-                  uart1_init (GEN_UART_BAUDRATE(uart_speed[1]));
+                  uart[1].speed = *((__u32*)argp);
+                  uart1_init (GEN_UART_BAUDRATE (uart[1].speed));
                   break;
                 }
-#endif /* NO_OF_UART > 1 */  
+#endif /* NO_OF_UART > 1 */
+              //UART id not recognised
               default:
-                return -1;                      //UART id not recognised
+                return -1;
             }
         }
       //get baud rate
@@ -669,23 +522,24 @@ uart_ioctl (int device, int request, void* argp)
             {
               case 0:
                 {
-                  *((unsigned long*)argp) = uart_speed[0];
-                  break;          
-                }
-#if (NO_OF_UART > 1)        
-              case 1:
-                {
-                  *((unsigned long*)argp) = uart_speed[1];
+                  *((__u32*)argp) = uart[0].speed;
                   break;
                 }
-#endif /* NO_OF_UART > 1 */  
+#if (NO_OF_UART > 1)
+              case 1:
+                {
+                  *((__u32*)argp) = uart[1].speed;
+                  break;
+                }
+#endif /* NO_OF_UART > 1 */
+              //UART id not recognised
               default:
-                return -1;                      //UART id not recognised
+                return -1;
             }
-   
-        } 
+        }
+      //request code not recognised
       default:
-        return -1;      //request code not recognised
+        return -1;
     }
   return 0;
 }
