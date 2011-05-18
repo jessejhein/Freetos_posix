@@ -26,6 +26,7 @@
 #include <FreeRTOS.h>
 #include <asm/types.h>
 #include <time.h>
+#include <sys/time.h>
 
 extern volatile time_t one_sec_cnt;
 extern volatile int timer_count;

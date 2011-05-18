@@ -38,6 +38,7 @@
  */
 
 #include <time.h>
+#include <sys/time.h>
 #include <unistd.h>
 
 void* 
@@ -58,6 +59,13 @@ foo (void* ptr)
       while ((clock_t) (clock() - begin_time) < 50) usleep(0);
       
       //continue after 50 clock ticks (i.e. 50/CLOCKS_PER_SEC) sec
+
+      //check for timeout error
+      struct timeval currentTime;
+      gettimeofday (&currentTime, NULL);
+      while (((suseconds_t)(currentTime.tv_usec - pdata->rx_frame_timeout.tv_usec))/1000 < 50);
+
+      //continue after 50 ms
 
     }
   end_process ();
