@@ -67,7 +67,13 @@ static struct kb_key_t push_key[TOTAL_PUSH_KEY];
 /** function key item */
 static struct kb_key_t fn_key[TOTAL_FN_KEY];
 #endif /* KB_FN_KEY */
-
+#ifdef KB_ROTATE_KEY
+/** keeps the time for repeated key */
+static clock_t rkey_up_time;
+static clock_t rkey_dn_time;
+__u8 kb_repeat_up;
+__u8 kb_repeat_dn;
+#endif /* KB_ROTATE_KEY */
 
 /**
  * \remarks  _TRIS should be set correctly for keyboard
@@ -98,6 +104,10 @@ kb_open (int flags)
           fn_key[j].id = BASE_FN_KEY + j;
         }
 #endif /* KB_FN_KEY */
+#ifdef KB_ROTATE_KEY
+      rkey_up_time = clock ();
+      rkey_dn_time = clock ();
+#endif /* KB_ROTATE_KEY */
       return 0;
     }    
 }
@@ -236,6 +246,32 @@ _CNInterrupt (void)
                 if (pkey_is_pressing == 0)
                   {
                     kb_write (save_key);
+                    //up key
+                    if (save_key == key_id)
+                      {
+                        if ((clock_t)(clock () - rkey_up_time) < KB_SCAN_PERIOD)
+                          {
+                            kb_repeat_up++;
+                          }
+                        else
+                          {
+                            kb_repeat_up = 0;
+                          }
+                        rkey_up_time = clock ();
+                      }
+                    //down key
+                    else
+                      {
+                        if ((clock_t)(clock () - rkey_dn_time) < KB_SCAN_PERIOD)
+                          {
+                            kb_repeat_dn++;
+                          }
+                        else
+                          {
+                            kb_repeat_dn = 0;
+                          }
+                        rkey_dn_time = clock ();
+                      }
                   }
               }
             state[i] = 0;
