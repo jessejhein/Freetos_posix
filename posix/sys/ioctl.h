@@ -169,6 +169,10 @@
 #define LCD_SET_BRIGHTNESS                      1
 /** refresh LCD screen */
 #define LCD_REFRESH                             2
+/** enable cursor */
+#define LCD_CURSOR                              3
+/** enable blinking cursor */
+#define LCD_BLINK_CURSOR                        4
 #endif /* LCD_MOD */
 
 
