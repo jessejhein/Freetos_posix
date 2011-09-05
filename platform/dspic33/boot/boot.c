@@ -176,9 +176,12 @@ main (void)
   /* allow 1 second delay for on-board external hardware to stable*/
   mdelay (1000);
 
-  /* set ADC compatiable pins to digital IO by default */
+  /* set ADC compatible pins to digital IO by default */
   AD1PCFGL = 0xFFFF;
   AD1PCFGH = 0xFFFF;
+
+  /* Initialise address bus */
+  init_address_io_bus ();
 
   /* Configure any hardware. */
   vSetupHardware ();
