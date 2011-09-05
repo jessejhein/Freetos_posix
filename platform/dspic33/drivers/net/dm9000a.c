@@ -656,8 +656,8 @@ inb (int port)
   //set up data bus
   PCONFIG (1);
   //set up address and IO bus
-  set_address_bus (port);
-  set_io_bus_write (0);
+  addr_bus_set_addr (port);
+  io_bus_set_write (0);
   //perform a read
   ETH_CS (0);
   Nop(); Nop();
@@ -694,8 +694,8 @@ outb (u8_t value, int port)
   PCONFIG (0);
   PWRITE (value);
   //set up address and IO bus
-  set_address_bus (port);
-  set_io_bus_write (1);
+  addr_bus_set_addr (port);
+  io_bus_set_write (1);
   //perform a write
   ETH_CS (0);
   Nop(); Nop();

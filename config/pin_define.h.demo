@@ -5,6 +5,51 @@
 #ifndef PIN_DEFINE_H_
 #define PIN_DEFINE_H_
 
+//  =========================ADDRESS BUS=================================
+/**
+ * \brief initialise address
+ * \remarks ADDR0 (RG0): output, [addressing mode]
+ */
+#define addr_bus_init() \
+{ \
+  TRISG &= 0xFFFE; \
+  LATG |= 0x0001; \
+}
+
+/**
+ * \brief set address bus
+ * \param address address to set
+ */
+#define addr_bus_set_addr(address) \
+{ \
+  LATG = (PORTG & 0xFFFE) | (((unsigned int)address) & 0x0001); \
+}
+
+
+// ============================IO BUS===================================
+/**
+ * \brief initialise IO bus
+ * \remarks IOR# (RF0): output, [not read]
+ * \remarks IOW# (RF1): output, [not write]
+ */
+#define io_bus_init() \
+{ \
+  TRISF &= 0xFFFC; \
+  LATF |= 0x0003; \
+}
+
+
+/**
+ * \brief set IO bus
+ * \param write write/read mode
+ */
+#define io_bus_set_write(write) \
+{ \
+  if (write) LATF = (PORTF & 0xFFFC) | 0x0001; \
+  else LATF = (PORTF & 0xFFFC) | 0x0002; \
+}
+
+
 //  ===========================DATA BUS===================================
 /**
  * \brief configure data port pins to output or input
@@ -160,14 +205,11 @@ extern void led (unsigned char channel, unsigned char state);
 
 #ifdef I2C_LED_DRIVER_MOD
 extern int fd_i2c_led;
-#define LCD_BACKLIGHT_CHANNEL0          0
-#define LCD_BACKLIGHT_CHANNEL1          1
-#define LED_CHANNEL0                    2
-#define LED_CHANNEL1                    3
-#define LED_CHANNEL2                    4
-#define MASTER_LED_CHANNEL              5
-#define BUZZER_VOLUME_CHANNEL0          6
-#define BUZZER_VOLUME_CHANNEL1          7
+#define LED_CHANNEL0                    0
+#define LED_CHANNEL1                    1
+#define LED_CHANNEL2                    2
+#define MASTER_LED_CHANNEL              3
+#define BUZZER_VOLUME_CHANNEL           4
 
 /**
  * \brief Control on off of buzzer
@@ -204,66 +246,24 @@ extern int fd_i2c_gpio;
 #define dmfe_interrupt                  _IRQ _INT0Interrupt
 
 /**
- * \brief initialise IOs for Ethernet port
+ * \brief initialise chip select for Ethernet port
  * \remarks ETH_CS# (RG14): output, [do not select chip]
- * \remarks ADDR0 (RG0): output, [addressing mode]
- * \remarks IOR# (RF0): output, [not read]
- * \remarks IOW# (RF1): output, [not write]
  */
-#define ETH_IOCONFIG() \
+#define ETH_CS_CONFIG() \
 { \
-  TRISG &= 0xBFFE; \
-  TRISF &= 0xFFFC; \
-  LATG |= 0x4001; \
-  LATF |= 0x0003; \
+  TRISG &= 0xBFFF; \
+  LATG |= 0x4000; \
 }
 
 /**
- * \brief set the IO pins to read/write an address/data register
- * \param x command\n
- *          bit 0: IOR#\n
- *          bit 1: IOW#\n
- *          bit 2: ADDR/DATA\n
- *          bit 3: CS#\n
+ * \brief set the chip select pin
+ * \param x logic to set
  */
-#define ETH_IOCMD(x) \
+#define ETH_CS(x) \
 { \
-  LATG = ( (PORTG & 0xBFFE) | ((((int)x) << 11) & 0x4000) /* CS# */ | ((((int)x) >> 2) & 0x0001) /* ADDR/DATA */ ); \
-  LATF = ( (PORTF & 0xFFFC) | (((int)x) & 0x0003) ); \
+  LATG = ( (PORTG & 0xBFFF) | ((((unsigned int)x) << 14) & 0x4000) /* CS# */ ); \
 }
 #endif /* ETHERNET_MOD */
-
-
-
-//  ===============================LCD=====================================
-#ifdef LCD_MOD
-/** handler for LCD module */
-extern int fd_lcd;
-#endif /* LCD_MOD */
-#ifdef LCD_TWLMB162NDC
-/**
- * \brief initialise IOs for LCD display
- * \remarks LCD_CS# (G12): output, [do not select chip]
- * \remarks ADDR0 (G0): output, [addressing mode]
- */
-#define lcd_io_init() \
-{ \
-  TRISG &= 0xEFFE; \
-  LATG |= 0x1001; \
-}
-#define TW_LMB162_RS(x)                 LATG = ((x)==1)? (LATG | 0x0001) : (LATG & 0xFFFE)
-#define TW_LMB162_WR(x)                 //directly short to ground for write mode only
-#define TW_LMB162_EN(x)                 LATG = ((x)==1)? (LATG | 0x1000) : (LATG & 0xEFFF)
-
-
-#ifdef PWM_MOD
-/** handler for PWM module for contrast control */
-extern int fd_pwm;
-
-/** PWM channel id for LCD contrast */
-#define PWM_CONTRAST_CH                 0
-#endif /* PWM_MOD */
-#endif /* LCD_TWLMB162NDC */
 
 
 #endif /* PIN_DEFINE_H_ */

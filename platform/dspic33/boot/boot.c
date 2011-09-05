@@ -181,7 +181,7 @@ main (void)
   AD1PCFGH = 0xFFFF;
 
   /* Initialise address bus */
-  address_bus_init ();
+  addr_bus_init ();
 
   /* Initialise IO bus */
   io_bus_init ();

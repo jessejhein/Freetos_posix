@@ -351,6 +351,7 @@
 
 // Keyboard Module ***************************************************************
 #ifdef KB_MOD
+#include <nano-X.h>                     // for key code
 //  ============================Device Handler=================================== 
 #define BASE_KB                         15
 #define KB                              "M"
