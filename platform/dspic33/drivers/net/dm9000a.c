@@ -115,7 +115,7 @@ dmfe_open (int flags)
 
   board_info_t* db = &macData;
 
-  ETH_IOCONFIG ();
+  ETH_CS_CONFIG ();
   ETH_ISR_EP = ETH_IRQ_POLARITY;
   ETH_ISR_IP = 7;
   ETH_ISR_IF = 0;
@@ -653,10 +653,13 @@ inb (int port)
 
   if (eth_io_in_interrupt == 0) cli ();
 
+  //set up data bus
   PCONFIG (1);
-  //[bit 4] | [bit 3] | [bit 2] | bit 1]
-  //CS# = 0 |ADDR=port|IOW# = 1 |IOR# = 0
-  ETH_IOCMD ( (port << 2) | 0x02 );
+  //set up address and IO bus
+  set_address_bus (port);
+  set_io_bus_write (0);
+  //perform a read
+  ETH_CS (0);
   Nop(); Nop();
   Nop(); Nop();
   Nop(); Nop();
@@ -666,9 +669,8 @@ inb (int port)
   Nop(); Nop();
   Nop(); Nop();
   data = PREAD ();
-  //[bit 4] | [bit 3] | [bit 2] | bit 1]
-  //CS# = 1 |ADDR = 1 |IOW# = 1 |IOR# = 1
-  ETH_IOCMD (0x0F);
+  ETH_CS (1);
+  //restore data port
   PCONFIG (0);
   PWRITE (0x00);
 
@@ -688,16 +690,18 @@ outb (u8_t value, int port)
 {
   if (eth_io_in_interrupt == 0) cli ();
 
+  //set up data bus
   PCONFIG (0);
   PWRITE (value);
-  //[bit 4] | [bit 3] | [bit 2] | bit 1]
-  //CS# = 1 |ADDR = 1 |IOW# = 0 |IOR# = 1
-  ETH_IOCMD ( (port << 2) | 0x01 );
+  //set up address and IO bus
+  set_address_bus (port);
+  set_io_bus_write (1);
+  //perform a write
+  ETH_CS (0);
   Nop(); Nop();
   Nop(); Nop();
-  //[bit 4] | [bit 3] | [bit 2] | bit 1]
-  //CS# = 1 |ADDR = 1 |IOW# = 1 |IOR# = 1
-  ETH_IOCMD (0x0F);
+  ETH_CS (1);
+  //restore data port
   PWRITE (0x00);
 
   if (eth_io_in_interrupt == 0) sti ();
