@@ -181,7 +181,10 @@ main (void)
   AD1PCFGH = 0xFFFF;
 
   /* Initialise address bus */
-  init_address_io_bus ();
+  address_bus_init ();
+
+  /* Initialise IO bus */
+  io_bus_init ();
 
   /* Configure any hardware. */
   vSetupHardware ();
