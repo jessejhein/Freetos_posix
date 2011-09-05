@@ -178,15 +178,15 @@
  *      +--Set DM9KA_EPAR<5:0> = one of the following address
  *      +--Set DM9KA_EPAR<7:6> = 01 (DM9KA_PHY)
  * 2a)  PHY Write
- *      +--Load DM9KA_EPDRL and DM9KA_EPDRH with data
+ *      +--Load DM9KA_EPDRH and DM9KA_EPDRL with data
  *      +--Set DM9KA_EPCR = 0x0a
- *      +--Wait for completion (500us)
+ *      +--Wait for completion (5us)
  *      +--Reset DM9KA_EPCR = 0x00 
  * 2b)  PHY Read
  *      +--Set DM9KA_EPCR = 0x0c
- *      +--Wait for completion (100us)
+ *      +--Wait for completion (5us)
  *      +--Reset DM9KA_EPCR = 0x00 
- *      +--Read DM9KA_EPDRL and DM9KA_EPDRH with data
+ *      +--Read DM9KA_EPDRH and DM9KA_EPDRL with data
  *******************************************************************/
 #define DM9KA_BMCR      0x00    //Basic Mode Control Register
 #define DM9KA_BMSR      0x01    //Basic Mode Status Register

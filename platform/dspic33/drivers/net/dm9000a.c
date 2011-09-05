@@ -46,6 +46,7 @@
 /*****************************************************************************
  * DEBUG 
  *****************************************************************************/
+//#define DEBUG_DMFE_REG
 //#define DEBUG_DMFE_RX
 //#define DEBUG_DMFE_TX  //Enabling this will slow down communication significantly
 
@@ -77,25 +78,23 @@ static void dmfe_debug_preamble (DM_PREAMBLE* pRxPreamble);
 static void dmfe_debug_mac_header (__u8 *pheader);
 static void dmfe_debug_payload (void *addr, int len, int* pos);
 #endif /* DEBUG_DMFE_TX */
+#ifdef DEBUG_DMFE_REG
+static void dmfe_debug_dm9000 (board_info_t *db);
+#endif /* DEBUG_DMFE_REG */
 
 /*****************************************************************************
  * Local Variables
  *****************************************************************************/
-/** store io setting */
+/** store IO setting */
 static int eth_io_flag;
 /** indicate whether I/O functions are called from ISR */
-static int eth_io_in_interrupt;
+static int eth_io_in_interrupt = 0;
 /** dm9000a board information data */
 static board_info_t macData;
 
 
 /**
  * \internal
- * IO_PIN_INIT;
- * +--RG6(IOW#), RG7(IOR#), RG8(CMD), RG9(CS#)
- * +--Data port RD4 - RD11
- * +--INT0 is positive edge triggered
- * 
  * SET_PHY_MODE:
  * +--Enable Auto-negotiation (10Mbps, Half Duplex)
  * +--Disable flow control
@@ -123,7 +122,7 @@ dmfe_open (int flags)
   ETH_ISR_IE = 1;
   db->io_addr = CMD_INDEX;
   db->io_data = CMD_DATA;
-    
+
   //check for LAN card
   if (ior (db, DM9KA_VIDL) != 0x46)
     {
@@ -132,16 +131,16 @@ dmfe_open (int flags)
       errno = ENXIO;
       return -1;
     }
-    
+
+#ifdef DEBUG_DMFE_REG
+  dmfe_debug_dm9000 (db);
+#endif /* DEBUG_DMFE_REG */
+
   //Initialise DM9000A registers, set PHY_MODE, and hash table
   dmfe_init_dm9000 (db);
 
   //wait 5 second for auto-negotiation to complete
-#ifndef FREERTOS_SCHED
-  mdelay (5000);
-#else /* FREERTOS_SCHED */
   sleep (5);
-#endif /* FREERTOS_SCHED */
 
   //Determine whether the link is successful  
   if ((ior (db, DM9KA_NSR) & 0x40) > 0)
@@ -217,7 +216,7 @@ set_PHY_mode (board_info_t *db)
   if (db->op_mode == DM9KA_10MHD)
     {
       phy_reg0 = 0x1000;
-      phy_reg4 = 0x21; 
+      phy_reg4 = 0x0021;
     }
     
   phy_write (db, DM9KA_BMCR, phy_reg0);
@@ -240,13 +239,13 @@ dm9000_hash_table (board_info_t *db)
   //-----------either from EEPROM or from application---------------
 #if defined(MAC_USE_EEPROM)
   int epr_oft = DM9KA_EP_MACADDR0;
-  for (; i<3; i++, epr_oft++)
+  for (i = 0; i < 3; i++, epr_oft++)
     {
       ((u16_t *)mac.addr)[i] = eeprom_read (epr_oft);
     }
 #else
-  u16_t OUI_MSB = phy_read(db, DM9KA_PHYID1);
-  u16_t OUI_LSB = phy_read(db, DM9KA_PHYID2); 
+  u16_t OUI_MSB = phy_read (db, DM9KA_PHYID1);
+  u16_t OUI_LSB = phy_read (db, DM9KA_PHYID2);
   mac.addr[0] = (u8_t)((OUI_MSB & 0xFC00) >> 10);
   mac.addr[1] = (u8_t)((OUI_MSB & 0x03FC) >> 2);
   mac.addr[2] = (u8_t)(((OUI_MSB & 0x0003) << 6) + ((OUI_LSB & 0xFC00) >> 10));
@@ -258,7 +257,7 @@ dm9000_hash_table (board_info_t *db)
   for (i = 0, oft = DM9KA_PAR; i < 6; i++, oft++)
     iow (db, oft, mac.addr[i]);
   uip_setethaddr (mac);
-    
+
   //Initialise Hash Table
   //--------------------Clear Hash Table---------------------------- 
   for (i = 0; i < 4; i++)
@@ -376,11 +375,11 @@ dmfe_gets (u8_t *val, u16_t len)
       val[i] = inb (db->io_data);
     }
 #ifdef DEBUG_DMFE_RX 
-  int k, r;
-  for (k = 0; k < len; k++, r++)
+  int k;
+  for (k = 0; k < len; k++)
     {
-      printf("%02X", ((__u8*)val)[k]);
-      switch (r%16)
+      printf ("%02X", ((__u8*)val)[k]);
+      switch (k % 16)
         {
           case 3: case 7: case 11:
             printf(" ");
@@ -502,7 +501,7 @@ dmfe_puts (u8_t *val, u16_t len)
   outb (DM9KA_MWCMD, db->io_addr);
   for (i = 0; i < len; i++)
     {
-      outb(val[i], db->io_data);
+      outb (val[i], db->io_data);
     }
   return i;
 }
@@ -652,7 +651,7 @@ inb (int port)
 {
   u8_t data;
 
-  if (eth_io_in_interrupt == 0) SR |= 0x00e0;
+  if (eth_io_in_interrupt == 0) cli ();
 
   PCONFIG (1);
   //[bit 4] | [bit 3] | [bit 2] | bit 1]
@@ -666,14 +665,14 @@ inb (int port)
   Nop(); Nop();
   Nop(); Nop();
   Nop(); Nop();
-  data = PREAD();
+  data = PREAD ();
   //[bit 4] | [bit 3] | [bit 2] | bit 1]
   //CS# = 1 |ADDR = 1 |IOW# = 1 |IOR# = 1
   ETH_IOCMD (0x0F);
   PCONFIG (0);
   PWRITE (0x00);
-  
-  if (eth_io_in_interrupt == 0) SR &= 0x00e0;
+
+  if (eth_io_in_interrupt == 0) sti ();
 
   return data;
 }
@@ -687,12 +686,12 @@ inb (int port)
 static void 
 outb (u8_t value, int port)
 {
-  if (eth_io_in_interrupt == 0) SR |= 0x00e0;
+  if (eth_io_in_interrupt == 0) cli ();
 
   PCONFIG (0);
   PWRITE (value);
   //[bit 4] | [bit 3] | [bit 2] | bit 1]
-  //CS# = 1 |ADDR = 1 | IOW# = 0  |IOR# = 1
+  //CS# = 1 |ADDR = 1 |IOW# = 0 |IOR# = 1
   ETH_IOCMD ( (port << 2) | 0x01 );
   Nop(); Nop();
   Nop(); Nop();
@@ -701,7 +700,7 @@ outb (u8_t value, int port)
   ETH_IOCMD (0x0F);
   PWRITE (0x00);
 
-  if (eth_io_in_interrupt == 0) SR &= 0x00e0;
+  if (eth_io_in_interrupt == 0) sti ();
 }
 
 /**
@@ -762,14 +761,14 @@ static u16_t
 phy_read (board_info_t *db, u8_t reg)
 {
   iow (db, DM9KA_EPAR, (u8_t)(DM9KA_PHY | reg));
-  iow (db, DM9KA_EPCR, 0xc);
+  iow (db, DM9KA_EPCR, 0x0c);
   udelay (50);
-  iow (db, DM9KA_EPCR, 0x0);
-  return ((u16_t)ior(db, DM9KA_EPDRH) << 8) | ((u16_t)ior(db, DM9KA_EPDRL) & 0xff);
+  iow (db, DM9KA_EPCR, 0x00);
+  return ((u16_t) ior (db, DM9KA_EPDRH) << 8) | ((u16_t) ior (db, DM9KA_EPDRL) & 0xff);
 }
 
 /**
- * \brief Write a word to phyxcer
+ * \brief Write a word to PHY Registers
  * \param db board information
  * \param reg register address
  * \param value data to set in register address 
@@ -781,9 +780,9 @@ phy_write (board_info_t *db, u8_t reg, u16_t value)
   iow (db, DM9KA_EPAR, (u8_t)(DM9KA_PHY | reg));
   iow (db, DM9KA_EPDRL, (u8_t)(value & 0xff));
   iow (db, DM9KA_EPDRH, (u8_t)( (value >> 8) & 0xff));
-  iow (db, DM9KA_EPCR, 0xa);
+  iow (db, DM9KA_EPCR, 0x0a);
   udelay (50);
-  iow (db, DM9KA_EPCR, 0x0);
+  iow (db, DM9KA_EPCR, 0x00);
 }
 
 #if defined(MAC_USE_EEPROM) 
@@ -803,6 +802,51 @@ eeprom_read (board_info_t *db, u8_t offset)
   return ((u16_t)ior(db, DM9KA_EPDRH) << 8) | ((u16_t)ior(db, DM9KA_EPDRL) & 0xff);
 }
 #endif
+
+
+#ifdef DEBUG_DMFE_REG
+static void
+dmfe_debug_dm9000 (board_info_t *db)
+{
+  unsigned char value;
+  printf ("Entering DEBUG Mode of DM9000A...\n");
+  printf ("=================================\n");
+  printf ("Reading Registers:\n");
+
+  value = ior (db, DM9KA_BPTR);
+  printf ("0x%02x: %s (read: 0x%02x)\n", DM9KA_BPTR, (value == 0x37)? "OK" : "ERR", value);
+
+  value = ior (db, DM9KA_FCTR);
+  printf ("0x%02x: %s (read: 0x%02x)\n", DM9KA_FCTR, (value == 0x38)? "OK" : "ERR", value);
+
+  value = ior (db, DM9KA_VIDL);
+  printf ("0x%02x: %s (read: 0x%02x)\n", DM9KA_VIDL, (value == 0x46)? "OK" : "ERR", value);
+
+  value = ior (db, DM9KA_VIDH);
+  printf ("0x%02x: %s (read: 0x%02x)\n", DM9KA_VIDH, (value == 0x0A)? "OK" : "ERR", value);
+
+  value = ior (db, DM9KA_PIDL);
+  printf ("0x%02x: %s (read: 0x%02x)\n", DM9KA_PIDL, (value == 0x00)? "OK" : "ERR", value);
+
+  value = ior (db, DM9KA_PIDH);
+  printf ("0x%02x: %s (read: 0x%02x)\n", DM9KA_PIDH, (value == 0x90)? "OK" : "ERR", value);
+
+  value = ior (db, DM9KA_CHIPR);
+  printf ("0x%02x: %s (read: 0x%02x)\n", DM9KA_CHIPR, (value == 0x19)? "OK" : "ERR", value);
+
+  printf ("=================================\n");
+  printf ("Reading PHY Registers:\n");
+
+  unsigned int phy_val;
+  phy_val = phy_read (db, DM9KA_PHYID1);
+  printf ("0x%02x: %s (read: 0x%04x)\n", DM9KA_PHYID1, (phy_val == 0x0181)? "OK" : "ERR", phy_val);
+
+  phy_val = phy_read (db, DM9KA_PHYID2);
+  printf ("0x%02x: %s (read: 0x%04x)\n", DM9KA_PHYID2, (phy_val == 0xB8A0)? "OK" : "ERR", phy_val);
+
+  printf ("=================================\n");
+}
+#endif /* DEBUG_DMFE_REG */
 
 /** @} */
 /** @} */
