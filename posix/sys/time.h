@@ -68,6 +68,36 @@ struct timezone
  * \param tz store timezone information, if tz is NULL, tz is not filled.
  * \retval 0 success.
  * \retval -1 errors.
+ * \verbatim
+   ==Example for timeout checking==
+   struct timeval currentTime, startTime;
+   __u16 timeout = USER_TIMEOUT;
+   gettimeofday (&startTime, NULL);
+   while (1)
+     {
+       gettimeofday (&currentTime, NULL);
+       //compute the time elapsed
+       //normally, current >= start, so time_ms is positive (i.e. MSB is 0)
+       //in some case, current < start, so time_ms is negative (i.e. MSB is 1)
+       //[note: in 2's complement, negative number becomes a large positive number in unsigned representation]
+       __u16 time_ms = ((suseconds_t)(currentTime.tv_usec - startTime.tv_usec))/1000;
+       if (time_ms >= timeout)
+         {
+           //timeout [current < start], update timeout and check again
+           if (time_ms & 0x8000)
+             {
+               //compute new timeout value to the remaining time
+               timeout -= (1000000UL - startTime.tv_usec)/1000;
+               gettimeofday (&startTime, NULL);
+               //real timeout: [current loops back to small value, but in fact already passed timeout]
+               if (timeout & 0x8000) break;
+             }
+           //real timeout: normal
+           else break;
+         }
+       sleep (0);
+     }
+   \endverbatim
  */
 extern int gettimeofday (struct timeval *tv, struct timezone *tz);
 

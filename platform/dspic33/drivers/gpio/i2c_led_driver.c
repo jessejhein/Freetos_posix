@@ -92,6 +92,15 @@ i2c_led_driver_open (int flags)
       if (timeout > 50) return -1;
       timeout++;
     }
+  //dim all channels to zero
+  int i;
+  led_address = I2C_LED_DRIVER_LED1_DIM_CTRL;
+  for (i = 0; i < 8; i++)
+    {
+      value = 0;
+      while (i2c_led_driver_write (&value) != 1);
+      led_address++;
+    }
   return 0;
 }
 
