@@ -59,9 +59,6 @@
  * \retval -1 error, write mode is selected (errno = EROFS)
  * \retval 0 ok
  * \verbatim
-   OPERATION OF ADC IN DSPIC33
-   ===========================
-
       CH          0   2   3        0   2   3        0   2   3        0   2   3
                   |   |   |        |   |   |        |   |   |        |   |   |
                   |   |   |   ...  |   |   |   ...  |   |   |   ...  |   |   |
@@ -109,7 +106,7 @@ extern int adc_open (int flags);
              +----------+
    \endverbatim
  */
-extern int adc_read (unsigned int* buf, int count);
+extern int adc_read (__u16* buf, int count);
 
 
 /**

@@ -40,7 +40,7 @@
  * \subsection fft_sec2_2 <pin_define.c>:
  * \verbatim
     int
-    parse_adc_ch (int channel)
+    adc_parse_ch (int channel)
     {
       //$(channel) is the ADC channel index (ANx)
       switch (channel)
