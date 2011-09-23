@@ -179,19 +179,19 @@ extern int fd_led;
 /**
  * \brief initialise IOs for LED port
  */ 
-extern void io_config (void);
+extern void led_config (void);
 
 /**
  * \brief turn on led at hardware level
  * \param which which channel
  */
-extern void io_on (int which);
+extern void led_on (int which);
 
 /**
  * \brief turn off led at hardware level
  * \param which which channel
  */
-extern void io_off (int which);
+extern void led_off (int which);
 
 /**
  * \brief change the state of led at application level
@@ -262,6 +262,22 @@ extern int fd_i2c_gpio;
   LATG = ( (PORTG & 0xBFFF) | ((((unsigned int)x) << 14) & 0x4000) /* CS# */ ); \
 }
 #endif /* ETHERNET_MOD */
+
+
+
+/**
+ * \brief change ADC registers to add channel for scanning
+ * \param channel channel id (ANx)
+ */
+extern void adc_add_ch (int channel);
+
+/**
+ * \brief parse the ADC channel id (ANx) to local buffer id [0, ADC_MAX_CH-1]
+ * \param channel channel id (ANx)
+ * \return local buffer id
+ * \retval -1 error
+ */
+extern int adc_parse_ch (int channel);
 
 
 #endif /* PIN_DEFINE_H_ */

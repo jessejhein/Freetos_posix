@@ -54,7 +54,7 @@ extern int led_open (int flags);
  * \retval -1 error not opened for write operation (errno = EBADF)
  * \retval 1 indicating 1 byte has been written
  */
-extern int led_write (unsigned char *buf);
+extern int led_write (__u8* buf);
 
 
 /**
