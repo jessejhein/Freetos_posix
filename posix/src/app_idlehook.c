@@ -54,14 +54,14 @@
  * \brief Idle Task
  */
 void 
-vApplicationIdleHook(void)
+vApplicationIdleHook (void)
 {
 #ifdef KB_PUSH_KEY
-  kb_push_key ();
+  kb_check_push_key ();
 #endif /* KB_PUSH_KEY */
 
 #ifdef KB_FN_KEY
-  kb_fn_key ();
+  kb_check_fn_key ();
 #endif /* KB_FN_KEY */
 
 #ifdef LED_MOD

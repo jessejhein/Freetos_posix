@@ -56,7 +56,7 @@ extern int kb_open (int flags);
  * \retval 0 indicating no data is available
  * \retval 1 indicating 1 byte has been read
  */
-extern int kb_read (unsigned char *buf);
+extern int kb_read (__u8* buf);
 
 
 #ifdef KB_PUSH_KEY
@@ -64,7 +64,7 @@ extern int kb_read (unsigned char *buf);
  * \brief detect push key
  * \remarks used in idle task
  */
-extern void kb_push_key (void);
+extern void kb_check_push_key (void);
 #endif /* KB_PUSH_KEY */
 
 
@@ -73,7 +73,7 @@ extern void kb_push_key (void);
  * \brief detect push key
  * \remarks used in idle task
  */
-extern void kb_fn_key (void);
+extern void kb_check_fn_key (void);
 #endif /* KB_FN_KEY */
 
 #endif /* KB_MOD */

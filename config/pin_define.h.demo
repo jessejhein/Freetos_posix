@@ -118,7 +118,7 @@
 /**
  * \brief configure pin for all keys
  */
-extern void key_config (void);
+extern void kb_config (void);
 
 /**
  * \brief determine if a key has been pressed (push key)
@@ -126,7 +126,7 @@ extern void key_config (void);
  * \retval 1 key is being pressed
  * \retval 0 key is released
  */
-extern int key_press (unsigned char id);
+extern int kb_key_press (unsigned char id);
 
 #ifdef KB_ROTATE_KEY
 /**
@@ -135,7 +135,7 @@ extern int key_press (unsigned char id);
  * \retval 1 key is at high state
  * \retval 0 key is at low state
  */
-extern int rkey_state (unsigned char id);
+extern int kb_rkey_state (unsigned char id);
 #endif /* KB_ROTATE_KEY */
 
 /**
@@ -153,7 +153,6 @@ extern int rkey_state (unsigned char id);
 #endif /* KB_PUSH_KEY */
 //  -------------------------------------------------------------------------------
 #ifdef KB_ROTATE_KEY
-#if (TOTAL_ROTARY_KEY == 1)
 //Up key
 #define EN_RKEY0_UP() \
 { \
@@ -168,7 +167,6 @@ extern int rkey_state (unsigned char id);
   _CN0IE = 1; /* change input register, interrupt setting */ \
 }
 #define IO_RKEY0_DN()                   PORTC & 0x4000
-#endif /* TOTAL_ROTARY_KEY */
 #endif /* KB_ROTATE_KEY */
 #endif /* KB_MOD */
 
