@@ -126,7 +126,7 @@ void prvSetupTimerInterrupt (void);
 time_t one_sec_cnt;
 int timer_count;                      //counts from 0 upto configTICK_RATE_HZ
 #ifndef FREERTOS_SCHED 
-  time_t jiffies;
+time_t jiffies;
 #endif /* FREERTOS_SCHED */
 volatile int errno = 0;               //Indicate error state of open(), read() write();
 

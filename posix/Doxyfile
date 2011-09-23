@@ -575,7 +575,7 @@ WARN_LOGFILE           =
 # with spaces.
 
 INPUT                  = ./ \
-                         ./../demo_posix/dspic/drivers \
+                         ./../platform/dspic33/drivers \
                          ./../dsp
 
 # This tag can be used to specify the character encoding of the source files

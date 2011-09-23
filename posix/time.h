@@ -74,13 +74,6 @@ extern time_t time (time_t *t);
  */
 extern clock_t clock (void);
 
-
-/** 
- * \example time_ex.c
- * This is an example of how to use the time call module.
- */
-
-
 #endif /* TIME_H_ */
 
 /** @} */
