@@ -69,9 +69,9 @@ typedef unsigned long           suseconds_t;
 /** Data type for clock ticks for <time.h> */
 #if configUSE_16_BIT_TICKS
 typedef unsigned int            clock_t;
-#else  /* NOT configUSE_16_BIT_TICKS */
+#else /* configUSE_16_BIT_TICKS */
 typedef unsigned long           clock_t;
-#endif /* NOT configUSE_16_BIT_TICKS */
+#endif /* configUSE_16_BIT_TICKS */
 
 
 // ---------------------------------------------------------------------------------------
@@ -98,7 +98,7 @@ typedef fractional              real_t;
 #define _LIBC                   __attribute__((section(".libc")))
 
 /** FAST RAM */
-#define _DMA                    __attribute__((space(dma), aligned(256)))
+#define _DMA(N)                 __attribute__((space(dma), aligned(N)))
 
 /** Aligned Data in Program Memory */
 #define _PROG(N)                __attribute__ ((space(auto_psv), aligned(N)))
