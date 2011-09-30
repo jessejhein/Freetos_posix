@@ -256,12 +256,11 @@
 /** Information for LAN Card */
 typedef struct board_info 
 {
-  int io_addr;                //Register I/O base address: CMD = 0 for registers
-  int io_data;                //Data I/O address: CMD = 1 for data
-  int tx_pkt_cnt;             //Number of buffer available for tx 
-
-  u8_t op_mode;               //PHY operation mode
-  u8_t io_mode;               //0:word, 2:byte
+  __u8 io_addr;               //Register I/O base address: CMD = 0 for registers
+  __u8 io_data;               //Data I/O address: CMD = 1 for data
+  __u8 tx_pkt_cnt;            //Number of buffer available for tx
+  __u8 op_mode;               //PHY operation mode
+  __u8 io_mode;               //0:word, 2:byte
 } board_info_t;
 
 enum DM9KA_PHY_mode 
@@ -306,9 +305,9 @@ enum DM9KA_PHY_mode
  */
 typedef struct _DM_PREAMBLE
 {
-  u8_t  Validity;         //0x01 = valid packet,
-  u8_t  StatusVector;
-  u16_t PacketLength;     //MAC header + Data
+  __u8 Validity;        //0x01 = valid packet,
+  __u8 StatusVector;
+  __u16 PacketLength;   //MAC header + Data
 } DM_PREAMBLE;
 
 

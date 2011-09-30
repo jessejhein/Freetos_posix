@@ -54,22 +54,22 @@
  * Local Function Declaration
  *****************************************************************************/
 //  -------------------------Basic I/O operations---------------------------
-static u8_t inb (int port);
-static void outb (u8_t value, int port);
-static u8_t ior (board_info_t *db, u8_t reg);
-static void iow (board_info_t *db, u8_t reg, u8_t value);
-static u16_t phy_read (board_info_t *db, u8_t reg);
-static void phy_write (board_info_t *db, u8_t reg, u16_t value);
+static __u8 inb (int port);
+static void outb (__u8 value, int port);
+static __u8 ior (board_info_t* db, __u8 reg);
+static void iow (board_info_t* db, __u8 reg, __u8 value);
+static __u16 phy_read (board_info_t* db, __u8 reg);
+static void phy_write (board_info_t* db, __u8 reg, __u16 value);
 #if defined(MAC_USE_EEPROM)
-static u16_t eeprom_read (board_info_t *db, u8_t offset);
+static __u16 eeprom_read (board_info_t* db, __u8 offset);
 #endif
 //  --------------------Initialisation Functions----------------------------
-static void dmfe_init_dm9000 (board_info_t *db);
-static void set_PHY_mode (board_info_t *db);
-static void dm9000_hash_table (board_info_t *db);
+static void dmfe_init_dm9000 (board_info_t* db);
+static void set_PHY_mode (board_info_t* db);
+static void dm9000_hash_table (board_info_t* db);
 //  -----------------Packet Manipulation Functions--------------------------
-static u16_t dmfe_gets (u8_t *val, u16_t len);
-static u16_t dmfe_puts (u8_t *val, u16_t len);
+static __u16 dmfe_gets (__u8 *val, __u16 len);
+static __u16 dmfe_puts (__u8 *val, __u16 len);
 //  ----------------------Debug Functions-----------------------------------
 #ifdef DEBUG_DMFE_RX
 static void dmfe_debug_preamble (DM_PREAMBLE* pRxPreamble);
@@ -79,20 +79,21 @@ static void dmfe_debug_mac_header (__u8 *pheader);
 static void dmfe_debug_payload (void *addr, int len, int* pos);
 #endif /* DEBUG_DMFE_TX */
 #ifdef DEBUG_DMFE_REG
-static void dmfe_debug_dm9000 (board_info_t *db);
+static void dmfe_debug_dm9000 (board_info_t* db);
 #endif /* DEBUG_DMFE_REG */
 
 /*****************************************************************************
  * Local Variables
  *****************************************************************************/
 /** store IO setting */
-static int eth_io_flag;
+static __u8 eth_io_flag;
 /** indicate whether I/O functions are called from ISR */
-static int eth_io_in_interrupt = 0;
+static __u8 eth_io_in_interrupt = 0;
 /** dm9000a board information data */
 static board_info_t macData;
 
 
+//-------------------------------------------------------------------------------------------
 /**
  * \internal
  * SET_PHY_MODE:
@@ -108,10 +109,10 @@ static board_info_t macData;
  * +--TX Buffer: two packet mode
  * +--Enable Rx
  */
-int 
+int
 dmfe_open (int flags)
 {
-  eth_io_flag = flags;
+  eth_io_flag = (__u8) flags;
 
   board_info_t* db = &macData;
 
@@ -159,8 +160,8 @@ dmfe_open (int flags)
  * \brief Initialise dm9000a board
  * \param db pointer to board information
  */
-static void 
-dmfe_init_dm9000 (board_info_t *db)
+static void
+dmfe_init_dm9000 (board_info_t* db)
 {
   //Reset dm9000a
   iow (db, DM9KA_GPR, 1);
@@ -175,7 +176,7 @@ dmfe_init_dm9000 (board_info_t *db)
   //Assign I/O mode:
   db->io_mode = ior (db, DM9KA_ISR) >> 6;
   db->op_mode = DM9KA_10MHD;
-    
+
   //Set PHY_MODE
   set_PHY_mode (db);
 
@@ -191,47 +192,49 @@ dmfe_init_dm9000 (board_info_t *db)
   iow (db, DM9KA_TCSCR, 0x07);
   iow (db, DM9KA_RCSCSR, 0x03);
 #endif
-    
+
   //Set address filter table
   dm9000_hash_table (db);
 
   //Activate DM9000A 
   iow (db, DM9KA_RCR, DM9KA_RX_FILTER | 1);
   iow (db, DM9KA_IMR, DM9KA_EN_ISR);
-    
+
   //Initialise driver variables
   db->tx_pkt_cnt = 0;
 }
+
 
 /**
  * \brief Set PHY operating mode
  * \param db pointer to board information
  */
-static void 
-set_PHY_mode (board_info_t *db)
+static void
+set_PHY_mode (board_info_t* db)
 {
-  u16_t phy_reg0 = 0x1200;
-  u16_t phy_reg4 = 0x01e1;
+  __u16 phy_reg0 = 0x1200;
+  __u16 phy_reg4 = 0x01e1;
 
   if (db->op_mode == DM9KA_10MHD)
     {
       phy_reg0 = 0x1000;
       phy_reg4 = 0x0021;
     }
-    
+
   phy_write (db, DM9KA_BMCR, phy_reg0);
   phy_write (db, DM9KA_ANAR, phy_reg4);
 }
+
 
 /**
  * \brief Set DM9000A multicast address
  * \param db pointer to board information
  */
-static void 
-dm9000_hash_table (board_info_t *db)
+static void
+dm9000_hash_table (board_info_t* db)
 {
   __u32 hash_val;
-  u16_t i, oft, hash_table[4];
+  __u16 i, oft, hash_table[4];
   struct uip_eth_addr mac;
 
   //Initialise MAC Address
@@ -241,14 +244,14 @@ dm9000_hash_table (board_info_t *db)
   int epr_oft = DM9KA_EP_MACADDR0;
   for (i = 0; i < 3; i++, epr_oft++)
     {
-      ((u16_t *)mac.addr)[i] = eeprom_read (epr_oft);
+      ((__u16*)mac.addr)[i] = eeprom_read (epr_oft);
     }
 #else
-  u16_t OUI_MSB = phy_read (db, DM9KA_PHYID1);
-  u16_t OUI_LSB = phy_read (db, DM9KA_PHYID2);
-  mac.addr[0] = (u8_t)((OUI_MSB & 0xFC00) >> 10);
-  mac.addr[1] = (u8_t)((OUI_MSB & 0x03FC) >> 2);
-  mac.addr[2] = (u8_t)(((OUI_MSB & 0x0003) << 6) + ((OUI_LSB & 0xFC00) >> 10));
+  __u16 OUI_MSB = phy_read (db, DM9KA_PHYID1);
+  __u16 OUI_LSB = phy_read (db, DM9KA_PHYID2);
+  mac.addr[0] = (__u8)((OUI_MSB & 0xFC00) >> 10);
+  mac.addr[1] = (__u8)((OUI_MSB & 0x03FC) >> 2);
+  mac.addr[2] = (__u8)(((OUI_MSB & 0x0003) << 6) + ((OUI_LSB & 0xFC00) >> 10));
   mac.addr[3] = DEFAULT_NIC_BYTE1;
   mac.addr[4] = DEFAULT_NIC_BYTE2;
   mac.addr[5] = DEFAULT_NIC_BYTE3;
@@ -267,37 +270,36 @@ dm9000_hash_table (board_info_t *db)
   //--------------Write the hash table to MAC MD table-------------- 
   for (i = 0, oft = DM9KA_MAR; i < 4; i++)
     {
-      iow (db, oft++, (u8_t)(hash_table[i] & 0xff));
-      iow (db, oft++, (u8_t)((hash_table[i] >> 8) & 0xff));
+      iow (db, oft++, (__u8)(hash_table[i] & 0xff));
+      iow (db, oft++, (__u8)((hash_table[i] >> 8) & 0xff));
     }
 }
 
 
+//-------------------------------------------------------------------------------------------
 /**
  * \internal
  * Reset PHY and power down PHY
  * Disable interrupts and receive packet
  */
-int 
+int
 dmfe_close (void)
 {
   eth_io_flag = 0;
-
   board_info_t* db = &macData;    
-
   phy_write (db, DM9KA_BMCR, 0x8000);
   iow (db, DM9KA_GPR, 0x01);
   iow (db, DM9KA_IMR, DM9KA_DIS_ISR);
   iow (db, DM9KA_RCR, 0x00);
-
   return 0;
 }
 
 
-int 
+//-------------------------------------------------------------------------------------------
+int
 dmfe_read (void)
 {
-  board_info_t *db = &macData;
+  board_info_t* db = &macData;
 
   //Ethernet link is broken
   if ((ior(db, DM9KA_NSR) & 0x40) == 0)
@@ -305,48 +307,48 @@ dmfe_read (void)
       errno = EIO;
       return -1;
     }
-    
-  //Perform read if read operation is enabled
-  if (eth_io_flag & O_RDWR || eth_io_flag & O_RDONLY)
+
+  //Perform Read if read operation is enabled
+  if ((eth_io_flag & O_RDWR) || !(eth_io_flag & O_WRONLY))
     {
       DM_PREAMBLE RxPreamble;
-        
+
       //Determine if a valid packet is in the rx buffer
       ior (db, DM9KA_MRCMDX);
-      u8_t ready = inb (db->io_data);
-    
+      __u8 ready = inb (db->io_data);
+
 #if !defined(CHECKSUM)
       if (!(ready == 0x01)) return 0;
 #else
       if (!(ready & 0x01)) return 0;
 #endif
-   
+
       //Extract information from preamble 
 #ifdef DEBUG_DMFE_RX
-      printf("\n   Rx Packet: ");
+      printf ("\n   Rx Packet: ");
 #endif /* DEBUG_DMFE_RX */
-      dmfe_gets ((u8_t*)&RxPreamble, sizeof (RxPreamble));
+      dmfe_gets ((__u8*)&RxPreamble, sizeof (RxPreamble));
 #ifdef DEBUG_DMFE_RX
-      printf("\n   ======================\n");
+      printf ("\n   ======================\n");
       dmfe_debug_preamble (&RxPreamble);
 #endif /* DEBUG_DMFE_RX */
-    
+
       //Check packet status for errors and discard packet when there are errors
-      if ( (RxPreamble.StatusVector & 0xBF) || (RxPreamble.PacketLength > UIP_CONF_BUFFER_SIZE) )
+      if ((RxPreamble.StatusVector & 0xBF) || (RxPreamble.PacketLength > UIP_CONF_BUFFER_SIZE))
         {
-          u16_t index;
+          __u16 index;
           //Read the remaining bytes
           outb (DM9KA_MRCMD, db->io_addr);
           for (index = 0; index < RxPreamble.PacketLength; index++)
             {
               inb (db->io_data);
             }
-#ifdef DEBUG_DMFE_RX 
-          printf("**RX BAD PACKET**\n");
+#ifdef DEBUG_DMFE_RX
+          printf ("**RX BAD PACKET**\n");
 #endif /* DEBUG_DMFE_RX */
           return 0;
         }
-    
+
       //Copy packet to uip global buffer
       return (int) dmfe_gets (uip_buf, RxPreamble.PacketLength);
     }
@@ -355,26 +357,27 @@ dmfe_read (void)
     {
       errno = EBADF;
       return -1;
-    } 
+    }
 }
+
 
 /**
  * \brief Extract data from rx packet
  * \param val destination buffer
  * \param len number of bytes to read
  */
-static u16_t 
-dmfe_gets (u8_t *val, u16_t len)
+static __u16
+dmfe_gets (__u8 *val, __u16 len)
 {
-  board_info_t *db = &macData;
+  board_info_t* db = &macData;
 
-  u16_t i;
+  __u16 i;
   outb (DM9KA_MRCMD, db->io_addr);
   for (i = 0; i < len; i++)
     {
       val[i] = inb (db->io_data);
     }
-#ifdef DEBUG_DMFE_RX 
+#ifdef DEBUG_DMFE_RX
   int k;
   for (k = 0; k < len; k++)
     {
@@ -382,10 +385,10 @@ dmfe_gets (u8_t *val, u16_t len)
       switch (k % 16)
         {
           case 3: case 7: case 11:
-            printf(" ");
+            printf (" ");
             break;
           case 15:
-            printf("\n");
+            printf ("\n");
             break;
         }
     }
@@ -393,30 +396,32 @@ dmfe_gets (u8_t *val, u16_t len)
     return i;
 }
 
+
 #ifdef DEBUG_DMFE_RX 
 /**
  * \brief display the content of the rx preamble
  * \param pRxPreamble destination data structure
  */
-static void 
+static void
 dmfe_debug_preamble (DM_PREAMBLE* pRxPreamble)
 {
   unsigned int status = (unsigned int)(pRxPreamble->StatusVector);
-  printf("status = %02X\n", status);
-            
+  printf ("status = %02X\n", status);
+
   unsigned int len = (unsigned int)(pRxPreamble->PacketLength);
-  printf("len = %04X\n", len);
+  printf ("len = %04X\n", len);
 }
 #endif /* DEBUG_DMFE_RX */
 
 
-int 
+//-------------------------------------------------------------------------------------------
+int
 dmfe_write (void)
 {
-  board_info_t *db = &macData;
+  board_info_t* db = &macData;
 
-  //Perform write if write operation is enabled
-  if (eth_io_flag & O_RDWR || eth_io_flag & O_WRONLY)
+  //Perform Write if write operation is enabled
+  if ((eth_io_flag & O_RDWR) || (eth_io_flag & O_WRONLY))
     {
       //There is an empty buffer space available
       if (db->tx_pkt_cnt == 0)
@@ -429,9 +434,9 @@ dmfe_write (void)
           //
           dmfe_puts (&uip_buf[0], UIP_LLH_LEN);
 #ifdef DEBUG_DMFE_TX
-          int k=0, row=0;
-          printf("   Tx Packet: %d\n", (unsigned int) uip_len);
-          printf("   ======================\n");
+          int k = 0, row = 0;
+          printf ("   Tx Packet: %d\n", (unsigned int) uip_len);
+          printf ("   ======================\n");
           dmfe_debug_mac_header (uip_buf);
 #endif /* DEBUG_DMFE_TX */
 
@@ -443,7 +448,7 @@ dmfe_write (void)
               dmfe_puts (&uip_buf[UIP_LLH_LEN], uip_len - UIP_LLH_LEN);
 #ifdef DEBUG_DMFE_TX
               dmfe_debug_payload (&uip_buf[UIP_LLH_LEN], uip_len - UIP_LLH_LEN, &row);
-              printf("\n\n");
+              printf ("\n\n");
 #endif /* DEBUG_DMFE_TX */
             }
 
@@ -457,10 +462,10 @@ dmfe_write (void)
 #ifdef DEBUG_DMFE_TX
               dmfe_debug_payload (&uip_buf[UIP_LLH_LEN], UIP_TCPIP_HLEN, &row);
               dmfe_debug_payload (uip_appdata, uip_len - UIP_TCPIP_HLEN - UIP_LLH_LEN, &row);
-              printf("\n\n");
+              printf ("\n\n");
 #endif /* DEBUG_DMFE_TX */
             }
-            
+
           //
           // Wait until all transmission stop
           // Then, start transmission
@@ -487,17 +492,18 @@ dmfe_write (void)
     }
 }
 
+
 /**
  * \brief Put data to tx buffer
  * \param val source buffer
  * \param len number of bytes to write
  */
-static u16_t 
-dmfe_puts (u8_t *val, u16_t len)
+static __u16
+dmfe_puts (__u8 *val, __u16 len)
 {
-  board_info_t *db = &macData;
+  board_info_t* db = &macData;
 
-  u16_t i;
+  __u16 i;
   outb (DM9KA_MWCMD, db->io_addr);
   for (i = 0; i < len; i++)
     {
@@ -505,6 +511,7 @@ dmfe_puts (u8_t *val, u16_t len)
     }
   return i;
 }
+
 
 #ifdef DEBUG_DMFE_TX
 /**
@@ -517,23 +524,24 @@ dmfe_puts (u8_t *val, u16_t len)
    TL: 0800
    \endverbatim
  */
-static void 
+static void
 dmfe_debug_mac_header (__u8 *pheader)
 {
   __u8 *addr;
 
   addr = pheader;
-  printf("DA: ");
-  printf("%02X-%02X-%02X-%02X-%02X-%02X\n", addr[0], addr[1], addr[2], addr[3], addr[4], addr[5]);
+  printf ("DA: ");
+  printf ("%02X-%02X-%02X-%02X-%02X-%02X\n", addr[0], addr[1], addr[2], addr[3], addr[4], addr[5]);
 
   addr = pheader + 6;
-  printf("SA: ");
-  printf("%02X-%02X-%02X-%02X-%02X-%02X\n", addr[0], addr[1], addr[2], addr[3], addr[4], addr[5]);
+  printf ("SA: ");
+  printf ("%02X-%02X-%02X-%02X-%02X-%02X\n", addr[0], addr[1], addr[2], addr[3], addr[4], addr[5]);
 
-  printf("TL: ");
+  printf ("TL: ");
   addr = pheader + 12;
-  printf("%02X%02X\n", addr[0], addr[1]);
+  printf ("%02X%02X\n", addr[0], addr[1]);
 }
+
 
 /**
  * \brief display payload of MAC packet
@@ -547,20 +555,20 @@ dmfe_debug_mac_header (__u8 *pheader)
    00112233 4455
    \endverbatim
  */
-static void 
+static void
 dmfe_debug_payload (void *addr, int len, int* pos)
 {
   int k;
   for (k = 0; k < len; k++, (*pos)++)
     {
-      printf("%02X", ((__u8*)addr)[k]);
-      switch ((*pos)%16)
+      printf ("%02X", ((__u8*)addr)[k]);
+      switch ((*pos) % 16)
         {
           case 3: case 7: case 11:
-            printf(" "); 
+            printf (" ");
             break;
           case 15:
-            printf("\n"); 
+            printf ("\n");
             break;
         }
     }
@@ -568,9 +576,7 @@ dmfe_debug_payload (void *addr, int len, int* pos)
 #endif /* DEBUG_DMFE_TX */
 
 
-
-
-
+//-------------------------------------------------------------------------------------------
 /**
  * \brief Interrupt Service Routine after the packet has been transmitted
  * \remarks Process Tx Interrupt
@@ -592,21 +598,21 @@ dmfe_debug_payload (void *addr, int len, int* pos)
          allowed     allowed
    \endverbatim
  */ 
-void 
+void
 dmfe_interrupt (void)
 {
-  board_info_t *db = &macData;
-  int isr_status, i;
-  u8_t reg_save;
+  board_info_t* db = &macData;
+  __u8 isr_status;
+  __u8 reg_save;
 
   //set io rd rw
   eth_io_in_interrupt = 1;
-  
+
   //Pre-handling of interrupt
   reg_save = inb (db->io_addr);
   iow (db, DM9KA_IMR, DM9KA_DIS_ISR);
   isr_status = ior (db, DM9KA_ISR);
-  iow (db, DM9KA_ISR, (u8_t)isr_status);
+  iow (db, DM9KA_ISR, (__u8)isr_status);
 
   //Transmit Interrupt: Free a transmit buffer 
   db->tx_pkt_cnt = 0;
@@ -623,6 +629,7 @@ dmfe_interrupt (void)
 }
 
 
+//-------------------------------------------------------------------------------------------
 
 
 /*********************************************************************
@@ -646,10 +653,10 @@ dmfe_interrupt (void)
  * \return value of address/data
  * \remarks refer to section 10.3.3 of dm9000a datasheet
  */ 
-static u8_t 
+static __u8
 inb (int port)
 {
-  u8_t data;
+  __u8 data;
 
   if (eth_io_in_interrupt == 0) cli ();
 
@@ -679,6 +686,7 @@ inb (int port)
   return data;
 }
 
+
 /**
  * \brief sends a byte ($value) to data port
  * \param value value of address/data
@@ -686,7 +694,7 @@ inb (int port)
  * \remarks refer to section 10.3.4 of dm9000a datasheet
  */ 
 static void 
-outb (u8_t value, int port)
+outb (__u8 value, int port)
 {
   if (eth_io_in_interrupt == 0) cli ();
 
@@ -706,6 +714,7 @@ outb (u8_t value, int port)
 
   if (eth_io_in_interrupt == 0) sti ();
 }
+
 
 /**
  * \brief Read a byte at register ($reg)
@@ -733,13 +742,13 @@ outb (u8_t value, int port)
    All values in ns, base on 2 Nop() in inb() and 1 Nop() in outb()
    \endverbatim
  */
-static u8_t 
-ior (board_info_t *db, u8_t reg)
+static __u8
+ior (board_info_t* db, __u8 reg)
 {
-  //IOW#=1 to IOR#=0 requires about 600ns
   outb (reg, db->io_addr);
   return inb (db->io_data);
 }
+
 
 /**
  * \brief Write a byte ($value) to register ($reg)
@@ -748,11 +757,12 @@ ior (board_info_t *db, u8_t reg)
  * \param value data to set in register address 
  */
 static void 
-iow (board_info_t *db, u8_t reg, u8_t value)
+iow (board_info_t* db, __u8 reg, __u8 value)
 {
   outb (reg, db->io_addr);
   outb (value, db->io_data);
 }
+
 
 /**
  * \brief Read a word from PHY Registers
@@ -761,15 +771,16 @@ iow (board_info_t *db, u8_t reg, u8_t value)
  * \return data in address
  * \remarks See dm9000a.h for description
  */
-static u16_t 
-phy_read (board_info_t *db, u8_t reg)
+static __u16
+phy_read (board_info_t* db, __u8 reg)
 {
-  iow (db, DM9KA_EPAR, (u8_t)(DM9KA_PHY | reg));
+  iow (db, DM9KA_EPAR, (__u8)(DM9KA_PHY | reg));
   iow (db, DM9KA_EPCR, 0x0c);
   udelay (50);
   iow (db, DM9KA_EPCR, 0x00);
-  return ((u16_t) ior (db, DM9KA_EPDRH) << 8) | ((u16_t) ior (db, DM9KA_EPDRL) & 0xff);
+  return ((__u16) ior (db, DM9KA_EPDRH) << 8) | ((__u16) ior (db, DM9KA_EPDRL) & 0xff);
 }
+
 
 /**
  * \brief Write a word to PHY Registers
@@ -779,15 +790,16 @@ phy_read (board_info_t *db, u8_t reg)
  * \remarks See dm9000a.h for description
  */
 static void 
-phy_write (board_info_t *db, u8_t reg, u16_t value)
+phy_write (board_info_t* db, __u8 reg, __u16 value)
 {
-  iow (db, DM9KA_EPAR, (u8_t)(DM9KA_PHY | reg));
-  iow (db, DM9KA_EPDRL, (u8_t)(value & 0xff));
-  iow (db, DM9KA_EPDRH, (u8_t)( (value >> 8) & 0xff));
+  iow (db, DM9KA_EPAR, (__u8)(DM9KA_PHY | reg));
+  iow (db, DM9KA_EPDRL, (__u8)(value & 0xff));
+  iow (db, DM9KA_EPDRH, (__u8)( (value >> 8) & 0xff));
   iow (db, DM9KA_EPCR, 0x0a);
   udelay (50);
   iow (db, DM9KA_EPCR, 0x00);
 }
+
 
 #if defined(MAC_USE_EEPROM) 
 /**
@@ -796,23 +808,23 @@ phy_write (board_info_t *db, u8_t reg, u16_t value)
  * \param offset location of data
  * \return value in EEPROM
  */
-static u16_t 
-eeprom_read (board_info_t *db, u8_t offset)
+static __u16
+eeprom_read (board_info_t* db, __u8 offset)
 {
   iow (db, DM9KA_EPAR, offset);
   iow (db, DM9KA_EPCR, 0x4);
   udelay (200);
   iow (db, DM9KA_EPCR, 0x0);
-  return ((u16_t)ior(db, DM9KA_EPDRH) << 8) | ((u16_t)ior(db, DM9KA_EPDRL) & 0xff);
+  return ((__u16)ior (db, DM9KA_EPDRH) << 8) | ((__u16)ior (db, DM9KA_EPDRL) & 0xff);
 }
 #endif
 
 
 #ifdef DEBUG_DMFE_REG
 static void
-dmfe_debug_dm9000 (board_info_t *db)
+dmfe_debug_dm9000 (board_info_t* db)
 {
-  unsigned char value;
+  __u8 value;
   printf ("Entering DEBUG Mode of DM9000A...\n");
   printf ("=================================\n");
   printf ("Reading Registers:\n");
@@ -841,7 +853,7 @@ dmfe_debug_dm9000 (board_info_t *db)
   printf ("=================================\n");
   printf ("Reading PHY Registers:\n");
 
-  unsigned int phy_val;
+  __u16 phy_val;
   phy_val = phy_read (db, DM9KA_PHYID1);
   printf ("0x%02x: %s (read: 0x%04x)\n", DM9KA_PHYID1, (phy_val == 0x0181)? "OK" : "ERR", phy_val);
 
