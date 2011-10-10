@@ -55,6 +55,16 @@ extern pthread_mutex_t i2c_mutex;
 #endif /* I2C_NUM > 1 */
 
 
+/** timeout counter to detect availability of i2c devices */
+extern __u8 i2c_timeout_cnt;
+#define I2C_TIMEOUT                             50
+/** user can use this common variable during read/write operation to store I2C status byte */
+extern __u8 i2c_usr_status;
+/** user can use this common variable during read/write operation to store I2C data byte */
+extern __u8 i2c_usr_data;
+
+
+
 /**
  * \brief Initialise I2C with assigned baudrate
  */
@@ -75,7 +85,7 @@ extern void i2c_open (void);
                      |A|XXXXXXXX|K|P|
    \endverbatim
  */
-extern int i2c_write (unsigned char *buf);
+extern int i2c_write (__u8* buf);
 
 
 /**
@@ -93,7 +103,7 @@ extern int i2c_write (unsigned char *buf);
                    |XXXXXXXX|K|P|
    \endverbatim
  */
-extern int i2c_read (unsigned char *buf);
+extern int i2c_read (__u8* buf);
 
 
 /**

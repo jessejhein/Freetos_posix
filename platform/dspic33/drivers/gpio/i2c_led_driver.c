@@ -64,114 +64,114 @@
 #define I2C_LED_DRIVER_LED8_DIM_CTRL            0x08
 /** LED Gain Control */
 #define I2C_LED_DRIVER_LED_GAIN_CTRL            0x09
+//--------------------------------------------------
+#define I2C_LED_DRIVER_MAX_CHANNEL              8
 
 
 /** Store IO setting */
-static int led_io_flag;
-/** Store led status */
-static unsigned char led_status;
-/** Store address selected */
-static unsigned char led_address;
+static __u8 i2c_led_io_flag;
+/** Store led status of 8 channels */
+static __u8 i2c_led_status;
+/** Store register address selected */
+static __u8 i2c_led_address;
 /** Store channel selected */
-static unsigned char led_ch;
+static __u8 i2c_led_ch;
 
 
 int
 i2c_led_driver_open (int flags)
 {
-  static char timeout = 0;
-
-  led_io_flag = flags;
+  i2c_led_io_flag = (__u8) flags;
   i2c_open ();
+
   //adjust gain to 500uA
-  led_address = I2C_LED_DRIVER_LED_GAIN_CTRL;
-  unsigned char value = 0x0f;
+  i2c_led_address = I2C_LED_DRIVER_LED_GAIN_CTRL;
+  __u8 value = 0x0f;
+
+  //prepare timeout counter
+  i2c_timeout_cnt = 0;
   while (i2c_led_driver_write (&value) != 1)
     {
       //cannot communicate to driver, consider fail
-      if (timeout > 50) return -1;
-      timeout++;
+      if (i2c_timeout_cnt > I2C_TIMEOUT) return -1;
+      i2c_timeout_cnt++;
     }
+
   //dim all channels to zero
   int i;
-  led_address = I2C_LED_DRIVER_LED1_DIM_CTRL;
-  for (i = 0; i < 8; i++)
+  i2c_led_address = I2C_LED_DRIVER_LED1_DIM_CTRL;
+  for (i = 0; i < I2C_LED_DRIVER_MAX_CHANNEL; i++)
     {
       value = 0;
       while (i2c_led_driver_write (&value) != 1);
-      led_address++;
+      i2c_led_address++;
     }
   return 0;
 }
 
 
 int
-i2c_led_driver_write (unsigned char *buf)
+i2c_led_driver_write (__u8* buf)
 {
   //Perform Write if write operation is enabled
-  if (led_io_flag & O_RDWR || led_io_flag & O_WRONLY)
+  if ((i2c_led_io_flag & O_RDWR) || (i2c_led_io_flag & O_WRONLY))
     {
-      unsigned int error = 0;
-      unsigned char status = 0;
-      unsigned char data = 0;
-
+      __u8 error = 0;
 #if (I2C_NUM > 1)
-      if (pthread_mutex_lock(&i2c_mutex) == 0)
+      if (pthread_mutex_lock (&i2c_mutex) == 0)
         {
 #endif /* I2C_NUM > 1 */
-
           //Send start bit, slave address
-          status = I2C_START;
-          i2c_ioctl (I2C_SET_STATUS, &status);
-          data = (unsigned char) I2C_LED_DRIVER_ADDR;
-          if (i2c_write (&data) == 0) error = 1;
+          i2c_usr_status = I2C_START;
+          i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+          i2c_usr_data = (__u8) I2C_LED_DRIVER_ADDR;
+          if (i2c_write (&i2c_usr_data) == 0) error = 1;
 
           //Send control byte: Command byte
-          data = (unsigned char) led_address;
-          if (i2c_write (&data) == 0) error = 1;
+          i2c_usr_data = (__u8) i2c_led_address;
+          if (i2c_write (&i2c_usr_data) == 0) error = 1;
 
           //Send data byte with Stop bit
-          status = I2C_STOP;
-          i2c_ioctl (I2C_SET_STATUS, &status);
-          if (led_address == I2C_LED_DRIVER_LED_ON_CTRL)
+          i2c_usr_status = I2C_STOP;
+          i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+          if (i2c_led_address == I2C_LED_DRIVER_LED_ON_CTRL)
             {
               if (*buf == 0)
                 {
-                  data = led_status & (~(0x01 << led_ch));
+                  i2c_usr_data = i2c_led_status & (~(0x01 << i2c_led_ch));
                 }
               else
                 {
-                  data = led_status | (0x01 << led_ch);
+                  i2c_usr_data = i2c_led_status | (0x01 << i2c_led_ch);
                 }
             }
           else
             {
-              data = (unsigned char) *buf;
+              i2c_usr_data = (__u8) *buf;
             }
-          if (i2c_write (&data) == 0)
+          if (i2c_write (&i2c_usr_data) == 0)
             {
               error = 1;
             }
           else
             {
-              if (led_address == I2C_LED_DRIVER_LED_ON_CTRL) led_status = data;
+              if (i2c_led_address == I2C_LED_DRIVER_LED_ON_CTRL) i2c_led_status = i2c_usr_data;
             }
-
 #if (I2C_NUM > 1)
           pthread_mutex_unlock (&i2c_mutex);
         }
+      //i2c bus is busy
       else
         {
-          error = 1;  //i2c is busy
+          error = 1;
         }
 #endif /* I2C_NUM > 1 */
-
       return (error == 1)? 0 : 1;
     }
-  //Error, raise error flag
+  //IO not opened for writing
   else
     {
-      errno = EBADF;  //IO not opened for writing
+      errno = EBADF;
       return -1;
     }
 }
@@ -180,23 +180,28 @@ i2c_led_driver_write (unsigned char *buf)
 int
 i2c_led_driver_ioctl (int request, unsigned char* argp)
 {
-  if (*argp > 7) return -1;
+  if (*argp >= I2C_LED_DRIVER_MAX_CHANNEL) return -1;
 
   switch (request)
     {
+      //select the channel to perform dimming
       case I2C_LED_DRIVER_CH_DIM:
         {
-          led_address = I2C_LED_DRIVER_LED1_DIM_CTRL + *argp;
+          i2c_led_address = I2C_LED_DRIVER_LED1_DIM_CTRL + *argp;
           break;
         }
+      //select the channel to turn on
       case I2C_LED_DRIVER_CH_ON:
         {
-          led_address = I2C_LED_DRIVER_LED_ON_CTRL;
-          led_ch = *argp;
+          i2c_led_address = I2C_LED_DRIVER_LED_ON_CTRL;
+          i2c_led_ch = *argp;
           break;
         }
+      //request code not recognised
       default:
-        return -1;      //request code not recognised
+        {
+          return -1;
+        }
     }
   return 0;
 }

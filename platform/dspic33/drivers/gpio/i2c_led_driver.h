@@ -71,7 +71,7 @@ extern int i2c_led_driver_open (int flags);
                       |A|1110000|0|K|0000xxxx|K|xxxxxxxx|K|P|
    \endverbatim
  */
-extern int i2c_led_driver_write (unsigned char *buf);
+extern int i2c_led_driver_write (__u8* buf);
 
 
 /**

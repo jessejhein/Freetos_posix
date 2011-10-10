@@ -50,7 +50,7 @@
 /** I2C status */
 typedef union
 {
-  unsigned char val;
+  __u8 val;
   struct
     {
       /** start */
@@ -71,6 +71,12 @@ typedef union
 static I2C_STATUS i2c_status;
 
 
+/************************************************************************************************
+ * Global Variables
+ ************************************************************************************************/
+__u8 i2c_timeout_cnt;
+__u8 i2c_usr_status;
+__u8 i2c_usr_data;
 #if (I2C_NUM > 1)
 #include <pthread.h>
 pthread_mutex_t i2c_mutex; 
@@ -89,10 +95,10 @@ i2c_open (void)
       //Enable I2C slave interrupt
       _SI2C1IF = 0;
       _SI2C1IE = 1;
-        
+
       //Configure Baud rate (400kHz, change in define.h)
       I2C1BRG = I2C_BRG;
-        
+
       //I2C Configuration:
       // Enable clock stretch
       // 7-bit address
@@ -113,32 +119,32 @@ i2c_open (void)
 
 
 int 
-i2c_write (unsigned char *buf)
+i2c_write (__u8* buf)
 {
-  unsigned int count = 0;
-    
+  __u16 count = 0;
+
   /*
    * Send a start or restart bit if needed
    */
   if (i2c_status.bits.START)
     {
       I2C1CONbits.SEN = 1;
-      Nop();                            //A small delay for hardware to respond
+      Nop ();                           //A small delay for hardware to respond
       while (I2C1CONbits.SEN);          //Wait till Start sequence is completed
     }
   else if (i2c_status.bits.RESTART)
     {
       I2C1CONbits.RSEN = 1;
-      Nop();                            //A small delay for hardware to respond
+      Nop ();                           //A small delay for hardware to respond
       while (I2C1CONbits.RSEN);         //Wait till Start sequence is completed
     }
-    
+
   /*
    * Send the byte
    */
   I2C1TRN = *buf;                       //Transmit register
   while (I2C1STATbits.TBF);             //Wait for transmit buffer to empty
-    
+
   /*
    * Check if slave acknowledged
    */
@@ -149,7 +155,7 @@ i2c_write (unsigned char *buf)
           //Slave did not acknowledge, byte did not transmit successfully,
           //send stop bit to reset i2c
           I2C1CONbits.PEN = 1;
-          Nop();                        //A small delay for hardware to respond
+          Nop ();                       //A small delay for hardware to respond
           while (I2C1CONbits.PEN);      //Wait till stop sequence is completed
           i2cIdle ();
           return 0;
@@ -163,18 +169,18 @@ i2c_write (unsigned char *buf)
   if (i2c_status.bits.STOP)
     {
       I2C1CONbits.PEN = 1;
-      Nop();                            //A small delay for hardware to respond
+      Nop ();                           //A small delay for hardware to respond
       while (I2C1CONbits.PEN);          //Wait till stop sequence is completed
       i2cIdle ();
     }
   i2c_status.val = 0;                   //Clear status
-    
+
   return 1;
 }
 
 
 int 
-i2c_read (unsigned char *buf)
+i2c_read (__u8* buf)
 {
   /*
    * Get the byte
@@ -183,21 +189,21 @@ i2c_read (unsigned char *buf)
   while (I2C1CONbits.RCEN);
   I2C1STATbits.I2COV = 0;                 //Clear receive overflow
   *buf = (unsigned char) I2C1RCV;         //Access the receive buffer
-    
+
   /*
    * Send Acknowledgement
    */
   I2C1CONbits.ACKDT = (i2c_status.bits.NACK)? 1 : 0;
   I2C1CONbits.ACKEN = 1;                //Send Acknowledgement/Not Acknowledgement
-  i2cIdle();                            //I2C bus at idle state, awaiting transmission
-    
+  i2cIdle ();                           //I2C bus at idle state, awaiting transmission
+
   /*
    * Send a stop bit if needed
    */
   if (i2c_status.bits.STOP)
     {
       I2C1CONbits.PEN = 1;
-      Nop();                            //A small delay for hardware to respond
+      Nop ();                           //A small delay for hardware to respond
       while (I2C1CONbits.PEN);          //Wait till stop sequence is completed
       i2cIdle ();
     }
@@ -212,11 +218,17 @@ i2c_ioctl (int request, unsigned char* argp)
 {
   switch (request)
     {
+      //set the next I2C status: #I2C_STATUS
       case I2C_SET_STATUS:
-        i2c_status.val = *argp;
-        break;
+        {
+          i2c_status.val = *argp;
+          break;
+        }
+      //request code not recognised
       default:
-        return -1;      //request code not recognised   
+        {
+          return -1;
+        }
     }
   return 0;
 }
