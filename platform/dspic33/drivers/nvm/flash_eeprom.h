@@ -59,7 +59,7 @@ extern int flash_eeprom_open (int flags);
  * \retval -1 EEPROM is busy (errno = EAGAIN)
  * \n         EEPROM is not opened for reading (errno = EBADF)
  */
-extern int flash_eeprom_write(unsigned char* buf, int count);
+extern int flash_eeprom_write (__u8* buf, int count);
 
 
 /**
@@ -70,7 +70,7 @@ extern int flash_eeprom_write(unsigned char* buf, int count);
  * \retval -1 EEPROM is busy (errno = EAGAIN)
  * \n         EEPROM is not opened for reading (errno = EBADF)
  */
-extern int flash_eeprom_read(unsigned char* buf, int count);
+extern int flash_eeprom_read (__u8* buf, int count);
 
 
 /**
