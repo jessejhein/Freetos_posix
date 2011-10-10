@@ -41,13 +41,9 @@
 #include <errno.h>
 #include <i2c/i2c.h>
 
-
-/** Store control byte for transmit/receive */
-static __u8 i2c_dac_ctrl_byte = 0;
-/** Store IO setting */
-static __u8 i2c_dac_io_flag;
-/** Store the high and low byte for i2c communication */
-static struct 
+//------------------------------------------------------------------------
+/** Template to store high and low byte for i2c communication */
+struct I2C_DAC_DATA_T
 {
   union
     {
@@ -58,9 +54,8 @@ static struct
           __u8 high;
         } byte;
     };
-} i2c_dac_data;
-
-
+};
+//------------------------------------------------------------------------
 #if (DAC_RESOLUTION == 10)
 /**
  * \brief Convert 16-bit integer to 2-byte format for 10-bit DAC
@@ -73,11 +68,12 @@ static struct
                                    +----+----+----+----+
    \endverbatim
  **/
-#define int2dac(_val)                   (i2c_dac_data.value = ((__u16)_val << 6) & 0xFFC0)
+#define int2dac(_val)                   (((__u16)_val << 6) & 0xFFC0)
 
 
 /**
  * \brief Convert 16-bit integer from 2-byte format for 10-bit DAC
+ * \param _val value to convert
  * \return 10-bit resolution DAC value
  * \verbatim
    value                           DAC format
@@ -87,7 +83,8 @@ static struct
                                    +----+----+----+----+
    \endverbatim
  **/
-#define dac2int()                       (__u16)((i2c_dac_data.value >> 6) & 0x3FF)
+#define dac2int(_val)                   (__u16)((_val >> 6) & 0x3FF)
+//------------------------------------------------------------------------
 #elif (DAC_RESOLUTION == 12)
 /**
  * \brief Convert 16-bit integer to 2-byte format for 12-bit DAC
@@ -100,11 +97,12 @@ static struct
                                    +----+----+----+----+
    \endverbatim
  **/
-#define int2dac(_val)                   (i2c_dac_data.value = ((__u16)_val << 4) & 0xFFF0)
+#define int2dac(_val)                   (((__u16)_val << 4) & 0xFFF0)
 
 
 /**
  * \brief Convert 16-bit integer to 2-byte format for 12-bit DAC
+ * \param _val value to convert
  * \return 12-bit resolution DAC value
  * \verbatim
    value                           DAC format
@@ -114,10 +112,17 @@ static struct
                                    +----+----+----+----+
    \endverbatim
  **/
-#define dac2int()                       (__u16)((i2c_dac_data.value >> 4) & 0x0FFF)
+#define dac2int(_val)                   (__u16)((_val >> 4) & 0x0FFF)
 #else /* DAC_RESOLUTION ERROR */
 #error "ERROR in DAC_RESOLUTION setting"
 #endif /* DAC_RESOLUTION ERROR */
+//------------------------------------------------------------------------
+
+
+/** Store control byte for transmit/receive */
+static __u8 i2c_dac_ctrl_byte = 0;
+/** Store IO setting */
+static __u8 i2c_dac_io_flag;
 
 
 int 
@@ -136,12 +141,14 @@ i2c_dac_write (__u16* buf)
   if ((i2c_dac_io_flag & O_RDWR) || (i2c_dac_io_flag & O_WRONLY))
     {
       __u8 error = 0;
+
+      struct I2C_DAC_DATA_T i2c_dac_data;
 #if (I2C_NUM > 1)
       if (pthread_mutex_lock (&i2c_mutex) == 0)
         {
 #endif /* I2C_NUM > 1 */
           //Convert data to DAC format
-          int2dac (buf[0]);
+          i2c_dac_data.value = int2dac (buf[0]);
 
           //Send start bit, slave address
           i2c_usr_status = I2C_START;
@@ -189,6 +196,8 @@ i2c_dac_read (__u16* buf)
   if ((i2c_dac_io_flag & O_RDWR) || !(i2c_dac_io_flag & O_WRONLY))
     {
       __u8 error = 0;
+
+      struct I2C_DAC_DATA_T i2c_dac_data;
 #if (I2C_NUM > 1)
       if (pthread_mutex_lock (&i2c_mutex) == 0)
         {
@@ -230,7 +239,7 @@ i2c_dac_read (__u16* buf)
       if (error == 1) return 0;
 
       //Convert data to integer format
-      buf[0] = dac2int ();
+      buf[0] = dac2int (i2c_dac_data.value);
       return 2;   
     }
   //IO not opened for reading
