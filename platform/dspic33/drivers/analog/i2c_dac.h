@@ -9,7 +9,7 @@
  * \defgroup i2c_dac I2C DAC
  * @{
  *
- * Control I2C DAC DAC6574/DAC7574
+ * Control I2C DAC DAC6574 (10-bit) / DAC7574 (12-bit)
  * \li The I2C module uses SCL and SDA, located at pin 36 and 37 respectively.
  * \li All I2C devices shares a common communication speed (default: 400kHz)
  * \li The driver has a POSIX-like interface with open(), read(), write(), ioctl()
@@ -78,7 +78,7 @@ extern int i2c_dac_open (int flags);
                       |A|1001111|0|K|00010000|K|10101010|K|1010XXXX|K|P|
    \endverbatim
  */
-extern int i2c_dac_write (unsigned int *buf);
+extern int i2c_dac_write (__u16* buf);
 
 
 /**
@@ -105,7 +105,7 @@ extern int i2c_dac_write (unsigned int *buf);
                       |A|1001111|0|K|00010010|K|S|1001111|1|K|10101010|K|1010XXXX|K|P|
    \endverbatim
  */
-extern int i2c_dac_read (unsigned int *buf);
+extern int i2c_dac_read (__u16* buf);
 
 
 /**

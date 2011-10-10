@@ -41,152 +41,202 @@
 #include <errno.h>
 #include <i2c/i2c.h>
 
+
 /** Store control byte for transmit/receive */
-static unsigned char dac_ctrl_byte = 0;
+static __u8 i2c_dac_ctrl_byte = 0;
+/** Store IO setting */
+static __u8 i2c_dac_io_flag;
 /** Store the high and low byte for i2c communication */
 static struct 
 {
-  unsigned char high;
-  unsigned char low;
-} dac_data;
-/** Store IO setting */
-static int dac_io_flag;
+  union
+    {
+      __u16 value;
+      struct
+        {
+          __u8 low;
+          __u8 high;
+        } byte;
+    };
+} i2c_dac_data;
 
-/** Split $value to high byte and low byte */
-static void int2dac(unsigned int value);
-/** Combine high byte to low byte to integer */
-static int dac2int(void);
+
+#if (DAC_RESOLUTION == 10)
+/**
+ * \brief Convert 16-bit integer to 2-byte format for 10-bit DAC
+ * \param _val value to convert
+ * \verbatim
+   value                           DAC format
+                                   <--High---><--Low--->
+                                   +----+----+----+----+
+   0000 00AA BBBB CCCC   ------>   |AABB|BBCC|CC00|0000|
+                                   +----+----+----+----+
+   \endverbatim
+ **/
+#define int2dac(_val)                   (i2c_dac_data.value = ((__u16)_val << 6) & 0xFFC0)
+
+
+/**
+ * \brief Convert 16-bit integer from 2-byte format for 10-bit DAC
+ * \return 10-bit resolution DAC value
+ * \verbatim
+   value                           DAC format
+                                   <--High---><--Low--->
+                                   +----+----+----+----+
+   0000 00AA BBBB CCCC   <------   |AABB|BBCC|CC00|0000|
+                                   +----+----+----+----+
+   \endverbatim
+ **/
+#define dac2int()                       (__u16)((i2c_dac_data.value >> 6) & 0x3FF)
+#elif (DAC_RESOLUTION == 12)
+/**
+ * \brief Convert 16-bit integer to 2-byte format for 12-bit DAC
+ * \param _val value to convert
+ * \verbatim
+   value                           DAC format
+                                   <--High---><--Low--->
+                                   +----+----+----+----+
+   0000 AAAA BBBB CCCC   ------>   |AAAA|BBBB|CCCC|0000|
+                                   +----+----+----+----+
+   \endverbatim
+ **/
+#define int2dac(_val)                   (i2c_dac_data.value = ((__u16)_val << 4) & 0xFFF0)
+
+
+/**
+ * \brief Convert 16-bit integer to 2-byte format for 12-bit DAC
+ * \return 12-bit resolution DAC value
+ * \verbatim
+   value                           DAC format
+                                   <--High---><--Low--->
+                                   +----+----+----+----+
+   0000 AAAA BBBB CCCC   <------   |AAAA|BBBB|CCCC|0000|
+                                   +----+----+----+----+
+   \endverbatim
+ **/
+#define dac2int()                       (__u16)((i2c_dac_data.value >> 4) & 0x0FFF)
+#else /* DAC_RESOLUTION ERROR */
+#error "ERROR in DAC_RESOLUTION setting"
+#endif /* DAC_RESOLUTION ERROR */
 
 
 int 
 i2c_dac_open (int flags)
 {
-  dac_io_flag = flags;
+  i2c_dac_io_flag = (__u8) flags;
   i2c_open ();
   return 0;
 }
 
 
 int 
-i2c_dac_write (unsigned int *buf)
+i2c_dac_write (__u16* buf)
 {
   //Perform Write if write operation is enabled
-  if (dac_io_flag & O_RDWR || dac_io_flag & O_WRONLY)
+  if ((i2c_dac_io_flag & O_RDWR) || (i2c_dac_io_flag & O_WRONLY))
     {
-      unsigned int error = 0;
-      unsigned char status = 0;
-      unsigned char data = 0;
-    
-      //Convert data to DAC format
-      int2dac (buf[0]);
-        
+      __u8 error = 0;
 #if (I2C_NUM > 1)
-      if (pthread_mutex_lock(&i2c_mutex) == 0)
+      if (pthread_mutex_lock (&i2c_mutex) == 0)
         {
 #endif /* I2C_NUM > 1 */
-    
+          //Convert data to DAC format
+          int2dac (buf[0]);
+
           //Send start bit, slave address
-          status = I2C_START;
-          i2c_ioctl (I2C_SET_STATUS, &status);
-          data = (unsigned char) I2C_DAC_ADDR;
-          if (i2c_write (&data) == 0) error = 1;
-            
+          i2c_usr_status = I2C_START;
+          i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+          i2c_usr_data = (__u8) I2C_DAC_ADDR;
+          if (i2c_write (&i2c_usr_data) == 0) error = 1;
+
           //Send control byte: Channel select
-          data = (unsigned char) dac_ctrl_byte;
-          if (i2c_write (&data) == 0) error = 1;
-            
+          i2c_usr_data = (__u8) i2c_dac_ctrl_byte;
+          if (i2c_write (&i2c_usr_data) == 0) error = 1;
+
           //Send High Byte
-          data = (unsigned char) dac_data.high;
-          if (i2c_write (&data) == 0) error = 1;
-            
+          i2c_usr_data = (__u8) i2c_dac_data.byte.high;
+          if (i2c_write (&i2c_usr_data) == 0) error = 1;
+
           //Send Low Byte with Stop bit
-          status = I2C_STOP;
-          i2c_ioctl (I2C_SET_STATUS, &status);
-          data = (unsigned char) dac_data.low;
-          if (i2c_write (&data) == 0) error = 1;
-    
+          i2c_usr_status = I2C_STOP;
+          i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+          i2c_usr_data = (__u8) i2c_dac_data.byte.low;
+          if (i2c_write (&i2c_usr_data) == 0) error = 1;
 #if (I2C_NUM > 1)
           pthread_mutex_unlock (&i2c_mutex);
         }
+      //i2c bus is busy
       else
         {
-          error = 1;  //i2c is busy
+          error = 1;
         }
 #endif /* I2C_NUM > 1 */
-        
       return (error == 1)? 0 : 2;
     }
-  //Error, raise error flag
+  //IO not opened for writing
   else
     {
-      errno = EBADF;  //io not opened for writing
+      errno = EBADF;
       return -1;
     } 
 }
 
 
 int 
-i2c_dac_read (unsigned int *buf)
+i2c_dac_read (__u16* buf)
 {
-  //Perform Write if write operation is enabled
-  if (dac_io_flag & O_RDWR || dac_io_flag & O_RDONLY)
+  //Perform Read if read operation is enabled
+  if ((i2c_dac_io_flag & O_RDWR) || !(i2c_dac_io_flag & O_WRONLY))
     {
-      unsigned int error = 0;
-      unsigned char status = 0;
-      unsigned char data = 0;
-
+      __u8 error = 0;
 #if (I2C_NUM > 1)
       if (pthread_mutex_lock (&i2c_mutex) == 0)
         {
 #endif /* I2C_NUM > 1 */
-    
           //Send start bit, slave address (Write Mode)
-          status = I2C_START;
-          i2c_ioctl (I2C_SET_STATUS, &status);
-          data = (unsigned char) I2C_DAC_ADDR;
-          if (i2c_write (&data) == 0) error = 1;
-        
+          i2c_usr_status = I2C_START;
+          i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+          i2c_usr_data = (__u8) I2C_DAC_ADDR;
+          if (i2c_write (&i2c_usr_data) == 0) error = 1;
+
           //Send control byte: Channel select
-          data = (unsigned char) dac_ctrl_byte;
-          if (i2c_write (&data) == 0) error = 1;
-        
+          i2c_usr_data = (__u8) i2c_dac_ctrl_byte;
+          if (i2c_write (&i2c_usr_data) == 0) error = 1;
+
           //Send restart bit, slave address (Read Mode)
-          status = I2C_RESTART;
-          i2c_ioctl (I2C_SET_STATUS, &status);
-          data = (unsigned char) (I2C_DAC_ADDR|0x01);
-          if (i2c_write (&data) == 0) error = 1;
-        
+          i2c_usr_status = I2C_RESTART;
+          i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+          i2c_usr_data = (__u8) (I2C_DAC_ADDR | 0x01);
+          if (i2c_write (&i2c_usr_data) == 0) error = 1;
+
           //Receive High Byte with Acknowledgement
-          if (i2c_read (&data) == 0) error = 1;
-          dac_data.high = (unsigned char) data;
-        
+          if (i2c_read (&i2c_usr_data) == 0) error = 1;
+          i2c_dac_data.byte.high = (__u8) i2c_usr_data;
+
           //Receive Low Byte with Not Acknowledgement and stop bit
-          status = I2C_NACK | I2C_STOP;
-          i2c_ioctl (I2C_SET_STATUS, &status);
-          if (i2c_read (&data) == 0) error = 1;
-          dac_data.low = (unsigned char) data;
-    
+          i2c_usr_status = I2C_NACK | I2C_STOP;
+          i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+          if (i2c_read (&i2c_usr_data) == 0) error = 1;
+          i2c_dac_data.byte.low = (__u8) i2c_usr_data;
 #if (I2C_NUM > 1)
           pthread_mutex_unlock (&i2c_mutex);
         }
+      //i2c bus is busy
       else
         {
-          error = 1;  //i2c is busy
+          error = 1;
         }      
 #endif /* I2C_NUM > 1 */
-    
-      if (error == 1)
-        return 0;
-    
+      if (error == 1) return 0;
+
       //Convert data to integer format
       buf[0] = dac2int ();
-    
       return 2;   
     }
-  //Error, raise error flag
+  //IO not opened for reading
   else
     {
-      errno = EBADF;  //io not opened for reading
+      errno = EBADF;
       return -1;
     } 
 }
@@ -195,55 +245,22 @@ i2c_dac_read (unsigned int *buf)
 int 
 i2c_dac_ioctl (int request, unsigned char* argp)
 {
-  switch(request)
+  switch (request)
     {
+      //select DAC channel
       case DAC_SET_CTL:
-        dac_ctrl_byte = *argp;
-        break;
+        {
+          i2c_dac_ctrl_byte = *argp;
+          break;
+        }
+      //request code not recognised
       default:
-        return -1;      //request code not recognised   
+        {
+          return -1;
+        }
     }
   return 0;
 }
-
-
-#if (DAC_RESOLUTION == 10) 
-/********************************************************************
- * Convert 16-bit integer to/from 2-byte format for 10-bit DAC
- ********************************************************************/
-static void 
-int2dac (unsigned int value)
-{
-  dac_data.high = (unsigned char) ((value & 0x03FC) >> 2);  //Bit <9:2>
-  dac_data.low = (unsigned char) ((value & 0x0003) << 6);   //Bit <1:0>
-}
-
-static int 
-dac2int (void)
-{
-  int value = (dac_data.high << 8) + (dac_data.low & 0xFF);
-  return ((value >> 6) & 0x3FF);
-}
-#elif  (DAC_RESOLUTION == 12)
-/********************************************************************
- * Convert 16-bit integer to/from 2-byte format for 12-bit DAC
- ********************************************************************/
-static void 
-int2dac (unsigned int value)
-{
-  dac_data.high = (unsigned char) ((value & 0x0FF0) >> 4);  //Bit <11:4>
-  dac_data.low = (unsigned char) ((value & 0x000F) << 4);   //Bit <3:0>
-}
-
-static int 
-dac2int (void)
-{
-  int value = (dac_data.high << 8) + (dac_data.low & 0xFF);
-  return ((value >> 4) & 0x0FFF);
-}
-#else /* DAC_RESOLUTION ERROR */
-#error "ERROR in DAC_RESOLUTION setting"
-#endif /* DAC_RESOLUTION ERROR */
 
 /** @} */
 /** @} */
