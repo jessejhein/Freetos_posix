@@ -555,13 +555,6 @@ ioctl (int fd, int request, void* argp)
             }
 #endif /* I2C_DAC_MOD */
 
-#ifdef I2C_ADC_MOD
-          if (fd == BASE_I2C_ADC)
-            {
-              return i2c_adc_ioctl (request, argp);
-            }
-#endif /* I2C_ADC_MOD */
-
 #ifdef I2C_MOD_MASTER_DSPIC
           if (fd == BASE_I2C_MOD_DSPIC)
             {
