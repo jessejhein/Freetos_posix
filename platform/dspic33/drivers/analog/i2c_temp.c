@@ -41,13 +41,13 @@
 #include <errno.h>
 #include <i2c/i2c.h>
 
+//------------------------------------------------------------------------
 //Register
 #define TEMP_DATA_REGISTER              0x00
 #define TEMP_CONFIG_REGISTER            0x01
 #define TEMP_HYSTERESIS_REGISTER        0x02
 #define TEMP_LIMIT_REGISTER             0x03
-
-
+//------------------------------------------------------------------------
 //Resolution
 #if (I2C_TEMP_RESOLUTION == 9)
 #define TEMP_RESOLUTION                 0x00
@@ -58,135 +58,121 @@
 #else /* I2C_TEMP_RESOLUTION == 12 */
 #define TEMP_RESOLUTION                 0x60
 #endif /* I2C_TEMP_RESOLUTION == 12 */
-
-
-/** Store the high and low byte for i2c communication */
-static struct
+//------------------------------------------------------------------------
+/** Template to store high and low byte for i2c communication */
+struct I2C_TEMP_DATA_T
 {
   union
     {
-      unsigned int value;
+      __u16 value;
       struct
         {
-          unsigned char low;
-          unsigned char high;
+          __u8 low;
+          __u8 high;
         } byte;
     };
-} temp_data;
+};
+//------------------------------------------------------------------------
+
+
 /** Store IO setting */
-static int temp_io_flag;
+static __u8 i2c_temp_io_flag;
 
 
 int
 i2c_temp_open (int flags)
 {
-  temp_io_flag = flags;
+  i2c_temp_io_flag = (__u8) flags;
   i2c_open ();
+
+  /*
+   * configure resolution
+   */
+  __u8 error = 0;
+  //Send start bit, slave address (Write Mode)
+  i2c_usr_status = I2C_START;
+  i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+  i2c_usr_data = (__u8) I2C_TEMP_ADDR;
+  if (i2c_write (&i2c_usr_data) == 0) error = 1;
+
+  //Send register byte
+  i2c_usr_data = (__u8) TEMP_CONFIG_REGISTER;
+  if (i2c_write (&i2c_usr_data) == 0) error = 1;
+
+  //Send value byte
+  i2c_usr_status = I2C_STOP;
+  i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+  i2c_usr_data = (__u8) TEMP_RESOLUTION;
+  if (i2c_write (&i2c_usr_data) == 0) error = 1;
+
+  //Send start bit, slave address (Write Mode)
+  i2c_usr_status = I2C_START;
+  i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+  i2c_usr_data = (__u8) I2C_TEMP_ADDR;
+  if (i2c_write (&i2c_usr_data) == 0) error = 1;
+
+  //Send register byte
+  i2c_usr_data = (__u8) TEMP_DATA_REGISTER;
+  if (i2c_write (&i2c_usr_data) == 0) error = 1;
+
+  //read first temperature value
+  __u16 value;
+  if (i2c_temp_read (&value, 2) == 0) error = 1;
+
+  if (error == 1) return -1;
   return 0;
 }
 
 
 int
-i2c_temp_read (unsigned int *buf, int count)
+i2c_temp_read (__u16* buf)
 {
-  //Perform read if read operation is enabled
-  if (temp_io_flag & O_RDWR || temp_io_flag & O_WRONLY)
+  //Perform Read if read operation is enabled
+  if ((i2c_temp_io_flag & O_RDWR) || !(i2c_temp_io_flag & O_WRONLY))
     {
-      errno = EROFS;
-      return -1;
-    }
-  else
-    {
-      unsigned int error = 0;
-      unsigned char status = 0;
-      unsigned char data = 0;
+      __u8 error = 0;
+
+      struct I2C_TEMP_DATA_T i2c_temp_data;
 #if (I2C_NUM > 1)
       if (pthread_mutex_lock (&i2c_mutex) == 0)
         {
 #endif /* I2C_NUM > 1 */
-          //configure resolution
-          static char init = 0;
-          if (init == 0)
-            {
-              //Send start bit, slave address (Write Mode)
-              status = I2C_START;
-              i2c_ioctl (I2C_SET_STATUS, &status);
-              data = (unsigned char) I2C_TEMP_ADDR;
-              if (i2c_write (&data) == 0) error = 1;
-
-              //Send register byte
-              data = (unsigned char) TEMP_CONFIG_REGISTER;
-              if (i2c_write (&data) == 0) error = 1;
-
-              //Send value byte
-              status = I2C_STOP;
-              i2c_ioctl (I2C_SET_STATUS, &status);
-              data = (unsigned char) TEMP_RESOLUTION;
-              if (i2c_write (&data) == 0) error = 1;
-
-              //complete initialisation
-              init = 1;
-
-              //Send start bit, slave address (Write Mode)
-              status = I2C_START;
-              i2c_ioctl (I2C_SET_STATUS, &status);
-              data = (unsigned char) I2C_TEMP_ADDR;
-              if (i2c_write (&data) == 0) error = 1;
-
-              //Send register byte
-              data = (unsigned char) TEMP_DATA_REGISTER;
-              if (i2c_write (&data) == 0) error = 1;
-            }
-
           //Send start bit, slave address (Read Mode)
-          status = I2C_START;
-          i2c_ioctl (I2C_SET_STATUS, &status);
-          data = (unsigned char) (I2C_TEMP_ADDR | 0x01);
-          if (i2c_write (&data) == 0) error = 1;
+          i2c_usr_status = I2C_START;
+          i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+          i2c_usr_data = (__u8) (I2C_TEMP_ADDR | 0x01);
+          if (i2c_write (&i2c_usr_data) == 0) error = 1;
 
           //Receive High Byte with Acknowledgement
-          if (i2c_read (&data) == 0) error = 1;
-          temp_data.byte.high = (unsigned char) data;
+          if (i2c_read (&i2c_usr_data) == 0) error = 1;
+          i2c_temp_data.byte.high = (__u8) i2c_usr_data;
 
           //Receive Low Byte with Not Acknowledgement and stop bit
-          status = I2C_NACK | I2C_STOP;
-          i2c_ioctl (I2C_SET_STATUS, &status);
-          if (i2c_read (&data) == 0) error = 1;
-          temp_data.byte.low = (unsigned char) data;
-
-          //use I2C_START for successive read
-          if (init == 1) init++;
-
+          i2c_usr_status = I2C_NACK | I2C_STOP;
+          i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+          if (i2c_read (&i2c_usr_data) == 0) error = 1;
+          i2c_temp_data.byte.low = (__u8) i2c_usr_data;
 #if (I2C_NUM > 1)
-          pthread_mutex_unlock(&i2c_mutex);
+          pthread_mutex_unlock (&i2c_mutex);
         }
+      //i2c bus is busy
       else
         {
-          error = 1;  //i2c is busy
+          error = 1;
         }
 #endif /* I2C_NUM > 1 */
-
-      if (error == 1)
-        {
-          return 0;
-        }
+      if (error == 1) return 0;
 
       //export raw data
-      *buf = temp_data.value;
+      *buf = i2c_temp_data.value;
       return 2;
     }
-}
-
-
-int
-i2c_temp_ioctl (int request, unsigned char* argp)
-{
-  switch (request)
+  //IO not opened for reading
+  else
     {
-      default:
-        return -1;      //request code not recognised
+      errno = EROFS;
+      return -1;
     }
-  return 0;
 }
 
 /** @} */

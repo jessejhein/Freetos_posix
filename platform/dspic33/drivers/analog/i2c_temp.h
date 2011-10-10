@@ -14,6 +14,10 @@
  * \li All I2C devices shares a common communication speed (default: 400kHz)
  * \li The driver has a POSIX-like interface with open(), read(), write(), ioctl()
  * \li When i2c has multiple devices, read(), write() cannot be used in ISR (Interrupt routine)
+ *
+ * Capabilities
+ * \li 12-bit resolution temperature sensor
+ * \li Accuracy: +/-1oC (typical), +/-2oC (max)
  */
 
 /**
@@ -50,26 +54,13 @@
  * \brief Initialise I2C Temperature Sensor
  * \param flags accessing mode
  * \retval 0 Temperature Sensor opened
- */
-extern int i2c_temp_open (int flags);
-
-
-/**
- * \brief read 2 bytes from Temperature Sensor
- * \param buf pointer of data to read from Temperature Sensor
- * \param count number of bytes to read
- * \return number of bytes read
- * \retval 0 no data has been read
- * \retval -1 not opened for reading error (errno = EBADF)
- *
- * \remarks
- * \li *buf should be interpreted as signed integer and multiplied by I2C_TEMP_CONVERT_FACTOR (2^-8) to get the floating point number
+ * \remarks configure resolution
  * \li example
  * \verbatim
     Mst/Slv    _______ M ___M___ M S ____M___ S ___M____ M __   __ M ___M___ M S ____M___ S
     SDA (Data)        |S|       | |A|        |A|        |S|       |S|       | |A|        |A|
                       |T|address|W|C| CONFIG |C| 12-bit |T|  ...  |T|address|W|C|  DATA  |C|  ---+
-    (Once Only)       |A|1001001|0|K|00000001|K|01100000|P|       |A|1001001|0|K|00000000|K|     |
+                      |A|1001001|0|K|00000001|K|01100000|P|       |A|1001001|0|K|00000000|K|     |
                                                                                                  |
                                                                                                  |
                        +-------------------------------------------------------------------------+
@@ -79,20 +70,30 @@ extern int i2c_temp_open (int flags);
     Mst/Slv            M ___M___ M S ___S____ M ___S____ M M _____
     SDA (Data)        |S|       | |A|        |A|        |N|S|
                       |T|address|R|C| Data H |C| Data L |A|T|
-    (Successive)      |A|1001001|1|K|xxxxxxxx|K|xxxx0000|K|P|
+                      |A|1001001|1|K|xxxxxxxx|K|xxxx0000|K|P|
    \endverbatim
  */
-extern int i2c_temp_read (unsigned int *buf, int count);
+extern int i2c_temp_open (int flags);
 
 
 /**
- * \brief change setting for Temperature Sensor
- * \param request Request code defined in ioctl.h
- * \param argp pointer for control configuration, request code dependent.
- * \retval 0 success
- * \retval -1 error
+ * \brief read 2 bytes from Temperature Sensor
+ * \param buf pointer of data to read from Temperature Sensor
+ * \return number of bytes read
+ * \retval 0 no data has been read
+ * \retval -1 not opened for reading error (errno = EBADF)
+ *
+ * \remarks
+ * \li *buf should be interpreted as signed integer and multiplied by I2C_TEMP_CONVERT_FACTOR (2^-8) to get the floating point number
+ * \li example
+ * \verbatim
+    Mst/Slv            M ___M___ M S ___S____ M ___S____ M M _____
+    SDA (Data)        |S|       | |A|        |A|        |N|S|
+                      |T|address|R|C| Data H |C| Data L |A|T|
+    (Successive)      |A|1001001|1|K|xxxxxxxx|K|xxxx0000|K|P|
+   \endverbatim
  */
-extern int i2c_temp_ioctl (int request, unsigned char* argp);
+extern int i2c_temp_read (__u16* buf);
 
 
 #endif /* I2C_TEMP_MOD */

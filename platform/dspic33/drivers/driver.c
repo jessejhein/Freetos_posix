@@ -443,7 +443,7 @@ read (int fd, void* buf, int count)
 #ifdef I2C_TEMP_MOD
           if (fd == BASE_I2C_TEMP)
             {
-              return i2c_temp_read (buf, count);
+              return i2c_temp_read (buf);
             }
 #endif /* I2C_TEMP_MOD */
 
@@ -561,13 +561,6 @@ ioctl (int fd, int request, void* argp)
               return i2c_adc_ioctl (request, argp);
             }
 #endif /* I2C_ADC_MOD */
-
-#ifdef I2C_TEMP_MOD
-          if (fd == BASE_I2C_TEMP)
-            {
-              return i2c_temp_ioctl (request, argp);
-            }
-#endif /* I2C_TEMP_MOD */
 
 #ifdef I2C_MOD_MASTER_DSPIC
           if (fd == BASE_I2C_MOD_DSPIC)
