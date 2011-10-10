@@ -86,7 +86,7 @@ extern int pwm_open (int flags);
  * \n         errno = EBADF: PWM not opened for writing
  * \n         errno = ENXIO: no such channel exist
  */
-extern int pwm_write (unsigned long* buf);
+extern int pwm_write (__u32* buf);
 
 
 /**
