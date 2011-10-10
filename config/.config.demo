@@ -4,11 +4,11 @@
 #----------------------------------------------------------------
 # uP: Select the type of dsPic to be used
 #		DSPIC33
-#		FJ256GP506; FJ128GP306;
+#		FJ256GP506; FJ128GP306
 #----------------------------------------------------------------
 PLATFORM													=		DSPIC33
 MODEL															=		FJ256GP506
-HEAP_SIZE													=		5120
+HEAP_SIZE													=		4608
 
 #----------------------------------------------------------------
 # Clock Source
@@ -48,27 +48,30 @@ CONFIG_FFT												=		n
 
 #----------------------------------------------------------------
 # UART
-#	UART_BAUDRATE_PRIMARY/SECONDARY:			Baudrate in bps
-# UART_DATABIT_PRIMARY/SECONDARY:				8; 9
-# UART_STOPBIT_PRIMARY/SECONDARY:				1; 2
-# UART_PARITYBIT_PRIMARY/SECONDARY:			N; E; O
-#	UART_PRIMARY/SECONDARY:								RS232; RS485
-#	UART_BUFFER_SIZE:											Number of bytes for rx and tx buffers
-# DEBUG_UART:														UART_PRIMARY/UART_SECONDARY
+# UART_x_BAUDRATE:								Default baudrate in bps
+# UART_x_DATABIT:									8; 9
+# UART_x_STOPBIT:									1; 2
+# UART_x_PARITYBIT:								N; E; O
+# UART_x_RX_BUFFER_SIZE:					Receive buffer size in byte
+# UART_x_TX_BUFFER_SIZE:					Transmit buffer size in byte
+# DEBUG_UART:											UART_A/UART_B for printf debug
 #----------------------------------------------------------------
-CONFIG_UART_PRIMARY								=		RS232
-CONFIG_UART_BAUDRATE_PRIMARY			=		19200
-CONFIG_UART_DATABIT_PRIMARY				=		8
-CONFIG_UART_STOPBIT_PRIMARY				=		1
-CONFIG_UART_PARITYBIT_PRIMARY	 		=		N
-CONFIG_UART_USE_SECONDARY					=		y
-	CONFIG_UART_SECONDARY						=		RS485
-	CONFIG_UART_BAUDRATE_SECONDARY	=		115200
-	CONFIG_UART_DATABIT_SECONDARY		=		8
-	CONFIG_UART_STOPBIT_SECONDARY		=		1
-	CONFIG_UART_PARITYBIT_SECONDARY	=		N
-CONFIG_UART_BUFFER_SIZE						=		200
-CONFIG_DEBUG_UART									=		UART_PRIMARY
+CONFIG_UART_A_BAUDRATE						=		19200
+CONFIG_UART_A_DATABIT							=		8
+CONFIG_UART_A_STOPBIT							=		1
+CONFIG_UART_A_PARITYBIT	 					=		N
+CONFIG_UART_A_RX_BUFFER_SIZE			=		50
+CONFIG_UART_A_TX_BUFFER_SIZE			=		50
+#----------------------------------------------------------------
+CONFIG_UART_B_ENABLE							=		y
+CONFIG_UART_B_BAUDRATE						=		115200
+CONFIG_UART_B_DATABIT							=		8
+CONFIG_UART_B_STOPBIT							=		1
+CONFIG_UART_B_PARITYBIT	 					=		N
+CONFIG_UART_B_RX_BUFFER_SIZE			=		0
+CONFIG_UART_B_TX_BUFFER_SIZE			=		50
+#----------------------------------------------------------------
+CONFIG_DEBUG_UART									=		UART_A
 CONFIG_DEBUG_TRAP_IN_NVM					=		y
 
 #----------------------------------------------------------------
@@ -120,9 +123,9 @@ CONFIG_ADC_OUTPUT_FORMAT					=		INTEGER
 # KB_FUNCTION_KEY:		Number of function keys
 # KB_SCAN_PERIOD:			Epochs between successive key pressed
 #----------------------------------------------------------------
-CONFIG_KB_BUFFER_SIZE							=		20
+CONFIG_KB_BUFFER_SIZE							=		8
 CONFIG_KB_MODEL										=		ROTARY_ENTER_KEY
-CONFIG_KB_FUNCTION_KEY						=		0
+CONFIG_KB_FUNCTION_KEY						=		1
 CONFIG_KB_SCAN_PERIOD							=		5
 
 #----------------------------------------------------------------

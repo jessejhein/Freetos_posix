@@ -43,22 +43,70 @@
 #include <sys/ioctl.h>
 
 
+//------------------------------------------------------------------------
+#if (UART0_RX_BUF_SIZE == 0)
+#define UART0_RX_ENABLE                         0
+#else /* UART0_RX_BUF_SIZE > 0 */
+#define UART0_RX_ENABLE                         1
+#endif /* UART0_RX_BUF_SIZE > 0 */
+#if (UART0_TX_BUF_SIZE == 0)
+#define UART0_TX_ENABLE                         0
+#else /* UART0_TX_BUF_SIZE > 0 */
+#define UART0_TX_ENABLE                         1
+#endif /* UART0_TX_BUF_SIZE > 0 */
+//------------------------------------------------------------------------
+#if (UART1_RX_BUF_SIZE == 0)
+#define UART1_RX_ENABLE                         0
+#else /* UART1_RX_BUF_SIZE > 0 */
+#define UART1_RX_ENABLE                         1
+#endif /* UART1_RX_BUF_SIZE > 0 */
+#if (UART1_TX_BUF_SIZE == 0)
+#define UART1_TX_ENABLE                         0
+#else /* UART1_TX_BUF_SIZE > 0 */
+#define UART1_TX_ENABLE                         1
+#endif /* UART1_TX_BUF_SIZE > 0 */
+//------------------------------------------------------------------------
+/** factor applied to speed to save memory */
+#define BAUDRATE_FACTOR                         100
+//------------------------------------------------------------------------
+
+
+#if (UART0_RX_ENABLE == 1)
+/** UART0 RX buffer */
+__u8 uart0_rx_buf[UART0_RX_BUF_SIZE];
+#endif /* UART0_RX_ENABLE */
+#if (UART0_TX_ENABLE == 1)
+/** UART0 TX buffer */
+__u8 uart0_tx_buf[UART0_TX_BUF_SIZE];
+#endif /* UART0_TX_ENABLE */
+
+#if (UART1_RX_ENABLE == 1)
+/** UART1 RX buffer */
+__u8 uart1_rx_buf[UART1_RX_BUF_SIZE];
+#endif /* UART1_RX_ENABLE */
+#if (UART1_TX_ENABLE == 1)
+/** UART1 TX buffer */
+__u8 uart1_tx_buf[UART1_TX_BUF_SIZE];
+#endif /* UART1_TX_ENABLE */
+
+
+/** data structure to store UART configuration */
 struct UART_DATA
 {
   //setting
-  int io_flag;
-  speed_t speed;
-
+  __u16 speed;
+  __u8 io_flag;
   //RX
-  __u8 rx_buf[MAX_UART_RX_BUF];
   __u8 rx_wr;
   __u8 rx_rd;
-
+  __u8 rx_buf_size;
+  __u8* rx_buf;
   //TX
-  __u8 tx_buf[MAX_UART_RX_BUF];
+  __u8 tx_done;
   __u8 tx_wr;
   __u8 tx_rd;
-  __u8 tx_done;
+  __u8 tx_buf_size;
+  __u8* tx_buf;
 };
 static struct UART_DATA uart[NO_OF_UART];
 
@@ -66,9 +114,9 @@ static struct UART_DATA uart[NO_OF_UART];
 /*
  * Local Functions
  */
-static void uart2_init (__u32 speed);
+static void uart0_init (__u16 speed);
 #if (NO_OF_UART > 1)
-static void uart1_init (__u32 speed);
+static void uart1_init (__u16 speed);
 #endif /* NO_OF_UART > 1 */
 
 
@@ -79,40 +127,58 @@ uart_open (int device, int flags)
     {
       case 0:
         {
-          //==========Primary UART = U2ART: RS232================
+          //=====================================================
+#if (UART0_RX_ENABLE == 1)
           uart[0].rx_wr = 0;
           uart[0].rx_rd = 0;
+          uart[0].rx_buf = &uart0_rx_buf[0];
+          uart[0].rx_buf_size = UART0_RX_BUF_SIZE;
+#endif /* UART0_RX_ENABLE */
           //=====================================================
+#if (UART0_TX_ENABLE == 1)
           uart[0].tx_wr = 0;
           uart[0].tx_rd = 0;
           uart[0].tx_done = 1;
+          uart[0].tx_buf = &uart0_tx_buf[0];
+          uart[0].tx_buf_size = UART0_TX_BUF_SIZE;
+#endif /* UART0_TX_ENABLE */
           //=====================================================
-          uart[0].io_flag = flags;
-          uart[0].speed = UART_BAUDRATE0;
-          uart2_init (GEN_UART_BAUDRATE (uart[0].speed));
+          uart[0].io_flag = (__u8) flags;
+          uart[0].speed = UART0_BAUDRATE / BAUDRATE_FACTOR;
+          uart0_init (GEN_UART_BAUDRATE (UART0_BAUDRATE));
           //=====================================================
           break;
         }
 #if (NO_OF_UART > 1)
       case 1:
         {
-          //========Secondary UART = U1ART: RS485================
+          //=====================================================
+#if (UART1_RX_ENABLE == 1)
           uart[1].rx_wr = 0;
           uart[1].rx_rd = 0;
+          uart[1].rx_buf = &uart1_rx_buf[0];
+          uart[1].rx_buf_size = UART1_RX_BUF_SIZE;
+#endif /* UART1_RX_ENABLE */
           //=====================================================
+#if (UART1_TX_ENABLE == 1)
           uart[1].tx_wr = 0;
           uart[1].tx_rd = 0;
           uart[1].tx_done = 1;
+          uart[1].tx_buf = &uart1_tx_buf[0];
+          uart[1].tx_buf_size = UART1_TX_BUF_SIZE;
+#endif /* UART1_TX_ENABLE */
           //=====================================================
-          uart[1].io_flag = flags;
-          uart[1].speed = UART_BAUDRATE1;
-          uart1_init (GEN_UART_BAUDRATE (uart[1].speed));
+          uart[1].io_flag = (__u8) flags;
+          uart[1].speed = UART1_BAUDRATE / BAUDRATE_FACTOR;
+          uart1_init (GEN_UART_BAUDRATE (UART1_BAUDRATE));
           //=====================================================
           break;
         }
 #endif /* NO_OF_UART > 1 */
       default:
-        return -1;
+        {
+          return -1;
+        }
     }
   return 0;
 }
@@ -120,11 +186,9 @@ uart_open (int device, int flags)
 
 //-------------------------------------------------------------------------------------
 static void 
-uart2_init (__u32 speed)
+uart0_init (__u16 speed)
 {
-#if (UARTA_RS485 > 0)
-  RS485_CTL_EN ();
-#endif /* UARTA_RS485 */
+  UART_A_RS485_CTL_EN ();
   //=============================================================================
   // Configure Baud rate
   U2BRG = speed;
@@ -132,47 +196,51 @@ uart2_init (__u32 speed)
   // Configure Mode
   // +-- 8N1, no loopback, no wake in sleep mode, continue in idle mode, no autobaud
   U2MODE = 0x0000;
-#if ((UART_DATABIT0 == 8) && (UART_PARITYBIT0 == 2))
+#if ((UART0_DATABIT == 8) && (UART0_PARITYBIT == 2))
   //8E
   U2MODEbits.PDSEL = 1;
-#elif ((UART_DATABIT0 == 8) && (UART_PARITYBIT0 == 1))
+#elif ((UART0_DATABIT == 8) && (UART0_PARITYBIT == 1))
   //8O
   U2MODEbits.PDSEL = 2;
-#elif ((UART_DATABIT0 == 9) && (UART_PARITYBIT0 == 0))
+#elif ((UART0_DATABIT == 9) && (UART0_PARITYBIT == 0))
   //9N
   U2MODEbits.PDSEL = 2;
 #endif /* BIT and PARITY */
 
-#if (UART_STOPBIT0 == 2)
+#if (UART0_STOPBIT == 2)
   U2MODEbits.STSEL = 1;
 #endif /* UART_STOPBIT0 */
   //==============================================================================
   // Configure Interrupt
+#if (UART0_RX_ENABLE == 1)
   _U2RXIF = 0;                //Clear RX interrupt flags
-  _U2RXIE = 1;                //Receive interrupt: 0 disable, 1 enable 
+  _U2RXIE = 1;                //Receive interrupt: 0 disable, 1 enable
   U2STAbits.URXISEL0 = 0;     //RX Interrupt when a character is received
   U2STAbits.URXISEL1 = 0;
+#endif /* UART0_RX_ENABLE */
+#if (UART0_TX_ENABLE == 1)
   _U2TXIF = 0;                //Clear TX interrupt flags
   _U2TXIE = 1;                //Transmit interrupt: 0 disable, 1 enable
   U2STAbits.UTXISEL0 = 1;     //TX Interrupt when all TX is completed
   U2STAbits.UTXISEL1 = 0;
+#endif /* UART0_TX_ENABLE */
   //==============================================================================
   // Enable U2ART module
   U2MODEbits.UARTEN = 1;
+#if (UART0_TX_ENABLE == 1)
   //==============================================================================
   // Enable Transmit
   U2STAbits.UTXEN = 1;
+#endif /* UART0_TX_ENABLE */
 }
 
 
 //-------------------------------------------------------------------------------------
 #if (NO_OF_UART > 1)
 static void 
-uart1_init (__u32 speed)
+uart1_init (__u16 speed)
 {
-#if (UARTB_RS485 > 0)
-  RS485_CTL_EN ();
-#endif /* UARTB_RS485 */
+  UART_B_RS485_CTL_EN ();
   //=============================================================================
   // Configure Baud rate
   U1BRG = speed;
@@ -180,43 +248,51 @@ uart1_init (__u32 speed)
   // Configure Mode
   // +-- 8N1, no loopback, no wake in sleep mode, continue in idle mode, no autobaud
   U1MODE = 0x0000;
-#if ((UART_DATABIT1 == 8) && (UART_PARITYBIT1 == 2))
+#if ((UART1_DATABIT == 8) && (UART1_PARITYBIT == 2))
   //8E
   U1MODEbits.PDSEL = 1;
-#elif ((UART_DATABIT1 == 8) && (UART_PARITYBIT1 == 1))
+#elif ((UART1_DATABIT == 8) && (UART1_PARITYBIT == 1))
   //8O
   U1MODEbits.PDSEL = 2;
-#elif ((UART_DATABIT1 == 9) && (UART_PARITYBIT1 == 0))
+#elif ((UART1_DATABIT == 9) && (UART1_PARITYBIT == 0))
   //9N
   U1MODEbits.PDSEL = 2;
 #endif /* BIT and PARITY */
 
-#if (UART_STOPBIT1 == 2)
+#if (UART1_STOPBIT == 2)
   U1MODEbits.STSEL = 1;
 #endif /* UART_STOPBIT1 */
 
   //==============================================================================
   // Configure Interrupt
+#if (UART1_RX_ENABLE == 1)
   _U1RXIF = 0;                //Clear RX interrupt flags
   _U1RXIE = 1;                //Receive interrupt: 0 disable, 1 enable 
   U1STAbits.URXISEL0 = 0;     //RX Interrupt when a character is received
   U1STAbits.URXISEL1 = 0;
+#endif /* UART1_RX_ENABLE */
+#if (UART1_TX_ENABLE == 1)
   _U1TXIF = 0;                //Clear TX interrupt flags
   _U1TXIE = 1;                //Transmit interrupt: 0 disable, 1 enable
   U1STAbits.UTXISEL0 = 1;     //TX Interrupt when all TX is completed
   U1STAbits.UTXISEL1 = 0;
+#endif /* UART1_TX_ENABLE */
   //==============================================================================
   // Enable U2ART module
   U1MODEbits.UARTEN = 1;
+#if (UART1_TX_ENABLE == 1)
   //==============================================================================
   // Enable Transmit
   U1STAbits.UTXEN = 1;
+#endif /* UART1_TX_ENABLE */
 }
 #endif /* NO_OF_UART > 1 */
 
 
+//-------------------------------------------------------------------------------------
+#if (UART0_TX_ENABLE == 1)
 /**
- * \brief Transmit Interrupt Handler for U2ART (RS232)
+ * \brief Transmit Interrupt Handler for U2ART
  * \remarks TX Interrupt when all TX is completed
  * \remarks First interrupt is set manually in uart_write
  */
@@ -226,28 +302,28 @@ _U2TXInterrupt (void)
   _U2TXIF = 0;
 
   __u8 next_data_pos;
-  next_data_pos = pre_rd_cir254buf (uart[0].tx_wr, uart[0].tx_rd, MAX_UART_TX_BUF);
+  next_data_pos = pre_rd_cir254buf (uart[0].tx_wr, uart[0].tx_rd, uart[0].tx_buf_size);
+  //data available to transmit
   if (next_data_pos != 255)
     {
-      //Data ready in circular TX buffer
-      U2TXREG = (uart[0].tx_buf[uart[0].tx_rd] & 0xFF); //send next byte...
-      uart[0].tx_rd = next_data_pos;                    //update RD pointer
+      U2TXREG = (uart[0].tx_buf[uart[0].tx_rd] & 0xFF);         //send next byte...
+      uart[0].tx_rd = next_data_pos;                            //update RD pointer
     }
+  //no more data to transmit
   else
     {
-      //Transmission has completed
+      while (!U2STAbits.TRMT);          //wait until the last transmission has ended
+      UART_A_RS485_TX_OFF ();           //Set transmit pin to Low, i.e. back to receive mode
       uart[0].tx_done = 1;
-#if (UARTA_RS485 > 0)
-      while (!U2STAbits.TRMT);                  //wait for transmit register to empty, i.e. the byte has been sent
-      RS485_TX_OFF ();                          //Set transmit pin to Low, i.e. back to receive mode
-#endif /* UARTA_RS485 */
     }
 }
+#endif /* UART0_TX_ENABLE */
 
 
 #if (NO_OF_UART > 1)
+#if (UART1_TX_ENABLE == 1)
 /**
- * \brief Transmit Interrupt Handler for U1ART (RS485)
+ * \brief Transmit Interrupt Handler for U1ART
  * \remarks TX Interrupt when all TX is completed
  * \remarks First interrupt is set manually in uart_write
  */
@@ -257,48 +333,49 @@ _U1TXInterrupt (void)
   _U1TXIF = 0;
 
   __u8 next_data_pos;
-  next_data_pos = pre_rd_cir254buf (uart[1].tx_wr, uart[1].tx_rd, MAX_UART_TX_BUF);
+  next_data_pos = pre_rd_cir254buf (uart[1].tx_wr, uart[1].tx_rd, uart[1].tx_buf_size);
+  //data available to transmit
   if (next_data_pos != 255)
     {
-      //Data ready in circular TX buffer
-      U1TXREG = (uart[1].tx_buf[uart[1].tx_rd] & 0xFF); //send next byte...
-      uart[1].tx_rd = next_data_pos;                    //update RD pointer
+      U1TXREG = (uart[1].tx_buf[uart[1].tx_rd] & 0xFF);         //send next byte...
+      uart[1].tx_rd = next_data_pos;                            //update RD pointer
     }
+  //no more data to transmit
   else
     {
-      //Transmission has completed
+      while (!U1STAbits.TRMT);          //wait until the last transmission has ended
+      UART_B_RS485_TX_OFF ();           //Set transmit pin to Low, i.e. back to receive mode
       uart[1].tx_done = 1;
-#if (UARTB_RS485 > 0)
-      while (!U1STAbits.TRMT);                  //wait for transmit register to empty, i.e. the byte has been sent
-      RS485_TX_OFF ();                          //Set transmit pin to Low, i.e. back to receive mode
-#endif /* UARTB_RS485 */
     }
 }
+#endif /* UART1_TX_ENABLE */
 #endif /* NO_OF_UART > 1 */
 
 
+//-------------------------------------------------------------------------------------
+#if (UART0_RX_ENABLE == 1)
 /**
- * \brief Receive Interrupt Handler for U2ART (RS232)
+ * \brief Receive Interrupt Handler for U2ART
  * \remarks RX Interrupt when a character is received
  * \remarks Read until the RX buffer is emptied
  */
 void _IRQ
 _U2RXInterrupt (void)
 {
-  __u8 next_data_pos;
+  //1 or more bytes received
   while (U2STAbits.URXDA)
     {
-      //Data is received======================================================
-      next_data_pos = pre_wr_cir254buf (uart[0].rx_wr, uart[0].rx_rd, MAX_UART_RX_BUF);
+      __u8 next_data_pos;
+      next_data_pos = pre_wr_cir254buf (uart[0].rx_wr, uart[0].rx_rd, uart[0].rx_buf_size);
+      //If buffer is not full
       if (next_data_pos != 255)
         {
-          //If buffer is not full
           uart[0].rx_buf[uart[0].rx_wr] = (__u8) U2RXREG;
           uart[0].rx_wr = next_data_pos;
         }
+      //When buffer is full, still remove data from register, but the incoming data is lost
       else
         {
-          //When buffer is full, still remove data from register, but the incoming data is lost
           next_data_pos = (__u8) U2RXREG;
         }
     }
@@ -308,31 +385,34 @@ _U2RXInterrupt (void)
 
   _U2RXIF = 0;
 }
+#endif /* UART0_RX_ENABLE */
 
 
+
+#if (NO_OF_UART > 1)
+#if (UART1_RX_ENABLE == 1)
 /**
  * \brief Receive Interrupt Handler for U1ART (RS485)
  * \remarks RX Interrupt when a character is received
  * \remarks Read until the RX buffer is emptied
  */
-#if (NO_OF_UART > 1)
 void _IRQ
 _U1RXInterrupt (void)
 {
-  __u8 next_data_pos;
-  //Data is received======================================================
+  //1 or more bytes received
   while (U1STAbits.URXDA)
     {
-      next_data_pos = pre_wr_cir254buf (uart[1].rx_wr, uart[1].rx_rd, MAX_UART_RX_BUF);
+      __u8 next_data_pos;
+      next_data_pos = pre_wr_cir254buf (uart[1].rx_wr, uart[1].rx_rd, uart[1].rx_buf_size);
+      //If buffer is not full
       if (next_data_pos != 255)
         {
-          //If buffer is not full
           uart[1].rx_buf[uart[1].rx_wr] = (__u8) U1RXREG;
           uart[1].rx_wr = next_data_pos;
         }
+      //When buffer is full, still remove data from register, but the incoming data is lost
       else
         {
-          //When buffer is full, still remove data from register, but the incoming data is lost
           next_data_pos = (__u8) U1RXREG;
         }
     }
@@ -342,29 +422,29 @@ _U1RXInterrupt (void)
 
   _U1RXIF = 0;
 }
+#endif /* UART0_RX_ENABLE */
 #endif /* NO_OF_UART > 1 */
 
 
+//-------------------------------------------------------------------------------------
 int
 uart_write (int device, __u8* buf, __u16 count)
 {
   //Perform write if write operation is enabled
-  if (uart[device].io_flag & O_RDWR || uart[device].io_flag & O_WRONLY)
+  if ((uart[device].io_flag & O_RDWR) || (uart[device].io_flag & O_WRONLY))
     {
       //If transmit has not completed, wait for it to finish
-      while (uart[device].tx_done == 0);
+      while (!uart[device].tx_done);
 
-      //start new transmission
-      uart[device].tx_done = 0;
-
-      __u8 next_data_pos;
+      //copy data to buffer
       __u16 byte;
       for (byte = 0; byte < count; byte++)
         {
-          next_data_pos = pre_wr_cir254buf (uart[device].tx_wr, uart[device].tx_rd, MAX_UART_TX_BUF);
+          __u8 next_data_pos;
+          next_data_pos = pre_wr_cir254buf (uart[device].tx_wr, uart[device].tx_rd, uart[device].tx_buf_size);
+          //Buffer is not full
           if (next_data_pos != 255)
             {
-              //Valid data is available
               uart[device].tx_buf[uart[device].tx_wr] = buf[byte];      //copy the char to tx_buf
               uart[device].tx_wr = next_data_pos;                       //increment the ptr
             }
@@ -374,38 +454,40 @@ uart_write (int device, __u8* buf, __u16 count)
       //Raise Interrupt flag to initiate transmission
       if (device == 0)
         {
-#if (UARTA_RS485 > 0)
-          RS485_TX_ON ();       //Set transmit pin to High
-#endif /* UARTA_RS485 */
-          _U2TXIF = 1;          //Start interrupt
+#if (UART0_TX_ENABLE == 1)
+          uart[device].tx_done = 0;     //start new transmission
+          UART_A_RS485_TX_ON ();        //Set transmit pin to High
+          _U2TXIF = 1;                  //Start interrupt
+#endif /* UART0_TX_ENABLE */
         }
       else
         {
-#if (UARTB_RS485 > 0)
-          RS485_TX_ON ();       //Set transmit pin to High
-#endif /* UARTB_RS485 */
-          _U1TXIF = 1;          //Start interrupt
+#if (UART1_TX_ENABLE == 1)
+          uart[device].tx_done = 0;     //start new transmission
+          UART_B_RS485_TX_ON ();        //Set transmit pin to High
+          _U1TXIF = 1;                  //Start interrupt
+#endif /* UART1_TX_ENABLE */
         }
       return byte;
     }
-  //Error, raise error flag
+  //IO not opened for writing
   else
     {
-      //IO not opened for writing
       errno = EBADF;
       return -1;
     }
 }
 
 
+//-------------------------------------------------------------------------------------
 int
 uart_read (int device, __u8* buf)
 {
   //Perform read if read operation is enabled
-  if (uart[device].io_flag & O_RDWR || uart[device].io_flag & O_RDONLY)
+  if ((uart[device].io_flag & O_RDWR) || !(uart[device].io_flag & O_WRONLY))
     {
       __u8 next_data_pos;
-      next_data_pos = pre_rd_cir254buf (uart[device].rx_wr, uart[device].rx_rd, MAX_UART_RX_BUF);
+      next_data_pos = pre_rd_cir254buf (uart[device].rx_wr, uart[device].rx_rd, uart[device].rx_buf_size);
       //Copy 1 byte when data is available
       if (next_data_pos != 255)
         {
@@ -419,16 +501,16 @@ uart_read (int device, __u8* buf)
           return 0;
         }
     }
-  //Error, raise error flag
+  //IO not opened for reading
   else
     {
-      //IO not opened for reading
       errno = EBADF;
       return -1;
     }
 }
 
 
+//-------------------------------------------------------------------------------------
 int
 uart_close (int device)
 {
@@ -436,56 +518,61 @@ uart_close (int device)
     {
       case 0:
         {
+#if (UART0_TX_ENABLE == 1)
           //Wait for TX to complete
           while (!U2STAbits.TRMT);
-#if (UARTA_RS485 > 0)
-          RS485_TX_OFF ();                      //Set TX pin to Low, i.e. back to receive mode
-#endif /* UARTA_RS485 */
+          UART_A_RS485_TX_OFF ();               //Set TX pin to Low, i.e. back to receive mode
           _U2TXIF = 0;                          //Clear TX interrupt flag
           _U2TXIE = 0;                          //Disable TX interrupt
           U2STAbits.UTXEN = 0;                  //Disable TX
           uart[0].tx_done = 1;                  //Set TX as completed
+#endif /* UART0_TX_ENABLE */
 
+#if (UART0_RX_ENABLE == 1)
           //Wait for RX to complete
           while (!U2STAbits.RIDLE);
           _U2RXIF = 0;                          //Clear RX interrupt flag
           _U2RXIE = 0;                          //Disable RX interrupt
-          U2MODEbits.UARTEN = 0;                //Disable RX
+#endif /* UART0_RX_ENABLE */
+          U2MODEbits.UARTEN = 0;
           break;
         }
 #if (NO_OF_UART > 1)
       case 1:
         {
+#if (UART1_TX_ENABLE == 1)
           //Wait for TX to complete
           while (!U1STAbits.TRMT);
-#if (UARTB_RS485 > 0)
-          RS485_TX_OFF ();                      //Set TX pin to Low, i.e. back to receive mode
-#endif /* UARTB_RS485 */
+          UART_B_RS485_TX_OFF ();               //Set TX pin to Low, i.e. back to receive mode
           _U1TXIF = 0;                          //Clear TX interrupt flag
           _U1TXIE = 0;                          //Disable TX interrupt
           U1STAbits.UTXEN = 0;                  //Disable TX
           uart[1].tx_done = 1;                  //Set TX as completed
+#endif /* UART1_TX_ENABLE */
 
+#if (UART1_RX_ENABLE == 1)
           //Wait for RX to complete
           while (!U1STAbits.RIDLE);
           _U1RXIF = 0;                          //Clear RX interrupt flag
           _U1RXIE = 0;                          //Disable RX interrupt
-          U1MODEbits.UARTEN = 0;                //Disable RX
+#endif /* UART1_RX_ENABLE */
+          U1MODEbits.UARTEN = 0;
           break;
         }
 #endif /* NO_OF_UART > 1 */
       default:
-        return -1;
+        {
+          return -1;
+        }
     }
   return 0;
 }
 
 
+//-------------------------------------------------------------------------------------
 int
 uart_ioctl (int device, int request, void* argp)
 {
-  __u32 brg;
-
   switch (request)
     {
       //set baud rate
@@ -498,15 +585,15 @@ uart_ioctl (int device, int request, void* argp)
             {
               case 0:
                 {
-                  uart[0].speed = *((__u32*)argp);
-                  uart2_init (GEN_UART_BAUDRATE (uart[0].speed));
+                  uart[0].speed = *((__u32*)argp) / BAUDRATE_FACTOR;
+                  uart0_init (GEN_UART_BAUDRATE (*((__u32*)argp)));
                   break;
                 }
 #if (NO_OF_UART > 1)
               case 1:
                 {
-                  uart[1].speed = *((__u32*)argp);
-                  uart1_init (GEN_UART_BAUDRATE (uart[1].speed));
+                  uart[1].speed = *((__u32*)argp) / BAUDRATE_FACTOR;
+                  uart1_init (GEN_UART_BAUDRATE (*((__u32*)argp)));
                   break;
                 }
 #endif /* NO_OF_UART > 1 */
@@ -522,13 +609,13 @@ uart_ioctl (int device, int request, void* argp)
             {
               case 0:
                 {
-                  *((__u32*)argp) = uart[0].speed;
+                  *((__u32*)argp) = uart[0].speed * BAUDRATE_FACTOR;
                   break;
                 }
 #if (NO_OF_UART > 1)
               case 1:
                 {
-                  *((__u32*)argp) = uart[1].speed;
+                  *((__u32*)argp) = uart[1].speed * BAUDRATE_FACTOR;
                   break;
                 }
 #endif /* NO_OF_UART > 1 */
@@ -539,7 +626,9 @@ uart_ioctl (int device, int request, void* argp)
         }
       //request code not recognised
       default:
-        return -1;
+        {
+          return -1;
+        }
     }
   return 0;
 }
