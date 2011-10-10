@@ -14,13 +14,20 @@
  * \li All I2C devices shares a common communication speed (default: 400kHz)
  * \li The driver has a POSIX-like interface with open(), read(), write(), ioctl()
  * \li When i2c has multiple devices, read(), write() cannot be used in ISR (Interrupt routine)
+ *
+ * Capabilities
+ * \li This device is an IO Expander supporting upto 16 IO pins.
+ * \li Each pin can be configured individually as Input or Output.
+ * \li For Output Mode, each pin can be configured as open drain.
  */
+
 
 /**
  * \file
  * I2C GPIO Driver
  * \author Dennis Tsang <dennis@amonics.com>
  */
+
 
 /*
  * Copyright (C) 2007-2011  Dennis Tsang <dennis@amonics.com>
@@ -71,7 +78,7 @@ extern int i2c_gpio_open (int flags);
                       |A|1000000|0|K|xxxxxxxx|K|xxxxxxxx|K|P|
    \endverbatim
  */
-extern int i2c_gpio_write (unsigned char *buf);
+extern int i2c_gpio_write (__u8* buf);
 
 
 /**
@@ -89,7 +96,7 @@ extern int i2c_gpio_write (unsigned char *buf);
                   |A|1000000|0|K|xxxxxxxx|K|S|1000000|1|K|xxxxxxxx|K|P|
    \endverbatim
  */
-extern int i2c_gpio_read (unsigned char *buf);
+extern int i2c_gpio_read (__u8* buf);
 
 
 /**
