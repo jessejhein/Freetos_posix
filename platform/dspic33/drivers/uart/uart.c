@@ -301,13 +301,12 @@ _U2TXInterrupt (void)
 {
   _U2TXIF = 0;
 
-  __u8 next_data_pos;
-  next_data_pos = pre_rd_cir254buf (uart[0].tx_wr, uart[0].tx_rd, uart[0].tx_buf_size);
+  __u8 next = cirbuf_rd (uart[0].tx_wr, uart[0].tx_rd, uart[0].tx_buf_size);
   //data available to transmit
-  if (next_data_pos != 255)
+  if (next != CIRBUF_RD_EMPTY)
     {
-      U2TXREG = (uart[0].tx_buf[uart[0].tx_rd] & 0xFF);         //send next byte...
-      uart[0].tx_rd = next_data_pos;                            //update RD pointer
+      U2TXREG = (uart[0].tx_buf[uart[0].tx_rd] & 0xFF);
+      uart[0].tx_rd = next;
     }
   //no more data to transmit
   else
@@ -332,13 +331,12 @@ _U1TXInterrupt (void)
 {
   _U1TXIF = 0;
 
-  __u8 next_data_pos;
-  next_data_pos = pre_rd_cir254buf (uart[1].tx_wr, uart[1].tx_rd, uart[1].tx_buf_size);
+   __u8 next = cirbuf_rd (uart[1].tx_wr, uart[1].tx_rd, uart[1].tx_buf_size);
   //data available to transmit
-  if (next_data_pos != 255)
+  if (next != CIRBUF_RD_EMPTY)
     {
-      U1TXREG = (uart[1].tx_buf[uart[1].tx_rd] & 0xFF);         //send next byte...
-      uart[1].tx_rd = next_data_pos;                            //update RD pointer
+      U1TXREG = (uart[1].tx_buf[uart[1].tx_rd] & 0xFF);
+      uart[1].tx_rd = next;
     }
   //no more data to transmit
   else
@@ -365,18 +363,17 @@ _U2RXInterrupt (void)
   //1 or more bytes received
   while (U2STAbits.URXDA)
     {
-      __u8 next_data_pos;
-      next_data_pos = pre_wr_cir254buf (uart[0].rx_wr, uart[0].rx_rd, uart[0].rx_buf_size);
+      __u8 next = cirbuf_wr (uart[0].rx_wr, uart[0].rx_rd, uart[0].rx_buf_size);
       //If buffer is not full
-      if (next_data_pos != 255)
+      if (next != CIRBUF_WR_FULL)
         {
           uart[0].rx_buf[uart[0].rx_wr] = (__u8) U2RXREG;
-          uart[0].rx_wr = next_data_pos;
+          uart[0].rx_wr = next;
         }
       //When buffer is full, still remove data from register, but the incoming data is lost
       else
         {
-          next_data_pos = (__u8) U2RXREG;
+          next = (__u8) U2RXREG;
         }
     }
   //Rx Buffer Overflow:
@@ -402,18 +399,17 @@ _U1RXInterrupt (void)
   //1 or more bytes received
   while (U1STAbits.URXDA)
     {
-      __u8 next_data_pos;
-      next_data_pos = pre_wr_cir254buf (uart[1].rx_wr, uart[1].rx_rd, uart[1].rx_buf_size);
+      __u8 next = cirbuf_wr (uart[1].rx_wr, uart[1].rx_rd, uart[1].rx_buf_size);
       //If buffer is not full
-      if (next_data_pos != 255)
+      if (next != CIRBUF_WR_FULL)
         {
           uart[1].rx_buf[uart[1].rx_wr] = (__u8) U1RXREG;
-          uart[1].rx_wr = next_data_pos;
+          uart[1].rx_wr = next;
         }
       //When buffer is full, still remove data from register, but the incoming data is lost
       else
         {
-          next_data_pos = (__u8) U1RXREG;
+          next = (__u8) U1RXREG;
         }
     }
   //Rx Buffer Overflow:
@@ -440,13 +436,12 @@ uart_write (int device, __u8* buf, __u16 count)
       __u16 byte;
       for (byte = 0; byte < count; byte++)
         {
-          __u8 next_data_pos;
-          next_data_pos = pre_wr_cir254buf (uart[device].tx_wr, uart[device].tx_rd, uart[device].tx_buf_size);
+           __u8 next = cirbuf_wr (uart[device].tx_wr, uart[device].tx_rd, uart[device].tx_buf_size);
           //Buffer is not full
-          if (next_data_pos != 255)
+          if (next != CIRBUF_WR_FULL)
             {
-              uart[device].tx_buf[uart[device].tx_wr] = buf[byte];      //copy the char to tx_buf
-              uart[device].tx_wr = next_data_pos;                       //increment the ptr
+              uart[device].tx_buf[uart[device].tx_wr] = buf[byte];
+              uart[device].tx_wr = next;
             }
           else break;
         }
@@ -486,13 +481,12 @@ uart_read (int device, __u8* buf)
   //Perform read if read operation is enabled
   if ((uart[device].io_flag & O_RDWR) || !(uart[device].io_flag & O_WRONLY))
     {
-      __u8 next_data_pos;
-      next_data_pos = pre_rd_cir254buf (uart[device].rx_wr, uart[device].rx_rd, uart[device].rx_buf_size);
+       __u8 next = cirbuf_rd (uart[device].rx_wr, uart[device].rx_rd, uart[device].rx_buf_size);
       //Copy 1 byte when data is available
-      if (next_data_pos != 255)
+      if (next != CIRBUF_RD_EMPTY)
         {
-          *buf = uart[device].rx_buf[uart[device].rx_rd];     //copy the stored data to buf
-          uart[device].rx_rd = next_data_pos;                 //update the ptr
+          *buf = uart[device].rx_buf[uart[device].rx_rd];
+          uart[device].rx_rd = next;
           return 1;
         }
       //No data can be copied

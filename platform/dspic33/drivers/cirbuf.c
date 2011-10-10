@@ -24,25 +24,31 @@
  * along with freertos_posix.  If not, see <http://www.gnu.org/licenses/>
  */
 
-unsigned char
-pre_wr_cir254buf (unsigned char wr, unsigned char rd, unsigned char max)
+#include <define.h>
+#include "cirbuf.h"
+
+__u8
+cirbuf_wr (__u8 wr, __u8 rd, __u8 max)
 {
-  unsigned char wr_backup = wr + 1;     //normal position of next char to write
-  if (wr_backup == max) wr_backup = 0;  //if reach the end of buffer, loop back
-  if (wr_backup == rd) return 255;      //Buffer is full
-  else return wr_backup;
+  //next position, if reach the end of buffer, loop back
+  if (++wr == max) wr = 0;
+  //Buffer is full
+  return (wr == rd)? CIRBUF_WR_FULL : wr;
 }
 
-unsigned char
-pre_rd_cir254buf (unsigned char wr, unsigned char rd, unsigned char max)
+__u8
+cirbuf_rd (__u8 wr, __u8 rd, __u8 max)
 {
-  unsigned char rd_backup;
-  if (rd == wr) return 255;                     //all data read
+  //all data read
+  if (rd == wr)
+    {
+      return CIRBUF_RD_EMPTY;
+    }
   else
     {
-      rd_backup = rd + 1;                       //normal position of next char to read
-      if (rd_backup == max) rd_backup = 0;      //if reach the end of buffer, loop back
-      return rd_backup;
+      //next position, if reach the end of buffer, loop back
+      if (++rd == max) rd = 0;
+      return rd;
     }
 }
 

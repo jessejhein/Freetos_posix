@@ -27,13 +27,20 @@
 #ifndef CIRBUF_H_
 #define CIRBUF_H_
 
+
+/** indicate write buffer is full */
+#define CIRBUF_WR_FULL                  0xFF
+/** indicate read buffer is empty */
+#define CIRBUF_RD_EMPTY                 0xFF
+
+
 /**
  * \brief Determine the next valid position to write to the buffer
- * \param wr
- * \param rd
- * \param max
- * \retval <254 next position of buffer
- * \retval 255 buffer is full
+ * \param wr current write position
+ * \param rd current read position
+ * \param max maximum size of buffer
+ * \retval CIRBUF_WR_FULL
+ * \retval next position of buffer otherwise
  * \remarks
  * \verbatim
    Design Concept
@@ -48,16 +55,18 @@
                              | rd ptr
    \endverbatim
  */
-extern unsigned char pre_wr_cir254buf (unsigned char wr, unsigned char rd, unsigned char max);
+extern __u8 cirbuf_wr (__u8 wr, __u8 rd, __u8 max);
+
 
 /**
  * \brief Determine the next valid position to read from the buffer
- * \param wr
- * \param rd
- * \param max
- * \retval <254 next position of buffer
- * \retval 255 no data
+ * \param wr current write position
+ * \param rd current read position
+ * \param max maximum size of buffer
+ * \retval CIRBUF_RD_EMPTY
+ * \retval next position of buffer otherwise
  */
-extern unsigned char pre_rd_cir254buf (unsigned char wr, unsigned char rd, unsigned char max);
+extern __u8 cirbuf_rd (__u8 wr, __u8 rd, __u8 max);
+
 
 #endif /* CIRBUF_H_ */

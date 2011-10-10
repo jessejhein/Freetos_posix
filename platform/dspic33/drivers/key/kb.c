@@ -137,13 +137,12 @@ kb_read (__u8* buf)
   //Perform Read if read operation is enabled
   if ((kb_io_flag & O_RDWR) || !(kb_io_flag & O_WRONLY))
     {
-      __u8 next_data_pos;
-      next_data_pos = pre_rd_cir254buf (kb_wr, kb_rd, MAX_KB_BUF);
+      __u8 next = cirbuf_rd (kb_wr, kb_rd, MAX_KB_BUF);
       //Copy 1 byte when data is available
-      if (next_data_pos != 255) 
+      if (next != CIRBUF_RD_EMPTY)
         {
-          *buf = kb_buf[kb_rd];           //copy the stored data to buffer
-          kb_rd = next_data_pos;          //update the pointer
+          *buf = kb_buf[kb_rd];
+          kb_rd = next;
           return 1;
         }
       //No data can be copied
@@ -170,12 +169,11 @@ kb_read (__u8* buf)
 static int 
 kb_write (__u8 key_id)
 {
-  __u8 next_data_pos;
-  next_data_pos = pre_wr_cir254buf (kb_wr, kb_rd, MAX_KB_BUF);
-  if (next_data_pos != 255) 
+   __u8 next = cirbuf_wr (kb_wr, kb_rd, MAX_KB_BUF);
+  if (next != CIRBUF_WR_FULL)
     {
       kb_buf[kb_wr] = key_id;
-      kb_wr = next_data_pos;
+      kb_wr = next;
       return 1;
     }
   return 0;
