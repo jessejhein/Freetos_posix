@@ -41,122 +41,110 @@
 #include <errno.h>
 #include <i2c/i2c.h>
 
+
+//------------------------------------------------------------------------
 #define I2C_ADC_COMMAND                 0x00
 #define I2C_ADC_MAX_DATA                4
-
-
-/** Store the high and low byte for i2c communication */
-static struct
+//------------------------------------------------------------------------
+/** Template to store the high and low byte for i2c communication */
+struct I2C_ADC_DATA_T
 {
   union
     {
-      unsigned int value;
+      __u16 value;
       struct
         {
-          unsigned char low;
-          unsigned char high;
+          __u8 low;
+          __u8 high;
         } byte;
     };
-} adc_data[I2C_ADC_MAX_DATA];
+};
+//------------------------------------------------------------------------
+
+
 /** Store IO setting */
-static int adc_io_flag;
+static __u8 i2c_adc_io_flag;
 
 
 int
 i2c_adc_open (int flags)
 {
-  adc_io_flag = flags;
+  i2c_adc_io_flag = (__u8) flags;
   i2c_open ();
   return 0;
 }
 
 
 int
-i2c_adc_read (unsigned int *buf, int count)
+i2c_adc_read (__u16 *buf, int count)
 {
-  //Perform read if read operation is enabled
-  if (adc_io_flag & O_RDWR || adc_io_flag & O_WRONLY)
+  //Perform Read if read operation is enabled
+  if ((i2c_adc_io_flag & O_RDWR) || !(i2c_adc_io_flag & O_WRONLY))
     {
-      errno = EROFS;
-      return -1;
-    }
-  else
-    {
-      unsigned int error = 0;
-      unsigned char status = 0;
-      unsigned char data = 0;
-
       //convert byte count to word count
       count /= 2;
 
+      __u8 error = 0;
+
+      struct I2C_ADC_DATA_T i2c_adc_data[I2C_ADC_MAX_DATA];
 #if (I2C_NUM > 1)
       if (pthread_mutex_lock (&i2c_mutex) == 0)
         {
 #endif /* I2C_NUM > 1 */
           //Send start bit, slave address (Write Mode)
-          status = I2C_START;
-          i2c_ioctl (I2C_SET_STATUS, &status);
-          data = (unsigned char) I2C_ADC_ADDR;
-          if (i2c_write (&data) == 0) error = 1;
+          i2c_usr_status = I2C_START;
+          i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+          i2c_usr_data = (__u8) I2C_ADC_ADDR;
+          if (i2c_write (&i2c_usr_data) == 0) error = 1;
 
           //Send command byte: start conversion
-          data = (unsigned char) I2C_ADC_COMMAND;
-          if (i2c_write (&data) == 0) error = 1;
+          i2c_usr_data = (__u8) I2C_ADC_COMMAND;
+          if (i2c_write (&i2c_usr_data) == 0) error = 1;
 
           //Send restart bit, slave address (Read Mode)
-          status = I2C_RESTART;
-          i2c_ioctl (I2C_SET_STATUS, &status);
-          data = (unsigned char) (I2C_ADC_ADDR | 0x01);
-          if (i2c_write (&data) == 0) error = 1;
+          i2c_usr_status = I2C_RESTART;
+          i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+          i2c_usr_data = (__u8) (I2C_ADC_ADDR | 0x01);
+          if (i2c_write (&i2c_usr_data) == 0) error = 1;
 
           //Read upto 4 data bytes
           int i;
           for (i = 0; (i < count) && (i < I2C_ADC_MAX_DATA); i++)
             {
               //Receive High Byte with Acknowledgement
-              if (i2c_read (&data) == 0) error = 1;
-              adc_data[i].byte.high = (unsigned char) data;
+              if (i2c_read (&i2c_usr_data) == 0) error = 1;
+              i2c_adc_data[i].byte.high = (__u8) i2c_usr_data;
 
               //Receive Low Byte with Not Acknowledgement (with Stop bit)
-              status = ((i < (count-1)) && (i < (I2C_ADC_MAX_DATA-1)))? I2C_RESTART : (I2C_NACK | I2C_STOP);
-              i2c_ioctl (I2C_SET_STATUS, &status);
-              if (i2c_read (&data) == 0) error = 1;
-              adc_data[i].byte.low = (unsigned char) data;
+              i2c_usr_status = ((i < (count - 1)) && (i < (I2C_ADC_MAX_DATA - 1)))? I2C_RESTART : (I2C_NACK | I2C_STOP);
+              i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+              if (i2c_read (&i2c_usr_data) == 0) error = 1;
+              i2c_adc_data[i].byte.low = (__u8) i2c_usr_data;
             }
-
 #if (I2C_NUM > 1)
-          pthread_mutex_unlock(&i2c_mutex);
+          pthread_mutex_unlock (&i2c_mutex);
         }
+      //i2c bus is busy
       else
         {
-          error = 1;  //i2c is busy
+          error = 1;
         }
 #endif /* I2C_NUM > 1 */
-
-      if (error == 1)
-        {
-          return 0;
-        }
+      if (error == 1) return 0;
 
       int i;
       for (i = 0; (i < count) && (i < I2C_ADC_MAX_DATA); i++)
         {
-          buf[i] = adc_data[i].value;
+          buf[i] = i2c_adc_data[i].value;
         }
       return 2 * i;
     }
-}
-
-
-int
-i2c_adc_ioctl (int request, unsigned char* argp)
-{
-  switch (request)
+  //IO not opened for reading
+  else
     {
-      default:
-        return -1;      //request code not recognised
+      errno = EROFS;
+      return -1;
     }
-  return 0;
 }
 
 /** @} */

@@ -14,6 +14,8 @@
  * \li All I2C devices shares a common communication speed (default: 400kHz)
  * \li The driver has a POSIX-like interface with open(), read(), write(), ioctl()
  * \li When i2c has multiple devices, read(), write() cannot be used in ISR (Interrupt routine)
+ *
+ * Capabilities
  * \li At most 4 ADC data (8 bytes) can be read per operation.
  */
 
@@ -73,18 +75,7 @@ extern int i2c_adc_open (int flags);
                       |A|1001000|0|K|000xxxxx|K|S|1001000|1|K|0000xxxx|K|xxxxxxxx|S|         0000xxxx|K|xxxxxxxx|K|P|
    \endverbatim
  */
-extern int i2c_adc_read (unsigned int *buf, int count);
-
-
-/**
- * \brief change setting for ADC
- * \param request Request code defined in ioctl.h
- * \param argp pointer for control configuration, request code dependent.
- * \retval 0 success
- * \retval -1 error
- */
-extern int i2c_adc_ioctl (int request, unsigned char* argp);
-
+extern int i2c_adc_read (__u16* buf, int count);
 
 #endif /* I2C_ADC_MOD */
 
