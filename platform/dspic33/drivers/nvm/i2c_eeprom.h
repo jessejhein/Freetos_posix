@@ -70,7 +70,7 @@ extern int i2c_eeprom_open (int flags);
                       |A|1010000|0|K|XFFFFFFF|K|FFFFFFFF|K|10101010|K|10101010|K|P|
    \endverbatim
  */
-extern int i2c_eeprom_write (unsigned char* buf, int count);
+extern int i2c_eeprom_write (__u8* buf, int count);
 
 
 /**
@@ -88,7 +88,7 @@ extern int i2c_eeprom_write (unsigned char* buf, int count);
                   |A|1010000|0|K|XFFFFFFF|K|FFFFFFFF|K|S|1010000|1|K|10101010|K|10101010|K|P|
    \endverbatim
  */
-extern int i2c_eeprom_read (unsigned char* buf, int count);
+extern int i2c_eeprom_read (__u8* buf, int count);
 
 
 /**

@@ -42,36 +42,35 @@
 #include <i2c/i2c.h>
 
 /** store pointer to EEPROM */
-static unsigned int i2c_eeprom_pointer = 0;
+static __u16 i2c_eeprom_pointer = 0;
 /** indicate EEPROM module is busy */
-static unsigned char i2c_eeprom_busy = 0;
-/** store io setting */
-static int i2c_eeprom_io_flag;
+static __u8 i2c_eeprom_busy = 0;
+/** store IO setting */
+static __u8 i2c_eeprom_io_flag;
 
 
 int 
 i2c_eeprom_open (int flags)
 {
-  i2c_eeprom_io_flag = flags;
+  i2c_eeprom_io_flag = (__u8) flags;
   i2c_open ();
   return 0;
 }
 
 
 int 
-i2c_eeprom_write (unsigned char* buf, int count)
+i2c_eeprom_write (__u8* buf, int count)
 {
   //Perform Write if write operation is enabled    
-  if (i2c_eeprom_io_flag & O_RDWR || i2c_eeprom_io_flag & O_WRONLY)
+  if ((i2c_eeprom_io_flag & O_RDWR) || (i2c_eeprom_io_flag & O_WRONLY))
     {
       i2c_eeprom_busy = 1;
 
-      static int byte_written = 0;
-      int i;
-      unsigned int error = 0;
-      unsigned char status = 0;
-      unsigned char data = 0;
-        
+      //keeps the number of bytes written (for NON-BLOCK mode)
+      static __u16 byte_written = 0;
+      __u16 i;
+      __u8 error = 0;
+
       /*
        * Start to write data
        */
@@ -81,10 +80,11 @@ i2c_eeprom_write (unsigned char* buf, int count)
            * Determine if control byte and address bytes are required
            * (i.e. 1st byte OR byte starts at page boundary
            */
-          if ((i == 0) || (i2c_eeprom_pointer%I2C_EEPROM_PAGE_SIZE == 0))
+          if ((i == 0) || ((i2c_eeprom_pointer % I2C_EEPROM_PAGE_SIZE) == 0))
             {
 #if (I2C_NUM > 1)
-              if (pthread_mutex_lock (&i2c_mutex) != 0) return 0; //i2c is busy
+              //i2c bus is busy
+              if (pthread_mutex_lock (&i2c_mutex) != 0) return 0;
 #endif /* I2C_NUM > 1 */
 
               //NON-BLOCK mode, return -1, set errno = EAGAIN
@@ -93,16 +93,16 @@ i2c_eeprom_write (unsigned char* buf, int count)
                   /*
                    * Send start bit, slave address (Write Mode)
                    */ 
-                  status = I2C_START;
-                  i2c_ioctl (I2C_SET_STATUS, &status);
-                  data = (unsigned char) I2C_EEPROM_ADDR;
-                  if (i2c_write (&data) == 0) error = 1;
-                    
+                  i2c_usr_status = I2C_START;
+                  i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+                  i2c_usr_data = (__u8) I2C_EEPROM_ADDR;
+                  if (i2c_write (&i2c_usr_data) == 0) error = 1;
+
                   /*
                    * Send High Address
                    */
-                  data = (i2c_eeprom_pointer >> 8) & 0xff;
-                  if (i2c_write (&data) == 0) error = 1;
+                  i2c_usr_data = (i2c_eeprom_pointer >> 8) & 0xff;
+                  if (i2c_write (&i2c_usr_data) == 0) error = 1;
                 }
               //BLOCK mode, wait until EEPROM is ready
               else
@@ -112,54 +112,55 @@ i2c_eeprom_write (unsigned char* buf, int count)
                       /*
                        * Send start bit, slave address
                        */
-                      status = I2C_START;
-                      i2c_ioctl (I2C_SET_STATUS, &status);
-                      data = (unsigned char) I2C_EEPROM_ADDR;
-                      if (i2c_write (&data) == 0)
+                      i2c_usr_status = I2C_START;
+                      i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+                      i2c_usr_data = (__u8) I2C_EEPROM_ADDR;
+                      if (i2c_write (&i2c_usr_data) == 0)
                         {
                           error = 1;
                           break;
                         }
-                        
+
                       /*
                        * Send High Address
                        */
-                      data = (i2c_eeprom_pointer >> 8) & 0xff;
+                      i2c_usr_data = (i2c_eeprom_pointer >> 8) & 0xff;
                     }
-                  while (i2c_write (&data) == 0);
+                  while (i2c_write (&i2c_usr_data) == 0);
                 }
-    
+
               /*
                * Send Low Address
                */
-              data = i2c_eeprom_pointer & 0xff;
-              if (i2c_write (&data) == 0) error = 1;
+              i2c_usr_data = i2c_eeprom_pointer & 0xff;
+              if (i2c_write (&i2c_usr_data) == 0) error = 1;
             }
-            
+
           if (error > 0) break;
-    
+
           /*
            * Determine if a stop bit is required
            * (i.e last byte OR byte at page boundary
            */
-          if ((i == count-1) || (i2c_eeprom_pointer%I2C_EEPROM_PAGE_SIZE == I2C_EEPROM_PAGE_SIZE-1))
+          if ((i == (count - 1)) || ((i2c_eeprom_pointer % I2C_EEPROM_PAGE_SIZE) == (I2C_EEPROM_PAGE_SIZE - 1)))
             {
-              status = I2C_STOP;
-              i2c_ioctl (I2C_SET_STATUS, &status);
+              i2c_usr_status = I2C_STOP;
+              i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
             }
-          if (i2c_write (buf+i) == 0)
+          //byte write failure exit loop
+          if (i2c_write (buf + i) == 0)
             {
               error = 1;
-              break;  //byte write failure exit loop
+              break;
             }
 #if (I2C_NUM > 1)
-          if ((i == count-1) || (i2c_eeprom_pointer%I2C_EEPROM_PAGE_SIZE == I2C_EEPROM_PAGE_SIZE-1))
+          if ((i == (count - 1)) || ((i2c_eeprom_pointer % I2C_EEPROM_PAGE_SIZE) == (I2C_EEPROM_PAGE_SIZE - 1)))
             {
-              pthread_mutex_unlock(&i2c_mutex);
+              pthread_mutex_unlock (&i2c_mutex);
             }
 #endif /* I2C_NUM > 1 */
         }
-    
+
 #if (I2C_NUM > 1)
       if (error > 0)
         {
@@ -169,33 +170,31 @@ i2c_eeprom_write (unsigned char* buf, int count)
           return -1;
         }
 #endif /* I2C_NUM > 1 */
-        
+
       i2c_eeprom_busy = 0;
       i = byte_written;
       byte_written = 0;
       return i;
     }
-  //Error, raise error flag
+  //IO not opened for writing
   else
     {
-      errno = EBADF;  //io not opened for writing
+      errno = EBADF;
       return -1;
     }     
 }
 
 
 int 
-i2c_eeprom_read (unsigned char* buf, int count)
+i2c_eeprom_read (__u8* buf, int count)
 {
   //Perform Read if read operation is enabled
-  if ((i2c_eeprom_io_flag & O_RDWR) || (i2c_eeprom_io_flag & O_RDONLY))
+  if ((i2c_eeprom_io_flag & O_RDWR) || !(i2c_eeprom_io_flag & O_WRONLY))
     {
-      int i;
-      unsigned int error = 0;
-      unsigned char status = 0;
-      unsigned char data = 0;
+      __u16 i;
+      __u8 error = 0;
 
-      i2c_eeprom_busy = 1;   
+      i2c_eeprom_busy = 1;
       /*
        * Start to read data
        */
@@ -208,25 +207,26 @@ i2c_eeprom_read (unsigned char* buf, int count)
           if (i == 0)
             {
 #if (I2C_NUM > 1)
-              if (pthread_mutex_lock (&i2c_mutex) != 0) return 0; //i2c is busy
+              //i2c  bus is busy
+              if (pthread_mutex_lock (&i2c_mutex) != 0) return 0;
 #endif /* I2C_NUM > 1 */
-                
+
               //NON-BLOCK mode, return -1, set errno = EAGAIN
               if (i2c_eeprom_io_flag & O_NONBLOCK)
                 {
                   /*
                    * Send start bit, slave address (Write Mode)
                    */ 
-                  status = I2C_START;
-                  i2c_ioctl (I2C_SET_STATUS, &status);
-                  data = (unsigned char) I2C_EEPROM_ADDR;
-                  if (i2c_write (&data) == 0) error = 1;
-                    
+                  i2c_usr_status = I2C_START;
+                  i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+                  i2c_usr_data = (__u8) I2C_EEPROM_ADDR;
+                  if (i2c_write (&i2c_usr_data) == 0) error = 1;
+
                   /*
                    * Send High Address
                    */
-                  data = (i2c_eeprom_pointer >> 8) & 0xff;
-                  if (i2c_write (&data) == 0) error = 1;
+                  i2c_usr_data = (i2c_eeprom_pointer >> 8) & 0xff;
+                  if (i2c_write (&i2c_usr_data) == 0) error = 1;
                 }
               //BLOCK mode, wait until EEPROM is ready
               else
@@ -236,62 +236,62 @@ i2c_eeprom_read (unsigned char* buf, int count)
                       /*
                        * Send start bit, slave address
                        */
-                      status = I2C_START;
-                      i2c_ioctl (I2C_SET_STATUS, &status);
-                      data = (unsigned char) I2C_EEPROM_ADDR;
-                      if (i2c_write (&data) == 0)
+                      i2c_usr_status = I2C_START;
+                      i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+                      i2c_usr_data = (__u8) I2C_EEPROM_ADDR;
+                      if (i2c_write (&i2c_usr_data) == 0)
                         {
                           error = 1;
                           break;
                         }
-                        
+
                       /*
                        * Send High Address
                        */
-                      data = (i2c_eeprom_pointer >> 8) & 0xff;
+                      i2c_usr_data = (i2c_eeprom_pointer >> 8) & 0xff;
                     }
-                  while (i2c_write (&data) == 0);
+                  while (i2c_write (&i2c_usr_data) == 0);
                 }
 
               /*
                * Send Low Address
                */
-              data = i2c_eeprom_pointer & 0xff;
-              if (i2c_write (&data) == 0) error = 1;
-    
+              i2c_usr_data = i2c_eeprom_pointer & 0xff;
+              if (i2c_write (&i2c_usr_data) == 0) error = 1;
+
               /*
                * Send start bit, slave address (Read Mode)
                */ 
-              status = I2C_RESTART;
-              i2c_ioctl (I2C_SET_STATUS, &status);
-              data = (unsigned char) (I2C_EEPROM_ADDR | 0x01);
-              if (i2c_write (&data) == 0) error = 1;
+              i2c_usr_status = I2C_RESTART;
+              i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+              i2c_usr_data = (__u8) (I2C_EEPROM_ADDR | 0x01);
+              if (i2c_write (&i2c_usr_data) == 0) error = 1;
             }
-            
-          if(error > 0) break;
-    
+
+          if (error > 0) break;
+
           /*
            * Determine if (NACK+stop) is needed
            * (i.e last byte required by user OR end-of-file)
            */
-          if ((i == count-1) || (i2c_eeprom_pointer == I2C_EEPROM_SIZE-1))
+          if ((i == (count - 1)) || (i2c_eeprom_pointer == (I2C_EEPROM_SIZE - 1)))
             {
-              status = I2C_NACK | I2C_STOP;
+              i2c_usr_status = I2C_NACK | I2C_STOP;
             }
-          i2c_ioctl (I2C_SET_STATUS, &status);
-          if (i2c_read (buf+i) == 0)
+          i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
+          if (i2c_read (buf + i) == 0)
             {
               error = 1;
               break;      //read failure, exit loop
             }
 #if (I2C_NUM > 1)
-          if ((i == count-1) || (i2c_eeprom_pointer == I2C_EEPROM_SIZE-1))
+          if ((i == (count - 1)) || (i2c_eeprom_pointer == (I2C_EEPROM_SIZE - 1)))
             {
               pthread_mutex_unlock (&i2c_mutex);
             }
 #endif /* I2C_NUM > 1 */
         }
-    
+
 #if (I2C_NUM > 1)
       if (error > 0)
         {
@@ -302,13 +302,13 @@ i2c_eeprom_read (unsigned char* buf, int count)
 #endif /* I2C_NUM > 1 */
 
       i2c_eeprom_busy = 0;
-                
+
       return i;
     }
-  //Error, raise error flag
+  //IO not opened for reading
   else
     {
-      errno = EBADF;  //io not opened for reading
+      errno = EBADF;
       return -1;
     }   
 }
