@@ -43,22 +43,22 @@
 /*
  * Local Variables 
  */
-static unsigned int pwm_channel = 0;                  //selected PWM channel
-static unsigned int pwm_status = 0;                   //store the bitwise status of PWM channel, 0=OFF, 1=ON
-static unsigned int pwm_prescale[] = {1, 8, 64, 256}; //prescale factors
-static int pwm_io_flag;
+static __u8 pwm_channel = 0;                            //selected PWM channel
+static __u8 pwm_status = 0;                             //store the bitwise status of PWM channel, 0=OFF, 1=ON
+static __u8 pwm_io_flag;
+static __u16 pwm_prescale[] = {1, 8, 64, 256};          //prescale factors
 
 /*
  * Local Functions
  */
-static int setPeriodNPrescale (unsigned long value_ns);
-static unsigned int calcDCycle (unsigned long value_ns);
+static int setPeriodNPrescale (__u32 value_ns);
+static __u16 calcDCycle (__u32 value_ns);
 
 
 int 
-pwm_open(int flags)
+pwm_open (int flags)
 {
-  pwm_io_flag = flags;
+  pwm_io_flag = (__u8) flags;
   //Disable all output compare modules
   OC1CON = 0; OC2CON = 0;
   OC3CON = 0; OC4CON = 0;
@@ -72,16 +72,16 @@ pwm_open(int flags)
   _T2IE = 0;
   T2CONbits.TCS = 0;      // Use internal clock source
   T2CONbits.TCKPS = 0;    // Prescale Select 1:1
-  T2CONbits.TON = 1;      // Start the timer  
+  T2CONbits.TON = 1;      // Start the timer
   return 0;
 }
 
 
 int 
-pwm_write (unsigned long* buf)
+pwm_write (__u32* buf)
 {
   //Perform Write if write operation is enabled
-  if (pwm_io_flag & O_RDWR || pwm_io_flag & O_WRONLY)
+  if ((pwm_io_flag & O_RDWR) || (pwm_io_flag & O_WRONLY))
     {
       if ((pwm_status & (0x01 << pwm_channel)) == 0)
         {
@@ -135,7 +135,7 @@ pwm_write (unsigned long* buf)
             errno = ENXIO;
             return -1;
         }
-      return sizeof (unsigned long);
+      return sizeof (__u32);
     }
   //Error, raise error flag
   else
@@ -149,19 +149,26 @@ pwm_write (unsigned long* buf)
 int 
 pwm_ioctl (int request, void* argp)
 {
-  unsigned int value;
-  unsigned int mask;
   switch (request)
     {
+      //set the period in ns
       case PWM_SET_PERIOD:
-        return setPeriodNPrescale (*((unsigned long*)argp));
+        {
+          return setPeriodNPrescale (*((__u32*)argp));
+        }
+      //set the channel
       case PWM_SELECT_CH:
-        pwm_channel = *((unsigned int*)argp);
-        mask = 0x01 << pwm_channel;
-        pwm_status = pwm_status | mask;
-        return 0;
+        {
+          __u8 mask;
+          pwm_channel = (__u8) *((__u16*)argp);
+          mask = 0x01 << pwm_channel;
+          pwm_status = pwm_status | mask;
+          return 0;
+        }
       default:
-        return -1;
+        {
+          return -1;
+        }
     }
 }
 
@@ -179,29 +186,30 @@ pwm_ioctl (int request, void* argp)
  * \n       Reg = (T_pwm*F_cy)/(1000*Prescale) -1   ;T_pwm in ns, F_cy in MHz
  */
 static int 
-setPeriodNPrescale (unsigned long value_ns)
+setPeriodNPrescale (__u32 value_ns)
 {
-  unsigned long ans;
-  unsigned long long numerator = ((unsigned long long)value_ns*(SYSTEM_CLK_HZ/1000000));
-  int index= -1;
-  unsigned long denominator;
+  __u32 ans;
+  __u64 numerator = ((__u64)value_ns * (SYSTEM_CLK_HZ / 1000000));
+  int index = -1;
+  __u32 denominator;
   do
     {
-      denominator = (unsigned long)1000*pwm_prescale[++index];
-      ans = (unsigned long)(((long double)numerator/denominator) + 0.5) - 1; //rounding to nearest integer
+      denominator = (__u32) 1000 * pwm_prescale[++index];
+      ans = (__u32)(((long double)numerator / denominator) + 0.5) - 1; //rounding to nearest integer
     }
-  while(ans > 0x0000FFFF && index < 3);
+  while ((ans > 0x0000FFFF) && (index < 3));
 	
-  if(ans > 0x0000FFFF) return -1;
+  if (ans > 0x0000FFFF) return -1;
 
   //Set Timer
   T2CONbits.TON = 0;
   T2CONbits.TCKPS = index;      // Change prescale factor
-  PR2 = (unsigned int) ans;     // Set period
+  PR2 = (__u16) ans;            // Set period
   TMR2 = 0;                     // Reset counter
   T2CONbits.TON = 1; 	
   return 0;
 }
+
 
 /**
  * \brief converts ns to register value for timer (with rounding)
@@ -214,14 +222,14 @@ setPeriodNPrescale (unsigned long value_ns)
  * \n       Reg = (T_pwm*F_cy)/Prescale -1          ;T_pwm in second, F_cy in Hz 
  * \n       Reg = (T_pwm*F_cy)/(1000*Prescale) -1   ;T_pwm in ns, F_cy in MHz
  */
-static unsigned int 
-calcDCycle (unsigned long value_ns)
+static __u16
+calcDCycle (__u32 value_ns)
 {
-  if(value_ns == 0) return 0;
-  unsigned long long numerator = ((unsigned long long)value_ns*(SYSTEM_CLK_HZ/1000000));
-  unsigned int index = T2CONbits.TCKPS;
-  unsigned long denominator = (unsigned long)1000*pwm_prescale[index];
-  return (unsigned int)(((long double)numerator/denominator) + 0.5) - 1; //rounding to nearest integer
+  if (value_ns == 0) return 0;
+  __u64 numerator = ((__u64) value_ns * (SYSTEM_CLK_HZ / 1000000));
+  __u16 index = T2CONbits.TCKPS;
+  __u32 denominator = (__u32) 1000 * pwm_prescale[index];
+  return (__u16)(((long double)numerator / denominator) + 0.5) - 1; //rounding to nearest integer
 }
 
 /** @} */
