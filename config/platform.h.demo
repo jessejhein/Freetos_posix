@@ -43,7 +43,7 @@
 #define PLL_POST                        2
 #define PLL_PRE                         2
 #define PLL_FBD                         40
-#define SYSTEM_CLK_HZ                   ((unsigned long)(XTAL_FREQ_HZ*PLL_FBD/(2*PLL_PRE*PLL_POST)))
+#define SYSTEM_CLK_HZ                   ((__u32)(XTAL_FREQ_HZ*PLL_FBD/(2*PLL_PRE*PLL_POST)))
 #define SYSTEM_VOLT                     ((float)3.3)   // Can be used for ADC reading calculation
 
 #ifdef EXTERNAL_CLOCK_SOURCE
@@ -55,7 +55,7 @@
 #ifdef SYSTEM_CLK_HZ
 #undef SYSTEM_CLK_HZ
 #endif
-#define SYSTEM_CLK_HZ                   ((unsigned long)(XTERN_CLK_XTAL_FREQ_HZ*XTERN_CLK_SRC_PLLFBD/(2*XTERN_CLK_SRC_PLLPRE*XTERN_CLK_SRC_PLLPOST)))
+#define SYSTEM_CLK_HZ                   ((__u32)(XTERN_CLK_XTAL_FREQ_HZ*XTERN_CLK_SRC_PLLFBD/(2*XTERN_CLK_SRC_PLLPRE*XTERN_CLK_SRC_PLLPOST)))
 #endif /* EXTERNAL_CLOCK_SOURCE */
 
 
@@ -77,9 +77,8 @@
 #define COM0                            "A"
 #define COM1                            "B"
 //  ============================Baudrate Equation================================ 
-#define GEN_UART_BAUDRATE(baudrate)     ( (unsigned int) \
-                                          ( (float) SYSTEM_CLK_HZ \
-                                              /   ( (float) 16*(baudrate)) +0.5f) \
+#define GEN_UART_BAUDRATE(baudrate)     ( (__u16) \
+                                          ( ((float)SYSTEM_CLK_HZ / ((float)16*(baudrate))) + 0.5f) \
                                               - 1 \
                                         )
 #endif /* UART_MOD */
@@ -92,9 +91,8 @@
 //  I2C: Baudrate options for I2C
 //   +-- I2CBRG = (Fcy/Fscl - Fcy/1111111)-1
 //   +-- Fcy = 40MHz, Fscl = 100kHz, 400kHz, or 1MHz
-#define I2C_BRG                         ( (unsigned int) \
-                                          ( (unsigned long)SYSTEM_CLK_HZ/I2C_BAUDRATE) \
-                                          - ( (unsigned long)SYSTEM_CLK_HZ/1111111) \
+#define I2C_BRG                         ( (__u16) \
+                                          ((__u32)SYSTEM_CLK_HZ/I2C_BAUDRATE) - ((__u32)SYSTEM_CLK_HZ/1111111) \
                                           - 1 \
                                         )
 // Number of I2C devices

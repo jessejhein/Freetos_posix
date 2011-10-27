@@ -49,7 +49,6 @@ CONFIG_FFT												=		n
 #----------------------------------------------------------------
 # UART
 # UART_x_BAUDRATE:								Default baudrate in bps
-# UART_x_DATABIT:									8; 9
 # UART_x_STOPBIT:									1; 2
 # UART_x_PARITYBIT:								N; E; O
 # UART_x_RX_BUFFER_SIZE:					Receive buffer size in byte
@@ -57,7 +56,6 @@ CONFIG_FFT												=		n
 # DEBUG_UART:											UART_A/UART_B for printf debug
 #----------------------------------------------------------------
 CONFIG_UART_A_BAUDRATE						=		19200
-CONFIG_UART_A_DATABIT							=		8
 CONFIG_UART_A_STOPBIT							=		1
 CONFIG_UART_A_PARITYBIT	 					=		N
 CONFIG_UART_A_RX_BUFFER_SIZE			=		50
@@ -65,7 +63,6 @@ CONFIG_UART_A_TX_BUFFER_SIZE			=		50
 #----------------------------------------------------------------
 CONFIG_UART_B_ENABLE							=		y
 CONFIG_UART_B_BAUDRATE						=		115200
-CONFIG_UART_B_DATABIT							=		8
 CONFIG_UART_B_STOPBIT							=		1
 CONFIG_UART_B_PARITYBIT	 					=		N
 CONFIG_UART_B_RX_BUFFER_SIZE			=		0

@@ -67,7 +67,7 @@
 #endif /* UART1_TX_BUF_SIZE > 0 */
 //------------------------------------------------------------------------
 /** factor applied to speed to save memory */
-#define BAUDRATE_FACTOR                         100
+#define BAUDRATE_FACTOR                         (9600)
 //------------------------------------------------------------------------
 
 
@@ -94,7 +94,7 @@ __u8 uart1_tx_buf[UART1_TX_BUF_SIZE];
 struct UART_DATA
 {
   //setting
-  __u16 speed;
+  tcflag_t cflag;
   __u8 io_flag;
   //RX
   __u8 rx_wr;
@@ -114,9 +114,9 @@ static struct UART_DATA uart[NO_OF_UART];
 /*
  * Local Functions
  */
-static void uart0_init (__u16 speed);
+static void uart0_init (void);
 #if (NO_OF_UART > 1)
-static void uart1_init (__u16 speed);
+static void uart1_init (void);
 #endif /* NO_OF_UART > 1 */
 
 
@@ -144,8 +144,29 @@ uart_open (int device, int flags)
 #endif /* UART0_TX_ENABLE */
           //=====================================================
           uart[0].io_flag = (__u8) flags;
-          uart[0].speed = UART0_BAUDRATE / BAUDRATE_FACTOR;
-          uart0_init (GEN_UART_BAUDRATE (UART0_BAUDRATE));
+          //=====================================================
+          uart[0].cflag = 0;
+          //8-bit
+          uart[0].cflag &= ~CSIZE;
+          uart[0].cflag |= CS8;
+          //Parity bit
+#if (UART0_PARITYBIT == 2)
+          uart[0].cflag |= PARENB;
+          uart[0].cflag &= ~PARODD;
+#elif (UART0_PARITYBIT == 1)
+          uart[0].cflag |= PARENB;
+          uart[0].cflag |= PARODD;
+#else /* NO_PARITY */
+          uart[0].cflag &= ~PARENB;
+#endif /* NO_PARITY */
+          //Stop bit
+#if (UART0_STOPBIT == 2)
+          uart[0].cflag |= CSTOPB;
+#else /** 1_STOP_BIT */
+          uart[0].cflag &= ~CSTOPB;
+#endif /** 1_STOP_BIT */
+          uart[0].cflag |= (0x1F & (__u16)(UART0_BAUDRATE / BAUDRATE_FACTOR));
+          uart0_init ();
           //=====================================================
           break;
         }
@@ -169,8 +190,29 @@ uart_open (int device, int flags)
 #endif /* UART1_TX_ENABLE */
           //=====================================================
           uart[1].io_flag = (__u8) flags;
-          uart[1].speed = UART1_BAUDRATE / BAUDRATE_FACTOR;
-          uart1_init (GEN_UART_BAUDRATE (UART1_BAUDRATE));
+          //=====================================================
+          uart[1].cflag = 0;
+          //8-bit
+          uart[1].cflag &= ~CSIZE;
+          uart[1].cflag |= CS8;
+          //Parity bit
+#if (UART1_PARITYBIT == 2)
+          uart[1].cflag |= PARENB;
+          uart[1].cflag &= ~PARODD;
+#elif (UART1_PARITYBIT == 1)
+          uart[1].cflag |= PARENB;
+          uart[1].cflag |= PARODD;
+#else /* NO_PARITY */
+          uart[1].cflag &= ~PARENB;
+#endif /* NO_PARITY */
+          //Stop bit
+#if (UART1_STOPBIT == 2)
+          uart[1].cflag |= CSTOPB;
+#else /** 1_STOP_BIT */
+          uart[1].cflag &= ~CSTOPB;
+#endif /** 1_STOP_BIT */
+          uart[1].cflag |= (0x1F & (__u16)(UART1_BAUDRATE / BAUDRATE_FACTOR));
+          uart1_init ();
           //=====================================================
           break;
         }
@@ -186,30 +228,28 @@ uart_open (int device, int flags)
 
 //-------------------------------------------------------------------------------------
 static void 
-uart0_init (__u16 speed)
+uart0_init (void)
 {
   UART_A_RS485_CTL_EN ();
   //=============================================================================
   // Configure Baud rate
-  U2BRG = speed;
+  __u32 speed = (uart[0].cflag & 0x1F) * (__u32)BAUDRATE_FACTOR;
+  U2BRG = GEN_UART_BAUDRATE (speed);
   //==============================================================================
-  // Configure Mode
-  // +-- 8N1, no loopback, no wake in sleep mode, continue in idle mode, no autobaud
+  // Configure Mode [Default: 8N1]
   U2MODE = 0x0000;
-#if ((UART0_DATABIT == 8) && (UART0_PARITYBIT == 2))
-  //8E
-  U2MODEbits.PDSEL = 1;
-#elif ((UART0_DATABIT == 8) && (UART0_PARITYBIT == 1))
-  //8O
-  U2MODEbits.PDSEL = 2;
-#elif ((UART0_DATABIT == 9) && (UART0_PARITYBIT == 0))
-  //9N
-  U2MODEbits.PDSEL = 2;
-#endif /* BIT and PARITY */
-
-#if (UART0_STOPBIT == 2)
-  U2MODEbits.STSEL = 1;
-#endif /* UART_STOPBIT0 */
+  if (uart[0].cflag & PARENB)
+    {
+      //Odd Parity
+      if (uart[0].cflag & PARODD) U2MODEbits.PDSEL = 2;
+      //Even Parity
+      else U2MODEbits.PDSEL = 1;
+    }
+  if (uart[0].cflag & CSTOPB)
+    {
+      //2 Stop bits
+      U2MODEbits.STSEL = 1;
+    }
   //==============================================================================
   // Configure Interrupt
 #if (UART0_RX_ENABLE == 1)
@@ -238,31 +278,28 @@ uart0_init (__u16 speed)
 //-------------------------------------------------------------------------------------
 #if (NO_OF_UART > 1)
 static void 
-uart1_init (__u16 speed)
+uart1_init (void)
 {
   UART_B_RS485_CTL_EN ();
   //=============================================================================
   // Configure Baud rate
-  U1BRG = speed;
+  __u32 speed = (uart[1].cflag & 0x1F) * (__u32)BAUDRATE_FACTOR;
+  U1BRG = GEN_UART_BAUDRATE (speed);
   //==============================================================================
-  // Configure Mode
-  // +-- 8N1, no loopback, no wake in sleep mode, continue in idle mode, no autobaud
+  // Configure Mode [Default: 8N1]
   U1MODE = 0x0000;
-#if ((UART1_DATABIT == 8) && (UART1_PARITYBIT == 2))
-  //8E
-  U1MODEbits.PDSEL = 1;
-#elif ((UART1_DATABIT == 8) && (UART1_PARITYBIT == 1))
-  //8O
-  U1MODEbits.PDSEL = 2;
-#elif ((UART1_DATABIT == 9) && (UART1_PARITYBIT == 0))
-  //9N
-  U1MODEbits.PDSEL = 2;
-#endif /* BIT and PARITY */
-
-#if (UART1_STOPBIT == 2)
-  U1MODEbits.STSEL = 1;
-#endif /* UART_STOPBIT1 */
-
+  if (uart[1].cflag & PARENB)
+    {
+      //Odd Parity
+      if (uart[1].cflag & PARODD) U1MODEbits.PDSEL = 2;
+      //Even Parity
+      else U1MODEbits.PDSEL = 1;
+    }
+  if (uart[1].cflag & CSTOPB)
+    {
+      //2 Stop bits
+      U1MODEbits.STSEL = 1;
+    }
   //==============================================================================
   // Configure Interrupt
 #if (UART1_RX_ENABLE == 1)
@@ -569,25 +606,22 @@ uart_ioctl (int device, int request, void* argp)
 {
   switch (request)
     {
-      //set baud rate
-      case UART_SET_BAUDRATE:
+      //set option
+      case UART_SET_OPTION:
         {
-          //Set UART in idle mode (hang up)
-          if (*((__u32*)argp) == 0) return 0;
-
           switch (device)
             {
               case 0:
                 {
-                  uart[0].speed = *((__u32*)argp) / BAUDRATE_FACTOR;
-                  uart0_init (GEN_UART_BAUDRATE (*((__u32*)argp)));
+                  uart[0].cflag = ((struct termios*)argp)->c_cflag;
+                  uart0_init ();
                   break;
                 }
 #if (NO_OF_UART > 1)
               case 1:
                 {
-                  uart[1].speed = *((__u32*)argp) / BAUDRATE_FACTOR;
-                  uart1_init (GEN_UART_BAUDRATE (*((__u32*)argp)));
+                  uart[1].cflag = ((struct termios*)argp)->c_cflag;
+                  uart1_init ();
                   break;
                 }
 #endif /* NO_OF_UART > 1 */
@@ -597,19 +631,19 @@ uart_ioctl (int device, int request, void* argp)
             }
         }
       //get baud rate
-      case UART_GET_BAUDRATE:
+      case UART_GET_OPTION:
         {
           switch (device)
             {
               case 0:
                 {
-                  *((__u32*)argp) = uart[0].speed * BAUDRATE_FACTOR;
+                  ((struct termios*)argp)->c_cflag = uart[0].cflag;
                   break;
                 }
 #if (NO_OF_UART > 1)
               case 1:
                 {
-                  *((__u32*)argp) = uart[1].speed * BAUDRATE_FACTOR;
+                  ((struct termios*)argp)->c_cflag = uart[1].cflag;
                   break;
                 }
 #endif /* NO_OF_UART > 1 */

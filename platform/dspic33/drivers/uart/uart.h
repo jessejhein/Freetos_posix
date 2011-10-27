@@ -81,6 +81,7 @@ extern int uart_write (int device, __u8 *buf, __u16 count);
  */
 extern int uart_read (int device, __u8 *buf);
 
+
 /**
  * \brief close UART
  * \param device UART port id
@@ -88,6 +89,7 @@ extern int uart_read (int device, __u8 *buf);
  * \retval -1 error
  */
 extern int uart_close (int device);
+
 
 /**
  * \brief change setting for UART
