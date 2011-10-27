@@ -67,16 +67,6 @@ extern int cfsetispeed (struct termios* termios_p, speed_t speed);
 
 
 /** 
- * \brief set the input and output baud rate.
- * \param termios_p pointer for control configuration.
- * \param speed speed (B19200, B57600, etc)
- * \retval 0 success
- * \retval -1 error
- */
-extern int cfsetspeed (struct termios* termios_p, speed_t speed);
-
-
-/** 
  * \brief get the parameters associated with the terminal
  * \param fildes file descriptor for the terminal
  * \param termios_p pointer for control configuration.

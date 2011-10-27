@@ -21,87 +21,79 @@
 # error "Never use <bits/termios.h> directly; include <termios.h> instead."
 #endif
 
-typedef __u32 speed_t;
+typedef __u16   tcflag_t;
+typedef __u16   speed_t;
+
 
 /** speed of serial port */
 struct termios
 {
-  speed_t c_ispeed;                     /* input speed */
-  speed_t c_ospeed;                     /* output speed */
-#define _HAVE_STRUCT_TERMIOS_C_ISPEED 1
-#define _HAVE_STRUCT_TERMIOS_C_OSPEED 1
+  tcflag_t c_cflag;             /* control mode flags */
+  //TODO: if these flags are used, remove from union
+  union
+    {
+      tcflag_t c_oflag;         /* output mode flags */
+      tcflag_t c_lflag;         /* local mode flags */
+      tcflag_t c_iflag;         /* input mode flags */
+    };
 };
 
-/* c_cflag bit meaning */
-#define B0                      0000000 /* hang up */
-#define B600                    0000010
-#define B1200                   0000011
-#define B2400                   0000013
-#define B4800                   0000014
-#define B9600                   0000015
-#define B19200                  0000016
-#define B38400                  0000017
-#define CSIZE                   0000060
-#define   CS5                   0000000
-#define   CS6                   0000020
-#define   CS7                   0000040
-#define   CS8                   0000060
-#define CSTOPB                  0000100
-#define CREAD                   0000200
-#define PARENB                  0000400
-#define PARODD                  0001000
-#define HUPCL                   0002000
-#define CLOCAL                  0004000
-#define B57600                  0010001
-#define B115200                 0010002
-#define B230400                 0010003
-#define B460800                 0010004
-#define B576000                 0010006
-#define B921600                 0010007
 
+/* c_cflag bit meaning */
+#define B9600                   0x0001
+#define B19200                  0x0002
+#define B38400                  0x0004
+#define B57600                  0x0006
+#define B115200                 0x000C
+#define B230400                 0x0018
+#define CSIZE                   0x0060  /* Bit mask for data bits */
+#define   CS5                   0x0000
+#define   CS6                   0x0020
+#define   CS7                   0x0040
+#define   CS8                   0x0060
+#define CSTOPB                  0x0100  /* 2 stop bits (1 otherwise) */
+#define CREAD                   0x0200  /* Enable receiver */
+#define PARENB                  0x0400  /* Enable parity bit */
+#define PARODD                  0x1000  /* Use odd parity instead of even */
+#define HUPCL                   0x2000
+#define CLOCAL                  0x4000  /* Local line - do not change "owner" of port */
+#define CRTSCTS                 0x8000  /* flow control */
 
 /* c_iflag bits */
-#define IGNBRK                  0000001
-#define BRKINT                  0000002
-#define IGNPAR                  0000004
-#define PARMRK                  0000010
-#define INPCK                   0000020
-#define ISTRIP                  0000040
-#define INLCR                   0000100
-#define IGNCR                   0000200
-#define ICRNL                   0000400
-#define IUCLC                   0001000
-#define IXON                    0002000
-#define IXANY                   0004000
-#define IXOFF                   0010000
-#define IMAXBEL                 0020000
-#define IUTF8                   0040000
+#define PARMRK                  0001
+#define INPCK                   0002    /* Enable parity check */
+#define ISTRIP                  0004    /* Strip parity bits */
+#define IUCLC                   0010
+#define IXON                    0020    /* Enable software flow control (outgoing) */
+#define IXANY                   0040    /* Enable software flow control (incoming) */
+#define IXOFF                   0100    /* Allow any character to start flow again */
+#define IMAXBEL                 0200
+#define IUTF8                   0400
 
 
 /* c_oflag bits */
-#define OPOST                   0000001
-#define OLCUC                   0000002
-#define ONLCR                   0000004
-#define OCRNL                   0000010
-#define ONOCR                   0000020
-#define ONLRET                  0000040
-#define OFILL                   0000100
-#define OFDEL                   0000200
+#define OPOST                   0001    /* Postprocess output (not set = raw output) */
+#define OLCUC                   0002
+#define ONLCR                   0004
+#define OCRNL                   0010
+#define ONOCR                   0020
+#define ONLRET                  0040
+#define OFILL                   0100
+#define OFDEL                   0200
 
 
 /* c_lflag bits */
-#define ISIG                    0000001
-#define ICANON                  0000002
-#define ECHO                    0000010
-#define ECHOE                   0000020
-#define ECHOK                   0000040
-#define ECHONL                  0000100
-#define NOFLSH                  0000200
-#define TOSTOP                  0000400
-#define IEXTEN                  0100000
+#define ISIG                    0001    /* Enable SIGINTR, SIGSUSP, SIGDSUSP, and SIGQUIT signals */
+#define ICANON                  0002    /* Enable canonical input (else raw) */
+#define ECHO                    0010    /* Enable echoing of input characters */
+#define ECHOE                   0020    /* Echo erase character as BS-SP-BS */
+#define ECHOK                   0040
+#define ECHONL                  0100
+#define NOFLSH                  0200
+#define TOSTOP                  0400
 
 
 /* tcsetattr uses these */
-#define TCSANOW                 0
-#define TCSADRAIN               1
-#define TCSAFLUSH               2
+#define TCSANOW                 0       /* Make changes now without waiting for data to complete */
+#define TCSADRAIN               1       /* Wait until everything has been transmitted */
+#define TCSAFLUSH               2       /* Flush input and output buffers and make the change */
