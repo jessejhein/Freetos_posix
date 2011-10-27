@@ -44,8 +44,8 @@
  * UART Module
  */
 #ifdef UART_MOD
-#define UART_SET_BAUDRATE                      0x00
-#define UART_GET_BAUDRATE                      0x01
+#define UART_SET_OPTION                         0x00
+#define UART_GET_OPTION                         0x01
 #endif /* UART_MOD */
 
 
