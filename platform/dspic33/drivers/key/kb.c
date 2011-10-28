@@ -169,7 +169,7 @@ kb_read (__u8* buf)
 static int 
 kb_write (__u8 key_id)
 {
-   __u8 next = cirbuf_wr (kb_wr, kb_rd, MAX_KB_BUF);
+  __u8 next = cirbuf_wr (kb_wr, kb_rd, MAX_KB_BUF);
   if (next != CIRBUF_WR_FULL)
     {
       kb_buf[kb_wr] = key_id;
@@ -392,10 +392,14 @@ check_key (struct KB_KEY_T *arg)
 void 
 kb_check_push_key (void)
 {
-  unsigned char i;
-  for (i = 0; i < TOTAL_PUSH_KEY; i++)
+  //Perform checking if read operation is enabled
+  if ((kb_io_flag & O_RDWR) || !(kb_io_flag & O_WRONLY))
     {
-      check_key (&kb_push_key[i]);
+      unsigned char i;
+      for (i = 0; i < TOTAL_PUSH_KEY; i++)
+        {
+          check_key (&kb_push_key[i]);
+        }
     }
 }
 #endif /* KB_PUSH_KEY */
@@ -406,10 +410,14 @@ kb_check_push_key (void)
 void
 kb_check_fn_key (void)
 {
-  unsigned char i;
-  for (i = 0; i < TOTAL_FN_KEY; i++)
+  //Perform checking if read operation is enabled
+  if ((kb_io_flag & O_RDWR) || !(kb_io_flag & O_WRONLY))
     {
-      check_key (&kb_fn_key[i]);
+      unsigned char i;
+      for (i = 0; i < TOTAL_FN_KEY; i++)
+        {
+          check_key (&kb_fn_key[i]);
+        }
     }
 }
 #endif /* KB_FN_KEY */

@@ -228,7 +228,7 @@ open (const char *pathname, int flags)
 #ifdef LCD_MOD
       if (id == BASE_LCD)
         {
-          return id;
+          return (lcd_open (flags) == 0)? id : -1;
         }
 #endif /* LCD_MOD */
     }
