@@ -31,15 +31,15 @@ CONFIG_I2C_DAC										=		y
 CONFIG_I2C_ADC										=		n
 CONFIG_I2C_TEMP										=		n
 CONFIG_I2C_MOD_DSPIC							=		n
-CONFIG_I2C_LED_DRIVER							=		n
-CONFIG_I2C_GPIO										=		n
+CONFIG_I2C_LED_DRIVER							=		y
+CONFIG_I2C_GPIO										=		y
 CONFIG_NVM												=		y
 CONFIG_FILE_SYSTEM								=		n
 CONFIG_ADC												=		y
-CONFIG_PWM												=		y
+CONFIG_PWM												=		n
 CONFIG_KEYBOARD										=		y
 CONFIG_LED												=		y
-CONFIG_ETHERNET										=		y
+CONFIG_ETHERNET										=		n
 
 #----------------------------------------------------------------
 # DSP Modules
@@ -116,7 +116,7 @@ CONFIG_ADC_OUTPUT_FORMAT					=		INTEGER
 #----------------------------------------------------------------
 # KEYBOARD
 #	KB_BUFFER_SIZE:			Max number of key pressed stored
-#	KB_MODEL:						ROTARY_ENTER_KEY; 5_KEY_PUSH_BUTTON
+#	KB_MODEL:						ROTARY_ENTER_KEY
 # KB_FUNCTION_KEY:		Number of function keys
 # KB_SCAN_PERIOD:			Epochs between successive key pressed
 #----------------------------------------------------------------
@@ -131,7 +131,7 @@ CONFIG_KB_SCAN_PERIOD							=		5
 # LED_CTRL_INTERVAL:	Period to perform hardware led control (in epochs of system clock)
 #----------------------------------------------------------------
 CONFIG_BUZZER											=		y
-CONFIG_LED_NUM										=		8
+CONFIG_LED_NUM										=		4
 CONFIG_LED_CTRL_INTERVAL					=		2
 
 #----------------------------------------------------------------

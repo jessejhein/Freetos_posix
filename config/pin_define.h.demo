@@ -98,17 +98,32 @@
 /**
  * \brief set the RS485 digital control pin as output
  */
-#define RS485_CTL_EN()                  TRISG &= 0x7FFF
+#define UART_A_RS485_CTL_EN()
 
 /**
  * \brief set the RS485 digital control pin to TX state
  */
-#define RS485_TX_ON()                   LATG |= 0x8000
+#define UART_A_RS485_TX_ON()
 
 /**
  * \brief set the RS485 digital control pin to RX state
  */
-#define RS485_TX_OFF()                  LATG &= 0x7FFF
+#define UART_A_RS485_TX_OFF()
+
+/**
+ * \brief set the RS485 digital control pin as output
+ */
+#define UART_B_RS485_CTL_EN()
+
+/**
+ * \brief set the RS485 digital control pin to TX state
+ */
+#define UART_B_RS485_TX_ON()
+
+/**
+ * \brief set the RS485 digital control pin to RX state
+ */
+#define UART_B_RS485_TX_OFF()
 #endif /* UART_MOD */
 
 
