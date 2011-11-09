@@ -58,7 +58,7 @@ struct KB_KEY_T
 {
   __u8 id;
   __u8 save_time;
-  __u16 cr_st;
+  __u16 scrLine;
 };
 #ifdef KB_PUSH_KEY
 /** push key item */
@@ -311,22 +311,13 @@ _CNInterrupt (void)
 #endif /* KB_ROTATE_KEY */
 
 
-// this process wants to use coroutine_st instead of multi-thread when using FreeRTOS
-#ifdef FREERTOS_SCHED 
-#undef FREERTOS_SCHED
-#undef start_process
-#undef end_process
-#undef usleep
-#undef sleep
-#define start_process()         switch( ( (struct KB_KEY_T*)arg)->cr_st) { case 0:;
-#define end_process()           ( (struct KB_KEY_T*)arg)->cr_st = 0; } return ( (void*)0)
-#define usleep(usec)            do { \
-                                  ( ( (struct KB_KEY_T*)arg)->cr_st) = __LINE__; \
-                                  return ( (void*)-1); case __LINE__:; \
-                                } while (0)
-#define sleep(sec)              usleep(sec)
-#endif /* FREERTOS_SCHED */
-//-----------------------------------------------------------------------------------------------
+/**
+ * \brief the following section uses reentrant coroutine instead of task
+ */
+#define USE_COROUTINE_REENTRANT         1
+#include <unistd.h>
+/******************************************************************/
+#define ARG                             ((struct KB_KEY_T*) arg)
 /**
  * Principle of PUSH key
  * \verbatim

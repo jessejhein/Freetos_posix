@@ -40,11 +40,9 @@
 #ifndef DELAY_H_
 #define DELAY_H_    1
 
-#include <define.h>
 
-#ifndef SYSTEM_CLK_HZ
-#error "SYSTEM_CLK_HZ must be defined in define.h"
-#endif /* SYSTEM_CLK_HZ */
+#include <FreeRTOS.h>
+
 
 /**
  * \brief implementing microsecond delay using looping
@@ -72,7 +70,7 @@
 #define udelay(x) \
 { \
   unsigned long _dcnt; \
-  _dcnt = (x) * ((unsigned long)SYSTEM_CLK_HZ/(6UL*1000000UL)); \
+  _dcnt = (x) * ((unsigned long)configCPU_CLOCK_HZ / (6UL * 1000000UL)); \
   while (_dcnt--); \
 }
 

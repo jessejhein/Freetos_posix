@@ -30,9 +30,6 @@
 
 extern volatile time_t one_sec_cnt;
 extern volatile int timer_count;
-#ifndef FREERTOS_SCHED 
-extern volatile time_t jiffies;
-#endif /* NOT FREERTOS_SCHED */
 
 
 /*
@@ -50,11 +47,7 @@ time (time_t *t)
 clock_t 
 clock (void)
 {
-#ifndef FREERTOS_SCHED
-  clock_t time = jiffies;
-#else /* NOT FREERTOS_SCHED */
   portTickType time = xTaskGetTickCount();
-#endif /* NOT FREERTOS_SCHED */
   return (clock_t) time;
 }
 

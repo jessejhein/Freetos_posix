@@ -16,10 +16,9 @@ HEAP_SIZE													=		4608
 USE_EXTERNAL_CLOCK_SOURCE					=		n
 
 #----------------------------------------------------------------
-# OS Scheduler: Select the scheduler to be used.
-#	When FREERTOS_SCHED = n, the project will compile with coroutine_st
+# OS Scheduler
+# CRTHREAD_SCHED:		Support Coroutine Thread Scheduler in FreeRTOS
 #----------------------------------------------------------------
-FREERTOS_SCHED										=		y
 CRTHREAD_SCHED										=		y
 
 #----------------------------------------------------------------

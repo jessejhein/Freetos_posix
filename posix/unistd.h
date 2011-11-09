@@ -31,6 +31,30 @@
  * \author Dennis Tsang <dennis@amonics.com>
  */
 
+/**
+ * \page unistd_page UNIX Standard API
+ * This header file contains the mixed operation for FreeRTOS Task and CRTHREAD, the selection
+ * of which operation is determined by \#define directives
+ *
+ * \section sec1 COMPILE TIME CONFIGURATION
+ * \par Define MAX_CRTHREAD in source code
+ * \verbatim
+    #define USE_COROUTINE               1
+    #include <unistd.h>
+    void*
+    foo (void* arg)
+    {
+      start_process ();
+      while (1)
+        {
+          //Do something here
+          usleep (0);
+        }
+      end_process ();
+    }
+   \endverbatim
+ */
+
 /*
  * Copyright (C) 2007-2011  Dennis Tsang <dennis@amonics.com>
  *
@@ -53,52 +77,12 @@
 #ifndef UNISTD_H_
 #define UNISTD_H_       1
 
-#ifdef FREERTOS_SCHED
 #include <FreeRTOS.h>
 #include <task.h>
-#endif /* FREERTOS_SCHED */
-
 #include <asm/types.h>
 #include <sys/ioctl.h>
 
-/**
- * \note MARCO for void usleep(unsigned long usec)
- * \li FreeRTOS version: vTaskDelay((portTickType)((u64)usec/(1000*portTICK_RATE_MS)))
- * \li Coroutine version: scrReturn((void*)-1)
- * \brief suspends process for (at least) usec microseconds
- * \param usec time (in us) to sleep
- * \remarks Minimum sleep time is 0 or greater than t, where t is the period for context switch,governed by configTICK_RATE_HZ in <FreeRTOSConfig.h>
- * \remarks Maximum sleep time is limited by the resolution of counter set by configUSE_16_BIT_TICKS and the frequency of context switch set by configTICK_RATE_HZ in <FreeRTOSConfig.h>
- * \li If configUSE_16_BIT_TICKS equals 1, the counter is 16-bit, otherwise the counter is 32-bit
- * \li For 16-bit counter with context switch period of 10ms, maximum number of sec is 65535*0.01 = 655 sec = 11 minutes
- * \li For 32-bit counter with context switch period of 10ms, maximum number of sec is 4,294,967,295*0.01 = 42,949,672 sec = 3.3 yrs
- */
-#ifndef FREERTOS_SCHED
-#define usleep(usec)            scrReturn((void*)-1)
-#else /* FREERTOS_SCHED */
-#define usleep(usec)            vTaskDelay((portTickType)((__u64)usec/(1000*portTICK_RATE_MS)))
-#endif /* FREERTOS_SCHED */
-
-
-/**
- * \note MARCO for unsigned int sleep(unsigned int seconds);
- * \li FreeRTOS version: usleep((u64)sec*1000000)
- * \li Coroutine version: scrReturn((void*)-1)
- * \brief makes the current process sleep until seconds seconds have elapsed
- * \param seconds time (in s) to sleep
- * \retval >0 the number of seconds left to sleep (not implemented)
- * \retval 0 if the requested time has elapsed (not implemented)
- * \remarks Maximum sleep time is limited by the resolution of counter set by configUSE_16_BIT_TICKS and the frequency of context switch set by configTICK_RATE_HZ in <FreeRTOSConfig.h>
- * \li If configUSE_16_BIT_TICKS equals 1, the counter is 16-bit, otherwise the counter is 32-bit
- * \li For 16-bit counter with context switch period of 10ms, maximum number of sec is 65535*0.01 = 655 sec = 11 minutes
- * \li For 32-bit counter with context switch period of 10ms, maximum number of sec is 4,294,967,295*0.01 = 42,949,672 sec = 3.3 yrs
- */
-#ifndef FREERTOS_SCHED
-#define sleep(seconds)          scrReturn((void*)-1)
-#else /* FREERTOS_SCHED */
-#define sleep(seconds)          usleep((__u64)seconds*1000000)
-#endif /* FREERTOS_SCHED */
-
+//-----------------------------------------------------------------------------------------------
 
 /**
  * \brief get the device ready
@@ -114,7 +98,7 @@ extern int open (const char *pathname, int flags);
  * \brief release the device
  * \param fd file descriptor obtained by open()
  * \retval 0 success
- * \retval -1: error, errno is set appropriately 
+ * \retval -1: error, errno is set appropriately
  */
 extern int close (int fd);
 
@@ -127,7 +111,7 @@ extern int close (int fd);
  * \retval >0 number of bytes actually written to the file associated
  * \retval 0 no byte is written (busy/count = 0/communication fail)
  * \retval -1 error occur
- * \remarks For i2c devices, if there are multiple devices, write cannot be used in ISR 
+ * \remarks For i2c devices, if there are multiple devices, write cannot be used in ISR
  */
 extern int write (int fd, void* buf, int count);
 
@@ -184,12 +168,120 @@ enum LSEEK_OFFSET
 extern int lseek (int fd, int offset, int whence);
 
 
-/** 
+/**
  * \example unistd_ex.c
  * This is an example of how to use the system call module.
  */
 
+
+//-----------------------------------------------------------------------------------------------
+/**
+ * \note MARCO for void usleep (unsigned long usec)
+ * \brief suspends process for (at least) usec microseconds
+ * \param usec time (in us) to sleep
+ * \remarks Minimum sleep time is 0 or greater than t, where t is the period for context switch,governed by configTICK_RATE_HZ in <FreeRTOSConfig.h>
+ * \remarks Maximum sleep time is limited by the resolution of counter set by configUSE_16_BIT_TICKS and the frequency of context switch set by configTICK_RATE_HZ in <FreeRTOSConfig.h>
+ * \li If configUSE_16_BIT_TICKS equals 1, the counter is 16-bit, otherwise the counter is 32-bit
+ * \li For 16-bit counter with context switch period of 10ms, maximum number of sec is 65535*0.01 = 655 sec = 11 minutes
+ * \li For 32-bit counter with context switch period of 10ms, maximum number of sec is 4,294,967,295*0.01 = 42,949,672 sec = 3.3 yrs
+ */
+#define usleep(usec)            vTaskDelay((portTickType)((__u64)usec/(1000*portTICK_RATE_MS)))
+
+
+/**
+ * \note MARCO for unsigned int sleep (unsigned int seconds);
+ * \brief makes the current process sleep until seconds seconds have elapsed
+ * \param seconds time (in s) to sleep
+ * \retval >0 the number of seconds left to sleep (not implemented)
+ * \retval 0 if the requested time has elapsed (not implemented)
+ * \remarks Maximum sleep time is limited by the resolution of counter set by configUSE_16_BIT_TICKS and the frequency of context switch set by configTICK_RATE_HZ in <FreeRTOSConfig.h>
+ * \li If configUSE_16_BIT_TICKS equals 1, the counter is 16-bit, otherwise the counter is 32-bit
+ * \li For 16-bit counter with context switch period of 10ms, maximum number of sec is 65535*0.01 = 655 sec = 11 minutes
+ * \li For 32-bit counter with context switch period of 10ms, maximum number of sec is 4,294,967,295*0.01 = 42,949,672 sec = 3.3 yrs
+ */
+#define sleep(seconds)          usleep((__u64)seconds*1000000)
+
 #endif /* UNISTD_H_ */
+
+#ifdef USE_COROUTINE
+#include <coroutine_st.h>
+//-----------------------------------------------------------------
+#ifdef start_process
+#undef start_process
+#endif /* start_process */
+/**
+ * \brief mark the start of coroutine thread
+ */
+#define start_process()         scrBegin
+//-----------------------------------------------------------------
+#ifdef end_process
+#undef end_process
+#endif /* end_process */
+/**
+ * \brief mark the end of coroutine thread
+ */
+#define end_process()           scrFinish((void*)0)
+//-----------------------------------------------------------------
+#ifdef usleep
+#undef usleep
+#endif /* usleep */
+/**
+ * \remarks coroutine version
+ */
+#define usleep(usec)            scrReturn((void*)-1)
+//-----------------------------------------------------------------
+#ifdef sleep
+#undef sleep
+#endif /* sleep */
+/**
+ * \remarks coroutine version
+ */
+#define sleep(sec)              scrReturn((void*)-1)
+//-----------------------------------------------------------------
+#endif /* USE_COROUTINE */
+
+
+#ifdef USE_COROUTINE_REENTRANT
+#include <coroutine_st.h>
+//-----------------------------------------------------------------
+#ifdef start_process
+#undef start_process
+#endif /* start_process */
+/**
+ * \brief mark the start of coroutine thread
+ * \remarks reentrant version
+ */
+#define start_process()         switch (ARG->scrLine) { case 0:;
+//-----------------------------------------------------------------
+#ifdef end_process
+#undef end_process
+#endif /* end_process */
+/**
+ * \brief mark the end of coroutine thread
+ * \remarks reentrant version
+ */
+#define end_process()           ARG->scrLine = 0;} return ((void*)0)
+//-----------------------------------------------------------------
+#ifdef usleep
+#undef usleep
+#endif /* usleep */
+/**
+ * \remarks reentrant version
+ */
+#define usleep(usec)            do { \
+                                    ARG->scrLine =__LINE__; \
+                                    return ((void*)-1); case __LINE__:; \
+                                 } while (0)
+//-----------------------------------------------------------------
+#ifdef sleep
+#undef sleep
+#endif /* sleep */
+/**
+ * \remarks reentrant version
+ */
+#define sleep(sec)              usleep(sec)
+//-----------------------------------------------------------------
+#endif /* USE_COROUTINE_REENTRANT */
 
 /** @} */
 /** @} */

@@ -40,7 +40,6 @@
 #ifndef TYPES_H_
 #define TYPES_H_    1
 
-#include <FreeRTOS.h>
 #include <dsp.h>
 
 // ---------------------------------------------------------------------------------------
@@ -66,12 +65,7 @@ typedef long long               __s64;
 /** Data type for time for <time.h> */
 typedef unsigned long           time_t;
 typedef unsigned long           suseconds_t;
-/** Data type for clock ticks for <time.h> */
-#if configUSE_16_BIT_TICKS
 typedef unsigned int            clock_t;
-#else /* configUSE_16_BIT_TICKS */
-typedef unsigned long           clock_t;
-#endif /* configUSE_16_BIT_TICKS */
 
 
 // ---------------------------------------------------------------------------------------

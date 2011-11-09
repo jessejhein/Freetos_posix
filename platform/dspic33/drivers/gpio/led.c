@@ -157,17 +157,13 @@ led_ioctl (int request, unsigned char* argp)
 }
 
 
-// this process wants to use coroutine_st instead of multi-thread when using FreeRTOS
-#ifdef FREERTOS_SCHED 
-#undef FREERTOS_SCHED
-#undef start_process
-#undef end_process
-#include <coroutine_st.h>
-#define start_process()                 scrBegin
-#define end_process()                   scrFinish((void*)0)
-#endif /* FREERTOS_SCHED */
+/**
+ * \brief the following section uses coroutine instead of task
+ */
+#define USE_COROUTINE                   1
 #include <unistd.h>
-//-----------------------------------------------------------------------------------------------
+/******************************************************************/
+
 
 /**
  * \remarks implemented by coroutine
@@ -184,7 +180,7 @@ led_ctrl (void* arg)
 
   start_time = (__u8) clock ();
   while (((__u8)((__u8)clock () - start_time)) < LED_CTRL_INTERVAL) usleep(0);
-  
+
   //check all IOs
   static __u8 k;
   for (k = 0; k < IO_MAX; k++)

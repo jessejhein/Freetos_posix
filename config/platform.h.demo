@@ -10,18 +10,10 @@
 /*
  * FreeRTOS Scheduler
  */
-#ifdef FREERTOS_SCHED 
-#define start_process()                 {
-#define end_process()                   } return (void*)0
-//  ==========Enable Coroutine Thread Scheduler in FREERTOS Scheduler========
+//Maximum threads supported in Coroutine Thread Scheduler
 #ifdef CRTHREAD_SCHED
 #define MAX_CRTHREAD                    10
 #endif /* CRTHREAD_SCHED */
-#else /* NO FREERTOS_SCHED */
-#include <coroutine_st.h>
-#define start_process()                 scrBegin
-#define end_process()                   scrFinish((void*)0)
-#endif /* NO FREERTOS_SCHED */
 
 
 

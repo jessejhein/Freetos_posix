@@ -48,9 +48,9 @@ include $(FREERTOS_POSIX)/platform/objects.rules
 # OS Scheduler
 ifeq ($(FREERTOS_SCHED), y)
 	DEFINES += -DFREERTOS_SCHED
-	ifeq ($(CRTHREAD_SCHED), y)
-		DEFINES += -DCRTHREAD_SCHED
-	endif
+endif
+ifeq ($(CRTHREAD_SCHED), y)
+	DEFINES += -DCRTHREAD_SCHED
 endif
 
 # CLOCK SOURCE

@@ -80,48 +80,7 @@ _AddressError (void)
   handle_trap_error ('A');
 #endif /* DEBUG_TRAP_IN_NVM */
   
-  ERR_LED_CONFIG ();
-    
-  while (1)
-    {
-      int i;
-      //error indication
-      i = 0;
-      while (1)
-        {
-          ERR_LED0 (1);
-          mdelay (100);
-          ERR_LED0 (0);
-          mdelay (100);
-          if (i++ > 50) break;
-        } 
-
-      //address indication
-      for (i = 0; i < 16; i++)
-        {
-          //clock
-          if (i%2 == 0) ERR_LED1 (1);
-          else ERR_LED1 (0);
-          
-          //data
-          if ((StkAddrLo >> i) & 0x01) ERR_LED0 (1);
-          else ERR_LED0 (0);
-          mdelay (2000);
-        }
-
-      //address indication
-      for (i = 0; i < 16; i++)
-        {
-          //clock
-          if(i%2 == 0) ERR_LED1 (1);
-          else ERR_LED1 (0);
-          
-          //data
-          if ((StkAddrHi >> i) & 0x01) ERR_LED0 (1);
-          else ERR_LED0 (0);
-          mdelay (2000);
-        }
-    }
+  while (1);
 }
 
 
@@ -136,9 +95,6 @@ _StackError (void)
   handle_trap_error ('S');
 #endif /* DEBUG_TRAP_IN_NVM */
   
-  ERR_LED_CONFIG ();
-
-  ERR_LED0 (1);
   while (1);
 }
 
@@ -154,15 +110,7 @@ _MathError (void)
   handle_trap_error ('M');
 #endif /* DEBUG_TRAP_IN_NVM */
 
-  ERR_LED_CONFIG ();
-
-  while (1)
-    {
-      ERR_LED1 (1);
-      mdelay (100);
-      ERR_LED1 (0);
-      mdelay (100);
-    }
+  while (1);
 }
 
 #ifdef MPLAB_DSPIC33_PORT
@@ -177,9 +125,6 @@ _DMACError (void)
   handle_trap_error ('D');
 #endif /* DEBUG_TRAP_IN_NVM */
 
-  ERR_LED_CONFIG ();
-
-  ERR_LED1 (1);
   while (1);
 }
 #endif /* MPLAB_DSPIC33_PORT */

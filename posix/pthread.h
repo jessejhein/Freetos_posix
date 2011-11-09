@@ -112,8 +112,11 @@
  * \section sec2 COMPILE TIME CONFIGURATION
  * \par Set the following in <.config_freertos_posix> before compiling
  * \verbatim
-    FREERTOS_SCHED                    =   y
     CRTHREAD_SCHED                    =   y
+   \endverbatim
+ * \par Define MAX_CRTHREAD in <platform.h>
+ * \verbatim
+    #define MAX_CRTHREAD                10
    \endverbatim
  */ 
 
@@ -140,12 +143,13 @@
 #define PTHREAD_H_  1
 
 #include <FreeRTOS.h>
+#include <platform.h>
 #include <task.h>
 #include <semphr.h>
 
 
 /** pthread_attr_t -> unsigned char (expandable if more attributes are needed) */
-typedef unsigned char pthread_attr_t;
+typedef unsigned char                                   pthread_attr_t;
 
 
 /**
@@ -164,10 +168,10 @@ enum
 {
   PTHREAD_SCOPE_SYSTEM,
   /** attribute ID (for coroutine Thread) */
-  #define PTHREAD_SCOPE_SYSTEM    PTHREAD_SCOPE_SYSTEM
+  #define PTHREAD_SCOPE_SYSTEM                          PTHREAD_SCOPE_SYSTEM
   PTHREAD_SCOPE_PROCESS
   /** attribute ID (for freeRTOS Thread) */
-  #define PTHREAD_SCOPE_PROCESS   PTHREAD_SCOPE_PROCESS
+  #define PTHREAD_SCOPE_PROCESS                         PTHREAD_SCOPE_PROCESS
 };
 
 
@@ -184,7 +188,7 @@ enum
 
 
 /** pthread_t -> xTaskHandle (void *, and tskTCB, refer to task.h, and task.c) */
-typedef xTaskHandle pthread_t;
+typedef xTaskHandle                                     pthread_t;
 
 
 /**
@@ -225,32 +229,34 @@ extern int pthread_create (pthread_t* thread, pthread_attr_t* attr, void* (*star
  * \li work for (Caller, Target) = (FreeRTOS Task, coroutine_st)
  * \li work for (Caller, Target) = (coroutine_st, coroutine_st)
  */
-#ifdef CRTHREAD_SCHED
-#define pthread_join(thread, value_ptr)                 while(1) \
-                                                          { \
-                                                            if (thread == (pthread_t)0) break; \
-                                                            char pthread_join_i; \
-                                                            char pthread_join_index = -1; \
-                                                            for (pthread_join_i = 0; pthread_join_i < MAX_CRTHREAD; pthread_join_i++) \
-                                                              { \
-                                                                if(thread == crlist[pthread_join_i].id) \
-                                                                  { \
-                                                                    pthread_join_index = pthread_join_i; \
-                                                                  } \
-                                                              } \
-                                                            if (pthread_join_index < 0) break; \
-                                                            else usleep(0); \
-                                                          }
-#else /* NOT CRTHREAD_SCHED */
+#ifndef CRTHREAD_SCHED
 #define pthread_join(thread, value_ptr)                 while(0)
-#endif /* NOT CRTHREAD_SCHED */
-
+#else /* CRTHREAD_SCHED */
+#define pthread_join(thread, value_ptr) \
+{ \
+  while(1) \
+    { \
+      if (thread == (pthread_t)0) break; \
+      char pthread_join_i; \
+      char pthread_join_index = -1; \
+      for (pthread_join_i = 0; pthread_join_i < MAX_CRTHREAD; pthread_join_i++) \
+        { \
+          if (thread == crlist[pthread_join_i].id) \
+            { \
+              pthread_join_index = pthread_join_i; \
+            } \
+        } \
+      if (pthread_join_index < 0) break; \
+      else usleep (0); \
+    } \
+}
+#endif /* CRTHREAD_SCHED */
 
 
 /** pthread_mutex_t -> xSemaphoreHandle (xQueueHandle, void *, xQUEUE* refer to semphr.h, queue.h, queue.c) */
-typedef xSemaphoreHandle pthread_mutex_t;
+typedef xSemaphoreHandle                                pthread_mutex_t;
 /** pthread_mutexattr_t -> int */
-typedef int pthread_mutexattr_t;
+typedef int                                             pthread_mutexattr_t;
 
 
 /**
@@ -304,12 +310,13 @@ extern int pthread_mutex_unlock (pthread_mutex_t *mutex);
  * CRTHREAD
  */
 #ifdef CRTHREAD_SCHED
-
 /** coroutine thread should take the form: void* foo(void* arg) */
 typedef void* (*crthread_t)(void* arg);
 
+
 /** indicate that no crthread has been scheduled */
 #define CRTHREAD_EMPTY                                  (((crthread_t) 0 ) + MAX_CRTHREAD)
+
 
 /** coroutine thread */
 struct crElement_t
@@ -324,6 +331,7 @@ struct crElement_t
 
 /** Array of crElements. Each element contains a function pointer to a crthread and a crthread_id */
 extern struct crElement_t crlist[];
+
 
 extern pthread_t crthread_id_counter;
 /**

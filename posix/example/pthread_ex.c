@@ -62,32 +62,19 @@ task (void* ptr)
   pthread_attr_init (&attr);
   pthread_attr_setscope (&attr, PTHREAD_SCOPE_SYSTEM);
   static unsigned char arg = 0;
-  pthread_create (&thread_cr, &attr, enable, &arg);
+  pthread_create (&thread_cr, &attr, ld_enable, &arg);
 }
 
 /*
  * 3)  Define a task
  */
 #include <define.h>
-/*This part is needed if the thread is run by the coroutine scheduler
-    //---------------------------------------------------------
-    // Include this section of code to map 
-    //  start_process() -> scrBegin 
-    //  end_process()   -> scrFinish(0)
-    //  sleep()         -> scrReturn(-1)
-    //  usleep()        -> scrReturn(-1)
-    #ifdef FREERTOS_SCHED 
-    #   undef FREERTOS_SCHED
-    #   undef start_process
-    #   undef end_process
-    #   include <coroutine_st.h>
-    #   define start_process()          scrBegin
-    #   define end_process()            scrFinish((void*)0)
-    #endif
-    #include <unistd.h>
-    //---------------------------------------------------------
-*/
+/**
+ * \brief the following section uses coroutine instead of task
+ */
+#define USE_COROUTINE                   1
 #include <unistd.h>
+/******************************************************************/
 void* 
 task (void* ptr)
 {       

@@ -125,9 +125,6 @@ void prvSetupTimerInterrupt (void);
  *************************************************************************************************/
 time_t one_sec_cnt;
 int timer_count;                      //counts from 0 upto configTICK_RATE_HZ
-#ifndef FREERTOS_SCHED 
-time_t jiffies;
-#endif /* FREERTOS_SCHED */
 volatile int errno = 0;               //Indicate error state of open(), read() write();
 
 /************************************************************************************************
@@ -197,10 +194,6 @@ main (void)
     }
 #endif /* CRTHREAD_SCHED */
 
-#ifndef FREERTOS_SCHED 
-  prvSetupTimerInterrupt ();            //start timer if FreeRTOS scheduler is disabled
-#endif /* FREERTOS_SCHED */
-
   /* Create the main task. */
   vUserMain ();
 
@@ -209,22 +202,12 @@ main (void)
   fatfs_init ();
 #endif /* FILE_SYSTEM */
 
-#ifdef FREERTOS_SCHED 
   /* Finally start the scheduler. */
   vTaskStartScheduler ();
 
   /* Will only reach here if there is insufficient heap available to start the scheduler. */
-  ERR_LED_CONFIG ();
-  while (1)
-    {
-      ERR_LED0 (1);
-      ERR_LED1 (1);
-      mdelay (100);
-      ERR_LED0 (0);
-      ERR_LED1 (0);
-      mdelay (100);
-    }  
-#endif /* FREERTOS_SCHED */
+  while (1);
+
   return 0;
 }
 /*-----------------------------------------------------------*/
@@ -240,9 +223,6 @@ prvSetupTimerInterrupt (void)
   /* Initialise counters */
   one_sec_cnt = 0;
   timer_count = 0;
-#ifndef FREERTOS_SCHED 
-  jiffies = 0;
-#endif /* FREERTOS_SCHED */
 
   /* Prescale of 8. */
   T1CON = 0;
@@ -274,11 +254,7 @@ _IRQ _T1Interrupt (void)
   /* Clear the timer interrupt. */
   IFS0bits.T1IF = 0;
 
-#ifdef FREERTOS_SCHED 
   vTaskIncrementTick();
-#else /* not FREERTOS_SCHED */
-  jiffies++;
-#endif /* not FREERTOS_SCHED */
 
   /* record time */
   if (++timer_count == configTICK_RATE_HZ)
@@ -287,11 +263,9 @@ _IRQ _T1Interrupt (void)
       timer_count = 0;
     }
 
-#ifdef FREERTOS_SCHED 
 #if configUSE_PREEMPTION == 1
   portYIELD ();
 #endif /* configUSE_PREEMPTION */
-#endif /* FREERTOS_SCHED */
 }
 
 /*
