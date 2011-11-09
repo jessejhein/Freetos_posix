@@ -17,8 +17,10 @@ USE_EXTERNAL_CLOCK_SOURCE					=		n
 
 #----------------------------------------------------------------
 # OS Scheduler
+# FREERTOS_SCHED:		Let other modules to know if FreeRTOS is used
 # CRTHREAD_SCHED:		Support Coroutine Thread Scheduler in FreeRTOS
 #----------------------------------------------------------------
+FREERTOS_SCHED										=		y
 CRTHREAD_SCHED										=		y
 
 #----------------------------------------------------------------

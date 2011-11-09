@@ -5,6 +5,9 @@
 #ifndef PIN_DEFINE_H_
 #define PIN_DEFINE_H_
 
+#include <asm/types.h>
+
+
 //  =========================ADDRESS BUS=================================
 /**
  * \brief initialise address
@@ -16,6 +19,7 @@
   LATG |= 0x0001; \
 }
 
+
 /**
  * \brief set address bus
  * \param address address to set
@@ -24,6 +28,7 @@
 { \
   LATG = (PORTG & 0xFFFE) | (((unsigned int)address) & 0x0001); \
 }
+
 
 
 // ============================IO BUS===================================
@@ -50,6 +55,7 @@
 }
 
 
+
 //  ===========================DATA BUS===================================
 /**
  * \brief configure data port pins to output or input
@@ -72,6 +78,7 @@
   else TRISD |= 0x03FC; \
 }
 
+
 /**
  * \brief write a byte to data port
  * \param x 8-bit data
@@ -84,6 +91,7 @@
 { \
   LATD = ( (PORTD & 0xFC03) | ((((int)x) << 2) & 0x03FC) ); \
 }
+
 
 /**
  * \brief read a byte from data port
@@ -100,25 +108,30 @@
  */
 #define UART_A_RS485_CTL_EN()
 
+
 /**
  * \brief set the RS485 digital control pin to TX state
  */
 #define UART_A_RS485_TX_ON()
+
 
 /**
  * \brief set the RS485 digital control pin to RX state
  */
 #define UART_A_RS485_TX_OFF()
 
+
 /**
  * \brief set the RS485 digital control pin as output
  */
 #define UART_B_RS485_CTL_EN()
 
+
 /**
  * \brief set the RS485 digital control pin to TX state
  */
 #define UART_B_RS485_TX_ON()
+
 
 /**
  * \brief set the RS485 digital control pin to RX state
@@ -135,6 +148,7 @@
  */
 extern void kb_config (void);
 
+
 /**
  * \brief determine if a key has been pressed (push key)
  * \param id key id
@@ -142,6 +156,7 @@ extern void kb_config (void);
  * \retval 0 key is released
  */
 extern int kb_key_press (unsigned char id);
+
 
 #ifdef KB_ROTATE_KEY
 /**
@@ -153,34 +168,63 @@ extern int kb_key_press (unsigned char id);
 extern int kb_rkey_state (unsigned char id);
 #endif /* KB_ROTATE_KEY */
 
-/**
- * \brief KEY MAPS
- * \remarks EN: input/output selection
- * \remarks IO: logic state of key
- * \remarks CN: change notification (interrupt enable pin to detect change of state)
- */
+
 #ifdef KB_PUSH_KEY
 #if (TOTAL_PUSH_KEY == 1)
-//Enter key
+/**
+ * \brief Initialise Enter Key
+ * \remarks ENTER_KEY (RG1), input
+ */
 #define EN_PKEY0()                      TRISG |= 0x0002
+
+
+/**
+ * \brief Read Enter Key Status
+ * \retval 0 key is up
+ * \retval 1 key is down
+ */
 #define IO_PKEY0()                      PORTG & 0x0002
 #endif /* TOTAL_PUSH_KEY == 1 */
 #endif /* KB_PUSH_KEY */
+
+
 //  -------------------------------------------------------------------------------
 #ifdef KB_ROTATE_KEY
-//Up key
+/**
+ * \brief Initialise Rotary Up Key
+ * \remarks UP_KEY (RG13), input, change notification
+ */
 #define EN_RKEY0_UP() \
 { \
   TRISC |= 0x2000; \
   _CN1IE = 1; /* change input register, interrupt setting */ \
 }
+
+
+/**
+ * \brief Read Rotary Up Key Status
+ * \retval 0 key is low state
+ * \retval 1 key is high state
+ */
 #define IO_RKEY0_UP()                   PORTC & 0x2000
-//Down Key
+
+
+/**
+ * \brief Initialise Rotary Down Key
+ * \remarks DOWN_KEY (RG14), input, change notification
+ */
 #define EN_RKEY0_DN() \
 { \
   TRISC |= 0x4000; \
   _CN0IE = 1; /* change input register, interrupt setting */ \
 }
+
+
+/**
+ * \brief Read Rotary Down Key Status
+ * \retval 0 key is low state
+ * \retval 1 key is high state
+ */
 #define IO_RKEY0_DN()                   PORTC & 0x4000
 #endif /* KB_ROTATE_KEY */
 #endif /* KB_MOD */
@@ -189,12 +233,15 @@ extern int kb_rkey_state (unsigned char id);
 
 //  ==============================LED=====================================
 #ifdef LED_MOD
-/** handler for led module */
+/** handler for LED module */
 extern int fd_led;
+
+
 /**
  * \brief initialise IOs for LED port
  */ 
 extern void led_config (void);
+
 
 /**
  * \brief turn on led at hardware level
@@ -202,45 +249,47 @@ extern void led_config (void);
  */
 extern void led_on (int which);
 
+
 /**
  * \brief turn off led at hardware level
  * \param which which channel
  */
 extern void led_off (int which);
 
+
 /**
  * \brief change the state of led at application level
  * \param channel which channel
  * \param state state to change to
  */
-extern void led (unsigned char channel, unsigned char state);
+extern void led (__u8 channel, __u8 state);
 #endif /* LED_MOD */
 
+
 #ifdef I2C_LED_DRIVER_MOD
+/** handler for I2C LED module */
 extern int fd_i2c_led;
+
 #define LED_CHANNEL0                    0
 #define LED_CHANNEL1                    1
 #define LED_CHANNEL2                    2
 #define MASTER_LED_CHANNEL              3
 #define BUZZER_VOLUME_CHANNEL           4
 
+
 /**
  * \brief Control on off of buzzer
  * \param status 0 = off, 1 = on
- * \remarks volume depends on ui setting
+ * \remarks volume depends on UI setting
  */
 extern void ui_buzzer_ctrl (char status);
 #endif /* I2C_LED_DRIVER_MOD */
-
-//  ======================OBSOLETE ERROR PIN===============================
-#define ERR_LED_CONFIG()
-#define ERR_LED0(x)
-#define ERR_LED1(x)
 
 
 
 //  ===========================GPIO========================================
 #ifdef I2C_GPIO_MOD
+/** handler for I2C GPIO module */
 extern int fd_i2c_gpio;
 #endif /* I2C_GPIO_MOD */
 
@@ -274,7 +323,7 @@ extern int fd_i2c_gpio;
  */
 #define ETH_CS(x) \
 { \
-  LATG = ( (PORTG & 0xBFFF) | ((((unsigned int)x) << 14) & 0x4000) /* CS# */ ); \
+  LATG = ( (PORTG & 0xBFFF) | ((((__u16)x) << 14) & 0x4000) /* CS# */ ); \
 }
 #endif /* ETHERNET_MOD */
 
@@ -285,6 +334,7 @@ extern int fd_i2c_gpio;
  * \param channel channel id (ANx)
  */
 extern void adc_add_ch (int channel);
+
 
 /**
  * \brief parse the ADC channel id (ANx) to local buffer id [0, ADC_MAX_CH-1]

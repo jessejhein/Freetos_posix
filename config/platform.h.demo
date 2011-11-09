@@ -6,9 +6,8 @@
 #define PLATFORM_H_
 
 
-
 /*
- * FreeRTOS Scheduler
+ * FreeRTOS Scheduler & Coroutine
  */
 //Maximum threads supported in Coroutine Thread Scheduler
 #ifdef CRTHREAD_SCHED
