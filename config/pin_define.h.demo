@@ -8,97 +8,6 @@
 #include <asm/types.h>
 
 
-//  =========================ADDRESS BUS=================================
-/**
- * \brief initialise address
- * \remarks ADDR0 (RG0): output, [addressing mode]
- */
-#define addr_bus_init() \
-{ \
-  TRISG &= 0xFFFE; \
-  LATG |= 0x0001; \
-}
-
-
-/**
- * \brief set address bus
- * \param address address to set
- */
-#define addr_bus_set_addr(address) \
-{ \
-  LATG = (PORTG & 0xFFFE) | (((unsigned int)address) & 0x0001); \
-}
-
-
-
-// ============================IO BUS===================================
-/**
- * \brief initialise IO bus
- * \remarks IOR# (RF0): output, [not read]
- * \remarks IOW# (RF1): output, [not write]
- */
-#define io_bus_init() \
-{ \
-  TRISF &= 0xFFFC; \
-  LATF |= 0x0003; \
-}
-
-
-/**
- * \brief set IO bus
- * \param write write/read mode
- */
-#define io_bus_set_write(write) \
-{ \
-  if (write) LATF = (PORTF & 0xFFFC) | 0x0001; \
-  else LATF = (PORTF & 0xFFFC) | 0x0002; \
-}
-
-
-
-//  ===========================DATA BUS===================================
-/**
- * \brief configure data port pins to output or input
- * \param x 0: output\n
- *          1: input
- * \remarks DATA7   =>  _RD9
- * \remarks DATA6   =>  _RD8
- * \remarks DATA5   =>  _RD7
- * \remarks DATA4   =>  _RD6
- * \remarks DATA3   =>  _RD5
- * \remarks DATA2   =>  _RD4
- * \remarks DATA1   =>  _RD3
- * \remarks DATA0   =>  _RD2
- * \remarks Configure output    =>  1111 1100 0000 0011 => 0xFC03
- * \remarks Configure input     =>  0000 0011 1111 1100 => 0x03FC
- */
-#define PCONFIG(x) \
-{ \
-  if ((x) == 0) TRISD &= 0xFC03; \
-  else TRISD |= 0x03FC; \
-}
-
-
-/**
- * \brief write a byte to data port
- * \param x 8-bit data
- * \remarks
- * \li DDDD DD-- ---- --DD & 1111 1100 0000 0011          => DDDD DD00 0000 00DD
- * \li (0000 0000 XXXX XXXX << 2) & 0000 0011 1111 1100   => 0000 00XX XXXX XX00
- * \li                        ORing                       => DDDD DDXX XXXX XXDD
- */
-#define PWRITE(x) \
-{ \
-  LATD = ( (PORTD & 0xFC03) | ((((int)x) << 2) & 0x03FC) ); \
-}
-
-
-/**
- * \brief read a byte from data port
- * \return 8-bit data
- */
-#define PREAD()                         ( (unsigned char)( (PORTD & 0x03FC) >> 2) )
-
 
 
 //  ==============================UART=====================================
@@ -143,32 +52,6 @@
 
 //  ==============================KB======================================
 #ifdef KB_MOD
-/**
- * \brief configure pin for all keys
- */
-extern void kb_config (void);
-
-
-/**
- * \brief determine if a key has been pressed (push key)
- * \param id key id
- * \retval 1 key is being pressed
- * \retval 0 key is released
- */
-extern int kb_key_press (unsigned char id);
-
-
-#ifdef KB_ROTATE_KEY
-/**
- * \brief Check the state of rotary pin
- * \param id key id
- * \retval 1 key is at high state
- * \retval 0 key is at low state
- */
-extern int kb_rkey_state (unsigned char id);
-#endif /* KB_ROTATE_KEY */
-
-
 #ifdef KB_PUSH_KEY
 #if (TOTAL_PUSH_KEY == 1)
 /**
@@ -235,34 +118,6 @@ extern int kb_rkey_state (unsigned char id);
 #ifdef LED_MOD
 /** handler for LED module */
 extern int fd_led;
-
-
-/**
- * \brief initialise IOs for LED port
- */ 
-extern void led_config (void);
-
-
-/**
- * \brief turn on led at hardware level
- * \param which which channel
- */
-extern void led_on (int which);
-
-
-/**
- * \brief turn off led at hardware level
- * \param which which channel
- */
-extern void led_off (int which);
-
-
-/**
- * \brief change the state of led at application level
- * \param channel which channel
- * \param state state to change to
- */
-extern void led (__u8 channel, __u8 state);
 #endif /* LED_MOD */
 
 
@@ -327,22 +182,6 @@ extern int fd_i2c_gpio;
 }
 #endif /* ETHERNET_MOD */
 
-
-
-/**
- * \brief change ADC registers to add channel for scanning
- * \param channel channel id (ANx)
- */
-extern void adc_add_ch (int channel);
-
-
-/**
- * \brief parse the ADC channel id (ANx) to local buffer id [0, ADC_MAX_CH-1]
- * \param channel channel id (ANx)
- * \return local buffer id
- * \retval -1 error
- */
-extern int adc_parse_ch (int channel);
 
 
 #endif /* PIN_DEFINE_H_ */
