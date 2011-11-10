@@ -118,6 +118,24 @@ extern int adc_read (__u16* buf, int count);
  */
 extern int adc_ioctl (int request, unsigned char* argp);
 
+
+/**
+ * \brief change ADC registers to add channel for scanning
+ * \param channel channel id (ANx)
+ * \remarks implement externally
+ */
+extern void adc_add_ch (int channel);
+
+
+/**
+ * \brief parse the ADC channel id (ANx) to local buffer id [0, ADC_MAX_CH-1]
+ * \param channel channel id (ANx)
+ * \return local buffer id
+ * \retval -1 error
+ * \remarks implement externally
+ */
+extern int adc_parse_ch (int channel);
+
 #endif /* ADC_MOD */
 
 #endif /* ADC_H_ */

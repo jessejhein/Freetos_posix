@@ -76,6 +76,34 @@ extern void kb_check_push_key (void);
 extern void kb_check_fn_key (void);
 #endif /* KB_FN_KEY */
 
+
+/**
+ * \brief configure pin for all keys
+ * \remarks implement externally
+ */
+extern void kb_config (void);
+
+
+/**
+ * \brief determine if a key has been pressed (push key)
+ * \param id key id
+ * \retval 1 key is being pressed
+ * \retval 0 key is released
+ * \remarks implement externally
+ */
+extern int kb_key_press (unsigned char id);
+
+
+#ifdef KB_ROTATE_KEY
+/**
+ * \brief Check the state of rotary pin
+ * \param id key id
+ * \retval 1 key is at high state
+ * \retval 0 key is at low state
+ * \remarks implement externally
+ */
+extern int kb_rkey_state (unsigned char id);
+#endif /* KB_ROTATE_KEY */
 #endif /* KB_MOD */
 
 #endif /* KB_H_ */

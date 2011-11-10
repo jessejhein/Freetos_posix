@@ -73,6 +73,38 @@ extern int led_ioctl (int request, unsigned char* argp);
  */
 extern void* led_ctrl (void* arg);
 
+
+/**
+ * \brief initialise IOs for LED port
+ * \remarks implement externally
+ */
+extern void led_config (void);
+
+
+/**
+ * \brief turn on led at hardware level
+ * \param channel which channel
+ * \remarks implement externally
+ */
+extern void led_on (int channel);
+
+
+/**
+ * \brief turn off led at hardware level
+ * \param channel which channel
+ * \remarks implement externally
+ */
+extern void led_off (int channel);
+
+
+/**
+ * \brief change the state of led at application level
+ * \param channel which channel
+ * \param state state to change to
+ * \remarks implement externally
+ */
+extern void led (__u8 channel, __u8 state);
+
 #endif /* LED_MOD */
 
 #endif /* LED_H_ */
