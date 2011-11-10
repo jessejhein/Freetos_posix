@@ -70,6 +70,7 @@
 #ifdef FILE_SYSTEM
 #include <nvm/fatfs.h>
 #endif /* FILE_SYSTEM */
+#include "boot.h"
 
 #define portTIMER_PRESCALE 8
 
@@ -178,10 +179,10 @@ main (void)
   AD1PCFGH = 0xFFFF;
 
   /* Initialise address bus */
-  addr_bus_init ();
+  bus_addr_init ();
 
   /* Initialise IO bus */
-  io_bus_init ();
+  bus_io_init ();
 
   /* Configure any hardware. */
   vSetupHardware ();

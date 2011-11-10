@@ -45,6 +45,7 @@
 #include <asm/types.h>
 #include <asm/delay.h>
 #include <asm/system.h>
+#include <../boot/boot.h>
 
 #endif /* DSPIC33_H_ */
 

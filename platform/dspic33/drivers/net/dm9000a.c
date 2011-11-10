@@ -661,10 +661,10 @@ inb (int port)
   if (eth_io_in_interrupt == 0) cli ();
 
   //set up data bus
-  PCONFIG (1);
+  bus_data_config (1);
   //set up address and IO bus
-  addr_bus_set_addr (port);
-  io_bus_set_write (0);
+  bus_set_addr (port);
+  bus_set_io_write (0);
   //perform a read
   ETH_CS (0);
   Nop(); Nop();
@@ -675,11 +675,11 @@ inb (int port)
   Nop(); Nop();
   Nop(); Nop();
   Nop(); Nop();
-  data = PREAD ();
+  data = bus_data_read ();
   ETH_CS (1);
   //restore data port
-  PCONFIG (0);
-  PWRITE (0x00);
+  bus_data_config (0);
+  bus_data_write (0x00);
 
   if (eth_io_in_interrupt == 0) sti ();
 
@@ -699,18 +699,18 @@ outb (__u8 value, int port)
   if (eth_io_in_interrupt == 0) cli ();
 
   //set up data bus
-  PCONFIG (0);
+  bus_data_config (0);
   PWRITE (value);
   //set up address and IO bus
-  addr_bus_set_addr (port);
-  io_bus_set_write (1);
+  bus_set_addr (port);
+  bus_set_io_write (1);
   //perform a write
   ETH_CS (0);
   Nop(); Nop();
   Nop(); Nop();
   ETH_CS (1);
   //restore data port
-  PWRITE (0x00);
+  bus_data_write (0x00);
 
   if (eth_io_in_interrupt == 0) sti ();
 }
