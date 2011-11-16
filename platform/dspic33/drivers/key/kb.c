@@ -88,7 +88,7 @@ typedef struct
           /** indicate key is clockwise/anti-clockwise */
           unsigned anticlockwise:1;
           unsigned reserved:3;
-        } bits;
+        };
     };
   /** keeps the time for repeated clockwise key */
   __u8 clockwise_time;
@@ -212,18 +212,18 @@ _CNInterrupt (void)
 {
   //check A status (clockwise)
   if (kb_rkey_state (BASE_ROTARY_KEY) == 1)
-    kb_rkey.bits.logicA = 1;
+    kb_rkey.logicA = 1;
   else
-    kb_rkey.bits.logicA = 0;
+    kb_rkey.logicA = 0;
 
   //check B status (anti-clockwise)
   if (kb_rkey_state (BASE_ROTARY_KEY + 1) == 1)
-    kb_rkey.bits.logicB = 1;
+    kb_rkey.logicB = 1;
   else
-    kb_rkey.bits.logicB = 0;
+    kb_rkey.logicB = 0;
 
   //determine which transition
-  switch (kb_rkey.bits.state)
+  switch (kb_rkey.state)
     {
       //Change from [BA = 00]
       case 0:
@@ -231,16 +231,16 @@ _CNInterrupt (void)
           //clockwise
           if ((kb_rkey.config & 0x03) == 0x01)
             {
-              kb_rkey.bits.anticlockwise = 0;
+              kb_rkey.anticlockwise = 0;
               //goto next state for further checking
-              kb_rkey.bits.state = 1;
+              kb_rkey.state = 1;
             }
           //anti-clockwise
           else if ((kb_rkey.config & 0x03) == 0x02)
             {
-              kb_rkey.bits.anticlockwise = 1;
+              kb_rkey.anticlockwise = 1;
               //goto next state for further checking
-              kb_rkey.bits.state = 1;
+              kb_rkey.state = 1;
             }
           break;
         }
@@ -249,22 +249,22 @@ _CNInterrupt (void)
         {
           //valid, proceed to next state
           if ((kb_rkey.config & 0x03) == 0x03)
-            kb_rkey.bits.state = 2;
+            kb_rkey.state = 2;
           //reset
           else
-            kb_rkey.bits.state = 0;
+            kb_rkey.state = 0;
           break;
         }
       //Change from [BA = 11]
       case 2:
         {
           //valid, if logic is reversed
-          if ( (((kb_rkey.config & 0x03) == 0x02) && (kb_rkey.bits.anticlockwise == 0))
-            || (((kb_rkey.config & 0x03) == 0x01) && (kb_rkey.bits.anticlockwise == 1)) )
-            kb_rkey.bits.state = 3;
+          if ( (((kb_rkey.config & 0x03) == 0x02) && (kb_rkey.anticlockwise == 0))
+            || (((kb_rkey.config & 0x03) == 0x01) && (kb_rkey.anticlockwise == 1)) )
+            kb_rkey.state = 3;
           //reset
           else
-            kb_rkey.bits.state = 0;
+            kb_rkey.state = 0;
           break;
         }
       //Change from [BA = a#a]
@@ -275,9 +275,9 @@ _CNInterrupt (void)
             {
               if (kb_pkey_is_pressing == 0)
                 {
-                  kb_write (BASE_ROTARY_KEY + kb_rkey.bits.anticlockwise);
+                  kb_write (BASE_ROTARY_KEY + kb_rkey.anticlockwise);
                   //clockwise
-                  if (kb_rkey.bits.anticlockwise == 0)
+                  if (kb_rkey.anticlockwise == 0)
                     {
                       //if within the KB_SCAN_PERIOD, there are multiple key hits
                       //save in counter
@@ -300,7 +300,7 @@ _CNInterrupt (void)
                     }
                 }
             }
-          kb_rkey.bits.state = 0;
+          kb_rkey.state = 0;
           break;
         }
     }

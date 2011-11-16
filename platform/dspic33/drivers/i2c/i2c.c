@@ -65,7 +65,7 @@ typedef union
       unsigned :1;
       unsigned :1;
       unsigned :1;    
-    } bits;
+    };
 } I2C_STATUS;
 /** indicate the start and stop condition with the data in progress */
 static I2C_STATUS i2c_status;
@@ -126,13 +126,13 @@ i2c_write (__u8* buf)
   /*
    * Send a start or restart bit if needed
    */
-  if (i2c_status.bits.START)
+  if (i2c_status.START)
     {
       I2C1CONbits.SEN = 1;
       Nop ();                           //A small delay for hardware to respond
       while (I2C1CONbits.SEN);          //Wait till Start sequence is completed
     }
-  else if (i2c_status.bits.RESTART)
+  else if (i2c_status.RESTART)
     {
       I2C1CONbits.RSEN = 1;
       Nop ();                           //A small delay for hardware to respond
@@ -166,7 +166,7 @@ i2c_write (__u8* buf)
   /*
    * Send a stop bit if needed
    */
-  if (i2c_status.bits.STOP)
+  if (i2c_status.STOP)
     {
       I2C1CONbits.PEN = 1;
       Nop ();                           //A small delay for hardware to respond
@@ -193,14 +193,14 @@ i2c_read (__u8* buf)
   /*
    * Send Acknowledgement
    */
-  I2C1CONbits.ACKDT = (i2c_status.bits.NACK)? 1 : 0;
+  I2C1CONbits.ACKDT = (i2c_status.NACK)? 1 : 0;
   I2C1CONbits.ACKEN = 1;                //Send Acknowledgement/Not Acknowledgement
   i2cIdle ();                           //I2C bus at idle state, awaiting transmission
 
   /*
    * Send a stop bit if needed
    */
-  if (i2c_status.bits.STOP)
+  if (i2c_status.STOP)
     {
       I2C1CONbits.PEN = 1;
       Nop ();                           //A small delay for hardware to respond
