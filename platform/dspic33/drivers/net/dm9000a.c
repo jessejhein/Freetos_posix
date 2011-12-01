@@ -700,7 +700,7 @@ outb (__u8 value, int port)
 
   //set up data bus
   bus_data_config (0);
-  PWRITE (value);
+  bus_data_write (value);
   //set up address and IO bus
   bus_set_addr (port);
   bus_set_io_write (1);
