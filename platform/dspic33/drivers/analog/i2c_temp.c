@@ -75,15 +75,41 @@ struct I2C_TEMP_DATA_T
 //------------------------------------------------------------------------
 
 
+/** Store I2C Temperature IC address */
+static __u8 i2c_temp_addr;
+
 /** Store IO setting */
-static __u8 i2c_temp_io_flag;
+static __u8 i2c_temp_io_flag[NO_OF_I2C_TEMP];
+
+
+/**
+ * \brief set the I2C Temperature IC address
+ * \param id channel ID
+ */
+static void
+i2c_temp_set_address (int id)
+{
+  switch (id)
+    {
+#if (NO_OF_I2C_TEMP > 1)
+      case 1:
+        i2c_temp_addr = (__u8) I2C_TEMP_ADDR1;
+        break;
+#endif /* NO_OF_I2C_TEMP > 1 */
+      default:
+        i2c_temp_addr = (__u8) I2C_TEMP_ADDR0;
+        break;
+    }
+}
 
 
 int
-i2c_temp_open (int flags)
+i2c_temp_open (int id, int flags)
 {
-  i2c_temp_io_flag = (__u8) flags;
+  i2c_temp_io_flag[id] = (__u8) flags;
   i2c_open ();
+
+  i2c_temp_set_address (id);
 
   /*
    * configure resolution
@@ -92,7 +118,7 @@ i2c_temp_open (int flags)
   //Send start bit, slave address (Write Mode)
   i2c_usr_status = I2C_START;
   i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
-  i2c_usr_data = (__u8) I2C_TEMP_ADDR;
+  i2c_usr_data = (__u8) i2c_temp_addr;
   if (i2c_write (&i2c_usr_data) == 0) error = 1;
 
   //Send register byte
@@ -108,7 +134,7 @@ i2c_temp_open (int flags)
   //Send start bit, slave address (Write Mode)
   i2c_usr_status = I2C_START;
   i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
-  i2c_usr_data = (__u8) I2C_TEMP_ADDR;
+  i2c_usr_data = (__u8) i2c_temp_addr;
   if (i2c_write (&i2c_usr_data) == 0) error = 1;
 
   //Send register byte
@@ -117,7 +143,7 @@ i2c_temp_open (int flags)
 
   //read first temperature value
   __u16 value;
-  if (i2c_temp_read (&value, 2) == 0) error = 1;
+  if (i2c_temp_read (id, &value) == 0) error = 1;
 
   if (error == 1) return -1;
   return 0;
@@ -125,10 +151,10 @@ i2c_temp_open (int flags)
 
 
 int
-i2c_temp_read (__u16* buf)
+i2c_temp_read (int id, __u16* buf)
 {
   //Perform Read if read operation is enabled
-  if ((i2c_temp_io_flag & O_RDWR) || !(i2c_temp_io_flag & O_WRONLY))
+  if ((i2c_temp_io_flag[id] & O_RDWR) || !(i2c_temp_io_flag[id] & O_WRONLY))
     {
       __u8 error = 0;
 
@@ -137,10 +163,13 @@ i2c_temp_read (__u16* buf)
       if (pthread_mutex_lock (&i2c_mutex) == 0)
         {
 #endif /* I2C_NUM > 1 */
+
+          i2c_temp_set_address (id);
+
           //Send start bit, slave address (Read Mode)
           i2c_usr_status = I2C_START;
           i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
-          i2c_usr_data = (__u8) (I2C_TEMP_ADDR | 0x01);
+          i2c_usr_data = (__u8) (i2c_temp_addr | 0x01);
           if (i2c_write (&i2c_usr_data) == 0) error = 1;
 
           //Receive High Byte with Acknowledgement

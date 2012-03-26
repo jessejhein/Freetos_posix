@@ -266,33 +266,14 @@
 #endif /* I2C_GPIO_MOD */
 
 
-// I2C TEMP Module ***************************************************************
-#ifdef I2C_TEMP_MOD
-#ifndef I2C_MOD
-  #error "I2C_MOD is off."
-#endif
-//  ============================Devices Handler==================================
-#define BASE_I2C_TEMP                   11
-#define I2C_TEMP                        "I"
-//  ======================I2C control for ADC====================================
-// I2C address (Write Mode: For Read Mode, bit 0 = 1)
-// [Factory Preset] [A2] [A1] [A0] [R/^W]
-//    1 0 0 1         0    0    1        => 0x92
-#define I2C_TEMP_ADDR                   0x92
-//  ============================Properties=======================================
-#define I2C_TEMP_RESOLUTION             12
-#define I2C_TEMP_CONVERT_FACTOR         (0.0625f * 0.0625f)
-#endif /* I2C_TEMP_MOD */
-
-
 // I2C ADC Module ***************************************************************
 #ifdef I2C_ADC_MOD
 #ifndef I2C_MOD
   #error "I2C_MOD is off."
 #endif
 //  ============================Devices Handler==================================
-#define BASE_I2C_ADC                    12
-#define I2C_ADC                         "J"
+#define BASE_I2C_ADC                    11
+#define I2C_ADC                         "I"
 //  ======================I2C control for ADC====================================
 // I2C address (Write Mode: For Read Mode, bit 0 = 1)
 // [Factory Preset] [A1] [A0] [R/^W]
@@ -303,11 +284,36 @@
 #endif /* I2C_ADC_MOD */
 
 
+// I2C TEMP Module ***************************************************************
+#ifdef I2C_TEMP_MOD
+#ifndef I2C_MOD
+  #error "I2C_MOD is off."
+#endif
+//  ============================Devices Handler==================================
+#define BASE_I2C_TEMP                   12
+#define I2C_TEMP0                       "J"
+#define I2C_TEMP1                       "K"
+//  ======================I2C control for TEMP===================================
+// I2C address (Write Mode: For Read Mode, bit 0 = 1)
+// [Factory Preset] [A2] [A1] [A0] [R/^W]
+//    1 0 0 1         0    0    1     0   => 0x92
+#define I2C_TEMP_ADDR0                  0x92
+
+// I2C address (Write Mode: For Read Mode, bit 0 = 1)
+// [Factory Preset] [A2] [A1] [A0] [R/^W]
+//    1 0 0 1         0    1    1     0   => 0x96
+#define I2C_TEMP_ADDR1                  0x96
+//  ============================Properties=======================================
+#define I2C_TEMP_RESOLUTION             12
+#define I2C_TEMP_CONVERT_FACTOR         (0.0625f * 0.0625f)
+#endif /* I2C_TEMP_MOD */
+
+
 
 #ifdef ADC_MOD
 //  ============================Devices Handler================================== 
-#define BASE_ADC                        13
-#define ADC                             "K"
+#define BASE_ADC                        14
+#define ADC                             "L"
 //  ============================Properties======================================= 
 #define ADC_STEPS                       4095
 //  ============================Sampling Equation================================ 
@@ -332,8 +338,8 @@
 // PWM Module *******************************************************************
 #ifdef PWM_MOD
 //  ============================Device Handler=================================== 
-#define BASE_PWM                        14
-#define PWM                             "L"
+#define BASE_PWM                        15
+#define PWM                             "M"
 #endif /* PWM_MOD */
 
 
@@ -342,8 +348,8 @@
 #ifdef KB_MOD
 #include <nano-X.h>                     // for key code
 //  ============================Device Handler=================================== 
-#define BASE_KB                         15
-#define KB                              "M"
+#define BASE_KB                         16
+#define KB                              "N"
 //  ============================Key Map for PUSH KEY============================= 
 #define BASE_PUSH_KEY                   GR_KEY_ENTER
 #define PUSH_KEY0                       BASE_PUSH_KEY               //MWKEY_ENTER
@@ -368,8 +374,8 @@
 // ETHERNET Module ***************************************************************
 #ifdef ETHERNET_MOD
 //  ============================Device Handler=================================== 
-#define BASE_ETHERNET                   16
-#define ETHERNET                        "N"
+#define BASE_ETHERNET                   17
+#define ETHERNET                        "O"
 #define IRQ_NEG_EDGE_TRIGGER            1
 #define IRQ_POS_EDGE_TRIGGER            0
 #define ETH_IRQ_POLARITY                IRQ_POS_EDGE_TRIGGER
@@ -380,8 +386,8 @@
 // LED Module ********************************************************************
 #ifdef LED_MOD
 //  ============================Device Handler=================================== 
-#define BASE_LED                        17
-#define LED                             "O"
+#define BASE_LED                        18
+#define LED                             "P"
 //  ============================MODE OF OPERATION================================ 
 #define LED_OFF                         0
 #define LED_ON                          1
@@ -395,8 +401,8 @@
 // LCD Module ********************************************************************
 #ifdef LCD_MOD
 //  ============================Device Handler=================================== 
-#define BASE_LCD                        18
-#define LCD                             "P"
+#define BASE_LCD                        19
+#define LCD                             "Q"
 #endif /* LCD_MOD */
 
 #endif /*PLATFORM_H_*/

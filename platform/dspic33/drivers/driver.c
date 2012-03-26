@@ -141,9 +141,9 @@ open (const char *pathname, int flags)
 #endif /* I2C_ADC_MOD */
 
 #ifdef I2C_TEMP_MOD
-      if (id == BASE_I2C_TEMP)
+      if ((id >= BASE_I2C_TEMP) && (id < (BASE_I2C_TEMP + NO_OF_I2C_TEMP)))
         {
-          return (i2c_temp_open (flags) == 0)? id : -1;
+          return (i2c_temp_open (id - BASE_I2C_TEMP, flags) == 0)? id : -1;
         }
 #endif /* I2C_TEMP_MOD */
 
@@ -441,9 +441,9 @@ read (int fd, void* buf, int count)
 #endif /* I2C_ADC_MOD */
 
 #ifdef I2C_TEMP_MOD
-          if (fd == BASE_I2C_TEMP)
+          if ((fd >= BASE_I2C_TEMP) && (fd < (BASE_I2C_TEMP + NO_OF_I2C_TEMP)))
             {
-              return i2c_temp_read (buf);
+              return i2c_temp_read (fd - BASE_I2C_TEMP, buf);
             }
 #endif /* I2C_TEMP_MOD */
 

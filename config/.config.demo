@@ -30,7 +30,7 @@ CONFIG_UART												=		y
 CONFIG_I2C												=		y
 CONFIG_I2C_DAC										=		y
 CONFIG_I2C_ADC										=		n
-CONFIG_I2C_TEMP										=		n
+CONFIG_I2C_TEMP										=		y
 CONFIG_I2C_MOD_DSPIC							=		n
 CONFIG_I2C_LED_DRIVER							=		y
 CONFIG_I2C_GPIO										=		y
@@ -98,6 +98,12 @@ CONFIG_I2C_MOD_DSPIC_MODE					=		MASTER
 CONFIG_NVM_INTERNAL								=		FLASH
 CONFIG_NVM_USE_EXTERNAL						=		n
 CONFIG_NVM_EXTERNAL								=		I2C
+
+#----------------------------------------------------------------
+# I2C_TEMP
+#	NOSOF_I2C_TEMP:			No. of I2C Temp.
+#----------------------------------------------------------------
+CONFIG_NO_OF_I2C_TEMP							=		1
 
 #----------------------------------------------------------------
 # ADC

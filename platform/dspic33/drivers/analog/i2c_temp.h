@@ -52,6 +52,7 @@
 
 /**
  * \brief Initialise I2C Temperature Sensor
+ * \param id channel ID
  * \param flags accessing mode
  * \retval 0 Temperature Sensor opened
  * \remarks configure resolution
@@ -73,11 +74,12 @@
                       |A|1001001|1|K|xxxxxxxx|K|xxxx0000|K|P|
    \endverbatim
  */
-extern int i2c_temp_open (int flags);
+extern int i2c_temp_open (int id, int flags);
 
 
 /**
  * \brief read 2 bytes from Temperature Sensor
+ * \param id channel ID
  * \param buf pointer of data to read from Temperature Sensor
  * \return number of bytes read
  * \retval 0 no data has been read
@@ -93,7 +95,7 @@ extern int i2c_temp_open (int flags);
     (Successive)      |A|1001001|1|K|xxxxxxxx|K|xxxx0000|K|P|
    \endverbatim
  */
-extern int i2c_temp_read (__u16* buf);
+extern int i2c_temp_read (int id, __u16* buf);
 
 
 #endif /* I2C_TEMP_MOD */
