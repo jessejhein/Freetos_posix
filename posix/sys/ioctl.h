@@ -163,20 +163,11 @@
  * LCD Module
  */
 #ifdef LCD_MOD
-/** change contrast level */
-#define LCD_SET_CONTRAST                        0
-/** change brightness level */
-#define LCD_SET_BRIGHTNESS                      1
-/** refresh LCD screen */
-#define LCD_REFRESH                             2
-/** enable cursor */
-#define LCD_CURSOR                              3
-/** enable blinking cursor */
-#define LCD_BLINK_CURSOR                        4
+#include <lcd_ioctl.h>
 #endif /* LCD_MOD */
 
 
-#endif /*_IOCTL_H_*/
+#endif /* _IOCTL_H_ */
 
 /** @} */
 /** @} */
