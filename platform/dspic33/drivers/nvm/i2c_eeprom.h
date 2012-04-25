@@ -69,6 +69,21 @@ extern int i2c_eeprom_open (int flags);
                       |T|address|W|C|High Add|C|Low Add |C| Data 0 |C| Data 1 |C|T|
                       |A|1010000|0|K|XFFFFFFF|K|FFFFFFFF|K|10101010|K|10101010|K|P|
    \endverbatim
+ * \remarks Acknowledgement Polling
+ * The chip begins to write to NVM after the stop bit is sent. The chip will not respond
+ * to a new command until the data has been written into the physical NVM. In such case,
+ * the master should poll the acknowledgement from the chip before sending the next command:
+ * \verbatim
+    Mst/Slv    ___ M ___M___ M S M _ M ___M___ M S M _
+    SDA (Data)    |S|       | |N|S| |S|       | |N|S|
+                  |T|address|W|A|T| |T|address|W|A|T|  ...
+                  |A|1010000|0|K|P| |A|1010000|0|K|P|
+    _
+    Mst/Slv    ___ M ___M___ M S ____M___ S ____M___ S ____M___ S ____M___ S M ________
+    SDA (Data)    |S|       | |A|        |A|        |A|        |A|        |A|S|
+                  |T|address|W|C|High Add|C|Low Add |C| Data 0 |C| Data 1 |C|T|
+                  |A|1010000|0|K|XFFFFFFF|K|FFFFFFFF|K|10101010|K|10101010|K|P|
+   \endverbatim
  */
 extern int i2c_eeprom_write (__u8* buf, int count);
 
@@ -76,12 +91,27 @@ extern int i2c_eeprom_write (__u8* buf, int count);
 /**
  * \brief read count bytes from EEPROM
  * \param buf pointer of data to read from EEPROM
- * \param count number of bytes to be written
+ * \param count number of bytes to be read
  * \return number of bytes read
  * \retval 0 i2c is busy (used by other device)
  * \retval -1 EEPROM is busy (communication problem) (errno = EAGAIN)
  * \n         EEPROM is not opened for reading (errno = EBADF)
  * \verbatim
+    Mst/Slv    ___ M ___M___ M S ____M___ S ____M___ S M ___M___ M S ____S___ M ____S___ M M ____
+    SDA (Data)    |S|       | |A|        |A|        |A|R|       | |A|        |A|        |N|S|
+                  |T|address|W|C|High Add|C|Low Add |C|E|address|R|C| Data 0 |C| Data 1 |A|T|
+                  |A|1010000|0|K|XFFFFFFF|K|FFFFFFFF|K|S|1010000|1|K|10101010|K|10101010|K|P|
+   \endverbatim
+ * \remarks Acknowledgement Polling
+ * The chip begins to write to NVM after the stop bit is sent. The chip will not respond
+ * to a new command until the data has been written into the physical NVM. In such case,
+ * the master should poll the acknowledgement from the chip before sending the next command:
+ * \verbatim
+    Mst/Slv    ___ M ___M___ M S M _ M ___M___ M S M _
+    SDA (Data)    |S|       | |N|S| |S|       | |N|S|
+                  |T|address|W|A|T| |T|address|W|A|T|  ...
+                  |A|1010000|0|K|P| |A|1010000|0|K|P|
+    _
     Mst/Slv    ___ M ___M___ M S ____M___ S ____M___ S M ___M___ M S ____S___ M ____S___ M M ____
     SDA (Data)    |S|       | |A|        |A|        |A|R|       | |A|        |A|        |N|S|
                   |T|address|W|C|High Add|C|Low Add |C|E|address|R|C| Data 0 |C| Data 1 |A|T|

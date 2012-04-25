@@ -87,47 +87,23 @@ i2c_eeprom_write (__u8* buf, int count)
               if (pthread_mutex_lock (&i2c_mutex) != 0) return 0;
 #endif /* I2C_NUM > 1 */
 
-              //NON-BLOCK mode, return -1, set errno = EAGAIN
-              if (i2c_eeprom_io_flag & O_NONBLOCK)
+              //acknowledgement polling
+              do
                 {
                   /*
                    * Send start bit, slave address (Write Mode)
-                   */ 
+                   */
                   i2c_usr_status = I2C_START;
                   i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
                   i2c_usr_data = (__u8) I2C_EEPROM_ADDR;
-                  if (i2c_write (&i2c_usr_data) == 0) error = 1;
-
-                  /*
-                   * Send High Address
-                   */
-                  i2c_usr_data = (i2c_eeprom_pointer >> 8) & 0xff;
-                  if (i2c_write (&i2c_usr_data) == 0) error = 1;
                 }
-              //BLOCK mode, wait until EEPROM is ready
-              else
-                {
-                  do
-                    {
-                      /*
-                       * Send start bit, slave address
-                       */
-                      i2c_usr_status = I2C_START;
-                      i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
-                      i2c_usr_data = (__u8) I2C_EEPROM_ADDR;
-                      if (i2c_write (&i2c_usr_data) == 0)
-                        {
-                          error = 1;
-                          break;
-                        }
+              while (i2c_write (&i2c_usr_data) == 0);
 
-                      /*
-                       * Send High Address
-                       */
-                      i2c_usr_data = (i2c_eeprom_pointer >> 8) & 0xff;
-                    }
-                  while (i2c_write (&i2c_usr_data) == 0);
-                }
+              /*
+               * Send High Address
+               */
+              i2c_usr_data = (i2c_eeprom_pointer >> 8) & 0xff;
+              if (i2c_write (&i2c_usr_data) == 0) error = 1;
 
               /*
                * Send Low Address
@@ -211,47 +187,23 @@ i2c_eeprom_read (__u8* buf, int count)
               if (pthread_mutex_lock (&i2c_mutex) != 0) return 0;
 #endif /* I2C_NUM > 1 */
 
-              //NON-BLOCK mode, return -1, set errno = EAGAIN
-              if (i2c_eeprom_io_flag & O_NONBLOCK)
+              //acknowledgement polling
+              do
                 {
                   /*
                    * Send start bit, slave address (Write Mode)
-                   */ 
+                   */
                   i2c_usr_status = I2C_START;
                   i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
                   i2c_usr_data = (__u8) I2C_EEPROM_ADDR;
-                  if (i2c_write (&i2c_usr_data) == 0) error = 1;
-
-                  /*
-                   * Send High Address
-                   */
-                  i2c_usr_data = (i2c_eeprom_pointer >> 8) & 0xff;
-                  if (i2c_write (&i2c_usr_data) == 0) error = 1;
                 }
-              //BLOCK mode, wait until EEPROM is ready
-              else
-                {
-                  do
-                    {
-                      /*
-                       * Send start bit, slave address
-                       */
-                      i2c_usr_status = I2C_START;
-                      i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
-                      i2c_usr_data = (__u8) I2C_EEPROM_ADDR;
-                      if (i2c_write (&i2c_usr_data) == 0)
-                        {
-                          error = 1;
-                          break;
-                        }
+              while (i2c_write (&i2c_usr_data) == 0);
 
-                      /*
-                       * Send High Address
-                       */
-                      i2c_usr_data = (i2c_eeprom_pointer >> 8) & 0xff;
-                    }
-                  while (i2c_write (&i2c_usr_data) == 0);
-                }
+              /*
+               * Send High Address
+               */
+              i2c_usr_data = (i2c_eeprom_pointer >> 8) & 0xff;
+              if (i2c_write (&i2c_usr_data) == 0) error = 1;
 
               /*
                * Send Low Address

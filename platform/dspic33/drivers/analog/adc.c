@@ -56,10 +56,12 @@ static __u16 adc_queue[ADC_QSIZE][ADC_MAX_CH];
 /** pointer to the most updated sample */
 static __u16 adc_queue_ptr = ADC_QSIZE - 1;
 //--------------------------------------------------------------------------------------
+#if (ADC_MAX_HW_CH > 0)
 /** Buffer A in Ping Pong mode, reside in DMA aligned at 64 boundary (assume max 18 channels (i.e. 36 bytes) */
 static _DMA(64) __u16 adc_bufA[ADC_MAX_HW_CH];
 /** Buffer B in Ping Pong mode, reside in DMA aligned at 64 boundary (assume max 18 channels (i.e. 36 bytes) */
 static _DMA(64) __u16 adc_bufB[ADC_MAX_HW_CH];
+#endif /* ADC_MAX_HW_CH */
 //--------------------------------------------------------------------------------------
 
 

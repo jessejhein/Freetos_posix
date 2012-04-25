@@ -70,6 +70,7 @@ static struct KB_KEY_T kb_push_key[TOTAL_PUSH_KEY];
 static struct KB_KEY_T kb_fn_key[TOTAL_FN_KEY];
 #endif /* KB_FN_KEY */
 //------------------------------------------------------------------------
+/** structure for rotary key status */
 typedef struct
 {
   union
@@ -96,7 +97,9 @@ typedef struct
   __u8 anticlockwise_time;
 } KB_RKEY_T;
 #ifdef KB_ROTATE_KEY
+/** rotary key clockwise counter */
 __u8 kb_clockwise_cnt;
+/** rotary key anti-clockwise counter */
 __u8 kb_anticlockwise_cnt;
 static KB_RKEY_T kb_rkey;
 #endif /* KB_ROTATE_KEY */

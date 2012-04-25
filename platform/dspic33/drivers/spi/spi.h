@@ -94,3 +94,6 @@ extern void spi_enable (void);
 
 
 #endif /* SPI_H_ */
+
+/** @} */
+/** @} */
