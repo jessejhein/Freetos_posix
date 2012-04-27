@@ -127,9 +127,9 @@ open (const char *pathname, int flags)
 #endif /* UART_MOD */
 
 #ifdef I2C_DAC_MOD
-      if (id == BASE_I2C_DAC)
+      if ((id >= BASE_I2C_DAC) && (id < (BASE_I2C_DAC + NO_OF_I2C_DAC)))
         {
-          return (i2c_dac_open (flags) == 0)? id : -1;
+          return (i2c_dac_open (id - BASE_I2C_DAC, flags) == 0)? id : -1;
         }
 #endif /* I2C_DAC_MOD */
 
@@ -312,9 +312,9 @@ write (int fd, void* buf, int count)
 #endif /* UART_MOD */
 
 #ifdef I2C_DAC_MOD
-          if (fd == BASE_I2C_DAC)
+          if ((fd >= BASE_I2C_DAC) && (fd < (BASE_I2C_DAC + NO_OF_I2C_DAC)))
             {
-              return i2c_dac_write (buf);
+              return i2c_dac_write (fd - BASE_I2C_DAC, buf);
             }
 #endif /* I2C_DAC_MOD */
 
@@ -427,9 +427,9 @@ read (int fd, void* buf, int count)
 #endif /* UART_MOD */
 
 #ifdef I2C_DAC_MOD
-          if (fd == BASE_I2C_DAC)
+          if ((fd >= BASE_I2C_DAC) && (fd < (BASE_I2C_DAC + NO_OF_I2C_DAC)))
             {
-              return i2c_dac_read (buf);
+              return i2c_dac_read (fd - BASE_I2C_DAC, buf);
             }
 #endif /* I2C_DAC_MOD */
 
@@ -549,9 +549,9 @@ ioctl (int fd, int request, void* argp)
 #endif /* UART_MOD */
 
 #ifdef I2C_DAC_MOD
-          if (fd == BASE_I2C_DAC)
+          if ((fd >= BASE_I2C_DAC) && (fd < (BASE_I2C_DAC + NO_OF_I2C_DAC)))
             {
-              return i2c_dac_ioctl (request, argp);
+              return i2c_dac_ioctl (fd - BASE_I2C_DAC, request, argp);
             }
 #endif /* I2C_DAC_MOD */
 

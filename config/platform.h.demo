@@ -76,6 +76,103 @@
 
 
 
+// Keyboard Module ***************************************************************
+#ifdef KB_MOD
+#include <nano-X.h>                     // for key code
+//  ============================Device Handler===================================
+#define BASE_KB                         5
+#define KB                              "C"
+//  ============================Key Map for PUSH KEY=============================
+#define BASE_PUSH_KEY                   GR_KEY_ENTER
+#define PUSH_KEY0                       BASE_PUSH_KEY               //MWKEY_ENTER
+#define PUSH_KEY1                       PUSH_KEY0 + 1               //MWKEY_UP
+#define PUSH_KEY2                       PUSH_KEY1 + 1               //MWKEY_DOWN
+#define PUSH_KEY3                       PUSH_KEY2 + 1               //MWKEY_LEFT
+#define PUSH_KEY4                       PUSH_KEY3 + 1               //MWKEY_RIGHT
+//  ============================Key Map for FUNCTION KEY=========================
+#define BASE_FN_KEY                     GR_KEY_F1
+#define FN_KEY0                         BASE_FN_KEY                 //MWKEY_F1
+#define FN_KEY1                         BASE_FN_KEY + 1             //MWKEY_F2
+//  ============================Key Map for ROTARY KEY===========================
+#define BASE_ROTARY_KEY                 GR_SPECIAL_KEY_ARROW_UP
+#define ROTARY_KEY0_UP                  BASE_ROTARY_KEY             //MWKEY_UP
+#define ROTARY_KEY0_DN                  GR_SPECIAL_KEY_ARROW_DOWN   //MWKEY_DOWN
+#define ROTARY_KEY1_UP                  ROTARY_KEY0_DN + 1
+#define ROTARY_KEY1_DN                  ROTARY_KEY1_UP + 1
+#endif /* KB_MOD */
+
+
+
+// LED Module ********************************************************************
+#ifdef LED_MOD
+//  ============================Device Handler===================================
+#define BASE_LED                        6
+#define LED                             "D"
+//  ============================MODE OF OPERATION================================
+#define LED_OFF                         0
+#define LED_ON                          1
+#define LED_POS_PULSE                   2
+#define LED_NEG_PULSE                   3
+#define LED_IDLE                        0xFF
+#endif /* LED_MOD */
+
+
+
+// LCD Module ********************************************************************
+#ifdef LCD_MOD
+//  ============================Device Handler===================================
+#define BASE_LCD                        7
+#define LCD                             "E"
+#endif /* LCD_MOD */
+
+
+
+// ETHERNET Module ***************************************************************
+#ifdef ETHERNET_MOD
+//  ============================Device Handler===================================
+#define BASE_ETHERNET                   8
+#define ETHERNET                        "F"
+#define IRQ_NEG_EDGE_TRIGGER            1
+#define IRQ_POS_EDGE_TRIGGER            0
+#define ETH_IRQ_POLARITY                IRQ_POS_EDGE_TRIGGER
+#endif //ETHERNET_MOD
+
+
+
+// PWM Module *******************************************************************
+#ifdef PWM_MOD
+//  ============================Device Handler===================================
+#define BASE_PWM                        9
+#define PWM                             "G"
+#endif /* PWM_MOD */
+
+
+
+#ifdef ADC_MOD
+//  ============================Devices Handler==================================
+#define BASE_ADC                        10
+#define ADC                             "H"
+//  ============================Properties=======================================
+#define ADC_STEPS                       4095
+//  ============================Sampling Equation================================
+#define ADC_TAD_REQ                     ( (int) \
+                                          ( (double)1e9 \
+                                               /   ( (14.0 + ADC_ACQ_TIME)*(double)ADC_SAMP_RATE ) ) \
+                                               + 1)
+#if MPLAB_DSPIC33_PORT
+  #define ADC_MAX_HW_CH                 18          // maximum adc hardware channels
+  #define ADC_TAD_MIN                   133         // in ns, see Electrical Specification on Datasheet
+  #define ADC_ADCS                      ( (int) \
+                                          ( (double)(ADC_TAD_REQ*1e-9*SYSTEM_CLK_HZ)+0.5) \
+                                          - 1)  //ADCS<5:0> Setting for sampling rate [0-63]
+  //NOTE: make sure ADC_TAD_ACT >= ADC_TAD_MIN
+  #define ADC_TAD_ACT                   ( ( (double)1e9*(ADC_ADCS+1))/SYSTEM_CLK_HZ)    //Actual TAD
+
+#endif /* MPLAB_DSPIC33_PORT */
+#endif /* ADC_MOD */
+
+
+
 // I2C Module *******************************************************************
 #ifdef I2C_MOD
 //  ============================Baudrate Equation================================ 
@@ -142,19 +239,19 @@
   #error "I2C_MOD is off."
 #endif
 //  ============================Devices Handler================================== 
-#define BASE_I2C_DAC                    5
-#define I2C_DAC                         "C"
+#define BASE_I2C_DAC                    11
+#define I2C_DAC0                        "I"
+#define I2C_DAC1                        "J"
 //  ======================I2C control for DAC==================================== 
 // I2C address (Write Mode: For Read Mode, bit 0 = 1)
-#ifdef I2C_MOD_DSPIC_MOD
-// [Factory Preset] [A1] [A0] [R/^W]
-//    1 0 0 1 1       0    0     0        => 0x98
-#define I2C_DAC_ADDR                    0x98
-#else /* NO I2C_MOD_DSPIC_MOD */
 // [Factory Preset] [A1] [A0] [R/^W]
 //    1 0 0 1 1       1    1     0        => 0x9E
-#define I2C_DAC_ADDR                    0x9E
-#endif /* NO I2C_MOD_DSPIC_MOD */
+#define I2C_DAC_ADDR0                   0x9E
+
+// [Factory Preset] [A1] [A0] [R/^W]
+//    1 0 0 1 1       0    0     0        => 0x98
+#define I2C_DAC_ADDR1                   0x98
+//  ============================Properties=======================================
 // Channel select
 // Asynchronous update of DAC (L1,L0) at Selected channel, no power-down
 // [A3] [A2] [L1] [L0] [x] [Sel1] [Sel2] [PD0]
@@ -178,9 +275,9 @@
 // Non-volatile Memory *********************************************************
 #ifdef NVM_MOD
 //  ============================Device Handler=================================== 
-#define BASE_NVM                        6
-#define NVM0                            "D"
-#define NVM1                            "E"
+#define BASE_NVM                        13
+#define NVM0                            "K"
+#define NVM1                            "L"
 //  ==========================I2C EEPROM Config==================================
 // I2C address (Write Mode: For Read Mode, bit 0 = 1)
 // [Factory Preset] [A2] [A1] [A0] [R/W#]
@@ -206,26 +303,29 @@
 
 
 
-// I2C DSPIC Module ***************************************************************
-#ifdef I2C_MOD_DSPIC_MOD
-#ifndef I2C_MOD 
+// I2C TEMP Module ***************************************************************
+#ifdef I2C_TEMP_MOD
+#ifndef I2C_MOD
   #error "I2C_MOD is off."
 #endif
-//  ============================Devices Handler================================== 
-#define BASE_I2C_MOD_DSPIC              8
-#define I2C_MOD_DSPIC                   "F"
-//  ======================I2C control for DSPIC MODULATION======================= 
+//  ============================Devices Handler==================================
+#define BASE_I2C_TEMP                   15
+#define I2C_TEMP0                       "M"
+#define I2C_TEMP1                       "N"
+//  ======================I2C control for TEMP===================================
 // I2C address (Write Mode: For Read Mode, bit 0 = 1)
-// [Factory Preset] [A2] [A1] [A0] [R/W#]
-//    1 0 1 1         0   0    0     0   => 0xB0
-#define I2C_MOD_DSPIC_ADDR              0xB0
-// Channel Select
-// Following definition in DAC
-#define MOD_DSPIC_CHA                   0x10
-#define MOD_DSPIC_CHB                   0x12
-#define MOD_DSPIC_CHC                   0x14
-#define MOD_DSPIC_CHD                   0x1E
-#endif /* I2C_MOD_DSPIC_MOD */
+// [Factory Preset] [A2] [A1] [A0] [R/^W]
+//    1 0 0 1         0    0    1     0   => 0x92
+#define I2C_TEMP_ADDR0                  0x92
+
+// I2C address (Write Mode: For Read Mode, bit 0 = 1)
+// [Factory Preset] [A2] [A1] [A0] [R/^W]
+//    1 0 0 1         0    1    1     0   => 0x96
+#define I2C_TEMP_ADDR1                  0x96
+//  ============================Properties=======================================
+#define I2C_TEMP_RESOLUTION             12
+#define I2C_TEMP_CONVERT_FACTOR         (0.0625f * 0.0625f)
+#endif /* I2C_TEMP_MOD */
 
 
 
@@ -235,8 +335,8 @@
   #error "I2C_MOD is off."
 #endif
 //  ============================Device Handler===================================
-#define BASE_I2C_LED_DRIVER             9
-#define I2C_LED_DRIVER                  "G"
+#define BASE_I2C_LED_DRIVER             17
+#define I2C_LED_DRIVER                  "O"
 //  ======================I2C control for ADC====================================
 // I2C address (Write Mode: For Read Mode, bit 0 = 1)
 // [Factory Preset] [R/^W]
@@ -256,8 +356,8 @@
   #error "I2C_MOD is off."
 #endif
 //  ============================Device Handler===================================
-#define BASE_I2C_GPIO                   10
-#define I2C_GPIO                        "H"
+#define BASE_I2C_GPIO                   18
+#define I2C_GPIO                        "P"
 //  ======================I2C control for GPIO====================================
 // I2C address (Write Mode: For Read Mode, bit 0 = 1)
 // [Factory Preset] [R/^W]
@@ -266,14 +366,15 @@
 #endif /* I2C_GPIO_MOD */
 
 
+
 // I2C ADC Module ***************************************************************
 #ifdef I2C_ADC_MOD
 #ifndef I2C_MOD
   #error "I2C_MOD is off."
 #endif
 //  ============================Devices Handler==================================
-#define BASE_I2C_ADC                    11
-#define I2C_ADC                         "I"
+#define BASE_I2C_ADC                    19
+#define I2C_ADC                         "Q"
 //  ======================I2C control for ADC====================================
 // I2C address (Write Mode: For Read Mode, bit 0 = 1)
 // [Factory Preset] [A1] [A0] [R/^W]
@@ -284,126 +385,27 @@
 #endif /* I2C_ADC_MOD */
 
 
-// I2C TEMP Module ***************************************************************
-#ifdef I2C_TEMP_MOD
+
+// I2C DSPIC Module ***************************************************************
+#ifdef I2C_MOD_DSPIC_MOD
 #ifndef I2C_MOD
   #error "I2C_MOD is off."
 #endif
 //  ============================Devices Handler==================================
-#define BASE_I2C_TEMP                   12
-#define I2C_TEMP0                       "J"
-#define I2C_TEMP1                       "K"
-//  ======================I2C control for TEMP===================================
+#define BASE_I2C_MOD_DSPIC              20
+#define I2C_MOD_DSPIC                   "R"
+//  ======================I2C control for DSPIC MODULATION=======================
 // I2C address (Write Mode: For Read Mode, bit 0 = 1)
-// [Factory Preset] [A2] [A1] [A0] [R/^W]
-//    1 0 0 1         0    0    1     0   => 0x92
-#define I2C_TEMP_ADDR0                  0x92
-
-// I2C address (Write Mode: For Read Mode, bit 0 = 1)
-// [Factory Preset] [A2] [A1] [A0] [R/^W]
-//    1 0 0 1         0    1    1     0   => 0x96
-#define I2C_TEMP_ADDR1                  0x96
-//  ============================Properties=======================================
-#define I2C_TEMP_RESOLUTION             12
-#define I2C_TEMP_CONVERT_FACTOR         (0.0625f * 0.0625f)
-#endif /* I2C_TEMP_MOD */
-
-
-
-#ifdef ADC_MOD
-//  ============================Devices Handler================================== 
-#define BASE_ADC                        14
-#define ADC                             "L"
-//  ============================Properties======================================= 
-#define ADC_STEPS                       4095
-//  ============================Sampling Equation================================ 
-#define ADC_TAD_REQ                     ( (int) \
-                                          ( (double)1e9 \
-                                               /   ( (14.0 + ADC_ACQ_TIME)*(double)ADC_SAMP_RATE ) ) \
-                                               + 1)
-#if MPLAB_DSPIC33_PORT
-  #define ADC_MAX_HW_CH                 18          // maximum adc hardware channels
-  #define ADC_TAD_MIN                   133         // in ns, see Electrical Specification on Datasheet
-  #define ADC_ADCS                      ( (int) \
-                                          ( (double)(ADC_TAD_REQ*1e-9*SYSTEM_CLK_HZ)+0.5) \
-                                          - 1)  //ADCS<5:0> Setting for sampling rate [0-63]
-  //NOTE: make sure ADC_TAD_ACT >= ADC_TAD_MIN
-  #define ADC_TAD_ACT                   ( ( (double)1e9*(ADC_ADCS+1))/SYSTEM_CLK_HZ)    //Actual TAD
-
-#endif /* MPLAB_DSPIC33_PORT */
-#endif /* ADC_MOD */
-
-
-
-// PWM Module *******************************************************************
-#ifdef PWM_MOD
-//  ============================Device Handler=================================== 
-#define BASE_PWM                        15
-#define PWM                             "M"
-#endif /* PWM_MOD */
-
-
-
-// Keyboard Module ***************************************************************
-#ifdef KB_MOD
-#include <nano-X.h>                     // for key code
-//  ============================Device Handler=================================== 
-#define BASE_KB                         16
-#define KB                              "N"
-//  ============================Key Map for PUSH KEY============================= 
-#define BASE_PUSH_KEY                   GR_KEY_ENTER
-#define PUSH_KEY0                       BASE_PUSH_KEY               //MWKEY_ENTER
-#define PUSH_KEY1                       PUSH_KEY0 + 1               //MWKEY_UP
-#define PUSH_KEY2                       PUSH_KEY1 + 1               //MWKEY_DOWN
-#define PUSH_KEY3                       PUSH_KEY2 + 1               //MWKEY_LEFT
-#define PUSH_KEY4                       PUSH_KEY3 + 1               //MWKEY_RIGHT
-//  ============================Key Map for FUNCTION KEY========================= 
-#define BASE_FN_KEY                     GR_KEY_F1
-#define FN_KEY0                         BASE_FN_KEY                 //MWKEY_F1
-#define FN_KEY1                         BASE_FN_KEY + 1             //MWKEY_F2
-//  ============================Key Map for ROTARY KEY===========================
-#define BASE_ROTARY_KEY                 GR_SPECIAL_KEY_ARROW_UP
-#define ROTARY_KEY0_UP                  BASE_ROTARY_KEY             //MWKEY_UP
-#define ROTARY_KEY0_DN                  GR_SPECIAL_KEY_ARROW_DOWN   //MWKEY_DOWN
-#define ROTARY_KEY1_UP                  ROTARY_KEY0_DN + 1
-#define ROTARY_KEY1_DN                  ROTARY_KEY1_UP + 1
-#endif /* KB_MOD */
-
-
-
-// ETHERNET Module ***************************************************************
-#ifdef ETHERNET_MOD
-//  ============================Device Handler=================================== 
-#define BASE_ETHERNET                   17
-#define ETHERNET                        "O"
-#define IRQ_NEG_EDGE_TRIGGER            1
-#define IRQ_POS_EDGE_TRIGGER            0
-#define ETH_IRQ_POLARITY                IRQ_POS_EDGE_TRIGGER
-#endif //ETHERNET_MOD
-
-
-
-// LED Module ********************************************************************
-#ifdef LED_MOD
-//  ============================Device Handler=================================== 
-#define BASE_LED                        18
-#define LED                             "P"
-//  ============================MODE OF OPERATION================================ 
-#define LED_OFF                         0
-#define LED_ON                          1
-#define LED_POS_PULSE                   2
-#define LED_NEG_PULSE                   3
-#define LED_IDLE                        0xFF
-#endif /* LED_MOD */
-
-
-
-// LCD Module ********************************************************************
-#ifdef LCD_MOD
-//  ============================Device Handler=================================== 
-#define BASE_LCD                        19
-#define LCD                             "Q"
-#endif /* LCD_MOD */
+// [Factory Preset] [A2] [A1] [A0] [R/W#]
+//    1 0 1 1         0   0    0     0   => 0xB0
+#define I2C_MOD_DSPIC_ADDR              0xB0
+// Channel Select
+// Following definition in DAC
+#define MOD_DSPIC_CHA                   0x10
+#define MOD_DSPIC_CHB                   0x12
+#define MOD_DSPIC_CHC                   0x14
+#define MOD_DSPIC_CHD                   0x1E
+#endif /* I2C_MOD_DSPIC_MOD */
 
 #endif /*PLATFORM_H_*/
 

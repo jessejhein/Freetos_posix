@@ -48,14 +48,16 @@
 
 /**
  * \brief Initialise I2C DAC
+ * \param id channel ID
  * \param flags accessing mode
  * \retval 0 DAC opened
  */
-extern int i2c_dac_open (int flags);
+extern int i2c_dac_open (int id, int flags);
 
 
 /**
  * \brief write 2 bytes to DAC
+ * \param id channel ID
  * \param buf pointer of data to write to DAC
  * \return number of bytes written
  * \retval 0 no data has been written
@@ -78,11 +80,12 @@ extern int i2c_dac_open (int flags);
                       |A|1001111|0|K|00010000|K|10101010|K|1010XXXX|K|P|
    \endverbatim
  */
-extern int i2c_dac_write (__u16* buf);
+extern int i2c_dac_write (int id, __u16* buf);
 
 
 /**
  * \brief read 2 bytes from DAC
+ * \param id channel ID
  * \param buf pointer of data to read from DAC
  * \return number of bytes read
  * \retval 0 no data has been read
@@ -105,17 +108,18 @@ extern int i2c_dac_write (__u16* buf);
                       |A|1001111|0|K|00010010|K|S|1001111|1|K|10101010|K|1010XXXX|K|P|
    \endverbatim
  */
-extern int i2c_dac_read (__u16* buf);
+extern int i2c_dac_read (int id, __u16* buf);
 
 
 /**
  * \brief change setting for DAC
+ * \param id channel ID
  * \param request Request code defined in ioctl.h
  * \param argp pointer for control configuration, request code dependent.
  * \retval 0 success
  * \retval -1 error
  */
-extern int i2c_dac_ioctl (int request, unsigned char* argp);
+extern int i2c_dac_ioctl (int id, int request, unsigned char* argp);
 
 #endif /* I2C_DAC_MOD */
 

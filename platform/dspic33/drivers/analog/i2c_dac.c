@@ -120,25 +120,48 @@ struct I2C_DAC_DATA_T
 
 
 /** Store control byte for transmit/receive */
-static __u8 i2c_dac_ctrl_byte = 0;
+static __u8 i2c_dac_ctrl_byte[NO_OF_I2C_DAC];
 /** Store IO setting */
-static __u8 i2c_dac_io_flag;
+static __u8 i2c_dac_io_flag[NO_OF_I2C_DAC];
+/** Store I2C DAC IC address */
+static __u8 i2c_dac_addr;
+
+
+/**
+ * \brief set the I2C DAC IC address
+ * \param id channel ID
+ */
+static void
+i2c_dac_set_address (int id)
+{
+  switch (id)
+    {
+#if (NO_OF_I2C_DAC > 1)
+      case 1:
+        i2c_dac_addr = (__u8) I2C_DAC_ADDR1;
+        break;
+#endif /* NO_OF_I2C_DAC > 1 */
+      default:
+        i2c_dac_addr = (__u8) I2C_DAC_ADDR0;
+        break;
+    }
+}
 
 
 int 
-i2c_dac_open (int flags)
+i2c_dac_open (int id, int flags)
 {
-  i2c_dac_io_flag = (__u8) flags;
+  i2c_dac_io_flag[id] = (__u8) flags;
   i2c_open ();
   return 0;
 }
 
 
 int 
-i2c_dac_write (__u16* buf)
+i2c_dac_write (int id, __u16* buf)
 {
   //Perform Write if write operation is enabled
-  if ((i2c_dac_io_flag & O_RDWR) || (i2c_dac_io_flag & O_WRONLY))
+  if ((i2c_dac_io_flag[id] & O_RDWR) || (i2c_dac_io_flag[id] & O_WRONLY))
     {
       __u8 error = 0;
 
@@ -147,17 +170,20 @@ i2c_dac_write (__u16* buf)
       if (pthread_mutex_lock (&i2c_mutex) == 0)
         {
 #endif /* I2C_NUM > 1 */
+
+          i2c_dac_set_address (id);
+
           //Convert data to DAC format
           i2c_dac_data.value = int2dac (buf[0]);
 
           //Send start bit, slave address
           i2c_usr_status = I2C_START;
           i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
-          i2c_usr_data = (__u8) I2C_DAC_ADDR;
+          i2c_usr_data = (__u8) i2c_dac_addr;
           if (i2c_write (&i2c_usr_data) == 0) error = 1;
 
           //Send control byte: Channel select
-          i2c_usr_data = (__u8) i2c_dac_ctrl_byte;
+          i2c_usr_data = (__u8) i2c_dac_ctrl_byte[id];
           if (i2c_write (&i2c_usr_data) == 0) error = 1;
 
           //Send High Byte
@@ -190,10 +216,10 @@ i2c_dac_write (__u16* buf)
 
 
 int 
-i2c_dac_read (__u16* buf)
+i2c_dac_read (int id, __u16* buf)
 {
   //Perform Read if read operation is enabled
-  if ((i2c_dac_io_flag & O_RDWR) || !(i2c_dac_io_flag & O_WRONLY))
+  if ((i2c_dac_io_flag[id] & O_RDWR) || !(i2c_dac_io_flag[id] & O_WRONLY))
     {
       __u8 error = 0;
 
@@ -202,20 +228,23 @@ i2c_dac_read (__u16* buf)
       if (pthread_mutex_lock (&i2c_mutex) == 0)
         {
 #endif /* I2C_NUM > 1 */
+
+          i2c_dac_set_address (id);
+
           //Send start bit, slave address (Write Mode)
           i2c_usr_status = I2C_START;
           i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
-          i2c_usr_data = (__u8) I2C_DAC_ADDR;
+          i2c_usr_data = (__u8) i2c_dac_addr;
           if (i2c_write (&i2c_usr_data) == 0) error = 1;
 
           //Send control byte: Channel select
-          i2c_usr_data = (__u8) i2c_dac_ctrl_byte;
+          i2c_usr_data = (__u8) i2c_dac_ctrl_byte[id];
           if (i2c_write (&i2c_usr_data) == 0) error = 1;
 
           //Send restart bit, slave address (Read Mode)
           i2c_usr_status = I2C_RESTART;
           i2c_ioctl (I2C_SET_STATUS, &i2c_usr_status);
-          i2c_usr_data = (__u8) (I2C_DAC_ADDR | 0x01);
+          i2c_usr_data = (__u8) (i2c_dac_addr | 0x01);
           if (i2c_write (&i2c_usr_data) == 0) error = 1;
 
           //Receive High Byte with Acknowledgement
@@ -252,14 +281,14 @@ i2c_dac_read (__u16* buf)
 
 
 int 
-i2c_dac_ioctl (int request, unsigned char* argp)
+i2c_dac_ioctl (int id, int request, unsigned char* argp)
 {
   switch (request)
     {
       //select DAC channel
       case DAC_SET_CTL:
         {
-          i2c_dac_ctrl_byte = *argp;
+          i2c_dac_ctrl_byte[id] = *argp;
           break;
         }
       //request code not recognised
