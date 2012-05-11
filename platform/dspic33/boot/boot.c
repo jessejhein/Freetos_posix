@@ -188,11 +188,8 @@ main (void)
   vSetupHardware ();
 
 #ifdef CRTHREAD_SCHED
-  unsigned char index;
-  for (index = 0; index < MAX_CRTHREAD; index++)
-    {
-      crlist[index].crthread = (((crthread_t) 0 ) + MAX_CRTHREAD);
-    }
+  pthread_t thread_sys;
+  pthread_create (&thread_sys, NULL, pthread_coroutine, NULL);
 #endif /* CRTHREAD_SCHED */
 
   /* Create the main task. */

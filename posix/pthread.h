@@ -40,7 +40,7 @@
  * When the application task creates a CRTHREAD, the coroutine function pointer is added to 
  * the coroutine queue if the queue is not full, otherwise, the CRTHEAD is skipped.
  * 
- * The created CTHREADs will be executed during the execution of the Idle task.
+ * The created CTHREADs will be executed during the execution of the pthread_coroutine.
  * 
  * If another instance of the same coroutine function is running (active), the added newly
  * created CRTHREAD will become inactive until the all the previous instances have been completed.  
@@ -60,6 +60,7 @@
  * \verbatim
    CRTHREAD QUEUE
    ==============
+                ID,  FUNCTION,       ARG
    crlist[0] = {88,  disable,        arg0}
    crlist[1] = {0,   CRTHREAD_EMPTY, arg1}
    crlist[2] = {124, 0,              arg3}
@@ -69,7 +70,7 @@
   
    Implementation at pthread_create()
    ==================================
-   Thread ID = an integer greater than 0;
+   ID = an integer greater than 0;
     
    Implementation at pthread_join()
    ==================================
@@ -80,20 +81,20 @@
   
                  disable finishes              
               within 1 round and set 
-         crthread[5] = CRTHREAD_EMPTY        Task B will
-                Task B should wake        continue to sleep
-                                |               |
-                            [2] |           [4] |
-                               \|/             \|/
-          +--------+--------+------+--------+--------+------+
-          | Task A | Task B | Idle | Task A | Task B | Idle |
-          +--------+--------+------+--------+--------+------+
-                       |      /|\       |               /|\
-                   [1] |       |    [3] |                |
-                       +-------+        +----------------+
-    Task B call pthread_create()     Task A call pthread_create()
-    crthread[5] = disable            crthread[5] = xxx
-    thread_idB = &crthread[5]        thread_idA = &crthread[5]
+         crthread[5] = CRTHREAD_EMPTY            Task B will
+                Task B should wake            continue to sleep
+                                |                    |
+                            [2] |                [4] |
+                               \|/                  \|/
+          +--------+--------+------------+--------+--------+------------+
+          | Task A | Task B | sys_thread | Task A | Task B | sys_thread |
+          +--------+--------+------------+--------+--------+------------+
+                       |      /|\             |               /|\
+                   [1] |       |          [3] |                |
+                       +-------+              +----------------+
+    Task B call pthread_create()          Task A call pthread_create()
+    crthread[5] = disable                 crthread[5] = xxx
+    thread_idB = &crthread[5]             thread_idA = &crthread[5]
     Task B will sleep
    
    EVENTS:
@@ -164,6 +165,7 @@ typedef unsigned char                                   pthread_attr_t;
 #define pthread_attr_init(attr_ptr)                     while(0)
 
 
+//-----------------------------------------------------------------------------------------------
 enum
 {
   PTHREAD_SCOPE_SYSTEM,
@@ -187,6 +189,7 @@ enum
 #define pthread_attr_setscope(attr_ptr, attr_id)        *attr_ptr = attr_id
 
 
+//-----------------------------------------------------------------------------------------------
 /** pthread_t -> xTaskHandle (void *, and tskTCB, refer to task.h, and task.c) */
 typedef xTaskHandle                                     pthread_t;
 
@@ -212,47 +215,7 @@ typedef xTaskHandle                                     pthread_t;
 extern int pthread_create (pthread_t* thread, pthread_attr_t* attr, void* (*start_routine)(void*), void* arg);
 
 
-/**
- * \brief MARCO for int pthread_join(pthread_t thread, void **value_ptr);
- * \details wait for thread termination 
- * \param thread handler for target thread
- * \param value_ptr resources pointed by the pointer will be released (not implemented yet)
- * \return: (not implemented)
- * \n       Upon success, return 0
- * \n       Upon failure, -1, errno raised
- * \n       ESRCH:   no such thread
- * \n       EDEADLK: detected deadlock
- * \n       EINVAL:  target thread is not joinable
- * \remarks 
- * Limitations: 
- * \li do not work for (Caller, Target) = (FreeRTOS Task, FreeRTOS Task)
- * \li work for (Caller, Target) = (FreeRTOS Task, coroutine_st)
- * \li work for (Caller, Target) = (coroutine_st, coroutine_st)
- */
-#ifndef CRTHREAD_SCHED
-#define pthread_join(thread, value_ptr)                 while(0)
-#else /* CRTHREAD_SCHED */
-#define pthread_join(thread, value_ptr) \
-{ \
-  while(1) \
-    { \
-      if (thread == (pthread_t)0) break; \
-      char pthread_join_i; \
-      char pthread_join_index = -1; \
-      for (pthread_join_i = 0; pthread_join_i < MAX_CRTHREAD; pthread_join_i++) \
-        { \
-          if (thread == crlist[pthread_join_i].id) \
-            { \
-              pthread_join_index = pthread_join_i; \
-            } \
-        } \
-      if (pthread_join_index < 0) break; \
-      else usleep (0); \
-    } \
-}
-#endif /* CRTHREAD_SCHED */
-
-
+//-----------------------------------------------------------------------------------------------
 /** pthread_mutex_t -> xSemaphoreHandle (xQueueHandle, void *, xQUEUE* refer to semphr.h, queue.h, queue.c) */
 typedef xSemaphoreHandle                                pthread_mutex_t;
 /** pthread_mutexattr_t -> int */
@@ -306,6 +269,7 @@ extern int pthread_mutex_lock (pthread_mutex_t *mutex);
 extern int pthread_mutex_unlock (pthread_mutex_t *mutex);
 
 
+//-----------------------------------------------------------------------------------------------
 /*
  * CRTHREAD
  */
@@ -314,42 +278,71 @@ extern int pthread_mutex_unlock (pthread_mutex_t *mutex);
 typedef void* (*crthread_t)(void* arg);
 
 
-/** indicate that no crthread has been scheduled */
-#define CRTHREAD_EMPTY                                  (((crthread_t) 0 ) + MAX_CRTHREAD)
-
-
 /** coroutine thread */
 struct crElement_t
 {
   /** crthread ID; 0  = no task; >0 = valid id */ 
   pthread_t id;
-  /** function pointer type for coroutine */
+  /** function pointer type for coroutine, must be > MAX_CRTHREAD to execute */
   crthread_t crthread;
   /** pointer to arguments associated with the crthread */
   void* arg;
 };
 
+
 /** Array of crElements. Each element contains a function pointer to a crthread and a crthread_id */
 extern struct crElement_t crlist[];
 
 
-extern pthread_t crthread_id_counter;
 /**
- * \brief MARCO for pthread_t next_crthread_id(void)
- * \details return the next valid crthread id
- * \return a unique and valid crthread id > 0
+ * \brief Thread to execute coroutine
+ * \param ptr (not used)
+ * \remarks non-standard API for pthread
  */
-#define next_crthread_id()                              (crthread_id_counter++); \
-                                                        if (crthread_id_counter == (pthread_t)0) crthread_id_counter++
+extern void* pthread_coroutine (void* ptr);
 #endif /* CRTHREAD_SCHED */
 
 
+//-----------------------------------------------------------------------------------------------
 /**
- * \brief System Thread (currently coroutine scheduler)
- * \param ptr (not used)
- * \remarks main program should create this thread if coroutine scheduler is needed 
+ * \brief MARCO for int pthread_join(pthread_t thread, void **value_ptr);
+ * \details wait for thread termination
+ * \param thread handler for target thread
+ * \param value_ptr resources pointed by the pointer will be released (not implemented yet)
+ * \return: (not implemented)
+ * \n       Upon success, return 0
+ * \n       Upon failure, -1, errno raised
+ * \n       ESRCH:   no such thread
+ * \n       EDEADLK: detected deadlock
+ * \n       EINVAL:  target thread is not joinable
+ * \remarks
+ * Limitations:
+ * \li do not work for (Caller, Target) = (FreeRTOS Task, FreeRTOS Task)
+ * \li work for (Caller, Target) = (FreeRTOS Task, coroutine_st)
+ * \li work for (Caller, Target) = (coroutine_st, coroutine_st)
  */
-extern void* sys_thread (void* ptr);
+#ifndef CRTHREAD_SCHED
+#define pthread_join(thread, value_ptr)                 while(0)
+#else /* CRTHREAD_SCHED */
+#define pthread_join(thread, value_ptr) \
+{ \
+  while(1) \
+    { \
+      if (thread == (pthread_t)0) break; \
+      char pthread_join_i; \
+      char pthread_join_index = -1; \
+      for (pthread_join_i = 0; pthread_join_i < MAX_CRTHREAD; pthread_join_i++) \
+        { \
+          if (thread == crlist[pthread_join_i].id) \
+            { \
+              pthread_join_index = pthread_join_i; \
+            } \
+        } \
+      if (pthread_join_index < 0) break; \
+      else usleep (0); \
+    } \
+}
+#endif /* CRTHREAD_SCHED */
 
 
 /** 

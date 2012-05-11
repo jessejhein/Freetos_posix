@@ -116,7 +116,6 @@ obj-y += \
 	$(FREERTOS)/portable/MemMang/heap_3.o \
 	$(FREERTOS_POSIX)/posix/src/pthread.o \
 	$(FREERTOS_POSIX)/posix/src/termios.o \
-	$(FREERTOS_POSIX)/posix/src/system.o \
 	$(FREERTOS_POSIX)/posix/src/time.o \
 	$(FREERTOS_POSIX)/posix/src/app_idlehook.o
 

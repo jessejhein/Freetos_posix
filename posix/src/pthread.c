@@ -23,71 +23,203 @@
  * along with freertos_posix.  If not, see <http://www.gnu.org/licenses/>
  */
 
+#include <define.h>
+#include <unistd.h>
 #include <pthread.h>
 
+
+/*
+ * Coroutine Thread
+ */
+#ifdef CRTHREAD_SCHED
+/**
+ * \remarks must be initialised by pthread_coroutine_init () before used
+ */
+struct crElement_t crlist[MAX_CRTHREAD];
+
+
+//---------------------------------------------------------------------------------------------------------------------
+/**
+ * \brief a running index from 1 to size (void*)
+ * \remarks 0 is reserved to indicate EMPTY
+ */
+static pthread_t crthread_id_counter = (pthread_t)1;
+
+
+/**
+ * \brief return the next valid crthread ID
+ * \return a unique and valid crthread ID > 0
+ */
+#define next_crthread_id()                              (crthread_id_counter++); \
+                                                        if (crthread_id_counter == (pthread_t)0) crthread_id_counter++
+
+
+
+//---------------------------------------------------------------------------------------------------------------------
+/**
+ * \brief this constant indicate that no crthread has been scheduled
+ * \remarks set to the maximum size of the coroutine ID
+ */
+#define CRTHREAD_EMPTY                                  (((crthread_t) 0) + MAX_CRTHREAD)
+
+
+/**
+ * \remarks set function to CRTHREAD_EMPTY (MAX_CRTHREAD)
+ * \verbatim
+                             ID, FUNCTION,       ARG
+   crlist[0]              = {0,  CRTHREAD_EMPTY, 0}
+   crlist[1]              = {0,  CRTHREAD_EMPTY, 0}
+   crlist[2]              = {0,  CRTHREAD_EMPTY, 0}
+   crlist[3]              = {0,  CRTHREAD_EMPTY, 0}
+   ...
+   crlist[MAX_CRTHREAD-1] = {0,  CRTHREAD_EMPTY, 0}
+   \endverbatim
+ */
+static void
+pthread_coroutine_init (void)
+{
+  __u8 index;
+  for (index = 0; index < MAX_CRTHREAD; index++)
+    {
+      crlist[index].id = 0;
+      crlist[index].crthread = CRTHREAD_EMPTY;
+    }
+}
+
+
+/**
+ * \remarks
+ * Principle of Operation
+ *   for each active thread, execute it
+ *   if the active thread is completed,
+ *      make the next inactive thread active
+ *      renumber the rest of inactive threads
+ *
+ *   e.g. enable() is finished
+ *        before execution
+ *                  crlist[0].crthread = enable   -> execute
+ *                  crlist[0].crthread = adj      -> execute
+ *                  crlist[0].crthread = disable  -> execute
+ *                  crlist[0].crthread = 0        -> not execute (enable waiting to be executed)
+ *                  crlist[0].crthread = 1        -> not execute (adj waiting to be executed)
+ *        after execution
+ *                  crlist[0].crthread = CRTHREAD_EMPTY
+ *                  crlist[0].crthread = adj
+ *                  crlist[0].crthread = disable
+ *                  crlist[0].crthread = enable
+ *                  crlist[0].crthread = 1
+ */
+void*
+pthread_coroutine (void* ptr)
+{
+  pthread_coroutine_init ();
+
+  while (1)
+    {
+      __u8 index;
+      for (index = 0; index < MAX_CRTHREAD; index++)
+        {
+          //the first MAX_CRTHREAD are reserved (i.e. not a real function)
+          if (crlist[index].crthread > (((crthread_t) 0) + MAX_CRTHREAD))
+            {
+              //crthread is active, execute
+              //if return 0, crthread is completed
+              if ((*(crlist[index].crthread))(crlist[index].arg) == 0)
+                {
+                  int j, index_new;
+                  int found = 0;
+                  //activate next thread (if any)
+                  for (j = 0; j < MAX_CRTHREAD; j++)
+                    {
+                      //search the crthread in list referencing the current crthread
+                      if (crlist[j].crthread == (((crthread_t) 0) + index))
+                        {
+                          //first found in list - replace crthread with the function pointer
+                          if (found == 0)
+                            {
+                              found = 1;
+                              crlist[j].crthread = crlist[index].crthread;
+                              index_new = j;
+                            }
+                          //update the remaining references in the list
+                          else
+                            {
+                              crlist[j].crthread = ((crthread_t) 0) + index_new;
+                            }
+                        }
+                    }
+                  //free the current crthread
+                  crlist[index].id = (pthread_t) 0;
+                  crlist[index].crthread = CRTHREAD_EMPTY;
+                  crlist[index].arg = NULL;
+                }
+            }
+        }
+      usleep (0);
+    }
+}
+#endif /* CRTHREAD_SCHED */
+
+
+/**
+ * \remarks
+ * Principle of CRTHREAD Scheduler
+ *    search if there is a previous call to the same thread
+ *      if found, insert the index number (inactive) to the the first CRTHREAD_EMPTY position
+ *      if not found, insert the function pointer (active) to the first CRTHREAD_EMPTY position
+ *    skip the thread when list is full
+ *
+ * e.g. adding enable to here:
+ *                  crlist[0].crthread = adj
+ *                  crlist[1].crthread = CRTHREAD_EMPTY          <-- (void*)3
+ *                  crlist[2].crthread = CRTHREAD_EMPTY
+ *                  crlist[3].crthread = enable
+ *                  crlist[4].crthread = CRTHREAD_EMPTY
+ */
 int 
 pthread_create (pthread_t* thread, pthread_attr_t* attr, void* (*start_routine)(void*), void* arg)
 {
 #ifdef CRTHREAD_SCHED
-  /*
-   * Principle of CRTHREAD Scheduler
-   *    search if there is a previous call to same thread
-   *      if found, insert the index number (inactive) to the the first CRTHREAD_EMPTY position
-   *      if not found, insert the function pointer (active) to the first CRTHREAD_EMPTY position
-   *    skip the thread when list is full
-   *
-   * e.g. adding enable to here:
-   *                  crlist[0].crthread = adj
-   *                  crlist[1].crthread = CRTHREAD_EMPTY          <-- (void*)3
-   *                  crlist[2].crthread = CRTHREAD_EMPTY
-   *                  crlist[3].crthread = enable
-   *                  crlist[4].crthread = CRTHREAD_EMPTY
-   */
   if ((attr != NULL) && (*attr == PTHREAD_SCOPE_SYSTEM))
     {
-      unsigned char i;
-      unsigned char indexCr, indexEmpty;
-      unsigned char foundCr = 0;
-      unsigned char foundEmpty = 0;        
+      //found:
+      //bit 0 : empty found
+      //bit 1 : coroutine found
+      __u8 found = 0;
+      __u8 i, indexCr, indexEmpty;
       for (i = 0; i < MAX_CRTHREAD; i++)
         {
           //Find CRTHREAD_EMPTY
-          if (foundEmpty == 0)
+          if ((found & 0x01) == 0)
             {
               if (crlist[i].crthread == CRTHREAD_EMPTY)
                 {
-                  foundEmpty = 1;
+                  found |= 0x01;
                   indexEmpty = i;
                 }
             }
           //Find start_rountine
-          if (foundCr == 0)
+          if ((found & 0x02) == 0)
             {
               if (crlist[i].crthread == (crthread_t) start_routine)
                 {
-                  foundCr = 1;
+                  found |= 0x02;
                   indexCr = i;
                 }
             }
-          if ((foundEmpty == 1) && (foundCr == 1))
-            {
-              break;
-            }
+          //when CRTHREAD_EMPTY & start_rountine are found
+          if (found == 0x03) break;
         }
-      if (foundEmpty == 1)
+
+      //found CRTHREAD_EMPTY
+      if (found & 0x01)
         {
-          //save id
-          crlist[indexEmpty].id = next_crthread_id();
+          //save ID: for use with join()
+          crlist[indexEmpty].id = next_crthread_id ();
           *thread = crlist[indexEmpty].id;
           //save function
-          if (foundCr == 0)
-            {
-              crlist[indexEmpty].crthread = (crthread_t) start_routine;
-            }
-          else
-            {
-              crlist[indexEmpty].crthread = (((crthread_t) 0) + indexCr);
-            }
+          if (found & 0x02) crlist[indexEmpty].crthread = (((crthread_t) 0) + indexCr);
+          else crlist[indexEmpty].crthread = (crthread_t) start_routine;
           //save arg
           crlist[indexEmpty].arg = arg;
         }
@@ -105,6 +237,7 @@ pthread_create (pthread_t* thread, pthread_attr_t* attr, void* (*start_routine)(
 }
 
 
+//-------------------------------------------------------------------------------------------------------
 int 
 pthread_mutex_init (pthread_mutex_t *mutex, pthread_mutexattr_t *attr)
 {
