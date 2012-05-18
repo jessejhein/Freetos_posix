@@ -25,6 +25,7 @@
 
 #include <define.h>
 #include <unistd.h>
+#include "traps.h"
 
 /** variables to store program counter: order matters */
 __u16 StkAddrLo;
@@ -56,6 +57,18 @@ handle_trap_error (__u8 err)
 #endif /* DEBUG_TRAP_IN_NVM */
 
 
+#ifdef DEBUG_ADDR_TRAP
+unsigned int *addrPtr = (unsigned int *) 0xFFFF;
+
+void
+create_address_trap (void)
+{
+  // Create Address Error Trap
+  *addrPtr = *addrPtr + 1;
+}
+#endif /* DEBUG_ADDR_TRAP */
+
+
 /**
  * \brief Oscillator Fail Interrupt
  */
@@ -79,7 +92,8 @@ _AddressError (void)
 #ifdef DEBUG_TRAP_IN_NVM
   handle_trap_error ('A');
 #endif /* DEBUG_TRAP_IN_NVM */
-  
+
+  handle_address_trap ();
   while (1);
 }
 
@@ -94,7 +108,6 @@ _StackError (void)
 #ifdef DEBUG_TRAP_IN_NVM
   handle_trap_error ('S');
 #endif /* DEBUG_TRAP_IN_NVM */
-  
   while (1);
 }
 
@@ -109,7 +122,6 @@ _MathError (void)
 #ifdef DEBUG_TRAP_IN_NVM
   handle_trap_error ('M');
 #endif /* DEBUG_TRAP_IN_NVM */
-
   while (1);
 }
 
@@ -124,7 +136,6 @@ _DMACError (void)
 #ifdef DEBUG_TRAP_IN_NVM
   handle_trap_error ('D');
 #endif /* DEBUG_TRAP_IN_NVM */
-
   while (1);
 }
 #endif /* MPLAB_DSPIC33_PORT */
