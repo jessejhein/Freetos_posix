@@ -82,6 +82,12 @@
 #include <asm/types.h>
 #include <sys/ioctl.h>
 
+#ifndef TYPES_H_
+#error "==================================================================="
+#error "Project has not been setup correctly! Please setup by >$make config"
+#error "==================================================================="
+#endif /* TYPES_H_ */
+
 //-----------------------------------------------------------------------------------------------
 
 /**
