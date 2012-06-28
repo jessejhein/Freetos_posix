@@ -96,6 +96,16 @@ i2c_temp_set_address (int id)
         i2c_temp_addr = (__u8) I2C_TEMP_ADDR1;
         break;
 #endif /* NO_OF_I2C_TEMP > 1 */
+#if (NO_OF_I2C_TEMP > 2)
+      case 2:
+        i2c_temp_addr = (__u8) I2C_TEMP_ADDR2;
+        break;
+#endif /* NO_OF_I2C_TEMP > 1 */
+#if (NO_OF_I2C_TEMP > 3)
+      case 2:
+        i2c_temp_addr = (__u8) I2C_TEMP_ADDR3;
+        break;
+#endif /* NO_OF_I2C_TEMP > 1 */
       default:
         i2c_temp_addr = (__u8) I2C_TEMP_ADDR0;
         break;
