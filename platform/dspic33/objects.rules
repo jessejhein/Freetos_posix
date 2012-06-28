@@ -288,6 +288,15 @@ ifeq ($(CONFIG_LED), y)
 	endif
 endif
 
+# LPT_MOD
+ifeq ($(CONFIG_LPT), y)
+	DEFINES += -DLPT_MOD
+	DEFINES += -DNO_OF_LPT=1
+	ifdef CONFIG_LPT_BUFFER_SIZE
+		DEFINES += -DLPT_BUF_SIZE=$(CONFIG_LPT_BUFFER_SIZE)
+	endif
+endif
+
 # DEBUG TRAP
 ifeq ($(CONFIG_DEBUG_UART), UART_A)
 	DEFINES += -DDEBUG_UART=0
@@ -366,4 +375,6 @@ obj-$(CONFIG_FILE_SYSTEM) += \
 	$(ARCH)/drivers/spi/spi.o \
 	$(ARCH)/drivers/nvm/fatfs.o \
 	$(ARCH)/drivers/nvm/sd.o
+obj-$(CONFIG_LPT) += \
+	$(ARCH)/drivers/lpt/lpt.o
 	

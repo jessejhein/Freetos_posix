@@ -44,6 +44,7 @@
 #include <pwm/i2c_mod_slave_dspic.h>
 #include <pwm/pwm.h>
 #include <uart/uart.h>
+#include <lpt/lpt.h>
 
 //-----------------------------------------------------------------------------------------
 /**
@@ -231,6 +232,13 @@ open (const char *pathname, int flags)
           return (lcd_open (flags) == 0)? id : -1;
         }
 #endif /* LCD_MOD */
+
+#ifdef LPT_MOD
+      if (id < (BASE_LPT + NO_OF_LPT))
+        {
+          return (lpt_open (id - BASE_LPT, flags) == 0)? id : -1;
+        }
+#endif /* LPT_MOD */
     }
   errno = ENXIO;
   return -1;
@@ -264,6 +272,13 @@ close (int fd)
             }
 #endif /* ETHERNET_MOD */
           break;
+
+#ifdef LPT_MOD
+          if (fd < (BASE_LPT + NO_OF_LPT))
+            {
+              return lpt_close (fd - BASE_LPT);
+            }
+#endif /* LPT_MOD */
         }
 #ifdef FILE_SYSTEM
       /*
@@ -381,6 +396,13 @@ write (int fd, void* buf, int count)
               return led_write (buf);
             }
 #endif /* LED_MOD */
+
+#ifdef LPT_MOD
+          if (fd < (BASE_LPT + NO_OF_LPT))
+            {
+              return lpt_write (fd - BASE_LPT, buf, count);
+            }
+#endif /* LPT_MOD */
 
           //for all other fd > 3
           return 0;
@@ -503,6 +525,13 @@ read (int fd, void* buf, int count)
               return dmfe_read ();
             }
 #endif /* ETHERNET_MOD */
+
+#ifdef LPT_MOD
+          if (fd < (BASE_LPT + NO_OF_LPT))
+            {
+              return lpt_read (fd - BASE_LPT, buf, count);
+            }
+#endif /* LPT_MOD */
 
           //for all other fd > 3
           return 0;
