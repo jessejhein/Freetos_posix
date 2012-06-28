@@ -42,44 +42,46 @@
 
 /**
  * \brief Initialise Parallel Ports
- * \param device LPT port id
- * \n             device 0 = LPT1
- * \n             device 1 = LPT2
  * \param flags accessing mode
  * \retval 0 LPT opened
  */
-extern int lpt_open (int device, int flags);
+extern int lpt_open (int flags);
 
 
 /**
  * \brief copy count bytes of the data from buffer and transmit
- * \param device Parallel port id
  * \param buf pointer to buffer for writing
  * \param count number of bytes to write
  * \retval >=0 the number of bytes written
  * \retval -1 error
  * \n errno = EBADF: LPT is not opened for writing
  */
-extern int lpt_write (int device, __u8 *buf, __u16 count);
-
+extern int lpt_write (__u8 *buf, __u16 count);
 
 /**
  * \brief copy the received data to buffer
- * \param device LPT port id
  * \param buf pointer to buffer for reading
  * \retval number of bytes read
  * \retval -1 error, LPT is not opened for read operation (errno = EBADF)
  */
-extern int lpt_read (int device, __u8 *buf, __u16 count);
+extern int lpt_read (__u8 *buf, __u16 count);
 
 
 /**
  * \brief close Parallel Port
- * \param device LPT port id
  * \retval 0 success
  * \retval -1 error
  */
-extern int lpt_close (int device);
+extern int lpt_close (void);
+
+
+/**
+ * \brief To configure the INT pin for LPT
+ * \param set_int INT pin state to set
+ * \n     1 - Set the INT pin as output pin and trigger an interrupt
+ * \n     0 - Reset the INT pin as input pin and wait for interrupt
+ */
+extern void lpt_set_interrupt_pin (int set_int);
 
 #endif /* LPT_MOD */
 

@@ -57,16 +57,13 @@ typedef struct
 } LPT_PORT_T;
 
 /*----- Internal global(s) --------------------------------------------------*/
-static LPT_PORT_T lpt_port[NO_OF_LPT];
+static LPT_PORT_T lpt_port;
 
 /*----- Internal Function(s)-------------------------------------------------*/
-static void lpt1_outb (__u8 value, int port)
+static void
+lpt1_outb (__u8 value)
 {
-  LPT1_ISR_IF = 0;      // clear interrupt flag
-  LPT1_ISR_IE = 0;      // disable interrupt source
-
-  TRISD &= 0xFBFF;      // set RD10 as output
-  LATD |= 0x0400;       // trigger interrupt
+  lpt_set_interrupt_pin(1);
 
   //set up data bus for output
   bus_data_config(0);
@@ -79,14 +76,12 @@ static void lpt1_outb (__u8 value, int port)
   Nop(); Nop();
   Nop(); Nop();
   Nop(); Nop();
-  LATD &= 0xFBFF;
-  TRISD |= 0x0400;      // reset RD10 as input
 
-  LPT1_ISR_IF = 0;      // clear interrupt flag
-  LPT1_ISR_IE = 1;      // enable interrupt source
+  lpt_set_interrupt_pin(0);
 }
 
-static __u8 lpt1_inb (int port)
+static __u8
+lpt1_inb (void)
 {
   __u8 data;
 
@@ -108,126 +103,84 @@ static __u8 lpt1_inb (int port)
 
 
 /*----- Public Function(s)---------------------------------------------------*/
-int lpt_open (int device, int flags)
+int
+lpt_open (int flags)
 {
-  switch (device)
-  {
-    case 0:
-      // Configure Interrupt for LPT1
-      LPT1_ISR_IF = 0;  // clear interrupt flag
-      LPT1_ISR_IE = 1;  // enable interrupt source
-      break;
+  LPT_CLR_INT();
+  LPT_ENABLE_INT();
 
-#if (NP_OF_LPT == 2)
-    case 1:
-      // Configure Interrupt for LPT2
-
-#endif  /* NO_OF_LPT */
-    default:
-      return -1;
-  }
-
-  lpt_port[device].flags = (__u8)flags;
-  lpt_port[device].lpt_wr= 0;
-  lpt_port[device].lpt_rd= 0;
+  lpt_port.flags = (__u8)flags;
+  lpt_port.lpt_wr= 0;
+  lpt_port.lpt_rd= 0;
 
   return 0;
 }
 
 
 //-------------------------------------------------------------------------------------
-int lpt_write (int device, __u8* buf, __u16 count)
+int
+lpt_write (__u8* buf, __u16 count)
 {
-  switch (device)
-  {
-    case 0:     //LPT1
-      if ( (lpt_port[device].flags & O_RDWR) || (lpt_port[device].flags & O_WRONLY) )
+  __u16 wr_cnt = 0;
+
+  if ( (lpt_port.flags & O_RDWR) || (lpt_port.flags & O_WRONLY) )
+    {
+      //perform output/write
+      for (wr_cnt=0; wr_cnt<count; wr_cnt++)
         {
-          //perform write operation
-          __u16 wr_cnt;
-
-          //perform output/write
-          for (wr_cnt=0; wr_cnt<count; wr_cnt++)
-            {
 #ifdef MONITOR_PORT
-              printf("write: %c\n", *buf);
+          printf("write: %c\n", *buf);
 #endif
-              lpt1_outb(*buf, device);
-              buf++;
-            }
-#ifdef MONITOR_PORT
-          printf("%d byte(s) wrote\n", wr_cnt);
-#endif
-
-          return wr_cnt;
+          lpt1_outb(*buf);
+          buf++;
         }
-      break;
+#ifdef MONITOR_PORT
+      printf("%d byte(s) wrote\n", wr_cnt);
+#endif
+    }
 
-#if (NP_OF_LPT == 2)
-    case 1:     //LPT2
-      break;
-#endif  /* NO_OF_LPT */
-  }
-
-  return 0;
+  return wr_cnt;
 }
 
 
-int lpt_read (int device, __u8* buf, __u16 count)
+int
+lpt_read (__u8* buf, __u16 count)
 {
-  switch (device)
-  {
-    case 0:
-#if (NP_OF_LPT == 2)
-    case 1:
-#endif  /* NO_OF_LPT */
-      if ( (lpt_port[device].flags & O_RDWR) || (lpt_port[device].flags & O_RDONLY) )
+  __u16 rd_cnt = 0;
+
+  if ( (lpt_port.flags & O_RDWR) || (lpt_port.flags & O_RDONLY) )
+    {
+      //perform read operation
+      __u8 next;
+
+      //perform read
+      for (rd_cnt=0; rd_cnt<count; rd_cnt++)
         {
-          //perform read operation
-          __u8 next;
-          __u16 rd_cnt;
+          next = cirbuf_rd(lpt_port.lpt_wr, lpt_port.lpt_rd, LPT_BUF_SIZE);
+          if (next == CIRBUF_RD_EMPTY) break;
 
-          //perform read
-          for (rd_cnt=0; rd_cnt<count; rd_cnt++)
-            {
-              next = cirbuf_rd(lpt_port[device].lpt_wr, lpt_port[device].lpt_rd, LPT_BUF_SIZE);
-              if (next == CIRBUF_RD_EMPTY) break;
-
-              //copy 1 byte from the circular buffer when data is available
-              *buf = lpt_port[device].lpt_buf[ lpt_port[device].lpt_rd ];
+          //copy 1 byte from the circular buffer when data is available
+          *buf = lpt_port.lpt_buf[ lpt_port.lpt_rd ];
 #ifdef MONITOR_PORT
-              printf("read: %c\n", *buf);
+          printf("read: %c\n", *buf);
 #endif
-              lpt_port[device].lpt_rd = next;
-              buf++;
-            }
-#ifdef MONITOR_PORT
-          if (rd_cnt) printf("%d byte(s) read\n", rd_cnt);
-#endif
-
-          return rd_cnt;
+          lpt_port.lpt_rd = next;
+          buf++;
         }
-      break;
-  }
+#ifdef MONITOR_PORT
+      if (rd_cnt) printf("%d byte(s) read\n", rd_cnt);
+#endif
+    }
 
-  return 0;
+  return rd_cnt;
 }
 
 
 //-------------------------------------------------------------------------------------
-int lpt_close (int device)
+int
+lpt_close (void)
 {
-  switch (device)
-  {
-    case 0:
-      LPT1_ISR_IE = 0;      // disable interrupt source for LPT1
-      break;
-
-#if (NP_OF_LPT == 2)
-    case 1:
-      break;
-#endif  /* NO_OF_LPT */
-  }
+  LPT_DISABLE_INT();
   return 0;
 }
 
@@ -236,22 +189,24 @@ int lpt_close (int device)
 
 
 //-------------------------------------------------------------------------------------
-void lpt1_isr (void)
+void
+lpt1_isr (void)
 {
   __u8 data;
   __u8 next;
 
-  LPT1_ISR_IF = 0;      //Clear the INT3 interrupt flag or else
-                        //the CPU will keep vectoring back to the ISR
+  //Clear the interrupt flag or else
+  //the CPU will keep vectoring back to the ISR
+  LPT_CLR_INT();
 
-  data = lpt1_inb(0);
+  data = lpt1_inb();
 
-  next = cirbuf_wr(lpt_port[0].lpt_wr, lpt_port[0].lpt_rd, LPT_BUF_SIZE);
+  next = cirbuf_wr(lpt_port.lpt_wr, lpt_port.lpt_rd, LPT_BUF_SIZE);
   if (next != CIRBUF_WR_FULL)
     {
       //write the byte to LPT1 buffer if it is not full
-      lpt_port[0].lpt_buf[lpt_port[0].lpt_wr] = data;
-      lpt_port[0].lpt_wr = next;
+      lpt_port.lpt_buf[lpt_port.lpt_wr] = data;
+      lpt_port.lpt_wr = next;
     }
 }
 

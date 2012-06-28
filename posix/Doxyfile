@@ -1300,6 +1300,7 @@ PREDEFINED             = CRTHREAD_SCHED \
                          MPLAB_DSPIC33_PORT \
                          UART_MOD \
                          NO_OF_UART=2 \
+                         LPT_MOD \
                          ETHERNET_MOD \
                          I2C_MOD \
                          I2C_DAC_MOD \

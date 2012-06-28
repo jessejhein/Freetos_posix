@@ -234,9 +234,9 @@ open (const char *pathname, int flags)
 #endif /* LCD_MOD */
 
 #ifdef LPT_MOD
-      if (id < (BASE_LPT + NO_OF_LPT))
+      if (id == BASE_LPT)
         {
-          return (lpt_open (id - BASE_LPT, flags) == 0)? id : -1;
+          return (lpt_open (flags) == 0)? id : -1;
         }
 #endif /* LPT_MOD */
     }
@@ -274,9 +274,9 @@ close (int fd)
           break;
 
 #ifdef LPT_MOD
-          if (fd < (BASE_LPT + NO_OF_LPT))
+          if (fd == BASE_LPT)
             {
-              return lpt_close (fd - BASE_LPT);
+              return lpt_close ();
             }
 #endif /* LPT_MOD */
         }
@@ -398,9 +398,9 @@ write (int fd, void* buf, int count)
 #endif /* LED_MOD */
 
 #ifdef LPT_MOD
-          if (fd < (BASE_LPT + NO_OF_LPT))
+          if (fd == BASE_LPT)
             {
-              return lpt_write (fd - BASE_LPT, buf, count);
+              return lpt_write (buf, count);
             }
 #endif /* LPT_MOD */
 
@@ -527,9 +527,9 @@ read (int fd, void* buf, int count)
 #endif /* ETHERNET_MOD */
 
 #ifdef LPT_MOD
-          if (fd < (BASE_LPT + NO_OF_LPT))
+          if (fd == BASE_LPT)
             {
-              return lpt_read (fd - BASE_LPT, buf, count);
+              return lpt_read (buf, count);
             }
 #endif /* LPT_MOD */
 
