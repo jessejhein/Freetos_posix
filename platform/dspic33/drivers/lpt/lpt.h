@@ -61,6 +61,7 @@ extern int lpt_write (__u8 *buf, __u16 count);
 /**
  * \brief copy the received data to buffer
  * \param buf pointer to buffer for reading
+ * \param count max. number of bytes to read
  * \retval number of bytes read
  * \retval -1 error, LPT is not opened for read operation (errno = EBADF)
  */
