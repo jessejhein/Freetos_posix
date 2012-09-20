@@ -39,14 +39,19 @@
 #include <define.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include <cirbuf.h>
 #include "lpt.h"
 
 
 /*----- types/defines -------------------------------------------------------*/
+//#define LPT_DEBUG_WR    1
+//#define LPT_DEBUG_RD    1
+
 /** structure for parallel ports */
 typedef struct
 {
+  /** accessing mode */
   __u8 flags;
   /** buffer to store data from parallel port */
   __u8 lpt_buf[LPT_BUF_SIZE];
@@ -54,6 +59,8 @@ typedef struct
   __u8 lpt_wr;
   /** read pointer of circular buffer */
   __u8 lpt_rd;
+  /** flag to indicate if is inside LPT receive ISR */
+  __u8 in_lpt_rx_isr;
 } LPT_PORT_T;
 
 /*----- Internal global(s) --------------------------------------------------*/
@@ -63,6 +70,8 @@ static LPT_PORT_T lpt_port;
 static void
 lpt1_outb (__u8 value)
 {
+  //wait until RX interrupt in process is finished
+  while (lpt_port.in_lpt_rx_isr) ;
   lpt_set_interrupt_pin(1);
 
   //set up data bus for output
@@ -72,11 +81,7 @@ lpt1_outb (__u8 value)
   //set up I/O bus
   bus_set_io_write(1);
 
-  Nop(); Nop();
-  Nop(); Nop();
-  Nop(); Nop();
-  Nop(); Nop();
-
+  udelay(150);
   lpt_set_interrupt_pin(0);
 }
 
@@ -92,10 +97,7 @@ lpt1_inb (void)
   //perform a read
   data = bus_data_read();
   //restore data port
-  Nop(); Nop();
-  Nop(); Nop();
-  Nop(); Nop();
-  Nop(); Nop();
+  udelay(0);
   bus_data_config(0);
 
   return data;
@@ -112,6 +114,7 @@ lpt_open (int flags)
   lpt_port.flags = (__u8)flags;
   lpt_port.lpt_wr= 0;
   lpt_port.lpt_rd= 0;
+  lpt_port.in_lpt_rx_isr= 0;
 
   return 0;
 }
@@ -128,15 +131,16 @@ lpt_write (__u8* buf, __u16 count)
       //perform output/write
       for (wr_cnt=0; wr_cnt<count; wr_cnt++)
         {
-#ifdef MONITOR_PORT
-          printf("write: %c\n", *buf);
-#endif
+#ifdef LPT_DEBUG_WR
+          printf("wr: 0x%02x\n", *buf);
+#endif  /* LPT_DEBUG_WR */
           lpt1_outb(*buf);
           buf++;
         }
-#ifdef MONITOR_PORT
-      printf("%d byte(s) wrote\n", wr_cnt);
-#endif
+
+#ifdef LPT_DEBUG_WR
+      printf("%d of %d byte(s) wrote\n", wr_cnt, count);
+#endif  /* LPT_DEBUG_WR */
     }
 
   return wr_cnt;
@@ -153,6 +157,10 @@ lpt_read (__u8* buf, __u16 count)
       //perform read operation
       __u8 next;
 
+      //wait until RX interrupt in process is finished
+      while (lpt_port.in_lpt_rx_isr) ;
+
+      LPT_DISABLE_INT();
       //perform read
       for (rd_cnt=0; rd_cnt<count; rd_cnt++)
         {
@@ -161,15 +169,18 @@ lpt_read (__u8* buf, __u16 count)
 
           //copy 1 byte from the circular buffer when data is available
           *buf = lpt_port.lpt_buf[ lpt_port.lpt_rd ];
-#ifdef MONITOR_PORT
-          printf("read: %c\n", *buf);
-#endif
           lpt_port.lpt_rd = next;
+
+#ifdef LPT_DEBUG_RD
+          printf("rd: 0x%02x\n", *buf);
+#endif  /* LPT_DEBUG_RD */
           buf++;
         }
-#ifdef MONITOR_PORT
+      LPT_ENABLE_INT();
+
+#ifdef LPT_DEBUG_RD
       if (rd_cnt) printf("%d byte(s) read\n", rd_cnt);
-#endif
+#endif  /* LPT_DEBUG_RD */
     }
 
   return rd_cnt;
@@ -195,6 +206,8 @@ lpt1_isr (void)
   __u8 data;
   __u8 next;
 
+  lpt_port.in_lpt_rx_isr = 1;   //now in ISR
+
   //Clear the interrupt flag or else
   //the CPU will keep vectoring back to the ISR
   LPT_CLR_INT();
@@ -208,6 +221,8 @@ lpt1_isr (void)
       lpt_port.lpt_buf[lpt_port.lpt_wr] = data;
       lpt_port.lpt_wr = next;
     }
+
+  lpt_port.in_lpt_rx_isr = 0;   //now leave ISR
 }
 
 #endif /* LPT_MOD */
