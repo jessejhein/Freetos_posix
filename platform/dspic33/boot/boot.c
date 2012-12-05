@@ -196,6 +196,9 @@ main (void)
   vUserMain ();
 
 #ifdef FILE_SYSTEM
+  //initialise MMC card detect pin
+  mmc_card_detect_pin_init ();
+
   // mount the file system
   fatfs_init ();
 #endif /* FILE_SYSTEM */

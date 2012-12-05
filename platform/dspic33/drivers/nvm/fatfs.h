@@ -57,18 +57,6 @@ extern void fatfs_init (void);
  * \param flag flag used to open the file
  * \return a usable file descriptor [0 - (FATFS_MAX_FILE - 1)]
  * \retval -1 error
- * \remarks
- * Limitations: For "a" and "a+", we do not consider writing operations append data at the end of the file.
- * Limitations: open upto 5 files only (FOPEN_MAX defined as 8 for stdio.h, 3 file reserved)
- * \verbatim
-    fopen    fatfs_open (open)                                       f_open
-    r        => 0x4000 (O_NONBLOCK | O_RDONLY)                       => FA_READ | FA_OPEN_EXISTING (0x01)
-    r+       => 0x4002 (O_NONBLOCK | O_RDWR)                         => FA_READ | FA_WRITE | FA_OPEN_EXISTING (0x03)
-    w        => 0x4301 (O_NONBLOCK | O_CREAT | O_EXCL | O_WRONLY)    => FA_WRITE | FA_CREATE_ALWAYS (0x0a)
-    w+       => 0x4302 (O_NONBLOCK | O_CREAT | O_EXCL | O_RDWR)      => FA_READ | FA_WRITE | FA_CREATE_ALWAYS (0x0b)
-    a        => 0x4109 (O_NONBLOCK | O_CREAT | O_APPEND | O_WRONLY)  => FA_WRITE | FA_OPEN_ALWAYS (0x12)
-    a+       => 0x410a (O_NONBLOCK | O_CREAT | O_APPEND | O_RDWR)    => FA_READ | FA_WRITE | FA_OPEN_ALWAYS (0x13)
-   \endverbatim
  */
 extern char fatfs_open (int drive, const char *pathname, int flag);
 
@@ -114,8 +102,6 @@ extern int fatfs_read (int drive, int fd, char* buf, int count);
  * \param offset offset bytes
  * \param whence reference point
  * \return new position
- * \remarks stdio.h will always swap the value of offset and whence
- * \remarks lseek() in stdio.h will always return 0 irrespective of error
  */
 extern int fatfs_seek (int drive, int fd, int offset, int whence);
 

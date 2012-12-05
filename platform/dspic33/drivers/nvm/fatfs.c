@@ -28,6 +28,7 @@
 #include <diskio.h>
 #include <ff.h>
 
+//#define FATFS_DEBUG                     1
 
 /** maximum supported volume */
 #define FATFS_MAX_VOLUME                _VOLUMES
@@ -66,6 +67,20 @@ fatfs_init (void)
 }
 
 
+/**
+ * \remarks
+ * Limitations: open upto 5 files only (FOPEN_MAX defined as 8 for stdio.h, 3 file reserved)
+ * \verbatim
+                                                                                                                          Capability
+    fopen    fatfs_open (open)                                       f_open                                               Create | Read  | Write | End
+    r        => 0x4000 (O_NONBLOCK | O_RDONLY)                       => FA_READ | FA_OPEN_EXISTING (0x01)                    X   |   X   |   X   |  X
+    r+       => 0x4002 (O_NONBLOCK | O_RDWR)                         => FA_READ | FA_WRITE | FA_OPEN_EXISTING (0x03)         X   |   O   |   O   |  X
+    w        => 0x4301 (O_NONBLOCK | O_CREAT | O_EXCL | O_WRONLY)    => FA_WRITE | FA_CREATE_ALWAYS (0x0a)                   O   |   X   |   O   |  X
+    w+       => 0x4302 (O_NONBLOCK | O_CREAT | O_EXCL | O_RDWR)      => FA_READ | FA_WRITE | FA_CREATE_ALWAYS (0x0b)         O   |   O   |   O   |  X
+    a        => 0x4109 (O_NONBLOCK | O_CREAT | O_APPEND | O_WRONLY)  => FA_WRITE | FA_OPEN_ALWAYS (0x12)                     O   |   X   |   O   |  O
+    a+       => 0x410a (O_NONBLOCK | O_CREAT | O_APPEND | O_RDWR)    => FA_READ | FA_WRITE | FA_OPEN_ALWAYS (0x13)           O   |   O   |   O   |  O
+   \endverbatim
+ */
 char
 fatfs_open (int drive, const char *pathname, int flag)
 {
@@ -79,7 +94,7 @@ fatfs_open (int drive, const char *pathname, int flag)
             {
               //setup flags
               BYTE mode = 0;
-              //Read/Write
+              //read/write
               if (flag & O_RDWR) mode |= (FA_READ | FA_WRITE);
               else if (flag & O_WRONLY) mode |= FA_WRITE;
               else mode |= FA_READ;
@@ -106,77 +121,117 @@ fatfs_open (int drive, const char *pathname, int flag)
                     {
                       //The function succeeded and the file object is valid.
                       file_ptr[drive][i] = &file[drive][i];
+
+                      //Append mode: move to end of file
+                      if (flag & O_APPEND)
+                        {
+                          //assume always successful
+                          f_lseek (file_ptr[drive][i], f_size(file_ptr[drive][i]));
+                        }
                       return i;
                     }
+#ifdef FATFS_DEBUG
                   case FR_NO_FILE:
                     {
-                      //Could not find the file.
+                      printf ("[OPEN ERR]: Could not find the file.\n");
                       break;
                     }
                   case FR_NO_PATH:
                     {
-                      //Could not find the path.
+                      printf ("[OPEN ERR]: Could not find the path.\n");
                       break;
                     }
                   case FR_INVALID_NAME:
                     {
-                      //The file name is invalid.
+                      printf ("[OPEN ERR]: The given string is invalid as the path name.\n");
                       break;
                     }
                   case FR_INVALID_DRIVE:
                     {
-                      //The drive number is invalid.
+                      printf ("[OPEN ERR]: Invalid drive number is specified.\n");
                       break;
                     }
                   case FR_EXIST:
                     {
-                      //The file is already existing.
+                      printf ("[OPEN ERR]: Any object that has the same name is already existing.\n");
                       break;
                     }
                   case FR_DENIED:
                     {
                       //The required access was denied due to one of the following reasons:
-                      //Write mode open against a read-only file.
-                      //File cannot be created due to a directory or read-only file is existing.
-                      //File cannot be created due to the directory table is full.
+                      //  Write mode open against the file with read-only attribute.
+                      //  Deleting the file or directory with read-only attribute.
+                      //  Deleting the non-empty directory or current directory.
+                      //  Reading the file opened without FA_READ flag.
+                      //  Any modification to the file opened without FA_WRITE flag.
+                      //  Could not create the file or directory due to the directory table is full.
+                      //  Could not create the directory due to the volume is full.
+                      printf ("[OPEN ERR]: The required access was denied.\n");
                       break;
                     }
                   case FR_NOT_READY:
                     {
-                      //The disk drive cannot work due to no medium in the drive or any other reason.
+                      printf ("[OPEN ERR]: The disk drive cannot work due to incorrect medium removal or disk_initialize function failed.\n");
                       break;
                     }
                   case FR_WRITE_PROTECTED:
                     {
-                      //Write mode open or creation under the medium is write protected.
+                      printf ("[OPEN ERR]: Any write mode action against write-protected media.\n");
                       break;
                     }
                   case FR_DISK_ERR:
                     {
-                      //The function failed due to an error in the disk function.
+                      printf ("[OPEN ERR]: An unrecoverable error occured in the lower layer (disk I/O functions).\n");
                       break;
                     }
                   case FR_INT_ERR:
                     {
-                      //The function failed due to a wrong FAT structure or an internal error.
+                      //One of the following possibilities are suspected.
+                      //  There is any error of the FAT structure on the volume.
+                      //  Work area (file system object, file object or etc...) is broken by stack overflow or any other application. This is the reason in most case.
+                      //  An FR_DISK_ERR has occured on the file object.
+                      printf ("[OPEN ERR]: Assertion failed. An insanity is detected in the internal process.\n");
                       break;
                     }
                   case FR_NOT_ENABLED:
                     {
-                      //The logical drive has no work area.
+                      printf ("[OPEN ERR]: Work area for the logical drive has not been registered by f_mount function.\n");
                       break;
                     }
                   case FR_NO_FILESYSTEM:
                     {
-                      //There is no valid FAT volume on the drive.
+                      printf ("[OPEN ERR]: There is no valid FAT volume on the drive.\n");
                       break;
                     }
                   case FR_LOCKED:
                     {
-                      //The function was rejected due to file shareing policy (_FS_SHARE).
+                      printf ("[OPEN ERR]: The file access is rejected by file sharing control.\n");
                       break;
                     }
-
+                  case FR_TIMEOUT:
+                    {
+                      printf ("[OPEN ERR]: The function canceled due to a timeout of thread-safe control.\n");
+                      break;
+                    }
+                  case FR_NOT_ENOUGH_CORE:
+                    {
+                      //There is one of the following reasons:
+                      //  Could not allocate a memory for LFN working buffer. (Related option: _USE_LFN)
+                      //  Given table size is insufficient for the required size.
+                      printf ("[OPEN ERR]: Not enough memory for the operation.\n");
+                      break;
+                    }
+                  case FR_TOO_MANY_OPEN_FILES:
+                    {
+                      printf ("[OPEN ERR]: Number of open files has been reached maximum value and no more file can be opened.\n");
+                      break;
+                    }
+                  default:
+                    {
+                      printf ("[OPEN ERR]: Unknown\n");
+                      break;
+                    }
+#endif /* FATFS_DEBUG */
                 }
               //When f_open returns values other than FR_OK
               return -1;
@@ -206,26 +261,42 @@ fatfs_close (int drive, int fd)
               file_ptr[drive][fd] = NULL;
               return 0;
             }
+#ifdef FATFS_DEBUG
           case FR_DISK_ERR:
             {
-              //The function failed due to an error in the disk function.
+              printf ("[CLOSE ERR]: An unrecoverable error occured in the lower layer (disk I/O functions).\n");
               break;
             }
           case FR_INT_ERR:
             {
-              //The function failed due to a wrong FAT structure or an internal error.
+              //One of the following possibilities are suspected.
+              //  There is any error of the FAT structure on the volume.
+              //  Work area (file system object, file object or etc...) is broken by stack overflow or any other application. This is the reason in most case.
+              //  An FR_DISK_ERR has occured on the file object.
+              printf ("[CLOSE ERR]: Assertion failed. An insanity is detected in the internal process.\n");
               break;
             }
           case FR_NOT_READY:
             {
-              //The disk drive cannot work due to no medium in the drive or any other reason.
+              printf ("[CLOSE ERR]: The disk drive cannot work due to incorrect medium removal or disk_initialize function failed.\n");
               break;
             }
           case FR_INVALID_OBJECT:
             {
-              //The file object is invalid.
+              printf ("[CLOSE ERR]: The given file or directory object structure is invalid.\n");
               break;
             }
+          case FR_TIMEOUT:
+            {
+              printf ("[CLOSE ERR]: The function canceled due to a timeout of thread-safe control.\n");
+              break;
+            }
+          default:
+            {
+              printf ("[CLOSE ERR]: Unknown\n");
+              break;
+            }
+#endif /* FATFS_DEBUG */
         }
     }
   return -1;
@@ -237,12 +308,13 @@ fatfs_write (int drive, int fd, char* buf, int count)
 {
   if ( (drive < FATFS_MAX_VOLUME) && (fd < FATFS_MAX_FILE) )
     {
-      //store the actual number of bytes read
-      unsigned int byteWritten;
+      //store the actual number of bytes written
+      UINT byteWritten;
       
       //perform write operation
       FRESULT result = f_write (file_ptr[drive][fd], buf, count, &byteWritten);
       
+#ifdef FATFS_DEBUG
       //check result
       switch (result)
         {
@@ -250,35 +322,42 @@ fatfs_write (int drive, int fd, char* buf, int count)
             {
               break;
             }
-          case FR_DENIED:
-            {
-              //The function denied due to the file has been opened in non-write mode
-              break;
-            }
           case FR_DISK_ERR:
             {
-              //The function failed due to an error in the disk function.
+              printf ("[WRITE ERR]: An unrecoverable error occured in the lower layer (disk I/O functions).\n");
               break;
             }
           case FR_INT_ERR:
             {
-              //The function failed due to a wrong FAT structure or an internal error
+              //One of the following possibilities are suspected.
+              //  There is any error of the FAT structure on the volume.
+              //  Work area (file system object, file object or etc...) is broken by stack overflow or any other application. This is the reason in most case.
+              //  An FR_DISK_ERR has occured on the file object.
+              printf ("[WRITE ERR]: Assertion failed. An insanity is detected in the internal process.\n");
               break;
             }
           case FR_NOT_READY:
             {
-              //The disk drive cannot work due to no medium in the drive or any other reason
+              printf ("[WRITE ERR]: The disk drive cannot work due to incorrect medium removal or disk_initialize function failed.\n");
               break;
             }
           case FR_INVALID_OBJECT:
             {
-              //The file object is invalid
+              printf ("[WRITE ERR]: The given file or directory object structure is invalid.\n");
+              break;
+            }
+          case FR_TIMEOUT:
+            {
+              printf ("[WRITE ERR]: The function canceled due to a timeout of thread-safe control.\n");
               break;
             }
           default:
             {
+              printf ("[WRITE ERR]: Unknown\n");
+              break;
             }
         }
+#endif /* FATFS_DEBUG */
       return byteWritten;
     }
   else
@@ -295,11 +374,12 @@ fatfs_read (int drive, int fd, char* buf, int count)
   if ( (drive < FATFS_MAX_VOLUME) && (fd < FATFS_MAX_FILE) )
     {
       //store the actual number of bytes read
-      unsigned int byteRead;
+      UINT byteRead;
       
       //perform read operation
       FRESULT result = f_read (file_ptr[drive][fd], buf, count, &byteRead);
       
+#ifdef FATFS_DEBUG
       //check result
       switch (result)
         {
@@ -307,35 +387,42 @@ fatfs_read (int drive, int fd, char* buf, int count)
             {
               break;
             }
-          case FR_DENIED:
-            {
-              //The function denied due to the file has been opened in non-read mode
-              break;
-            }
           case FR_DISK_ERR:
             {
-              //The function failed due to an error in the disk function.
+              printf ("[READ ERR]: An unrecoverable error occured in the lower layer (disk I/O functions).\n");
               break;
             }
           case FR_INT_ERR:
             {
-              //The function failed due to a wrong FAT structure or an internal error
+              //One of the following possibilities are suspected.
+              //  There is any error of the FAT structure on the volume.
+              //  Work area (file system object, file object or etc...) is broken by stack overflow or any other application. This is the reason in most case.
+              //  An FR_DISK_ERR has occured on the file object.
+              printf ("[READ ERR]: Assertion failed. An insanity is detected in the internal process.\n");
               break;
             }
           case FR_NOT_READY:
             {
-              //The disk drive cannot work due to no medium in the drive or any other reason
+              printf ("[READ ERR]: The disk drive cannot work due to incorrect medium removal or disk_initialize function failed.\n");
               break;
             }
           case FR_INVALID_OBJECT:
             {
-              //The file object is invalid
+              printf ("[READ ERR]: The given file or directory object structure is invalid.\n");
+              break;
+            }
+          case FR_TIMEOUT:
+            {
+              printf ("[READ ERR]: The function canceled due to a timeout of thread-safe control.\n");
               break;
             }
           default:
             {
+              printf ("[READ ERR]: Unknown\n");
+              break;
             }
         }
+#endif /* FATFS_DEBUG */
       return byteRead;
     }
   else
@@ -346,20 +433,39 @@ fatfs_read (int drive, int fd, char* buf, int count)
 }
 
 
-
+/**
+ * \remarks There is a bug in stdio.h which swap the value of offset and whence
+ * \remarks lseek() in stdio.h will always return 0 irrespective of error
+ */
 int
 fatfs_seek (int drive, int fd, int offset, int whence)
 {
   if ( (drive < FATFS_MAX_VOLUME) && (fd < FATFS_MAX_FILE) )
     {
-      //swap offset with whence
-      int real_whence = offset;
-      int real_offset = whence;
-      offset = real_offset;
-      whence = real_whence;
+      //swap offset with whence (due to bug in stdio.h)
+      int tmp = offset;
+      offset = whence;
+      whence = tmp;
 
       //perform seek operation
-      FRESULT result = f_lseek (file_ptr[drive][fd], offset);
+      DWORD location;
+      //SEEK_SET: Beginning of file
+      if (whence == 0)
+        {
+          location = offset;
+        }
+      //SEEK_CUR: Current position of the file pointer
+      else if (whence == 1)
+        {
+          location = f_tell (file_ptr[drive][fd]) + offset;
+        }
+      //SEEK_END: End of file
+      else
+        {
+           location = f_size(file_ptr[drive][fd]) + offset;
+        }
+
+      FRESULT result = f_lseek (file_ptr[drive][fd], location);
 
       //check result
       switch (result)
@@ -368,29 +474,42 @@ fatfs_seek (int drive, int fd, int offset, int whence)
             {
               return offset;
             }
+#ifdef FATFS_DEBUG
           case FR_DISK_ERR:
             {
+              printf ("[SEEK ERR]: An unrecoverable error occured in the lower layer (disk I/O functions).\n");
               break;
             }
           case FR_INT_ERR:
             {
+              //One of the following possibilities are suspected.
+              //  There is any error of the FAT structure on the volume.
+              //  Work area (file system object, file object or etc...) is broken by stack overflow or any other application. This is the reason in most case.
+              //  An FR_DISK_ERR has occured on the file object.
+              printf ("[SEEK ERR]: Assertion failed. An insanity is detected in the internal process.\n");
               break;
             }
           case FR_NOT_READY:
             {
+              printf ("[SEEK ERR]: The disk drive cannot work due to incorrect medium removal or disk_initialize function failed.\n");
               break;
             }
           case FR_INVALID_OBJECT:
             {
+              printf ("[SEEK ERR]: The given file or directory object structure is invalid.\n");
               break;
             }
           case FR_TIMEOUT:
             {
+              printf ("[SEEK ERR]: The function canceled due to a timeout of thread-safe control.\n");
               break;
             }
           default:
             {
+              printf ("[SEEK ERR]: Unknown\n");
+              break;
             }
+#endif /* FATFS_DEBUG */
         }
       return -1;
     }

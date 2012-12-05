@@ -271,7 +271,6 @@ close (int fd)
               return dmfe_close ();
             }
 #endif /* ETHERNET_MOD */
-          break;
 
 #ifdef LPT_MOD
           if (fd == BASE_LPT)
@@ -279,6 +278,8 @@ close (int fd)
               return lpt_close ();
             }
 #endif /* LPT_MOD */
+
+          return -1;
         }
 #ifdef FILE_SYSTEM
       /*
