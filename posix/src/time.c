@@ -28,26 +28,26 @@
 #include <time.h>
 #include <sys/time.h>
 
-extern volatile time_t one_sec_cnt;
-extern volatile int timer_count;
+extern time_t one_sec_count;
+extern __u16 ms_count;
 
 
 /*
- * $one_sec_cnt is incremented by Timer Interrupt
+ * $one_sec_count is incremented by Timer Interrupt
  */
 time_t 
 time (time_t *t)
 {
   if (t != NULL)
-    *t = (time_t) one_sec_cnt;
-  return (time_t) one_sec_cnt;
+    *t = (time_t) one_sec_count;
+  return (time_t) one_sec_count;
 }
 
 
 clock_t 
 clock (void)
 {
-  portTickType time = xTaskGetTickCount();
+  portTickType time = xTaskGetTickCount ();
   return (clock_t) time;
 }
 
@@ -58,9 +58,9 @@ gettimeofday (struct timeval* tv, struct timezone* tz)
   if (tv != NULL)
     {
       /** number of seconds */
-      tv->tv_sec = (time_t) one_sec_cnt ;
+      tv->tv_sec = (time_t) one_sec_count ;
       /** number of remaining microseconds */
-      tv->tv_usec = (time_t) timer_count * (1000000UL / configTICK_RATE_HZ);
+      tv->tv_usec = (time_t) ms_count * 1000UL;
       return 0;
     }
   return -1;

@@ -72,7 +72,6 @@
 #endif /* FILE_SYSTEM */
 #include "boot.h"
 
-#define portTIMER_PRESCALE 8
 
 /* Defined for backward compatibility with project created prior to
 FreeRTOS.org V4.3.0. */
@@ -116,17 +115,14 @@ extern void vUserMain (void);                           //Defined in user main a
 extern void __builtin_write_OSCCONH (unsigned int);
 extern void __builtin_write_OSCCONL (unsigned int);
 
-/************************************************************************************************
- * Global functions
- ************************************************************************************************/
-void prvSetupTimerInterrupt (void);
 
 /************************************************************************************************
  * Global Variables 
  *************************************************************************************************/
-time_t one_sec_cnt;
-int timer_count;                      //counts from 0 upto configTICK_RATE_HZ
-volatile int errno = 0;               //Indicate error state of open(), read() write();
+time_t one_sec_count;
+__u16 ms_count;                                         //counts from 0 upto 1000
+volatile int errno = 0;                                 //Indicate error state of open(), read() write();
+
 
 /************************************************************************************************
  * main()
@@ -171,20 +167,28 @@ main (void)
   while(OSCCONbits.OSWEN == 1);         // Wait for completion
 #endif /* EXTERNAL_CLOCK_SOURCE */
 
-  /* allow 1 second delay for on-board external hardware to stable*/
+  //allow 1 second delay for on-board external hardware to stable
   mdelay (1000);
 
-  /* set ADC compatible pins to digital IO by default */
+#ifdef FILE_SYSTEM
+  //initialise MMC card detect pin
+  mmc_card_detect_pin_init ();
+
+  //mount the file system
+  fatfs_init ();
+#endif /* FILE_SYSTEM */
+
+  //set ADC compatible pins to digital IO by default
   AD1PCFGL = 0xFFFF;
   AD1PCFGH = 0xFFFF;
 
-  /* Initialise address bus */
+  //Initialise address bus
   bus_addr_init ();
 
-  /* Initialise IO bus */
+  //Initialise IO bus
   bus_io_init ();
 
-  /* Configure any hardware. */
+  //Configure any hardware
   vSetupHardware ();
 
 #ifdef CRTHREAD_SCHED
@@ -192,59 +196,57 @@ main (void)
   pthread_create (&thread_sys, NULL, pthread_coroutine, NULL);
 #endif /* CRTHREAD_SCHED */
 
-  /* Create the main task. */
+  //Create the main task
   vUserMain ();
 
-#ifdef FILE_SYSTEM
-  //initialise MMC card detect pin
-  mmc_card_detect_pin_init ();
-
-  // mount the file system
-  fatfs_init ();
-#endif /* FILE_SYSTEM */
-
-  /* Finally start the scheduler. */
+  //Finally start the scheduler
   vTaskStartScheduler ();
 
-  /* Will only reach here if there is insufficient heap available to start the scheduler. */
+  //Will only reach here if there is insufficient heap available to start the scheduler
   while (1);
 
   return 0;
 }
 /*-----------------------------------------------------------*/
 
-/*
- * Setup a timer for a regular tick.
+
+/** 1kHz Timer (i.e. 1ms) */
+#define portTIMER_CLOCK_HZ                      1000
+/** Prescale to be used for timer */
+#define portTIMER_PRESCALE                      8
+#define portTCKPS0                              1
+#define portTCKPS1                              0
+
+
+/**
+ * \brief Setup a timer for a regular tick
+ * \remarks required by FreeRTOS
  */
 void 
 prvSetupTimerInterrupt (void)
 {
-  const unsigned portLONG ulCompareMatch = (configCPU_CLOCK_HZ / portTIMER_PRESCALE) / configTICK_RATE_HZ;
+  //The value in this register represents the target counts required for timer to achieve portTIMER_CLOCK_HZ
+  __u32 target_cnt = (configCPU_CLOCK_HZ / (portTIMER_CLOCK_HZ * portTIMER_PRESCALE));
 
-  /* Initialise counters */
-  one_sec_cnt = 0;
-  timer_count = 0;
-
-  /* Prescale of 8. */
+  //Initialise counters
+  one_sec_count = 0;
+  ms_count = 0;
   T1CON = 0;
   TMR1 = 0;
+  PR1 = (__u16) target_cnt;
 
-  PR1 = (unsigned portSHORT) ulCompareMatch;
-
-  /* Setup timer 1 interrupt priority. */
+  //Setup timer 1 interrupt priority
   IPC0bits.T1IP = configKERNEL_INTERRUPT_PRIORITY;
-
-  /* Clear the interrupt as a starting condition. */
+  //Clear the interrupt as a starting condition
   IFS0bits.T1IF = 0;
-
-  /* Enable the interrupt. */
+  //Enable the interrupt
   IEC0bits.T1IE = 1;
 
-  /* Setup the prescale value. */
-  T1CONbits.TCKPS0 = 1;
-  T1CONbits.TCKPS1 = 0;
+  //Setup the prescale value
+  T1CONbits.TCKPS0 = portTCKPS0;
+  T1CONbits.TCKPS1 = portTCKPS1;
 
-  /* Start the timer. */
+  //Start the timer
   T1CONbits.TON = 1;
 }
 /*-----------------------------------------------------------*/
@@ -252,25 +254,31 @@ prvSetupTimerInterrupt (void)
 void 
 _IRQ _T1Interrupt (void)
 {
-  /* Clear the timer interrupt. */
+  //Clear timer interrupt
   IFS0bits.T1IF = 0;
+  //update counter
+  ms_count++;
 
-  vTaskIncrementTick();
-
-  /* record time */
-  if (++timer_count == configTICK_RATE_HZ)
+  //Increment OS counter
+  if (ms_count % (portTIMER_CLOCK_HZ/configTICK_RATE_HZ) == 0)
     {
-      one_sec_cnt++;
-      timer_count = 0;
-    }
-
+      vTaskIncrementTick ();
+      //Increment second counter
+      if (ms_count == portTIMER_CLOCK_HZ)
+        {
+          one_sec_count++;
+          ms_count = 0;
+        }
 #if configUSE_PREEMPTION == 1
-  portYIELD ();
+      //Perform Context Switch
+      portYIELD ();
 #endif /* configUSE_PREEMPTION */
+    }
 }
 
-/*
- * Reset System
+
+/**
+ * /brief Perform a System Reset
  */
 void
 reset (void)
