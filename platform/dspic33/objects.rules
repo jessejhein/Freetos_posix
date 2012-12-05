@@ -373,7 +373,7 @@ obj-$(CONFIG_ETHERNET) += \
 obj-$(CONFIG_FILE_SYSTEM) += \
 	$(ARCH)/drivers/spi/spi.o \
 	$(ARCH)/drivers/nvm/fatfs.o \
-	$(ARCH)/drivers/nvm/sd.o
+	$(ARCH)/drivers/nvm/mmc.o
 obj-$(CONFIG_LPT) += \
 	$(ARCH)/drivers/lpt/lpt.o
 	

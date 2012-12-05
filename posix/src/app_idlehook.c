@@ -49,6 +49,9 @@
 #include <stddef.h>
 #include <key/kb.h>
 #include <gpio/led.h>
+#ifdef FILE_SYSTEM
+#include <nvm/mmc.h>
+#endif /* FILE_SYSTEM */
 
 /**
  * \brief Idle Task
@@ -56,6 +59,10 @@
 void 
 vApplicationIdleHook (void)
 {
+#ifdef FILE_SYSTEM
+  mmc_check_card_insert ();
+#endif /* FILE_SYSTEM */
+
 #ifdef KB_PUSH_KEY
   kb_check_push_key ();
 #endif /* KB_PUSH_KEY */
