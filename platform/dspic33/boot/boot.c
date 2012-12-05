@@ -69,6 +69,7 @@
 #endif /* CRTHREAD_SCHED */
 #ifdef FILE_SYSTEM
 #include <nvm/fatfs.h>
+#include <syslog.h>
 #endif /* FILE_SYSTEM */
 #include "boot.h"
 
@@ -176,6 +177,10 @@ main (void)
 
   //mount the file system
   fatfs_init ();
+
+  //open syslog file
+  syslog_open ();
+  syslog_append ("SYSTEM STARTED");
 #endif /* FILE_SYSTEM */
 
   //set ADC compatible pins to digital IO by default
@@ -194,6 +199,10 @@ main (void)
 #ifdef CRTHREAD_SCHED
   pthread_t thread_sys;
   pthread_create (&thread_sys, NULL, pthread_coroutine, NULL);
+
+#ifdef FILE_SYSTEM
+  syslog_append ("INIT: CRTHREAD created");
+#endif /* FILE_SYSTEM */
 #endif /* CRTHREAD_SCHED */
 
   //Create the main task
@@ -201,6 +210,10 @@ main (void)
 
   //Finally start the scheduler
   vTaskStartScheduler ();
+
+#ifdef FILE_SYSTEM
+  syslog_append ("FATAL: Not enough Heap");
+#endif /* FILE_SYSTEM */
 
   //Will only reach here if there is insufficient heap available to start the scheduler
   while (1);
@@ -285,6 +298,11 @@ reset (void)
 {
   //user shutdown routine
   vUserShutdown ();
+
+#ifdef FILE_SYSTEM
+  syslog_append ("SYSTEM SHUTDOWN");
+  syslog_close ();
+#endif /* FILE_SYSTEM */
 
 #ifdef EXTERNAL_CLOCK_SOURCE
   //Perform clock switch to LPRC (use this a a transition because cannot adjust PLL setting when it is in used)
