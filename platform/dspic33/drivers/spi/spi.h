@@ -8,6 +8,8 @@
 /**
  * \defgroup spi SPI Driver
  * @{
+ *
+ * The SPI driver provide an interface for SPI devices (e.g. MMC card)
  */
 
 /**
@@ -17,7 +19,7 @@
  */
 
 /*
- * Copyright (C) 2011  Dennis Tsang <dennis@amonics.com>
+ * Copyright (C) 2012  Dennis Tsang <dennis@amonics.com>
  *
  * This file is part of freertos_posix.
  *
@@ -39,58 +41,83 @@
 #define SPI_H_
 
 
+//Primary Prescale
+#define PPRE_1_1        3
+#define PPRE_4_1        2
+#define PPRE_16_1       1
+#define PPRE_64_1       0
+
+
+//Secondary Prescale
+#define SPRE_1_1        7
+#define SPRE_2_1        6
+#define SPRE_3_1        5
+#define SPRE_4_1        4
+#define SPRE_5_1        3
+#define SPRE_6_1        2
+#define SPRE_7_1        1
+#define SPRE_8_1        0
+
+
 /**
  * \brief Initialise and enable the SPI module as Master
- * \remarks default clock speed is set to 416.67kHz
+ * \remarks default clock speed is set to about 400kHz
  */
-extern void spi_initialize (void);
+extern void spi_open (void);
 
 
 /**
- * \brief Set the SPI clock speed
- * \param pri_prescale Primary prescale (see datasheet for proper value)
- * \param sec_prescale Secondary prescale (see datasheet for proper value)
+ * \brief Disable the SPI module
  */
-extern void spi_set_clk_speed (int pri_prescale, int sec_prescale);
+extern void spi_close (void);
 
 
 /**
- * \brief Send a single byte over the SPI port
- * \param input data byte to be sent
+ * \brief Set SPI clock speed
+ * \param speed speed in Hz
+ * \return actual speed in Hz
  */
-extern void spi_send_byte (__u8 input);
+extern __u32 spi_set_clk_speed (__u32 speed);
 
 
 /**
- * \brief Receive a byte
- * \return byte received
- * \remarks A byte is received when the module send an 0xFF (the bus idles high)
+ * \brief Exchange a byte over the SPI port
+ * \param data data to be sent
+ * \return data received from SPI slave
+ * \remarks for MMC card operation. MMC card will return a byte whenever a byte is sent
  */
-extern __u8 spi_rcv_byte (void);
+extern __u8 spi_xchg (__u8 data);
 
 
 /**
- * \brief Assert the CS signal, active low (CS=0)
+ * \brief Send multiple bytes over the SPI port
+ * \param buf pointer to buffer for writing
+ * \param count number of bytes to write
+ * \return the number of bytes written
+ */
+extern int spi_write (const __u8 *buf, __u16 count);
+
+
+/**
+ * \brief Read multiple bytes over the SPI port
+ * \param buf pointer to buffer for reading
+ * \param count number of bytes to read
+ * \return the number of bytes read
+ */
+extern int spi_read (__u8 *buf, __u16 count);
+
+
+/**
+ * \brief Assert the CS signal
  */
 extern void spi_cs_assert (void);
 
 
 /**
- * \brief Deassert the CS signal, active low (CS=0)
+ * \brief Deassert the CS signal
  */
 extern void spi_cs_deassert (void);
 
-
-/**
- * \brief Disable the SPI module. This function assumes the module had already been initialised.
- */
-extern void spi_disable (void);
-
-
-/**
- * \brief Enable the SPI module. This function assumes the module had already been initialised.
- */
-extern void spi_enable (void);
 
 
 #endif /* SPI_H_ */

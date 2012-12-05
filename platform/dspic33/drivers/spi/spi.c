@@ -5,7 +5,7 @@
  */
 
 /*
- * Copyright (C) 2011  Dennis Tsang <dennis@amonics.com>
+ * Copyright (C) 2012  Dennis Tsang <dennis@amonics.com>
  *
  * This file is part of freertos_posix.
  *
@@ -24,12 +24,36 @@
  */
 
 #include <define.h>
+#include "spi.h"
+
+
+/**
+ * /remarks CS# is active low (CS# = 0)
+ */
+void
+spi_cs_assert (void)
+{
+  //Set G9 to low
+  LATG &= 0xFDFF;
+}
+
+
+/**
+ * /remarks CS# is active low (CS# = 1)
+ */
+void
+spi_cs_deassert (void)
+{
+  //Set G9 to high
+  LATG |= 0x0200;
+}
+
 
 void
-spi_initialze (void)
+spi_open (void)
 {
-  TRISG &= 0xFDFF;              // Set SS# (G9) to output
   LATG |= 0x0200;               // Set to High by Default (not active)
+  TRISG &= 0xFDFF;              // Set SS# (G9) to output
 
   IFS2bits.SPI2IF = 0;          // Clear the Interrupt Flag
   IEC2bits.SPI2IE = 0;          // Disable the Interrupt
@@ -44,96 +68,221 @@ spi_initialze (void)
   SPI2CON1bits.DISSDO = 0;      // SDOx pin is controlled by the module
   SPI2CON1bits.MODE16 = 0;      // Communication is byte-wide (8 bits)
   SPI2CON1bits.SMP    = 0;      // Input data is sampled at the middle of data output time
-  SPI2CON1bits.CKE    = 0;      // transition from active clock state to Idle clock state
+  SPI2CON1bits.CKE    = 1;      // transition from active clock state to Idle clock state
   SPI2CON1bits.SSEN   = 0;      // SSx pin is not used by the module. Pin controlled by port function
   SPI2CON1bits.CKP    = 0;      // Idle state for clock is a low level; active state is a high level
-  SPI2CON1bits.SPRE   = 2;      // Secondary prescale 6:1
-  SPI2CON1bits.PPRE   = 1;      // Primary prescale   16:1
-                                // SCKx frequency is 416.67kHz.
-
-  SPI2STATbits.SPIROV = 0;      // Clear Receive Overflow
 
   //SPI STAT
+  SPI2STATbits.SPIROV = 0;      // Clear Receive Overflow
   SPI2STATbits.SPISIDL = 0;     // Continue module operation in Idle mode
-  SPI2STATbits.SPIEN   = 1;     // Enables module and configures SCKx, SDOx, SDIx and SSx as serial port pins
+
+  spi_set_clk_speed (400000UL); // Set initial speed to 400kHz
 }
 
 
 void
-spi_set_clk_speed (int pri_prescale, int sec_prescale)
-{
-  //Disable SPI
-  SPI2STATbits.SPIEN = 0;
-  //Secondary prescale
-  SPI2CON1bits.SPRE = sec_prescale;
-  //Primary prescale
-  SPI2CON1bits.PPRE = pri_prescale;
-  //Re-enable SPI
-  SPI2STATbits.SPIEN = 1;
-}
-
-
-void
-spi_send_byte (__u8 input)
-{
-  //Send the byte
-  SPI2BUF = input;
-
-  //Wait for the byte to be sent
-  while (SPI2STATbits.SPITBF);
-}
-
-
-__u8
-spi_rcv_byte (void)
-{
-  //Wait for the byte to be received
-  unsigned char data;
-  if (SPI2STATbits.SPIRBF)
-    {
-      //already have some data to return, don't initiate a read
-      data = SPI2BUF;
-      SPI2STATbits.SPIROV = 0;
-      return data;
-    }
-
-  //We don't have any data to read yet, so initiate a read
-  SPI2BUF = 0xFF;                       // write dummy data to initiate an SPI read
-  while (SPI2STATbits.SPITBF);          // wait until the data is finished reading
-  data = SPI2BUF;
-  SPI2STATbits.SPIROV = 0;
-  return data;
-}
-
-
-void
-spi_cs_assert (void)
-{
-  //Set G9 to low
-  LATG &= 0xFDFF;
-}
-
-
-void
-spi_cs_deassert (void)
-{
-  //Set G9 to high
-  LATG |= 0x0200;
-}
-
-
-void
-spi_disable (void)
+spi_close (void)
 {
   //Disable the STATbit 15
   SPI2STATbits.SPIEN = 0;
 }
 
 
-void
-spi_enable (void)
+__u8
+spi_xchg (__u8 data)
 {
-  // Enable the STATbit 15
+  SPI2BUF = (__u8) data;
+  while (!SPI2STATbits.SPIRBF);
+  //Receive complete, SPIxRXB is full
+  return (__u8) SPI2BUF;
+}
+
+
+int
+spi_write (const __u8 *buf, __u16 count)
+{
+  __u16 i;
+  __u8 dummy;
+  for (i = 0; i < count; i++)
+    {
+      SPI2BUF = (__u8) buf[i];
+      while (!SPI2STATbits.SPIRBF);
+      //Receive complete, SPIxRXB is full
+      dummy = SPI2BUF;
+    }
+  return i;
+}
+
+
+int
+spi_read (__u8 *buf, __u16 count)
+{
+  __u16 i;
+  for (i = 0; i < count; i++)
+    {
+      SPI2BUF = (__u8) 0xFF;
+      while (!SPI2STATbits.SPIRBF);
+      //Receive complete, SPIxRXB is full
+      buf[i] = SPI2BUF;
+    }
+  return i;
+}
+
+
+/**
+ * \remarks speed = Fcy / factor
+ * \verbatim
+       Sec |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |
+    Pri    |     |     |     |     |     |     |     |     |
+    -------+-----+ --- + --- + --- + --- + --- + --- + --- +
+    1      | --- |   2 |   3 |   4 |   5 |   6 |   7 |   8 |
+    4      | --- | --- |  12 |  16 |  20 |  24 |  28 |  32 |
+    16     | --- | --- |  48 |  64 |  80 |  96 | 112 | 128 |
+    64     | --- | --- | 192 | 256 | 320 | 384 | 448 | 512 |
+   \endverbatim */
+__u32
+spi_set_clk_speed (__u32 speed)
+{
+  __u32 ans;
+
+  //Disable SPI
+  SPI2STATbits.SPIEN = 0;
+
+  float factor = ((float) SYSTEM_CLK_HZ / speed);
+
+  //minimum speed
+  if (factor > 448)
+    {
+      SPI2CON1bits.PPRE = PPRE_64_1;  SPI2CON1bits.SPRE = SPRE_8_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 512UL);
+    }
+  else if (factor > 384)
+    {
+      SPI2CON1bits.PPRE = PPRE_64_1;  SPI2CON1bits.SPRE = SPRE_7_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 448UL);
+    }
+  else if (factor > 320)
+    {
+      SPI2CON1bits.PPRE = PPRE_64_1;  SPI2CON1bits.SPRE = SPRE_6_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 384UL);
+    }
+  else if (factor > 256)
+    {
+      SPI2CON1bits.PPRE = PPRE_64_1;  SPI2CON1bits.SPRE = SPRE_5_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 320UL);
+    }
+  else if (factor > 192)
+    {
+      SPI2CON1bits.PPRE = PPRE_64_1;  SPI2CON1bits.SPRE = SPRE_4_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 256UL);
+    }
+  else if (factor > 128)
+    {
+      SPI2CON1bits.PPRE = PPRE_64_1;  SPI2CON1bits.SPRE = SPRE_3_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 192UL);
+    }
+  //---------------------------------------------------------------
+  else if (factor > 112)
+    {
+      SPI2CON1bits.PPRE = PPRE_16_1;  SPI2CON1bits.SPRE = SPRE_8_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 128UL);
+    }
+  else if (factor > 96)
+    {
+      SPI2CON1bits.PPRE = PPRE_16_1;  SPI2CON1bits.SPRE = SPRE_7_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 112UL);
+    }
+  else if (factor > 80)
+    {
+      SPI2CON1bits.PPRE = PPRE_16_1;  SPI2CON1bits.SPRE = SPRE_6_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 96UL);
+    }
+  else if (factor > 64)
+    {
+      SPI2CON1bits.PPRE = PPRE_16_1;  SPI2CON1bits.SPRE = SPRE_5_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 80UL);
+    }
+  else if (factor > 48)
+    {
+      SPI2CON1bits.PPRE = PPRE_16_1;  SPI2CON1bits.SPRE = SPRE_4_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 64UL);
+    }
+  else if (factor > 32)
+    {
+      SPI2CON1bits.PPRE = PPRE_16_1;  SPI2CON1bits.SPRE = SPRE_3_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 48UL);
+    }
+  //---------------------------------------------------------------
+  else if (factor > 28)
+    {
+      SPI2CON1bits.PPRE = PPRE_4_1;   SPI2CON1bits.SPRE = SPRE_8_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 32UL);
+    }
+  else if (factor > 24)
+    {
+      SPI2CON1bits.PPRE = PPRE_4_1;   SPI2CON1bits.SPRE = SPRE_7_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 28UL);
+    }
+  else if (factor > 20)
+    {
+      SPI2CON1bits.PPRE = PPRE_4_1;   SPI2CON1bits.SPRE = SPRE_6_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 24UL);
+    }
+  else if (factor > 16)
+    {
+      SPI2CON1bits.PPRE = PPRE_4_1;   SPI2CON1bits.SPRE = SPRE_5_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 20UL);
+    }
+  else if (factor > 12)
+    {
+      SPI2CON1bits.PPRE = PPRE_4_1;   SPI2CON1bits.SPRE = SPRE_4_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 16UL);
+    }
+  else if (factor > 8)
+    {
+      SPI2CON1bits.PPRE = PPRE_4_1;   SPI2CON1bits.SPRE = SPRE_3_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 12UL);
+    }
+  //---------------------------------------------------------------
+  else if (factor > 7)
+    {
+      SPI2CON1bits.PPRE = PPRE_1_1;   SPI2CON1bits.SPRE = SPRE_8_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 8UL);
+    }
+  else if (factor > 6)
+    {
+      SPI2CON1bits.PPRE = PPRE_1_1;   SPI2CON1bits.SPRE = SPRE_7_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 7UL);
+    }
+  else if (factor > 5)
+    {
+      SPI2CON1bits.PPRE = PPRE_1_1;   SPI2CON1bits.SPRE = SPRE_6_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 6UL);
+    }
+  else if (factor > 4)
+    {
+      SPI2CON1bits.PPRE = PPRE_1_1;   SPI2CON1bits.SPRE = SPRE_5_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 5UL);
+    }
+  else if (factor > 3)
+    {
+      SPI2CON1bits.PPRE = PPRE_1_1;   SPI2CON1bits.SPRE = SPRE_4_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 4UL);
+    }
+  else if (factor > 2)
+    {
+      SPI2CON1bits.PPRE = PPRE_1_1;   SPI2CON1bits.SPRE = SPRE_3_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 3UL);
+    }
+  //maximum speed
+  else
+    {
+      SPI2CON1bits.PPRE = PPRE_1_1;   SPI2CON1bits.SPRE = SPRE_2_1;
+      ans = ((__u32)SYSTEM_CLK_HZ / 2UL);
+    }
+
+  //Enable SPI
   SPI2STATbits.SPIEN = 1;
+  return ans;
 }
 
