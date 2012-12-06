@@ -8,12 +8,29 @@
 /**
  * \defgroup file_system File System
  * @{
- * Contains
+ * \section file_system_sec1 INTRODUCTION
  * \li middle layer [fatfs_xxx()] interfacing posix open(), read(), write(), lseek()
- * \remarks
+ *
+ * \section file_system_sec2 COMPILE TIME CONFIGURATION
+ * \subsection file_system_sec2_1  In <.config_freertos_posix>, set:
+ * \verbatim
+    CONFIG_FILE_SYSTEM          =       y
+   \endverbatim
+ * \subsection file_system_sec2_2 In <define.h>, define:
+ * \verbatim
+    #define FS_ROOT                     "0:"
+   \endverbatim
+ * \subsection file_system_sec2_3 In <pin_define.c>, implement:
+ * \verbatim
+    void mmc_card_detect_pin_init (void)
+    int mmc_card_detect (void)
+   \endverbatim
+ *
+ * \section file_system_sec3 LIMITATIONS
  * \li support only 1 volume
  * \li open upto 5 files at one time
  */
+
 
 /**
  * \file
