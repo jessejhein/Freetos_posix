@@ -1,7 +1,9 @@
 /**
  * \file
+ * System Log File
  * \author Dennis Tsang <dennis@amonics.com>
  */
+
 
 /*
  * Copyright (C) 2012  Dennis Tsang <dennis@amonics.com>
@@ -31,12 +33,15 @@
 
 /** file object for system log file */
 static FILE* syslogFile;
+/** prevent calling append in multi-thread environment, causing system to hang */
+static __u8 busy;
 
 
 //---------------------------------------------------------------------------
 int
 syslog_open (void)
 {
+  busy = 0;
   syslogFile = fopen (FS_ROOT"log.txt", "a");
   if (syslogFile == NULL) return 0;
   return 1;
@@ -44,12 +49,11 @@ syslog_open (void)
 
 
 //---------------------------------------------------------------------------
-int
+void
 syslog_close (void)
 {
-  if (syslogFile == NULL) return 0;
+  if (syslogFile == NULL) return;
   fclose (syslogFile);
-  return 1;
 }
 
 
@@ -58,6 +62,8 @@ int
 syslog_append (char* msg)
 {
   if (syslogFile == NULL) return 0;
+  if (busy) return 1;
+  busy = 1;
 
   //check for timeout error
   struct timeval currentTime;
@@ -70,5 +76,6 @@ syslog_append (char* msg)
                                   CR_CHAR, LF_CHAR);
   fclose (syslogFile);
   syslog_open ();
-  return i;
+  busy = 0;
+  return 0;
 }

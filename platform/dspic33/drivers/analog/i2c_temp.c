@@ -40,6 +40,9 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <i2c/i2c.h>
+#ifdef FILE_SYSTEM
+#include <syslog.h>
+#endif /* FILE_SYSTEM */
 
 //------------------------------------------------------------------------
 //Register
@@ -155,7 +158,13 @@ i2c_temp_open (int id, int flags)
   __u16 value;
   if (i2c_temp_read (id, &value) == 0) error = 1;
 
-  if (error == 1) return -1;
+  if (error == 1)
+    {
+#ifdef FILE_SYSTEM
+      while (syslog_append ("INIT: TCN75A [ERR] NO DEV"));
+#endif /* FILE_SYSTEM */
+      return -1;
+    }
   return 0;
 }
 

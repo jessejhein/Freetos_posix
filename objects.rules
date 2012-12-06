@@ -121,6 +121,7 @@ obj-y += \
 
 # File System
 obj-$(CONFIG_FILE_SYSTEM) += \
+  $(FREERTOS_POSIX)/posix/src/syslog.o \
 	$(FREERTOS_POSIX)/posix/src/fatfs/ff.o
 
 # Ethernet

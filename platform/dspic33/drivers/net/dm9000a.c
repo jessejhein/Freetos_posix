@@ -42,6 +42,9 @@
 #include <unistd.h>
 #include <sys/socket.h>
 #include <stdio.h>
+#ifdef FILE_SYSTEM
+#include <syslog.h>
+#endif /* FILE_SYSTEM */
 
 /*****************************************************************************
  * DEBUG 
@@ -130,6 +133,9 @@ dmfe_open (int flags)
       struct uip_eth_addr mac = {0,0,0,0,0,0};
       uip_setethaddr (mac);
       errno = ENXIO;
+#ifdef FILE_SYSTEM
+      while (syslog_append ("INIT: DM9000A [ERR] NO DEV"));
+#endif /* FILE_SYSTEM */
       return -1;
     }
 
@@ -152,6 +158,9 @@ dmfe_open (int flags)
   else
     {
       errno = EACCES;
+#ifdef FILE_SYSTEM
+      while (syslog_append ("INIT: DM9000A [ERR] NO LINK"));
+#endif /* FILE_SYSTEM */
       return -1;
     }
 }

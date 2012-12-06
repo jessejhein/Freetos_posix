@@ -26,10 +26,19 @@
 #include <define.h>
 #include <unistd.h>
 #include "traps.h"
+#ifdef FILE_SYSTEM
+#include <syslog.h>
+#endif /* FILE_SYSTEM */
+
 
 /** variables to store program counter: order matters */
 __u16 StkAddrLo;
 __u16 StkAddrHi;
+
+#ifdef FILE_SYSTEM
+/** store " 0x12345678" */
+static char stkaddr[12];
+#endif /* FILE_SYSTEM */
 
 
 #ifdef DEBUG_TRAP_IN_NVM
@@ -79,6 +88,12 @@ _OscillatorFail (void)
 #ifdef DEBUG_TRAP_IN_NVM
   handle_trap_error ('O');
 #endif /* DEBUG_TRAP_IN_NVM */
+
+#ifdef FILE_SYSTEM
+  while (syslog_append ("TRAP: FATAL [ERR] OSCILLATOR"));
+  sprintf (stkaddr, " 0x%04X%04X", StkAddrHi, StkAddrLo);
+  while (syslog_append (stkaddr));
+#endif /* FILE_SYSTEM */
 }
 
 
@@ -92,6 +107,12 @@ _AddressError (void)
 #ifdef DEBUG_TRAP_IN_NVM
   handle_trap_error ('A');
 #endif /* DEBUG_TRAP_IN_NVM */
+
+#ifdef FILE_SYSTEM
+  while (syslog_append ("TRAP: FATAL [ERR] ADDRESS"));
+  sprintf (stkaddr, " 0x%04X%04X", StkAddrHi, StkAddrLo);
+  while (syslog_append (stkaddr));
+#endif /* FILE_SYSTEM */
 
   handle_address_trap ();
   while (1);
@@ -108,6 +129,13 @@ _StackError (void)
 #ifdef DEBUG_TRAP_IN_NVM
   handle_trap_error ('S');
 #endif /* DEBUG_TRAP_IN_NVM */
+
+#ifdef FILE_SYSTEM
+  while (syslog_append ("TRAP: FATAL [ERR] STACK"));
+  sprintf (stkaddr, " 0x%04X%04X", StkAddrHi, StkAddrLo);
+  while (syslog_append (stkaddr));
+#endif /* FILE_SYSTEM */
+
   while (1);
 }
 
@@ -122,6 +150,13 @@ _MathError (void)
 #ifdef DEBUG_TRAP_IN_NVM
   handle_trap_error ('M');
 #endif /* DEBUG_TRAP_IN_NVM */
+
+#ifdef FILE_SYSTEM
+  while (syslog_append ("TRAP: FATAL [ERR] MATH"));
+  sprintf (stkaddr, " 0x%04X%04X", StkAddrHi, StkAddrLo);
+  while (syslog_append (stkaddr));
+#endif /* FILE_SYSTEM */
+
   while (1);
 }
 
@@ -136,6 +171,13 @@ _DMACError (void)
 #ifdef DEBUG_TRAP_IN_NVM
   handle_trap_error ('D');
 #endif /* DEBUG_TRAP_IN_NVM */
+
+#ifdef FILE_SYSTEM
+  while (syslog_append ("TRAP: FATAL [ERR] DMA"));
+  sprintf (stkaddr, " 0x%04X%04X", StkAddrHi, StkAddrLo);
+  while (syslog_append (stkaddr));
+#endif /* FILE_SYSTEM */
+
   while (1);
 }
 #endif /* MPLAB_DSPIC33_PORT */

@@ -40,6 +40,9 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <i2c/i2c.h>
+#ifdef FILE_SYSTEM
+#include <syslog.h>
+#endif /* FILE_SYSTEM */
 
 /*
  * Register address
@@ -195,7 +198,13 @@ i2c_gpio_open (int flags)
   while (i2c_gpio_lv_write (&data) != 1)
     {
       //cannot communicate to driver, consider fail
-      if (i2c_timeout_cnt > I2C_TIMEOUT) return -1;
+      if (i2c_timeout_cnt > I2C_TIMEOUT)
+        {
+#ifdef FILE_SYSTEM
+          while (syslog_append ("INIT: MCP23017 [ERR] NO DEV"));
+#endif /* FILE_SYSTEM */
+          return -1;
+        }
       i2c_timeout_cnt++;
     }
 

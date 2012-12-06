@@ -180,7 +180,7 @@ main (void)
 
   //open syslog file
   syslog_open ();
-  syslog_append ("SYSTEM STARTED");
+  while (syslog_append ("SYSTEM STARTED"));
 #endif /* FILE_SYSTEM */
 
   //set ADC compatible pins to digital IO by default
@@ -201,7 +201,7 @@ main (void)
   pthread_create (&thread_sys, NULL, pthread_coroutine, NULL);
 
 #ifdef FILE_SYSTEM
-  syslog_append ("INIT: CRTHREAD created");
+  while (syslog_append ("INIT: CRTHREAD [STARTED]"));
 #endif /* FILE_SYSTEM */
 #endif /* CRTHREAD_SCHED */
 
@@ -212,7 +212,7 @@ main (void)
   vTaskStartScheduler ();
 
 #ifdef FILE_SYSTEM
-  syslog_append ("FATAL: Not enough Heap");
+  while (syslog_append ("INIT: FATAL [ERR] NOT ENOUGH HEAP"));
 #endif /* FILE_SYSTEM */
 
   //Will only reach here if there is insufficient heap available to start the scheduler
@@ -300,7 +300,7 @@ reset (void)
   vUserShutdown ();
 
 #ifdef FILE_SYSTEM
-  syslog_append ("SYSTEM SHUTDOWN");
+  while (syslog_append ("SYSTEM SHUTDOWN"));
   syslog_close ();
 #endif /* FILE_SYSTEM */
 
