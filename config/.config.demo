@@ -27,6 +27,7 @@ CRTHREAD_SCHED										=		y
 # Modules
 #----------------------------------------------------------------
 CONFIG_UART												=		y
+CONFIG_LPT 												=		n
 CONFIG_I2C												=		y
 CONFIG_I2C_DAC										=		y
 CONFIG_I2C_ADC										=		n
@@ -149,6 +150,12 @@ CONFIG_LED_CTRL_INTERVAL					=		2
 #----------------------------------------------------------------
 CONFIG_FFT_BLOCK_LENGTH						=		512
 CONFIG_FFT_LOG2_BLK_LEN						=		9
+
+#----------------------------------------------------------------
+# LPT
+# LPT_BUFFER_SIZE:		buffer size in byte
+#----------------------------------------------------------------
+CONFIG_LPT_BUFFER_SIZE						=		50
 
 #----------------------------------------------------------------
 # ETHERNET
