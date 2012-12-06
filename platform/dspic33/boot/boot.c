@@ -199,10 +199,6 @@ main (void)
 #ifdef CRTHREAD_SCHED
   pthread_t thread_sys;
   pthread_create (&thread_sys, NULL, pthread_coroutine, NULL);
-
-#ifdef FILE_SYSTEM
-  while (syslog_append ("INIT: CRTHREAD [STARTED]"));
-#endif /* FILE_SYSTEM */
 #endif /* CRTHREAD_SCHED */
 
   //Create the main task

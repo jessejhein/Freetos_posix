@@ -26,6 +26,15 @@
 #include <define.h>
 #include <unistd.h>
 #include <pthread.h>
+#ifdef FILE_SYSTEM
+#include <syslog.h>
+#endif /* FILE_SYSTEM */
+
+
+#ifdef FILE_SYSTEM
+/** temporary buffer for debug */
+static char buffer[32];
+#endif /* FILE_SYSTEM */
 
 
 /*
@@ -63,6 +72,11 @@ static pthread_t crthread_id_counter = (pthread_t)1;
 #define CRTHREAD_EMPTY                                  (((crthread_t) 0) + MAX_CRTHREAD)
 
 
+//TODO: add busy thread to prevent possible race condition for crthread
+/** prevent race condition between pthread_coroutine and pthread_create */
+//static __u8 pthread_busy;
+
+
 /**
  * \remarks set function to CRTHREAD_EMPTY (MAX_CRTHREAD)
  * \verbatim
@@ -84,6 +98,7 @@ pthread_coroutine_init (void)
       crlist[index].id = 0;
       crlist[index].crthread = CRTHREAD_EMPTY;
     }
+  //pthread_busy = 0;
 }
 
 
@@ -98,16 +113,18 @@ pthread_coroutine_init (void)
  *   e.g. enable() is finished
  *        before execution
  *                  crlist[0].crthread = enable   -> execute
- *                  crlist[0].crthread = adj      -> execute
- *                  crlist[0].crthread = disable  -> execute
- *                  crlist[0].crthread = 0        -> not execute (enable waiting to be executed)
- *                  crlist[0].crthread = 1        -> not execute (adj waiting to be executed)
+ *                  crlist[1].crthread = adj      -> execute
+ *                  crlist[2].crthread = disable  -> execute
+ *                  crlist[3].crthread = 0        -> not execute (enable waiting to be executed)
+ *                  crlist[4].crthread = 1        -> not execute (adj waiting to be executed)
+ *                  crlist[5].crthread = 0        -> not execute (enable waiting to be executed)
  *        after execution
  *                  crlist[0].crthread = CRTHREAD_EMPTY
- *                  crlist[0].crthread = adj
- *                  crlist[0].crthread = disable
- *                  crlist[0].crthread = enable
- *                  crlist[0].crthread = 1
+ *                  crlist[1].crthread = adj
+ *                  crlist[2].crthread = disable
+ *                  crlist[3].crthread = enable
+ *                  crlist[4].crthread = 1
+ *                  crlist[5].crthread = 3
  */
 void*
 pthread_coroutine (void* ptr)
@@ -126,6 +143,9 @@ pthread_coroutine (void* ptr)
               //if return 0, crthread is completed
               if ((*(crlist[index].crthread))(crlist[index].arg) == 0)
                 {
+                  //while (pthread_busy) usleep (0);
+                  //pthread_busy = 1;
+
                   int j, index_new;
                   int found = 0;
                   //activate next thread (if any)
@@ -152,6 +172,8 @@ pthread_coroutine (void* ptr)
                   crlist[index].id = (pthread_t) 0;
                   crlist[index].crthread = CRTHREAD_EMPTY;
                   crlist[index].arg = NULL;
+
+                  //pthread_busy = 0;
                 }
             }
         }
@@ -182,6 +204,8 @@ pthread_create (pthread_t* thread, pthread_attr_t* attr, void* (*start_routine)(
 #ifdef CRTHREAD_SCHED
   if ((attr != NULL) && (*attr == PTHREAD_SCOPE_SYSTEM))
     {
+      //while (pthread_busy);
+      //pthread_busy = 1;
       //found:
       //bit 0 : empty found
       //bit 1 : coroutine found
@@ -222,9 +246,17 @@ pthread_create (pthread_t* thread, pthread_attr_t* attr, void* (*start_routine)(
           else crlist[indexEmpty].crthread = (crthread_t) start_routine;
           //save arg
           crlist[indexEmpty].arg = arg;
+
+          //pthread_busy = 0;
         }
       else
         {
+#ifdef FILE_SYSTEM
+          sprintf (buffer, " CANNOT CREATE 0x%04x", start_routine);
+          while (syslog_append ("CRTHREAD: [ERR] QUEUE FULL"));
+          while (syslog_append (buffer));
+#endif /* FILE_SYSTEM */
+          //pthread_busy = 0;
           return -1;
         }
     }
