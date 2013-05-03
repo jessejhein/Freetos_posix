@@ -2,6 +2,9 @@
  * \file
  * boot up file for module using FreeRTOS
  * \author Dennis Tsang <dennis@amonics.com>
+ * \author Hui Ning, Sam <sam_hui@amonics.com>
+ * \remarks For Benchtop PCB V4.00.00
+ * \remarks Copyright (c) 2013 Amonics
  */
 
 /**
@@ -84,13 +87,13 @@ FreeRTOS.org V4.3.0. */
   #error If configKERNEL_INTERRUPT_PRIORITY is not 1 then the #32 in the following macros needs changing to equal the portINTERRUPT_BITS value, which is ( configKERNEL_INTERRUPT_PRIORITY << 5 )
 #endif
 
+
 /************************************************************************************************
  * Configuration Bits Setting
- * +-- Refer to dsPIC33F Family Data Sheet (DS70165E) 
- * 		+-- Section 23.1 for definitions of configuration bits
- * 		+-- Section 8.1 for system clock settings
+ * +-- Refer to dsPIC33E Family Data Sheet (DS70610G)
+ *              +-- Section 29.1 for definitions of configuration bits
+ *              +-- Section 9.1 for system clock settings
  ************************************************************************************************/
-
 _FOSCSEL(FNOSC_FRCPLL & IESO_OFF);                      // Internal Fast RC (FRC) w/ PLL
                                                         // Start up with user-selected oscillator
 
@@ -104,9 +107,10 @@ _FOSC(FCKSM_CSECME & POSCMD_NONE & OSCIOFNC_ON);        // Clock Switching and F
                                                         // OSC pin function as Digital I/O
 #endif /* INTERNAL_CLOCK_SOURCE */
 
+_FPOR(ALTI2C1_ON & ALTI2C2_OFF);                        // I2C1 is mapped to the ASDA1/ASCL1 pins
+                                                        // I2C2 is mapped to the SDA2/SCL2 pins
 _FWDT(FWDTEN_OFF);                                      // Watchdog Timer Disabled
 
-/************************************************************************************************/
 
 /************************************************************************************************
  * External functions for Hardware Setup and User Main Program before kernel starts
@@ -122,7 +126,6 @@ extern void __builtin_write_OSCCONL (unsigned int);
  *************************************************************************************************/
 time_t one_sec_count;
 __u16 ms_count;                                         //counts from 0 upto 1000
-//volatile int errno = 0;                                 //Indicate error state of open(), read() write();
 
 
 /************************************************************************************************
@@ -132,17 +135,22 @@ __u16 ms_count;                                         //counts from 0 upto 100
 int 
 main (void)
 {
-  /*--------------------------------------------------------------------------------
-   * Configure Oscillator to operate the device at 40Mhz
-   * Fosc= Fin*M/(N1*N2), Fcy=Fosc/2
-   * Fosc= 8M*40/(2*2)=80Mhz for 8M input clock
-   *--------------------------------------------------------------------------------
-   *	FRC(7.37MHz) -> PLLPRE(/2) -> X --> VCO -> PLLPOST(/2) -> FOSC  -> (/2) -> FCY
-   *								 /|\     |
-   *								  ---- PLLDIV (x40)
-   *--------------------------------------------------------------------------------
+  /*----------------------------------------------------------------------------------
+   * Configure Oscillator to operate the device at Fcy (in MHz)
+   * Fosc= Fin*M/(N1*N2), Fcy=Fosc/2, M (also known as PLL_FBD) is the multiplier
+   * Fosc= 8MHz*PLL_FBD/(2*2)=2*PLL_FBD (MHz) for 8MHz input clock (Fin)
+   * Fosc= 10MHz*PLL_FBD/(2*2)=(5/2)*PLL_FBD (MHz) for 10MHz (external) clock (Fin)
+   * so:
+   * Fcy = PLL_FBD (MHz) for 8MHz input clock
+   * Fcy = (5/4)*PLL_FBD (MHz) for 10MHz (external) input clock
+   *----------------------------------------------------------------------------------
+   *    FRC(7.37MHz) -> PLLPRE(/2) -> X --> VCO -> PLLPOST(/2) -> FOSC  -> (/2) -> FCY
+   *            						 /|\     |
+   *								  ---- PLLDIV (xM)
+   *----------------------------------------------------------------------------------
    */	
-  _PLLDIV = 38;                         // M=40: PLL Feedback Divisor bits
+  //_PLLDIV = 38;                         // M=40: PLL Feedback Divisor bits
+  _PLLDIV = PLL_FBD-2;                  // M: PLL Feedback Divisor bits
   CLKDIV = 0;                           // N1=2: PLL VCO Output Divider Select bits
                                         // N2=2: PLL Phase Detector Input Divider bits
   OSCTUN = TUNE_FRC;                    // Tune FRC oscillator, if FRC is used;
@@ -151,7 +159,6 @@ main (void)
   RCONbits.SWDTEN = 0;                  // Disable Watch Dog Timer
   while (OSCCONbits.LOCK != 1);         // Wait for PLL to lock
   //--------------------------------------------------------------------------------
-
 #ifdef EXTERNAL_CLOCK_SOURCE
   //Perform clock switch to LPRC (use this a a transition because cannot adjust PLL setting when it is in used)
   __builtin_write_OSCCONH (5);          // New OSC = LPRC
@@ -160,13 +167,19 @@ main (void)
   
   //Perform clock switch to external crystal
   //PLL configuration for 10MHz crystal
-  _PLLDIV = 30;                         // M=32: PLL Feedback Divisor bits
+  //_PLLDIV = 30;                         // M=32: PLL Feedback Divisor bits
+  _PLLDIV = XTERN_CLK_SRC_PLLFBD-2;     // M: PLL Feedback Divisor bits
   CLKDIV = 0;                           // N1=2: PLL VCO Output Divider Select bits
                                         // N2=2: PLL Phase Detector Input Divider bits
   __builtin_write_OSCCONH (3);          // New OSC = PRI PLL
   __builtin_write_OSCCONL (1);          // Start clock switch
   while(OSCCONbits.OSWEN == 1);         // Wait for completion
 #endif /* EXTERNAL_CLOCK_SOURCE */
+
+  //set ADC compatible pins to digital IO by default (dsPic33E)
+  ANSELA = ANSELB = ANSELC = ANSELD = ANSELE = ANSELG = 0x0000;
+
+  debug_pin_init ();
 
   //allow 1 second delay for on-board external hardware to stable
   mdelay (1000);
@@ -180,12 +193,8 @@ main (void)
 
   //open syslog file
   syslog_open ();
-  while (syslog_append ("SYSTEM STARTED"));
+  while (syslog_append ("STARTING UP SYSTEM ..."));
 #endif /* FILE_SYSTEM */
-
-  //set ADC compatible pins to digital IO by default
-  AD1PCFGL = 0xFFFF;
-  AD1PCFGH = 0xFFFF;
 
   //Initialise address bus
   bus_addr_init ();
@@ -216,9 +225,9 @@ main (void)
 
   return 0;
 }
+
+
 /*-----------------------------------------------------------*/
-
-
 /** 1kHz Timer (i.e. 1ms) */
 #define portTIMER_CLOCK_HZ                      1000
 /** Prescale to be used for timer */
@@ -245,11 +254,11 @@ prvSetupTimerInterrupt (void)
   PR1 = (__u16) target_cnt;
 
   //Setup timer 1 interrupt priority
-  IPC0bits.T1IP = configKERNEL_INTERRUPT_PRIORITY;
+  _T1IP = configKERNEL_INTERRUPT_PRIORITY;
   //Clear the interrupt as a starting condition
-  IFS0bits.T1IF = 0;
+  _T1IF = 0;
   //Enable the interrupt
-  IEC0bits.T1IE = 1;
+  _T1IE = 1;
 
   //Setup the prescale value
   T1CONbits.TCKPS0 = portTCKPS0;
@@ -258,15 +267,16 @@ prvSetupTimerInterrupt (void)
   //Start the timer
   T1CONbits.TON = 1;
 }
-/*-----------------------------------------------------------*/
 
 void 
 _IRQ _T1Interrupt (void)
 {
   //Clear timer interrupt
-  IFS0bits.T1IF = 0;
+  _T1IF = 0;
   //update counter
   ms_count++;
+
+  //_LATE1 ^= 0x01; // TEST: measure clock tick using GPIO1
 
   //Increment OS counter
   if (ms_count % (portTIMER_CLOCK_HZ/configTICK_RATE_HZ) == 0)
@@ -284,6 +294,7 @@ _IRQ _T1Interrupt (void)
 #endif /* configUSE_PREEMPTION */
     }
 }
+/*-----------------------------------------------------------*/
 
 
 /**

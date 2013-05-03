@@ -13,7 +13,8 @@
 /**
  * \file
  * Flash-emulated EEPROM Driver
- * \author Dennis Tsang <dennis@amonics.com>
+ * \author Sam Hui <dennis@amonics.com>
+ * \remarks Copyright (c) 2013 Amonics for dsPic33E
  */
 
 /*
@@ -36,13 +37,13 @@
  */
 
 #include <define.h>
-#include <nvm_data.h>
-#include "rtsp.h"
 #include <fcntl.h>
 #include <errno.h>
+#include <nvm_data.h>
+#include "rtsp.h"
 
 /** temporary storage for read/write operation */
-/*static */__u8 image_eeprom[FLASH_EEPROM_SIZE];
+/*static*/ __u8 image_eeprom[FLASH_EEPROM_SIZE];
 /** store IO setting */
 static __u8 flash_eeprom_io_flag;
 /** indicate EEPROM module is busy */
@@ -77,9 +78,9 @@ flash_eeprom_write (__u8* buf, int count)
           __u16 nvmAdru = __builtin_tblpage (&flash_eeprom_data[0]);
           __u16 nvmAdr  = __builtin_tbloffset (&flash_eeprom_data[0]);
 #ifdef MPLAB_DSPIC33_PORT
-          nvmAdr = nvmAdr & 0xFC00; // Get the Flash Page Aligned address
+          //page starts at 2Kwords boundary, i.e. 0x0000, 0x0800, 0x1000, 0x1800 and etc for 33E
+          nvmAdr = nvmAdr & 0xF800; // Get the Flash Page Aligned address
 #endif /* MPLAB_DSPIC33_PORT */
-
           flashPageRead (nvmAdru, nvmAdr, (int*)image_eeprom);
 
           int i;           
@@ -122,7 +123,8 @@ flash_eeprom_read (__u8* buf, int count)
           __u16 nvmAdru = __builtin_tblpage (&flash_eeprom_data[0]);
           __u16 nvmAdr  = __builtin_tbloffset (&flash_eeprom_data[0]);
 #ifdef MPLAB_DSPIC33_PORT
-          nvmAdr = nvmAdr & 0xFC00; // Get the Flash Page Aligned address
+          //page starts at 2Kwords boundary, i.e. 0x0000, 0x0800, 0x1000, 0x1800 and etc for 33E
+          nvmAdr = nvmAdr & 0xF800; // Get the Flash Page Aligned address
 #endif /* MPLAB_DSPIC33_PORT */
           flashPageRead (nvmAdru, nvmAdr, (int*)image_eeprom);
 

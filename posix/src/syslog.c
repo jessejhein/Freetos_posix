@@ -41,7 +41,6 @@ static __u8 busy;
 int
 syslog_open (void)
 {
-  busy = 0;
   syslogFile = fopen (FS_ROOT"log.txt", "a");
   if (syslogFile == NULL) return 0;
   return 1;
@@ -54,6 +53,7 @@ syslog_close (void)
 {
   if (syslogFile == NULL) return;
   fclose (syslogFile);
+  syslogFile = NULL;
 }
 
 

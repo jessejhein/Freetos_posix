@@ -82,17 +82,17 @@ typedef fractional              real_t;
 
 // ---------------------------------------------------------------------------------------
 /** Interrupt Request */
-#define _IRQ                    __attribute__((__interrupt__))
+#define _IRQ                    __attribute__((__auto_psv__, __interrupt__))
 
 /** TRAP IRQ for saving program counter: declare __u16 StkAddrLo, StkAddrHi in trap.c (order matters) */
-#define _TRAP_IRQ               __attribute__((__interrupt__(__preprologue__( \
+#define _TRAP_IRQ               __attribute__((__auto_psv__, __interrupt__(__preprologue__( \
                                   "mov #_StkAddrHi,w1\n\tpop [w1--]\n\tpop [w1++]\n\tpush [w1--]\n\tpush [w1++]"))))
 
 /** IO Stub Functions are placed in .libc section so that the standard libraries can access these functions using short jumps. */
 #define _LIBC                   __attribute__((section(".libc")))
 
 /** FAST RAM */
-#define _DMA(N)                 __attribute__((space(dma), aligned(N)))
+#define _DMA(N)                 __attribute__((eds, space(dma), aligned(N)))
 
 /** Aligned Data in Program Memory */
 #define _PROG(N)                __attribute__ ((space(auto_psv), aligned(N)))

@@ -15,6 +15,10 @@ endif
 ############################# path section #################################
 
 # Architecture
+ifeq ($(PLATFORM), DSPIC33E)
+	ARCH := $(FREERTOS_POSIX)/platform/dspic33E
+	include $(FREERTOS_POSIX)/platform/dspic33E/objects.rules
+endif
 ifeq ($(PLATFORM), DSPIC33)
 	ARCH := $(FREERTOS_POSIX)/platform/dspic33
 	include $(FREERTOS_POSIX)/platform/dspic33/objects.rules
@@ -27,6 +31,10 @@ endif
 ############################# targets section ################################
 
 # FreeRTOS locals
+ifeq ($(PLATFORM), DSPIC33E)
+	obj-y += $(FREERTOS_POSIX)/Source/portable/MPLAB/dspic33E/port.o
+	obj-y += $(FREERTOS_POSIX)/Source/portable/MPLAB/dspic33E/portasm_dsPIC.o
+endif
 ifeq ($(PLATFORM), DSPIC33)
 	obj-y += $(FREERTOS_POSIX)/Source/portable/MPLAB/dspic33/port.o
 	obj-y += $(FREERTOS_POSIX)/Source/portable/MPLAB/dspic33/portasm_dsPIC.o

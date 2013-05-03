@@ -32,12 +32,9 @@ B2H	:= xc16-bin2hex
 #						frame pointers. Refer to FreeRTOS Forum at
 #						http://sourceforge.net/forum/message.php?msg_id=3899530
 #						and MPLAB C30 C compiler user guide on Frame Pointer
-ifeq ($(PLATFORM), DSPIC33)
-	ifeq ($(MODEL), FJ256GP506)
-		CFLAGS += -mcpu=33FJ256GP506
-	endif
-	ifeq ($(MODEL), FJ128GP306)
-		CFLAGS += -mcpu=33FJ128GP306
+ifeq ($(PLATFORM), DSPIC33E)
+	ifeq ($(MODEL), EP512MU810)
+		CFLAGS += -mcpu=33EP512MU810
 	endif
 endif
 CFLAGS += -mlarge-code -mlarge-data -O1 -fomit-frame-pointer -Werror
@@ -60,12 +57,9 @@ CFLAGS += -mlarge-code -mlarge-data -O1 -fomit-frame-pointer -Werror
 #					  	[for more arguments, refer to: 
 #						MPLAB ASM30 MALAB LINK30 and utilities user's guide and 
 #						MPLAB C30 C compiler user's guide]
-ifeq ($(PLATFORM), DSPIC33)
-	ifeq ($(MODEL), FJ256GP506)
-		LDFLAGS += -T$(PIC_GLD)/p33FJ256GP506.gld
-	endif
-	ifeq ($(MODEL), FJ128GP306)
-		LDFLAGS += -T$(ARCH)/linker/p33FJ128GP306.gld
+ifeq ($(PLATFORM), DSPIC33E)
+	ifeq ($(MODEL), EP512MU810)
+		LDFLAGS += -T$(PIC_GLD)/p33EP512MU810.gld
 	endif
 endif
 
@@ -73,13 +67,10 @@ endif
 ############################# define section ################################
 
 # Architecture
-ifeq ($(PLATFORM), DSPIC33)
+ifeq ($(PLATFORM), DSPIC33E)
 	DEFINES += -DMPLAB_DSPIC33_PORT
-	ifeq ($(MODEL), FJ256GP506)
-		DEFINES += -DFJ256GP506
-	endif
-	ifeq ($(MODEL), FJ128GP306)
-		DEFINES += -DFJ128GP306
+	ifeq ($(MODEL), EP512MU810)
+		DEFINES += -DEP512MU810
 	endif
 endif
 
@@ -111,7 +102,6 @@ ifeq ($(CONFIG_UART), y)
 		DEFINES += -DUART0_TX_BUF_SIZE=$(CONFIG_UART_A_TX_BUFFER_SIZE)
 	endif
 	ifeq ($(CONFIG_UART_B_ENABLE), y)
-		DEFINES += -DNO_OF_UART=2
 		ifdef CONFIG_UART_B_BAUDRATE
 			DEFINES += -DUART1_BAUDRATE=$(CONFIG_UART_B_BAUDRATE)
 		endif
@@ -133,8 +123,39 @@ ifeq ($(CONFIG_UART), y)
 		ifdef CONFIG_UART_B_TX_BUFFER_SIZE
 			DEFINES += -DUART1_TX_BUF_SIZE=$(CONFIG_UART_B_TX_BUFFER_SIZE)
 		endif
+	endif
+	ifeq ($(CONFIG_UART_C_ENABLE), y)
+		ifdef CONFIG_UART_C_BAUDRATE
+			DEFINES += -DUART2_BAUDRATE=$(CONFIG_UART_C_BAUDRATE)
+		endif
+		ifdef CONFIG_UART_C_STOPBIT
+			DEFINES += -DUART2_STOPBIT=$(CONFIG_UART_C_STOPBIT)
+		endif
+		ifeq ($(CONFIG_UART_C_PARITYBIT), N)
+			DEFINES += -DUART2_PARITYBIT=0
+		endif
+		ifeq ($(CONFIG_UART_C_PARITYBIT), O)
+			DEFINES += -DUART2_PARITYBIT=1
+		endif
+		ifeq ($(CONFIG_UART_C_PARITYBIT), E)
+			DEFINES += -DUART2_PARITYBIT=2
+		endif
+		ifdef CONFIG_UART_C_RX_BUFFER_SIZE
+			DEFINES += -DUART2_RX_BUF_SIZE=$(CONFIG_UART_C_RX_BUFFER_SIZE)
+		endif
+		ifdef CONFIG_UART_C_TX_BUFFER_SIZE
+			DEFINES += -DUART2_TX_BUF_SIZE=$(CONFIG_UART_C_TX_BUFFER_SIZE)
+		endif
+	endif
+
+	ifeq ($(CONFIG_UART_C_ENABLE), y)
+		DEFINES += -DNO_OF_UART=3
 	else
-		DEFINES += -DNO_OF_UART=1
+		ifeq ($(CONFIG_UART_B_ENABLE), y)
+			DEFINES += -DNO_OF_UART=2
+		else
+			DEFINES += -DNO_OF_UART=1
+		endif
 	endif
 endif
 
@@ -288,20 +309,12 @@ ifeq ($(CONFIG_LED), y)
 	endif
 endif
 
-# LPT_MOD
-ifeq ($(CONFIG_LPT), y)
-	DEFINES += -DLPT_MOD
-	ifdef CONFIG_LPT_BUFFER_SIZE
-		DEFINES += -DLPT_BUF_SIZE=$(CONFIG_LPT_BUFFER_SIZE)
-	endif
-endif
-
 # DEBUG TRAP
 ifeq ($(CONFIG_DEBUG_UART), UART_A)
 	DEFINES += -DDEBUG_UART=0
 endif
-ifeq ($(CONFIG_DEBUG_UART), UART_B)
-	DEFINES += -DDEBUG_UART=1
+ifeq ($(CONFIG_DEBUG_UART), UART_C)
+	DEFINES += -DDEBUG_UART=2
 endif
 ifeq ($(CONFIG_DEBUG_TRAP_IN_NVM), y)
 	DEFINES += -DDEBUG_TRAP_IN_NVM
@@ -315,7 +328,7 @@ INCLUDEDIRS += -I$(ARCH)/drivers/ -I$(ARCH)/include/
 
 
 ############################# targets section ################################
-ifeq ($(PLATFORM), DSPIC33)
+ifeq ($(PLATFORM), DSPIC33E)
 obj-y += \
 	$(ARCH)/boot/clk_switch.o
 endif
@@ -373,6 +386,3 @@ obj-$(CONFIG_FILE_SYSTEM) += \
 	$(ARCH)/drivers/spi/spi.o \
 	$(ARCH)/drivers/nvm/fatfs.o \
 	$(ARCH)/drivers/nvm/mmc.o
-obj-$(CONFIG_LPT) += \
-	$(ARCH)/drivers/lpt/lpt.o
-	
