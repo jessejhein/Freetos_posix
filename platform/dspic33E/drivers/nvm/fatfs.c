@@ -28,7 +28,7 @@
 #include <diskio.h>
 #include <ff.h>
 
-#define FATFS_DEBUG                     1
+//#define FATFS_DEBUG                     1
 
 /** maximum supported volume */
 #define FATFS_MAX_VOLUME                _VOLUMES
