@@ -58,9 +58,9 @@ static __u16 adc_queue_ptr = ADC_QSIZE - 1;
 //--------------------------------------------------------------------------------------
 #if (ADC_MAX_HW_CH > 0)
 /** Buffer A in Ping Pong mode, reside in DMA aligned at 64 boundary (assume max 32 channels (i.e. 64 bytes) */
-static _DMA(64) __eds__ adc_bufA[ADC_MAX_HW_CH];
+static _DMA(64) unsigned int adc_bufA[ADC_MAX_HW_CH];
 /** Buffer B in Ping Pong mode, reside in DMA aligned at 64 boundary (assume max 32 channels (i.e. 64 bytes) */
-static _DMA(64) __eds__ adc_bufB[ADC_MAX_HW_CH];
+static _DMA(64) unsigned int adc_bufB[ADC_MAX_HW_CH];
 #endif /* ADC_MAX_HW_CH */
 //--------------------------------------------------------------------------------------
 
@@ -131,11 +131,13 @@ adc_open (int flags)
   DMA0CONbits.MODE  = 2;        // Configure DMA for Continuous Ping-Pong mode
   DMA0PAD = (volatile int)&ADC1BUF0;    // Point DMA to ADC1BUF0
   DMA0REQ = 13;                 // Select ADC1 as DMA Request source
-  DMA0STAL = __builtin_dmaoffset(&adc_bufA);
+  //DMA0STAL = __builtin_dmaoffset(&adc_bufA);
   //DMA0STAH = __builtin_dmapage(&adc_bufA);
+  DMA0STAL = (unsigned int)&adc_bufA;
   DMA0STAH = 0x0000;
-  DMA0STBL = __builtin_dmaoffset(&adc_bufB);
+  //DMA0STBL = __builtin_dmaoffset(&adc_bufB);
   //DMA0STBH = __builtin_dmapage(&adc_bufB);
+  DMA0STBL = (unsigned int)&adc_bufB;
   DMA0STBH = 0x0000;
   _DMA0IF = 0;                  // Clear the DMA interrupt flag bit
   _DMA0IE = 1;                  // Set the DMA interrupt enable bit
@@ -152,7 +154,7 @@ void _IRQ
 _DMA0Interrupt (void)
 {
   //update DMA pointer
-  static __eds__* adc_buf_ptr = 0;
+  static unsigned int* adc_buf_ptr = 0;
   adc_buf_ptr = (adc_buf_ptr == adc_bufB)? adc_bufA : adc_bufB;
 
   //update queue pointer

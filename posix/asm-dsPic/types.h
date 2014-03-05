@@ -92,7 +92,11 @@ typedef fractional              real_t;
 #define _LIBC                   __attribute__((section(".libc")))
 
 /** FAST RAM */
-#define _DMA(N)                 __attribute__((eds, space(dma), aligned(N)))
+#ifdef __dsPIC33E__
+  #define _DMA(N)                 __attribute__((far, aligned(N)))
+#else
+  #define _DMA(N)                 __attribute__((space(dma), aligned(N)))
+#endif
 
 /** Aligned Data in Program Memory */
 #define _PROG(N)                __attribute__ ((space(auto_psv), aligned(N)))

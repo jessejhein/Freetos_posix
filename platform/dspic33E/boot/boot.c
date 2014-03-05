@@ -107,8 +107,14 @@ _FOSC(FCKSM_CSECME & POSCMD_NONE & OSCIOFNC_ON);        // Clock Switching and F
                                                         // OSC pin function as Digital I/O
 #endif /* INTERNAL_CLOCK_SOURCE */
 
+#ifdef EP128MC202
+_FPOR(ALTI2C1_ON & ALTI2C2_ON);                         // I2C1 is mapped to the ASDA1/ASCL1 pins
+                                                        // I2C2 is mapped to the ASDA2/ASCL2 pins
+#else
 _FPOR(ALTI2C1_ON & ALTI2C2_OFF);                        // I2C1 is mapped to the ASDA1/ASCL1 pins
                                                         // I2C2 is mapped to the SDA2/SCL2 pins
+#endif
+
 _FWDT(FWDTEN_OFF);                                      // Watchdog Timer Disabled
 
 
@@ -177,7 +183,10 @@ main (void)
 #endif /* EXTERNAL_CLOCK_SOURCE */
 
   //set ADC compatible pins to digital IO by default (dsPic33E)
-  ANSELA = ANSELB = ANSELC = ANSELD = ANSELE = ANSELG = 0x0000;
+  ANSELA = ANSELB = 0x0000;
+#ifdef EP512MU810
+  ANSELC = ANSELD = ANSELE = ANSELG = 0x0000;
+#endif
 
   debug_pin_init ();
 

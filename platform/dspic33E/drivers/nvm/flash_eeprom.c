@@ -52,10 +52,129 @@ static __u8 flash_eeprom_busy = 0;
 static __u16 flash_eeprom_pointer = 0;
 
 
-int 
+static inline unsigned char
+flash_eeprom_cal_checksum (void)
+{
+  unsigned char checksum = 0;
+  int i;
+  for (i = 0; i < FLASH_EEPROM_SIZE-1; i++)
+    {
+      checksum += image_eeprom[i];
+    }
+  return checksum;
+}
+
+#define NVM_BACKUP
+
+#ifdef NVM_BACKUP
+#define NVM_PRI_COPY    0
+#define NVM_SEC_COPY    1
+
+// allocate space for secondary copy of NVM
+unsigned char PM_ROW flash_eeprom_data_copy[FLASH_EEPROM_SIZE];
+
+/**
+ * @brief check if NVM content is corrupted
+ * @return 0 if not corrupt, 1 if corrupted
+ * @remarks the NVM content MUST have been read into buffer image_eeprom[]
+ */
+static inline int
+is_flash_eeprom_corrupted (void)
+{
+  if (flash_eeprom_cal_checksum () == image_eeprom[FLASH_EEPROM_SIZE-1]) return 0;
+  else return 1;
+}
+
+/**
+ * @brief copy NVM content from one page to another
+ * @param src - source page, dest - destination page (NVM_PRI_COPY or NVM_SEC_COPY)
+ */
+static void
+flash_eeprom_copy (int src, int dest)
+{
+  __u16 nvmAdru;
+  __u16 nvmAdr;
+
+  /* read source copy */
+  if (src == NVM_PRI_COPY)
+    {
+      nvmAdru = __builtin_tblpage (flash_eeprom_data);
+      nvmAdr  = __builtin_tbloffset (flash_eeprom_data);
+    }
+  else
+    {
+      nvmAdru = __builtin_tblpage (flash_eeprom_data_copy);
+      nvmAdr  = __builtin_tbloffset (flash_eeprom_data_copy);
+    }
+#ifdef MPLAB_DSPIC33_PORT
+  //page starts at 2Kwords boundary, i.e. 0x0000, 0x0800, 0x1000, 0x1800 and etc for 33E
+  nvmAdr = nvmAdr & 0xF800; // Get the Flash Page Aligned address
+#endif /* MPLAB_DSPIC33_PORT */
+  flashPageRead (nvmAdru, nvmAdr, (int*)image_eeprom);
+  // source copy corrupted, don't copy
+  if ( is_flash_eeprom_corrupted() ) return;
+
+  /* recover destination copy */
+  if (dest == NVM_PRI_COPY)
+    {
+      nvmAdru = __builtin_tblpage (flash_eeprom_data);
+      nvmAdr  = __builtin_tbloffset (flash_eeprom_data);
+    }
+  else
+    {
+      nvmAdru = __builtin_tblpage (flash_eeprom_data_copy);
+      nvmAdr  = __builtin_tbloffset (flash_eeprom_data_copy);
+    }
+#ifdef MPLAB_DSPIC33_PORT
+  //page starts at 2Kwords boundary, i.e. 0x0000, 0x0800, 0x1000, 0x1800 and etc for 33E
+  nvmAdr = nvmAdr & 0xF800; // Get the Flash Page Aligned address
+#endif /* MPLAB_DSPIC33_PORT */
+  flashPageErase (nvmAdru, nvmAdr);
+  flashPageWrite (nvmAdru, nvmAdr, (int*)image_eeprom);
+}
+
+/**
+ * @brief perform NVM content validation at power up
+ * @remarks if the NVM content primary copy is good, update the secondary copy accordingly
+ * @remarks if the NVM content primary copy is corrupted, recover its content from the secondary copy and reset
+ */
+static void
+flash_eeprom_init_check (void)
+{
+  flash_eeprom_busy = 1;
+
+  /* read primary copy of NVM */
+  __u16 nvmAdru = __builtin_tblpage (flash_eeprom_data);
+  __u16 nvmAdr  = __builtin_tbloffset (flash_eeprom_data);
+  #ifdef MPLAB_DSPIC33_PORT
+  //page starts at 2Kwords boundary, i.e. 0x0000, 0x0800, 0x1000, 0x1800 and etc for 33E
+  nvmAdr = nvmAdr & 0xF800; // Get the Flash Page Aligned address
+  #endif /* MPLAB_DSPIC33_PORT */
+  flashPageRead (nvmAdru, nvmAdr, (int*)image_eeprom);
+  if ( is_flash_eeprom_corrupted() )
+    {
+      /* primary copy is corrupted, recover from secondary copy and reset to take effect */
+      flash_eeprom_copy (NVM_SEC_COPY, NVM_PRI_COPY);
+      reset ();
+    }
+  else
+    {
+      /* primary copy is OK, backup to or initialise secondary copy */
+      flash_eeprom_copy (NVM_PRI_COPY, NVM_SEC_COPY);
+    }
+  flash_eeprom_busy = 0;
+}
+#endif /* NVM_BACKUP */
+
+
+int
 flash_eeprom_open (int flags)
 {
   flash_eeprom_io_flag = (__u8) flags;
+#ifdef NVM_BACKUP
+  flash_eeprom_init_check ();
+#endif /* NVM_BACKUP */
+
   return 0;
 }
 
@@ -82,15 +201,45 @@ flash_eeprom_write (__u8* buf, int count)
           nvmAdr = nvmAdr & 0xF800; // Get the Flash Page Aligned address
 #endif /* MPLAB_DSPIC33_PORT */
           flashPageRead (nvmAdru, nvmAdr, (int*)image_eeprom);
+#ifdef NVM_BACKUP
+          if ( is_flash_eeprom_corrupted() )
+            {
+              /* primary copy is corrupted, recover from secondary copy */
+              flash_eeprom_copy (NVM_SEC_COPY, NVM_PRI_COPY);
+              flashPageRead (nvmAdru, nvmAdr, (int*)image_eeprom);
+            }
+#endif /* NVM_BACKUP */
 
           int i;           
-          for (i = 0; (i < count) && (flash_eeprom_pointer < FLASH_EEPROM_SIZE); i++, flash_eeprom_pointer++)
+          __u16 ptr = flash_eeprom_pointer;
+          for (i = 0; (i < count) && (flash_eeprom_pointer < FLASH_EEPROM_SIZE-1); i++, flash_eeprom_pointer++)
             {
               image_eeprom[flash_eeprom_pointer] = buf[i];
             }
+          image_eeprom[FLASH_EEPROM_SIZE-1] = flash_eeprom_cal_checksum ();
 
           flashPageErase (nvmAdru, nvmAdr);
           flashPageWrite (nvmAdru, nvmAdr, (int*)image_eeprom);
+
+#ifdef NVM_BACKUP
+          flashPageRead(nvmAdru, nvmAdr, (int*)image_eeprom);
+          if ( is_flash_eeprom_corrupted() )
+            {
+              /* primary copy is corrupted, recover from secondary copy */
+              flash_eeprom_copy (NVM_SEC_COPY, NVM_PRI_COPY);
+              /* the write is consider fail, restore flash pointer and return error */
+              flash_eeprom_pointer = ptr;
+              errno = EAGAIN;
+              flash_eeprom_busy = 0;
+              i = -1;
+            }
+          else
+            {
+              /* primary copy is OK, backup to secondary copy */
+              flash_eeprom_copy (NVM_PRI_COPY, NVM_SEC_COPY);
+            }
+#endif /* NVM_BACKUP */
+
           flash_eeprom_busy = 0;
 
           return i;
@@ -127,6 +276,14 @@ flash_eeprom_read (__u8* buf, int count)
           nvmAdr = nvmAdr & 0xF800; // Get the Flash Page Aligned address
 #endif /* MPLAB_DSPIC33_PORT */
           flashPageRead (nvmAdru, nvmAdr, (int*)image_eeprom);
+#ifdef NVM_BACKUP
+          if ( is_flash_eeprom_corrupted() )
+            {
+              /* primary copy is corrupted, recover from secondary copy */
+              flash_eeprom_copy (NVM_SEC_COPY, NVM_PRI_COPY);
+              flashPageRead (nvmAdru, nvmAdr, (int*)image_eeprom);
+            }
+#endif /* NVM_BACKUP */
 
           int i;
           for (i = 0; (i < count) && (flash_eeprom_pointer < FLASH_EEPROM_SIZE); i++, flash_eeprom_pointer++)

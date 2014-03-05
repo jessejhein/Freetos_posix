@@ -36,6 +36,9 @@ ifeq ($(PLATFORM), DSPIC33E)
 	ifeq ($(MODEL), EP512MU810)
 		CFLAGS += -mcpu=33EP512MU810
 	endif
+	ifeq ($(MODEL), EP128MC202)
+		CFLAGS += -mcpu=33EP128MC202
+	endif
 endif
 CFLAGS += -mlarge-code -mlarge-data -O1 -fomit-frame-pointer -Werror
 
@@ -61,6 +64,9 @@ ifeq ($(PLATFORM), DSPIC33E)
 	ifeq ($(MODEL), EP512MU810)
 		LDFLAGS += -T$(PIC_GLD)/p33EP512MU810.gld
 	endif
+	ifeq ($(MODEL), EP128MC202)
+		LDFLAGS += -T$(PIC_GLD)/p33EP128MC202.gld
+	endif
 endif
 
 
@@ -71,6 +77,9 @@ ifeq ($(PLATFORM), DSPIC33E)
 	DEFINES += -DMPLAB_DSPIC33_PORT
 	ifeq ($(MODEL), EP512MU810)
 		DEFINES += -DEP512MU810
+	endif
+	ifeq ($(MODEL), EP128MC202)
+		DEFINES += -DEP128MC202
 	endif
 endif
 
@@ -372,7 +381,11 @@ obj-$(CONFIG_LED) += \
 	$(ARCH)/drivers/gpio/led.o
 ifeq ($(CONFIG_NVM), y)
 	ifeq ($(CONFIG_NVM_INTERNAL), FLASH)
-		obj-y += $(ARCH)/drivers/nvm/flash_eeprom.o $(ARCH)/drivers/nvm/rtsp.o
+		ifeq ($(MODEL), EP128MC202)
+			obj-y += $(ARCH)/drivers/nvm/flash_eeprom.o $(ARCH)/drivers/nvm/rtsp_words.o
+		else
+			obj-y += $(ARCH)/drivers/nvm/flash_eeprom.o $(ARCH)/drivers/nvm/rtsp_page.o
+		endif
 	endif
 	ifeq ($(CONFIG_NVM_USE_EXTERNAL), y)
 		ifeq ($(CONFIG_NVM_EXTERNAL), I2C)

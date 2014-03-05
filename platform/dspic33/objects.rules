@@ -36,6 +36,9 @@ ifeq ($(PLATFORM), DSPIC33)
 	ifeq ($(MODEL), FJ256GP506)
 		CFLAGS += -mcpu=33FJ256GP506
 	endif
+	ifeq ($(MODEL), FJ128MC202)
+		CFLAGS += -mcpu=33FJ128MC202
+	endif
 	ifeq ($(MODEL), FJ128GP306)
 		CFLAGS += -mcpu=33FJ128GP306
 	endif
@@ -64,6 +67,9 @@ ifeq ($(PLATFORM), DSPIC33)
 	ifeq ($(MODEL), FJ256GP506)
 		LDFLAGS += -T$(PIC_GLD)/p33FJ256GP506.gld
 	endif
+	ifeq ($(MODEL), FJ128MC202)
+		LDFLAGS += -T$(PIC_GLD)/p33FJ128MC202.gld
+	endif
 	ifeq ($(MODEL), FJ128GP306)
 		LDFLAGS += -T$(ARCH)/linker/p33FJ128GP306.gld
 	endif
@@ -77,6 +83,9 @@ ifeq ($(PLATFORM), DSPIC33)
 	DEFINES += -DMPLAB_DSPIC33_PORT
 	ifeq ($(MODEL), FJ256GP506)
 		DEFINES += -DFJ256GP506
+	endif
+	ifeq ($(MODEL), FJ128MC202)
+		DEFINES += -DFJ128MC202
 	endif
 	ifeq ($(MODEL), FJ128GP306)
 		DEFINES += -DFJ128GP306

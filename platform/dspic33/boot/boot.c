@@ -104,6 +104,10 @@ _FOSC(FCKSM_CSECME & POSCMD_NONE & OSCIOFNC_ON);        // Clock Switching and F
                                                         // OSC pin function as Digital I/O
 #endif /* INTERNAL_CLOCK_SOURCE */
 
+#ifdef FJ128MC202
+_FPOR(ALTI2C_ON);                                       // I2C1 is mapped to the ASDA1/ASCL1 pins
+#endif
+
 _FWDT(FWDTEN_OFF);                                      // Watchdog Timer Disabled
 
 /************************************************************************************************/
@@ -185,7 +189,9 @@ main (void)
 
   //set ADC compatible pins to digital IO by default
   AD1PCFGL = 0xFFFF;
+#ifdef AD1PCFGH
   AD1PCFGH = 0xFFFF;
+#endif /* AD1PCFGH */
 
   //Initialise address bus
   bus_addr_init ();

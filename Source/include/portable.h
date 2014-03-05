@@ -68,7 +68,7 @@
 /* Include the macro file relevant to the port being used. */
 
 #ifdef MPLAB_DSPIC33_PORT
-  #ifdef EP512MU810
+  #ifdef __dsPIC33E__
         #include "../../Source/portable/MPLAB/dspic33E/portmacro.h"
   #else
 	#include "../../Source/portable/MPLAB/dspic33/portmacro.h"
