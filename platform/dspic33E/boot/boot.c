@@ -115,7 +115,7 @@ _FPOR(ALTI2C1_ON & ALTI2C2_OFF);                        // I2C1 is mapped to the
                                                         // I2C2 is mapped to the SDA2/SCL2 pins
 #endif
 
-_FWDT(FWDTEN_OFF);                                      // Watchdog Timer Disabled
+_FWDT(FWDTEN_OFF & WDTPOST_PS1024 & WDTPRE_PR128);      // Watchdog timer enabled/disabled by user software
 
 
 /************************************************************************************************
