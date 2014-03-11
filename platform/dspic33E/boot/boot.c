@@ -154,7 +154,7 @@ main (void)
    *            						 /|\     |
    *								  ---- PLLDIV (xM)
    *----------------------------------------------------------------------------------
-   */	
+   */
   //_PLLDIV = 38;                         // M=40: PLL Feedback Divisor bits
   _PLLDIV = PLL_FBD-2;                  // M: PLL Feedback Divisor bits
   CLKDIV = 0;                           // N1=2: PLL VCO Output Divider Select bits
