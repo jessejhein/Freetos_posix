@@ -180,7 +180,10 @@ main (void)
   __builtin_write_OSCCONH (3);          // New OSC = PRI PLL
   __builtin_write_OSCCONL (1);          // Start clock switch
   while(OSCCONbits.OSWEN == 1);         // Wait for completion
+
+  while (OSCCONbits.LOCK != 1);         // Wait for PLL to lock
 #endif /* EXTERNAL_CLOCK_SOURCE */
+  //--------------------------------------------------------------------------------
 
   //set ADC compatible pins to digital IO by default (dsPic33E)
   ANSELA = ANSELB = 0x0000;
