@@ -94,7 +94,7 @@ FreeRTOS.org V4.3.0. */
  *              +-- Section 29.1 for definitions of configuration bits
  *              +-- Section 9.1 for system clock settings
  ************************************************************************************************/
-_FOSCSEL(FNOSC_FRCPLL & IESO_OFF);                      // Internal Fast RC (FRC) w/ PLL
+_FOSCSEL(FNOSC_FRC & IESO_OFF);                         // Internal Fast RC (FRC) w/o PLL
                                                         // Start up with user-selected oscillator
 
 #ifdef EXTERNAL_CLOCK_SOURCE
@@ -115,8 +115,7 @@ _FPOR(ALTI2C1_ON & ALTI2C2_OFF);                        // I2C1 is mapped to the
                                                         // I2C2 is mapped to the SDA2/SCL2 pins
 #endif
 
-_FWDT(FWDTEN_OFF & WDTPOST_PS1024 & WDTPRE_PR128);      // Watchdog timer enabled/disabled by user software
-
+_FWDT(FWDTEN_OFF);      // Watchdog Timer Enabled/disabled by user software
 
 /************************************************************************************************
  * External functions for Hardware Setup and User Main Program before kernel starts
@@ -163,7 +162,14 @@ main (void)
                                         // 0: Centre frequency (7.37 MHz nominal)
                                         // 22: +8.25% (7.98 MHz)
   RCONbits.SWDTEN = 0;                  // Disable Watch Dog Timer
+
+  // Clock switch to incorporate PLL
+  __builtin_write_OSCCONH(0x01);        // Initiate Clock Switch to FRC w/ PLL (NOSC=0b001)
+  __builtin_write_OSCCONL(0x01);        // Start clock switching
+  while (OSCCONbits.COSC != 0b001);     // Wait for Clock switch to occur
+
   while (OSCCONbits.LOCK != 1);         // Wait for PLL to lock
+
   //--------------------------------------------------------------------------------
 #ifdef EXTERNAL_CLOCK_SOURCE
   //Perform clock switch to LPRC (use this a a transition because cannot adjust PLL setting when it is in used)
