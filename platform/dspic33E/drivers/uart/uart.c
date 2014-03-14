@@ -200,7 +200,7 @@ uart_open (int device, int flags)
           uart[0].cflag |= CSTOPB;
   #else /** 1_STOP_BIT */
           uart[0].cflag &= ~CSTOPB;
-#endif /** 1_STOP_BIT */
+  #endif /** 1_STOP_BIT */
           uart[0].cflag |= (0x1F & (__u16)(UART0_BAUDRATE / BAUDRATE_FACTOR));
           uart0_init ();
           //=====================================================
