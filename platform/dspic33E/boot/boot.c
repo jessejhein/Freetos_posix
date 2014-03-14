@@ -154,7 +154,6 @@ main (void)
    *								  ---- PLLDIV (xM)
    *----------------------------------------------------------------------------------
    */
-  //_PLLDIV = 38;                         // M=40: PLL Feedback Divisor bits
   _PLLDIV = PLL_FBD-2;                  // M: PLL Feedback Divisor bits
   CLKDIV = 0;                           // N1=2: PLL VCO Output Divider Select bits
                                         // N2=2: PLL Phase Detector Input Divider bits
@@ -294,7 +293,7 @@ _IRQ _T1Interrupt (void)
   //update counter
   ms_count++;
 
-  //_LATE1 ^= 0x01; // TEST: measure clock tick using GPIO1
+  //_LATE2 ^= 0x01; // TEST: measure clock tick using GPIO4
 
   //Increment OS counter
   if (ms_count % (portTIMER_CLOCK_HZ/configTICK_RATE_HZ) == 0)
@@ -336,7 +335,8 @@ reset (void)
   while (OSCCONbits.OSWEN == 1);        // Wait for completion
   
   //Perform clock switch to internal FRC
-  _PLLDIV = 38;                         // M=40: PLL Feedback Divisor bits
+  //_PLLDIV = 38;                         // M=40: PLL Feedback Divisor bits
+  _PLLDIV = PLL_FBD-2;                  // M: PLL Feedback Divisor bits
   CLKDIV = 0;                           // N1=2: PLL VCO Output Divider Select bits
                                         // N2=2: PLL Phase Detector Input Divider bits
   OSCTUN = TUNE_FRC;                    // Tune FRC oscillator, if FRC is used;
