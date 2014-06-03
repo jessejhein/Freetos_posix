@@ -70,7 +70,7 @@
 #define udelay(x) \
 { \
   unsigned long _dcnt; \
-  _dcnt = (x) * ((unsigned long)configCPU_CLOCK_HZ / (6UL * 1000000UL)); \
+  _dcnt = (x) * ((unsigned long)configCPU_CLOCK_HZ / (8UL * 1000000UL)); \
   while (_dcnt--); \
 }
 
