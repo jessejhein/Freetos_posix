@@ -323,7 +323,6 @@ fatfs_write (int drive, int fd, char* buf, int count)
         {
           case FR_OK:
             {
-              printf ("[WRITE OK]: Wrote %d of %d to fd=%d in drive %d.\n", byteWritten, count, fd, drive);
               break;
             }
           case FR_DISK_ERR:
@@ -389,7 +388,6 @@ fatfs_read (int drive, int fd, char* buf, int count)
         {
           case FR_OK:
             {
-              printf ("[READ OK]: Read %d of %d from fd=%d in drive %d.\n", byteRead, count, fd, drive);
               break;
             }
           case FR_DISK_ERR:
@@ -477,9 +475,6 @@ fatfs_seek (int drive, int fd, int offset, int whence)
         {
           case FR_OK:
             {
-#ifdef FATFS_DEBUG
-              printf ("[SEEK OK]: Seek fd=%d in drive %d at %d from %d.\n", fd, drive, offset, whence);
-#endif /* FATFS_DEBUG */
               return offset;
             }
 #ifdef FATFS_DEBUG
@@ -524,38 +519,62 @@ fatfs_seek (int drive, int fd, int offset, int whence)
 }
 
 #ifdef FATFS_DEBUG
+unsigned char streambuf[512];
 void
 fatfs_test (void)
 {
-  FILE *TestWrFile;
-  TestWrFile = fopen ("0:amonics/fs_log.txt", "r+");
-  if (TestWrFile)
-    {
-      char WrStr[70] = {"0123456789abcdefghij   Test Log File contains 60 characters."};
-      fwrite (WrStr, sizeof(char), 60, TestWrFile);
-      //fprintf (TestWrFile, "0123456789abcdefghij   Test Log File contains 60 characters.");
-      fclose (TestWrFile);
-    }
+  while (syslog_append ("fatfs_test started"));
+  printf ("running fatfs_test\n");
+  while (syslog_append ("fatfs_test ended"));
+  return;
 
+  FILE *TestWrFile2;
+  FILE *TestWrFile;
   FILE *TestRdFile;
+
+  // Test read file
+  char RdStr[70];
   TestRdFile = fopen ("0:amonics/to_do.txt", "r+");
   if (TestRdFile)
     {
-      printf ("read file opened\n");
-      fseek (TestRdFile, 3, SEEK_SET);
+      fseek (TestRdFile, 9, SEEK_SET);
       char charRead = fgetc (TestRdFile);
-      printf ("char. read: %c\n", charRead);
+      //printf ("char. read: %c\n", charRead);
 
       int charRd;
-      char RdStr[70];
       charRd = fread (RdStr, sizeof(char), 30, TestRdFile);
       RdStr[charRd] = 0;
-      printf ("%d chars read: <%s>\n", charRd, RdStr);
-
-      while (fclose (TestRdFile)) ;
-      printf ("read file closed\n");
+      fclose (TestRdFile);
+      //printf ("%d chars read: <%s>\n", charRd, RdStr);
     }
 
-  printf ("FAT FS test completed\n");
+  // Test write file
+  TestWrFile = fopen ("0:amonics/fs.txt", "w+");
+  if (TestWrFile)
+    {
+      //setvbuf(TestWrFile, NULL, _IONBF, 0);
+      setvbuf(TestWrFile, streambuf, _IOFBF, 125);
+
+      int charWr;
+      //fatfs_write (0, 0, (char *)WrStr, 60);
+      //charWr = fwrite ("0123456789abcdefghij   Test Log File contains 60 characters.", sizeof(char), 60, TestWrFile);
+      //charWr = fprintf (TestWrFile, "%s", RdStr);
+      charWr = fprintf (TestWrFile, "write the file for the 1st time");
+
+      fclose (TestWrFile);
+      //printf ("%d char written\n", charWr);
+    }
+
+  //TestWrFile2 = fopen ("0:amonics/fs2.txt", "w+");
+  TestWrFile2 = fopen ("0:amonics/fs.txt", "w+");
+  if (TestWrFile2)
+    {
+      //setvbuf(TestWrFile2, NULL, _IONBF, 0);
+      setvbuf(TestWrFile2, streambuf, _IOFBF, 125);
+
+      fprintf (TestWrFile2, "write the file for the 2nd time");
+
+      fclose (TestWrFile2);
+    }
 }
 #endif /* FATFS_DEBUG */

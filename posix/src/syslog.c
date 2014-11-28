@@ -36,13 +36,14 @@ static FILE* syslogFile;
 /** prevent calling append in multi-thread environment, causing system to hang */
 static __u8 busy;
 
-
 //---------------------------------------------------------------------------
 int
 syslog_open (void)
 {
   syslogFile = fopen (FS_ROOT"log.txt", "a");
   if (syslogFile == NULL) return 0;
+  setvbuf(syslogFile, NULL, _IONBF, 0);
+  fseek (syslogFile, 0, SEEK_END);
   return 1;
 }
 
@@ -61,9 +62,14 @@ syslog_close (void)
 int
 syslog_append (char* msg)
 {
-  if (syslogFile == NULL) return 0;
+  //if (syslogFile == NULL) return 0;
   if (busy) return 1;
   busy = 1;
+  if (syslog_open () == 0)
+    {
+      busy = 0;
+      return 0;
+    }
 
   //check for timeout error
   struct timeval currentTime;
@@ -74,8 +80,12 @@ syslog_append (char* msg)
                                   currentTime.tv_sec, currentTime.tv_usec,
                                   msg,
                                   CR_CHAR, LF_CHAR);
+
+  /*
   fclose (syslogFile);
   syslog_open ();
+  */
+  syslog_close ();
   busy = 0;
   return 0;
 }

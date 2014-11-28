@@ -235,6 +235,28 @@ set_PHY_mode (board_info_t* db)
 }
 
 
+static int nic_mac4 = DEFAULT_NIC_BYTE1;
+static int nic_mac5 = DEFAULT_NIC_BYTE2;
+static int nic_mac6 = DEFAULT_NIC_BYTE3;
+static void nic_load_mac_address (void)
+{
+  //NIC MAC address byte 1
+  if (lseek (fd_nvm, MAC_ADDRESS_BTYE1_SA, SEEK_SET) == MAC_ADDRESS_BTYE1_SA)
+    {
+      while (read (fd_nvm, &nic_mac4, MAC_ADDRESS_BTYE1_LEN) != MAC_ADDRESS_BTYE1_LEN) usleep (0);
+    }
+  //NIC MAC address byte 2
+  if (lseek (fd_nvm, MAC_ADDRESS_BTYE2_SA, SEEK_SET) == MAC_ADDRESS_BTYE2_SA)
+    {
+      while (read (fd_nvm, &nic_mac5, MAC_ADDRESS_BTYE2_LEN) != MAC_ADDRESS_BTYE2_LEN) usleep (0);
+    }
+  //NIC MAC address byte 3
+  if (lseek (fd_nvm, MAC_ADDRESS_BTYE3_SA, SEEK_SET) == MAC_ADDRESS_BTYE3_SA)
+    {
+      while (read (fd_nvm, &nic_mac6, MAC_ADDRESS_BTYE3_LEN) != MAC_ADDRESS_BTYE3_LEN) usleep (0);
+    }
+}
+
 /**
  * \brief Set DM9000A multicast address
  * \param db pointer to board information
@@ -261,9 +283,10 @@ dm9000_hash_table (board_info_t* db)
   mac.addr[0] = (__u8)((OUI_MSB & 0xFC00) >> 10);
   mac.addr[1] = (__u8)((OUI_MSB & 0x03FC) >> 2);
   mac.addr[2] = (__u8)(((OUI_MSB & 0x0003) << 6) + ((OUI_LSB & 0xFC00) >> 10));
-  mac.addr[3] = DEFAULT_NIC_BYTE1;
-  mac.addr[4] = DEFAULT_NIC_BYTE2;
-  mac.addr[5] = DEFAULT_NIC_BYTE3;
+  nic_load_mac_address ();
+  mac.addr[3] = nic_mac4;
+  mac.addr[4] = nic_mac5;
+  mac.addr[5] = nic_mac6;
 #endif
   //Set MAC address
   for (i = 0, oft = DM9KA_PAR; i < 6; i++, oft++)
