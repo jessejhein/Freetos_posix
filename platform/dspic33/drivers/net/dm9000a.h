@@ -136,7 +136,7 @@
 #define DM9KA_CHIPR    0x2C    //CHIP Revision
 #define DM9KA_TCR2     0x2D    //TX Control Register 2
 #define DM9KA_OCR      0x2E    //Operation Control Register
-#define DM9KA_SMCR     0x2F    //Speical Mode Control Register
+#define DM9KA_SMCR     0x2F    //Special Mode Control Register
 
 #define DM9KA_ETXCSR   0x30    //Early Transmit Control/Status Register
 #define DM9KA_TCSCR    0x31    //Transmit Check Sum Control Register
