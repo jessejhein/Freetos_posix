@@ -71,14 +71,14 @@ static _DMA(64) unsigned int adc_bufB[ADC_MAX_HW_CH];
  * \retval 0 not turned on
  * \retval >1 turned on
  */
-#define GET_CH_STATUS(ch)                           (((__u32)0x0001 << ch) & adc_ch_status)
+#define GET_CH_STATUS(ch)               ((0x00000001 << ch) & adc_ch_status)
 
 
 /**
  * \brief set the ADC channel to on state
  * \param ch channel id
  */
-#define SET_CH_STATUS_ON(ch)                        (adc_ch_status |= ((__u32)0x0001 << ch))
+#define SET_CH_STATUS_ON(ch)            (adc_ch_status |= (0x00000001 << ch))
 
 
 int
