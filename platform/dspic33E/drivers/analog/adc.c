@@ -50,7 +50,7 @@ static __u8 adc_data_ready = 0;
 /** keeps the total number of channel being scan */
 static __u8 adc_on_ch_num = 0;
 /** bitwise ADC status: 1=on, 0=off */
-static __u32 adc_ch_status = 0;
+static __u32 adc_ch_status = 0L;
 /** Store most updated data, index of array referenced by channel ID */
 static __u16 adc_queue[ADC_QSIZE][ADC_MAX_CH];
 /** pointer to the most updated sample */
@@ -71,14 +71,13 @@ static _DMA(64) unsigned int adc_bufB[ADC_MAX_HW_CH];
  * \retval 0 not turned on
  * \retval >1 turned on
  */
-#define GET_CH_STATUS(ch)               ((0x00000001 << ch) & adc_ch_status)
-
+#define GET_CH_STATUS(ch)               (adc_ch_status & (1UL << ch))
 
 /**
  * \brief set the ADC channel to on state
  * \param ch channel id
  */
-#define SET_CH_STATUS_ON(ch)            (adc_ch_status |= (0x00000001 << ch))
+#define SET_CH_STATUS_ON(ch)            (adc_ch_status |= (1UL << ch))
 
 
 int
@@ -150,6 +149,7 @@ adc_open (int flags)
  * \brief ADC Interrupt Service Routine: keep ADC16Ptr up-to-date
  * \remarks This routine requires about 30us for execution
  */
+#if 0
 void _IRQ 
 _DMA0Interrupt (void)
 {
@@ -179,6 +179,56 @@ _DMA0Interrupt (void)
   //Clear DMA Channel 0 Interrupt
   _DMA0IF = 0;
 }
+#else
+void _IRQ
+_DMA0Interrupt (void)
+{
+  //update DMA pointer
+  static unsigned int* adc_buf_ptr = 0;
+  adc_buf_ptr = (adc_buf_ptr == adc_bufB)? adc_bufA : adc_bufB;
+
+  //update queue pointer
+  adc_queue_ptr++;
+  if (adc_queue_ptr == ADC_QSIZE) adc_queue_ptr = 0;
+
+  //copy selected channel data to queue
+  int channel;
+  __u16 status_word;
+  status_word = (__u16)(adc_ch_status & 0x0000FFFFUL);
+  for (channel = 0; channel < 16 && channel < ADC_MAX_HW_CH; channel++)
+    {
+      if ( status_word & (0x0001 << channel) )
+        {
+          int local_buf_id = adc_parse_ch (channel);
+          if ((local_buf_id != -1) && (local_buf_id < ADC_MAX_CH))
+            {
+              adc_queue[adc_queue_ptr][local_buf_id] = adc_buf_ptr[channel];
+            }
+        }
+      udelay (1);
+    }
+#if (ADC_MAX_HW_CH > 16)
+  status_word = (__u16)((adc_ch_status >> 16) & 0x0000FFFFUL);
+  for (; channel < ADC_MAX_HW_CH; channel++)
+    {
+      if ( status_word & (0x0001 << (channel-16)) )
+        {
+          int local_buf_id = adc_parse_ch (channel);
+          if ((local_buf_id != -1) && (local_buf_id < ADC_MAX_CH))
+            {
+              adc_queue[adc_queue_ptr][local_buf_id] = adc_buf_ptr[channel];
+            }
+        }
+      udelay (1);
+    }
+#endif
+  adc_data_ready = 1;
+
+  //Clear DMA Channel 0 Interrupt
+  _DMA0IF = 0;
+}
+#endif
+
 
 
 
@@ -238,14 +288,14 @@ adc_ioctl (int request, unsigned char* argp)
       //ADD channels to current set
       case ADC_ADD_CH:
         {
-          __u8 ch_id = (__u16) argp[0];
+          int ch_id = (int) argp[0];
           //Select current channel for reading
           int local_buf_id = adc_parse_ch (ch_id);
           if (local_buf_id == -1) return -1;
           adc_ch_select = (__u8) local_buf_id;
 
           //add channel if not in scan list
-          if (GET_CH_STATUS (ch_id) == 0)
+          if (GET_CH_STATUS (ch_id) == 0L)
             {
               cli ();
               SET_CH_STATUS_ON (ch_id);
